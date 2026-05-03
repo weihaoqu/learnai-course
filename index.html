@@ -130,7 +130,7 @@ body{font-family:var(--font);background:var(--bg);color:var(--text);line-height:
 </div>
 
 <!-- MAIN CONTENT (hidden until pre-test done) -->
-<div id="mainContent" hidden>
+<div id="mainContent" hidden inert>
 
 <!-- HERO -->
 <section class="hero">
@@ -305,15 +305,17 @@ body{font-family:var(--font);background:var(--bg);color:var(--text);line-height:
 
 <script>
 function completePreTest() {
-  localStorage.setItem('aeq-pretest-done', 'true');
+  localStorage.setItem('learnai-course-pretest-done-v1', 'true');
   document.getElementById('preTestGate').classList.add('hidden');
   document.getElementById('mainContent').removeAttribute('hidden');
+  document.getElementById('mainContent').removeAttribute('inert');
 }
 
 // On load: check if pre-test was already taken
-if (localStorage.getItem('aeq-pretest-done') === 'true') {
+if (localStorage.getItem('learnai-course-pretest-done-v1') === 'true') {
   document.getElementById('preTestGate').classList.add('hidden');
   document.getElementById('mainContent').removeAttribute('hidden');
+  document.getElementById('mainContent').removeAttribute('inert');
 }
 </script>
 </body>
