@@ -58,10 +58,12 @@ body{font-family:var(--font);background:var(--bg);color:var(--text);line-height:
 .orbit-node[data-color="green"]{border-color:rgba(16,185,129,0.4)}.orbit-node[data-color="green"]:hover,.orbit-node[data-color="green"].active{border-color:var(--green);box-shadow:0 0 24px rgba(16,185,129,0.3)}
 .orbit-node[data-color="gold"]{border-color:rgba(251,191,36,0.4)}.orbit-node[data-color="gold"]:hover,.orbit-node[data-color="gold"].active{border-color:var(--gold);box-shadow:0 0 24px rgba(251,191,36,0.3)}
 
-/* Detail card */
-.orbit-detail{position:absolute;bottom:24px;left:50%;transform:translateX(-50%);z-index:20;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:28px 32px;max-width:480px;width:90vw;box-shadow:var(--shadow);display:none;animation:fadeUp 0.3s ease;backdrop-filter:blur(12px)}
+/* Detail card — below orbit, not overlapping */
+.orbit-detail{max-width:520px;width:90vw;margin:0 auto;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:28px 32px;box-shadow:var(--shadow);display:none;animation:fadeUp 0.3s ease;backdrop-filter:blur(12px);position:relative;z-index:20}
 .orbit-detail.show{display:block}
-@keyframes fadeUp{from{opacity:0;transform:translateX(-50%) translateY(12px)}to{opacity:1;transform:translateX(-50%) translateY(0)}}
+.orbit-detail .detail-close{position:absolute;top:12px;right:16px;background:none;border:none;color:var(--muted);font-size:20px;cursor:pointer;font-family:var(--font);padding:4px 8px;border-radius:6px}
+.orbit-detail .detail-close:hover{color:var(--text);background:var(--surface2)}
+@keyframes fadeUp{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
 .orbit-detail h3{font-size:20px;font-weight:700;margin-bottom:4px}
 .orbit-detail .detail-sub{color:var(--muted);font-size:14px;margin-bottom:12px}
 .orbit-detail .detail-desc{font-size:14px;color:rgba(255,255,255,0.7);margin-bottom:16px;line-height:1.7}
@@ -211,14 +213,17 @@ body{font-family:var(--font);background:var(--bg);color:var(--text);line-height:
     <!-- Nodes injected by JS -->
   </div>
 
-  <div class="orbit-detail" id="orbitDetail"></div>
-
   <div class="hero-stats-bar">
     <div class="stat"><div class="stat-num">47</div><div class="stat-label">Modules</div></div>
     <div class="stat"><div class="stat-num">4</div><div class="stat-label">Courses</div></div>
     <div class="stat"><div class="stat-num">90+</div><div class="stat-label">Exercises</div></div>
   </div>
 </section>
+
+<!-- COURSE DETAIL CARD (appears below orbit when node clicked) -->
+<div style="max-width:900px;margin:0 auto;padding:0 24px">
+  <div class="orbit-detail" id="orbitDetail"></div>
+</div>
 
 <!-- RECOMMENDED LEARNING PATH -->
 <div class="learning-path">
@@ -391,6 +396,7 @@ function selectNode(idx) {
 
   const isExternal = c.href.startsWith('http');
   detailEl.innerHTML = `
+    <button class="detail-close" onclick="closeDetail()" aria-label="Close">&times;</button>
     <h3>${c.title}</h3>
     <p class="detail-sub">${c.sub}</p>
     <p class="detail-desc">${c.desc}</p>
@@ -399,6 +405,7 @@ function selectNode(idx) {
     <a href="${c.href}" ${isExternal ? 'target="_blank" rel="noopener noreferrer"' : ''} class="detail-btn" style="background:${c.btnColor}">${c.btnText} &#8594;</a>
   `;
   detailEl.classList.add('show');
+  setTimeout(() => detailEl.scrollIntoView({ behavior: 'smooth', block: 'nearest' }), 100);
 
   // Center the node at top
   const total = courses.length;
@@ -407,13 +414,18 @@ function selectNode(idx) {
   positionNodes();
 }
 
-// Click outside to deselect
+// Close detail and resume
+function closeDetail() {
+  activeId = null;
+  autoRotate = true;
+  stage.querySelectorAll('.orbit-node').forEach(n => n.classList.remove('active'));
+  detailEl.classList.remove('show');
+}
+
+// Click outside to deselect (on the orbit stage background or orbit rings)
 document.getElementById('heroSection').addEventListener('click', (e) => {
-  if (!e.target.closest('.orbit-node') && !e.target.closest('.orbit-detail')) {
-    activeId = null;
-    autoRotate = true;
-    stage.querySelectorAll('.orbit-node').forEach(n => n.classList.remove('active'));
-    detailEl.classList.remove('show');
+  if (!e.target.closest('.orbit-node') && !e.target.closest('.orbit-detail') && !e.target.closest('.center-orb')) {
+    closeDetail();
   }
 });
 
