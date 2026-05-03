@@ -1,0 +1,1041 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Agentic Engineering Quest - Master AI Agent Design</title>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#0f0f1a;--surface:#1a1a2e;--surface2:#252542;--text:#e8e8f0;--muted:#8888a8;
+  --primary:#7c3aed;--primary-light:#a78bfa;--primary-bg:rgba(124,58,237,0.1);
+  --accent:#06b6d4;--accent-light:#67e8f9;
+  --success:#10b981;--success-bg:rgba(16,185,129,0.1);
+  --warning:#f59e0b;--warning-bg:rgba(245,158,11,0.1);
+  --danger:#ef4444;--danger-bg:rgba(239,68,68,0.1);
+  --gold:#fbbf24;--xp:#22d3ee;
+  --border:rgba(255,255,255,0.08);--shadow:0 4px 24px rgba(0,0,0,0.4);
+  --radius:16px;--radius-sm:10px;
+  --font:'Inter',system-ui,-apple-system,sans-serif;
+  --mono:'JetBrains Mono','Fira Code',monospace;
+}
+html{scroll-behavior:smooth}
+body{font-family:var(--font);background:var(--bg);color:var(--text);line-height:1.7;font-size:16px;min-height:100vh}
+
+/* ===== LAYOUT ===== */
+.app{display:flex;flex-direction:column;min-height:100vh}
+.topbar{position:sticky;top:0;z-index:100;background:var(--surface);border-bottom:1px solid var(--border);padding:12px 24px;display:flex;align-items:center;gap:16px;backdrop-filter:blur(12px)}
+.topbar-logo{font-weight:800;font-size:18px;background:linear-gradient(135deg,var(--primary-light),var(--accent));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.topbar-xp{margin-left:auto;display:flex;align-items:center;gap:8px;font-size:14px;color:var(--xp);font-weight:600}
+.topbar-xp .xp-bar{width:120px;height:6px;background:var(--surface2);border-radius:3px;overflow:hidden}
+.topbar-xp .xp-fill{height:100%;background:linear-gradient(90deg,var(--accent),var(--primary));border-radius:3px;transition:width 0.5s}
+.topbar-level{background:var(--primary-bg);border:1px solid var(--primary);padding:4px 12px;border-radius:20px;font-size:12px;font-weight:600;color:var(--primary-light)}
+.menu-toggle{display:none;background:none;border:none;color:var(--text);font-size:24px;cursor:pointer}
+
+.layout{display:flex;flex:1}
+.sidebar{width:260px;background:var(--surface);border-right:1px solid var(--border);padding:20px 0;overflow-y:auto;position:sticky;top:56px;height:calc(100vh - 56px)}
+.sidebar-section{padding:0 16px;margin-bottom:20px}
+.sidebar-title{font-size:11px;text-transform:uppercase;letter-spacing:1.5px;color:var(--muted);margin-bottom:8px;font-weight:600}
+.nav-item{display:flex;align-items:center;gap:10px;padding:8px 12px;border-radius:var(--radius-sm);cursor:pointer;transition:all 0.2s;font-size:14px;color:var(--muted);margin:2px 0}
+.nav-item:hover{background:var(--primary-bg);color:var(--text)}
+.nav-item.active{background:var(--primary-bg);color:var(--primary-light);font-weight:600}
+.nav-item.completed{color:var(--success)}
+.nav-item .nav-num{width:24px;height:24px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;background:var(--surface2);flex-shrink:0}
+.nav-item.active .nav-num{background:var(--primary);color:#fff}
+.nav-item.completed .nav-num{background:var(--success);color:#fff}
+.nav-item.locked{opacity:0.4;cursor:not-allowed}
+
+.main{flex:1;padding:40px;max-width:900px;margin:0 auto}
+.module{display:none;animation:fadeUp 0.4s ease}
+.module.active{display:block}
+@keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
+
+/* ===== MODULE HEADERS ===== */
+.mod-header{margin-bottom:36px}
+.mod-level{display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:600;padding:4px 12px;border-radius:20px;margin-bottom:12px}
+.mod-level.l1{background:rgba(16,185,129,0.15);color:#6ee7b7}
+.mod-level.l2{background:rgba(6,182,212,0.15);color:#67e8f9}
+.mod-level.l3{background:rgba(124,58,237,0.15);color:#a78bfa}
+.mod-level.l4{background:rgba(245,158,11,0.15);color:#fcd34d}
+.mod-level.l5{background:rgba(239,68,68,0.15);color:#fca5a5}
+.mod-header h1{font-size:32px;font-weight:800;line-height:1.2;margin-bottom:8px}
+.mod-header .subtitle{font-size:17px;color:var(--muted)}
+
+/* ===== CONTENT ===== */
+.section{margin-bottom:32px}
+.section h2{font-size:22px;font-weight:700;margin-bottom:12px}
+.section h3{font-size:18px;font-weight:600;margin-bottom:8px}
+.section p{margin-bottom:12px}
+.section ul,.section ol{margin:0 0 12px 24px}
+.section li{margin-bottom:6px}
+a{color:var(--accent-light)}
+
+/* ===== CARDS ===== */
+.card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:24px;margin:16px 0;box-shadow:var(--shadow)}
+.card-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:16px;margin:16px 0}
+.info-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:20px;transition:all 0.3s}
+.info-card:hover{transform:translateY(-2px);border-color:var(--primary)}
+.info-card .card-icon{font-size:32px;margin-bottom:12px}
+.info-card h4{font-size:16px;font-weight:600;margin-bottom:6px}
+.info-card p{font-size:14px;color:var(--muted)}
+
+/* ===== CALLOUTS ===== */
+.callout{padding:16px 20px;border-radius:var(--radius-sm);margin:16px 0;display:flex;gap:12px;font-size:15px;border:1px solid}
+.callout-icon{font-size:20px;flex-shrink:0}
+.callout-insight{background:var(--primary-bg);border-color:rgba(124,58,237,0.3)}
+.callout-tip{background:var(--success-bg);border-color:rgba(16,185,129,0.3)}
+.callout-warning{background:var(--warning-bg);border-color:rgba(245,158,11,0.3)}
+.callout-danger{background:var(--danger-bg);border-color:rgba(239,68,68,0.3)}
+
+/* ===== INTERACTIVE: QUIZ ===== */
+.quiz{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:24px;margin:20px 0}
+.quiz h3{margin-bottom:16px;font-size:17px}
+.quiz-opt{display:block;width:100%;text-align:left;padding:12px 16px;margin:8px 0;border:2px solid var(--border);border-radius:var(--radius-sm);background:var(--surface2);cursor:pointer;transition:all 0.2s;font-size:15px;font-family:var(--font);color:var(--text)}
+.quiz-opt:hover:not(.disabled){border-color:var(--primary);background:var(--primary-bg)}
+.quiz-opt.correct{border-color:var(--success);background:var(--success-bg)}
+.quiz-opt.wrong{border-color:var(--danger);background:var(--danger-bg)}
+.quiz-opt.disabled{cursor:default;opacity:0.7}
+.quiz-fb{margin-top:12px;padding:12px;border-radius:var(--radius-sm);font-size:14px;display:none}
+.quiz-fb.show{display:block}
+
+/* ===== INTERACTIVE: SCENARIO ===== */
+.scenario{background:linear-gradient(135deg,var(--surface),var(--surface2));border:1px solid var(--border);border-radius:var(--radius);padding:24px;margin:20px 0}
+.scenario-header{display:flex;align-items:center;gap:12px;margin-bottom:16px}
+.scenario-badge{background:var(--warning-bg);border:1px solid rgba(245,158,11,0.3);padding:4px 10px;border-radius:20px;font-size:12px;font-weight:600;color:var(--warning)}
+
+/* ===== INTERACTIVE: WORKFLOW BUILDER ===== */
+.workflow{display:flex;align-items:center;gap:8px;padding:20px;overflow-x:auto;margin:16px 0}
+.wf-step{background:var(--surface);border:2px solid var(--border);border-radius:var(--radius);padding:16px;min-width:130px;text-align:center;flex-shrink:0;transition:all 0.3s;cursor:pointer}
+.wf-step:hover,.wf-step.active{border-color:var(--primary);background:var(--primary-bg)}
+.wf-step .step-icon{font-size:24px;margin-bottom:6px}
+.wf-step .step-label{font-size:13px;font-weight:600}
+.wf-arrow{font-size:20px;color:var(--muted);flex-shrink:0}
+
+/* ===== INTERACTIVE: COMPARISON ===== */
+.compare{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:20px 0}
+.compare-col{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:20px}
+.compare-col.bad{border-color:rgba(239,68,68,0.3)}
+.compare-col.good{border-color:rgba(16,185,129,0.3)}
+.compare-label{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:1px;margin-bottom:12px}
+.compare-col.bad .compare-label{color:var(--danger)}
+.compare-col.good .compare-label{color:var(--success)}
+
+/* ===== DEEPER DIVE ===== */
+.deeper{margin:16px 0}
+.deeper-toggle{background:var(--surface2);border:1px solid var(--border);border-radius:var(--radius-sm);padding:12px 16px;cursor:pointer;display:flex;align-items:center;gap:8px;font-size:14px;font-weight:600;color:var(--muted);width:100%;text-align:left;font-family:var(--font);transition:all 0.2s}
+.deeper-toggle:hover{color:var(--text);border-color:var(--primary)}
+.deeper-content{display:none;padding:16px;background:var(--surface);border:1px solid var(--border);border-top:none;border-radius:0 0 var(--radius-sm) var(--radius-sm);font-size:14px;color:var(--muted)}
+.deeper.open .deeper-content{display:block}
+.deeper.open .deeper-toggle{border-radius:var(--radius-sm) var(--radius-sm) 0 0}
+
+/* ===== TERMINAL ===== */
+.terminal{background:#1e1e2e;border-radius:var(--radius);overflow:hidden;margin:16px 0;font-family:var(--mono);font-size:14px;box-shadow:var(--shadow)}
+.terminal-bar{background:#181825;padding:8px 16px;display:flex;gap:8px;align-items:center}
+.t-dot{width:12px;height:12px;border-radius:50%}
+.t-dot.r{background:#f38ba8}.t-dot.y{background:#f9e2af}.t-dot.g{background:#a6e3a1}
+.terminal-body{padding:16px}
+.t-line{color:#cdd6f4;margin-bottom:4px;white-space:pre-wrap}
+.t-prompt{color:#89b4fa}.t-cmd{color:#a6e3a1}.t-out{color:#bac2de}.t-comment{color:#6c7086;font-style:italic}.t-hl{color:#f9e2af}
+
+/* ===== BADGES ===== */
+.badge-row{display:flex;flex-wrap:wrap;gap:8px;margin:12px 0}
+.badge{display:inline-flex;align-items:center;gap:6px;padding:6px 12px;border-radius:20px;font-size:12px;font-weight:600;border:1px solid var(--border);background:var(--surface2);color:var(--muted);transition:all 0.3s}
+.badge.earned{background:var(--gold);color:#000;border-color:var(--gold)}
+
+/* ===== NAV BUTTONS ===== */
+.nav-btns{display:flex;justify-content:space-between;margin-top:48px;padding-top:24px;border-top:1px solid var(--border)}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:10px 24px;border-radius:var(--radius-sm);font-size:15px;font-weight:600;cursor:pointer;transition:all 0.2s;border:none;font-family:var(--font)}
+.btn-primary{background:var(--primary);color:#fff}
+.btn-primary:hover{background:#6d28d9}
+.btn-ghost{background:transparent;color:var(--muted);border:1px solid var(--border)}
+.btn-ghost:hover{color:var(--text);border-color:var(--primary)}
+.btn-success{background:var(--success);color:#fff}
+
+/* ===== RESPONSIVE ===== */
+@media(max-width:768px){
+  .sidebar{display:none;position:fixed;top:56px;left:0;width:100%;height:calc(100vh - 56px);z-index:99}
+  .sidebar.open{display:block}
+  .menu-toggle{display:block}
+  .main{padding:24px 16px}
+  .compare{grid-template-columns:1fr}
+  .card-grid{grid-template-columns:1fr}
+}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:0.01ms!important;transition-duration:0.01ms!important}}
+</style>
+</head>
+<body>
+<div class="app">
+<!-- TOPBAR -->
+<header class="topbar">
+  <button class="menu-toggle" onclick="document.querySelector('.sidebar').classList.toggle('open')" aria-label="Menu">&#9776;</button>
+  <div class="topbar-logo">Agentic Engineering Quest</div>
+  <div class="topbar-level" id="levelBadge">Level 1</div>
+  <div class="topbar-xp">
+    <span id="xpText">0 XP</span>
+    <div class="xp-bar"><div class="xp-fill" id="xpFill" style="width:0%"></div></div>
+  </div>
+</header>
+
+<div class="layout">
+<!-- SIDEBAR -->
+<nav class="sidebar" id="sidebar"></nav>
+
+<!-- MAIN CONTENT -->
+<main class="main" id="mainContent">
+
+<!-- ===== MODULE 0: WELCOME ===== -->
+<div class="module" id="mod0">
+  <div class="mod-header">
+    <div class="mod-level l1">&#127775; Start Here</div>
+    <h1>Welcome to Agentic Engineering</h1>
+    <p class="subtitle">Learn to design, direct, and build AI agent systems — no coding experience required.</p>
+  </div>
+
+  <div class="section">
+    <p>You've probably used AI chatbots like ChatGPT or Claude. You type a question, it answers. That's useful — but it's just the beginning.</p>
+    <p><strong>Agentic Engineering</strong> is the next level. Instead of just chatting with AI, you learn to <em>design systems</em> where AI agents work autonomously — using tools, following plans, checking their own work, and even collaborating with other agents.</p>
+
+    <div class="callout callout-insight">
+      <span class="callout-icon">&#128161;</span>
+      <div><strong>Key insight:</strong> The difference between a chatbot and an agent is like the difference between asking someone a question and hiring them to complete a project.</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>Chatbot vs. Agent</h2>
+    <div class="compare">
+      <div class="compare-col bad">
+        <div class="compare-label">&#128172; Chatbot</div>
+        <ul style="margin-left:16px;font-size:14px">
+          <li>You ask, it answers</li>
+          <li>One turn at a time</li>
+          <li>No tools, no actions</li>
+          <li>Forgets everything next session</li>
+          <li>You do all the thinking</li>
+        </ul>
+      </div>
+      <div class="compare-col good">
+        <div class="compare-label">&#129302; Agent</div>
+        <ul style="margin-left:16px;font-size:14px">
+          <li>You describe a goal, it works toward it</li>
+          <li>Multiple steps, plans ahead</li>
+          <li>Uses tools (search, edit, run code)</li>
+          <li>Can save and reuse context when configured</li>
+          <li>It thinks, plans, and executes</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>The 5 Levels of Mastery</h2>
+    <p>This course follows a progression from beginner to expert:</p>
+    <div class="card-grid">
+      <div class="info-card"><div class="card-icon">&#128483;</div><h4>L1: Prompter</h4><p>Communicate clearly with AI agents</p></div>
+      <div class="info-card"><div class="card-icon">&#9889;</div><h4>L2: Automator</h4><p>Build repeatable workflows</p></div>
+      <div class="info-card"><div class="card-icon">&#128736;</div><h4>L3: Architect</h4><p>Design context, tools, and specs</p></div>
+      <div class="info-card"><div class="card-icon">&#128295;</div><h4>L4: Engineer</h4><p>Build reliable agent systems</p></div>
+      <div class="info-card"><div class="card-icon">&#127942;</div><h4>L5: Orchestrator</h4><p>Coordinate multi-agent teams</p></div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="quiz">
+      <h3>Quick Check: What makes something an "agent"?</h3>
+      <button class="quiz-opt" onclick="qCheck(this,true,'q0fb','Correct! An agent can use tools and take actions to accomplish goals autonomously. A chatbot just responds to messages.')">It can use tools, make plans, and take actions on its own</button>
+      <button class="quiz-opt" onclick="qCheck(this,false,'q0fb','Not quite. Being fast is nice, but agents are defined by their ability to take autonomous actions, not speed.')">It responds faster than a regular chatbot</button>
+      <button class="quiz-opt" onclick="qCheck(this,false,'q0fb','Agents can be wrong too! What makes them special is autonomous action, not perfect accuracy.')">It always gives the correct answer</button>
+      <div class="quiz-fb" id="q0fb" role="status" aria-live="polite"></div>
+    </div>
+  </div>
+
+  <div class="nav-btns">
+    <div></div>
+    <button class="btn btn-primary" onclick="goTo(1)">Begin the Quest &#8594;</button>
+  </div>
+</div>
+
+<!-- ===== MODULE 1: HARNESS ENGINEERING ===== -->
+<div class="module" id="mod1">
+  <div class="mod-header">
+    <div class="mod-level l1">Level 1: Foundations</div>
+    <h1>Set Your Agent Up to Succeed</h1>
+    <p class="subtitle">The #1 insight: it's not about having a smarter AI — it's about giving it the right environment to work in.</p>
+  </div>
+
+  <div class="section">
+    <h2>The Harness Analogy</h2>
+    <p>Imagine you have the smartest student in the world taking an exam. But you:</p>
+    <ul>
+      <li>Give them no scratch paper</li>
+      <li>Don't let them ask clarifying questions</li>
+      <li>Never check their work before submitting</li>
+      <li>Give them all questions at once with no breaks</li>
+    </ul>
+    <p>They'd perform terribly — not because they're dumb, but because the <strong>environment</strong> set them up to fail.</p>
+
+    <div class="callout callout-insight">
+      <span class="callout-icon">&#128200;</span>
+      <div><strong>Real data:</strong> Researchers found that improving the "harness" (the system around an AI) can improve performance by <strong>6x</strong> — without changing the AI model at all. Same brain, better environment = dramatically better results.</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>What Is a "Harness"?</h2>
+    <p>A harness is everything around the AI that helps it succeed:</p>
+    <div class="card-grid">
+      <div class="info-card"><div class="card-icon">&#128221;</div><h4>Instructions</h4><p>Clear prompts that tell the AI exactly what to do and how</p></div>
+      <div class="info-card"><div class="card-icon">&#128295;</div><h4>Tools</h4><p>Actions the AI can take (search files, run commands, edit code)</p></div>
+      <div class="info-card"><div class="card-icon">&#128683;</div><h4>Guardrails</h4><p>Rules that prevent mistakes (don't delete files, ask before pushing)</p></div>
+      <div class="info-card"><div class="card-icon">&#128269;</div><h4>Feedback</h4><p>Ways for the AI to check its own work (tests, screenshots, reviews)</p></div>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>Scenario: Fix the Harness</h2>
+    <div class="scenario">
+      <div class="scenario-header"><span class="scenario-badge">&#127919; Challenge</span></div>
+      <p>A student asks an AI agent: <em>"Make my website look better."</em> The agent changes random colors, breaks the layout, and doesn't check the result.</p>
+      <div class="quiz">
+        <h3>What harness improvement would help most?</h3>
+        <button class="quiz-opt" onclick="qCheck(this,false,'q1fb','A faster model would still make random changes without guidance. The problem is the harness, not the brain.')">Use a more powerful AI model</button>
+        <button class="quiz-opt" onclick="qCheck(this,true,'q1fb','Yes! A screenshot tool lets the agent SEE what it did and iterate. This is feedback — a key part of the harness. The agent can now check: does this look good?')">Give it a tool to take screenshots and review its own changes</button>
+        <button class="quiz-opt" onclick="qCheck(this,false,'q1fb','Running it 5 times with a bad harness gives you 5 bad results. Fix the harness first.')">Run the same prompt 5 times and pick the best result</button>
+        <div class="quiz-fb" id="q1fb" role="status" aria-live="polite"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="deeper">
+    <button class="deeper-toggle" onclick="this.parentElement.classList.toggle('open')">&#128218; Optional Advanced Concept: Self-Improving Systems</button>
+    <div class="deeper-content">
+      <p>Researchers at Stanford and MIT took this idea further: what if the agent could <strong>improve its own harness?</strong></p>
+      <p>They built a system where an AI would read its previous performance, analyze what went wrong, then rewrite its own instructions and tool configurations. The result? A small, cheap model (Haiku) with a self-optimizing harness ranked #1 in its weight class — beating models 10x its size.</p>
+      <p>This is called a <strong>meta-harness</strong>: a harness that improves itself.</p>
+    </div>
+  </div>
+
+  <div class="nav-btns">
+    <button class="btn btn-ghost" onclick="goTo(0)">&#8592; Back</button>
+    <button class="btn btn-primary" onclick="goTo(2)">Next: Your First Workflow &#8594;</button>
+  </div>
+</div>
+
+<!-- ===== MODULE 2: FIRST WORKFLOWS ===== -->
+<div class="module" id="mod2">
+  <div class="mod-header">
+    <div class="mod-level l2">Level 2: Automator</div>
+    <h1>Your First Agent Workflow</h1>
+    <p class="subtitle">Move beyond one-shot prompts. Learn to chain steps into powerful automated workflows.</p>
+  </div>
+
+  <div class="section">
+    <h2>The Explore → Plan → Execute Loop</h2>
+    <p>Great agent work follows a pattern:</p>
+    <div class="workflow">
+      <div class="wf-step active"><div class="step-icon">&#128270;</div><div class="step-label">Explore</div></div>
+      <div class="wf-arrow">&#8594;</div>
+      <div class="wf-step"><div class="step-icon">&#128221;</div><div class="step-label">Plan</div></div>
+      <div class="wf-arrow">&#8594;</div>
+      <div class="wf-step"><div class="step-icon">&#9989;</div><div class="step-label">Confirm</div></div>
+      <div class="wf-arrow">&#8594;</div>
+      <div class="wf-step"><div class="step-icon">&#128187;</div><div class="step-label">Execute</div></div>
+      <div class="wf-arrow">&#8594;</div>
+      <div class="wf-step"><div class="step-icon">&#128269;</div><div class="step-label">Verify</div></div>
+    </div>
+    <p style="text-align:center;font-size:14px;color:var(--muted)">Each step builds on the previous one — explore first, then plan, confirm, execute, and verify.</p>
+  </div>
+
+  <div class="section">
+    <h2>Three Workflow Patterns</h2>
+    <div class="card-grid">
+      <div class="info-card">
+        <div class="card-icon">&#129309;</div>
+        <h4>Guided Mode</h4>
+        <p>Agent explores and plans, but asks YOU before making changes. Safest for beginners.</p>
+      </div>
+      <div class="info-card">
+        <div class="card-icon">&#128260;</div>
+        <h4>Iterative Mode</h4>
+        <p>Agent makes changes, checks its own work (tests/screenshots), and fixes issues automatically.</p>
+      </div>
+      <div class="info-card">
+        <div class="card-icon">&#127939;</div>
+        <h4>Autonomous Mode</h4>
+        <p>Agent runs independently for extended periods. Most powerful but needs good guardrails.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>Real Examples</h2>
+    <div class="terminal">
+      <div class="terminal-bar"><div class="t-dot r"></div><div class="t-dot y"></div><div class="t-dot g"></div></div>
+      <div class="terminal-body">
+        <div class="t-line"><span class="t-comment"># Guided: Agent asks before acting</span></div>
+        <div class="t-line"><span class="t-prompt">You:</span> <span class="t-cmd">Add a dark mode toggle. Explore the CSS first, make a plan, and ask me before changing anything.</span></div>
+        <div class="t-line"></div>
+        <div class="t-line"><span class="t-comment"># Iterative: Agent checks its own work</span></div>
+        <div class="t-line"><span class="t-prompt">You:</span> <span class="t-cmd">Build this UI from the mockup. Take a screenshot after each change to compare with the design. Iterate until it matches.</span></div>
+        <div class="t-line"></div>
+        <div class="t-line"><span class="t-comment"># Autonomous: Agent runs independently</span></div>
+        <div class="t-line"><span class="t-prompt">You:</span> <span class="t-cmd">Run the test suite. For each failing test, fix the code and re-run until all tests pass.</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="quiz">
+      <h3>Which workflow pattern should you use when you're not sure what the agent will do?</h3>
+      <button class="quiz-opt" onclick="qCheck(this,true,'q2fb','Correct! When you are uncertain, guided mode is safest. The agent shows you its plan and waits for approval before making changes.')">Guided Mode — let it plan but approve before executing</button>
+      <button class="quiz-opt" onclick="qCheck(this,false,'q2fb','Autonomous mode is powerful but risky when you are uncertain. Save it for well-defined tasks with good guardrails.')">Autonomous Mode — let it figure everything out alone</button>
+      <button class="quiz-opt" onclick="qCheck(this,false,'q2fb','Iterative mode is great when the agent has a way to check its work, but you still want to review the plan when uncertain.')">Iterative Mode — let it try and fix mistakes</button>
+      <div class="quiz-fb" id="q2fb" role="status" aria-live="polite"></div>
+    </div>
+  </div>
+
+  <div class="nav-btns">
+    <button class="btn btn-ghost" onclick="goTo(1)">&#8592; Back</button>
+    <button class="btn btn-primary" onclick="goTo(3)">Next: Context is King &#8594;</button>
+  </div>
+</div>
+
+<!-- ===== MODULE 3: CONTEXT ENGINEERING ===== -->
+<div class="module" id="mod3">
+  <div class="mod-header">
+    <div class="mod-level l2">Level 2: Automator</div>
+    <h1>Context is King</h1>
+    <p class="subtitle">The more context you give an agent, the smarter it becomes. Learn to engineer context like a pro.</p>
+  </div>
+
+  <div class="section">
+    <h2>The Context Window: An Agent's Working Memory</h2>
+    <p>AI agents have a <strong>context window</strong> — think of it like a desk. Everything the agent needs to "see" must fit on this desk. If the desk is cluttered with irrelevant stuff, the agent gets confused. If the desk is organized with exactly what's needed, the agent works brilliantly.</p>
+
+    <div class="callout callout-tip">
+      <span class="callout-icon">&#128218;</span>
+      <div><strong>The exam analogy:</strong> On a 3-hour exam, don't try to write one 3-hour essay. Do one problem, check your work, take a break, then start the next. Your focus stays sharp. Same with agents — break big tasks into small, focused chunks.</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>CLAUDE.md: The Briefing Document</h2>
+    <p>A <code>CLAUDE.md</code> file is like giving a new employee an orientation packet. It tells the agent:</p>
+    <ul>
+      <li>What this project is about</li>
+      <li>What tools and commands to use</li>
+      <li>What rules to follow</li>
+      <li>What style to write in</li>
+    </ul>
+
+    <div class="terminal">
+      <div class="terminal-bar"><div class="t-dot r"></div><div class="t-dot y"></div><div class="t-dot g"></div></div>
+      <div class="terminal-body">
+        <div class="t-line"><span class="t-hl"># My Science Fair Project</span></div>
+        <div class="t-line"></div>
+        <div class="t-line"><span class="t-hl">## Rules</span></div>
+        <div class="t-line"><span class="t-out">- Write at a high school reading level</span></div>
+        <div class="t-line"><span class="t-out">- Always cite sources in MLA format</span></div>
+        <div class="t-line"><span class="t-out">- Ask before changing my bibliography</span></div>
+        <div class="t-line"></div>
+        <div class="t-line"><span class="t-hl">## My Files</span></div>
+        <div class="t-line"><span class="t-out">- essay/ contains my paper draft</span></div>
+        <div class="t-line"><span class="t-out">- notes/ contains my research notes</span></div>
+        <div class="t-line"><span class="t-out">- sources/ contains articles I've found</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>The Context Hierarchy</h2>
+    <div style="margin:16px 0">
+      <div style="background:rgba(239,68,68,0.1);padding:14px 20px;border-radius:var(--radius-sm) var(--radius-sm) 0 0;border:1px solid rgba(239,68,68,0.2)">
+        <strong style="color:#fca5a5">&#127970; Enterprise / School Policy</strong>
+        <span style="font-size:13px;color:var(--muted);display:block">Rules everyone must follow (e.g., "never share student data")</span>
+      </div>
+      <div style="background:rgba(245,158,11,0.1);padding:14px 20px;border:1px solid rgba(245,158,11,0.2);border-top:none">
+        <strong style="color:#fcd34d">&#128100; Personal Preferences</strong>
+        <span style="font-size:13px;color:var(--muted);display:block">Your individual settings (e.g., "call me Alex, be concise")</span>
+      </div>
+      <div style="background:rgba(6,182,212,0.1);padding:14px 20px;border:1px solid rgba(6,182,212,0.2);border-top:none">
+        <strong style="color:#67e8f9">&#128193; Project Context</strong>
+        <span style="font-size:13px;color:var(--muted);display:block">Shared with your team (e.g., "use Python 3.11, run pytest")</span>
+      </div>
+      <div style="background:rgba(16,185,129,0.1);padding:14px 20px;border-radius:0 0 var(--radius-sm) var(--radius-sm);border:1px solid rgba(16,185,129,0.2);border-top:none">
+        <strong style="color:#6ee7b7">&#128196; Task-Specific Context</strong>
+        <span style="font-size:13px;color:var(--muted);display:block">Just for this task (e.g., "this file handles login")</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="quiz">
+      <h3>You want an agent to help with your biology project. Which context would help it most?</h3>
+      <button class="quiz-opt" onclick="qCheck(this,false,'q3fb','Too vague! The agent does not know what subject, what format, or what you have already done.')">Just say "help me with my project"</button>
+      <button class="quiz-opt" onclick="qCheck(this,true,'q3fb','This gives the agent structure (what files exist), rules (citation format), and a clear goal. It can now work precisely instead of guessing.')">Create a CLAUDE.md that lists your research question, file structure, citation format, and what you have done so far</button>
+      <button class="quiz-opt" onclick="qCheck(this,false,'q3fb','Pasting 100 pages overwhelms the context window. The agent needs organized, relevant context — not a data dump.')">Paste your entire 100-page textbook into the chat</button>
+      <div class="quiz-fb" id="q3fb" role="status" aria-live="polite"></div>
+    </div>
+  </div>
+
+  <div class="nav-btns">
+    <button class="btn btn-ghost" onclick="goTo(2)">&#8592; Back</button>
+    <button class="btn btn-primary" onclick="goTo(4)">Next: Thinking Like a Spec Writer &#8594;</button>
+  </div>
+</div>
+
+<!-- ===== MODULE 4: SPEC-DRIVEN ===== -->
+<div class="module" id="mod4">
+  <div class="mod-header">
+    <div class="mod-level l3">Level 3: Architect</div>
+    <h1>Think Before You Build</h1>
+    <p class="subtitle">The spec-first approach: planning prevents disasters. Don't "vibe code" — write specs.</p>
+  </div>
+
+  <div class="section">
+    <h2>Vibe Coding vs. Spec-Driven</h2>
+    <div class="compare">
+      <div class="compare-col bad">
+        <div class="compare-label">&#128165; Vibe Coding</div>
+        <p style="font-size:14px">"Hey AI, build me a social media app"</p>
+        <ul style="margin:8px 0 0 16px;font-size:13px;color:var(--muted)">
+          <li>No plan, just hope</li>
+          <li>AI guesses what you want</li>
+          <li>Hours of rework</li>
+          <li>Result rarely matches vision</li>
+        </ul>
+      </div>
+      <div class="compare-col good">
+        <div class="compare-label">&#128221; Spec-Driven</div>
+        <p style="font-size:14px">"Let's write a spec together first"</p>
+        <ul style="margin:8px 0 0 16px;font-size:13px;color:var(--muted)">
+          <li>Clear requirements up front</li>
+          <li>AI and you agree on the plan</li>
+          <li>Catch problems early</li>
+          <li>Result matches your vision</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="callout callout-tip">
+      <span class="callout-icon">&#127959;</span>
+      <div><strong>Contractor analogy:</strong> Don't hire a builder and say "make it nice." Draw a blueprint first, agree on every detail, get sign-off — THEN build. Saves everyone time and money.</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>The 4-Step Spec Process</h2>
+    <div class="workflow">
+      <div class="wf-step"><div class="step-icon">&#129300;</div><div class="step-label">1. Understand</div></div>
+      <div class="wf-arrow">&#8594;</div>
+      <div class="wf-step"><div class="step-icon">&#128221;</div><div class="step-label">2. Spec</div></div>
+      <div class="wf-arrow">&#8594;</div>
+      <div class="wf-step"><div class="step-icon">&#128187;</div><div class="step-label">3. Implement</div></div>
+      <div class="wf-arrow">&#8594;</div>
+      <div class="wf-step"><div class="step-icon">&#128520;</div><div class="step-label">4. Verify</div></div>
+    </div>
+
+    <div class="card">
+      <h3 style="margin-bottom:12px">Example Spec Template</h3>
+      <div class="terminal">
+        <div class="terminal-bar"><div class="t-dot r"></div><div class="t-dot y"></div><div class="t-dot g"></div></div>
+        <div class="terminal-body">
+          <div class="t-line"><span class="t-hl">## Goal</span></div>
+          <div class="t-line"><span class="t-out">Build a quiz app for my biology class</span></div>
+          <div class="t-line"></div>
+          <div class="t-line"><span class="t-hl">## Requirements</span></div>
+          <div class="t-line"><span class="t-out">- 10 multiple choice questions about cells</span></div>
+          <div class="t-line"><span class="t-out">- Show score at the end</span></div>
+          <div class="t-line"><span class="t-out">- Works on mobile phones</span></div>
+          <div class="t-line"><span class="t-out">- No backend needed (all client-side)</span></div>
+          <div class="t-line"></div>
+          <div class="t-line"><span class="t-hl">## Out of Scope</span></div>
+          <div class="t-line"><span class="t-out">- No user accounts</span></div>
+          <div class="t-line"><span class="t-out">- No leaderboard (maybe later)</span></div>
+          <div class="t-line"></div>
+          <div class="t-line"><span class="t-hl">## Success Criteria</span></div>
+          <div class="t-line"><span class="t-out">- All questions display correctly on mobile</span></div>
+          <div class="t-line"><span class="t-out">- Score calculates accurately</span></div>
+          <div class="t-line"><span class="t-out">- Loads in under 2 seconds</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="quiz">
+      <h3>Why is "Out of Scope" important in a spec?</h3>
+      <button class="quiz-opt" onclick="qCheck(this,false,'q4fb','It is not about laziness. It is about focus. Unlimited scope leads to never finishing anything.')">It lets you skip work you don't feel like doing</button>
+      <button class="quiz-opt" onclick="qCheck(this,true,'q4fb','Exactly! Without clear boundaries, the AI might add features you never asked for, wasting time and adding complexity. &quot;Out of scope&quot; keeps everyone focused on what matters NOW.')">It prevents the AI from building features you didn't ask for, keeping the project focused</button>
+      <button class="quiz-opt" onclick="qCheck(this,false,'q4fb','Out of Scope does not mean forever. It means not in this version. You can always add things later.')">It's not important — you should let the AI build whatever it thinks is useful</button>
+      <div class="quiz-fb" id="q4fb" role="status" aria-live="polite"></div>
+    </div>
+  </div>
+
+  <div class="nav-btns">
+    <button class="btn btn-ghost" onclick="goTo(3)">&#8592; Back</button>
+    <button class="btn btn-primary" onclick="goTo(5)">Next: Agent Tools &#8594;</button>
+  </div>
+</div>
+
+<!-- ===== MODULE 5: TOOLS ===== -->
+<div class="module" id="mod5">
+  <div class="mod-header">
+    <div class="mod-level l3">Level 3: Architect</div>
+    <h1>Designing Agent Tools</h1>
+    <p class="subtitle">The tools you give an agent determine what it can do. Learn to pick and design the right ones.</p>
+  </div>
+
+  <div class="section">
+    <h2>Tools = Superpowers</h2>
+    <p>Without tools, an AI can only talk. With tools, it can <em>act</em>. Each tool gives the agent a new capability:</p>
+    <div class="card-grid">
+      <div class="info-card"><div class="card-icon">&#128269;</div><h4>Search</h4><p>Find files, search the web, look up information</p></div>
+      <div class="info-card"><div class="card-icon">&#9998;</div><h4>Edit</h4><p>Create and modify files, write documents</p></div>
+      <div class="info-card"><div class="card-icon">&#9000;</div><h4>Execute</h4><p>Run programs, scripts, commands</p></div>
+      <div class="info-card"><div class="card-icon">&#128248;</div><h4>Observe</h4><p>Take screenshots, read outputs, check results</p></div>
+      <div class="info-card"><div class="card-icon">&#128172;</div><h4>Communicate</h4><p>Ask users questions, send messages, create PRs</p></div>
+      <div class="info-card"><div class="card-icon">&#129504;</div><h4>Remember</h4><p>Save notes, update memory, track progress</p></div>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>The Tool Design Principle</h2>
+    <div class="callout callout-insight">
+      <span class="callout-icon">&#127919;</span>
+      <div><strong>Anthropic's rule:</strong> Design tools that match what the AI is naturally good at — not what humans assume it needs. Watch how the AI uses tools, then adjust.</div>
+    </div>
+
+    <div class="compare">
+      <div class="compare-col bad">
+        <div class="compare-label">&#128683; Bad Tool Design</div>
+        <p style="font-size:14px">A tool with 50 required parameters that the AI gets wrong half the time</p>
+      </div>
+      <div class="compare-col good">
+        <div class="compare-label">&#10003; Good Tool Design</div>
+        <p style="font-size:14px">A simple tool with smart defaults that the AI uses correctly 95% of the time</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="quiz">
+      <h3>You're building an agent to help write essays. Which tool would help it most?</h3>
+      <button class="quiz-opt" onclick="qCheck(this,false,'q5fb','A calculator does not help with essay writing. Tools should match the task.')">A calculator tool</button>
+      <button class="quiz-opt" onclick="qCheck(this,false,'q5fb','Deleting files is dangerous and not what essay writing needs. Only give tools that are relevant and safe.')">A tool that can delete any file on the computer</button>
+      <button class="quiz-opt" onclick="qCheck(this,true,'q5fb','A research tool lets the agent find relevant sources and facts, which directly supports essay writing. It matches the task perfectly.')">A web search tool that finds academic sources</button>
+      <div class="quiz-fb" id="q5fb" role="status" aria-live="polite"></div>
+    </div>
+  </div>
+
+  <div class="nav-btns">
+    <button class="btn btn-ghost" onclick="goTo(4)">&#8592; Back</button>
+    <button class="btn btn-primary" onclick="goTo(6)">Next: Agent Memory &#8594;</button>
+  </div>
+</div>
+
+<!-- ===== MODULE 6: MEMORY ===== -->
+<div class="module" id="mod6">
+  <div class="mod-header">
+    <div class="mod-level l4">Level 4: Engineer</div>
+    <h1>Agent Memory &amp; Learning</h1>
+    <p class="subtitle">How agents remember things across sessions and get smarter over time.</p>
+  </div>
+
+  <div class="section">
+    <h2>The Memory Problem</h2>
+    <p>Many AI agents only know what's in the current conversation. Once the session ends, they can lose track of everything you discussed. It's like having a brilliant tutor who doesn't take notes — every session, you start explaining from scratch.</p>
+    <p><strong>Memory systems</strong> solve this by saving important information between sessions.</p>
+  </div>
+
+  <div class="section">
+    <h2>Types of Agent Memory</h2>
+    <div class="card-grid">
+      <div class="info-card">
+        <div class="card-icon">&#128221;</div>
+        <h4>Flat Memory</h4>
+        <p>Simple notes saved to a file. Like sticky notes. Easy but messy at scale.</p>
+      </div>
+      <div class="info-card">
+        <div class="card-icon">&#128279;</div>
+        <h4>Graph Memory</h4>
+        <p>Connected web of facts. "Task B depends on Task A." The agent sees relationships.</p>
+      </div>
+      <div class="info-card">
+        <div class="card-icon">&#128218;</div>
+        <h4>Episodic Memory</h4>
+        <p>Records of past sessions. "Last time I tried X, it failed because Y."</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>Memory in Practice</h2>
+    <div class="terminal">
+      <div class="terminal-bar"><div class="t-dot r"></div><div class="t-dot y"></div><div class="t-dot g"></div></div>
+      <div class="terminal-body">
+        <div class="t-line"><span class="t-comment"># Tell the agent to remember something</span></div>
+        <div class="t-line"><span class="t-prompt">You:</span> <span class="t-cmd"># Remember: this project uses MLA citation format, not APA</span></div>
+        <div class="t-line"></div>
+        <div class="t-line"><span class="t-comment"># Check what the agent remembers</span></div>
+        <div class="t-line"><span class="t-prompt">You:</span> <span class="t-cmd">/memory</span></div>
+        <div class="t-line"><span class="t-out">Loaded memories:</span></div>
+        <div class="t-line"><span class="t-out">  - Project uses MLA citations</span></div>
+        <div class="t-line"><span class="t-out">  - Preferred language: concise</span></div>
+        <div class="t-line"><span class="t-out">  - Always run tests before committing</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="quiz">
+      <h3>What's the advantage of graph memory over flat memory?</h3>
+      <button class="quiz-opt" onclick="qCheck(this,false,'q6fb','Graph memory can actually be slower to write, but it pays off in understanding relationships.')">It's faster to save notes</button>
+      <button class="quiz-opt" onclick="qCheck(this,true,'q6fb','Correct! Graph memory shows connections: &quot;Task B depends on Task A&quot; or &quot;Feature X broke after change Y.&quot; The agent can reason about dependencies and order.')">The agent can see how things relate to each other and what depends on what</button>
+      <button class="quiz-opt" onclick="qCheck(this,false,'q6fb','Both types use similar amounts of storage. The difference is structure, not size.')">It uses less storage space</button>
+      <div class="quiz-fb" id="q6fb" role="status" aria-live="polite"></div>
+    </div>
+  </div>
+
+  <div class="nav-btns">
+    <button class="btn btn-ghost" onclick="goTo(5)">&#8592; Back</button>
+    <button class="btn btn-primary" onclick="goTo(7)">Next: Agent Safety &#8594;</button>
+  </div>
+</div>
+
+<!-- ===== MODULE 7: SAFETY ===== -->
+<div class="module" id="mod7">
+  <div class="mod-header">
+    <div class="mod-level l4">Level 4: Engineer</div>
+    <h1>Agent Safety &amp; Guardrails</h1>
+    <p class="subtitle">With great power comes great responsibility. Learn to keep agents safe and controlled.</p>
+  </div>
+
+  <div class="section">
+    <h2>Why Safety Matters</h2>
+    <p>An AI agent with tools can take real actions — edit files, run programs, send messages, even delete things. Without guardrails, a small mistake can cascade into big problems.</p>
+
+    <div class="callout callout-danger">
+      <span class="callout-icon">&#128721;</span>
+      <div><strong>Real example:</strong> An agent told to "clean up the project" once deleted important files it thought were unnecessary. The fix? Add a guardrail: "never delete files without asking first."</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>Types of Guardrails</h2>
+    <div class="card-grid">
+      <div class="info-card"><div class="card-icon">&#128274;</div><h4>Permission Levels</h4><p>Some actions need your approval (delete, push, install). Others are auto-approved (read, search).</p></div>
+      <div class="info-card"><div class="card-icon">&#128683;</div><h4>Blocklists</h4><p>Actions that are NEVER allowed, no matter what (e.g., "never access /private/").</p></div>
+      <div class="info-card"><div class="card-icon">&#128230;</div><h4>Sandboxes</h4><p>Isolated environments where the agent can experiment without affecting real systems.</p></div>
+      <div class="info-card"><div class="card-icon">&#128176;</div><h4>Cost Limits</h4><p>Spending caps that stop the agent from burning through too many resources.</p></div>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>The Permission Pyramid</h2>
+    <div style="margin:16px 0;text-align:center">
+      <div style="background:var(--success-bg);border:1px solid rgba(16,185,129,0.3);padding:12px;border-radius:var(--radius-sm) var(--radius-sm) 0 0;max-width:500px;margin:0 auto">
+        <strong style="color:#6ee7b7">Always Allowed</strong><br>
+        <span style="font-size:13px;color:var(--muted)">Read files, search, list directories</span>
+      </div>
+      <div style="background:rgba(6,182,212,0.1);border:1px solid rgba(6,182,212,0.3);border-top:none;padding:12px;max-width:400px;margin:0 auto">
+        <strong style="color:#67e8f9">Ask First</strong><br>
+        <span style="font-size:13px;color:var(--muted)">Edit files, run scripts, install packages</span>
+      </div>
+      <div style="background:var(--warning-bg);border:1px solid rgba(245,158,11,0.3);border-top:none;padding:12px;max-width:300px;margin:0 auto">
+        <strong style="color:#fcd34d">Careful</strong><br>
+        <span style="font-size:13px;color:var(--muted)">Delete, push to git, send messages</span>
+      </div>
+      <div style="background:var(--danger-bg);border:1px solid rgba(239,68,68,0.3);border-top:none;padding:12px;border-radius:0 0 var(--radius-sm) var(--radius-sm);max-width:200px;margin:0 auto">
+        <strong style="color:#fca5a5">Never</strong><br>
+        <span style="font-size:13px;color:var(--muted)">Access secrets, bypass safety</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="quiz">
+      <h3>An agent wants to delete 50 files it thinks are "unused." What should happen?</h3>
+      <button class="quiz-opt" onclick="qCheck(this,false,'q7fb','Trusting blindly is how important files get deleted. Always verify destructive actions.')">Let it delete them — it probably knows best</button>
+      <button class="quiz-opt" onclick="qCheck(this,true,'q7fb','Correct! Destructive actions should always require human approval. The agent should list what it wants to delete and explain why, then wait for your OK.')">The guardrail should block it and ask you to review the list first</button>
+      <button class="quiz-opt" onclick="qCheck(this,false,'q7fb','Blocking all deletions forever is too restrictive. The right answer is requiring approval, not a permanent ban.')">Never let any agent delete anything, ever</button>
+      <div class="quiz-fb" id="q7fb" role="status" aria-live="polite"></div>
+    </div>
+  </div>
+
+  <div class="nav-btns">
+    <button class="btn btn-ghost" onclick="goTo(6)">&#8592; Back</button>
+    <button class="btn btn-primary" onclick="goTo(8)">Next: Multi-Agent Teams &#8594;</button>
+  </div>
+</div>
+
+<!-- ===== MODULE 8: MULTI-AGENT ===== -->
+<div class="module" id="mod8">
+  <div class="mod-header">
+    <div class="mod-level l5">Level 5: Orchestrator</div>
+    <h1>Multi-Agent Teams</h1>
+    <p class="subtitle">One agent is good. Multiple agents working together is transformational.</p>
+  </div>
+
+  <div class="section">
+    <h2>The Software Company Analogy</h2>
+    <p>Real software companies don't have one person do everything. They have specialists:</p>
+    <div class="workflow">
+      <div class="wf-step"><div class="step-icon">&#128203;</div><div class="step-label">PM</div></div>
+      <div class="wf-arrow">&#8594;</div>
+      <div class="wf-step"><div class="step-icon">&#128736;</div><div class="step-label">Architect</div></div>
+      <div class="wf-arrow">&#8594;</div>
+      <div class="wf-step"><div class="step-icon">&#128187;</div><div class="step-label">Engineer</div></div>
+      <div class="wf-arrow">&#8594;</div>
+      <div class="wf-step"><div class="step-icon">&#128270;</div><div class="step-label">QA</div></div>
+      <div class="wf-arrow">&#8594;</div>
+      <div class="wf-step"><div class="step-icon">&#128640;</div><div class="step-label">Deploy</div></div>
+    </div>
+    <p><strong>Multi-agent systems</strong> replicate this: different AI agents take on different roles, passing work between each other like a relay team.</p>
+  </div>
+
+  <div class="section">
+    <h2>Why Multiple Agents?</h2>
+    <div class="card-grid">
+      <div class="info-card"><div class="card-icon">&#127919;</div><h4>Specialization</h4><p>Each agent focuses on one job and does it well</p></div>
+      <div class="info-card"><div class="card-icon">&#9889;</div><h4>Parallelism</h4><p>Multiple agents can work on different tasks simultaneously</p></div>
+      <div class="info-card"><div class="card-icon">&#128269;</div><h4>Review</h4><p>One agent can check another's work (like peer review)</p></div>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>Real Example: MetaGPT</h2>
+    <p>MetaGPT simulates an entire software company with AI agents. Give it one prompt like "build a snake game" and:</p>
+    <ol>
+      <li><strong>Product Manager Agent</strong> writes requirements</li>
+      <li><strong>Architect Agent</strong> designs the system</li>
+      <li><strong>Engineer Agent</strong> writes the code</li>
+      <li><strong>QA Agent</strong> tests for bugs</li>
+    </ol>
+    <p>Each agent has clear inputs and outputs. The PM's document becomes the Architect's input. The Architect's design becomes the Engineer's specification. No confusion about responsibilities.</p>
+
+    <div class="callout callout-insight">
+      <span class="callout-icon">&#127942;</span>
+      <div><strong>Result:</strong> MetaGPT (67,000 GitHub stars) produces better code than a single agent because specialization + review catches errors that one agent alone would miss.</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="quiz">
+      <h3>What's the main risk of multi-agent systems?</h3>
+      <button class="quiz-opt" onclick="qCheck(this,false,'q8fb','Cost matters too, but the biggest design challenge is coordination — making sure agents do not conflict or pass errors to each other.')">They cost too much money</button>
+      <button class="quiz-opt" onclick="qCheck(this,true,'q8fb','Correct! Without clear coordination, agents can conflict (one edits a file while another is reading it), duplicate work, or pass bad outputs forward. Good orchestration is the key challenge.')">Agents can conflict, duplicate work, or pass errors to each other without clear coordination</button>
+      <button class="quiz-opt" onclick="qCheck(this,false,'q8fb','Multi-agent systems do not require special hardware. They run the same way as single agents, just coordinated.')">They need special hardware to run</button>
+      <div class="quiz-fb" id="q8fb" role="status" aria-live="polite"></div>
+    </div>
+  </div>
+
+  <div class="nav-btns">
+    <button class="btn btn-ghost" onclick="goTo(7)">&#8592; Back</button>
+    <button class="btn btn-primary" onclick="goTo(9)">Next: Design Your Own Agent &#8594;</button>
+  </div>
+</div>
+
+<!-- ===== MODULE 9: CAPSTONE ===== -->
+<div class="module" id="mod9">
+  <div class="mod-header">
+    <div class="mod-level l5">Level 5: Orchestrator</div>
+    <h1>Design Your Own Agent System</h1>
+    <p class="subtitle">Put everything together. Design an agent system from scratch using the Agent Architecture Canvas.</p>
+  </div>
+
+  <div class="section">
+    <h2>The Agent Architecture Canvas</h2>
+    <p>Every well-designed agent system answers these 8 questions. Fill in each section to design yours:</p>
+
+    <div id="canvas-sections">
+      <div class="card" style="margin:12px 0">
+        <h3>1. Goal</h3>
+        <p style="font-size:14px;color:var(--muted)">What problem does your agent solve? Who benefits?</p>
+        <textarea id="canvas-goal" aria-label="Goal: What problem does your agent solve?" style="width:100%;min-height:60px;background:var(--surface2);border:1px solid var(--border);border-radius:var(--radius-sm);padding:12px;color:var(--text);font-family:var(--font);font-size:14px;resize:vertical" placeholder="Example: Help students study for biology exams by generating practice questions from their notes..."></textarea>
+      </div>
+      <div class="card" style="margin:12px 0">
+        <h3>2. Tools</h3>
+        <p style="font-size:14px;color:var(--muted)">What actions does your agent need to take?</p>
+        <textarea id="canvas-tools" aria-label="Tools: What actions does your agent need?" style="width:100%;min-height:60px;background:var(--surface2);border:1px solid var(--border);border-radius:var(--radius-sm);padding:12px;color:var(--text);font-family:var(--font);font-size:14px;resize:vertical" placeholder="Example: Read note files, generate questions, check answers against source material..."></textarea>
+      </div>
+      <div class="card" style="margin:12px 0">
+        <h3>3. Context</h3>
+        <p style="font-size:14px;color:var(--muted)">What information does it need to work well?</p>
+        <textarea id="canvas-context" aria-label="Context: What information does it need?" style="width:100%;min-height:60px;background:var(--surface2);border:1px solid var(--border);border-radius:var(--radius-sm);padding:12px;color:var(--text);font-family:var(--font);font-size:14px;resize:vertical" placeholder="Example: Student's notes, textbook chapters, past exam formats, difficulty preferences..."></textarea>
+      </div>
+      <div class="card" style="margin:12px 0">
+        <h3>4. Workflow</h3>
+        <p style="font-size:14px;color:var(--muted)">What pattern does it follow? (Guided/Iterative/Autonomous)</p>
+        <textarea id="canvas-workflow" aria-label="Workflow pattern" style="width:100%;min-height:60px;background:var(--surface2);border:1px solid var(--border);border-radius:var(--radius-sm);padding:12px;color:var(--text);font-family:var(--font);font-size:14px;resize:vertical" placeholder="Example: Iterative — generates questions, student answers, agent checks and explains..."></textarea>
+      </div>
+      <div class="card" style="margin:12px 0">
+        <h3>5. Memory</h3>
+        <p style="font-size:14px;color:var(--muted)">What does it need to remember across sessions?</p>
+        <textarea id="canvas-memory" aria-label="Memory: What to remember across sessions" style="width:100%;min-height:60px;background:var(--surface2);border:1px solid var(--border);border-radius:var(--radius-sm);padding:12px;color:var(--text);font-family:var(--font);font-size:14px;resize:vertical" placeholder="Example: Which topics the student struggles with, past scores, learning pace..."></textarea>
+      </div>
+      <div class="card" style="margin:12px 0">
+        <h3>6. Safety</h3>
+        <p style="font-size:14px;color:var(--muted)">What guardrails prevent problems?</p>
+        <textarea id="canvas-safety" aria-label="Safety: What guardrails prevent problems" style="width:100%;min-height:60px;background:var(--surface2);border:1px solid var(--border);border-radius:var(--radius-sm);padding:12px;color:var(--text);font-family:var(--font);font-size:14px;resize:vertical" placeholder="Example: Never reveal answer key directly, don't access files outside the notes folder..."></textarea>
+      </div>
+      <div class="card" style="margin:12px 0">
+        <h3>7. Verification</h3>
+        <p style="font-size:14px;color:var(--muted)">How do you know it's working correctly?</p>
+        <textarea id="canvas-verify" aria-label="Verification: How to check correctness" style="width:100%;min-height:60px;background:var(--surface2);border:1px solid var(--border);border-radius:var(--radius-sm);padding:12px;color:var(--text);font-family:var(--font);font-size:14px;resize:vertical" placeholder="Example: Compare generated questions against textbook to verify accuracy, track student improvement..."></textarea>
+      </div>
+      <div class="card" style="margin:12px 0">
+        <h3>8. Human-in-the-Loop</h3>
+        <p style="font-size:14px;color:var(--muted)">When should a human step in?</p>
+        <textarea id="canvas-human" aria-label="Human-in-the-loop: When should a human step in" style="width:100%;min-height:60px;background:var(--surface2);border:1px solid var(--border);border-radius:var(--radius-sm);padding:12px;color:var(--text);font-family:var(--font);font-size:14px;resize:vertical" placeholder="Example: When the student seems frustrated (3 wrong answers in a row), suggest they ask a teacher..."></textarea>
+      </div>
+    </div>
+
+    <button class="btn btn-primary" onclick="saveCanvas()" style="margin-top:16px">&#128190; Save My Design</button>
+    <button class="btn btn-ghost" onclick="exportCanvas()" style="margin-top:16px">&#128196; Export as Text</button>
+  </div>
+
+  <div class="section" id="completion-section" style="margin-top:40px;display:none">
+    <div style="background:linear-gradient(135deg,rgba(124,58,237,0.1),rgba(6,182,212,0.1));padding:32px;border-radius:var(--radius);text-align:center;border:1px solid var(--border)">
+      <div style="font-size:48px;margin-bottom:16px">&#127891;</div>
+      <h2>Quest Complete!</h2>
+      <p style="color:var(--muted);max-width:500px;margin:12px auto">You've learned the fundamentals of agentic engineering — how to set agents up for success, design workflows, write specs, choose tools, manage memory, stay safe, and coordinate teams. Keep practicing and building!</p>
+      <div class="badge-row" style="justify-content:center;margin:20px 0">
+        <span class="badge earned">&#127775; Quest Complete</span>
+        <span class="badge earned">&#128736; System Designer</span>
+        <span class="badge earned">&#129302; Agent Architect</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="nav-btns">
+    <button class="btn btn-ghost" onclick="goTo(8)">&#8592; Back</button>
+    <button class="btn btn-success" onclick="completeQuest()">Complete Quest &#127942;</button>
+  </div>
+</div>
+
+</main>
+</div><!-- /layout -->
+</div><!-- /app -->
+
+<script>
+// ===== DATA =====
+const mods = [
+  {id:'mod0',title:'Welcome',level:'Start'},
+  {id:'mod1',title:'Set Up to Succeed',level:'L1'},
+  {id:'mod2',title:'First Workflows',level:'L2'},
+  {id:'mod3',title:'Context is King',level:'L2'},
+  {id:'mod4',title:'Think Before You Build',level:'L3'},
+  {id:'mod5',title:'Agent Tools',level:'L3'},
+  {id:'mod6',title:'Agent Memory',level:'L4'},
+  {id:'mod7',title:'Safety & Guardrails',level:'L4'},
+  {id:'mod8',title:'Multi-Agent Teams',level:'L5'},
+  {id:'mod9',title:'Design Your Own Agent',level:'L5'},
+];
+
+let current = 0;
+let xp = parseInt(localStorage.getItem('aeq-xp')||'0');
+let completed = JSON.parse(localStorage.getItem('aeq-done')||'[]');
+
+// ===== NAVIGATION =====
+function buildSidebar(){
+  const sb = document.getElementById('sidebar');
+  let html = '<div class="sidebar-section"><div class="sidebar-title">Modules</div>';
+  mods.forEach((m,i) => {
+    const cls = i===current?'active':completed.includes(i)?'completed':'';
+    const num = completed.includes(i)?'&#10003;':(i+1);
+    html += `<button class="nav-item ${cls}" onclick="goTo(${i})" style="width:100%;border:none;background:none;text-align:left;font-family:var(--font)"><div class="nav-num">${num}</div><span>${m.title}</span></button>`;
+  });
+  html += '</div>';
+  sb.innerHTML = html;
+}
+
+function goTo(idx){
+  if(current!==idx && current<idx && !completed.includes(current)){completed.push(current);localStorage.setItem('aeq-done',JSON.stringify(completed));addXP(10);}
+  current = idx;
+  document.querySelectorAll('.module').forEach(m=>m.classList.remove('active'));
+  document.getElementById(mods[idx].id).classList.add('active');
+  buildSidebar();
+  window.scrollTo({top:0,behavior:'smooth'});
+  document.querySelector('.sidebar').classList.remove('open');
+}
+
+function addXP(amount){
+  xp += amount;
+  localStorage.setItem('aeq-xp',xp);
+  updateXP();
+}
+
+function updateXP(){
+  document.getElementById('xpText').textContent = xp+' XP';
+  const level = Math.floor(xp/100)+1;
+  document.getElementById('levelBadge').textContent = 'Level '+level;
+  const pct = (xp%100);
+  document.getElementById('xpFill').style.width = pct+'%';
+}
+
+// ===== QUIZ =====
+let answeredQuizzes = JSON.parse(localStorage.getItem('aeq-quizzes')||'[]');
+function qCheck(btn,correct,fbId,explanation){
+  const parent = btn.parentElement;
+  parent.querySelectorAll('.quiz-opt').forEach(o=>{o.classList.add('disabled');o.disabled=true});
+  btn.classList.add(correct?'correct':'wrong');
+  const fb = document.getElementById(fbId);
+  fb.className='quiz-fb show';
+  fb.style.background=correct?'var(--success-bg)':'var(--danger-bg)';
+  fb.style.color=correct?'#6ee7b7':'#fca5a5';
+  fb.textContent=(correct?'✓ ':'✗ ')+explanation;
+  if(correct && !answeredQuizzes.includes(fbId)){
+    answeredQuizzes.push(fbId);
+    localStorage.setItem('aeq-quizzes',JSON.stringify(answeredQuizzes));
+    addXP(20);
+  }
+}
+
+// ===== CAPSTONE =====
+function saveCanvas(){
+  const data={};
+  document.querySelectorAll('#canvas-sections textarea').forEach(t=>{data[t.id]=t.value});
+  localStorage.setItem('aeq-canvas',JSON.stringify(data));
+  alert('Design saved! You can come back to it anytime.');
+}
+function exportCanvas(){
+  let text='# My Agent System Design\n\n';
+  const labels=['Goal','Tools','Context','Workflow','Memory','Safety','Verification','Human-in-the-Loop'];
+  document.querySelectorAll('#canvas-sections textarea').forEach((t,i)=>{
+    text+=`## ${labels[i]}\n${t.value||'(not filled)'}\n\n`;
+  });
+  const blob=new Blob([text],{type:'text/markdown'});
+  const a=document.createElement('a');
+  a.href=URL.createObjectURL(blob);
+  a.download='my-agent-design.md';
+  a.click();
+}
+function completeQuest(){
+  if(completed.includes(9))return;
+  const goal=document.getElementById('canvas-goal').value.trim();
+  const tools=document.getElementById('canvas-tools').value.trim();
+  if(!goal||!tools){alert('Please fill in at least the Goal and Tools sections of your design before completing.');return;}
+  completed.push(9);
+  localStorage.setItem('aeq-done',JSON.stringify(completed));
+  addXP(50);
+  document.getElementById('completion-section').style.display='block';
+  document.querySelector('#mod9 .btn-success').disabled=true;
+  document.querySelector('#mod9 .btn-success').textContent='Quest Completed!';
+  buildSidebar();
+}
+
+// ===== LOAD SAVED CANVAS =====
+function loadCanvas(){
+  const saved=JSON.parse(localStorage.getItem('aeq-canvas')||'{}');
+  Object.entries(saved).forEach(([id,val])=>{const el=document.getElementById(id);if(el)el.value=val;});
+}
+
+// ===== INIT =====
+buildSidebar();
+goTo(0);
+updateXP();
+loadCanvas();
+</script>
+</body>
+</html>

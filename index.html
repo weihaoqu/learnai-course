@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Engineering Academy - Learn to Build with AI Agents</title>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#0a0a14;--surface:#12122a;--surface2:#1a1a3e;
+  --text:#eeeef5;--muted:#8888aa;
+  --blue:#3b82f6;--blue-light:#93c5fd;--blue-bg:rgba(59,130,246,0.08);
+  --purple:#7c3aed;--purple-light:#a78bfa;--purple-bg:rgba(124,58,237,0.08);
+  --cyan:#06b6d4;--cyan-light:#67e8f9;
+  --green:#10b981;--green-light:#6ee7b7;
+  --gold:#fbbf24;
+  --border:rgba(255,255,255,0.06);
+  --shadow:0 8px 32px rgba(0,0,0,0.4);
+  --radius:20px;--radius-sm:12px;
+  --font:'Inter',system-ui,-apple-system,sans-serif;
+}
+html{scroll-behavior:smooth}
+body{font-family:var(--font);background:var(--bg);color:var(--text);line-height:1.7;min-height:100vh;overflow-x:hidden}
+
+/* ===== HERO ===== */
+.hero{text-align:center;padding:80px 24px 60px;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;top:-50%;left:-50%;width:200%;height:200%;background:radial-gradient(ellipse at 50% 30%,rgba(124,58,237,0.12) 0%,rgba(6,182,212,0.06) 40%,transparent 70%);pointer-events:none}
+.hero-badge{display:inline-flex;align-items:center;gap:8px;background:var(--surface2);border:1px solid var(--border);padding:8px 16px;border-radius:30px;font-size:13px;color:var(--muted);margin-bottom:24px}
+.hero-badge .dot{width:8px;height:8px;border-radius:50%;background:var(--green);animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:0.4}}
+.hero h1{font-size:clamp(36px,6vw,64px);font-weight:800;line-height:1.1;margin-bottom:16px;background:linear-gradient(135deg,var(--blue-light),var(--purple-light),var(--cyan-light));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.hero .subtitle{font-size:clamp(16px,2.5vw,22px);color:var(--muted);max-width:640px;margin:0 auto 40px}
+.hero-stats{display:flex;justify-content:center;gap:40px;flex-wrap:wrap;margin-top:32px}
+.stat{text-align:center}
+.stat-num{font-size:28px;font-weight:800;color:var(--text)}
+.stat-label{font-size:13px;color:var(--muted)}
+
+/* ===== PATH ===== */
+.path-section{padding:60px 24px;max-width:1100px;margin:0 auto}
+.section-header{text-align:center;margin-bottom:48px}
+.section-header h2{font-size:32px;font-weight:800;margin-bottom:8px}
+.section-header p{color:var(--muted);font-size:17px}
+
+.path-connector{display:flex;align-items:center;justify-content:center;margin:24px 0}
+.path-line{width:4px;height:60px;background:linear-gradient(to bottom,var(--blue),var(--purple));border-radius:2px;position:relative}
+.path-line::after{content:'';position:absolute;bottom:-6px;left:50%;transform:translateX(-50%);width:0;height:0;border-left:8px solid transparent;border-right:8px solid transparent;border-top:10px solid var(--purple)}
+
+/* ===== COURSE CARDS ===== */
+.course-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:40px;display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:center;box-shadow:var(--shadow);transition:all 0.3s;position:relative;overflow:hidden;max-width:1000px;margin:0 auto}
+.course-card::before{content:'';position:absolute;top:0;left:0;right:0;height:4px}
+.course-card.beginner::before{background:linear-gradient(90deg,var(--blue),var(--cyan))}
+.course-card.advanced::before{background:linear-gradient(90deg,var(--purple),var(--gold))}
+.course-card:hover{transform:translateY(-4px);box-shadow:0 12px 48px rgba(0,0,0,0.5)}
+
+.card-content h3{font-size:24px;font-weight:700;margin-bottom:8px}
+.card-content .card-subtitle{color:var(--muted);font-size:15px;margin-bottom:16px}
+.card-content .card-desc{font-size:14px;color:var(--muted);margin-bottom:20px;line-height:1.8}
+
+.tag-row{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:20px}
+.tag{padding:4px 10px;border-radius:20px;font-size:11px;font-weight:600;border:1px solid var(--border);color:var(--muted);background:var(--surface2)}
+.tag.blue{color:var(--blue-light);border-color:rgba(59,130,246,0.3);background:var(--blue-bg)}
+.tag.purple{color:var(--purple-light);border-color:rgba(124,58,237,0.3);background:var(--purple-bg)}
+
+.card-meta{display:flex;gap:20px;font-size:13px;color:var(--muted);margin-bottom:20px}
+.card-meta span{display:flex;align-items:center;gap:6px}
+
+.card-btn{display:inline-flex;align-items:center;gap:8px;padding:12px 28px;border-radius:var(--radius-sm);font-size:15px;font-weight:600;text-decoration:none;transition:all 0.2s;border:none;cursor:pointer}
+.card-btn.blue-btn{background:var(--blue);color:#fff}
+.card-btn.blue-btn:hover{background:#2563eb;transform:scale(1.02)}
+.card-btn.purple-btn{background:var(--purple);color:#fff}
+.card-btn.purple-btn:hover{background:#6d28d9;transform:scale(1.02)}
+
+.card-visual{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px}
+.card-visual .modules-preview{display:grid;grid-template-columns:repeat(auto-fill,minmax(80px,1fr));gap:8px;width:100%}
+.mod-chip{background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:8px;text-align:center;font-size:11px;color:var(--muted);transition:all 0.2s}
+.mod-chip:hover{border-color:var(--blue);color:var(--text)}
+.course-card.advanced .mod-chip:hover{border-color:var(--purple)}
+
+/* ===== FEATURES ===== */
+.features{padding:60px 24px;max-width:900px;margin:0 auto}
+.feature-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:16px;margin-top:32px}
+.feature{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-sm);padding:24px;transition:all 0.2s}
+.feature:hover{border-color:var(--purple);transform:translateY(-2px)}
+.feature-icon{font-size:28px;margin-bottom:12px}
+.feature h4{font-size:16px;font-weight:600;margin-bottom:6px}
+.feature p{font-size:13px;color:var(--muted)}
+
+/* ===== FOOTER ===== */
+.footer{text-align:center;padding:40px 24px;border-top:1px solid var(--border);margin-top:60px}
+.footer p{color:var(--muted);font-size:14px}
+.footer a{color:var(--cyan-light);text-decoration:none}
+
+/* ===== RESPONSIVE ===== */
+@media(max-width:768px){
+  .course-card{grid-template-columns:1fr;padding:24px}
+  .card-visual{order:-1}
+  .hero-stats{gap:24px}
+  .hero{padding:48px 16px 40px}
+}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+
+/* ===== GATE ===== */
+.gate-overlay{position:fixed;inset:0;background:var(--bg);z-index:9999;display:flex;align-items:center;justify-content:center;padding:24px;overflow-y:auto}
+.gate-overlay.hidden{display:none}
+.gate-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:48px;max-width:700px;width:100%;text-align:center;box-shadow:var(--shadow)}
+.gate-card h1{font-size:28px;font-weight:800;margin-bottom:12px}
+.gate-card .gate-sub{color:var(--muted);font-size:16px;margin-bottom:24px;line-height:1.7}
+.gate-card iframe{width:100%;height:min(520px,55vh);border:none;border-radius:var(--radius-sm);margin:16px 0}
+.gate-btn{display:inline-flex;align-items:center;gap:8px;padding:14px 32px;border-radius:var(--radius-sm);font-size:16px;font-weight:700;cursor:pointer;border:none;background:var(--green);color:#fff;font-family:var(--font);transition:all 0.2s;margin-top:16px}
+.gate-btn:hover{background:#059669;transform:scale(1.02)}
+.gate-btn:disabled{opacity:0.4;cursor:not-allowed;transform:none}
+.gate-note{font-size:12px;color:var(--muted);margin-top:12px}
+</style>
+</head>
+<body>
+
+<!-- PRE-TEST GATE (blocks everything until completed) -->
+<div class="gate-overlay" id="preTestGate">
+  <div class="gate-card">
+    <div style="font-size:48px;margin-bottom:16px">&#128203;</div>
+    <h1>Welcome! Let's Start With a Quick Assessment</h1>
+    <p class="gate-sub">Before you begin the courses, take this short pre-test so we can measure your starting point. It only takes about 5 minutes. There are no wrong answers — it's just to see what you already know.</p>
+    <iframe src="https://weihaoqu.github.io/learnai-assessment-hs/?type=pre" title="AI Engineering Pre-Test" id="preTestFrame" allow="clipboard-write"></iframe>
+    <div style="margin-top:16px">
+      <button class="gate-btn" id="gateBtn" onclick="completePreTest()">I've Finished the Pre-Test &#8594;</button>
+    </div>
+    <p class="gate-note" style="margin-top:12px">Or open the pre-test in a new tab: <a href="https://weihaoqu.github.io/learnai-assessment-hs/?type=pre" target="_blank" rel="noopener noreferrer" style="color:var(--cyan-light)">weihaoqu.github.io/learnai-assessment-hs/?type=pre</a></p>
+    <p class="gate-note">After submitting your assessment, click the button above to unlock the courses.</p>
+  </div>
+</div>
+
+<!-- MAIN CONTENT (hidden until pre-test done) -->
+<div id="mainContent" hidden>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-badge"><span class="dot"></span> Free &amp; Self-Contained</div>
+  <h1>AI Engineering Academy</h1>
+  <p class="subtitle">A two-course learning path that takes you from "what's a terminal?" to designing multi-agent AI systems. Built for students with zero coding background.</p>
+  <div class="hero-stats">
+    <div class="stat"><div class="stat-num">23</div><div class="stat-label">Modules</div></div>
+    <div class="stat"><div class="stat-num">2</div><div class="stat-label">Courses</div></div>
+    <div class="stat"><div class="stat-num">50+</div><div class="stat-label">Interactive Exercises</div></div>
+    <div class="stat"><div class="stat-num">0</div><div class="stat-label">Prerequisites</div></div>
+  </div>
+</section>
+
+
+<!-- LEARNING PATH -->
+<section class="path-section">
+  <div class="section-header">
+    <h2>Your Learning Path</h2>
+    <p>Start from the beginning or jump to where you belong</p>
+  </div>
+
+  <!-- BEGINNER COURSE -->
+  <div class="course-card beginner">
+    <div class="card-content">
+      <h3>Course 1: Claude Code Fundamentals</h3>
+      <div class="card-subtitle">From zero to productive with AI-assisted development</div>
+      <div class="tag-row">
+        <span class="tag blue">Beginner</span>
+        <span class="tag">No experience needed</span>
+        <span class="tag">13 Modules</span>
+      </div>
+      <p class="card-desc">Learn what a terminal is, how GitHub works, what web apps are made of, and how to use Claude Code as your AI coding partner. Includes interactive terminal simulator, quizzes, and hands-on practice.</p>
+      <div class="card-meta">
+        <span>&#128218; 13 modules</span>
+        <span>&#9201; ~2 hours</span>
+        <span>&#127919; 5 capstone tasks</span>
+      </div>
+      <a href="claude-code-course.html" class="card-btn blue-btn">Start Course 1 &#8594;</a>
+    </div>
+    <div class="card-visual">
+      <div class="modules-preview">
+        <div class="mod-chip">Terminal</div>
+        <div class="mod-chip">Setup</div>
+        <div class="mod-chip">GitHub</div>
+        <div class="mod-chip">Web Apps</div>
+        <div class="mod-chip">Q&A</div>
+        <div class="mod-chip">Planning</div>
+        <div class="mod-chip">Verify</div>
+        <div class="mod-chip">Context</div>
+        <div class="mod-chip">Memory</div>
+        <div class="mod-chip">Automation</div>
+        <div class="mod-chip">Deploy</div>
+        <div class="mod-chip">Capstone</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CONNECTOR -->
+  <div class="path-connector"><div class="path-line"></div></div>
+
+  <!-- ADVANCED COURSE -->
+  <div class="course-card advanced">
+    <div class="card-content">
+      <h3>Course 2: Agentic Engineering Quest</h3>
+      <div class="card-subtitle">Design, direct, and build AI agent systems</div>
+      <div class="tag-row">
+        <span class="tag purple">Advanced</span>
+        <span class="tag">Gamified (XP &amp; Levels)</span>
+        <span class="tag">10 Modules</span>
+      </div>
+      <p class="card-desc">Go beyond chatbots. Learn harness engineering, workflow patterns, spec-driven development, tool design, agent memory, safety, and multi-agent orchestration. Design your own agent system in the capstone.</p>
+      <div class="card-meta">
+        <span>&#129302; 10 modules</span>
+        <span>&#9201; ~3 hours</span>
+        <span>&#127942; Agent Design Canvas</span>
+      </div>
+      <a href="agentic-engineering-quest.html" class="card-btn purple-btn">Start Course 2 &#8594;</a>
+    </div>
+    <div class="card-visual">
+      <div class="modules-preview">
+        <div class="mod-chip">Harness</div>
+        <div class="mod-chip">Workflows</div>
+        <div class="mod-chip">Context</div>
+        <div class="mod-chip">Specs</div>
+        <div class="mod-chip">Tools</div>
+        <div class="mod-chip">Memory</div>
+        <div class="mod-chip">Safety</div>
+        <div class="mod-chip">Teams</div>
+        <div class="mod-chip">Design</div>
+        <div class="mod-chip">Capstone</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURES -->
+<section class="features">
+  <div class="section-header">
+    <h2>Why This Academy?</h2>
+    <p>Built by a professor who teaches AI engineering</p>
+  </div>
+  <div class="feature-grid">
+    <div class="feature">
+      <div class="feature-icon">&#127760;</div>
+      <h4>100% Self-Contained</h4>
+      <p>Just open the HTML file. No install, no server, no accounts needed. Courses run locally in your browser.</p>
+    </div>
+    <div class="feature">
+      <div class="feature-icon">&#129302;</div>
+      <h4>Built for Non-CS Students</h4>
+      <p>Every concept explained with analogies first, jargon second. No prior coding needed.</p>
+    </div>
+    <div class="feature">
+      <div class="feature-icon">&#127919;</div>
+      <h4>Interactive &amp; Gamified</h4>
+      <p>Terminal simulators, quizzes, drag-drop exercises, XP system, and branching scenarios.</p>
+    </div>
+    <div class="feature">
+      <div class="feature-icon">&#128218;</div>
+      <h4>Research-Backed Content</h4>
+      <p>Drawn from 161 wiki entries covering Claude Code, Anthropic research, and cutting-edge agent design.</p>
+    </div>
+    <div class="feature">
+      <div class="feature-icon">&#128190;</div>
+      <h4>Progress Saved Locally</h4>
+      <p>Your progress, XP, and capstone work are saved in your browser. Pick up where you left off.</p>
+    </div>
+    <div class="feature">
+      <div class="feature-icon">&#128640;</div>
+      <h4>From Beginner to Architect</h4>
+      <p>Two courses that take you from "what's a terminal" to designing multi-agent systems.</p>
+    </div>
+  </div>
+</section>
+
+<!-- POST-TEST -->
+<section class="path-section">
+  <div class="section-header">
+    <h2>Finished Both Courses? Take the Post-Test</h2>
+    <p>Measure how much you've learned and see your growth</p>
+  </div>
+
+  <div class="course-card" style="max-width:800px;grid-template-columns:1fr;text-align:center">
+    <div class="card-content" style="text-align:center">
+      <div style="font-size:48px;margin-bottom:16px">&#127942;</div>
+      <h3 style="margin-bottom:8px">AI Engineering Post-Test</h3>
+      <p class="card-desc" style="max-width:500px;margin:0 auto 20px">Take the same assessment again after completing the courses. Compare your pre and post scores to see how much you've grown in AI engineering knowledge.</p>
+      <div class="tag-row" style="justify-content:center">
+        <span class="tag purple">After Both Courses</span>
+        <span class="tag">~5 minutes</span>
+        <span class="tag">Compare with Pre-Test</span>
+      </div>
+      <div style="margin-top:20px">
+        <a href="https://weihaoqu.github.io/learnai-assessment-hs/?type=post" target="_blank" rel="noopener noreferrer" class="card-btn purple-btn" style="margin-right:12px">Take Post-Test &#8594;</a>
+        <button class="card-btn" onclick="document.getElementById('posttest-embed').style.display=document.getElementById('posttest-embed').style.display==='none'?'block':'none'" style="background:var(--surface2);color:var(--muted);border:1px solid var(--border)">Or take it here &#9660;</button>
+      </div>
+      <div id="posttest-embed" style="display:none;margin-top:24px;border-radius:var(--radius-sm);overflow:hidden;border:1px solid var(--border)">
+        <iframe src="https://weihaoqu.github.io/learnai-assessment-hs/?type=post" style="width:100%;height:600px;border:none;border-radius:var(--radius-sm)" title="AI Engineering Post-Test" allow="clipboard-write"></iframe>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <p>AI Engineering Academy &mdash; Created by <a href="#">Prof. Weihao Qu</a> at Monmouth University</p>
+  <p style="margin-top:8px;font-size:12px">Content sourced from the LearnAI Knowledge Base (161 entries) + Anthropic Claude Code presentation</p>
+</footer>
+
+</div><!-- /mainContent -->
+
+<script>
+function completePreTest() {
+  localStorage.setItem('aeq-pretest-done', 'true');
+  document.getElementById('preTestGate').classList.add('hidden');
+  document.getElementById('mainContent').removeAttribute('hidden');
+}
+
+// On load: check if pre-test was already taken
+if (localStorage.getItem('aeq-pretest-done') === 'true') {
+  document.getElementById('preTestGate').classList.add('hidden');
+  document.getElementById('mainContent').removeAttribute('hidden');
+}
+</script>
+</body>
+</html>

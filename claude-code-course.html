@@ -1,0 +1,2195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Claude Code: From Zero to Productive - An Interactive Course</title>
+<style>
+/* ===== RESET & BASE ===== */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --bg: #f8f9fa; --surface: #ffffff; --text: #1a1a2e; --text-muted: #6c757d;
+  --primary: #6366f1; --primary-light: #e0e7ff; --primary-dark: #4338ca;
+  --success: #22c55e; --success-light: #dcfce7; --warning: #f59e0b; --warning-light: #fef3c7;
+  --danger: #ef4444; --danger-light: #fee2e2; --info: #3b82f6; --info-light: #dbeafe;
+  --border: #e5e7eb; --shadow: 0 1px 3px rgba(0,0,0,0.1); --shadow-lg: 0 4px 20px rgba(0,0,0,0.1);
+  --radius: 12px; --radius-sm: 8px; --font: 'Segoe UI', system-ui, -apple-system, sans-serif;
+  --mono: 'SF Mono', 'Cascadia Code', 'Fira Code', 'Consolas', monospace;
+  --sidebar-w: 280px; --header-h: 64px;
+}
+html { scroll-behavior: smooth; }
+body { font-family: var(--font); background: var(--bg); color: var(--text); line-height: 1.7; font-size: 16px; }
+
+/* ===== LAYOUT ===== */
+.app { display: flex; min-height: 100vh; }
+.sidebar {
+  position: fixed; top: 0; left: 0; width: var(--sidebar-w); height: 100vh;
+  background: var(--text); color: #e5e7eb; padding: 24px 0; overflow-y: auto;
+  z-index: 100; transition: transform 0.3s;
+}
+.sidebar-header { padding: 0 20px 24px; border-bottom: 1px solid rgba(255,255,255,0.1); }
+.sidebar-header h2 { font-size: 18px; color: #fff; font-weight: 700; }
+.sidebar-header p { font-size: 12px; color: var(--text-muted); margin-top: 4px; }
+.nav-list { list-style: none; padding: 12px 0; }
+.nav-item {
+  display: flex; align-items: center; gap: 12px; padding: 10px 20px;
+  cursor: pointer; transition: all 0.2s; font-size: 14px; color: #9ca3af;
+  border-left: 3px solid transparent;
+}
+.nav-item:hover { background: rgba(255,255,255,0.05); color: #e5e7eb; }
+.nav-item.active { background: rgba(99,102,241,0.15); color: #a5b4fc; border-left-color: var(--primary); }
+.nav-item.completed { color: var(--success); }
+.nav-item .nav-icon { width: 24px; height: 24px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px; background: rgba(255,255,255,0.1); flex-shrink: 0; }
+.nav-item.completed .nav-icon { background: var(--success); color: #fff; }
+.nav-item.active .nav-icon { background: var(--primary); color: #fff; }
+
+.main { margin-left: var(--sidebar-w); flex: 1; min-width: 0; }
+.header {
+  position: sticky; top: 0; height: var(--header-h); background: var(--surface);
+  border-bottom: 1px solid var(--border); display: flex; align-items: center;
+  padding: 0 32px; z-index: 50; gap: 16px;
+}
+.progress-bar { flex: 1; height: 8px; background: var(--border); border-radius: 4px; overflow: hidden; }
+.progress-fill { height: 100%; background: linear-gradient(90deg, var(--primary), #8b5cf6); border-radius: 4px; transition: width 0.5s ease; }
+.progress-text { font-size: 13px; color: var(--text-muted); white-space: nowrap; }
+.menu-btn { display: none; background: none; border: none; font-size: 24px; cursor: pointer; color: var(--text); }
+
+.content { max-width: 840px; margin: 0 auto; padding: 40px 32px 80px; }
+
+/* ===== MODULE SECTIONS ===== */
+.module { display: none; animation: fadeIn 0.4s ease; }
+.module.active { display: block; }
+@keyframes fadeIn { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
+
+.module-header { margin-bottom: 32px; }
+.module-badge { display: inline-block; font-size: 12px; font-weight: 600; padding: 4px 12px; border-radius: 20px; background: var(--primary-light); color: var(--primary-dark); margin-bottom: 12px; }
+.module-header h1 { font-size: 32px; font-weight: 800; line-height: 1.2; margin-bottom: 8px; }
+.module-header .subtitle { font-size: 17px; color: var(--text-muted); }
+
+.section { margin-bottom: 32px; }
+.section h2 { font-size: 22px; font-weight: 700; margin-bottom: 12px; color: var(--text); }
+.section h3 { font-size: 18px; font-weight: 600; margin-bottom: 8px; }
+.section p { margin-bottom: 12px; }
+.section ul, .section ol { margin: 0 0 12px 24px; }
+.section li { margin-bottom: 6px; }
+
+/* ===== CALLOUTS ===== */
+.callout {
+  padding: 16px 20px; border-radius: var(--radius-sm); margin: 16px 0;
+  display: flex; gap: 12px; align-items: flex-start; font-size: 15px;
+}
+.callout-icon { font-size: 20px; flex-shrink: 0; margin-top: 2px; }
+.callout-info { background: var(--info-light); border-left: 4px solid var(--info); }
+.callout-tip { background: var(--success-light); border-left: 4px solid var(--success); }
+.callout-warning { background: var(--warning-light); border-left: 4px solid var(--warning); }
+.callout-danger { background: var(--danger-light); border-left: 4px solid var(--danger); }
+
+/* ===== GLOSSARY TERM ===== */
+.term {
+  position: relative; border-bottom: 2px dotted var(--primary); cursor: help;
+  color: var(--primary-dark); font-weight: 500;
+}
+.term:hover .term-tip {
+  opacity: 1; visibility: visible; transform: translateY(0);
+}
+.term-tip {
+  position: absolute; bottom: calc(100% + 8px); left: 50%; transform: translateX(-50%) translateY(4px);
+  background: var(--text); color: #fff; padding: 8px 14px; border-radius: var(--radius-sm);
+  font-size: 13px; font-weight: 400; white-space: normal; width: 260px; z-index: 200;
+  opacity: 0; visibility: hidden; transition: all 0.2s; pointer-events: none;
+  box-shadow: var(--shadow-lg); line-height: 1.5;
+}
+
+/* ===== FAKE TERMINAL ===== */
+.terminal-sim {
+  background: #1e1e2e; border-radius: var(--radius); overflow: hidden;
+  box-shadow: var(--shadow-lg); margin: 20px 0; font-family: var(--mono); font-size: 14px;
+}
+.terminal-bar {
+  background: #181825; padding: 8px 16px; display: flex; align-items: center; gap: 8px;
+}
+.terminal-dot { width: 12px; height: 12px; border-radius: 50%; }
+.terminal-dot.red { background: #f38ba8; }
+.terminal-dot.yellow { background: #f9e2af; }
+.terminal-dot.green { background: #a6e3a1; }
+.terminal-title { color: #6c7086; font-size: 12px; margin-left: 8px; }
+.terminal-body { padding: 16px; min-height: 200px; max-height: 400px; overflow-y: auto; }
+.terminal-line { color: #cdd6f4; margin-bottom: 4px; white-space: pre-wrap; word-break: break-all; }
+.terminal-line .prompt { color: #89b4fa; }
+.terminal-line .cmd { color: #a6e3a1; }
+.terminal-line .output { color: #bac2de; }
+.terminal-line .error { color: #f38ba8; }
+.terminal-line .highlight { color: #f9e2af; }
+.terminal-line .comment { color: #6c7086; font-style: italic; }
+.terminal-input-row { display: flex; align-items: center; }
+.terminal-input {
+  background: transparent; border: none; color: #a6e3a1; font-family: var(--mono);
+  font-size: 14px; flex: 1; outline: none; caret-color: #f5c2e7;
+}
+.terminal-input::placeholder { color: #585b70; }
+
+/* ===== INTERACTIVE ELEMENTS ===== */
+.quiz-card {
+  background: var(--surface); border: 2px solid var(--border); border-radius: var(--radius);
+  padding: 24px; margin: 20px 0; box-shadow: var(--shadow);
+}
+.quiz-card h3 { margin-bottom: 16px; font-size: 17px; }
+.quiz-option {
+  display: block; width: 100%; text-align: left; padding: 12px 16px; margin: 8px 0;
+  border: 2px solid var(--border); border-radius: var(--radius-sm); background: var(--surface);
+  cursor: pointer; transition: all 0.2s; font-size: 15px; font-family: var(--font);
+  color: var(--text);
+}
+.quiz-option:hover:not(.disabled) { border-color: var(--primary); background: var(--primary-light); }
+.quiz-option.correct { border-color: var(--success); background: var(--success-light); }
+.quiz-option.wrong { border-color: var(--danger); background: var(--danger-light); }
+.quiz-option.disabled { cursor: default; opacity: 0.7; }
+.quiz-feedback { margin-top: 12px; padding: 12px 16px; border-radius: var(--radius-sm); font-size: 14px; display: none; }
+.quiz-feedback.show { display: block; }
+
+/* ===== CARD SORT / DRAG DROP ===== */
+.card-sort { margin: 20px 0; }
+.card-sort-items { display: flex; flex-wrap: wrap; gap: 10px; margin: 12px 0; }
+.sort-card {
+  padding: 10px 16px; background: var(--surface); border: 2px solid var(--border);
+  border-radius: var(--radius-sm); cursor: grab; user-select: none; font-size: 14px;
+  transition: all 0.2s; box-shadow: var(--shadow);
+}
+.sort-card:active { cursor: grabbing; transform: scale(1.05); }
+.sort-card.placed { opacity: 0.5; cursor: default; }
+.drop-zone {
+  min-height: 60px; border: 2px dashed var(--border); border-radius: var(--radius-sm);
+  padding: 12px; margin: 8px 0; display: flex; flex-wrap: wrap; gap: 8px;
+  transition: all 0.2s; background: var(--bg);
+}
+.drop-zone.drag-over { border-color: var(--primary); background: var(--primary-light); }
+.drop-zone-label { font-size: 13px; font-weight: 600; color: var(--text-muted); margin-bottom: 4px; }
+.dropped-card {
+  padding: 6px 12px; background: var(--primary-light); color: var(--primary-dark);
+  border-radius: 6px; font-size: 13px; font-weight: 500;
+}
+.dropped-card.correct-drop { background: var(--success-light); color: #166534; }
+.dropped-card.wrong-drop { background: var(--danger-light); color: #991b1b; }
+
+/* ===== DIFF VIEWER ===== */
+.diff-viewer {
+  background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius);
+  overflow: hidden; margin: 20px 0; font-family: var(--mono); font-size: 13px;
+}
+.diff-header { background: var(--bg); padding: 10px 16px; border-bottom: 1px solid var(--border); font-size: 13px; color: var(--text-muted); }
+.diff-line { padding: 2px 16px; white-space: pre-wrap; }
+.diff-line.added { background: #dcfce7; color: #166534; }
+.diff-line.removed { background: #fee2e2; color: #991b1b; }
+.diff-line.context { color: var(--text-muted); }
+.diff-line .line-num { display: inline-block; width: 32px; color: var(--text-muted); user-select: none; }
+
+/* ===== SHORTCUT FLASHCARDS ===== */
+.flashcard-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 12px; margin: 20px 0; }
+.flashcard {
+  background: var(--surface); border: 2px solid var(--border); border-radius: var(--radius);
+  padding: 20px; text-align: center; cursor: pointer; transition: all 0.3s;
+  min-height: 120px; display: flex; flex-direction: column; align-items: center; justify-content: center;
+  box-shadow: var(--shadow);
+}
+.flashcard:hover { transform: translateY(-2px); box-shadow: var(--shadow-lg); }
+.flashcard.flipped { background: var(--primary-light); border-color: var(--primary); }
+.flashcard .key { font-family: var(--mono); font-size: 20px; font-weight: 700; color: var(--primary); margin-bottom: 8px; }
+.flashcard .desc { font-size: 13px; color: var(--text-muted); }
+.flashcard.flipped .desc { color: var(--primary-dark); font-weight: 500; }
+
+/* ===== PIPELINE BUILDER ===== */
+.pipeline {
+  display: flex; align-items: center; gap: 8px; overflow-x: auto; padding: 20px 0;
+  margin: 16px 0;
+}
+.pipeline-step {
+  background: var(--surface); border: 2px solid var(--border); border-radius: var(--radius);
+  padding: 16px; min-width: 140px; text-align: center; flex-shrink: 0;
+  transition: all 0.3s;
+}
+.pipeline-step.active-step { border-color: var(--primary); background: var(--primary-light); }
+.pipeline-step .step-icon { font-size: 24px; margin-bottom: 6px; }
+.pipeline-step .step-label { font-size: 13px; font-weight: 600; }
+.pipeline-arrow { font-size: 20px; color: var(--text-muted); flex-shrink: 0; }
+
+/* ===== CHECKLIST ===== */
+.checklist { list-style: none; margin: 16px 0; }
+.checklist li {
+  padding: 10px 16px; border: 1px solid var(--border); border-radius: var(--radius-sm);
+  margin: 6px 0; display: flex; align-items: center; gap: 12px; cursor: pointer;
+  transition: all 0.2s; background: var(--surface);
+}
+.checklist li:hover { background: var(--bg); }
+.checklist li.checked { background: var(--success-light); border-color: var(--success); }
+.check-box {
+  width: 22px; height: 22px; border: 2px solid var(--border); border-radius: 4px;
+  display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+  transition: all 0.2s;
+}
+.checklist li.checked .check-box { background: var(--success); border-color: var(--success); color: #fff; }
+.expandable { margin-top: 8px; font-size: 14px; color: var(--text-muted); display: none; }
+.checklist li.expanded .expandable { display: block; }
+
+/* ===== SCENARIO ===== */
+.scenario {
+  background: linear-gradient(135deg, #f0f0ff, #e8f4f8); border-radius: var(--radius);
+  padding: 24px; margin: 20px 0; border: 1px solid var(--border);
+}
+.scenario-prompt { font-size: 16px; font-weight: 600; margin-bottom: 16px; }
+
+/* ===== BUTTONS ===== */
+.btn {
+  display: inline-flex; align-items: center; gap: 8px; padding: 10px 24px;
+  border-radius: var(--radius-sm); font-size: 15px; font-weight: 600;
+  cursor: pointer; transition: all 0.2s; border: none; font-family: var(--font);
+}
+.btn-primary { background: var(--primary); color: #fff; }
+.btn-primary:hover { background: var(--primary-dark); }
+.btn-secondary { background: var(--bg); color: var(--text); border: 2px solid var(--border); }
+.btn-secondary:hover { border-color: var(--primary); }
+.btn-success { background: var(--success); color: #fff; }
+
+.nav-buttons { display: flex; justify-content: space-between; margin-top: 48px; padding-top: 24px; border-top: 1px solid var(--border); }
+
+/* ===== WORKSPACE BOARD ===== */
+.workspace-board { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; margin: 20px 0; }
+.workspace-card {
+  background: var(--surface); border: 2px solid var(--border); border-radius: var(--radius);
+  padding: 20px; box-shadow: var(--shadow); transition: all 0.3s;
+}
+.workspace-card:hover { transform: translateY(-2px); box-shadow: var(--shadow-lg); }
+.workspace-card .card-header { display: flex; align-items: center; gap: 8px; margin-bottom: 12px; }
+.workspace-card .card-status { width: 8px; height: 8px; border-radius: 50%; }
+.workspace-card .card-status.running { background: var(--success); animation: pulse 2s infinite; }
+@keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
+.workspace-card .card-title { font-weight: 600; font-size: 14px; }
+.workspace-card .card-desc { font-size: 13px; color: var(--text-muted); }
+
+/* ===== CAPSTONE ===== */
+.task-selector { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 12px; margin: 20px 0; }
+.task-option {
+  background: var(--surface); border: 2px solid var(--border); border-radius: var(--radius);
+  padding: 20px; text-align: center; cursor: pointer; transition: all 0.2s;
+}
+.task-option:hover { border-color: var(--primary); transform: translateY(-2px); }
+.task-option.selected { border-color: var(--primary); background: var(--primary-light); }
+.task-option .task-icon { font-size: 28px; margin-bottom: 8px; }
+.task-option .task-name { font-size: 14px; font-weight: 600; }
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 768px) {
+  .sidebar { transform: translateX(-100%); }
+  .sidebar.open { transform: translateX(0); }
+  .main { margin-left: 0; }
+  .menu-btn { display: block; }
+  .content { padding: 24px 16px 60px; }
+  .module-header h1 { font-size: 24px; }
+  .flashcard-grid { grid-template-columns: repeat(2, 1fr); }
+  .pipeline { flex-direction: column; }
+  .pipeline-arrow { transform: rotate(90deg); }
+}
+.overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.4); z-index: 99; }
+.overlay.show { display: block; }
+.terminal-input:focus-visible { outline: 2px solid #89b4fa; outline-offset: 2px; }
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+}
+</style>
+</head>
+<body>
+<div class="app">
+  <!-- SIDEBAR -->
+  <nav class="sidebar" id="sidebar">
+    <div class="sidebar-header">
+      <h2>Claude Code Course</h2>
+      <p>From Zero to Productive</p>
+    </div>
+    <ul class="nav-list" id="navList"></ul>
+  </nav>
+  <div class="overlay" id="overlay" onclick="toggleSidebar()"></div>
+
+  <!-- MAIN -->
+  <div class="main">
+    <header class="header">
+      <button class="menu-btn" onclick="toggleSidebar()" aria-label="Open course navigation" aria-expanded="false" id="menuBtn">&#9776;</button>
+      <div class="progress-bar"><div class="progress-fill" id="progressFill" style="width:0%"></div></div>
+      <span class="progress-text" id="progressText">0 / 13</span>
+    </header>
+    <div class="content" id="content">
+
+<!-- ==================== MODULE 0: START HERE ==================== -->
+<div class="module" id="mod0">
+  <div class="module-header">
+    <span class="module-badge">Welcome</span>
+    <h1>What Is Claude Code?</h1>
+    <p class="subtitle">Meet your new AI-powered coding partner that lives in the terminal.</p>
+  </div>
+
+  <div class="section">
+    <p>Imagine having a brilliant teammate who can read through thousands of lines of code in seconds, explain what anything does, make changes for you, and even run tests to check its own work. That's <strong>Claude Code</strong>.</p>
+
+    <p>Unlike older AI tools that just autocomplete one line at a time, Claude Code is <strong>fully agentic</strong> &mdash; it can explore your entire project, make plans, write whole features, fix bugs, and use tools on your behalf.</p>
+
+    <div class="callout callout-info">
+      <span class="callout-icon">&#128161;</span>
+      <div><strong>Plain English:</strong> Claude Code is like having a very fast, very knowledgeable colleague who you communicate with by typing messages. You describe what you want, and it figures out how to do it.</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>What Makes It Different?</h2>
+    <ul>
+      <li><strong>Works everywhere</strong> &mdash; VS Code, Xcode, JetBrains, Vim, or any terminal</li>
+      <li><strong>No special setup required</strong> &mdash; no pre-indexing your code, no waiting</li>
+      <li><strong>Privacy-conscious</strong> &mdash; your files stay local; only relevant context is sent to Claude's model service per Anthropic's data policy</li>
+      <li><strong>General purpose</strong> &mdash; ask questions, edit code, run commands, create files</li>
+    </ul>
+  </div>
+
+  <div class="section">
+    <h2>Quick Check: What Can Claude Code Do?</h2>
+    <p>Select all that apply:</p>
+    <div class="quiz-card">
+      <h3>Which of these can Claude Code help with?</h3>
+      <div id="quiz0-multi">
+        <label style="display:flex;align-items:center;gap:10px;padding:8px 0;cursor:pointer">
+          <input type="checkbox" data-correct="true"> Explain what a piece of code does
+        </label>
+        <label style="display:flex;align-items:center;gap:10px;padding:8px 0;cursor:pointer">
+          <input type="checkbox" data-correct="true"> Write a new function or feature
+        </label>
+        <label style="display:flex;align-items:center;gap:10px;padding:8px 0;cursor:pointer">
+          <input type="checkbox" data-correct="true"> Search through project files
+        </label>
+        <label style="display:flex;align-items:center;gap:10px;padding:8px 0;cursor:pointer">
+          <input type="checkbox" data-correct="false"> Make you coffee
+        </label>
+        <label style="display:flex;align-items:center;gap:10px;padding:8px 0;cursor:pointer">
+          <input type="checkbox" data-correct="true"> Find and fix bugs
+        </label>
+        <label style="display:flex;align-items:center;gap:10px;padding:8px 0;cursor:pointer">
+          <input type="checkbox" data-correct="true"> Run tests to check its work
+        </label>
+      </div>
+      <button class="btn btn-primary" style="margin-top:12px" onclick="checkMultiQuiz('quiz0-multi', 'quiz0-fb')">Check Answers</button>
+      <div class="quiz-feedback" id="quiz0-fb" role="status" aria-live="polite"></div>
+    </div>
+  </div>
+
+  <div class="nav-buttons">
+    <div></div>
+    <button class="btn btn-primary" onclick="goToModule(1)">Next: Terminal Basics &#8594;</button>
+  </div>
+</div>
+
+<!-- ==================== MODULE 1: TERMINAL BASICS ==================== -->
+<div class="module" id="mod1">
+  <div class="module-header">
+    <span class="module-badge">Foundation</span>
+    <h1>The Terminal Without Fear</h1>
+    <p class="subtitle">The terminal is just a text-based control panel for your computer. Let's demystify it.</p>
+  </div>
+
+  <div class="section">
+    <h2>What Is a Terminal?</h2>
+    <p>You probably use your computer by clicking on icons, dragging files, and using menus. The <span class="term">terminal<span class="term-tip">A text-based control panel where you type commands instead of clicking buttons. Also called "command line" or "shell."</span></span> is another way to control your computer &mdash; by typing short text commands instead.</p>
+
+    <p>Think of it like texting your computer: you type a command, press Enter, and the computer replies with text.</p>
+
+    <div class="callout callout-tip">
+      <span class="callout-icon">&#127793;</span>
+      <div><strong>Analogy:</strong> If your computer's desktop is like a restaurant with a menu and pictures, the terminal is like calling the kitchen directly and telling them exactly what you want.</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>Try It: Your First Terminal Commands</h2>
+    <p>This is a simulated terminal. Type the commands below and press Enter to see what happens. Don't worry &mdash; you can't break anything here!</p>
+
+    <div class="terminal-sim">
+      <div class="terminal-bar">
+        <div class="terminal-dot red"></div>
+        <div class="terminal-dot yellow"></div>
+        <div class="terminal-dot green"></div>
+        <span class="terminal-title">Terminal Simulator</span>
+      </div>
+      <div class="terminal-body" id="term1-body">
+        <div class="terminal-line"><span class="comment"># Try these commands: pwd, ls, cd project, claude</span></div>
+      </div>
+      <div class="terminal-input-row" style="padding:0 16px 16px">
+        <span style="color:#89b4fa;font-family:var(--mono)">~ $&nbsp;</span>
+        <input class="terminal-input" id="term1-input" placeholder="Type a command and press Enter..." onkeydown="if(event.key==='Enter')handleTerminal1()">
+      </div>
+    </div>
+
+    <div class="callout callout-info">
+      <span class="callout-icon">&#128218;</span>
+      <div>
+        <strong>Command cheat sheet:</strong><br>
+        <code>pwd</code> &mdash; "Print Working Directory" &mdash; shows where you are<br>
+        <code>ls</code> &mdash; "List" &mdash; shows files in the current folder<br>
+        <code>cd folder</code> &mdash; "Change Directory" &mdash; moves into a folder<br>
+        <code>claude</code> &mdash; starts Claude Code!
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>Key Vocabulary</h2>
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:12px">
+      <div style="background:var(--surface);padding:16px;border-radius:var(--radius-sm);border:1px solid var(--border)">
+        <strong style="color:var(--primary)">Command</strong>
+        <p style="font-size:14px;color:var(--text-muted);margin:0">A short instruction you type</p>
+      </div>
+      <div style="background:var(--surface);padding:16px;border-radius:var(--radius-sm);border:1px solid var(--border)">
+        <strong style="color:var(--primary)">Directory</strong>
+        <p style="font-size:14px;color:var(--text-muted);margin:0">Another word for "folder"</p>
+      </div>
+      <div style="background:var(--surface);padding:16px;border-radius:var(--radius-sm);border:1px solid var(--border)">
+        <strong style="color:var(--primary)">Shell</strong>
+        <p style="font-size:14px;color:var(--text-muted);margin:0">The program that reads your commands</p>
+      </div>
+      <div style="background:var(--surface);padding:16px;border-radius:var(--radius-sm);border:1px solid var(--border)">
+        <strong style="color:var(--primary)">Path</strong>
+        <p style="font-size:14px;color:var(--text-muted);margin:0">The address of a file or folder</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="nav-buttons">
+    <button class="btn btn-secondary" onclick="goToModule(0)">&#8592; Back</button>
+    <button class="btn btn-primary" onclick="goToModule(2)">Next: Setup &#8594;</button>
+  </div>
+</div>
+
+<!-- ==================== MODULE 2: SETUP ==================== -->
+<div class="module" id="mod2">
+  <div class="module-header">
+    <span class="module-badge">Getting Ready</span>
+    <h1>Setting Up Claude Code</h1>
+    <p class="subtitle">A step-by-step checklist to get everything ready.</p>
+  </div>
+
+  <div class="section">
+    <h2>Installation</h2>
+    <p>Claude Code can be installed in two ways. The <strong>recommended</strong> method uses the native installer. If you already have <span class="term">Node.js<span class="term-tip">A program that lets you run JavaScript outside of a web browser. Version 18 or newer is needed for the npm install method.</span></span> 18+, you can also use npm.</p>
+
+    <div class="terminal-sim">
+      <div class="terminal-bar">
+        <div class="terminal-dot red"></div><div class="terminal-dot yellow"></div><div class="terminal-dot green"></div>
+        <span class="terminal-title">Installation (Recommended)</span>
+      </div>
+      <div class="terminal-body">
+        <div class="terminal-line"><span class="comment"># Option 1: Native installer (recommended for beginners)</span></div>
+        <div class="terminal-line"><span class="prompt">~ $</span> <span class="cmd">curl -fsSL https://claude.ai/install.sh | bash</span></div>
+        <div class="terminal-line"><span class="output" style="color:#a6e3a1">&#10003; Claude Code installed successfully!</span></div>
+        <div class="terminal-line"><span class="output">&nbsp;</span></div>
+        <div class="terminal-line"><span class="comment"># Option 2: Via npm (if you have Node.js 18+)</span></div>
+        <div class="terminal-line"><span class="prompt">~ $</span> <span class="cmd">npm install -g @anthropic-ai/claude-code</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>Setup Checklist</h2>
+    <p>Click each item to expand and learn why it matters.</p>
+
+    <ul class="checklist" id="setupChecklist">
+      <li onclick="toggleCheck(this)">
+        <div class="check-box"></div>
+        <div>
+          <strong>Run terminal setup</strong>
+          <div class="expandable">This enables Shift+Enter for new lines in your prompts, so you can write multi-line instructions. Without it, pressing Enter sends the message immediately.</div>
+        </div>
+      </li>
+      <li onclick="toggleCheck(this)">
+        <div class="check-box"></div>
+        <div>
+          <strong>Choose a theme</strong> (<code>/theme</code>)
+          <div class="expandable">Pick light or dark mode, or Daltonized themes for color vision differences. Type <code>/theme</code> inside Claude Code to change it.</div>
+        </div>
+      </li>
+      <li onclick="toggleCheck(this)">
+        <div class="check-box"></div>
+        <div>
+          <strong>Install the GitHub app</strong> (<code>/install-github-app</code>)
+          <div class="expandable">This lets you @mention Claude on GitHub issues and pull requests. Claude can then respond, triage, and help directly in GitHub.</div>
+        </div>
+      </li>
+      <li onclick="toggleCheck(this)">
+        <div class="check-box"></div>
+        <div>
+          <strong>Set up permissions</strong>
+          <div class="expandable">Configure which tools Claude can use automatically vs. which ones need your approval. For common safe commands, auto-approve saves time.</div>
+        </div>
+      </li>
+      <li onclick="toggleCheck(this)">
+        <div class="check-box"></div>
+        <div>
+          <strong>Enable voice dictation (optional)</strong>
+          <div class="expandable">On macOS, enable dictation in System Settings &gt; Accessibility. Then you can just talk to Claude Code instead of typing! Double-press the dictation key and speak naturally.</div>
+        </div>
+      </li>
+    </ul>
+
+    <div class="callout callout-tip">
+      <span class="callout-icon">&#128173;</span>
+      <div><strong>Pro tip from Boris:</strong> "I won't hand type most of my prompts. I use dictation and just speak to Claude Code like I would to another engineer."</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>Understanding Project Files</h2>
+    <p>Before you start using Claude Code on real projects, here's what common files and folders mean:</p>
+
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:12px;margin:16px 0">
+      <div style="background:var(--surface);padding:16px;border-radius:var(--radius-sm);border:1px solid var(--border)">
+        <strong style="color:var(--primary);font-family:var(--mono)">README.md</strong>
+        <p style="font-size:13px;color:var(--text-muted);margin:4px 0 0">The project's welcome page &mdash; explains what it does</p>
+      </div>
+      <div style="background:var(--surface);padding:16px;border-radius:var(--radius-sm);border:1px solid var(--border)">
+        <strong style="color:var(--primary);font-family:var(--mono)">src/</strong>
+        <p style="font-size:13px;color:var(--text-muted);margin:4px 0 0">Source code &mdash; where the actual program lives</p>
+      </div>
+      <div style="background:var(--surface);padding:16px;border-radius:var(--radius-sm);border:1px solid var(--border)">
+        <strong style="color:var(--primary);font-family:var(--mono)">tests/</strong>
+        <p style="font-size:13px;color:var(--text-muted);margin:4px 0 0">Automated checks that verify the code works</p>
+      </div>
+      <div style="background:var(--surface);padding:16px;border-radius:var(--radius-sm);border:1px solid var(--border)">
+        <strong style="color:var(--primary);font-family:var(--mono)">package.json</strong>
+        <p style="font-size:13px;color:var(--text-muted);margin:4px 0 0">Lists the project's dependencies and scripts</p>
+      </div>
+      <div style="background:var(--surface);padding:16px;border-radius:var(--radius-sm);border:1px solid var(--border)">
+        <strong style="color:var(--primary);font-family:var(--mono)">.gitignore</strong>
+        <p style="font-size:13px;color:var(--text-muted);margin:4px 0 0">Tells Git which files to skip (e.g., temp files)</p>
+      </div>
+      <div style="background:var(--surface);padding:16px;border-radius:var(--radius-sm);border:1px solid var(--border)">
+        <strong style="color:var(--primary);font-family:var(--mono)">CLAUDE.md</strong>
+        <p style="font-size:13px;color:var(--text-muted);margin:4px 0 0">Instructions for Claude Code (we'll cover this later!)</p>
+      </div>
+    </div>
+
+    <div class="callout callout-info">
+      <span class="callout-icon">&#128161;</span>
+      <div><strong>"Running a project"</strong> means starting the program so you can see it work &mdash; for a web app, that means opening it in your browser. An error message means something went wrong, and you can copy it and ask Claude to explain.</div>
+    </div>
+  </div>
+
+  <div class="nav-buttons">
+    <button class="btn btn-secondary" onclick="goToModule(1)">&#8592; Back</button>
+    <button class="btn btn-primary" onclick="goToModule(3)">Next: GitHub &#8594;</button>
+  </div>
+</div>
+
+<!-- ==================== MODULE 3: GITHUB ==================== -->
+<div class="module" id="mod3">
+  <div class="module-header">
+    <span class="module-badge">Foundation</span>
+    <h1>GitHub: Your Code's Home</h1>
+    <p class="subtitle">Understand what GitHub is, why every developer uses it, and set up your own account.</p>
+  </div>
+
+  <div class="section">
+    <h2>What Is GitHub?</h2>
+    <p><span class="term">GitHub<span class="term-tip">A website where developers store, share, and collaborate on code. Think of it as Google Drive, but specifically designed for code projects with full version history.</span></span> is a website where code projects live online. It's where teams collaborate, where open-source software is shared, and where Claude Code can create pull requests for you.</p>
+
+    <div class="callout callout-tip">
+      <span class="callout-icon">&#127793;</span>
+      <div>
+        <strong>Analogy:</strong> If your code is a document, then:
+        <ul style="margin:8px 0 0 16px">
+          <li><strong>Git</strong> = Track Changes (remembers every edit)</li>
+          <li><strong>GitHub</strong> = Google Drive (stores it online so others can see and collaborate)</li>
+          <li><strong>Repository</strong> = A shared folder for one project</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>Why Do You Need GitHub?</h2>
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:12px;margin:16px 0">
+      <div style="background:var(--surface);padding:16px;border-radius:var(--radius-sm);border:1px solid var(--border)">
+        <div style="font-size:24px;margin-bottom:8px">&#128190;</div>
+        <strong>Backup</strong>
+        <p style="font-size:13px;color:var(--text-muted)">Your code is safe online even if your laptop breaks</p>
+      </div>
+      <div style="background:var(--surface);padding:16px;border-radius:var(--radius-sm);border:1px solid var(--border)">
+        <div style="font-size:24px;margin-bottom:8px">&#128101;</div>
+        <strong>Collaboration</strong>
+        <p style="font-size:13px;color:var(--text-muted)">Work with others without emailing files back and forth</p>
+      </div>
+      <div style="background:var(--surface);padding:16px;border-radius:var(--radius-sm);border:1px solid var(--border)">
+        <div style="font-size:24px;margin-bottom:8px">&#128336;</div>
+        <strong>History</strong>
+        <p style="font-size:13px;color:var(--text-muted)">See every change ever made and undo mistakes</p>
+      </div>
+      <div style="background:var(--surface);padding:16px;border-radius:var(--radius-sm);border:1px solid var(--border)">
+        <div style="font-size:24px;margin-bottom:8px">&#128640;</div>
+        <strong>Deployment</strong>
+        <p style="font-size:13px;color:var(--text-muted)">Many hosting platforms deploy directly from GitHub</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>Key GitHub Vocabulary</h2>
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:12px;margin:16px 0">
+      <div style="background:var(--surface);padding:16px;border-radius:var(--radius-sm);border:1px solid var(--border)">
+        <strong style="color:var(--primary)">Repository (Repo)</strong>
+        <p style="font-size:13px;color:var(--text-muted);margin:4px 0 0">A project folder on GitHub with all its files and history</p>
+      </div>
+      <div style="background:var(--surface);padding:16px;border-radius:var(--radius-sm);border:1px solid var(--border)">
+        <strong style="color:var(--primary)">Commit</strong>
+        <p style="font-size:13px;color:var(--text-muted);margin:4px 0 0">A saved snapshot of changes with a message explaining what changed</p>
+      </div>
+      <div style="background:var(--surface);padding:16px;border-radius:var(--radius-sm);border:1px solid var(--border)">
+        <strong style="color:var(--primary)">Branch</strong>
+        <p style="font-size:13px;color:var(--text-muted);margin:4px 0 0">A parallel version of your project for trying new things safely</p>
+      </div>
+      <div style="background:var(--surface);padding:16px;border-radius:var(--radius-sm);border:1px solid var(--border)">
+        <strong style="color:var(--primary)">Pull Request (PR)</strong>
+        <p style="font-size:13px;color:var(--text-muted);margin:4px 0 0">A request to merge your changes into the main project (with review)</p>
+      </div>
+      <div style="background:var(--surface);padding:16px;border-radius:var(--radius-sm);border:1px solid var(--border)">
+        <strong style="color:var(--primary)">Clone</strong>
+        <p style="font-size:13px;color:var(--text-muted);margin:4px 0 0">Download a copy of a repo to your computer</p>
+      </div>
+      <div style="background:var(--surface);padding:16px;border-radius:var(--radius-sm);border:1px solid var(--border)">
+        <strong style="color:var(--primary)">Push / Pull</strong>
+        <p style="font-size:13px;color:var(--text-muted);margin:4px 0 0">Send your changes up (push) or get others' changes down (pull)</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>How to Create a GitHub Account</h2>
+    <ul class="checklist" id="githubChecklist">
+      <li onclick="toggleCheck(this)">
+        <div class="check-box"></div>
+        <div>
+          <strong>Step 1: Go to github.com</strong>
+          <div class="expandable">Visit <code>https://github.com</code> and click "Sign up" in the top right.</div>
+        </div>
+      </li>
+      <li onclick="toggleCheck(this)">
+        <div class="check-box"></div>
+        <div>
+          <strong>Step 2: Create your account</strong>
+          <div class="expandable">Enter your email, create a password, and choose a username. Your username will be visible publicly (e.g., github.com/yourname), so pick something professional.</div>
+        </div>
+      </li>
+      <li onclick="toggleCheck(this)">
+        <div class="check-box"></div>
+        <div>
+          <strong>Step 3: Verify your email</strong>
+          <div class="expandable">GitHub will send a verification email. Click the link to activate your account.</div>
+        </div>
+      </li>
+      <li onclick="toggleCheck(this)">
+        <div class="check-box"></div>
+        <div>
+          <strong>Step 4: Install the GitHub CLI</strong>
+          <div class="expandable">Claude Code uses the <code>gh</code> command to interact with GitHub. Install it with <code>brew install gh</code> (Mac) or download from cli.github.com.</div>
+        </div>
+      </li>
+      <li onclick="toggleCheck(this)">
+        <div class="check-box"></div>
+        <div>
+          <strong>Step 5: Authenticate</strong>
+          <div class="expandable">Run <code>gh auth login</code> in your terminal and follow the prompts to connect your account.</div>
+        </div>
+      </li>
+    </ul>
+  </div>
+
+  <div class="section">
+    <h2>Creating Your First Repository</h2>
+    <div class="terminal-sim">
+      <div class="terminal-bar">
+        <div class="terminal-dot red"></div><div class="terminal-dot yellow"></div><div class="terminal-dot green"></div>
+        <span class="terminal-title">Creating a repo with Claude Code</span>
+      </div>
+      <div class="terminal-body">
+        <div class="terminal-line"><span class="comment"># Option 1: Ask Claude Code to do it for you</span></div>
+        <div class="terminal-line"><span class="prompt">You:</span> <span class="cmd">Create a new GitHub repo called "my-first-project" and push this code to it.</span></div>
+        <div class="terminal-line"><span class="output">&nbsp;</span></div>
+        <div class="terminal-line"><span class="comment"># Option 2: Do it manually step by step</span></div>
+        <div class="terminal-line"><span class="prompt">$</span> <span class="cmd">git init</span></div>
+        <div class="terminal-line"><span class="output">Initialized empty Git repository</span></div>
+        <div class="terminal-line"><span class="prompt">$</span> <span class="cmd">git add .</span></div>
+        <div class="terminal-line"><span class="prompt">$</span> <span class="cmd">git commit -m "first commit"</span></div>
+        <div class="terminal-line"><span class="prompt">$</span> <span class="cmd">gh repo create my-first-project --public --source=. --push</span></div>
+        <div class="terminal-line"><span class="output" style="color:#a6e3a1">&#10003; Created repository yourname/my-first-project on GitHub</span></div>
+      </div>
+    </div>
+
+    <div class="callout callout-info">
+      <span class="callout-icon">&#128161;</span>
+      <div><strong>Pro tip:</strong> You don't need to memorize Git commands. Just tell Claude Code what you want: "commit my changes", "push to GitHub", "create a pull request". It handles the details.</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>The GitHub Workflow (Visual)</h2>
+    <div class="pipeline">
+      <div class="pipeline-step"><div class="step-icon">&#9998;</div><div class="step-label">Edit Code</div></div>
+      <div class="pipeline-arrow">&#8594;</div>
+      <div class="pipeline-step"><div class="step-icon">&#128190;</div><div class="step-label">Commit</div></div>
+      <div class="pipeline-arrow">&#8594;</div>
+      <div class="pipeline-step"><div class="step-icon">&#9650;</div><div class="step-label">Push</div></div>
+      <div class="pipeline-arrow">&#8594;</div>
+      <div class="pipeline-step active-step"><div class="step-icon">&#128230;</div><div class="step-label">On GitHub</div></div>
+    </div>
+    <p style="text-align:center;font-size:14px;color:var(--text-muted)">Edit locally &rarr; Save a snapshot (commit) &rarr; Upload to GitHub (push) &rarr; Now it's online!</p>
+  </div>
+
+  <div class="section">
+    <div class="quiz-card">
+      <h3>Quiz: What is a "pull request"?</h3>
+      <button class="quiz-option" onclick="checkQuiz(this, false, 'quiz3-gh-fb', 'Pulling is downloading changes from GitHub. A pull request is something different!')">
+        Downloading code from GitHub
+      </button>
+      <button class="quiz-option" onclick="checkQuiz(this, true, 'quiz3-gh-fb', 'Correct! A pull request says &quot;I made changes on a branch &mdash; please review them and merge them into the main project.&quot; It is how teams review each other\'s work before accepting it.')">
+        A proposal to merge your changes into the main project, with review
+      </button>
+      <button class="quiz-option" onclick="checkQuiz(this, false, 'quiz3-gh-fb', 'Deleting code would be destructive! A pull request is about adding or improving code, not removing repos.')">
+        A request to delete a repository
+      </button>
+      <div class="quiz-feedback" id="quiz3-gh-fb" role="status" aria-live="polite"></div>
+    </div>
+  </div>
+
+  <div class="nav-buttons">
+    <button class="btn btn-secondary" onclick="goToModule(2)">&#8592; Back</button>
+    <button class="btn btn-primary" onclick="goToModule(4)">Next: Web App Basics &#8594;</button>
+  </div>
+</div>
+
+<!-- ==================== MODULE 4: WEB APP FUNDAMENTALS ==================== -->
+<div class="module" id="mod4">
+  <div class="module-header">
+    <span class="module-badge">Foundation</span>
+    <h1>What Is a Web App?</h1>
+    <p class="subtitle">Understand what Claude Code is actually building &mdash; and which files do what.</p>
+  </div>
+
+  <div class="section">
+    <h2>The Three Languages of the Web</h2>
+    <p>Every website or web app you've ever used is built from three fundamental languages working together. Think of building a house:</p>
+
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:16px;margin:20px 0">
+      <div style="background:#fff5f5;padding:20px;border-radius:var(--radius);border:2px solid #fecaca;text-align:center">
+        <div style="font-size:36px;margin-bottom:8px">&#127959;</div>
+        <strong style="font-size:18px;color:#dc2626">HTML</strong>
+        <p style="font-size:14px;color:var(--text-muted);margin:8px 0 0">The <strong>structure</strong></p>
+        <p style="font-size:13px;color:var(--text-muted)">Walls, rooms, doors &mdash; what's on the page (headings, paragraphs, buttons, images)</p>
+      </div>
+      <div style="background:#f0fdf4;padding:20px;border-radius:var(--radius);border:2px solid #bbf7d0;text-align:center">
+        <div style="font-size:36px;margin-bottom:8px">&#127912;</div>
+        <strong style="font-size:18px;color:#16a34a">CSS</strong>
+        <p style="font-size:14px;color:var(--text-muted);margin:8px 0 0">The <strong>style</strong></p>
+        <p style="font-size:13px;color:var(--text-muted)">Paint, furniture, layout &mdash; how it looks (colors, fonts, spacing, animations)</p>
+      </div>
+      <div style="background:#eff6ff;padding:20px;border-radius:var(--radius);border:2px solid #bfdbfe;text-align:center">
+        <div style="font-size:36px;margin-bottom:8px">&#9889;</div>
+        <strong style="font-size:18px;color:#2563eb">JavaScript</strong>
+        <p style="font-size:14px;color:var(--text-muted);margin:8px 0 0">The <strong>behavior</strong></p>
+        <p style="font-size:13px;color:var(--text-muted)">Electricity, plumbing &mdash; what happens when you click, type, or scroll</p>
+      </div>
+    </div>
+
+    <div class="callout callout-info">
+      <span class="callout-icon">&#128161;</span>
+      <div><strong>Key insight:</strong> This very course you're reading right now is an HTML file with CSS for styling and JavaScript for the quizzes and interactions. It's a web app!</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>See It in Action</h2>
+    <p>Here's a tiny web page broken into its three parts:</p>
+
+    <div class="terminal-sim">
+      <div class="terminal-bar">
+        <div class="terminal-dot red"></div><div class="terminal-dot yellow"></div><div class="terminal-dot green"></div>
+        <span class="terminal-title">index.html (Structure)</span>
+      </div>
+      <div class="terminal-body" style="font-size:13px">
+        <div class="terminal-line"><span class="highlight">&lt;h1&gt;</span><span class="output">Welcome to My App</span><span class="highlight">&lt;/h1&gt;</span></div>
+        <div class="terminal-line"><span class="highlight">&lt;p&gt;</span><span class="output">Click the button below!</span><span class="highlight">&lt;/p&gt;</span></div>
+        <div class="terminal-line"><span class="highlight">&lt;button</span> <span class="cmd">class="big-btn"</span><span class="highlight">&gt;</span><span class="output">Click Me</span><span class="highlight">&lt;/button&gt;</span></div>
+      </div>
+    </div>
+
+    <div class="terminal-sim" style="margin-top:8px">
+      <div class="terminal-bar">
+        <div class="terminal-dot red"></div><div class="terminal-dot yellow"></div><div class="terminal-dot green"></div>
+        <span class="terminal-title">style.css (Appearance)</span>
+      </div>
+      <div class="terminal-body" style="font-size:13px">
+        <div class="terminal-line"><span class="cmd">.big-btn</span> {</div>
+        <div class="terminal-line">  <span class="highlight">background:</span> <span class="output">blue;</span></div>
+        <div class="terminal-line">  <span class="highlight">color:</span> <span class="output">white;</span></div>
+        <div class="terminal-line">  <span class="highlight">padding:</span> <span class="output">12px 24px;</span></div>
+        <div class="terminal-line">  <span class="highlight">border-radius:</span> <span class="output">8px;</span></div>
+        <div class="terminal-line">}</div>
+      </div>
+    </div>
+
+    <div class="terminal-sim" style="margin-top:8px">
+      <div class="terminal-bar">
+        <div class="terminal-dot red"></div><div class="terminal-dot yellow"></div><div class="terminal-dot green"></div>
+        <span class="terminal-title">app.js (Behavior)</span>
+      </div>
+      <div class="terminal-body" style="font-size:13px">
+        <div class="terminal-line"><span class="cmd">document</span>.<span class="highlight">querySelector</span>(<span class="output">'.big-btn'</span>)</div>
+        <div class="terminal-line">  .<span class="highlight">addEventListener</span>(<span class="output">'click'</span>, () => {</div>
+        <div class="terminal-line">    <span class="cmd">alert</span>(<span class="output">'Hello! You clicked the button!'</span>);</div>
+        <div class="terminal-line">  });</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>Which Files Do What?</h2>
+    <p>When you open a real project, you'll see many files. Here's what the common ones do:</p>
+
+    <div style="overflow-x:auto">
+      <table style="width:100%;border-collapse:collapse;font-size:14px;margin:16px 0">
+        <thead>
+          <tr style="background:var(--primary-light);text-align:left">
+            <th style="padding:12px;border:1px solid var(--border)">File / Folder</th>
+            <th style="padding:12px;border:1px solid var(--border)">What It Does</th>
+            <th style="padding:12px;border:1px solid var(--border)">Analogy</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td style="padding:10px;border:1px solid var(--border);font-family:var(--mono);font-size:13px">index.html</td>
+            <td style="padding:10px;border:1px solid var(--border)">The main page structure</td>
+            <td style="padding:10px;border:1px solid var(--border)">The blueprint</td>
+          </tr>
+          <tr style="background:var(--bg)">
+            <td style="padding:10px;border:1px solid var(--border);font-family:var(--mono);font-size:13px">*.css / styles/</td>
+            <td style="padding:10px;border:1px solid var(--border)">All visual styling</td>
+            <td style="padding:10px;border:1px solid var(--border)">The interior designer</td>
+          </tr>
+          <tr>
+            <td style="padding:10px;border:1px solid var(--border);font-family:var(--mono);font-size:13px">*.js / src/</td>
+            <td style="padding:10px;border:1px solid var(--border)">Logic and interactivity</td>
+            <td style="padding:10px;border:1px solid var(--border)">The electrician</td>
+          </tr>
+          <tr style="background:var(--bg)">
+            <td style="padding:10px;border:1px solid var(--border);font-family:var(--mono);font-size:13px">package.json</td>
+            <td style="padding:10px;border:1px solid var(--border)">Lists dependencies and scripts</td>
+            <td style="padding:10px;border:1px solid var(--border)">The shopping list</td>
+          </tr>
+          <tr>
+            <td style="padding:10px;border:1px solid var(--border);font-family:var(--mono);font-size:13px">node_modules/</td>
+            <td style="padding:10px;border:1px solid var(--border)">Downloaded libraries (don't edit!)</td>
+            <td style="padding:10px;border:1px solid var(--border)">Pre-built components from the store</td>
+          </tr>
+          <tr style="background:var(--bg)">
+            <td style="padding:10px;border:1px solid var(--border);font-family:var(--mono);font-size:13px">public/ or static/</td>
+            <td style="padding:10px;border:1px solid var(--border)">Images, fonts, icons</td>
+            <td style="padding:10px;border:1px solid var(--border)">The decoration box</td>
+          </tr>
+          <tr>
+            <td style="padding:10px;border:1px solid var(--border);font-family:var(--mono);font-size:13px">api/ or server/</td>
+            <td style="padding:10px;border:1px solid var(--border)">Backend code (talks to databases)</td>
+            <td style="padding:10px;border:1px solid var(--border)">The kitchen (hidden from guests)</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>Frontend vs. Backend</h2>
+    <p>Web apps have two sides:</p>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:16px 0">
+      <div style="background:var(--info-light);padding:20px;border-radius:var(--radius);border:1px solid #bfdbfe">
+        <h3 style="margin-bottom:8px;color:#1d4ed8">Frontend (Client)</h3>
+        <p style="font-size:14px;margin-bottom:8px">What the user <strong>sees and interacts with</strong> in the browser.</p>
+        <ul style="font-size:13px;color:var(--text-muted);margin-left:16px">
+          <li>HTML, CSS, JavaScript</li>
+          <li>Buttons, forms, animations</li>
+          <li>Runs on the user's computer</li>
+        </ul>
+      </div>
+      <div style="background:var(--warning-light);padding:20px;border-radius:var(--radius);border:1px solid #fde68a">
+        <h3 style="margin-bottom:8px;color:#92400e">Backend (Server)</h3>
+        <p style="font-size:14px;margin-bottom:8px">The hidden logic that <strong>processes data and stores things</strong>.</p>
+        <ul style="font-size:13px;color:var(--text-muted);margin-left:16px">
+          <li>Node.js, Python, databases</li>
+          <li>User accounts, payments, data</li>
+          <li>Runs on a remote server</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="callout callout-tip">
+      <span class="callout-icon">&#127828;</span>
+      <div><strong>Restaurant analogy:</strong> The <strong>frontend</strong> is the dining room (what customers see &mdash; menu, decor, plates). The <strong>backend</strong> is the kitchen (hidden &mdash; cooking, storage, orders). They talk to each other through the waiter (the <strong>API</strong>).</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>How a Web App Runs</h2>
+    <div class="pipeline">
+      <div class="pipeline-step"><div class="step-icon">&#128187;</div><div class="step-label">You write code</div></div>
+      <div class="pipeline-arrow">&#8594;</div>
+      <div class="pipeline-step"><div class="step-icon">&#9654;</div><div class="step-label">Start dev server</div></div>
+      <div class="pipeline-arrow">&#8594;</div>
+      <div class="pipeline-step active-step"><div class="step-icon">&#127760;</div><div class="step-label">Open browser</div></div>
+      <div class="pipeline-arrow">&#8594;</div>
+      <div class="pipeline-step"><div class="step-icon">&#128064;</div><div class="step-label">See your app!</div></div>
+    </div>
+    <p style="text-align:center;font-size:14px;color:var(--text-muted)">A "dev server" watches your files and refreshes the browser automatically when you save changes.</p>
+
+    <div class="terminal-sim">
+      <div class="terminal-bar">
+        <div class="terminal-dot red"></div><div class="terminal-dot yellow"></div><div class="terminal-dot green"></div>
+        <span class="terminal-title">Starting a dev server</span>
+      </div>
+      <div class="terminal-body">
+        <div class="terminal-line"><span class="prompt">$</span> <span class="cmd">npm run dev</span></div>
+        <div class="terminal-line"><span class="output">  Local:   http://localhost:3000</span></div>
+        <div class="terminal-line"><span class="output">  Ready in 1.2s</span></div>
+        <div class="terminal-line"><span class="output">&nbsp;</span></div>
+        <div class="terminal-line"><span class="comment"># Open http://localhost:3000 in your browser to see the app</span></div>
+        <div class="terminal-line"><span class="comment"># "localhost" means "this computer" — it's not on the internet yet</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="quiz-card">
+      <h3>Quiz: Match the file to its job</h3>
+      <p style="margin-bottom:12px">If Claude Code creates a file called <code>styles.css</code>, what does it control?</p>
+      <button class="quiz-option" onclick="checkQuiz(this, false, 'quiz4-web-fb', 'HTML handles structure. CSS is specifically for visual appearance.')">
+        What content appears on the page
+      </button>
+      <button class="quiz-option" onclick="checkQuiz(this, true, 'quiz4-web-fb', 'Correct! CSS files control how things look &mdash; colors, fonts, sizes, spacing, layout, and animations. When Claude edits a .css file, it is changing the visual design.')">
+        How the page looks (colors, layout, fonts)
+      </button>
+      <button class="quiz-option" onclick="checkQuiz(this, false, 'quiz4-web-fb', 'JavaScript handles interactivity. CSS only controls appearance.')">
+        What happens when you click a button
+      </button>
+      <div class="quiz-feedback" id="quiz4-web-fb" role="status" aria-live="polite"></div>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>Common Frameworks</h2>
+    <p>You'll hear these names a lot. They're <span class="term">frameworks<span class="term-tip">Pre-built toolkits that make it faster to build web apps. Instead of writing everything from scratch, you use their patterns and components.</span></span> &mdash; toolkits that make building web apps faster:</p>
+
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:12px;margin:16px 0">
+      <div style="background:var(--surface);padding:14px;border-radius:var(--radius-sm);border:1px solid var(--border);text-align:center">
+        <strong style="color:var(--primary)">React</strong>
+        <p style="font-size:12px;color:var(--text-muted);margin:4px 0 0">Build UIs from reusable components</p>
+      </div>
+      <div style="background:var(--surface);padding:14px;border-radius:var(--radius-sm);border:1px solid var(--border);text-align:center">
+        <strong style="color:var(--primary)">Next.js</strong>
+        <p style="font-size:12px;color:var(--text-muted);margin:4px 0 0">React + server features + routing</p>
+      </div>
+      <div style="background:var(--surface);padding:14px;border-radius:var(--radius-sm);border:1px solid var(--border);text-align:center">
+        <strong style="color:var(--primary)">Vue</strong>
+        <p style="font-size:12px;color:var(--text-muted);margin:4px 0 0">Beginner-friendly UI framework</p>
+      </div>
+      <div style="background:var(--surface);padding:14px;border-radius:var(--radius-sm);border:1px solid var(--border);text-align:center">
+        <strong style="color:var(--primary)">Tailwind CSS</strong>
+        <p style="font-size:12px;color:var(--text-muted);margin:4px 0 0">Utility classes for fast styling</p>
+      </div>
+    </div>
+
+    <div class="callout callout-info">
+      <span class="callout-icon">&#128161;</span>
+      <div><strong>You don't need to learn these now.</strong> Claude Code knows all of them. Just understand that when Claude creates files like <code>.tsx</code>, <code>.vue</code>, or uses <code>className=</code>, it's using React-style syntax or a framework.</div>
+    </div>
+  </div>
+
+  <div class="nav-buttons">
+    <button class="btn btn-secondary" onclick="goToModule(3)">&#8592; Back</button>
+    <button class="btn btn-primary" onclick="goToModule(5)">Next: Asking Questions &#8594;</button>
+  </div>
+</div>
+
+<!-- ==================== MODULE 5: CODEBASE Q&A ==================== -->
+<div class="module" id="mod5">
+  <div class="module-header">
+    <span class="module-badge">Core Skill</span>
+    <h1>Talking to Your Codebase</h1>
+    <p class="subtitle">The #1 recommended starting point: ask Claude Code questions about your code.</p>
+  </div>
+
+  <div class="section">
+    <h2>Why Start With Questions?</h2>
+    <p>At Anthropic, every new hire starts by asking Claude Code questions about the codebase. This approach cut technical onboarding from <strong>2-3 weeks</strong> down to <strong>2-3 days</strong>.</p>
+
+    <p>Asking questions teaches you two things at once:</p>
+    <ol>
+      <li>You learn about the <span class="term">codebase<span class="term-tip">All the files that make up an app or project &mdash; the source code, configuration files, tests, documentation, and everything else.</span></span></li>
+      <li>You learn how to communicate with Claude Code effectively</li>
+    </ol>
+
+    <div class="callout callout-info">
+      <span class="callout-icon">&#128274;</span>
+      <div><strong>Privacy note:</strong> Claude Code does not pre-index your repository. Your files stay in your local project. When you interact with Claude, relevant conversation context is sent to Claude's model service according to <a href="https://docs.anthropic.com/en/docs/claude-code/security" target="_blank" style="color:var(--info)">Anthropic's data policy</a>.</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>Good Questions vs. Vague Questions</h2>
+
+    <div class="quiz-card">
+      <h3>Which prompt would get a better answer from Claude Code?</h3>
+      <button class="quiz-option" onclick="checkQuiz(this, false, 'quiz3-fb', 'Too vague! Claude won\'t know what &quot;this&quot; refers to or what kind of help you need.')">
+        "How does this work?"
+      </button>
+      <button class="quiz-option" onclick="checkQuiz(this, true, 'quiz3-fb', 'Specific questions get specific answers. Claude will search for the UserAuth class, trace how it\'s used, and give you concrete examples.')">
+        "How is the UserAuth class instantiated, and where is it used in the login flow?"
+      </button>
+      <button class="quiz-option" onclick="checkQuiz(this, false, 'quiz3-fb', 'This is extremely vague. Claude might give a useful overview, but a more targeted question will get deeper, more useful answers.')">
+        "Explain the code"
+      </button>
+      <div class="quiz-feedback" id="quiz3-fb" role="status" aria-live="polite"></div>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>Example Questions You Can Ask</h2>
+
+    <div class="terminal-sim">
+      <div class="terminal-bar">
+        <div class="terminal-dot red"></div><div class="terminal-dot yellow"></div><div class="terminal-dot green"></div>
+        <span class="terminal-title">Claude Code Q&A Examples</span>
+      </div>
+      <div class="terminal-body">
+        <div class="terminal-line"><span class="prompt">You:</span> <span class="cmd">What does this app do? Walk me through the main files.</span></div>
+        <div class="terminal-line"><span class="output">&nbsp;</span></div>
+        <div class="terminal-line"><span class="prompt">You:</span> <span class="cmd">How is the database connection set up in this project?</span></div>
+        <div class="terminal-line"><span class="output">&nbsp;</span></div>
+        <div class="terminal-line"><span class="prompt">You:</span> <span class="cmd">Why does this function have 15 arguments? Look through git history to explain.</span></div>
+        <div class="terminal-line"><span class="output">&nbsp;</span></div>
+        <div class="terminal-line"><span class="prompt">You:</span> <span class="cmd">What did I ship this week? Check the git log for my username.</span></div>
+        <div class="terminal-line"><span class="output">&nbsp;</span></div>
+        <div class="terminal-line"><span class="prompt">You:</span> <span class="cmd">Fetch GitHub issue #42 and summarize what it's asking for.</span></div>
+      </div>
+    </div>
+
+    <div class="callout callout-tip">
+      <span class="callout-icon">&#9889;</span>
+      <div><strong>Boris's insight:</strong> "You don't have to tell Claude to search git history in detail. Just say 'look through git history' and it figures out the rest. The model is good."</div>
+    </div>
+  </div>
+
+  <div class="nav-buttons">
+    <button class="btn btn-secondary" onclick="goToModule(4)">&#8592; Back</button>
+    <button class="btn btn-primary" onclick="goToModule(6)">Next: Planning &amp; Editing &#8594;</button>
+  </div>
+</div>
+
+<!-- ==================== MODULE 6: PLAN & EDIT ==================== -->
+<div class="module" id="mod6">
+  <div class="module-header">
+    <span class="module-badge">Core Workflow</span>
+    <h1>Plan Before You Edit</h1>
+    <p class="subtitle">The golden rule: think first, code second. Let Claude brainstorm before making changes.</p>
+  </div>
+
+  <div class="section">
+    <h2>Claude Code's Built-in Tools</h2>
+    <p>Claude Code has a small set of powerful tools it uses automatically:</p>
+
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:12px;margin:16px 0">
+      <div style="background:var(--primary-light);padding:16px;border-radius:var(--radius-sm);text-align:center">
+        <div style="font-size:28px">&#128269;</div>
+        <strong>Search</strong>
+        <p style="font-size:13px;color:var(--text-muted);margin:4px 0 0">Find files and text</p>
+      </div>
+      <div style="background:var(--success-light);padding:16px;border-radius:var(--radius-sm);text-align:center">
+        <div style="font-size:28px">&#9998;</div>
+        <strong>Edit</strong>
+        <p style="font-size:13px;color:var(--text-muted);margin:4px 0 0">Modify files</p>
+      </div>
+      <div style="background:var(--warning-light);padding:16px;border-radius:var(--radius-sm);text-align:center">
+        <div style="font-size:28px">&#9000;</div>
+        <strong>Bash</strong>
+        <p style="font-size:13px;color:var(--text-muted);margin:4px 0 0">Run commands</p>
+      </div>
+      <div style="background:var(--info-light);padding:16px;border-radius:var(--radius-sm);text-align:center">
+        <div style="font-size:28px">&#128196;</div>
+        <strong>Read</strong>
+        <p style="font-size:13px;color:var(--text-muted);margin:4px 0 0">View file contents</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>The Explore-Plan-Confirm Workflow</h2>
+    <div class="pipeline">
+      <div class="pipeline-step active-step"><div class="step-icon">&#128270;</div><div class="step-label">1. Explore</div></div>
+      <div class="pipeline-arrow">&#8594;</div>
+      <div class="pipeline-step"><div class="step-icon">&#128221;</div><div class="step-label">2. Plan</div></div>
+      <div class="pipeline-arrow">&#8594;</div>
+      <div class="pipeline-step"><div class="step-icon">&#9989;</div><div class="step-label">3. Confirm</div></div>
+      <div class="pipeline-arrow">&#8594;</div>
+      <div class="pipeline-step"><div class="step-icon">&#128187;</div><div class="step-label">4. Code</div></div>
+    </div>
+    <p>Boris recommends telling Claude: <em>"Before you write code, brainstorm ideas, make a plan, and run it by me for approval."</em></p>
+  </div>
+
+  <div class="section">
+    <h2>Scenario: What Would You Do?</h2>
+    <div class="scenario">
+      <div class="scenario-prompt">You want Claude to add a dark mode toggle to a web app. Which approach is better?</div>
+      <div class="quiz-card" style="background:transparent;border:none;padding:0;box-shadow:none">
+        <button class="quiz-option" onclick="checkQuiz(this, false, 'quiz4-fb', 'Jumping straight to coding risks building something completely different from what you want. Claude might change the wrong files or use an approach that doesn\'t fit your project.')">
+          "Add dark mode to this app" (let Claude code immediately)
+        </button>
+        <button class="quiz-option" onclick="checkQuiz(this, true, 'quiz4-fb', 'This gives Claude a chance to understand the codebase, propose an approach, and get your sign-off before writing any code. Much less likely to go off track!')">
+          "I want to add a dark mode toggle. First, look at how styling works in this project, then make a plan and show me before writing any code."
+        </button>
+        <button class="quiz-option" onclick="checkQuiz(this, false, 'quiz4-fb', 'Way too drastic! You don\'t need to rewrite everything to add a feature. Always prefer incremental changes.')">
+          "Delete all CSS and rewrite everything with dark mode"
+        </button>
+        <div class="quiz-feedback" id="quiz4-fb" role="status" aria-live="polite"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>Safety First</h2>
+    <p>Before we learn about pushing code, there are important safety rules to follow:</p>
+
+    <div class="callout callout-danger">
+      <span class="callout-icon">&#128721;</span>
+      <div>
+        <strong>Golden Rules for Beginners:</strong>
+        <ul style="margin:8px 0 0 16px">
+          <li><strong>Never approve commands you don't understand.</strong> Ask Claude to explain first.</li>
+          <li><strong>Be careful with destructive actions:</strong> delete, overwrite, install, push.</li>
+          <li><strong>Never paste passwords, API keys, or private data</strong> into prompts.</li>
+          <li><strong>Review every diff</strong> before accepting changes.</li>
+          <li><strong>Errors are information, not failure.</strong> Copy the full error and ask Claude to explain it in plain English.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="callout callout-warning">
+      <span class="callout-icon">&#127891;</span>
+      <div><strong>Academic integrity:</strong> If you're a student, check your course policy on AI assistance. Understand the difference between learning <em>with</em> AI and having AI do all your thinking. Always disclose AI assistance when required.</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>The Magic Incantation: Commit, Push, PR</h2>
+    <p>Once Claude finishes editing, you can tell it to handle the entire <span class="term">Git<span class="term-tip">A version control system &mdash; think of it as an "undo history" for your entire project that also lets multiple people work on the same code.</span></span> workflow:</p>
+
+    <div class="terminal-sim">
+      <div class="terminal-bar">
+        <div class="terminal-dot red"></div><div class="terminal-dot yellow"></div><div class="terminal-dot green"></div>
+        <span class="terminal-title">One-line Git workflow</span>
+      </div>
+      <div class="terminal-body">
+        <div class="terminal-line"><span class="prompt">You:</span> <span class="cmd">commit, push, and make a pull request</span></div>
+        <div class="terminal-line"><span class="output">&nbsp;</span></div>
+        <div class="terminal-line"><span class="comment"># Claude will automatically:</span></div>
+        <div class="terminal-line"><span class="comment"># 1. Look at what changed</span></div>
+        <div class="terminal-line"><span class="comment"># 2. Write a good commit message</span></div>
+        <div class="terminal-line"><span class="comment"># 3. Create a branch</span></div>
+        <div class="terminal-line"><span class="comment"># 4. Push to GitHub</span></div>
+        <div class="terminal-line"><span class="comment"># 5. Create a pull request with description</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="nav-buttons">
+    <button class="btn btn-secondary" onclick="goToModule(5)">&#8592; Back</button>
+    <button class="btn btn-primary" onclick="goToModule(7)">Next: Verify Your Work &#8594;</button>
+  </div>
+</div>
+
+<!-- ==================== MODULE 7: VERIFICATION ==================== -->
+<div class="module" id="mod7">
+  <div class="module-header">
+    <span class="module-badge">Critical Skill</span>
+    <h1>Checking Claude's Work</h1>
+    <p class="subtitle">AI can make mistakes. Learning to verify is the most important skill you'll develop.</p>
+  </div>
+
+  <div class="section">
+    <h2>The Iteration Loop</h2>
+    <p>The most powerful workflow is giving Claude a way to <strong>check its own work</strong>. When it can see the results of what it built, it iterates and gets dramatically better.</p>
+
+    <div class="pipeline">
+      <div class="pipeline-step"><div class="step-icon">&#128187;</div><div class="step-label">Write Code</div></div>
+      <div class="pipeline-arrow">&#8594;</div>
+      <div class="pipeline-step active-step"><div class="step-icon">&#128065;</div><div class="step-label">Check Result</div></div>
+      <div class="pipeline-arrow">&#8594;</div>
+      <div class="pipeline-step"><div class="step-icon">&#128260;</div><div class="step-label">Iterate</div></div>
+      <div class="pipeline-arrow">&#8594;</div>
+      <div class="pipeline-step"><div class="step-icon">&#10024;</div><div class="step-label">Almost Perfect</div></div>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>Ways Claude Can Check Its Work</h2>
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:12px;margin:16px 0">
+      <div style="background:var(--surface);padding:16px;border-radius:var(--radius-sm);border:1px solid var(--border)">
+        <div style="font-size:24px;margin-bottom:8px">&#129514;</div>
+        <strong>Unit Tests</strong>
+        <p style="font-size:13px;color:var(--text-muted)">Automated checks that verify specific functions work correctly</p>
+      </div>
+      <div style="background:var(--surface);padding:16px;border-radius:var(--radius-sm);border:1px solid var(--border)">
+        <div style="font-size:24px;margin-bottom:8px">&#128248;</div>
+        <strong>Screenshots</strong>
+        <p style="font-size:13px;color:var(--text-muted)">Take a picture of the UI to see if it looks right</p>
+      </div>
+      <div style="background:var(--surface);padding:16px;border-radius:var(--radius-sm);border:1px solid var(--border)">
+        <div style="font-size:24px;margin-bottom:8px">&#128203;</div>
+        <strong>Diff Review</strong>
+        <p style="font-size:13px;color:var(--text-muted)">Compare before/after to see exactly what changed</p>
+      </div>
+      <div style="background:var(--surface);padding:16px;border-radius:var(--radius-sm);border:1px solid var(--border)">
+        <div style="font-size:24px;margin-bottom:8px">&#9654;</div>
+        <strong>Run the App</strong>
+        <p style="font-size:13px;color:var(--text-muted)">Start the project and test it manually</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>Reading a Diff</h2>
+    <p>A <span class="term">diff<span class="term-tip">A before-and-after view of file changes. Green lines are new (added). Red lines are old (removed). This helps you see exactly what Claude changed.</span></span> shows you exactly what changed in a file:</p>
+
+    <div class="diff-viewer">
+      <div class="diff-header">src/components/Button.js</div>
+      <div class="diff-line context"><span class="line-num">10</span>  function Button({ label, onClick }) {</div>
+      <div class="diff-line removed"><span class="line-num">11</span>-   return &lt;button onClick={onClick}&gt;{label}&lt;/button&gt;</div>
+      <div class="diff-line added"><span class="line-num">11</span>+   return (</div>
+      <div class="diff-line added"><span class="line-num">12</span>+     &lt;button</div>
+      <div class="diff-line added"><span class="line-num">13</span>+       className="btn-primary"</div>
+      <div class="diff-line added"><span class="line-num">14</span>+       onClick={onClick}</div>
+      <div class="diff-line added"><span class="line-num">15</span>+       aria-label={label}</div>
+      <div class="diff-line added"><span class="line-num">16</span>+     &gt;</div>
+      <div class="diff-line added"><span class="line-num">17</span>+       {label}</div>
+      <div class="diff-line added"><span class="line-num">18</span>+     &lt;/button&gt;</div>
+      <div class="diff-line added"><span class="line-num">19</span>+   )</div>
+      <div class="diff-line context"><span class="line-num">20</span>  }</div>
+    </div>
+
+    <div class="quiz-card">
+      <h3>What did this change do?</h3>
+      <button class="quiz-option" onclick="checkQuiz(this, false, 'quiz5-fb', 'The button still has the onClick handler &mdash; it wasn\'t removed.')">
+        Removed the click behavior
+      </button>
+      <button class="quiz-option" onclick="checkQuiz(this, true, 'quiz5-fb', 'Correct! The red line (removed) was a simple button. The green lines (added) show a button with a CSS class and an accessibility label. The core behavior stayed the same.')">
+        Added styling and accessibility to the button
+      </button>
+      <button class="quiz-option" onclick="checkQuiz(this, false, 'quiz5-fb', 'The button element is still there &mdash; it was enhanced, not replaced with something else.')">
+        Replaced the button with a link
+      </button>
+      <div class="quiz-feedback" id="quiz5-fb" role="status" aria-live="polite"></div>
+    </div>
+  </div>
+
+  <div class="nav-buttons">
+    <button class="btn btn-secondary" onclick="goToModule(6)">&#8592; Back</button>
+    <button class="btn btn-primary" onclick="goToModule(8)">Next: Giving Context &#8594;</button>
+  </div>
+</div>
+
+<!-- ==================== MODULE 8: CONTEXT ==================== -->
+<div class="module" id="mod8">
+  <div class="module-header">
+    <span class="module-badge">Level Up</span>
+    <h1>Giving Claude Better Context</h1>
+    <p class="subtitle">The more context Claude has, the smarter its decisions. CLAUDE.md is the key.</p>
+  </div>
+
+  <div class="section">
+    <h2>What Is CLAUDE.md?</h2>
+    <p><code>CLAUDE.md</code> is a special file you put in your project folder. Claude Code reads it automatically at the start of every session. Think of it as a <strong>briefing document</strong> for your AI teammate.</p>
+
+    <div class="callout callout-tip">
+      <span class="callout-icon">&#128214;</span>
+      <div><strong>Analogy:</strong> If you hired a new team member, you'd give them a document explaining your project's rules, tools, and conventions. CLAUDE.md is that document.</div>
+    </div>
+
+    <div class="terminal-sim">
+      <div class="terminal-bar">
+        <div class="terminal-dot red"></div><div class="terminal-dot yellow"></div><div class="terminal-dot green"></div>
+        <span class="terminal-title">Example CLAUDE.md</span>
+      </div>
+      <div class="terminal-body" style="color:#cdd6f4">
+        <div class="terminal-line"><span class="highlight"># Project: My Todo App</span></div>
+        <div class="terminal-line">&nbsp;</div>
+        <div class="terminal-line"><span class="highlight">## Common Commands</span></div>
+        <div class="terminal-line">- Run tests: <span class="cmd">npm test</span></div>
+        <div class="terminal-line">- Start dev server: <span class="cmd">npm run dev</span></div>
+        <div class="terminal-line">- Build: <span class="cmd">npm run build</span></div>
+        <div class="terminal-line">&nbsp;</div>
+        <div class="terminal-line"><span class="highlight">## Style Guide</span></div>
+        <div class="terminal-line">- Use TypeScript for all new files</div>
+        <div class="terminal-line">- Components go in src/components/</div>
+        <div class="terminal-line">- Always write tests for new features</div>
+        <div class="terminal-line">&nbsp;</div>
+        <div class="terminal-line"><span class="highlight">## Important Files</span></div>
+        <div class="terminal-line">- src/App.tsx - Main application entry</div>
+        <div class="terminal-line">- src/api/client.ts - API configuration</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>The Context Hierarchy</h2>
+    <p>Context can live at different levels, from personal to team-wide:</p>
+
+    <div style="margin:20px 0">
+      <div style="background:var(--danger-light);padding:16px 20px;border-radius:var(--radius-sm) var(--radius-sm) 0 0;border:1px solid #fecaca">
+        <strong>Enterprise Policy</strong> &mdash; Rules for everyone in the company
+        <div style="font-size:13px;color:var(--text-muted)">Example: "Never fetch URLs from this blocklist"</div>
+      </div>
+      <div style="background:var(--warning-light);padding:16px 20px;border:1px solid #fde68a;border-top:none">
+        <strong>User Settings</strong> &mdash; Your personal preferences
+        <div style="font-size:13px;color:var(--text-muted)">Example: "I prefer concise explanations"</div>
+      </div>
+      <div style="background:var(--info-light);padding:16px 20px;border:1px solid #bfdbfe;border-top:none">
+        <strong>Project CLAUDE.md</strong> &mdash; Shared with the team via source control
+        <div style="font-size:13px;color:var(--text-muted)">Example: "Run npm test before committing"</div>
+      </div>
+      <div style="background:var(--success-light);padding:16px 20px;border-radius:0 0 var(--radius-sm) var(--radius-sm);border:1px solid #bbf7d0;border-top:none">
+        <strong>Nested CLAUDE.md</strong> &mdash; Pulled in when working in that directory
+        <div style="font-size:13px;color:var(--text-muted)">Example: "This folder uses Python 3.11"</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>Prompt Improvement Lab</h2>
+    <div class="quiz-card">
+      <h3>Which prompt gives Claude better context?</h3>
+      <button class="quiz-option" onclick="checkQuiz(this, false, 'quiz6-fb', 'This is too vague. Fix what? Where? What does &quot;fix&quot; mean in this context?')">
+        "Fix this."
+      </button>
+      <button class="quiz-option" onclick="checkQuiz(this, true, 'quiz6-fb', 'This prompt tells Claude: the framework (React), the specific problem (form validation), the location (signup form), and the rules to follow (CLAUDE.md). Claude can now make precise, useful changes.')">
+        "In this React app, add form validation to the signup form, matching the style described in CLAUDE.md."
+      </button>
+      <div class="quiz-feedback" id="quiz6-fb" role="status" aria-live="polite"></div>
+    </div>
+  </div>
+
+  <div class="nav-buttons">
+    <button class="btn btn-secondary" onclick="goToModule(7)">&#8592; Back</button>
+    <button class="btn btn-primary" onclick="goToModule(9)">Next: Memory &amp; Shortcuts &#8594;</button>
+  </div>
+</div>
+
+<!-- ==================== MODULE 9: MEMORY & SHORTCUTS ==================== -->
+<div class="module" id="mod9">
+  <div class="module-header">
+    <span class="module-badge">Efficiency</span>
+    <h1>Memory &amp; Keyboard Shortcuts</h1>
+    <p class="subtitle">Teach Claude to remember things and work faster with shortcuts.</p>
+  </div>
+
+  <div class="section">
+    <h2>Memory System</h2>
+    <p>Claude Code can remember things across sessions. Use <code>#</code> followed by what to remember, or use <code>/memory</code> to manage memories.</p>
+
+    <div class="section">
+      <h3>Memory Scope Sorting</h3>
+      <p>Drag each instruction to the right category:</p>
+
+      <div class="card-sort" id="memorySort">
+        <div class="card-sort-items" id="sortItems">
+          <div class="sort-card" draggable="true" data-target="project" ondragstart="dragStart(event)">Always use TypeScript</div>
+          <div class="sort-card" draggable="true" data-target="user" ondragstart="dragStart(event)">I prefer short explanations</div>
+          <div class="sort-card" draggable="true" data-target="team" ondragstart="dragStart(event)">Follow company security policy</div>
+          <div class="sort-card" draggable="true" data-target="project" ondragstart="dragStart(event)">Run npm test before commits</div>
+          <div class="sort-card" draggable="true" data-target="user" ondragstart="dragStart(event)">Call me Alex</div>
+          <div class="sort-card" draggable="true" data-target="team" ondragstart="dragStart(event)">Never push to main directly</div>
+        </div>
+
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;margin-top:16px">
+          <div>
+            <div class="drop-zone-label">&#128100; Personal (User)</div>
+            <div class="drop-zone" data-zone="user" ondrop="dropCard(event)" ondragover="dragOver(event)" ondragleave="dragLeave(event)"></div>
+          </div>
+          <div>
+            <div class="drop-zone-label">&#128193; Project</div>
+            <div class="drop-zone" data-zone="project" ondrop="dropCard(event)" ondragover="dragOver(event)" ondragleave="dragLeave(event)"></div>
+          </div>
+          <div>
+            <div class="drop-zone-label">&#127970; Team / Enterprise</div>
+            <div class="drop-zone" data-zone="team" ondrop="dropCard(event)" ondragover="dragOver(event)" ondragleave="dragLeave(event)"></div>
+          </div>
+        </div>
+        <div style="display:flex;gap:8px;margin-top:12px;flex-wrap:wrap">
+          <button class="btn btn-primary" onclick="checkMemorySort()">Check Answers</button>
+          <button class="btn btn-secondary" onclick="resetMemorySort()">Reset</button>
+        </div>
+        <div class="quiz-feedback" id="memorySort-fb" role="status" aria-live="polite"></div>
+        <p style="font-size:13px;color:var(--text-muted);margin-top:8px"><strong>Mobile?</strong> Click a card, then click a zone to place it.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>Essential Keyboard Shortcuts</h2>
+    <p>Click each card to reveal what the shortcut does:</p>
+
+    <div class="flashcard-grid" id="flashcard-grid">
+      <div class="flashcard" role="button" tabindex="0" data-idx="0">
+        <div class="key">Shift + Tab</div>
+        <div class="desc">Click to reveal</div>
+      </div>
+      <div class="flashcard" role="button" tabindex="0" data-idx="1">
+        <div class="key">#</div>
+        <div class="desc">Click to reveal</div>
+      </div>
+      <div class="flashcard" role="button" tabindex="0" data-idx="2">
+        <div class="key">!</div>
+        <div class="desc">Click to reveal</div>
+      </div>
+      <div class="flashcard" role="button" tabindex="0" data-idx="3">
+        <div class="key">@</div>
+        <div class="desc">Click to reveal</div>
+      </div>
+      <div class="flashcard" role="button" tabindex="0" data-idx="4">
+        <div class="key">Ctrl + C</div>
+        <div class="desc">Click to reveal</div>
+      </div>
+      <div class="flashcard" role="button" tabindex="0" data-idx="5">
+        <div class="key">Ctrl + R</div>
+        <div class="desc">Click to reveal</div>
+      </div>
+      <div class="flashcard" role="button" tabindex="0" data-idx="6">
+        <div class="key">Escape</div>
+        <div class="desc">Click to reveal</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="nav-buttons">
+    <button class="btn btn-secondary" onclick="goToModule(8)">&#8592; Back</button>
+    <button class="btn btn-primary" onclick="goToModule(10)">Next: Automation &#8594;</button>
+  </div>
+</div>
+
+<!-- ==================== MODULE 10: AUTOMATION & PARALLEL ==================== -->
+<div class="module" id="mod10">
+  <div class="module-header">
+    <span class="module-badge">Advanced</span>
+    <h1>Automation &amp; Parallel Workflows</h1>
+    <p class="subtitle">Use Claude Code as a programmable tool and run multiple sessions at once.</p>
+  </div>
+
+  <div class="section">
+    <h2>The CLI SDK: Claude as a Unix Tool</h2>
+    <p>Claude Code isn't just interactive. You can use it as a <span class="term">CLI tool<span class="term-tip">Command-Line Interface tool &mdash; a program you use by typing commands, which can be combined with other tools using "pipes" to pass data between them.</span></span> in automated workflows:</p>
+
+    <div class="terminal-sim">
+      <div class="terminal-bar">
+        <div class="terminal-dot red"></div><div class="terminal-dot yellow"></div><div class="terminal-dot green"></div>
+        <span class="terminal-title">CLI SDK Examples</span>
+      </div>
+      <div class="terminal-body">
+        <div class="terminal-line"><span class="comment"># Ask a question and get JSON back</span></div>
+        <div class="terminal-line"><span class="prompt">$</span> <span class="cmd">claude -p "summarize this project" --output-format json</span></div>
+        <div class="terminal-line"><span class="output">&nbsp;</span></div>
+        <div class="terminal-line"><span class="comment"># Pipe data in from another command</span></div>
+        <div class="terminal-line"><span class="prompt">$</span> <span class="cmd">git status | claude -p "what files changed?"</span></div>
+        <div class="terminal-line"><span class="output">&nbsp;</span></div>
+        <div class="terminal-line"><span class="comment"># Use in an automated pipeline</span></div>
+        <div class="terminal-line"><span class="prompt">$</span> <span class="cmd">cat error.log | claude -p "what went wrong?"</span></div>
+      </div>
+    </div>
+
+    <div class="callout callout-info">
+      <span class="callout-icon">&#128161;</span>
+      <div><strong>Think of it this way:</strong> Just like you can pipe data between commands in a terminal (<code>command1 | command2</code>), you can pipe data through Claude to have it analyze, summarize, or transform anything.</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>Visual Pipeline Builder</h2>
+    <p>Here's how data flows through a Claude Code automation pipeline:</p>
+
+    <div class="pipeline">
+      <div class="pipeline-step" onclick="highlightPipeline(this, 0)"><div class="step-icon">&#128196;</div><div class="step-label">Input File</div></div>
+      <div class="pipeline-arrow">&#8594;</div>
+      <div class="pipeline-step" onclick="highlightPipeline(this, 1)"><div class="step-icon">&#129302;</div><div class="step-label">Claude -p</div></div>
+      <div class="pipeline-arrow">&#8594;</div>
+      <div class="pipeline-step" onclick="highlightPipeline(this, 2)"><div class="step-icon">&#128202;</div><div class="step-label">JSON Output</div></div>
+      <div class="pipeline-arrow">&#8594;</div>
+      <div class="pipeline-step" onclick="highlightPipeline(this, 3)"><div class="step-icon">&#128232;</div><div class="step-label">Report / Alert</div></div>
+    </div>
+    <div id="pipeline-desc" style="text-align:center;font-size:14px;color:var(--text-muted);min-height:40px">Click a step to learn more</div>
+  </div>
+
+  <div class="section">
+    <h2>Running Multiple Sessions</h2>
+    <p>Power users run multiple Claude Code sessions in parallel for different tasks:</p>
+
+    <div class="workspace-board">
+      <div class="workspace-card">
+        <div class="card-header"><div class="card-status running"></div><div class="card-title">Session 1</div></div>
+        <div class="card-desc">Fixing failing tests in the backend</div>
+      </div>
+      <div class="workspace-card">
+        <div class="card-header"><div class="card-status running"></div><div class="card-title">Session 2</div></div>
+        <div class="card-desc">Reading documentation and answering questions</div>
+      </div>
+      <div class="workspace-card">
+        <div class="card-header"><div class="card-status running"></div><div class="card-title">Session 3</div></div>
+        <div class="card-desc">Prototyping a new UI component</div>
+      </div>
+    </div>
+
+    <div class="callout callout-warning">
+      <span class="callout-icon">&#9888;</span>
+      <div><strong>For beginners:</strong> Start with one session at a time. Multiple parallel sessions are an advanced technique. You'll know when you're ready for it.</div>
+    </div>
+  </div>
+
+  <div class="nav-buttons">
+    <button class="btn btn-secondary" onclick="goToModule(9)">&#8592; Back</button>
+    <button class="btn btn-primary" onclick="goToModule(11)">Next: Deployment &#8594;</button>
+  </div>
+</div>
+
+<!-- ==================== MODULE 11: DEPLOYMENT ==================== -->
+<div class="module" id="mod11">
+  <div class="module-header">
+    <span class="module-badge">Ship It</span>
+    <h1>Deploying Your Project</h1>
+    <p class="subtitle">Make your project available on the internet so anyone can use it.</p>
+  </div>
+
+  <div class="section">
+    <h2>What Is Deployment?</h2>
+    <p>Right now, your project only runs on <strong>your computer</strong>. <span class="term">Deployment<span class="term-tip">The process of putting your project on a server (another computer connected to the internet) so anyone can access it via a URL.</span></span> means putting it on a server so anyone in the world can visit it.</p>
+
+    <div class="callout callout-tip">
+      <span class="callout-icon">&#127793;</span>
+      <div><strong>Analogy:</strong> Building a project is like writing a book. Deployment is like printing and distributing it to bookstores so people can actually read it.</div>
+    </div>
+
+    <div style="display:grid;grid-template-columns:1fr auto 1fr;gap:16px;align-items:center;margin:20px 0;text-align:center">
+      <div style="background:var(--surface);padding:20px;border-radius:var(--radius);border:1px solid var(--border)">
+        <div style="font-size:32px">&#128187;</div>
+        <strong>Your Computer</strong>
+        <p style="font-size:13px;color:var(--text-muted)">Only you can see it</p>
+      </div>
+      <div style="font-size:28px">&#8594;</div>
+      <div style="background:var(--success-light);padding:20px;border-radius:var(--radius);border:1px solid #bbf7d0">
+        <div style="font-size:32px">&#127760;</div>
+        <strong>The Internet</strong>
+        <p style="font-size:13px;color:var(--text-muted)">Anyone with the URL can use it</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>Common Deployment Platforms</h2>
+    <p>These platforms make deployment easy &mdash; often just connecting your GitHub repository:</p>
+
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:12px;margin:16px 0">
+      <div style="background:var(--surface);padding:16px;border-radius:var(--radius-sm);border:1px solid var(--border)">
+        <strong style="color:var(--primary)">Vercel</strong>
+        <p style="font-size:13px;color:var(--text-muted);margin:4px 0 0">Great for Next.js and React apps. Free tier available.</p>
+      </div>
+      <div style="background:var(--surface);padding:16px;border-radius:var(--radius-sm);border:1px solid var(--border)">
+        <strong style="color:var(--primary)">Netlify</strong>
+        <p style="font-size:13px;color:var(--text-muted);margin:4px 0 0">Simple drag-and-drop or Git-based deploy. Free tier.</p>
+      </div>
+      <div style="background:var(--surface);padding:16px;border-radius:var(--radius-sm);border:1px solid var(--border)">
+        <strong style="color:var(--primary)">GitHub Pages</strong>
+        <p style="font-size:13px;color:var(--text-muted);margin:4px 0 0">Free hosting for static sites, built into GitHub.</p>
+      </div>
+      <div style="background:var(--surface);padding:16px;border-radius:var(--radius-sm);border:1px solid var(--border)">
+        <strong style="color:var(--primary)">Railway / Render</strong>
+        <p style="font-size:13px;color:var(--text-muted);margin:4px 0 0">For apps with servers/databases. Free to start.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>The Deployment Flow</h2>
+    <div class="pipeline">
+      <div class="pipeline-step"><div class="step-icon">&#128187;</div><div class="step-label">Write Code</div></div>
+      <div class="pipeline-arrow">&#8594;</div>
+      <div class="pipeline-step"><div class="step-icon">&#128230;</div><div class="step-label">Push to GitHub</div></div>
+      <div class="pipeline-arrow">&#8594;</div>
+      <div class="pipeline-step active-step"><div class="step-icon">&#9889;</div><div class="step-label">Auto-Deploy</div></div>
+      <div class="pipeline-arrow">&#8594;</div>
+      <div class="pipeline-step"><div class="step-icon">&#127760;</div><div class="step-label">Live on Web!</div></div>
+    </div>
+    <p style="text-align:center;font-size:14px;color:var(--text-muted)">Most platforms watch your GitHub repo &mdash; push code, and it deploys automatically.</p>
+  </div>
+
+  <div class="section">
+    <h2>Deploying With Claude Code</h2>
+    <p>Claude Code can help you deploy! Here are common prompts:</p>
+
+    <div class="terminal-sim">
+      <div class="terminal-bar">
+        <div class="terminal-dot red"></div><div class="terminal-dot yellow"></div><div class="terminal-dot green"></div>
+        <span class="terminal-title">Deployment prompts</span>
+      </div>
+      <div class="terminal-body">
+        <div class="terminal-line"><span class="prompt">You:</span> <span class="cmd">Help me deploy this project to Vercel. Walk me through the steps.</span></div>
+        <div class="terminal-line"><span class="output">&nbsp;</span></div>
+        <div class="terminal-line"><span class="prompt">You:</span> <span class="cmd">Set up GitHub Pages for this static site.</span></div>
+        <div class="terminal-line"><span class="output">&nbsp;</span></div>
+        <div class="terminal-line"><span class="prompt">You:</span> <span class="cmd">My deploy failed. Here's the error log. What went wrong?</span></div>
+        <div class="terminal-line"><span class="output">&nbsp;</span></div>
+        <div class="terminal-line"><span class="prompt">You:</span> <span class="cmd">Add a Dockerfile so I can deploy this app to Railway.</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>Key Vocabulary</h2>
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:12px">
+      <div style="background:var(--surface);padding:16px;border-radius:var(--radius-sm);border:1px solid var(--border)">
+        <strong style="color:var(--primary)">Server</strong>
+        <p style="font-size:13px;color:var(--text-muted);margin:4px 0 0">A computer that's always on and connected to the internet</p>
+      </div>
+      <div style="background:var(--surface);padding:16px;border-radius:var(--radius-sm);border:1px solid var(--border)">
+        <strong style="color:var(--primary)">URL / Domain</strong>
+        <p style="font-size:13px;color:var(--text-muted);margin:4px 0 0">The web address people type to visit your app (e.g., myapp.vercel.app)</p>
+      </div>
+      <div style="background:var(--surface);padding:16px;border-radius:var(--radius-sm);border:1px solid var(--border)">
+        <strong style="color:var(--primary)">CI/CD</strong>
+        <p style="font-size:13px;color:var(--text-muted);margin:4px 0 0">Automated testing and deployment &mdash; push code and it goes live</p>
+      </div>
+      <div style="background:var(--surface);padding:16px;border-radius:var(--radius-sm);border:1px solid var(--border)">
+        <strong style="color:var(--primary)">Environment Variables</strong>
+        <p style="font-size:13px;color:var(--text-muted);margin:4px 0 0">Secret settings (API keys, passwords) stored on the server, not in code</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="quiz-card">
+      <h3>Quiz: Which is the safest way to handle API keys in a deployed app?</h3>
+      <button class="quiz-option" onclick="checkQuiz(this, false, 'quiz11-fb', 'Never put secrets directly in your code! Anyone who sees your code (on GitHub) would see your passwords.')">
+        Put them directly in your source code
+      </button>
+      <button class="quiz-option" onclick="checkQuiz(this, true, 'quiz11-fb', 'Correct! Server-side environment variables keep secrets out of your code and out of the browser. The deploy platform stores them securely and injects them on the server only.')">
+        Store them as server-side environment variables on the deploy platform
+      </button>
+      <button class="quiz-option" onclick="checkQuiz(this, false, 'quiz11-fb', 'A public README is visible to everyone. Secrets should never go there.')">
+        Write them in the README
+      </button>
+      <div class="quiz-feedback" id="quiz11-fb" role="status" aria-live="polite"></div>
+    </div>
+  </div>
+
+  <div class="nav-buttons">
+    <button class="btn btn-secondary" onclick="goToModule(10)">&#8592; Back</button>
+    <button class="btn btn-primary" onclick="goToModule(12)">Next: Capstone Practice &#8594;</button>
+  </div>
+</div>
+
+<!-- ==================== MODULE 12: CAPSTONE ==================== -->
+<div class="module" id="mod12">
+  <div class="module-header">
+    <span class="module-badge">Practice</span>
+    <h1>Capstone: Guide Claude Through a Task</h1>
+    <p class="subtitle">Put everything together. Choose a task and walk through the complete workflow.</p>
+  </div>
+
+  <div class="section">
+    <h2>Choose Your Task</h2>
+    <p>Select a beginner-friendly task to practice with:</p>
+
+    <div class="task-selector" id="taskSelector">
+      <button class="task-option" onclick="selectTask(this, 'explain')" style="font-family:var(--font);cursor:pointer">
+        <div class="task-icon">&#128218;</div>
+        <div class="task-name">Explain a File</div>
+      </button>
+      <button class="task-option" onclick="selectTask(this, 'button')" style="font-family:var(--font);cursor:pointer">
+        <div class="task-icon">&#128284;</div>
+        <div class="task-name">Add a Button</div>
+      </button>
+      <button class="task-option" onclick="selectTask(this, 'typo')" style="font-family:var(--font);cursor:pointer">
+        <div class="task-icon">&#128295;</div>
+        <div class="task-name">Fix a Typo</div>
+      </button>
+      <button class="task-option" onclick="selectTask(this, 'test')" style="font-family:var(--font);cursor:pointer">
+        <div class="task-icon">&#129514;</div>
+        <div class="task-name">Add a Test</div>
+      </button>
+      <button class="task-option" onclick="selectTask(this, 'history')" style="font-family:var(--font);cursor:pointer">
+        <div class="task-icon">&#128336;</div>
+        <div class="task-name">Summarize History</div>
+      </button>
+    </div>
+  </div>
+
+  <div id="capstone-simulation" style="display:none">
+    <div class="section">
+      <h2>Step-by-Step Simulation</h2>
+      <div id="capstone-steps"></div>
+    </div>
+  </div>
+
+  <div class="section" style="margin-top:40px;display:none" id="course-complete">
+    <h2>Course Complete!</h2>
+    <div style="background:linear-gradient(135deg,#e0e7ff,#dbeafe);padding:32px;border-radius:var(--radius);text-align:center;margin:20px 0">
+      <div style="font-size:48px;margin-bottom:16px">&#127891;</div>
+      <h3 style="margin-bottom:12px">Congratulations!</h3>
+      <p style="max-width:500px;margin:0 auto 20px;color:var(--text-muted)">You've completed the Claude Code course. You now understand the fundamentals of working with an AI coding assistant. Here's a summary of what you learned:</p>
+
+      <div style="text-align:left;max-width:400px;margin:0 auto">
+        <div style="padding:8px 0;border-bottom:1px solid rgba(0,0,0,0.1)">&#10003; What Claude Code is and why it's different</div>
+        <div style="padding:8px 0;border-bottom:1px solid rgba(0,0,0,0.1)">&#10003; Terminal basics and how to feel comfortable</div>
+        <div style="padding:8px 0;border-bottom:1px solid rgba(0,0,0,0.1)">&#10003; Setting up your environment</div>
+        <div style="padding:8px 0;border-bottom:1px solid rgba(0,0,0,0.1)">&#10003; Asking great questions about codebases</div>
+        <div style="padding:8px 0;border-bottom:1px solid rgba(0,0,0,0.1)">&#10003; The explore-plan-confirm workflow</div>
+        <div style="padding:8px 0;border-bottom:1px solid rgba(0,0,0,0.1)">&#10003; How to verify and review changes</div>
+        <div style="padding:8px 0;border-bottom:1px solid rgba(0,0,0,0.1)">&#10003; Giving Claude context with CLAUDE.md</div>
+        <div style="padding:8px 0;border-bottom:1px solid rgba(0,0,0,0.1)">&#10003; Memory system and keyboard shortcuts</div>
+        <div style="padding:8px 0;border-bottom:1px solid rgba(0,0,0,0.1)">&#10003; Automation with the CLI SDK</div>
+        <div style="padding:8px 0">&#10003; Practicing the complete workflow</div>
+      </div>
+    </div>
+
+    <div class="callout callout-tip">
+      <span class="callout-icon">&#127775;</span>
+      <div>
+        <strong>What's Next?</strong><br>
+        1. Install Claude Code on your own machine<br>
+        2. Start with codebase Q&A on a project<br>
+        3. Gradually move to editing and planning workflows<br>
+        4. Create a CLAUDE.md for your first project<br>
+        5. Teach a friend what you learned!
+      </div>
+    </div>
+  </div>
+
+  <div class="nav-buttons">
+    <button class="btn btn-secondary" onclick="goToModule(11)">&#8592; Back</button>
+    <button class="btn btn-success" id="finishBtn" style="display:none" onclick="completedModules.add(12);updateProgress();buildNav();alert('You did great! Now go install Claude Code and start exploring.')">Finish Course &#127881;</button>
+  </div>
+</div>
+
+    </div><!-- /content -->
+  </div><!-- /main -->
+</div><!-- /app -->
+
+<script>
+// ===== MODULE DATA =====
+const modules = [
+  { id: 'mod0', title: 'What Is Claude Code?', icon: '1' },
+  { id: 'mod1', title: 'Terminal Basics', icon: '2' },
+  { id: 'mod2', title: 'Setup Walkthrough', icon: '3' },
+  { id: 'mod3', title: 'GitHub', icon: '4' },
+  { id: 'mod4', title: 'Web App Basics', icon: '5' },
+  { id: 'mod5', title: 'Asking Questions', icon: '6' },
+  { id: 'mod6', title: 'Plan & Edit', icon: '7' },
+  { id: 'mod7', title: 'Verify Your Work', icon: '8' },
+  { id: 'mod8', title: 'Giving Context', icon: '9' },
+  { id: 'mod9', title: 'Memory & Shortcuts', icon: '10' },
+  { id: 'mod10', title: 'Automation', icon: '11' },
+  { id: 'mod11', title: 'Deployment', icon: '12' },
+  { id: 'mod12', title: 'Capstone Practice', icon: '13' },
+];
+
+let currentModule = 0;
+const completedModules = new Set();
+
+// ===== NAVIGATION =====
+function buildNav() {
+  const nav = document.getElementById('navList');
+  nav.innerHTML = modules.map((m, i) => `
+    <li>
+      <button class="nav-item ${i === currentModule ? 'active' : ''} ${completedModules.has(i) ? 'completed' : ''}" onclick="goToModule(${i})" style="width:100%;border:none;background:none;font-family:var(--font);text-align:left" aria-current="${i === currentModule ? 'step' : 'false'}">
+        <div class="nav-icon">${completedModules.has(i) ? '&#10003;' : m.icon}</div>
+        <span>${m.title}</span>
+      </button>
+    </li>
+  `).join('');
+}
+
+function goToModule(idx) {
+  if (currentModule !== idx && currentModule < idx) completedModules.add(currentModule);
+  currentModule = idx;
+  document.querySelectorAll('.module').forEach(m => m.classList.remove('active'));
+  document.getElementById(modules[idx].id).classList.add('active');
+  buildNav();
+  updateProgress();
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+  if (window.innerWidth < 768) closeSidebar();
+}
+
+function updateProgress() {
+  const pct = Math.round((completedModules.size / modules.length) * 100);
+  document.getElementById('progressFill').style.width = pct + '%';
+  document.getElementById('progressText').textContent = `${completedModules.size} / ${modules.length}`;
+}
+
+function toggleSidebar() {
+  const sb = document.getElementById('sidebar');
+  sb.classList.toggle('open');
+  document.getElementById('overlay').classList.toggle('show');
+  const btn = document.getElementById('menuBtn');
+  if (btn) btn.setAttribute('aria-expanded', sb.classList.contains('open'));
+}
+function closeSidebar() {
+  document.getElementById('sidebar').classList.remove('open');
+  document.getElementById('overlay').classList.remove('show');
+  const btn = document.getElementById('menuBtn');
+  if (btn) btn.setAttribute('aria-expanded', 'false');
+}
+
+// ===== TERMINAL SIMULATOR =====
+const terminalCommands = {
+  'pwd': { output: '/home/student/my-project', explain: 'This shows your current location in the file system.' },
+  'ls': { output: 'README.md  package.json  src/  tests/  node_modules/', explain: 'This lists all files and folders here.' },
+  'cd project': { output: '', explain: 'You moved into the "project" folder. Your prompt would change to show the new location.' },
+  'cd src': { output: '', explain: 'You moved into the "src" folder.' },
+  'claude': { output: '╭─────────────────────────────────────╮\n│  Claude Code v1.0                   │\n│  Type your question or instruction  │\n│  Press Escape to exit               │\n╰─────────────────────────────────────╯\n\n> ', explain: 'Claude Code is now running! You can start asking questions or giving instructions.' },
+  'help': { output: 'Available commands to try: pwd, ls, cd project, claude', explain: '' },
+};
+
+function handleTerminal1() {
+  const input = document.getElementById('term1-input');
+  const body = document.getElementById('term1-body');
+  const cmd = input.value.trim().toLowerCase();
+  input.value = '';
+
+  // Add the command line
+  const cmdLine = document.createElement('div');
+  cmdLine.className = 'terminal-line';
+  cmdLine.innerHTML = `<span class="prompt">~ $</span> <span class="cmd">${escapeHtml(cmd)}</span>`;
+  body.appendChild(cmdLine);
+
+  const result = terminalCommands[cmd];
+  if (result) {
+    if (result.output) {
+      const outLine = document.createElement('div');
+      outLine.className = 'terminal-line';
+      outLine.innerHTML = `<span class="output">${escapeHtml(result.output)}</span>`;
+      body.appendChild(outLine);
+    }
+    if (result.explain) {
+      const expLine = document.createElement('div');
+      expLine.className = 'terminal-line';
+      expLine.innerHTML = `<span class="comment"># ${result.explain}</span>`;
+      body.appendChild(expLine);
+    }
+  } else {
+    const errLine = document.createElement('div');
+    errLine.className = 'terminal-line';
+    errLine.innerHTML = `<span class="error">Command not found: ${escapeHtml(cmd)}. Try: pwd, ls, cd project, or claude</span>`;
+    body.appendChild(errLine);
+  }
+  body.scrollTop = body.scrollHeight;
+}
+
+function escapeHtml(text) {
+  const div = document.createElement('div');
+  div.textContent = text;
+  return div.innerHTML;
+}
+
+// ===== QUIZ =====
+function checkQuiz(btn, correct, feedbackId, explanation) {
+  const parent = btn.parentElement;
+  const options = parent.querySelectorAll('.quiz-option');
+  options.forEach(o => { o.classList.add('disabled'); o.onclick = null; });
+
+  if (correct) {
+    btn.classList.add('correct');
+  } else {
+    btn.classList.add('wrong');
+    options.forEach(o => { if (o !== btn && !o.classList.contains('wrong')) { /* find correct one by checking all */ } });
+  }
+
+  const fb = document.getElementById(feedbackId);
+  fb.className = `quiz-feedback show`;
+  fb.style.background = correct ? 'var(--success-light)' : 'var(--danger-light)';
+  fb.style.color = correct ? '#166534' : '#991b1b';
+  fb.textContent = (correct ? '✓ Correct! ' : '✗ Not quite. ') + explanation;
+}
+
+function checkMultiQuiz(containerId, feedbackId) {
+  const container = document.getElementById(containerId);
+  const boxes = container.querySelectorAll('input[type=checkbox]');
+  let allCorrect = true;
+  boxes.forEach(box => {
+    const isCorrect = box.dataset.correct === 'true';
+    const label = box.parentElement;
+    if (box.checked === isCorrect) {
+      label.style.color = '#166534';
+    } else {
+      label.style.color = '#991b1b';
+      allCorrect = false;
+    }
+    box.disabled = true;
+  });
+  const fb = document.getElementById(feedbackId);
+  fb.className = 'quiz-feedback show';
+  if (allCorrect) {
+    fb.style.background = 'var(--success-light)'; fb.style.color = '#166534';
+    fb.textContent = '✓ Perfect! Claude Code can do all of these except make coffee. It can explain code, write features, search files, fix bugs, and run tests.';
+  } else {
+    fb.style.background = 'var(--warning-light)'; fb.style.color = '#92400e';
+    fb.textContent = 'Almost! Claude Code can do everything listed except make coffee. It\'s a coding assistant, not a barista.';
+  }
+}
+
+// ===== CHECKLIST =====
+function toggleCheck(li) {
+  li.classList.toggle('checked');
+  li.classList.toggle('expanded');
+  const box = li.querySelector('.check-box');
+  box.innerHTML = li.classList.contains('checked') ? '&#10003;' : '';
+}
+
+// ===== DRAG & DROP =====
+let draggedCard = null;
+function dragStart(e) {
+  draggedCard = e.target;
+  e.dataTransfer.effectAllowed = 'move';
+  setTimeout(() => e.target.classList.add('placed'), 0);
+}
+function dragOver(e) { e.preventDefault(); e.currentTarget.classList.add('drag-over'); }
+function dragLeave(e) { e.currentTarget.classList.remove('drag-over'); }
+function dropCard(e) {
+  e.preventDefault();
+  e.currentTarget.classList.remove('drag-over');
+  if (!draggedCard) return;
+  const dropped = document.createElement('div');
+  dropped.className = 'dropped-card';
+  dropped.textContent = draggedCard.textContent;
+  dropped.dataset.target = draggedCard.dataset.target;
+  dropped.dataset.zone = e.currentTarget.dataset.zone;
+  e.currentTarget.appendChild(dropped);
+  draggedCard.style.display = 'none';
+  draggedCard = null;
+}
+function resetMemorySort() {
+  document.querySelectorAll('.sort-card').forEach(c => { c.style.display = ''; c.classList.remove('placed'); });
+  document.querySelectorAll('.drop-zone').forEach(z => { z.querySelectorAll('.dropped-card').forEach(d => d.remove()); });
+  const fb = document.getElementById('memorySort-fb');
+  fb.className = 'quiz-feedback'; fb.textContent = '';
+  selectedSortCard = null;
+}
+
+// Mobile click-to-place fallback
+let selectedSortCard = null;
+document.addEventListener('click', function(e) {
+  const card = e.target.closest('.sort-card:not(.placed)');
+  if (card) {
+    document.querySelectorAll('.sort-card').forEach(c => c.style.outline = '');
+    card.style.outline = '3px solid var(--primary)';
+    selectedSortCard = card;
+    return;
+  }
+  const zone = e.target.closest('.drop-zone');
+  if (zone && selectedSortCard) {
+    const dropped = document.createElement('div');
+    dropped.className = 'dropped-card';
+    dropped.textContent = selectedSortCard.textContent;
+    dropped.dataset.target = selectedSortCard.dataset.target;
+    dropped.dataset.zone = zone.dataset.zone;
+    zone.appendChild(dropped);
+    selectedSortCard.style.display = 'none';
+    selectedSortCard.style.outline = '';
+    selectedSortCard = null;
+  }
+});
+
+function checkMemorySort() {
+  const cards = document.querySelectorAll('.dropped-card');
+  let correct = 0, total = cards.length;
+  cards.forEach(c => {
+    if (c.dataset.target === c.dataset.zone) {
+      c.classList.add('correct-drop');
+      c.classList.remove('wrong-drop');
+      correct++;
+    } else {
+      c.classList.add('wrong-drop');
+      c.classList.remove('correct-drop');
+    }
+  });
+  const fb = document.getElementById('memorySort-fb');
+  fb.className = 'quiz-feedback show';
+  const remaining = document.querySelectorAll('.sort-card:not([style*="display: none"])').length;
+  if (remaining > 0) {
+    fb.style.background = 'var(--warning-light)'; fb.style.color = '#92400e';
+    fb.textContent = `You still have ${remaining} card(s) to place. Drag them to a category first!`;
+  } else if (correct === total) {
+    fb.style.background = 'var(--success-light)'; fb.style.color = '#166534';
+    fb.textContent = '✓ Perfect! You correctly identified which settings belong at each level.';
+  } else {
+    fb.style.background = 'var(--warning-light)'; fb.style.color = '#92400e';
+    fb.textContent = `${correct} out of ${total} correct. Green items are in the right place, red items should be moved.`;
+  }
+}
+
+// ===== FLASHCARDS =====
+const shortcutDescs = [
+  'Cycle permission modes (accept edits, plan mode, etc.)',
+  'Tell Claude to remember something across sessions',
+  'Drop to bash mode — run a command directly',
+  'Mention a file or folder to add to context',
+  'Cancel / interrupt whatever Claude is doing',
+  'Search through previous prompts and commands',
+  'Dismiss current suggestion or stop generation',
+];
+document.querySelectorAll('.flashcard').forEach(card => {
+  const desc = card.querySelector('.desc');
+  const idx = parseInt(card.dataset.idx);
+  const originalText = 'Click to reveal';
+  function toggle() {
+    const flipped = card.classList.toggle('flipped');
+    desc.textContent = flipped ? shortcutDescs[idx] : originalText;
+  }
+  card.addEventListener('click', toggle);
+  card.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggle(); } });
+});
+
+// ===== PIPELINE =====
+const pipelineDescs = [
+  'Input: A file, log, or piped data from another command (like git status or an error log).',
+  'Claude -p: Claude processes the input with your prompt. It analyzes, summarizes, or transforms the data.',
+  'JSON Output: Claude returns structured JSON data that other programs can easily read and process.',
+  'Report/Alert: The output gets sent somewhere useful — a Slack message, an email, a dashboard, or a file.',
+];
+function highlightPipeline(el, idx) {
+  el.closest('.pipeline').querySelectorAll('.pipeline-step').forEach(s => s.classList.remove('active-step'));
+  el.classList.add('active-step');
+  document.getElementById('pipeline-desc').textContent = pipelineDescs[idx];
+}
+
+// ===== CAPSTONE SIMULATION =====
+const capstoneScenarios = {
+  explain: {
+    title: 'Explain a File',
+    steps: [
+      { prompt: 'What would you type first?', options: ['Open the file in a text editor', 'Ask Claude: "Explain what src/App.tsx does and how it connects to the rest of the app"', 'Delete the file'], correct: 1, feedback: 'Great! Start by asking Claude to explain the file. It will read the file, trace its connections, and give you a clear explanation.' },
+      { prompt: 'Claude gives you a detailed explanation. What next?', options: ['Say "thanks" and move on', 'Ask follow-up questions about specific parts you don\'t understand', 'Ask Claude to rewrite the entire file'], correct: 1, feedback: 'Follow-up questions help you learn more deeply. Ask about specific functions, imports, or patterns you\'re curious about.' },
+      { prompt: 'You now understand the file. How do you remember this for later?', options: ['Write it down on paper', 'Type # followed by a summary of what you learned', 'Hope you remember it tomorrow'], correct: 1, feedback: 'Using # to tell Claude to remember saves your understanding in the memory system, so it\'s available in future sessions.' },
+    ]
+  },
+  button: {
+    title: 'Add a Button',
+    steps: [
+      { prompt: 'You want to add a "Save" button. What\'s the best first step?', options: ['Tell Claude: "Add a save button somewhere"', 'Tell Claude: "Look at how buttons are styled in this project, then make a plan to add a Save button to the toolbar"', 'Write the button code yourself and paste it in'], correct: 1, feedback: 'Explore first, then plan! Claude will look at existing button patterns and propose a consistent approach.' },
+      { prompt: 'Claude shows you a plan. It looks good. What do you say?', options: ['"Looks good, go ahead and implement it"', '"Whatever"', '"Delete everything and start over"'], correct: 0, feedback: 'Confirm the plan, then let Claude implement it. This is the explore-plan-confirm workflow in action!' },
+      { prompt: 'Claude made the changes. How do you verify?', options: ['Trust that it worked', 'Ask Claude to run the tests and take a screenshot of the result', 'Close your laptop'], correct: 1, feedback: 'Always verify! Ask Claude to run tests or show you the result. Trust but verify.' },
+    ]
+  },
+  typo: {
+    title: 'Fix a Typo',
+    steps: [
+      { prompt: 'You spotted a typo in a README. What do you tell Claude?', options: ['"Fix the typo in README.md where it says \'recieve\' — it should be \'receive\'"', '"Fix stuff"', '"There might be a typo somewhere"'], correct: 0, feedback: 'Be specific! Tell Claude exactly where the typo is and what the correct text should be.' },
+      { prompt: 'Claude shows you the diff. The change looks correct. What next?', options: ['Accept the edit', 'Ask Claude to also rewrite the entire README', 'Reject it because you\'re not sure'], correct: 0, feedback: 'If the diff shows exactly the right change, accept it. Keep changes small and focused.' },
+      { prompt: 'You want to save this change. What do you tell Claude?', options: ['"commit this with the message: fix typo in README"', '"push to production immediately"', '"undo everything"'], correct: 0, feedback: 'A clear commit message helps everyone understand what changed and why.' },
+    ]
+  },
+  test: {
+    title: 'Add a Test',
+    steps: [
+      { prompt: 'You want to add a test for a function. What\'s step 1?', options: ['Write the test yourself from scratch', 'Ask Claude: "Look at existing tests in this project and show me the testing patterns used"', 'Skip testing entirely'], correct: 1, feedback: 'Understanding existing test patterns first ensures your new test follows the same conventions.' },
+      { prompt: 'Claude shows you the testing patterns. Now what?', options: ['"Write a test for the calculateTotal function following the same patterns"', '"Rewrite all existing tests"', '"I changed my mind"'], correct: 0, feedback: 'Give Claude a specific function to test and tell it to follow the existing patterns. This ensures consistency.' },
+      { prompt: 'Claude wrote the test. How do you check it works?', options: ['Read the test code carefully', 'Ask Claude to run the test suite', 'Both — read the test AND run it'], correct: 2, feedback: 'Both! Read the test to make sure it checks what you expect, then run it to make sure it passes.' },
+    ]
+  },
+  history: {
+    title: 'Summarize Git History',
+    steps: [
+      { prompt: 'You want to know what happened in the project this week. What do you ask?', options: ['"What happened?"', '"Summarize the git log from the past week. Show me who committed what and the main changes."', '"Show me everything ever"'], correct: 1, feedback: 'A specific time range and asking for structure (who, what) gives you a useful summary.' },
+      { prompt: 'Claude gives you a nice summary. You want to share it with your team. What do you do?', options: ['Copy and paste it into your team chat or document', 'Ask Claude to email everyone', 'Keep it to yourself'], correct: 0, feedback: 'Claude\'s summaries are great for standups, status updates, and team communication. Copy and share!' },
+      { prompt: 'You want this to happen automatically every Monday. What can you do?', options: ['Remember to ask every Monday', 'Set up a script using claude -p to generate the summary automatically', 'Nothing, it\'s not possible'], correct: 1, feedback: 'Using the CLI SDK (claude -p), you can automate this as a scheduled script. This is the power of the CLI SDK!' },
+    ]
+  },
+};
+
+let activeScenario = null;
+
+function selectTask(el, taskId) {
+  document.querySelectorAll('.task-option').forEach(t => t.classList.remove('selected'));
+  el.classList.add('selected');
+  activeScenario = capstoneScenarios[taskId];
+  const sim = document.getElementById('capstone-simulation');
+  sim.style.display = 'block';
+  renderCapstoneStep(0);
+}
+
+function renderCapstoneStep(stepIdx) {
+  const container = document.getElementById('capstone-steps');
+  if (stepIdx >= activeScenario.steps.length) {
+    container.innerHTML = `
+      <div class="callout callout-tip">
+        <span class="callout-icon">&#127942;</span>
+        <div><strong>Task complete!</strong> You successfully guided Claude through "${activeScenario.title}". You used the explore-plan-confirm workflow and verified the results. Well done!</div>
+      </div>
+    `;
+    // Show completion certificate and finish button
+    document.getElementById('course-complete').style.display = 'block';
+    document.getElementById('finishBtn').style.display = 'inline-flex';
+    completedModules.add(12);
+    updateProgress();
+    buildNav();
+    return;
+  }
+  const step = activeScenario.steps[stepIdx];
+  const card = document.createElement('div');
+  card.className = 'quiz-card';
+  card.innerHTML = `<h3>Step ${stepIdx + 1}: ${step.prompt}</h3>`;
+  step.options.forEach((opt, i) => {
+    const btn = document.createElement('button');
+    btn.className = 'quiz-option';
+    btn.textContent = opt;
+    btn.addEventListener('click', () => handleCapstoneChoice(btn, i === step.correct, step.feedback, stepIdx));
+    card.appendChild(btn);
+  });
+  const fb = document.createElement('div');
+  fb.className = 'quiz-feedback';
+  fb.setAttribute('role', 'status');
+  fb.setAttribute('aria-live', 'polite');
+  fb.id = `capstone-fb-${stepIdx}`;
+  card.appendChild(fb);
+  container.innerHTML = '';
+  container.appendChild(card);
+}
+
+function handleCapstoneChoice(btn, correct, feedback, stepIdx) {
+  const parent = btn.parentElement;
+  parent.querySelectorAll('.quiz-option').forEach(o => { o.classList.add('disabled'); o.disabled = true; });
+  btn.classList.add(correct ? 'correct' : 'wrong');
+
+  const fb = document.getElementById(`capstone-fb-${stepIdx}`);
+  fb.className = 'quiz-feedback show';
+  fb.style.background = correct ? 'var(--success-light)' : 'var(--danger-light)';
+  fb.style.color = correct ? '#166534' : '#991b1b';
+  fb.textContent = (correct ? '✓ ' : '✗ ') + feedback;
+
+  if (correct) {
+    setTimeout(() => renderCapstoneStep(stepIdx + 1), 1500);
+  } else {
+    const retryBtn = document.createElement('button');
+    retryBtn.className = 'btn btn-secondary';
+    retryBtn.style.marginTop = '12px';
+    retryBtn.textContent = 'Try Again';
+    retryBtn.onclick = () => renderCapstoneStep(stepIdx);
+    fb.after(retryBtn);
+  }
+}
+
+// ===== INIT =====
+buildNav();
+goToModule(0);
+</script>
+</body>
+</html>
