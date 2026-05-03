@@ -7,97 +7,101 @@
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{
-  --bg:#0a0a14;--surface:#12122a;--surface2:#1a1a3e;
-  --text:#eeeef5;--muted:#8888aa;
-  --blue:#3b82f6;--blue-light:#93c5fd;--blue-bg:rgba(59,130,246,0.08);
-  --purple:#7c3aed;--purple-light:#a78bfa;--purple-bg:rgba(124,58,237,0.08);
+  --bg:#08081a;--surface:#111128;--surface2:#1a1a3e;--text:#eeeef5;--muted:#8888aa;
+  --blue:#3b82f6;--blue-light:#93c5fd;
+  --purple:#7c3aed;--purple-light:#a78bfa;
   --cyan:#06b6d4;--cyan-light:#67e8f9;
   --green:#10b981;--green-light:#6ee7b7;
   --gold:#fbbf24;
-  --border:rgba(255,255,255,0.06);
-  --shadow:0 8px 32px rgba(0,0,0,0.4);
+  --border:rgba(255,255,255,0.06);--shadow:0 8px 32px rgba(0,0,0,0.5);
   --radius:20px;--radius-sm:12px;
   --font:'Inter',system-ui,-apple-system,sans-serif;
 }
 html{scroll-behavior:smooth}
 body{font-family:var(--font);background:var(--bg);color:var(--text);line-height:1.7;min-height:100vh;overflow-x:hidden}
 
-/* ===== HERO ===== */
-.hero{text-align:center;padding:80px 24px 60px;position:relative;overflow:hidden}
-.hero::before{content:'';position:absolute;top:-50%;left:-50%;width:200%;height:200%;background:radial-gradient(ellipse at 50% 30%,rgba(124,58,237,0.12) 0%,rgba(6,182,212,0.06) 40%,transparent 70%);pointer-events:none}
-.hero-badge{display:inline-flex;align-items:center;gap:8px;background:var(--surface2);border:1px solid var(--border);padding:8px 16px;border-radius:30px;font-size:13px;color:var(--muted);margin-bottom:24px}
-.hero-badge .dot{width:8px;height:8px;border-radius:50%;background:var(--green);animation:pulse 2s infinite}
-@keyframes pulse{0%,100%{opacity:1}50%{opacity:0.4}}
-.hero h1{font-size:clamp(36px,6vw,64px);font-weight:800;line-height:1.1;margin-bottom:16px;background:linear-gradient(135deg,var(--blue-light),var(--purple-light),var(--cyan-light));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
-.hero .subtitle{font-size:clamp(16px,2.5vw,22px);color:var(--muted);max-width:640px;margin:0 auto 40px}
-.hero-stats{display:flex;justify-content:center;gap:40px;flex-wrap:wrap;margin-top:32px}
+/* ===== SVG GOO FILTER ===== */
+.svg-filters{position:absolute;width:0;height:0}
+
+/* ===== ORBITAL HERO ===== */
+.orbital-hero{position:relative;width:100%;height:100vh;min-height:700px;display:flex;flex-direction:column;align-items:center;justify-content:center;overflow:hidden;background:radial-gradient(ellipse at 50% 40%,rgba(124,58,237,0.08) 0%,rgba(6,182,212,0.04) 40%,var(--bg) 70%)}
+#gooCanvas{position:absolute;inset:0;pointer-events:none;opacity:0.3;z-index:0}
+.orbit-stage{position:relative;width:500px;height:500px;z-index:2}
+
+/* Center orb */
+.center-orb{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:100px;height:100px;border-radius:50%;background:radial-gradient(circle,rgba(124,58,237,0.6),rgba(6,182,212,0.4),rgba(16,185,129,0.3));display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:10;cursor:default}
+.center-orb::before{content:'';position:absolute;inset:-8px;border-radius:50%;border:1px solid rgba(255,255,255,0.15);animation:orbPulse 3s ease-in-out infinite}
+.center-orb::after{content:'';position:absolute;inset:-20px;border-radius:50%;border:1px solid rgba(255,255,255,0.06);animation:orbPulse 3s ease-in-out infinite;animation-delay:1s}
+@keyframes orbPulse{0%,100%{transform:scale(1);opacity:0.6}50%{transform:scale(1.1);opacity:1}}
+.center-orb .orb-inner{width:40px;height:40px;border-radius:50%;background:rgba(255,255,255,0.85);backdrop-filter:blur(8px)}
+.center-label{position:absolute;top:50%;left:50%;transform:translate(-50%,70px);text-align:center;z-index:10;pointer-events:none}
+.center-label h1{font-size:24px;font-weight:800;background:linear-gradient(135deg,var(--blue-light),var(--purple-light),var(--cyan-light));-webkit-background-clip:text;-webkit-text-fill-color:transparent;white-space:nowrap}
+.center-label p{font-size:13px;color:var(--muted);margin-top:4px}
+
+/* Orbit rings */
+.orbit-ring{position:absolute;top:50%;left:50%;border-radius:50%;border:1px solid rgba(255,255,255,0.05);transform:translate(-50%,-50%)}
+.orbit-ring-1{width:340px;height:340px}
+.orbit-ring-2{width:420px;height:420px;border-style:dashed;border-color:rgba(255,255,255,0.03)}
+
+/* Orbital nodes */
+.orbit-node{position:absolute;top:50%;left:50%;width:56px;height:56px;margin:-28px 0 0 -28px;border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;border:2px solid rgba(255,255,255,0.2);background:var(--surface);transition:transform 0.3s,box-shadow 0.3s,border-color 0.3s;z-index:5;font-size:22px;font-family:var(--font);color:var(--text)}
+.orbit-node:hover{transform:translate(var(--tx),var(--ty)) scale(1.2)!important;border-color:rgba(255,255,255,0.5);box-shadow:0 0 24px rgba(255,255,255,0.15)}
+.orbit-node:focus-visible{outline:2px solid var(--cyan);outline-offset:4px}
+.orbit-node-label{position:absolute;top:64px;left:50%;transform:translateX(-50%);white-space:nowrap;font-size:11px;font-weight:600;color:rgba(255,255,255,0.6);pointer-events:none;letter-spacing:0.5px}
+.orbit-node.active{border-color:#fff;box-shadow:0 0 30px rgba(255,255,255,0.2);background:rgba(255,255,255,0.1)}
+.orbit-node.active .orbit-node-label{color:#fff}
+
+/* Node colors */
+.orbit-node[data-color="blue"]{border-color:rgba(59,130,246,0.4)}.orbit-node[data-color="blue"]:hover,.orbit-node[data-color="blue"].active{border-color:var(--blue);box-shadow:0 0 24px rgba(59,130,246,0.3)}
+.orbit-node[data-color="purple"]{border-color:rgba(124,58,237,0.4)}.orbit-node[data-color="purple"]:hover,.orbit-node[data-color="purple"].active{border-color:var(--purple);box-shadow:0 0 24px rgba(124,58,237,0.3)}
+.orbit-node[data-color="cyan"]{border-color:rgba(6,182,212,0.4)}.orbit-node[data-color="cyan"]:hover,.orbit-node[data-color="cyan"].active{border-color:var(--cyan);box-shadow:0 0 24px rgba(6,182,212,0.3)}
+.orbit-node[data-color="green"]{border-color:rgba(16,185,129,0.4)}.orbit-node[data-color="green"]:hover,.orbit-node[data-color="green"].active{border-color:var(--green);box-shadow:0 0 24px rgba(16,185,129,0.3)}
+.orbit-node[data-color="gold"]{border-color:rgba(251,191,36,0.4)}.orbit-node[data-color="gold"]:hover,.orbit-node[data-color="gold"].active{border-color:var(--gold);box-shadow:0 0 24px rgba(251,191,36,0.3)}
+
+/* Detail card */
+.orbit-detail{position:absolute;bottom:24px;left:50%;transform:translateX(-50%);z-index:20;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:28px 32px;max-width:480px;width:90vw;box-shadow:var(--shadow);display:none;animation:fadeUp 0.3s ease;backdrop-filter:blur(12px)}
+.orbit-detail.show{display:block}
+@keyframes fadeUp{from{opacity:0;transform:translateX(-50%) translateY(12px)}to{opacity:1;transform:translateX(-50%) translateY(0)}}
+.orbit-detail h3{font-size:20px;font-weight:700;margin-bottom:4px}
+.orbit-detail .detail-sub{color:var(--muted);font-size:14px;margin-bottom:12px}
+.orbit-detail .detail-desc{font-size:14px;color:rgba(255,255,255,0.7);margin-bottom:16px;line-height:1.7}
+.orbit-detail .detail-tags{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:16px}
+.orbit-detail .detail-tag{padding:3px 10px;border-radius:20px;font-size:11px;font-weight:600;border:1px solid rgba(255,255,255,0.1);color:var(--muted);background:var(--surface2)}
+.orbit-detail .detail-stats{display:flex;gap:20px;font-size:13px;color:var(--muted);margin-bottom:16px}
+.orbit-detail .detail-btn{display:inline-flex;align-items:center;gap:8px;padding:10px 28px;border-radius:var(--radius-sm);font-size:15px;font-weight:600;text-decoration:none;border:none;cursor:pointer;color:#fff;transition:all 0.2s}
+.orbit-detail .detail-btn:hover{transform:scale(1.03)}
+
+/* Hero stats bar */
+.hero-stats-bar{position:absolute;bottom:100px;left:50%;transform:translateX(-50%);display:flex;gap:40px;z-index:10}
 .stat{text-align:center}
-.stat-num{font-size:28px;font-weight:800;color:var(--text)}
-.stat-label{font-size:13px;color:var(--muted)}
+.stat-num{font-size:24px;font-weight:800}.stat-label{font-size:12px;color:var(--muted)}
 
-/* ===== PATH ===== */
-.path-section{padding:60px 24px;max-width:1100px;margin:0 auto}
-.section-header{text-align:center;margin-bottom:48px}
-.section-header h2{font-size:32px;font-weight:800;margin-bottom:8px}
-.section-header p{color:var(--muted);font-size:17px}
+/* Motion toggle */
+.motion-toggle{position:fixed;bottom:16px;right:16px;z-index:100;background:var(--surface);border:1px solid var(--border);border-radius:20px;padding:6px 14px;font-size:12px;color:var(--muted);cursor:pointer;font-family:var(--font)}
+.motion-toggle:hover{color:var(--text);border-color:var(--purple)}
 
-.path-connector{display:flex;align-items:center;justify-content:center;margin:24px 0}
-.path-line{width:4px;height:60px;background:linear-gradient(to bottom,var(--blue),var(--purple));border-radius:2px;position:relative}
-.path-line::after{content:'';position:absolute;bottom:-6px;left:50%;transform:translateX(-50%);width:0;height:0;border-left:8px solid transparent;border-right:8px solid transparent;border-top:10px solid var(--purple)}
-
-/* ===== COURSE CARDS ===== */
-.course-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:40px;display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:center;box-shadow:var(--shadow);transition:all 0.3s;position:relative;overflow:hidden;max-width:1000px;margin:0 auto}
-.course-card::before{content:'';position:absolute;top:0;left:0;right:0;height:4px}
-.course-card.beginner::before{background:linear-gradient(90deg,var(--blue),var(--cyan))}
-.course-card.advanced::before{background:linear-gradient(90deg,var(--purple),var(--gold))}
-.course-card:hover{transform:translateY(-4px);box-shadow:0 12px 48px rgba(0,0,0,0.5)}
-
-.card-content h3{font-size:24px;font-weight:700;margin-bottom:8px}
-.card-content .card-subtitle{color:var(--muted);font-size:15px;margin-bottom:16px}
-.card-content .card-desc{font-size:14px;color:var(--muted);margin-bottom:20px;line-height:1.8}
-
-.tag-row{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:20px}
-.tag{padding:4px 10px;border-radius:20px;font-size:11px;font-weight:600;border:1px solid var(--border);color:var(--muted);background:var(--surface2)}
-.tag.blue{color:var(--blue-light);border-color:rgba(59,130,246,0.3);background:var(--blue-bg)}
-.tag.purple{color:var(--purple-light);border-color:rgba(124,58,237,0.3);background:var(--purple-bg)}
-
-.card-meta{display:flex;gap:20px;font-size:13px;color:var(--muted);margin-bottom:20px}
-.card-meta span{display:flex;align-items:center;gap:6px}
-
-.card-btn{display:inline-flex;align-items:center;gap:8px;padding:12px 28px;border-radius:var(--radius-sm);font-size:15px;font-weight:600;text-decoration:none;transition:all 0.2s;border:none;cursor:pointer}
-.card-btn.blue-btn{background:var(--blue);color:#fff}
-.card-btn.blue-btn:hover{background:#2563eb;transform:scale(1.02)}
-.card-btn.purple-btn{background:var(--purple);color:#fff}
-.card-btn.purple-btn:hover{background:#6d28d9;transform:scale(1.02)}
-
-.card-visual{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px}
-.card-visual .modules-preview{display:grid;grid-template-columns:repeat(auto-fill,minmax(80px,1fr));gap:8px;width:100%}
-.mod-chip{background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:8px;text-align:center;font-size:11px;color:var(--muted);transition:all 0.2s}
-.mod-chip:hover{border-color:var(--blue);color:var(--text)}
-.course-card.advanced .mod-chip:hover{border-color:var(--purple)}
-
-/* ===== FEATURES ===== */
-.features{padding:60px 24px;max-width:900px;margin:0 auto}
-.feature-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:16px;margin-top:32px}
+/* ===== BELOW-FOLD CONTENT ===== */
+.below-fold{max-width:900px;margin:0 auto;padding:60px 24px}
+.section-header{text-align:center;margin-bottom:40px}
+.section-header h2{font-size:28px;font-weight:800;margin-bottom:8px}
+.section-header p{color:var(--muted);font-size:16px}
+.feature-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:16px}
 .feature{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-sm);padding:24px;transition:all 0.2s}
 .feature:hover{border-color:var(--purple);transform:translateY(-2px)}
 .feature-icon{font-size:28px;margin-bottom:12px}
 .feature h4{font-size:16px;font-weight:600;margin-bottom:6px}
 .feature p{font-size:13px;color:var(--muted)}
 
-/* ===== FOOTER ===== */
-.footer{text-align:center;padding:40px 24px;border-top:1px solid var(--border);margin-top:60px}
+/* Post-test */
+.post-test{max-width:700px;margin:40px auto;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:32px;text-align:center}
+.post-test h3{font-size:22px;font-weight:700;margin-bottom:8px}
+.post-test p{color:var(--muted);font-size:14px;margin-bottom:20px}
+.post-btn{display:inline-flex;align-items:center;gap:8px;padding:12px 28px;border-radius:var(--radius-sm);font-size:15px;font-weight:600;text-decoration:none;background:var(--purple);color:#fff;border:none;cursor:pointer;transition:all 0.2s}
+.post-btn:hover{background:#6d28d9;transform:scale(1.02)}
+
+.footer{text-align:center;padding:40px 24px;border-top:1px solid var(--border);margin-top:40px}
 .footer p{color:var(--muted);font-size:14px}
 .footer a{color:var(--cyan-light);text-decoration:none}
-
-/* ===== RESPONSIVE ===== */
-@media(max-width:768px){
-  .course-card{grid-template-columns:1fr;padding:24px}
-  .card-visual{order:-1}
-  .hero-stats{gap:24px}
-  .hero{padding:48px 16px 40px}
-}
-@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 
 /* ===== GATE ===== */
 .gate-overlay{position:fixed;inset:0;background:var(--bg);z-index:9999;display:flex;flex-direction:column;padding:0;overflow-y:auto}
@@ -110,293 +114,303 @@ body{font-family:var(--font);background:var(--bg);color:var(--text);line-height:
 .gate-footer{text-align:center;padding:20px 24px 32px;flex-shrink:0}
 .gate-btn{display:inline-flex;align-items:center;gap:8px;padding:16px 40px;border-radius:var(--radius-sm);font-size:18px;font-weight:700;cursor:pointer;border:none;background:linear-gradient(135deg,var(--green),#059669);color:#fff;font-family:var(--font);transition:all 0.2s;box-shadow:0 4px 20px rgba(16,185,129,0.3)}
 .gate-btn:hover{transform:scale(1.04);box-shadow:0 6px 28px rgba(16,185,129,0.4)}
-.gate-btn:disabled{opacity:0.4;cursor:not-allowed;transform:none}
 .gate-note{font-size:13px;color:var(--muted);margin-top:12px}
+
+/* ===== RESPONSIVE ===== */
+@media(max-width:600px){
+  .orbital-hero{min-height:auto;height:auto;padding:40px 16px 120px}
+  .orbit-stage{width:300px;height:300px}
+  .orbit-node{width:44px;height:44px;margin:-22px 0 0 -22px;font-size:18px}
+  .orbit-node-label{font-size:10px;top:50px}
+  .center-orb{width:70px;height:70px}
+  .center-orb .orb-inner{width:28px;height:28px}
+  .center-label h1{font-size:18px}
+  .orbit-detail{position:relative;bottom:auto;left:auto;transform:none;width:100%;margin-top:24px}
+  .hero-stats-bar{position:relative;bottom:auto;left:auto;transform:none;margin-top:24px;flex-wrap:wrap;justify-content:center}
+}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition-duration:0.01ms!important}}
 </style>
 </head>
 <body>
 
-<!-- PRE-TEST GATE (blocks everything until completed) -->
+<!-- SVG Gooey Filter -->
+<svg class="svg-filters" aria-hidden="true"><defs><filter id="goo"><feGaussianBlur in="SourceGraphic" stdDeviation="6" result="blur"/><feColorMatrix in="blur" type="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 18 -7" result="goo"/><feComposite in="SourceGraphic" in2="goo" operator="atop"/></filter></defs></svg>
+
+<!-- PRE-TEST GATE -->
 <div class="gate-overlay" id="preTestGate">
   <div class="gate-header">
     <h1>Welcome to AI Engineering Academy</h1>
     <p class="gate-sub">Before you begin, take this quick pre-test (~5 min). No wrong answers — just measuring your starting point.</p>
   </div>
   <div class="gate-iframe-wrap">
-    <iframe src="https://weihaoqu.github.io/learnai-assessment-hs/?type=pre" title="AI Engineering Pre-Test" id="preTestFrame" allow="clipboard-write"></iframe>
+    <iframe src="https://weihaoqu.github.io/learnai-assessment-hs/?type=pre" title="AI Engineering Pre-Test" allow="clipboard-write"></iframe>
   </div>
   <div class="gate-footer">
-    <button class="gate-btn" id="gateBtn" onclick="completePreTest()">I've Finished the Pre-Test &#8594;</button>
-    <p class="gate-note">Or <a href="https://weihaoqu.github.io/learnai-assessment-hs/?type=pre" target="_blank" rel="noopener noreferrer" style="color:var(--cyan-light)">open in a new tab</a> &middot; After submitting, click the button above to unlock courses.</p>
+    <button class="gate-btn" onclick="completePreTest()">I've Finished the Pre-Test &#8594;</button>
+    <p class="gate-note">Or <a href="https://weihaoqu.github.io/learnai-assessment-hs/?type=pre" target="_blank" rel="noopener noreferrer" style="color:var(--cyan-light)">open in a new tab</a> &middot; After submitting, click the button above.</p>
   </div>
 </div>
 
-<!-- MAIN CONTENT (hidden until pre-test done) -->
+<!-- MAIN CONTENT -->
 <div id="mainContent" hidden inert>
 
-<!-- HERO -->
-<section class="hero">
-  <div class="hero-badge"><span class="dot"></span> Free &amp; Self-Contained</div>
-  <h1>AI Engineering Academy</h1>
-  <p class="subtitle">A four-course learning path that takes you from "what's a terminal?" to designing multi-agent AI systems. Built for students with zero coding background.</p>
-  <div class="hero-stats">
+<!-- ORBITAL HERO -->
+<section class="orbital-hero" id="heroSection">
+  <canvas id="gooCanvas" aria-hidden="true"></canvas>
+
+  <div class="orbit-stage" id="orbitStage">
+    <div class="orbit-ring orbit-ring-1"></div>
+    <div class="orbit-ring orbit-ring-2"></div>
+    <div class="center-orb"><div class="orb-inner"></div></div>
+    <div class="center-label"><h1>AI Engineering Academy</h1><p>47 modules &middot; 4 courses &middot; Zero prerequisites</p></div>
+    <!-- Nodes injected by JS -->
+  </div>
+
+  <div class="orbit-detail" id="orbitDetail"></div>
+
+  <div class="hero-stats-bar">
     <div class="stat"><div class="stat-num">47</div><div class="stat-label">Modules</div></div>
     <div class="stat"><div class="stat-num">4</div><div class="stat-label">Courses</div></div>
-    <div class="stat"><div class="stat-num">90+</div><div class="stat-label">Interactive Exercises</div></div>
-    <div class="stat"><div class="stat-num">0</div><div class="stat-label">Prerequisites</div></div>
+    <div class="stat"><div class="stat-num">90+</div><div class="stat-label">Exercises</div></div>
   </div>
 </section>
 
-
-<!-- LEARNING PATH -->
-<section class="path-section">
-  <div class="section-header">
-    <h2>Your Learning Path</h2>
-    <p>Start from the beginning or jump to where you belong</p>
-  </div>
-
-  <!-- BEGINNER COURSE -->
-  <div class="course-card beginner">
-    <div class="card-content">
-      <h3>Course 1: Claude Code Fundamentals</h3>
-      <div class="card-subtitle">From zero to productive with AI-assisted development</div>
-      <div class="tag-row">
-        <span class="tag blue">Beginner</span>
-        <span class="tag">No experience needed</span>
-        <span class="tag">13 Modules</span>
-      </div>
-      <p class="card-desc">Learn what a terminal is, how GitHub works, what web apps are made of, and how to use Claude Code as your AI coding partner. Includes interactive terminal simulator, quizzes, and hands-on practice.</p>
-      <div class="card-meta">
-        <span>&#128218; 13 modules</span>
-        <span>&#9201; ~2 hours</span>
-        <span>&#127919; 5 capstone tasks</span>
-      </div>
-      <a href="claude-code-course.html" class="card-btn blue-btn">Start Course 1 &#8594;</a>
-    </div>
-    <div class="card-visual">
-      <div class="modules-preview">
-        <div class="mod-chip">Terminal</div>
-        <div class="mod-chip">Setup</div>
-        <div class="mod-chip">GitHub</div>
-        <div class="mod-chip">Web Apps</div>
-        <div class="mod-chip">Q&A</div>
-        <div class="mod-chip">Planning</div>
-        <div class="mod-chip">Verify</div>
-        <div class="mod-chip">Context</div>
-        <div class="mod-chip">Memory</div>
-        <div class="mod-chip">Automation</div>
-        <div class="mod-chip">Deploy</div>
-        <div class="mod-chip">Capstone</div>
-      </div>
-    </div>
-  </div>
-
-  <!-- CONNECTOR -->
-  <div class="path-connector"><div class="path-line"></div></div>
-
-  <!-- ADVANCED COURSE -->
-  <div class="course-card advanced">
-    <div class="card-content">
-      <h3>Course 2: Agentic Engineering Quest</h3>
-      <div class="card-subtitle">Design, direct, and build AI agent systems</div>
-      <div class="tag-row">
-        <span class="tag purple">Advanced</span>
-        <span class="tag">Gamified (XP &amp; Levels)</span>
-        <span class="tag">10 Modules</span>
-      </div>
-      <p class="card-desc">Go beyond chatbots. Learn harness engineering, workflow patterns, spec-driven development, tool design, agent memory, safety, and multi-agent orchestration. Design your own agent system in the capstone.</p>
-      <div class="card-meta">
-        <span>&#129302; 10 modules</span>
-        <span>&#9201; ~3 hours</span>
-        <span>&#127942; Agent Design Canvas</span>
-      </div>
-      <a href="agentic-engineering-quest.html" class="card-btn purple-btn">Start Course 2 &#8594;</a>
-    </div>
-    <div class="card-visual">
-      <div class="modules-preview">
-        <div class="mod-chip">Harness</div>
-        <div class="mod-chip">Workflows</div>
-        <div class="mod-chip">Context</div>
-        <div class="mod-chip">Specs</div>
-        <div class="mod-chip">Tools</div>
-        <div class="mod-chip">Memory</div>
-        <div class="mod-chip">Safety</div>
-        <div class="mod-chip">Teams</div>
-        <div class="mod-chip">Design</div>
-        <div class="mod-chip">Capstone</div>
-      </div>
-    </div>
-  </div>
-</section>
-
-  <!-- CONNECTOR 2 -->
-  <div class="path-connector"><div class="path-line"></div></div>
-
-  <!-- SKILLS LAB -->
-  <div class="course-card" style="max-width:1000px;margin:0 auto;border-top:4px solid var(--cyan)">
-    <div class="card-content">
-      <h3>Course 3: AI Skills Lab</h3>
-      <div class="card-subtitle">Think, Learn, Review — three essential AI skills</div>
-      <div class="tag-row">
-        <span class="tag" style="color:var(--cyan-light);border-color:rgba(6,182,212,0.3);background:rgba(6,182,212,0.08)">Skills Practice</span>
-        <span class="tag">3 Tracks</span>
-        <span class="tag">11 Modules</span>
-      </div>
-      <p class="card-desc">Master three power skills: use 7 prompt frameworks for better thinking, turn every project into a learning opportunity, and catch AI mistakes using cross-model review. Includes prompt builder, learning notes exporter, and review detective game.</p>
-      <div class="card-meta">
-        <span>&#129504; 3 tracks</span>
-        <span>&#9201; ~2 hours</span>
-        <span>&#128196; Exportable artifacts</span>
-      </div>
-      <a href="skills-lab.html" class="card-btn" style="background:var(--cyan);color:#fff">Start Skills Lab &#8594;</a>
-    </div>
-    <div class="card-visual">
-      <div class="modules-preview">
-        <div class="mod-chip">Think Better</div>
-        <div class="mod-chip">7 Superpowers</div>
-        <div class="mod-chip">Frameworks</div>
-        <div class="mod-chip">Prompt Builder</div>
-        <div class="mod-chip">Learn Deeper</div>
-        <div class="mod-chip">Learning Notes</div>
-        <div class="mod-chip">Explain Back</div>
-        <div class="mod-chip">Blind Spots</div>
-        <div class="mod-chip">Cross-Review</div>
-        <div class="mod-chip">Detective</div>
-        <div class="mod-chip">Review Team</div>
-      </div>
-    </div>
-  </div>
-</section>
-
-  <!-- CONNECTOR 3 -->
-  <div class="path-connector"><div class="path-line"></div></div>
-
-  <!-- LIFE SKILLS -->
-  <div class="course-card" style="max-width:1000px;margin:0 auto;border-top:4px solid var(--green)">
-    <div class="card-content">
-      <h3>Course 4: AI Life Skills</h3>
-      <div class="card-subtitle">Study better, think critically, create cool stuff</div>
-      <div class="tag-row">
-        <span class="tag" style="color:#6ee7b7;border-color:rgba(16,185,129,0.3);background:rgba(16,185,129,0.08)">Essential</span>
-        <span class="tag">3 Tracks</span>
-        <span class="tag">13 Modules</span>
-      </div>
-      <p class="card-desc">Master AI-powered study techniques, learn to verify claims and stay independent, then create games, videos, and stories. The practical skills every student needs.</p>
-      <div class="card-meta">
-        <span>&#128218; Study smarter</span>
-        <span>&#129504; Think critically</span>
-        <span>&#127912; Create freely</span>
-      </div>
-      <a href="ai-life-skills.html" class="card-btn" style="background:#10b981;color:#fff">Start Life Skills &#8594;</a>
-    </div>
-    <div class="card-visual">
-      <div class="modules-preview">
-        <div class="mod-chip">Amplifier Mode</div>
-        <div class="mod-chip">Socratic Tutor</div>
-        <div class="mod-chip">Deep Prompts</div>
-        <div class="mod-chip">Fatigue</div>
-        <div class="mod-chip">Study System</div>
-        <div class="mod-chip">Claims Check</div>
-        <div class="mod-chip">AI Hype</div>
-        <div class="mod-chip">Safety</div>
-        <div class="mod-chip">Independence</div>
-        <div class="mod-chip">Game Design</div>
-        <div class="mod-chip">Video Plan</div>
-        <div class="mod-chip">Story Bible</div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- FEATURES -->
-<section class="features">
+<!-- BELOW FOLD -->
+<div class="below-fold">
   <div class="section-header">
     <h2>Why This Academy?</h2>
     <p>Built by a professor who teaches AI engineering</p>
   </div>
   <div class="feature-grid">
-    <div class="feature">
-      <div class="feature-icon">&#127760;</div>
-      <h4>100% Self-Contained</h4>
-      <p>Just open the HTML file. No install, no server, no accounts needed. Courses run locally in your browser.</p>
-    </div>
-    <div class="feature">
-      <div class="feature-icon">&#129302;</div>
-      <h4>Built for Non-CS Students</h4>
-      <p>Every concept explained with analogies first, jargon second. No prior coding needed.</p>
-    </div>
-    <div class="feature">
-      <div class="feature-icon">&#127919;</div>
-      <h4>Interactive &amp; Gamified</h4>
-      <p>Terminal simulators, quizzes, drag-drop exercises, XP system, and branching scenarios.</p>
-    </div>
-    <div class="feature">
-      <div class="feature-icon">&#128218;</div>
-      <h4>Research-Backed Content</h4>
-      <p>Drawn from 161 wiki entries covering Claude Code, Anthropic research, and cutting-edge agent design.</p>
-    </div>
-    <div class="feature">
-      <div class="feature-icon">&#128190;</div>
-      <h4>Progress Saved Locally</h4>
-      <p>Your progress, XP, and capstone work are saved in your browser. Pick up where you left off.</p>
-    </div>
-    <div class="feature">
-      <div class="feature-icon">&#128640;</div>
-      <h4>From Beginner to Architect</h4>
-      <p>Two courses that take you from "what's a terminal" to designing multi-agent systems.</p>
-    </div>
-  </div>
-</section>
-
-<!-- POST-TEST -->
-<section class="path-section">
-  <div class="section-header">
-    <h2>Finished All 4 Courses? Take the Post-Test</h2>
-    <p>Measure how much you've learned and see your growth</p>
+    <div class="feature"><div class="feature-icon">&#127760;</div><h4>100% Self-Contained</h4><p>Just open the HTML file. No install, no server, no accounts needed.</p></div>
+    <div class="feature"><div class="feature-icon">&#129302;</div><h4>Built for Non-CS Students</h4><p>Analogies first, jargon second. No prior coding needed.</p></div>
+    <div class="feature"><div class="feature-icon">&#127919;</div><h4>Interactive &amp; Gamified</h4><p>Terminal simulators, quizzes, XP, and branching scenarios.</p></div>
+    <div class="feature"><div class="feature-icon">&#128218;</div><h4>Research-Backed</h4><p>Drawn from 161 wiki entries on Claude Code and agent design.</p></div>
+    <div class="feature"><div class="feature-icon">&#128190;</div><h4>Progress Saved Locally</h4><p>XP and capstone work saved in your browser.</p></div>
+    <div class="feature"><div class="feature-icon">&#128640;</div><h4>Beginner to Architect</h4><p>Four courses from "what's a terminal" to multi-agent systems.</p></div>
   </div>
 
-  <div class="course-card" style="max-width:800px;grid-template-columns:1fr;text-align:center">
-    <div class="card-content" style="text-align:center">
-      <div style="font-size:48px;margin-bottom:16px">&#127942;</div>
-      <h3 style="margin-bottom:8px">AI Engineering Post-Test</h3>
-      <p class="card-desc" style="max-width:500px;margin:0 auto 20px">Take the same assessment again after completing all four courses. Compare your pre and post scores to see how much you've grown in AI engineering knowledge.</p>
-      <div class="tag-row" style="justify-content:center">
-        <span class="tag purple">After Both Courses</span>
-        <span class="tag">~5 minutes</span>
-        <span class="tag">Compare with Pre-Test</span>
-      </div>
-      <div style="margin-top:20px">
-        <a href="https://weihaoqu.github.io/learnai-assessment-hs/?type=post" target="_blank" rel="noopener noreferrer" class="card-btn purple-btn" style="margin-right:12px">Take Post-Test &#8594;</a>
-        <button class="card-btn" onclick="document.getElementById('posttest-embed').style.display=document.getElementById('posttest-embed').style.display==='none'?'block':'none'" style="background:var(--surface2);color:var(--muted);border:1px solid var(--border)">Or take it here &#9660;</button>
-      </div>
-      <div id="posttest-embed" style="display:none;margin-top:24px;border-radius:var(--radius-sm);overflow:hidden;border:1px solid var(--border)">
-        <iframe src="https://weihaoqu.github.io/learnai-assessment-hs/?type=post" style="width:100%;height:600px;border:none;border-radius:var(--radius-sm)" title="AI Engineering Post-Test" allow="clipboard-write"></iframe>
-      </div>
-    </div>
+  <div class="post-test" style="margin-top:60px">
+    <div style="font-size:40px;margin-bottom:12px">&#127942;</div>
+    <h3>Finished All 4 Courses?</h3>
+    <p>Take the post-test to measure your growth.</p>
+    <a href="https://weihaoqu.github.io/learnai-assessment-hs/?type=post" target="_blank" rel="noopener noreferrer" class="post-btn">Take Post-Test &#8594;</a>
   </div>
-</section>
+</div>
 
-<!-- FOOTER -->
 <footer class="footer">
   <p>AI Engineering Academy &mdash; Created by <a href="#">Prof. Weihao Qu</a> at Monmouth University</p>
-  <p style="margin-top:8px;font-size:12px">Content sourced from the LearnAI Knowledge Base (161 entries) + Anthropic Claude Code presentation</p>
+  <p style="margin-top:8px;font-size:12px">Content sourced from the LearnAI Knowledge Base (161 entries)</p>
 </footer>
 
 </div><!-- /mainContent -->
 
+<button class="motion-toggle" id="motionToggle" aria-label="Toggle motion effects">Motion: On</button>
+
 <script>
+// ===== COURSE DATA =====
+const courses = [
+  {id:'pre', icon:'&#128203;', label:'Pre-Test', color:'gold',
+    title:'AI Readiness Pre-Test', sub:'~5 minutes',
+    desc:'Measure your starting point before beginning the courses. Compare with your post-test score after completion.',
+    tags:['Required First','5 min','No wrong answers'],stats:['&#128203; 6 questions'],
+    href:'https://weihaoqu.github.io/learnai-assessment-hs/?type=pre', btnText:'Take Pre-Test', btnColor:'var(--gold)'},
+  {id:'c1', icon:'&#128187;', label:'Fundamentals', color:'blue',
+    title:'Course 1: Claude Code Fundamentals', sub:'13 modules &middot; ~2 hours',
+    desc:'Learn what a terminal is, how GitHub works, what web apps are made of, and how to use Claude Code as your AI coding partner.',
+    tags:['Beginner','13 Modules','No experience needed'],stats:['&#128218; 13 modules','&#127919; 5 capstone tasks'],
+    href:'claude-code-course.html', btnText:'Start Course 1', btnColor:'var(--blue)'},
+  {id:'c2', icon:'&#129302;', label:'Agentic Eng.', color:'purple',
+    title:'Course 2: Agentic Engineering Quest', sub:'10 modules &middot; ~3 hours',
+    desc:'Go beyond chatbots. Learn harness engineering, spec-driven development, tool design, agent memory, safety, and multi-agent orchestration.',
+    tags:['Advanced','Gamified','10 Modules'],stats:['&#129302; 10 modules','&#127942; Agent Canvas'],
+    href:'agentic-engineering-quest.html', btnText:'Start Course 2', btnColor:'var(--purple)'},
+  {id:'c3', icon:'&#129504;', label:'Skills Lab', color:'cyan',
+    title:'Course 3: AI Skills Lab', sub:'11 modules &middot; 3 tracks',
+    desc:'Master prompt frameworks for better thinking, turn projects into learning opportunities, and catch AI mistakes using cross-model review.',
+    tags:['Skills Practice','3 Tracks','11 Modules'],stats:['&#129504; 3 tracks','&#128196; Exportable artifacts'],
+    href:'skills-lab.html', btnText:'Start Skills Lab', btnColor:'var(--cyan)'},
+  {id:'c4', icon:'&#127912;', label:'Life Skills', color:'green',
+    title:'Course 4: AI Life Skills', sub:'13 modules &middot; 3 tracks',
+    desc:'Master AI-powered study techniques, learn to verify claims and stay independent, then create games, videos, and stories.',
+    tags:['Essential','3 Tracks','13 Modules'],stats:['&#128218; Study smarter','&#127912; Create freely'],
+    href:'ai-life-skills.html', btnText:'Start Life Skills', btnColor:'var(--green)'},
+  {id:'post', icon:'&#127942;', label:'Post-Test', color:'gold',
+    title:'AI Engineering Post-Test', sub:'~5 minutes',
+    desc:'Take the same assessment after completing all courses. Compare your pre and post scores to see how much you\'ve grown.',
+    tags:['After All Courses','5 min','Compare scores'],stats:['&#128200; Growth report'],
+    href:'https://weihaoqu.github.io/learnai-assessment-hs/?type=post', btnText:'Take Post-Test', btnColor:'var(--gold)'},
+];
+
+// ===== ORBITAL TIMELINE =====
+const stage = document.getElementById('orbitStage');
+const detailEl = document.getElementById('orbitDetail');
+let angle = 0, autoRotate = true, activeId = null;
+const radius = typeof window !== 'undefined' && window.innerWidth < 600 ? 120 : 190;
+const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+const coarsePointer = window.matchMedia('(pointer: coarse)').matches;
+let motionEnabled = !reduceMotion && !coarsePointer;
+
+// Create nodes
+courses.forEach((c, i) => {
+  const btn = document.createElement('button');
+  btn.className = 'orbit-node';
+  btn.dataset.color = c.color;
+  btn.dataset.idx = i;
+  btn.innerHTML = `${c.icon}<span class="orbit-node-label">${c.label}</span>`;
+  btn.setAttribute('aria-label', c.title);
+  btn.addEventListener('click', () => selectNode(i));
+  stage.appendChild(btn);
+});
+
+function positionNodes() {
+  const nodes = stage.querySelectorAll('.orbit-node');
+  const total = nodes.length;
+  nodes.forEach((node, i) => {
+    const a = ((i / total) * 360 + angle) * Math.PI / 180;
+    const x = Math.cos(a) * radius;
+    const y = Math.sin(a) * radius;
+    node.style.transform = `translate(${x}px, ${y}px)`;
+    node.style.setProperty('--tx', x + 'px');
+    node.style.setProperty('--ty', y + 'px');
+  });
+}
+
+function selectNode(idx) {
+  const c = courses[idx];
+  activeId = idx;
+  autoRotate = false;
+  stage.querySelectorAll('.orbit-node').forEach((n, i) => n.classList.toggle('active', i === idx));
+
+  const isExternal = c.href.startsWith('http');
+  detailEl.innerHTML = `
+    <h3>${c.title}</h3>
+    <p class="detail-sub">${c.sub}</p>
+    <p class="detail-desc">${c.desc}</p>
+    <div class="detail-tags">${c.tags.map(t => `<span class="detail-tag">${t}</span>`).join('')}</div>
+    <div class="detail-stats">${c.stats.map(s => `<span>${s}</span>`).join('')}</div>
+    <a href="${c.href}" ${isExternal ? 'target="_blank" rel="noopener noreferrer"' : ''} class="detail-btn" style="background:${c.btnColor}">${c.btnText} &#8594;</a>
+  `;
+  detailEl.classList.add('show');
+
+  // Center the node at top
+  const total = courses.length;
+  const targetAngle = (idx / total) * 360;
+  angle = 270 - targetAngle;
+  positionNodes();
+}
+
+// Click outside to deselect
+document.getElementById('heroSection').addEventListener('click', (e) => {
+  if (!e.target.closest('.orbit-node') && !e.target.closest('.orbit-detail')) {
+    activeId = null;
+    autoRotate = true;
+    stage.querySelectorAll('.orbit-node').forEach(n => n.classList.remove('active'));
+    detailEl.classList.remove('show');
+  }
+});
+
+// Animation loop
+let lastTime = 0;
+function animate(time) {
+  if (motionEnabled && autoRotate) {
+    const delta = time - lastTime;
+    if (delta > 30) {
+      angle = (angle + 0.15) % 360;
+      positionNodes();
+      lastTime = time;
+    }
+  }
+  requestAnimationFrame(animate);
+}
+positionNodes();
+requestAnimationFrame(animate);
+
+// ===== GOOEY CANVAS TRAIL =====
+const canvas = document.getElementById('gooCanvas');
+const ctx = canvas.getContext('2d');
+let particles = [];
+const MAX_PARTICLES = 100;
+
+function resizeCanvas() {
+  const dpr = Math.min(devicePixelRatio, 2);
+  const hero = document.getElementById('heroSection');
+  canvas.width = hero.offsetWidth * dpr;
+  canvas.height = hero.offsetHeight * dpr;
+  canvas.style.width = hero.offsetWidth + 'px';
+  canvas.style.height = hero.offsetHeight + 'px';
+  ctx.scale(dpr, dpr);
+}
+resizeCanvas();
+window.addEventListener('resize', resizeCanvas);
+
+document.getElementById('heroSection').addEventListener('mousemove', (e) => {
+  if (!motionEnabled) return;
+  const rect = canvas.getBoundingClientRect();
+  const x = e.clientX - rect.left;
+  const y = e.clientY - rect.top;
+  if (particles.length < MAX_PARTICLES) {
+    particles.push({ x, y, size: 6 + Math.random() * 8, alpha: 0.7, decay: 0.008 + Math.random() * 0.008 });
+  }
+});
+
+let particleRaf = null;
+function drawParticles() {
+  ctx.clearRect(0, 0, canvas.width / Math.min(devicePixelRatio, 2), canvas.height / Math.min(devicePixelRatio, 2));
+  particles = particles.filter(p => p.alpha > 0.01);
+  particles.forEach(p => {
+    ctx.beginPath();
+    ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+    ctx.fillStyle = `rgba(255,255,255,${p.alpha})`;
+    ctx.fill();
+    p.alpha -= p.decay;
+  });
+  particleRaf = requestAnimationFrame(drawParticles);
+}
+function startParticles() {
+  if (particleRaf) return; // prevent duplicate loops
+  canvas.style.display = '';
+  canvas.style.filter = 'url(#goo)';
+  drawParticles();
+}
+function stopParticles() {
+  if (particleRaf) { cancelAnimationFrame(particleRaf); particleRaf = null; }
+  canvas.style.display = 'none';
+}
+if (motionEnabled) { startParticles(); } else { stopParticles(); }
+
+// ===== MOTION TOGGLE =====
+const motionBtn = document.getElementById('motionToggle');
+// Initialize button text from actual state
+motionBtn.textContent = 'Motion: ' + (motionEnabled ? 'On' : 'Off');
+
+motionBtn.addEventListener('click', () => {
+  motionEnabled = !motionEnabled;
+  motionBtn.textContent = 'Motion: ' + (motionEnabled ? 'On' : 'Off');
+  localStorage.setItem('learnai-motion', motionEnabled ? 'on' : 'off');
+  if (motionEnabled) { startParticles(); } else { stopParticles(); positionNodes(); }
+});
+// Restore preference
+if (localStorage.getItem('learnai-motion') === 'off') {
+  motionEnabled = false;
+  motionBtn.textContent = 'Motion: Off';
+  stopParticles();
+}
+
+// ===== PRE-TEST GATE =====
 function completePreTest() {
   localStorage.setItem('learnai-course-pretest-done-v1', 'true');
   document.getElementById('preTestGate').classList.add('hidden');
   document.getElementById('mainContent').removeAttribute('hidden');
   document.getElementById('mainContent').removeAttribute('inert');
+  resizeCanvas();
+  positionNodes();
 }
-
-// On load: check if pre-test was already taken
 if (localStorage.getItem('learnai-course-pretest-done-v1') === 'true') {
   document.getElementById('preTestGate').classList.add('hidden');
   document.getElementById('mainContent').removeAttribute('hidden');
   document.getElementById('mainContent').removeAttribute('inert');
+  requestAnimationFrame(() => { resizeCanvas(); positionNodes(); });
 }
 </script>
 </body>
