@@ -1,0 +1,648 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<script>if(localStorage.getItem('learnai-course-pretest-done-v1')!=='true'){window.location.href='index.html';}</script>
+<title>AI Life Skills - Study, Think, Create</title>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#0f0f1a;--surface:#1a1a2e;--surface2:#252542;--text:#e8e8f0;--muted:#8888a8;
+  --primary:#7c3aed;--primary-light:#a78bfa;--primary-bg:rgba(124,58,237,0.1);
+  --accent:#06b6d4;--accent-light:#67e8f9;--accent-bg:rgba(6,182,212,0.1);
+  --green:#10b981;--green-bg:rgba(16,185,129,0.1);
+  --orange:#f59e0b;--orange-bg:rgba(245,158,11,0.1);
+  --pink:#ec4899;--pink-bg:rgba(236,72,153,0.1);
+  --danger:#ef4444;--danger-bg:rgba(239,68,68,0.1);
+  --border:rgba(255,255,255,0.08);--shadow:0 4px 24px rgba(0,0,0,0.4);
+  --radius:16px;--radius-sm:10px;
+  --font:'Inter',system-ui,-apple-system,sans-serif;
+  --mono:'JetBrains Mono','Fira Code',monospace;
+}
+body{font-family:var(--font);background:var(--bg);color:var(--text);line-height:1.7;font-size:16px;min-height:100vh}
+.topbar{position:sticky;top:0;z-index:100;background:var(--surface);border-bottom:1px solid var(--border);padding:12px 24px;display:flex;align-items:center;gap:16px;backdrop-filter:blur(12px)}
+.topbar-logo{font-weight:800;font-size:18px;background:linear-gradient(135deg,var(--green),var(--accent-light));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.topbar-home{color:var(--muted);text-decoration:none;font-size:14px;margin-left:auto}
+.topbar-home:hover{color:var(--text)}
+.topbar-xp{display:flex;align-items:center;gap:8px;font-size:14px;color:var(--accent-light);font-weight:600}
+.xp-bar{width:100px;height:6px;background:var(--surface2);border-radius:3px;overflow:hidden}
+.xp-fill{height:100%;background:linear-gradient(90deg,var(--green),var(--accent));border-radius:3px;transition:width 0.5s}
+.container{max-width:900px;margin:0 auto;padding:32px 24px}
+.track-tabs{display:flex;gap:8px;margin-bottom:32px;overflow-x:auto;padding-bottom:4px}
+.track-tab{padding:12px 20px;border-radius:var(--radius-sm);font-size:14px;font-weight:600;cursor:pointer;border:2px solid var(--border);background:var(--surface);color:var(--muted);transition:all 0.2s;white-space:nowrap;font-family:var(--font)}
+.track-tab:hover{border-color:var(--primary);color:var(--text)}
+.track-tab.active{border-color:var(--primary);background:var(--primary-bg);color:var(--primary-light)}
+.track{display:none;animation:fadeUp 0.3s ease}.track.active{display:block}
+@keyframes fadeUp{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+.mod-nav{display:flex;gap:8px;margin-bottom:24px;flex-wrap:wrap}
+.mod-nav-btn{padding:8px 16px;border-radius:20px;font-size:13px;font-weight:600;cursor:pointer;border:1px solid var(--border);background:var(--surface2);color:var(--muted);font-family:var(--font);transition:all 0.2s}
+.mod-nav-btn:hover{border-color:var(--accent);color:var(--text)}
+.mod-nav-btn.active{background:var(--accent-bg);border-color:var(--accent);color:var(--accent-light)}
+.mod{display:none;animation:fadeUp 0.3s ease}.mod.active{display:block}
+.mod h1{font-size:28px;font-weight:800;margin-bottom:8px}
+.mod .subtitle{color:var(--muted);font-size:16px;margin-bottom:24px}
+.mod h2{font-size:20px;font-weight:700;margin:24px 0 12px}
+.mod h3{font-size:17px;font-weight:600;margin:16px 0 8px}
+.mod p{margin-bottom:12px}
+.mod ul,.mod ol{margin:0 0 12px 24px}.mod li{margin-bottom:6px}
+.card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:24px;margin:16px 0}
+.card-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:12px;margin:16px 0}
+.info-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-sm);padding:16px;transition:all 0.2s}
+.info-card:hover{border-color:var(--primary);transform:translateY(-2px)}
+.info-card .ic{font-size:24px;margin-bottom:8px}
+.info-card h4{font-size:14px;font-weight:600;margin-bottom:4px}
+.info-card p{font-size:13px;color:var(--muted);margin:0}
+.callout{padding:16px 20px;border-radius:var(--radius-sm);margin:16px 0;display:flex;gap:12px;font-size:15px;border:1px solid}
+.callout-icon{font-size:20px;flex-shrink:0}
+.callout-insight{background:var(--primary-bg);border-color:rgba(124,58,237,0.3)}
+.callout-tip{background:var(--green-bg);border-color:rgba(16,185,129,0.3)}
+.callout-warning{background:var(--orange-bg);border-color:rgba(245,158,11,0.3)}
+.callout-danger{background:var(--danger-bg);border-color:rgba(239,68,68,0.3)}
+.quiz{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:24px;margin:20px 0}
+.quiz h3{margin-bottom:16px;font-size:17px}
+.quiz-opt{display:block;width:100%;text-align:left;padding:12px 16px;margin:8px 0;border:2px solid var(--border);border-radius:var(--radius-sm);background:var(--surface2);cursor:pointer;transition:all 0.2s;font-size:15px;font-family:var(--font);color:var(--text)}
+.quiz-opt:hover:not(.disabled){border-color:var(--primary);background:var(--primary-bg)}
+.quiz-opt.correct{border-color:var(--green);background:var(--green-bg)}
+.quiz-opt.wrong{border-color:var(--danger);background:var(--danger-bg)}
+.quiz-opt.disabled{cursor:default;opacity:0.7}
+.quiz-fb{margin-top:12px;padding:12px;border-radius:var(--radius-sm);font-size:14px;display:none}
+.quiz-fb.show{display:block}
+.compare{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:16px 0}
+.compare-col{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:20px}
+.compare-col.bad{border-color:rgba(239,68,68,0.3)}.compare-col.good{border-color:rgba(16,185,129,0.3)}
+.compare-label{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:1px;margin-bottom:8px}
+.compare-col.bad .compare-label{color:var(--danger)}.compare-col.good .compare-label{color:var(--green)}
+.terminal{background:#1e1e2e;border-radius:var(--radius);overflow:hidden;margin:16px 0;font-family:var(--mono);font-size:13px}
+.terminal-bar{background:#181825;padding:8px 16px;display:flex;gap:8px}
+.td{width:12px;height:12px;border-radius:50%}.td.r{background:#f38ba8}.td.y{background:#f9e2af}.td.g{background:#a6e3a1}
+.terminal-body{padding:16px}
+.tl{color:#cdd6f4;margin-bottom:4px;white-space:pre-wrap}
+.tp{color:#89b4fa}.tc{color:#a6e3a1}.to{color:#bac2de}.th{color:#f9e2af}.tcm{color:#6c7086;font-style:italic}
+.builder{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:24px;margin:16px 0}
+.builder textarea,.builder input[type=text]{width:100%;min-height:50px;background:var(--surface2);border:1px solid var(--border);border-radius:var(--radius-sm);padding:12px;color:var(--text);font-family:var(--font);font-size:14px;resize:vertical;margin:6px 0}
+.builder input[type=text]{min-height:auto;padding:10px 12px}
+.builder label{font-size:14px;font-weight:600;display:block;margin-top:12px}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:10px 24px;border-radius:var(--radius-sm);font-size:15px;font-weight:600;cursor:pointer;transition:all 0.2s;border:none;font-family:var(--font)}
+.btn-primary{background:var(--primary);color:#fff}.btn-primary:hover{background:#6d28d9}
+.btn-accent{background:var(--accent);color:#fff}.btn-accent:hover{background:#0891b2}
+.btn-green{background:var(--green);color:#fff}.btn-green:hover{background:#059669}
+.btn-ghost{background:transparent;color:var(--muted);border:1px solid var(--border)}.btn-ghost:hover{color:var(--text);border-color:var(--primary)}
+.nav-btns{display:flex;justify-content:space-between;margin-top:40px;padding-top:24px;border-top:1px solid var(--border)}
+.scenario{background:linear-gradient(135deg,var(--surface),var(--surface2));border:1px solid var(--border);border-radius:var(--radius);padding:24px;margin:20px 0}
+.decision-tree{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:12px;margin:16px 0}
+.dt-node{background:var(--surface);border:2px solid var(--border);border-radius:var(--radius-sm);padding:14px;text-align:center;cursor:pointer;transition:all 0.2s;font-size:13px}
+.dt-node:hover{border-color:var(--accent);transform:translateY(-2px)}
+.dt-node.selected{border-color:var(--green);background:var(--green-bg)}
+.dt-node .dt-icon{font-size:20px;margin-bottom:4px}
+@media(max-width:768px){.compare{grid-template-columns:1fr}.card-grid{grid-template-columns:1fr}.decision-tree{grid-template-columns:repeat(2,1fr)}}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<header class="topbar">
+  <div class="topbar-logo">AI Life Skills</div>
+  <a href="index.html" class="topbar-home">&#8592; Back to Academy</a>
+  <div class="topbar-xp"><span id="xpText">0 XP</span><div class="xp-bar"><div class="xp-fill" id="xpFill" style="width:0%"></div></div></div>
+</header>
+<div class="container">
+<div class="track-tabs">
+  <button class="track-tab active" onclick="switchTrack(0)">&#128218; Study Better</button>
+  <button class="track-tab" onclick="switchTrack(1)">&#129504; Think Critically</button>
+  <button class="track-tab" onclick="switchTrack(2)">&#127912; Create Cool Stuff</button>
+</div>
+
+<!-- ========== TRACK A: STUDY BETTER ========== -->
+<div class="track active" id="track0">
+<div class="mod-nav" id="track0-nav"></div>
+
+<div class="mod active" id="a0">
+  <h1>Learn With AI, Don't Outsource Thinking</h1>
+  <p class="subtitle">AI is a power tool for learning — but only if you stay in the driver's seat.</p>
+
+  <div class="callout callout-warning">
+    <span class="callout-icon">&#9888;</span>
+    <div><strong>The trap:</strong> Students who let AI do all the thinking get worse grades over time. Students who use AI to <em>understand</em> things get dramatically better.</div>
+  </div>
+
+  <h2>The Amplifier vs. The Crutch</h2>
+  <div class="compare">
+    <div class="compare-col bad">
+      <div class="compare-label">&#129692; Crutch Mode</div>
+      <p style="font-size:14px">"Write my essay." "Solve this problem." "Give me the answer."</p>
+      <p style="font-size:13px;color:var(--muted)">You submit AI's work. You learn nothing. Next test, you're lost.</p>
+    </div>
+    <div class="compare-col good">
+      <div class="compare-label">&#128170; Amplifier Mode</div>
+      <p style="font-size:14px">"Explain this concept." "Check my reasoning." "Quiz me on this."</p>
+      <p style="font-size:13px;color:var(--muted)">You do the thinking. AI helps you understand deeper. Next test, you're prepared.</p>
+    </div>
+  </div>
+
+  <h2>Research Says...</h2>
+  <div class="card-grid">
+    <div class="info-card"><div class="ic">&#128200;</div><h4>AI + Active Learning</h4><p>Students who use AI to quiz themselves score 23% higher on exams</p></div>
+    <div class="info-card"><div class="ic">&#128201;</div><h4>AI + Passive Use</h4><p>Students who copy AI answers score 15% LOWER than students who don't use AI at all</p></div>
+  </div>
+
+  <div class="quiz">
+    <h3>Which is a better use of AI for studying?</h3>
+    <button class="quiz-opt" onclick="qz(this,false,'a0fb','This is crutch mode. You get a summary but don\'t process the information yourself.')">Ask AI to summarize a chapter, then copy the summary into your notes</button>
+    <button class="quiz-opt" onclick="qz(this,true,'a0fb','This is amplifier mode! You read first (active), then AI helps you test and deepen your understanding. You do the thinking.')">Read the chapter yourself, then ask AI to quiz you on the key concepts and explain what you got wrong</button>
+    <button class="quiz-opt" onclick="qz(this,false,'a0fb','Skipping AI entirely means missing a powerful learning tool. The best approach is using AI as a tutor, not avoiding it.')">Don't use AI at all — it's cheating</button>
+    <div class="quiz-fb" id="a0fb" role="status" aria-live="polite"></div>
+  </div>
+
+  <div class="nav-btns"><div></div><button class="btn btn-primary" onclick="goMod(0,1)">Next: Socratic Tutor &#8594;</button></div>
+</div>
+
+<div class="mod" id="a1">
+  <h1>Socratic Tutor Mode</h1>
+  <p class="subtitle">Turn AI into a tutor that asks YOU questions — instead of just giving answers.</p>
+
+  <h2>What Is Socratic Prompting?</h2>
+  <p>Instead of asking AI for answers, ask it to <strong>guide you to the answer through questions</strong>. This forces your brain to actually think, which is how real learning happens.</p>
+
+  <div class="terminal">
+    <div class="terminal-bar"><div class="td r"></div><div class="td y"></div><div class="td g"></div></div>
+    <div class="terminal-body">
+      <div class="tl"><span class="tcm"># Instead of: "What caused the French Revolution?"</span></div>
+      <div class="tl"><span class="tcm"># Try this:</span></div>
+      <div class="tl"></div>
+      <div class="tl"><span class="tp">You:</span> <span class="tc">I'm studying the French Revolution. Don't give me answers directly.</span></div>
+      <div class="tl"><span class="tc">Instead, ask me guiding questions that help me figure out the</span></div>
+      <div class="tl"><span class="tc">causes myself. Start with the simplest question and build up.</span></div>
+      <div class="tl"><span class="tc">If I get stuck, give a hint — not the answer.</span></div>
+      <div class="tl"></div>
+      <div class="tl"><span class="tp">AI:</span> <span class="to">Let's start simple. In 1789, most people in France belonged</span></div>
+      <div class="tl"><span class="to">to one of three "estates." What do you think life was like</span></div>
+      <div class="tl"><span class="to">for someone in the Third Estate compared to the First?</span></div>
+    </div>
+  </div>
+
+  <h2>The Magic Prompts</h2>
+  <div class="card-grid">
+    <div class="info-card"><div class="ic">&#129300;</div><h4>"Don't give answers"</h4><p>Ask guiding questions instead</p></div>
+    <div class="info-card"><div class="ic">&#128161;</div><h4>"Give hints, not solutions"</h4><p>When I'm stuck, nudge me</p></div>
+    <div class="info-card"><div class="ic">&#128200;</div><h4>"Build up from simple"</h4><p>Start easy, increase difficulty</p></div>
+    <div class="info-card"><div class="ic">&#128172;</div><h4>"Correct my reasoning"</h4><p>Tell me WHERE I went wrong</p></div>
+  </div>
+
+  <div class="quiz">
+    <h3>You're stuck on a physics problem. Which prompt is Socratic?</h3>
+    <button class="quiz-opt" onclick="qz(this,false,'a1fb','This just asks for the answer. You learn nothing about the reasoning.')">Solve this for me: F = ma, what is the force if m=5 and a=3?</button>
+    <button class="quiz-opt" onclick="qz(this,true,'a1fb','This is Socratic! The AI will ask you questions that lead you to figure out the answer yourself. Your brain does the work.')">I'm trying to understand F=ma. Ask me questions that help me figure out what each variable means and how they relate. Don't solve it for me.</button>
+    <button class="quiz-opt" onclick="qz(this,false,'a1fb','Asking for all formulas is memorization, not understanding. Socratic method builds understanding through guided questioning.')">Give me every physics formula I need for the test</button>
+    <div class="quiz-fb" id="a1fb" role="status" aria-live="polite"></div>
+  </div>
+
+  <div class="nav-btns">
+    <button class="btn btn-ghost" onclick="goMod(0,0)">&#8592; Back</button>
+    <button class="btn btn-primary" onclick="goMod(0,2)">Next: Deep Understanding &#8594;</button>
+  </div>
+</div>
+
+<div class="mod" id="a2">
+  <h1>Deep Understanding Prompts</h1>
+  <p class="subtitle">Five prompts that test whether you REALLY understand something — or just memorized it.</p>
+
+  <h2>The 5 Deep Understanding Prompts</h2>
+  <div class="card-grid">
+    <div class="info-card" style="border-left:3px solid var(--accent)"><div class="ic">&#128172;</div><h4>1. Explain Like I'm 10</h4><p>"Explain [topic] so a 10-year-old understands. Use no jargon."</p></div>
+    <div class="info-card" style="border-left:3px solid var(--green)"><div class="ic">&#128260;</div><h4>2. What's The Opposite?</h4><p>"What would happen if the opposite were true?"</p></div>
+    <div class="info-card" style="border-left:3px solid var(--orange)"><div class="ic">&#128279;</div><h4>3. Connect It</h4><p>"How does [topic A] connect to [topic B]?"</p></div>
+    <div class="info-card" style="border-left:3px solid var(--primary)"><div class="ic">&#128683;</div><h4>4. Where Does It Break?</h4><p>"When does this NOT work? What are the exceptions?"</p></div>
+    <div class="info-card" style="border-left:3px solid var(--pink)"><div class="ic">&#127912;</div><h4>5. Draw Me An Analogy</h4><p>"Give me 3 analogies from everyday life"</p></div>
+  </div>
+
+  <h2>Example: Testing Your Understanding of Photosynthesis</h2>
+  <div class="terminal">
+    <div class="terminal-bar"><div class="td r"></div><div class="td y"></div><div class="td g"></div></div>
+    <div class="terminal-body">
+      <div class="tl"><span class="th">1. ELI10:</span> <span class="to">"Plants are like solar-powered kitchens that cook their own food from sunlight and air"</span></div>
+      <div class="tl"><span class="th">2. Opposite:</span> <span class="to">"Without photosynthesis, Earth's oxygen would deplete and food chains collapse"</span></div>
+      <div class="tl"><span class="th">3. Connect:</span> <span class="to">"Photosynthesis + respiration form a carbon cycle — one undoes the other"</span></div>
+      <div class="tl"><span class="th">4. Breaks:</span> <span class="to">"Doesn't work at night, in extreme cold, or without water — plants can starve"</span></div>
+      <div class="tl"><span class="th">5. Analogy:</span> <span class="to">"Like a factory that runs on solar panels, uses CO2 as raw material, and produces sugar as product"</span></div>
+    </div>
+  </div>
+
+  <div class="callout callout-tip">
+    <span class="callout-icon">&#128161;</span>
+    <div><strong>Test yourself:</strong> If you can answer all 5 for any topic, you truly understand it. If you can't, that's exactly where to focus your studying.</div>
+  </div>
+
+  <div class="nav-btns">
+    <button class="btn btn-ghost" onclick="goMod(0,1)">&#8592; Back</button>
+    <button class="btn btn-primary" onclick="goMod(0,3)">Next: Cognitive Fatigue &#8594;</button>
+  </div>
+</div>
+
+<div class="mod" id="a3">
+  <h1>Avoid Cognitive Fatigue</h1>
+  <p class="subtitle">AI tools can overwhelm your brain. Learn when to stop.</p>
+
+  <h2>The Brain Fry Problem</h2>
+  <p>Using AI intensively for hours creates a unique kind of exhaustion. You're constantly making decisions: Is this output correct? Should I accept this? Does this make sense? This <strong>decision fatigue</strong> is real and measurable.</p>
+
+  <div class="card-grid">
+    <div class="info-card"><div class="ic">&#129504;</div><h4>Signs You're Fried</h4><p>Accepting AI output without reading it. Saying "looks good" to everything. Unable to spot errors.</p></div>
+    <div class="info-card"><div class="ic">&#9200;</div><h4>The 45-Minute Rule</h4><p>Take a 10-minute break every 45 minutes of intensive AI use. Walk, stretch, look away from screen.</p></div>
+    <div class="info-card"><div class="ic">&#128221;</div><h4>Write First, AI Second</h4><p>Draft your own thoughts BEFORE asking AI. This keeps your brain active and prevents outsourcing.</p></div>
+  </div>
+
+  <div class="callout callout-warning">
+    <span class="callout-icon">&#9888;</span>
+    <div><strong>Warning signs:</strong> If you find yourself copying AI output without reading it, or unable to explain what you just "learned" — stop. Take a break. Your brain needs processing time.</div>
+  </div>
+
+  <div class="quiz">
+    <h3>You've been using AI for 2 hours straight and realize you've been clicking "accept" without reading. What should you do?</h3>
+    <button class="quiz-opt" onclick="qz(this,false,'a3fb','More AI when you are already fatigued makes things worse. You need real rest.')">Ask AI to summarize what you've done so you can catch up</button>
+    <button class="quiz-opt" onclick="qz(this,true,'a3fb','Correct! Step away, let your brain reset. When you return, review what was done with fresh eyes. Quality matters more than quantity.')">Stop immediately. Take a 15-minute break away from screens. Then review everything with fresh eyes.</button>
+    <button class="quiz-opt" onclick="qz(this,false,'a3fb','Powering through fatigue means accepting bad output. The work will need to be redone anyway.')">Keep going — you're almost done and can rest later</button>
+    <div class="quiz-fb" id="a3fb" role="status" aria-live="polite"></div>
+  </div>
+
+  <div class="nav-btns">
+    <button class="btn btn-ghost" onclick="goMod(0,2)">&#8592; Back</button>
+    <button class="btn btn-primary" onclick="goMod(0,4)">Next: Build Your System &#8594;</button>
+  </div>
+</div>
+
+<div class="mod" id="a4">
+  <h1>Build Your Learning System</h1>
+  <p class="subtitle">Combine everything into a personal AI-powered study system.</p>
+
+  <h2>Your Study System Blueprint</h2>
+  <div class="builder">
+    <h3 style="margin-bottom:12px">Design Your Personal AI Study Routine</h3>
+    <label>1. What subject are you studying?</label>
+    <input type="text" id="ls-subject" placeholder="Example: Biology, History, Math..." aria-label="Subject">
+    <label>2. Your Socratic prompt (how AI should quiz you):</label>
+    <textarea id="ls-socratic" placeholder="Example: Ask me questions about cell biology. Start easy, get harder. Give hints if I'm stuck, never give answers directly." aria-label="Socratic prompt"></textarea>
+    <label>3. Your 45-minute rule plan:</label>
+    <textarea id="ls-break" placeholder="Example: Study 45 min → 10 min walk → Review notes → Study 45 min → Done for the day" aria-label="Break plan"></textarea>
+    <label>4. How will you test deep understanding? (Pick 2 of the 5 prompts)</label>
+    <textarea id="ls-deep" placeholder="Example: After each topic, I'll use 'Explain Like I'm 10' and 'Where Does It Break?' to check my understanding." aria-label="Deep understanding check"></textarea>
+    <label>5. Your anti-crutch rule:</label>
+    <textarea id="ls-rule" placeholder="Example: I will always attempt the problem myself first. I only ask AI AFTER I've written my own answer." aria-label="Anti-crutch rule"></textarea>
+    <button class="btn btn-green" onclick="exportStudySystem()" style="margin-top:16px">&#128196; Export My Study System</button>
+  </div>
+
+  <div class="callout callout-tip">
+    <span class="callout-icon">&#127775;</span>
+    <div><strong>Track A Complete!</strong> You now have a personal AI study system. Move to Track B to learn how to think critically about AI output, or jump to Track C to create something fun.</div>
+  </div>
+
+  <div class="nav-btns">
+    <button class="btn btn-ghost" onclick="goMod(0,3)">&#8592; Back</button>
+    <button class="btn btn-primary" onclick="switchTrack(1)">Start Track B: Think Critically &#8594;</button>
+  </div>
+</div>
+</div><!-- /track0 -->
+
+<!-- ========== TRACK B: THINK CRITICALLY ========== -->
+<div class="track" id="track1">
+<div class="mod-nav" id="track1-nav"></div>
+
+<div class="mod active" id="b0">
+  <h1>Define The Problem First</h1>
+  <p class="subtitle">The #1 reason AI gives bad answers: you asked the wrong question.</p>
+
+  <div class="callout callout-insight">
+    <span class="callout-icon">&#128161;</span>
+    <div><strong>True story:</strong> A lawyer with NO coding experience won an AI hackathon. Why? Because while engineers were building fancy tools, she spent time <em>defining the problem precisely</em>. Clear problem definition beats technical skill every time.</div>
+  </div>
+
+  <h2>Before You Ask AI Anything...</h2>
+  <div class="card-grid">
+    <div class="info-card"><div class="ic">&#127919;</div><h4>What's the real goal?</h4><p>Not "help with essay" but "find 3 counter-arguments to my thesis"</p></div>
+    <div class="info-card"><div class="ic">&#128683;</div><h4>What's NOT the goal?</h4><p>Be specific about what you DON'T need to avoid wasted effort</p></div>
+    <div class="info-card"><div class="ic">&#128100;</div><h4>Who is it for?</h4><p>Teacher? Yourself? Classmates? This changes the tone and depth.</p></div>
+    <div class="info-card"><div class="ic">&#128203;</div><h4>What does "done" look like?</h4><p>Define success BEFORE you start so you know when to stop</p></div>
+  </div>
+
+  <div class="quiz">
+    <h3>Which problem definition would get the best AI output?</h3>
+    <button class="quiz-opt" onclick="qz(this,false,'b0fb','Too vague. The AI doesn\'t know your thesis, level, subject, or what kind of help you need.')">Help me with my assignment</button>
+    <button class="quiz-opt" onclick="qz(this,false,'b0fb','Better, but still missing context. What\'s the essay about? What have you already written?')">Write an essay about climate change</button>
+    <button class="quiz-opt" onclick="qz(this,true,'b0fb','Excellent! This has a clear goal (counter-arguments), context (AP Environmental Science, your thesis), format (with citations), and success criteria. The AI can give a precise, useful answer.')">I'm writing an AP Environmental Science essay arguing that carbon taxes are effective. Find 3 strong counter-arguments with citations I should address in my rebuttal paragraph.</button>
+    <div class="quiz-fb" id="b0fb" role="status" aria-live="polite"></div>
+  </div>
+
+  <div class="nav-btns"><div></div><button class="btn btn-primary" onclick="goMod(1,1)">Next: Check AI Claims &#8594;</button></div>
+</div>
+
+<div class="mod" id="b1">
+  <h1>Check AI Claims Like A Detective</h1>
+  <p class="subtitle">AI sounds confident even when it's completely wrong. Learn to verify.</p>
+
+  <h2>AI Hallucinations</h2>
+  <p>AI can state completely false information with total confidence. It doesn't "know" it's wrong — it just generates text that sounds plausible. These false statements are called <strong>hallucinations</strong>.</p>
+
+  <div class="card-grid">
+    <div class="info-card"><div class="ic">&#128214;</div><h4>Fake Citations</h4><p>AI invents papers, authors, and journals that don't exist</p></div>
+    <div class="info-card"><div class="ic">&#128290;</div><h4>Wrong Numbers</h4><p>Statistics that sound right but are completely made up</p></div>
+    <div class="info-card"><div class="ic">&#128197;</div><h4>Outdated Info</h4><p>Presents old information as current fact</p></div>
+    <div class="info-card"><div class="ic">&#128172;</div><h4>Confident Nonsense</h4><p>Says wrong things in the most authoritative tone</p></div>
+  </div>
+
+  <h2>The Verification Checklist</h2>
+  <ol>
+    <li><strong>Can I find this source?</strong> — Search for any citation AI gives you. If you can't find it, it might be fake.</li>
+    <li><strong>Does the number make sense?</strong> — Do a quick sanity check. "90% of scientists agree" — about what? Source?</li>
+    <li><strong>Is this current?</strong> — Check when the information is from. AI might present 2020 data as 2026 fact.</li>
+    <li><strong>Does another source agree?</strong> — Cross-reference with a second source (textbook, official website).</li>
+    <li><strong>Would my teacher accept this?</strong> — If you can't defend it in class, don't include it.</li>
+  </ol>
+
+  <div class="quiz">
+    <h3>AI says: "According to Smith et al. (2024), 78% of high school students use AI daily." What should you do?</h3>
+    <button class="quiz-opt" onclick="qz(this,false,'b1fb','Never trust a statistic just because it has a citation attached. AI frequently invents fake citations.')">Include it in your essay — it has a citation so it must be real</button>
+    <button class="quiz-opt" onclick="qz(this,true,'b1fb','Correct! Always verify. Search for the actual paper. If it doesn\'t exist, the AI hallucinated it. Ask AI to provide a real, verifiable source instead.')">Search for 'Smith et al. 2024' to verify it exists. If you can't find it, ask AI for a verifiable source instead.</button>
+    <button class="quiz-opt" onclick="qz(this,false,'b1fb','Ignoring all AI output is wasteful. The right approach is to verify, not avoid.')">Never use any statistic AI provides</button>
+    <div class="quiz-fb" id="b1fb" role="status" aria-live="polite"></div>
+  </div>
+
+  <div class="nav-btns">
+    <button class="btn btn-ghost" onclick="goMod(1,0)">&#8592; Back</button>
+    <button class="btn btn-primary" onclick="goMod(1,2)">Next: When AI Looks Smarter Than It Is &#8594;</button>
+  </div>
+</div>
+
+<div class="mod" id="b2">
+  <h1>When AI Looks Smarter Than It Is</h1>
+  <p class="subtitle">Benchmarks, leaderboards, and hype — how to see through the marketing.</p>
+
+  <h2>The Benchmark Problem</h2>
+  <p>AI companies show off scores on "benchmarks" (standardized tests for AI). But here's the dirty secret: <strong>some AI systems cheat on benchmarks</strong> by being trained on the test answers.</p>
+
+  <div class="callout callout-danger">
+    <span class="callout-icon">&#128520;</span>
+    <div><strong>Real finding:</strong> UC Berkeley researchers discovered AI models that scored 95% on benchmarks but only 60% on genuinely new questions. The models memorized answers rather than learning to reason.</div>
+  </div>
+
+  <h2>The Grading Paradox</h2>
+  <p>If AI can write essays that get A's from AI graders, but the student didn't learn anything — who failed? The grading system failed. This is why:</p>
+  <ul>
+    <li>High scores don't always mean deep understanding</li>
+    <li>AI can produce "correct-looking" work that's actually shallow</li>
+    <li>The real test is: can YOU explain it without AI's help?</li>
+  </ul>
+
+  <div class="quiz">
+    <h3>An AI company claims their model "scores 98% on reading comprehension." What should you think?</h3>
+    <button class="quiz-opt" onclick="qz(this,false,'b2fb','Benchmark scores can be misleading. A 98% on a known test set doesn\'t guarantee the AI understands anything.')">This AI must be really smart — 98% is amazing</button>
+    <button class="quiz-opt" onclick="qz(this,true,'b2fb','Critical thinking! Ask: what test? Was it trained on similar questions? How does it perform on truly new content? Benchmark scores are marketing until proven otherwise.')">I should ask: what test? Was it trained on those questions? How does it do on genuinely new content?</button>
+    <button class="quiz-opt" onclick="qz(this,false,'b2fb','That\'s too extreme. Benchmarks provide SOME signal — just not as much as companies imply. Be skeptical, not dismissive.')">All benchmarks are lies — ignore them completely</button>
+    <div class="quiz-fb" id="b2fb" role="status" aria-live="polite"></div>
+  </div>
+
+  <div class="nav-btns">
+    <button class="btn btn-ghost" onclick="goMod(1,1)">&#8592; Back</button>
+    <button class="btn btn-primary" onclick="goMod(1,3)">Next: Safety & Risks &#8594;</button>
+  </div>
+</div>
+
+<div class="mod" id="b3">
+  <h1>Safety, Privacy, And Hidden Risks</h1>
+  <p class="subtitle">Real-world incidents that show why AI safety matters.</p>
+
+  <h2>Things That Actually Happened</h2>
+  <div class="card-grid">
+    <div class="info-card" style="border-left:3px solid var(--danger)"><div class="ic">&#128274;</div><h4>Data Leaks</h4><p>Students pasted private info into AI chatbots — it appeared in other people's conversations</p></div>
+    <div class="info-card" style="border-left:3px solid var(--orange)"><div class="ic">&#128176;</div><h4>Supply Chain Attack</h4><p>A popular AI library was hacked, injecting malicious code into 1000s of projects (LiteLLM 2026)</p></div>
+    <div class="info-card" style="border-left:3px solid var(--primary)"><div class="ic">&#129520;</div><h4>Deepfakes</h4><p>AI-generated fake images of classmates used for bullying and harassment</p></div>
+    <div class="info-card" style="border-left:3px solid var(--pink)"><div class="ic">&#128172;</div><h4>Fake Sources</h4><p>Student submitted essay with AI-generated citations. None of the sources existed. Failed the assignment.</p></div>
+  </div>
+
+  <h2>Your Safety Rules</h2>
+  <ol>
+    <li><strong>Never paste personal info</strong> — No addresses, phone numbers, passwords, private photos</li>
+    <li><strong>Never trust without verifying</strong> — Check every citation, fact, and claim</li>
+    <li><strong>Never generate harmful content</strong> — Fake images of real people, misinformation, threats</li>
+    <li><strong>Know your school's AI policy</strong> — Every school has different rules. Know yours.</li>
+    <li><strong>Credit AI when required</strong> — If your school requires disclosure, always be honest</li>
+  </ol>
+
+  <div class="quiz">
+    <h3>Your friend asks you to use AI to generate a "funny" fake image of a teacher. What should you do?</h3>
+    <button class="quiz-opt" onclick="qz(this,false,'b3fb','Generating fake images of real people without consent is harmful, potentially illegal, and violates most school policies — regardless of intent.')">Do it — it's just a joke and nobody will know</button>
+    <button class="quiz-opt" onclick="qz(this,true,'b3fb','Correct. Deepfakes of real people — even meant as jokes — can constitute harassment, violate privacy laws, and get you expelled. The right answer is always no.')">Refuse. Explain that deepfakes of real people can be harassment and have legal consequences.</button>
+    <button class="quiz-opt" onclick="qz(this,false,'b3fb','Being neutral enables harm. If someone asks you to participate in something harmful, saying no is the responsible choice.')">Don't do it yourself but don't say anything if they do it</button>
+    <div class="quiz-fb" id="b3fb" role="status" aria-live="polite"></div>
+  </div>
+
+  <div class="nav-btns">
+    <button class="btn btn-ghost" onclick="goMod(1,2)">&#8592; Back</button>
+    <button class="btn btn-primary" onclick="goMod(1,4)">Next: Stay In Charge &#8594;</button>
+  </div>
+</div>
+
+<div class="mod" id="b4">
+  <h1>Stay In Charge</h1>
+  <p class="subtitle">AI is a tool. You are the thinker. Never reverse that relationship.</p>
+
+  <h2>The Independence Test</h2>
+  <p>Ask yourself these questions regularly:</p>
+  <div class="card-grid">
+    <div class="info-card"><div class="ic">&#129504;</div><h4>Can I explain this without AI?</h4><p>If not, you don't understand it yet.</p></div>
+    <div class="info-card"><div class="ic">&#128221;</div><h4>Did I think before asking?</h4><p>Always attempt the problem yourself first.</p></div>
+    <div class="info-card"><div class="ic">&#128269;</div><h4>Am I checking the output?</h4><p>Or just accepting everything?</p></div>
+    <div class="info-card"><div class="ic">&#127919;</div><h4>Who's making decisions?</h4><p>You decide what's right. AI suggests.</p></div>
+  </div>
+
+  <h2>"Should I Use AI For This?" Decision Tree</h2>
+  <p>Click the situation that matches yours:</p>
+  <div class="decision-tree" id="dt1">
+    <div class="dt-node" onclick="dtSelect(this,'yes','Use AI as a tutor — ask it to explain concepts, quiz you, and check your reasoning.')"><div class="dt-icon">&#9989;</div>I want to understand something better</div>
+    <div class="dt-node" onclick="dtSelect(this,'yes','Use AI to check your work — but write your answer first, THEN compare.')"><div class="dt-icon">&#9989;</div>I want to verify my own work</div>
+    <div class="dt-node" onclick="dtSelect(this,'no','This is academic dishonesty. You learn nothing and risk serious consequences.')"><div class="dt-icon">&#10060;</div>I want AI to do my homework for me</div>
+    <div class="dt-node" onclick="dtSelect(this,'yes','Brainstorming with AI is fine — as long as the final ideas and writing are yours.')"><div class="dt-icon">&#9989;</div>I need help brainstorming ideas</div>
+    <div class="dt-node" onclick="dtSelect(this,'no','Taking a test measures YOUR knowledge. Using AI defeats the purpose and is cheating.')"><div class="dt-icon">&#10060;</div>I want to use AI during a test</div>
+    <div class="dt-node" onclick="dtSelect(this,'yes','Exploring new topics with AI is great learning — just verify what it tells you.')"><div class="dt-icon">&#9989;</div>I'm curious about a topic outside class</div>
+  </div>
+  <div id="dt-result" class="callout callout-tip" style="display:none"><span class="callout-icon">&#128161;</span><div id="dt-text"></div></div>
+
+  <div class="callout callout-insight">
+    <span class="callout-icon">&#127775;</span>
+    <div><strong>Track B Complete!</strong> You can now think critically about AI, verify claims, stay safe, and maintain your independence. Head to Track C for the fun part — creating things with AI!</div>
+  </div>
+
+  <div class="nav-btns">
+    <button class="btn btn-ghost" onclick="goMod(1,3)">&#8592; Back</button>
+    <button class="btn btn-primary" onclick="switchTrack(2)">Start Track C: Create Cool Stuff &#8594;</button>
+  </div>
+</div>
+</div><!-- /track1 -->
+
+<!-- ========== TRACK C: CREATE COOL STUFF ========== -->
+<div class="track" id="track2">
+<div class="mod-nav" id="track2-nav"></div>
+
+<div class="mod active" id="c0">
+  <h1>Make A Tiny Game From An Idea</h1>
+  <p class="subtitle">Turn a game concept into a playable prototype — no coding required.</p>
+
+  <h2>From Idea To Game</h2>
+  <p>AI can help you design games by generating rules, characters, levels, and even working prototypes. The key is giving it a clear, creative brief — just like a game designer would.</p>
+
+  <h2>Game Idea Generator</h2>
+  <div class="builder">
+    <label>Genre:</label>
+    <input type="text" id="game-genre" placeholder="Examples: platformer, puzzle, RPG, quiz, survival, racing..." aria-label="Game genre">
+    <label>Main Character:</label>
+    <input type="text" id="game-char" placeholder="Examples: a lost robot, a homework-eating monster, a time-traveling student..." aria-label="Main character">
+    <label>Goal:</label>
+    <input type="text" id="game-goal" placeholder="Examples: escape the school, collect all elements, reach the top..." aria-label="Game goal">
+    <label>Main Obstacle:</label>
+    <input type="text" id="game-obstacle" placeholder="Examples: time limit, monsters, puzzles, diminishing resources..." aria-label="Main obstacle">
+    <label>Twist/Unique Mechanic:</label>
+    <input type="text" id="game-twist" placeholder="Examples: gravity flips every 30 seconds, you can only move backward, items change function..." aria-label="Twist">
+
+    <button class="btn btn-accent" onclick="generateGameBrief()" style="margin-top:16px">&#127918; Generate Game Brief</button>
+    <div id="game-output" class="terminal" style="display:none;margin-top:16px">
+      <div class="terminal-bar"><div class="td r"></div><div class="td y"></div><div class="td g"></div></div>
+      <div class="terminal-body" id="game-result"></div>
+    </div>
+  </div>
+
+  <div class="callout callout-tip">
+    <span class="callout-icon">&#127919;</span>
+    <div><strong>Pro tip:</strong> Constraints make games better! "You can do anything" is boring. "You can only move left and jump" forces creativity. Give your AI game designer tight constraints.</div>
+  </div>
+
+  <div class="nav-btns"><div></div><button class="btn btn-primary" onclick="goMod(2,1)">Next: Make A Video Plan &#8594;</button></div>
+</div>
+
+<div class="mod" id="c1">
+  <h1>Turn Keywords Into A Short Video</h1>
+  <p class="subtitle">Plan a short video from scratch using AI — from topic to storyboard.</p>
+
+  <h2>The AI Video Pipeline</h2>
+  <p>Creating videos with AI follows a pipeline. You don't just say "make a video" — you plan each stage:</p>
+  <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:8px;margin:16px 0;text-align:center">
+    <div style="background:var(--surface);padding:12px;border-radius:var(--radius-sm);border:1px solid var(--border)"><div style="font-size:20px">&#128161;</div><div style="font-size:12px;font-weight:600">Idea</div></div>
+    <div style="background:var(--surface);padding:12px;border-radius:var(--radius-sm);border:1px solid var(--border)"><div style="font-size:20px">&#128221;</div><div style="font-size:12px;font-weight:600">Script</div></div>
+    <div style="background:var(--surface);padding:12px;border-radius:var(--radius-sm);border:1px solid var(--border)"><div style="font-size:20px">&#127912;</div><div style="font-size:12px;font-weight:600">Scenes</div></div>
+    <div style="background:var(--surface);padding:12px;border-radius:var(--radius-sm);border:1px solid var(--border)"><div style="font-size:20px">&#127908;</div><div style="font-size:12px;font-weight:600">Voice</div></div>
+    <div style="background:var(--surface);padding:12px;border-radius:var(--radius-sm);border:1px solid var(--border)"><div style="font-size:20px">&#127916;</div><div style="font-size:12px;font-weight:600">Edit</div></div>
+  </div>
+
+  <h2>Video Storyboard Builder</h2>
+  <div class="builder">
+    <label>Video Topic:</label>
+    <input type="text" id="vid-topic" placeholder="Examples: How photosynthesis works, My book review, Club announcement..." aria-label="Video topic">
+    <label>Target Audience:</label>
+    <input type="text" id="vid-audience" placeholder="Examples: My classmates, younger students, social media followers..." aria-label="Target audience">
+    <label>Mood/Tone:</label>
+    <input type="text" id="vid-mood" placeholder="Examples: Fun and energetic, calm and educational, dramatic..." aria-label="Mood">
+    <label>Scene 1 (Opening hook — grab attention in 3 seconds):</label>
+    <textarea id="vid-s1" placeholder="Example: Close-up of a wilting plant. Text: 'This plant is dying. Here's the ONE thing it needs...'" aria-label="Scene 1"></textarea>
+    <label>Scene 2 (Main content):</label>
+    <textarea id="vid-s2" placeholder="Example: Animated diagram showing sunlight entering a leaf. Narrator explains the process." aria-label="Scene 2"></textarea>
+    <label>Scene 3 (Call to action / ending):</label>
+    <textarea id="vid-s3" placeholder="Example: 'Try this experiment at home: put a plant in a dark closet for a week. What happens?'" aria-label="Scene 3"></textarea>
+
+    <button class="btn btn-accent" onclick="exportVideoPlan()" style="margin-top:16px">&#128196; Export Video Plan</button>
+  </div>
+
+  <div class="callout callout-warning">
+    <span class="callout-icon">&#9888;</span>
+    <div><strong>Remember:</strong> AI gives you drafts; you provide taste. Don't publish AI-generated content without review. Don't use copyrighted music/images. Check your platform's rules.</div>
+  </div>
+
+  <div class="nav-btns">
+    <button class="btn btn-ghost" onclick="goMod(2,0)">&#8592; Back</button>
+    <button class="btn btn-primary" onclick="goMod(2,2)">Next: Co-Write A Story &#8594;</button>
+  </div>
+</div>
+
+<div class="mod" id="c2">
+  <h1>Co-Write A Story With AI</h1>
+  <p class="subtitle">Use AI as a writing partner for novels, short stories, and creative fiction.</p>
+
+  <h2>AI As Writing Partner (Not Ghost Writer)</h2>
+  <p>The best creative writing happens when YOU lead the story and AI helps with ideas, consistency, and writer's block. You provide the vision, characters, and taste. AI provides speed and brainstorming.</p>
+
+  <h2>Story Bible Builder</h2>
+  <p>Professional writers create a "bible" — a reference document that keeps the story consistent. Build yours:</p>
+
+  <div class="builder">
+    <label>Main Character — Name & one-line description:</label>
+    <input type="text" id="story-char" placeholder="Example: Zara — a shy 16-year-old who discovers she can hear plants communicate" aria-label="Main character">
+    <label>What do they WANT? (external goal)</label>
+    <input type="text" id="story-want" placeholder="Example: Find the ancient garden that can cure her grandmother's illness" aria-label="Character want">
+    <label>What do they FEAR? (internal conflict)</label>
+    <input type="text" id="story-fear" placeholder="Example: That her power makes her a freak and no one will ever accept her" aria-label="Character fear">
+    <label>Setting (world + rules):</label>
+    <textarea id="story-setting" placeholder="Example: Modern-day city where plants are secretly sentient. Only people with 'green sight' can hear them. There's a secret society that has hunted green-sighters for centuries." aria-label="Setting"></textarea>
+    <label>Core Conflict:</label>
+    <textarea id="story-conflict" placeholder="Example: The secret society discovers Zara's power and sends agents after her, while she races to find the garden before her grandmother's condition worsens." aria-label="Core conflict"></textarea>
+    <label>One Rule Of Your World (that cannot be broken):</label>
+    <input type="text" id="story-rule" placeholder="Example: Green-sighters lose their power if they ever harm a plant intentionally" aria-label="World rule">
+
+    <button class="btn btn-accent" onclick="exportStoryBible()" style="margin-top:16px">&#128214; Export Story Bible</button>
+  </div>
+
+  <h2>Continuity Check</h2>
+  <div class="callout callout-tip">
+    <span class="callout-icon">&#128161;</span>
+    <div><strong>When writing with AI:</strong> Paste your story bible at the start of each session. This keeps the AI consistent with YOUR world rules. If AI ever contradicts your bible, catch it and correct it — you're the author.</div>
+  </div>
+
+  <div class="callout callout-insight">
+    <span class="callout-icon">&#127942;</span>
+    <div><strong>All Tracks Complete!</strong> You've built a study system, learned to think critically about AI, and created game briefs, video plans, and story bibles. You're now an informed, creative, and responsible AI user. Head back to the Academy to take the post-test!</div>
+  </div>
+
+  <div class="nav-btns">
+    <button class="btn btn-ghost" onclick="goMod(2,1)">&#8592; Back</button>
+    <button class="btn btn-green" onclick="completeAll()">Complete Course 4 &#127942;</button>
+  </div>
+</div>
+</div><!-- /track2 -->
+
+</div><!-- /container -->
+
+<script>
+const tracks=[
+  {id:'track0',mods:['a0','a1','a2','a3','a4'],titles:['Don\'t Outsource','Socratic Tutor','Deep Prompts','Fatigue','My System']},
+  {id:'track1',mods:['b0','b1','b2','b3','b4'],titles:['Define Problem','Check Claims','AI Hype','Safety','Stay In Charge']},
+  {id:'track2',mods:['c0','c1','c2'],titles:['Game Design','Video Plan','Story Writing']},
+];
+let currentTrack=0,currentMods=[0,0,0];
+let xp=parseInt(localStorage.getItem('als-xp')||'0');
+let answered=JSON.parse(localStorage.getItem('als-answered')||'[]');
+
+function switchTrack(t){
+  currentTrack=t;
+  document.querySelectorAll('.track').forEach(el=>el.classList.remove('active'));
+  document.getElementById(tracks[t].id).classList.add('active');
+  document.querySelectorAll('.track-tab').forEach((el,i)=>el.classList.toggle('active',i===t));
+  buildModNav(t);
+  showMod(t,currentMods[t]);
+}
+function buildModNav(t){const nav=document.getElementById(`track${t}-nav`);nav.innerHTML=tracks[t].titles.map((title,i)=>`<button class="mod-nav-btn ${i===currentMods[t]?'active':''}" onclick="goMod(${t},${i})">${title}</button>`).join('')}
+function goMod(t,m){currentTrack=t;currentMods[t]=m;switchTrack(t)}
+function showMod(t,m){
+  document.querySelectorAll(`#${tracks[t].id} .mod`).forEach(el=>el.classList.remove('active'));
+  document.getElementById(tracks[t].mods[m]).classList.add('active');
+  buildModNav(t);
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+function addXP(n){xp+=n;localStorage.setItem('als-xp',xp);updateXP()}
+function updateXP(){document.getElementById('xpText').textContent=xp+' XP';document.getElementById('xpFill').style.width=Math.min(xp%200/2,100)+'%'}
+function qz(btn,correct,fbId,explanation){const parent=btn.parentElement;parent.querySelectorAll('.quiz-opt').forEach(o=>{o.classList.add('disabled');o.disabled=true});btn.classList.add(correct?'correct':'wrong');const fb=document.getElementById(fbId);fb.className='quiz-fb show';fb.style.background=correct?'var(--green-bg)':'var(--danger-bg)';fb.style.color=correct?'#6ee7b7':'#fca5a5';fb.textContent=(correct?'✓ ':'✗ ')+explanation;if(correct&&!answered.includes(fbId)){answered.push(fbId);localStorage.setItem('als-answered',JSON.stringify(answered));addXP(15)}}
+function dtSelect(el,type,text){document.querySelectorAll('.dt-node').forEach(n=>n.classList.remove('selected'));el.classList.add('selected');const r=document.getElementById('dt-result');r.style.display='flex';r.style.borderColor=type==='yes'?'rgba(16,185,129,0.3)':'rgba(239,68,68,0.3)';r.style.background=type==='yes'?'var(--green-bg)':'var(--danger-bg)';document.getElementById('dt-text').innerHTML=(type==='yes'?'<strong>✓ Good use:</strong> ':'<strong>✗ Not appropriate:</strong> ')+text}
+function exportStudySystem(){const s=document.getElementById('ls-subject').value||'(subject)';const text=`# My AI Study System\n\nSubject: ${s}\n\nSocratic Prompt:\n${document.getElementById('ls-socratic').value||'(not set)'}\n\nBreak Schedule:\n${document.getElementById('ls-break').value||'(not set)'}\n\nDeep Understanding Checks:\n${document.getElementById('ls-deep').value||'(not set)'}\n\nAnti-Crutch Rule:\n${document.getElementById('ls-rule').value||'(not set)'}\n`;dl(text,'my-study-system.md');addXP(20)}
+function generateGameBrief(){const g=document.getElementById('game-genre').value||'adventure';const c=document.getElementById('game-char').value||'a hero';const go=document.getElementById('game-goal').value||'save the world';const o=document.getElementById('game-obstacle').value||'enemies';const t=document.getElementById('game-twist').value||'a unique mechanic';document.getElementById('game-output').style.display='block';document.getElementById('game-result').innerHTML=`<div class="tl"><span class="th">GAME DESIGN BRIEF</span></div><div class="tl"></div><div class="tl"><span class="th">Genre:</span> <span class="to">${g}</span></div><div class="tl"><span class="th">Character:</span> <span class="to">${c}</span></div><div class="tl"><span class="th">Goal:</span> <span class="to">${go}</span></div><div class="tl"><span class="th">Obstacle:</span> <span class="to">${o}</span></div><div class="tl"><span class="th">Twist:</span> <span class="to">${t}</span></div><div class="tl"></div><div class="tl"><span class="tcm">Copy this brief and paste it to AI with:</span></div><div class="tl"><span class="tc">"Design a playable game based on this brief. Include: 3 levels, a scoring system, and a win condition."</span></div>`;addXP(15)}
+function exportVideoPlan(){const text=`# Video Plan\n\nTopic: ${document.getElementById('vid-topic').value||'(topic)'}\nAudience: ${document.getElementById('vid-audience').value||'(audience)'}\nMood: ${document.getElementById('vid-mood').value||'(mood)'}\n\n## Scene 1 (Hook)\n${document.getElementById('vid-s1').value||'(not planned)'}\n\n## Scene 2 (Main)\n${document.getElementById('vid-s2').value||'(not planned)'}\n\n## Scene 3 (CTA)\n${document.getElementById('vid-s3').value||'(not planned)'}\n`;dl(text,'my-video-plan.md');addXP(20)}
+function exportStoryBible(){const text=`# Story Bible\n\n## Main Character\n${document.getElementById('story-char').value||'(not set)'}\n\n## Want (External Goal)\n${document.getElementById('story-want').value||'(not set)'}\n\n## Fear (Internal Conflict)\n${document.getElementById('story-fear').value||'(not set)'}\n\n## Setting & World Rules\n${document.getElementById('story-setting').value||'(not set)'}\n\n## Core Conflict\n${document.getElementById('story-conflict').value||'(not set)'}\n\n## Unbreakable World Rule\n${document.getElementById('story-rule').value||'(not set)'}\n`;dl(text,'my-story-bible.md');addXP(20)}
+function completeAll(){addXP(50);alert('Congratulations! Course 4 complete. Head back to the Academy landing page to take the post-test and see how much you\'ve grown!')}
+function dl(text,name){const blob=new Blob([text],{type:'text/markdown'});const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=name;a.click()}
+buildModNav(0);buildModNav(1);buildModNav(2);updateXP();
+</script>
+</body>
+</html>
