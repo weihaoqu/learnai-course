@@ -121,6 +121,7 @@ body{font-family:var(--font);background:var(--bg);color:var(--text);line-height:
 /* ===== NODE BADGE ===== */
 .orbit-node .node-badge{position:absolute;top:-6px;right:-6px;width:18px;height:18px;border-radius:50%;background:var(--purple);color:#fff;font-size:10px;font-weight:700;display:flex;align-items:center;justify-content:center;border:2px solid var(--bg);z-index:6}
 .orbit-node svg{width:24px;height:24px;pointer-events:none}
+.orbit-node img{width:36px;height:36px;pointer-events:none;border-radius:50%}
 
 /* ===== LEARNING PATH TIMELINE ===== */
 .learning-path{max-width:700px;margin:0 auto;padding:60px 24px}
@@ -208,7 +209,7 @@ body{font-family:var(--font);background:var(--bg);color:var(--text);line-height:
   <div class="orbit-stage" id="orbitStage">
     <div class="orbit-ring orbit-ring-1"></div>
     <div class="orbit-ring orbit-ring-2"></div>
-    <div class="center-orb"><div class="orb-inner"></div></div>
+    <div class="center-orb"><img src="logo.png" alt="AI Engineering Academy" style="width:72px;height:72px;border-radius:50%;object-fit:cover"></div>
     <div class="center-label"><h1>AI Engineering Academy</h1><p>47 modules &middot; 4 courses &middot; Zero prerequisites</p></div>
     <!-- Nodes injected by JS -->
   </div>
@@ -322,32 +323,32 @@ body{font-family:var(--font);background:var(--bg);color:var(--text);line-height:
 <script>
 // ===== COURSE DATA =====
 const courses = [
-  {id:'pre', svgId:'ico-test', label:'Pre-Test', color:'gold', step:1,
+  {id:'pre', svgId:'ico-test', iconImg:'icon-pretest.png', label:'Pre-Test', color:'gold', step:1,
     title:'AI Readiness Pre-Test', sub:'~5 minutes',
     desc:'Measure your starting point before beginning the courses. Compare with your post-test score after completion.',
     tags:['Required First','5 min','No wrong answers'],stats:['6 questions'],
     href:'https://weihaoqu.github.io/learnai-assessment-hs/?type=pre', btnText:'Take Pre-Test', btnColor:'var(--gold)'},
-  {id:'c1', svgId:'ico-terminal', label:'Fundamentals', color:'blue', step:2,
+  {id:'c1', svgId:'ico-terminal', iconImg:'icon-terminal.png', label:'Fundamentals', color:'blue', step:2,
     title:'Course 1: Claude Code Fundamentals', sub:'13 modules &middot; ~2 hours',
     desc:'Learn what a terminal is, how GitHub works, what web apps are made of, and how to use Claude Code as your AI coding partner.',
     tags:['Beginner','13 Modules','No experience needed'],stats:['13 modules','5 capstone tasks'],
     href:'claude-code-course.html', btnText:'Start Course 1', btnColor:'var(--blue)'},
-  {id:'c2', svgId:'ico-orbit', label:'Agentic Eng.', color:'purple', step:3,
+  {id:'c2', svgId:'ico-orbit', iconImg:'icon-orbit.png', label:'Agentic Eng.', color:'purple', step:3,
     title:'Course 2: Agentic Engineering Quest', sub:'10 modules &middot; ~3 hours',
     desc:'Go beyond chatbots. Learn harness engineering, spec-driven development, tool design, agent memory, safety, and multi-agent orchestration.',
     tags:['Advanced','Gamified','10 Modules'],stats:['10 modules','Agent Canvas'],
     href:'agentic-engineering-quest.html', btnText:'Start Course 2', btnColor:'var(--purple)'},
-  {id:'c3', svgId:'ico-spark', label:'Skills Lab', color:'cyan', step:4,
+  {id:'c3', svgId:'ico-spark', iconImg:'icon-spark.png', label:'Skills Lab', color:'cyan', step:4,
     title:'Course 3: AI Skills Lab', sub:'11 modules &middot; 3 tracks',
     desc:'Master prompt frameworks for better thinking, turn projects into learning opportunities, and catch AI mistakes using cross-model review.',
     tags:['Skills Practice','3 Tracks','11 Modules'],stats:['3 tracks','Exportable artifacts'],
     href:'skills-lab.html', btnText:'Start Skills Lab', btnColor:'var(--cyan)'},
-  {id:'c4', svgId:'ico-compass', label:'Life Skills', color:'green', step:5,
+  {id:'c4', svgId:'ico-compass', iconImg:'icon-compass.png', label:'Life Skills', color:'green', step:5,
     title:'Course 4: AI Life Skills', sub:'13 modules &middot; 3 tracks',
     desc:'Master AI-powered study techniques, learn to verify claims and stay independent, then create games, videos, and stories.',
     tags:['Essential','3 Tracks','13 Modules'],stats:['Study smarter','Create freely'],
     href:'ai-life-skills.html', btnText:'Start Life Skills', btnColor:'var(--green)'},
-  {id:'post', svgId:'ico-medal', label:'Post-Test', color:'gold', step:6,
+  {id:'post', svgId:'ico-medal', iconImg:'icon-medal.png', label:'Post-Test', color:'gold', step:6,
     title:'AI Engineering Post-Test', sub:'~5 minutes',
     desc:'Take the same assessment after completing all courses. Compare your pre and post scores to see how much you\'ve grown.',
     tags:['After All Courses','5 min','Compare scores'],stats:['Growth report'],
@@ -369,7 +370,7 @@ courses.forEach((c, i) => {
   btn.className = 'orbit-node';
   btn.dataset.color = c.color;
   btn.dataset.idx = i;
-  btn.innerHTML = `<svg><use href="#${c.svgId}"></use></svg><span class="node-badge">${c.step}</span><span class="orbit-node-label">${c.label}</span>`;
+  btn.innerHTML = `<img src="${c.iconImg}" alt="${c.label}"><span class="node-badge">${c.step}</span><span class="orbit-node-label">${c.label}</span>`;
   btn.setAttribute('aria-label', c.title);
   btn.addEventListener('click', () => selectNode(i));
   stage.appendChild(btn);
