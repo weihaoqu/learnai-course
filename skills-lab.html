@@ -1,0 +1,781 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<script>if(localStorage.getItem('learnai-course-pretest-done-v1')!=='true'){window.location.href='index.html';}</script>
+<title>AI Skills Lab - Think, Learn, Review</title>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#0f0f1a;--surface:#1a1a2e;--surface2:#252542;--text:#e8e8f0;--muted:#8888a8;
+  --primary:#7c3aed;--primary-light:#a78bfa;--primary-bg:rgba(124,58,237,0.1);
+  --accent:#06b6d4;--accent-light:#67e8f9;--accent-bg:rgba(6,182,212,0.1);
+  --green:#10b981;--green-bg:rgba(16,185,129,0.1);
+  --orange:#f59e0b;--orange-bg:rgba(245,158,11,0.1);
+  --pink:#ec4899;--pink-bg:rgba(236,72,153,0.1);
+  --danger:#ef4444;--danger-bg:rgba(239,68,68,0.1);
+  --border:rgba(255,255,255,0.08);--shadow:0 4px 24px rgba(0,0,0,0.4);
+  --radius:16px;--radius-sm:10px;
+  --font:'Inter',system-ui,-apple-system,sans-serif;
+  --mono:'JetBrains Mono','Fira Code',monospace;
+}
+body{font-family:var(--font);background:var(--bg);color:var(--text);line-height:1.7;font-size:16px;min-height:100vh}
+
+/* TOPBAR */
+.topbar{position:sticky;top:0;z-index:100;background:var(--surface);border-bottom:1px solid var(--border);padding:12px 24px;display:flex;align-items:center;gap:16px;backdrop-filter:blur(12px)}
+.topbar-logo{font-weight:800;font-size:18px;background:linear-gradient(135deg,var(--accent-light),var(--primary-light));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.topbar-home{color:var(--muted);text-decoration:none;font-size:14px;margin-left:auto}
+.topbar-home:hover{color:var(--text)}
+.topbar-xp{display:flex;align-items:center;gap:8px;font-size:14px;color:var(--accent-light);font-weight:600}
+.xp-bar{width:100px;height:6px;background:var(--surface2);border-radius:3px;overflow:hidden}
+.xp-fill{height:100%;background:linear-gradient(90deg,var(--accent),var(--primary));border-radius:3px;transition:width 0.5s}
+
+/* LAYOUT */
+.container{max-width:900px;margin:0 auto;padding:32px 24px}
+
+/* TRACK TABS */
+.track-tabs{display:flex;gap:8px;margin-bottom:32px;overflow-x:auto;padding-bottom:4px}
+.track-tab{padding:12px 20px;border-radius:var(--radius-sm);font-size:14px;font-weight:600;cursor:pointer;border:2px solid var(--border);background:var(--surface);color:var(--muted);transition:all 0.2s;white-space:nowrap;font-family:var(--font)}
+.track-tab:hover{border-color:var(--primary);color:var(--text)}
+.track-tab.active{border-color:var(--primary);background:var(--primary-bg);color:var(--primary-light)}
+.track-tab .tab-num{display:inline-block;width:20px;height:20px;border-radius:50%;background:var(--surface2);text-align:center;line-height:20px;font-size:11px;margin-right:6px}
+.track-tab.active .tab-num{background:var(--primary);color:#fff}
+
+/* TRACK CONTENT */
+.track{display:none;animation:fadeUp 0.3s ease}
+.track.active{display:block}
+@keyframes fadeUp{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+
+/* MODULE NAV */
+.mod-nav{display:flex;gap:8px;margin-bottom:24px;flex-wrap:wrap}
+.mod-nav-btn{padding:8px 16px;border-radius:20px;font-size:13px;font-weight:600;cursor:pointer;border:1px solid var(--border);background:var(--surface2);color:var(--muted);font-family:var(--font);transition:all 0.2s}
+.mod-nav-btn:hover{border-color:var(--accent);color:var(--text)}
+.mod-nav-btn.active{background:var(--accent-bg);border-color:var(--accent);color:var(--accent-light)}
+.mod-nav-btn.done{background:var(--green-bg);border-color:var(--green);color:var(--green)}
+
+/* MODULES */
+.mod{display:none;animation:fadeUp 0.3s ease}
+.mod.active{display:block}
+.mod h1{font-size:28px;font-weight:800;margin-bottom:8px}
+.mod .subtitle{color:var(--muted);font-size:16px;margin-bottom:24px}
+.mod h2{font-size:20px;font-weight:700;margin:24px 0 12px}
+.mod h3{font-size:17px;font-weight:600;margin:16px 0 8px}
+.mod p{margin-bottom:12px}
+.mod ul,.mod ol{margin:0 0 12px 24px}
+.mod li{margin-bottom:6px}
+
+/* CARDS */
+.card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:24px;margin:16px 0}
+.card-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:12px;margin:16px 0}
+.info-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-sm);padding:16px;transition:all 0.2s}
+.info-card:hover{border-color:var(--primary);transform:translateY(-2px)}
+.info-card .ic-icon{font-size:24px;margin-bottom:8px}
+.info-card h4{font-size:14px;font-weight:600;margin-bottom:4px}
+.info-card p{font-size:13px;color:var(--muted);margin:0}
+
+/* CALLOUTS */
+.callout{padding:16px 20px;border-radius:var(--radius-sm);margin:16px 0;display:flex;gap:12px;font-size:15px;border:1px solid}
+.callout-icon{font-size:20px;flex-shrink:0}
+.callout-insight{background:var(--primary-bg);border-color:rgba(124,58,237,0.3)}
+.callout-tip{background:var(--green-bg);border-color:rgba(16,185,129,0.3)}
+.callout-warning{background:var(--orange-bg);border-color:rgba(245,158,11,0.3)}
+
+/* QUIZ */
+.quiz{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:24px;margin:20px 0}
+.quiz h3{margin-bottom:16px;font-size:17px}
+.quiz-opt{display:block;width:100%;text-align:left;padding:12px 16px;margin:8px 0;border:2px solid var(--border);border-radius:var(--radius-sm);background:var(--surface2);cursor:pointer;transition:all 0.2s;font-size:15px;font-family:var(--font);color:var(--text)}
+.quiz-opt:hover:not(.disabled){border-color:var(--primary);background:var(--primary-bg)}
+.quiz-opt.correct{border-color:var(--green);background:var(--green-bg)}
+.quiz-opt.wrong{border-color:var(--danger);background:var(--danger-bg)}
+.quiz-opt.disabled{cursor:default;opacity:0.7}
+.quiz-fb{margin-top:12px;padding:12px;border-radius:var(--radius-sm);font-size:14px;display:none}
+.quiz-fb.show{display:block}
+
+/* COMPARE */
+.compare{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:16px 0}
+.compare-col{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:20px}
+.compare-col.bad{border-color:rgba(239,68,68,0.3)}
+.compare-col.good{border-color:rgba(16,185,129,0.3)}
+.compare-label{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:1px;margin-bottom:8px}
+.compare-col.bad .compare-label{color:var(--danger)}
+.compare-col.good .compare-label{color:var(--green)}
+
+/* TERMINAL */
+.terminal{background:#1e1e2e;border-radius:var(--radius);overflow:hidden;margin:16px 0;font-family:var(--mono);font-size:13px}
+.terminal-bar{background:#181825;padding:8px 16px;display:flex;gap:8px}
+.td{width:12px;height:12px;border-radius:50%}
+.td.r{background:#f38ba8}.td.y{background:#f9e2af}.td.g{background:#a6e3a1}
+.terminal-body{padding:16px}
+.tl{color:#cdd6f4;margin-bottom:4px;white-space:pre-wrap}
+.tp{color:#89b4fa}.tc{color:#a6e3a1}.to{color:#bac2de}.th{color:#f9e2af}.tcm{color:#6c7086;font-style:italic}
+
+/* WORKFLOW */
+.workflow{display:flex;align-items:center;gap:8px;padding:16px 0;overflow-x:auto;margin:12px 0}
+.wf-step{background:var(--surface);border:2px solid var(--border);border-radius:var(--radius);padding:14px;min-width:110px;text-align:center;flex-shrink:0;transition:all 0.3s}
+.wf-step.active{border-color:var(--accent);background:var(--accent-bg)}
+.wf-step .si{font-size:22px;margin-bottom:4px}
+.wf-step .sl{font-size:12px;font-weight:600}
+.wf-arrow{color:var(--muted);flex-shrink:0}
+
+/* TEMPLATE BUILDER */
+.builder{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:24px;margin:16px 0}
+.builder textarea{width:100%;min-height:60px;background:var(--surface2);border:1px solid var(--border);border-radius:var(--radius-sm);padding:12px;color:var(--text);font-family:var(--font);font-size:14px;resize:vertical;margin:8px 0}
+.builder label{font-size:14px;font-weight:600;display:block;margin-top:12px}
+
+/* BUTTONS */
+.btn{display:inline-flex;align-items:center;gap:8px;padding:10px 24px;border-radius:var(--radius-sm);font-size:15px;font-weight:600;cursor:pointer;transition:all 0.2s;border:none;font-family:var(--font)}
+.btn-primary{background:var(--primary);color:#fff}
+.btn-primary:hover{background:#6d28d9}
+.btn-accent{background:var(--accent);color:#fff}
+.btn-accent:hover{background:#0891b2}
+.btn-ghost{background:transparent;color:var(--muted);border:1px solid var(--border)}
+.btn-ghost:hover{color:var(--text);border-color:var(--primary)}
+
+.nav-btns{display:flex;justify-content:space-between;margin-top:40px;padding-top:24px;border-top:1px solid var(--border)}
+
+/* FLOWCHART */
+.flowchart{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:12px;margin:16px 0}
+.fc-node{background:var(--surface);border:2px solid var(--border);border-radius:var(--radius-sm);padding:14px;text-align:center;cursor:pointer;transition:all 0.2s}
+.fc-node:hover{border-color:var(--accent);transform:translateY(-2px)}
+.fc-node.selected{border-color:var(--primary);background:var(--primary-bg)}
+.fc-node .fc-icon{font-size:20px;margin-bottom:4px}
+.fc-node .fc-label{font-size:12px;font-weight:600}
+.fc-node .fc-desc{font-size:11px;color:var(--muted);margin-top:4px}
+
+/* DETECTIVE GAME */
+.detective-text{background:var(--surface2);border:1px solid var(--border);border-radius:var(--radius-sm);padding:16px;margin:12px 0;font-size:14px;line-height:2}
+.detective-text .issue{background:var(--orange-bg);border-bottom:2px solid var(--orange);cursor:pointer;padding:2px 4px;border-radius:4px;transition:all 0.2s}
+.detective-text .issue:hover{background:rgba(245,158,11,0.3)}
+.detective-text .issue.found{background:var(--green-bg);border-color:var(--green)}
+
+/* RESPONSIVE */
+@media(max-width:768px){.compare{grid-template-columns:1fr}.card-grid{grid-template-columns:1fr}.flowchart{grid-template-columns:repeat(2,1fr)}}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+
+<!-- TOPBAR -->
+<header class="topbar">
+  <div class="topbar-logo">AI Skills Lab</div>
+  <a href="index.html" class="topbar-home">&#8592; Back to Academy</a>
+  <div class="topbar-xp"><span id="xpText">0 XP</span><div class="xp-bar"><div class="xp-fill" id="xpFill" style="width:0%"></div></div></div>
+</header>
+
+<div class="container">
+
+<!-- TRACK TABS -->
+<div class="track-tabs">
+  <button class="track-tab active" onclick="switchTrack(0)"><span class="tab-num">1</span>Think Better</button>
+  <button class="track-tab" onclick="switchTrack(1)"><span class="tab-num">2</span>Learn Deeper</button>
+  <button class="track-tab" onclick="switchTrack(2)"><span class="tab-num">3</span>Review Smarter</button>
+</div>
+
+<!-- ============ TRACK 1: THINK BETTER ============ -->
+<div class="track active" id="track0">
+<div class="mod-nav" id="track0-nav"></div>
+
+<!-- T1M0 -->
+<div class="mod active" id="t1m0">
+  <h1>Prompts Are Thinking Tools</h1>
+  <p class="subtitle">The quality of your AI output depends on the quality of your thinking — not magic words.</p>
+
+  <div class="callout callout-insight">
+    <span class="callout-icon">&#128161;</span>
+    <div><strong>Key insight:</strong> Prompts are the <em>result</em> of clear thinking, not the <em>cause</em> of it. If your thinking is muddy, no prompt trick will save you.</div>
+  </div>
+
+  <h2>The Real Problem</h2>
+  <p>Most people treat prompts like magic spells — they think if they find the right words, AI will produce perfect results. But the truth is simpler:</p>
+
+  <div class="compare">
+    <div class="compare-col bad">
+      <div class="compare-label">&#128165; Unclear Thinking</div>
+      <p style="font-size:14px">"Help me with my history project"</p>
+      <p style="font-size:13px;color:var(--muted)">You haven't decided what you need. The AI guesses randomly.</p>
+    </div>
+    <div class="compare-col good">
+      <div class="compare-label">&#10003; Clear Thinking</div>
+      <p style="font-size:14px">"Break down the causes of WW1 into political, economic, and social factors. For each, give me one primary source I could cite."</p>
+      <p style="font-size:13px;color:var(--muted)">You know exactly what you need. The AI delivers precisely.</p>
+    </div>
+  </div>
+
+  <h2>Different Tasks Need Different Thinking Modes</h2>
+  <p>Just like you wouldn't use the same approach for a math problem and an essay, different AI tasks need different thinking modes. That's what the 7 frameworks teach you.</p>
+
+  <div class="quiz">
+    <h3>Why do "prompt templates" often fail?</h3>
+    <button class="quiz-opt" onclick="qz(this,false,'t1m0fb','Templates can be useful as starting points, but they fail when the underlying thinking is unclear.')">Because AI is too stupid to understand templates</button>
+    <button class="quiz-opt" onclick="qz(this,true,'t1m0fb','Exactly! A template without clear thinking behind it produces vague results. Fix your thinking first, then the prompt writes itself.')">Because they skip the thinking step — if you don\'t know what you want, no template helps</button>
+    <button class="quiz-opt" onclick="qz(this,false,'t1m0fb','Templates work fine at any length. The issue is clarity of thought, not word count.')">Because they\'re too long for the AI to process</button>
+    <div class="quiz-fb" id="t1m0fb" role="status" aria-live="polite"></div>
+  </div>
+
+  <div class="nav-btns">
+    <div></div>
+    <button class="btn btn-primary" onclick="goMod(0,1)">Next: The 7 Superpowers &#8594;</button>
+  </div>
+</div>
+
+<!-- T1M1 -->
+<div class="mod" id="t1m1">
+  <h1>The 7 Prompt Superpowers</h1>
+  <p class="subtitle">Seven different thinking modes for seven different situations.</p>
+
+  <div class="card-grid">
+    <div class="info-card" style="border-left:3px solid var(--danger)"><div class="ic-icon">&#128268;</div><h4>1. Break It Down</h4><p>Split big problems into small parts</p></div>
+    <div class="info-card" style="border-left:3px solid var(--orange)"><div class="ic-icon">&#127793;</div><h4>2. Start From Scratch</h4><p>Build understanding from basics up</p></div>
+    <div class="info-card" style="border-left:3px solid var(--accent)"><div class="ic-icon">&#128218;</div><h4>3. Research Mode</h4><p>Gather and compare evidence</p></div>
+    <div class="info-card" style="border-left:3px solid var(--green)"><div class="ic-icon">&#128736;</div><h4>4. Blueprint Mode</h4><p>Plan how to build something</p></div>
+    <div class="info-card" style="border-left:3px solid var(--primary)"><div class="ic-icon">&#128300;</div><h4>5. Prompt Coach</h4><p>Improve the prompt itself</p></div>
+    <div class="info-card" style="border-left:3px solid var(--pink)"><div class="ic-icon">&#127891;</div><h4>6. Expert Lens</h4><p>Answer from a specific expertise</p></div>
+    <div class="info-card" style="border-left:3px solid #fbbf24"><div class="ic-icon">&#129354;</div><h4>7. Debate Partner</h4><p>Challenge your reasoning</p></div>
+  </div>
+
+  <h2>When To Use Each</h2>
+  <div class="terminal">
+    <div class="terminal-bar"><div class="td r"></div><div class="td y"></div><div class="td g"></div></div>
+    <div class="terminal-body">
+      <div class="tl"><span class="th">Break It Down:</span> <span class="to">"My essay topic is too broad — help me split it into 3 focused sub-questions"</span></div>
+      <div class="tl"><span class="th">Start From Scratch:</span> <span class="to">"Explain machine learning starting from the simplest possible concept, building up layer by layer"</span></div>
+      <div class="tl"><span class="th">Research Mode:</span> <span class="to">"What are the 3 main positions on school uniforms? Give evidence for each side"</span></div>
+      <div class="tl"><span class="th">Blueprint Mode:</span> <span class="to">"I want to build a study app. Design the architecture: what screens, what data, what features"</span></div>
+      <div class="tl"><span class="th">Prompt Coach:</span> <span class="to">"Here's my prompt. What's weak about it? Rewrite it to get better results"</span></div>
+      <div class="tl"><span class="th">Expert Lens:</span> <span class="to">"Answer as a constitutional lawyer would: is this policy legal?"</span></div>
+      <div class="tl"><span class="th">Debate Partner:</span> <span class="to">"Challenge every assumption in my argument. Find the weakest points"</span></div>
+    </div>
+  </div>
+
+  <div class="quiz">
+    <h3>You're preparing for a debate and need to find weaknesses in your own argument. Which superpower?</h3>
+    <button class="quiz-opt" onclick="qz(this,false,'t1m1fb','Research Mode gathers evidence. You already have your argument — you need someone to attack it.')">Research Mode</button>
+    <button class="quiz-opt" onclick="qz(this,false,'t1m1fb','Break It Down splits things into parts. You need opposition, not decomposition.')">Break It Down</button>
+    <button class="quiz-opt" onclick="qz(this,true,'t1m1fb','Correct! Debate Partner makes the AI actively challenge your reasoning, find holes, and push back. Perfect for strengthening arguments before a debate.')">Debate Partner</button>
+    <div class="quiz-fb" id="t1m1fb" role="status" aria-live="polite"></div>
+  </div>
+
+  <div class="nav-btns">
+    <button class="btn btn-ghost" onclick="goMod(0,0)">&#8592; Back</button>
+    <button class="btn btn-primary" onclick="goMod(0,2)">Next: Choose The Right Framework &#8594;</button>
+  </div>
+</div>
+
+<!-- T1M2 -->
+<div class="mod" id="t1m2">
+  <h1>Choose The Right Framework</h1>
+  <p class="subtitle">Match your situation to the right thinking tool.</p>
+
+  <h2>Decision Flowchart</h2>
+  <p>Click the situation that matches yours:</p>
+
+  <div class="flowchart" id="flowchart1">
+    <div class="fc-node" onclick="showFramework(this,'decomp')"><div class="fc-icon">&#128566;</div><div class="fc-label">Problem too big</div><div class="fc-desc">Overwhelmed, don't know where to start</div></div>
+    <div class="fc-node" onclick="showFramework(this,'first')"><div class="fc-icon">&#129300;</div><div class="fc-label">Don't understand topic</div><div class="fc-desc">Need to learn from basics</div></div>
+    <div class="fc-node" onclick="showFramework(this,'research')"><div class="fc-icon">&#128269;</div><div class="fc-label">Need evidence</div><div class="fc-desc">Gathering info on a topic</div></div>
+    <div class="fc-node" onclick="showFramework(this,'build')"><div class="fc-icon">&#128295;</div><div class="fc-label">Want to build something</div><div class="fc-desc">App, project, system</div></div>
+    <div class="fc-node" onclick="showFramework(this,'meta')"><div class="fc-icon">&#128260;</div><div class="fc-label">Prompt not working</div><div class="fc-desc">Getting bad results</div></div>
+    <div class="fc-node" onclick="showFramework(this,'expert')"><div class="fc-icon">&#127891;</div><div class="fc-label">Need specialist view</div><div class="fc-desc">Specific expertise needed</div></div>
+    <div class="fc-node" onclick="showFramework(this,'debate')"><div class="fc-icon">&#129354;</div><div class="fc-label">Need to stress-test</div><div class="fc-desc">Check for weaknesses</div></div>
+  </div>
+  <div id="framework-result" class="card" style="display:none;margin-top:16px"></div>
+
+  <div class="quiz">
+    <h3>Your science fair hypothesis might be wrong, but you can't see why. Which framework?</h3>
+    <button class="quiz-opt" onclick="qz(this,false,'t1m2fb','Blueprint Mode is for building things, not testing ideas.')">Blueprint Mode</button>
+    <button class="quiz-opt" onclick="qz(this,true,'t1m2fb','Correct! Debate Partner will challenge your hypothesis, find logical gaps, and suggest counter-evidence you might have missed.')">Debate Partner</button>
+    <button class="quiz-opt" onclick="qz(this,false,'t1m2fb','Prompt Coach improves prompts, not hypotheses.')">Prompt Coach</button>
+    <div class="quiz-fb" id="t1m2fb" role="status" aria-live="polite"></div>
+  </div>
+
+  <div class="nav-btns">
+    <button class="btn btn-ghost" onclick="goMod(0,1)">&#8592; Back</button>
+    <button class="btn btn-primary" onclick="goMod(0,3)">Next: Build Your Own Prompt &#8594;</button>
+  </div>
+</div>
+
+<!-- T1M3: PROMPT BUILDER -->
+<div class="mod" id="t1m3">
+  <h1>Prompt Builder Challenge</h1>
+  <p class="subtitle">Put it all together: build a powerful prompt using what you've learned.</p>
+
+  <div class="builder">
+    <h3 style="margin-bottom:12px">Build Your Prompt</h3>
+    <label>1. What's your goal?</label>
+    <textarea id="pb-goal" placeholder="Example: Prepare arguments for my debate on social media regulation..." aria-label="Your goal"></textarea>
+    <label>2. Which framework fits best?</label>
+    <select id="pb-framework" style="width:100%;padding:10px;background:var(--surface2);border:1px solid var(--border);border-radius:var(--radius-sm);color:var(--text);font-size:14px;margin:8px 0">
+      <option value="">Choose a framework...</option>
+      <option value="break">Break It Down</option>
+      <option value="scratch">Start From Scratch</option>
+      <option value="research">Research Mode</option>
+      <option value="blueprint">Blueprint Mode</option>
+      <option value="coach">Prompt Coach</option>
+      <option value="expert">Expert Lens</option>
+      <option value="debate">Debate Partner</option>
+    </select>
+    <label>3. What context does the AI need?</label>
+    <textarea id="pb-context" placeholder="Example: I'm arguing FOR regulation. The debate is in 3 days. I need 3 main points with evidence..." aria-label="Context for the AI"></textarea>
+    <label>4. What format should the output be?</label>
+    <textarea id="pb-format" placeholder="Example: Give me bullet points I can put on cue cards, with one strong statistic per point..." aria-label="Desired output format"></textarea>
+
+    <div style="margin-top:16px">
+      <button class="btn btn-accent" onclick="generatePrompt()">&#9889; Generate My Prompt</button>
+      <button class="btn btn-ghost" onclick="exportPrompt()" style="margin-left:8px">&#128196; Export</button>
+    </div>
+    <div id="pb-output" class="terminal" style="display:none;margin-top:16px">
+      <div class="terminal-bar"><div class="td r"></div><div class="td y"></div><div class="td g"></div></div>
+      <div class="terminal-body" id="pb-result"></div>
+    </div>
+  </div>
+
+  <div class="callout callout-tip">
+    <span class="callout-icon">&#127775;</span>
+    <div><strong>Track 1 Complete!</strong> You now know 7 different thinking modes for AI. Use them in your schoolwork, projects, and creative work. Switch to Track 2 to learn how to make AI your personal tutor.</div>
+  </div>
+
+  <div class="nav-btns">
+    <button class="btn btn-ghost" onclick="goMod(0,2)">&#8592; Back</button>
+    <button class="btn btn-primary" onclick="switchTrack(1)">Start Track 2: Learn Deeper &#8594;</button>
+  </div>
+</div>
+</div><!-- /track0 -->
+
+<!-- ============ TRACK 2: LEARN DEEPER ============ -->
+<div class="track" id="track1">
+<div class="mod-nav" id="track1-nav"></div>
+
+<!-- T2M0 -->
+<div class="mod active" id="t2m0">
+  <h1>Every Project Can Teach You</h1>
+  <p class="subtitle">Don't just use AI to finish work — use it to understand what you're doing.</p>
+
+  <div class="callout callout-warning">
+    <span class="callout-icon">&#127891;</span>
+    <div><strong>The difference:</strong> Using AI to <em>skip</em> thinking = you learn nothing. Using AI to <em>explain</em> while it works = you learn everything.</div>
+  </div>
+
+  <h2>Two Ways To Use AI</h2>
+  <div class="compare">
+    <div class="compare-col bad">
+      <div class="compare-label">&#128683; Just Finishing</div>
+      <p style="font-size:14px">"Write my essay about photosynthesis"</p>
+      <p style="font-size:13px;color:var(--muted)">You get an essay but learn nothing. Can't explain it. Can't build on it.</p>
+    </div>
+    <div class="compare-col good">
+      <div class="compare-label">&#10003; Learning While Doing</div>
+      <p style="font-size:14px">"Help me write about photosynthesis. After each paragraph, explain the concept in simple terms and give me an analogy I can remember."</p>
+      <p style="font-size:13px;color:var(--muted)">You get an essay AND understanding. You can explain it to others.</p>
+    </div>
+  </div>
+
+  <h2>The Learning Artifact</h2>
+  <p>Every time you work with AI on a project, you can ask it to leave behind <strong>learning notes</strong> — a document that explains what was built, why decisions were made, and what you should remember.</p>
+
+  <div class="quiz">
+    <h3>Which approach helps you learn more?</h3>
+    <button class="quiz-opt" onclick="qz(this,false,'t2m0fb','This gets the job done but you won\'t understand or remember how it works.')">Ask AI to write code, copy-paste it, submit</button>
+    <button class="quiz-opt" onclick="qz(this,true,'t2m0fb','Yes! When AI explains as it builds, you understand the reasoning. The bug lesson becomes something you actually remember because it tells a story.')">Ask AI to write code, explain each part, and document any bugs it encountered and what they taught you</button>
+    <button class="quiz-opt" onclick="qz(this,false,'t2m0fb','Refusing to use AI does not optimize learning either. The best approach is using AI as a teacher while it works.')">Refuse to use AI at all and struggle alone</button>
+    <div class="quiz-fb" id="t2m0fb" role="status" aria-live="polite"></div>
+  </div>
+
+  <div class="nav-btns">
+    <div></div>
+    <button class="btn btn-primary" onclick="goMod(1,1)">Next: Build Your Learning Notes &#8594;</button>
+  </div>
+</div>
+
+<!-- T2M1 -->
+<div class="mod" id="t2m1">
+  <h1>Build Your Learning Notes</h1>
+  <p class="subtitle">Create a "FOR_YOU.md" — your personal learning notebook that AI maintains for you.</p>
+
+  <h2>What Goes In Your Learning Notes?</h2>
+  <div class="card-grid">
+    <div class="info-card"><div class="ic-icon">&#128218;</div><h4>What We Built</h4><p>Plain-English summary of the project</p></div>
+    <div class="info-card"><div class="ic-icon">&#128161;</div><h4>Concepts Learned</h4><p>Key ideas with analogies</p></div>
+    <div class="info-card"><div class="ic-icon">&#128027;</div><h4>Bugs & Lessons</h4><p>What broke and what it taught you</p></div>
+    <div class="info-card"><div class="ic-icon">&#128300;</div><h4>Questions to Review</h4><p>Things to quiz yourself on later</p></div>
+  </div>
+
+  <h2>Template Builder</h2>
+  <p>Choose your project type and fill in the template:</p>
+
+  <div class="builder">
+    <label>Project type:</label>
+    <select id="ln-type" style="width:100%;padding:10px;background:var(--surface2);border:1px solid var(--border);border-radius:var(--radius-sm);color:var(--text);font-size:14px;margin:8px 0" onchange="updateTemplate()">
+      <option value="essay">Essay / Research Paper</option>
+      <option value="website">Website / App</option>
+      <option value="science">Science Project</option>
+      <option value="debate">Debate Case</option>
+      <option value="creative">Creative Project</option>
+    </select>
+    <label>What did you build/write?</label>
+    <textarea id="ln-what" placeholder="Example: A 5-page essay on the causes of climate change..." aria-label="What you built"></textarea>
+    <label>What's one concept you learned, explained with an analogy?</label>
+    <textarea id="ln-concept" placeholder="Example: The greenhouse effect is like a car with windows closed on a sunny day — light gets in but heat can't escape..." aria-label="Concept with analogy"></textarea>
+    <label>What went wrong and what did it teach you?</label>
+    <textarea id="ln-bug" placeholder="Example: My first draft had no citations. I learned that every claim needs a source, or it's just an opinion..." aria-label="Bug or lesson learned"></textarea>
+    <label>One question to quiz yourself on later:</label>
+    <textarea id="ln-quiz" placeholder="Example: What are the three main greenhouse gases and why does each matter?" aria-label="Review question"></textarea>
+
+    <button class="btn btn-accent" onclick="exportLearningNotes()" style="margin-top:16px">&#128196; Export My Learning Notes</button>
+  </div>
+
+  <div class="nav-btns">
+    <button class="btn btn-ghost" onclick="goMod(1,0)">&#8592; Back</button>
+    <button class="btn btn-primary" onclick="goMod(1,2)">Next: Learn By Explaining &#8594;</button>
+  </div>
+</div>
+
+<!-- T2M2 -->
+<div class="mod" id="t2m2">
+  <h1>Learn By Explaining</h1>
+  <p class="subtitle">The ultimate test of understanding: can you explain it back?</p>
+
+  <h2>Three Power Moves</h2>
+  <div class="card-grid">
+    <div class="info-card"><div class="ic-icon">&#128172;</div><h4>Explain Back</h4><p>"Now let me explain this in my own words — correct me if I'm wrong"</p></div>
+    <div class="info-card"><div class="ic-icon">&#129504;</div><h4>Quiz Me</h4><p>"Generate 5 quiz questions on what we just covered"</p></div>
+    <div class="info-card"><div class="ic-icon">&#128161;</div><h4>Why Does This Work?</h4><p>"Don't just show me how — explain WHY this approach works"</p></div>
+  </div>
+
+  <h2>The Explain-Back Prompt</h2>
+  <div class="terminal">
+    <div class="terminal-bar"><div class="td r"></div><div class="td y"></div><div class="td g"></div></div>
+    <div class="terminal-body">
+      <div class="tl"><span class="tp">You:</span> <span class="tc">Okay, let me try to explain what you just taught me. Correct anything I get wrong:</span></div>
+      <div class="tl"><span class="tc">So photosynthesis is basically plants eating sunlight? They take in CO2 and water,</span></div>
+      <div class="tl"><span class="tc">use the sun's energy to rearrange the atoms, and produce glucose and oxygen.</span></div>
+      <div class="tl"><span class="tc">The glucose is their food and the oxygen is basically their exhaust.</span></div>
+      <div class="tl"></div>
+      <div class="tl"><span class="tp">Claude:</span> <span class="to">That's a great explanation! A few refinements:</span></div>
+      <div class="tl"><span class="to">1. "Eating sunlight" is a good analogy — more precisely, they absorb light energy</span></div>
+      <div class="tl"><span class="to">2. "Exhaust" for oxygen works! It's a byproduct they release</span></div>
+      <div class="tl"><span class="to">3. Small correction: glucose isn't exactly "food" — it's stored energy they...</span></div>
+    </div>
+  </div>
+
+  <div class="callout callout-tip">
+    <span class="callout-icon">&#127775;</span>
+    <div><strong>Track 2 Complete!</strong> You now know how to turn every AI interaction into a learning opportunity. Switch to Track 3 to learn how to catch AI mistakes using multiple models.</div>
+  </div>
+
+  <div class="nav-btns">
+    <button class="btn btn-ghost" onclick="goMod(1,1)">&#8592; Back</button>
+    <button class="btn btn-primary" onclick="switchTrack(2)">Start Track 3: Review Smarter &#8594;</button>
+  </div>
+</div>
+</div><!-- /track1 -->
+
+<!-- ============ TRACK 3: REVIEW SMARTER ============ -->
+<div class="track" id="track2">
+<div class="mod-nav" id="track2-nav"></div>
+
+<!-- T3M0 -->
+<div class="mod active" id="t3m0">
+  <h1>Why One AI Can Miss Its Own Mistakes</h1>
+  <p class="subtitle">The same brain that wrote the work uses the same blind spots to review it.</p>
+
+  <div class="callout callout-insight">
+    <span class="callout-icon">&#128064;</span>
+    <div><strong>The blind spot problem:</strong> You don't proofread your own essay right after writing it — your brain fills in what it <em>meant</em> to write, not what's actually on the page. AI has the same problem.</div>
+  </div>
+
+  <h2>Same Model = Same Blind Spots</h2>
+  <p>When one AI writes something AND reviews it, the review uses the same reasoning that created the original mistakes. It literally cannot see its own errors because it would have avoided them in the first place.</p>
+
+  <div class="compare">
+    <div class="compare-col bad">
+      <div class="compare-label">&#128064; Self-Review</div>
+      <p style="font-size:14px">AI writes an answer → same AI says "looks good!"</p>
+      <p style="font-size:13px;color:var(--muted)">Same assumptions, same gaps, same blind spots. Bugs hide.</p>
+    </div>
+    <div class="compare-col good">
+      <div class="compare-label">&#128101; Cross-Review</div>
+      <p style="font-size:14px">AI #1 writes → AI #2 reviews → AI #1 fixes</p>
+      <p style="font-size:13px;color:var(--muted)">Different training, different strengths, catches more errors.</p>
+    </div>
+  </div>
+
+  <div class="quiz">
+    <h3>Why is "passing tests" not enough to prove code is correct?</h3>
+    <button class="quiz-opt" onclick="qz(this,false,'t3m0fb','Tests can run instantly. Speed is not the issue.')">Tests take too long to run</button>
+    <button class="quiz-opt" onclick="qz(this,true,'t3m0fb','Exactly! If the same AI writes code AND tests, both can share the same flawed assumption. The test passes because it checks for the wrong thing — not because the code is actually correct.')">If the same AI wrote the code AND the tests, both can share the same wrong assumption</button>
+    <button class="quiz-opt" onclick="qz(this,false,'t3m0fb','Tests can absolutely find real bugs. The issue is WHO writes the tests and whether they share blind spots with the code writer.')">Tests can never find real bugs</button>
+    <div class="quiz-fb" id="t3m0fb" role="status" aria-live="polite"></div>
+  </div>
+
+  <div class="nav-btns">
+    <div></div>
+    <button class="btn btn-primary" onclick="goMod(2,1)">Next: The Review Workflow &#8594;</button>
+  </div>
+</div>
+
+<!-- T3M1 -->
+<div class="mod" id="t3m1">
+  <h1>Claude Writes, Codex Reviews</h1>
+  <p class="subtitle">A practical workflow where two AI models check each other's work.</p>
+
+  <h2>The Cross-Review Workflow</h2>
+  <div class="workflow">
+    <div class="wf-step active"><div class="si">&#9998;</div><div class="sl">Claude Writes</div></div>
+    <div class="wf-arrow">&#8594;</div>
+    <div class="wf-step"><div class="si">&#128270;</div><div class="sl">Codex Reviews</div></div>
+    <div class="wf-arrow">&#8594;</div>
+    <div class="wf-step"><div class="si">&#128295;</div><div class="sl">Claude Fixes</div></div>
+    <div class="wf-arrow">&#8594;</div>
+    <div class="wf-step"><div class="si">&#128100;</div><div class="sl">Human Approves</div></div>
+  </div>
+
+  <h2>Why Two Different Models?</h2>
+  <p><strong>Claude</strong> and <strong>Codex</strong> (by OpenAI) are trained differently, think differently, and catch different issues:</p>
+  <div class="card-grid">
+    <div class="info-card"><div class="ic-icon">&#9889;</div><h4>Claude</h4><p>Fast, practical, great at building. Your daily driver.</p></div>
+    <div class="info-card"><div class="ic-icon">&#128218;</div><h4>Codex</h4><p>Rigorous, thorough, catches subtle issues. Your academic reviewer.</p></div>
+  </div>
+
+  <h2>What The Reviewer Catches</h2>
+  <p>In a real test with a REST API project, the cross-model review caught:</p>
+  <ul>
+    <li><strong>Security holes</strong> — database queries that could be hacked</li>
+    <li><strong>Race conditions</strong> — two operations conflicting</li>
+    <li><strong>Missing protections</strong> — no rate limiting, leaked error messages</li>
+    <li><strong>Missing features</strong> — no pagination for large data sets</li>
+  </ul>
+
+  <div class="callout callout-tip">
+    <span class="callout-icon">&#128173;</span>
+    <div><strong>School analogy:</strong> It's like peer review in English class. You write the essay, your partner reads it with fresh eyes, catches what you missed, and you make it better before turning it in.</div>
+  </div>
+
+  <div class="nav-btns">
+    <button class="btn btn-ghost" onclick="goMod(2,0)">&#8592; Back</button>
+    <button class="btn btn-primary" onclick="goMod(2,2)">Next: Spot The Issues &#8594;</button>
+  </div>
+</div>
+
+<!-- T3M2: DETECTIVE GAME -->
+<div class="mod" id="t3m2">
+  <h1>Review Detective: Spot The Issues</h1>
+  <p class="subtitle">Practice finding problems in AI-generated content. Click on the issues!</p>
+
+  <h2>AI-Generated Study Guide — Find 4 Problems</h2>
+  <p>This study guide was written by AI. Click on the highlighted sections that contain errors or problems:</p>
+
+  <div class="detective-text" id="detective1">
+    <p>The American Revolution began in <span class="issue" data-id="1" onclick="findIssue(this,'Wrong date — it began in 1775, not 1774')">1774</span> when colonists decided to fight for independence from Britain.</p>
+    <p>The main cause was <span class="issue" data-id="2" onclick="findIssue(this,'Oversimplification — there were many causes including taxation without representation, trade restrictions, and philosophical arguments about rights')">that British people were mean to Americans</span>.</p>
+    <p>George Washington led the Continental Army to victory at the Battle of Yorktown in 1781. The Treaty of Paris was signed in 1783, officially ending the war.</p>
+    <p>After the war, the Constitution was written in <span class="issue" data-id="3" onclick="findIssue(this,'Correct date is 1787, not 1789. The Bill of Rights was ratified in 1791.')">1789</span>, establishing the federal government.</p>
+    <p>The Revolution <span class="issue" data-id="4" onclick="findIssue(this,'Missing nuance — women, enslaved people, and Indigenous peoples did not gain freedom. The revolution was limited in who it benefited.')">gave freedom to all Americans</span> and inspired democratic movements worldwide.</p>
+  </div>
+  <div id="detective-score" style="margin-top:12px;font-size:14px;color:var(--muted)">Found: 0 / 4 issues</div>
+  <div id="detective-fb" style="margin-top:8px;font-size:14px;display:none;padding:12px;border-radius:var(--radius-sm)"></div>
+
+  <div class="nav-btns">
+    <button class="btn btn-ghost" onclick="goMod(2,1)">&#8592; Back</button>
+    <button class="btn btn-primary" onclick="goMod(2,3)">Next: Build A Review Team &#8594;</button>
+  </div>
+</div>
+
+<!-- T3M3: REVIEW TEAMS -->
+<div class="mod" id="t3m3">
+  <h1>Build Your Review Team</h1>
+  <p class="subtitle">Design a multi-model review workflow for any project.</p>
+
+  <h2>The 4-Agent Review Team</h2>
+  <div class="card-grid">
+    <div class="info-card"><div class="ic-icon">&#9998;</div><h4>Builder</h4><p>Creates the initial work</p></div>
+    <div class="info-card"><div class="ic-icon">&#128270;</div><h4>Critic</h4><p>Finds errors and weak points</p></div>
+    <div class="info-card"><div class="ic-icon">&#128274;</div><h4>Safety Checker</h4><p>Looks for risks and harmful content</p></div>
+    <div class="info-card"><div class="ic-icon">&#127891;</div><h4>Explainer</h4><p>Makes sure output is clear and accurate</p></div>
+  </div>
+
+  <h2>Design Your Review Workflow</h2>
+  <div class="builder">
+    <label>What project are you reviewing?</label>
+    <select id="rw-project" style="width:100%;padding:10px;background:var(--surface2);border:1px solid var(--border);border-radius:var(--radius-sm);color:var(--text);font-size:14px;margin:8px 0">
+      <option value="essay">Essay / Report</option>
+      <option value="code">Code / App</option>
+      <option value="debate">Debate Case</option>
+      <option value="presentation">Presentation</option>
+      <option value="research">Research Paper</option>
+    </select>
+    <label>What should the Critic check for?</label>
+    <textarea id="rw-critic" placeholder="Example: factual errors, missing citations, weak arguments, logical gaps..." aria-label="Critic checks"></textarea>
+    <label>What should the Safety Checker look for?</label>
+    <textarea id="rw-safety" placeholder="Example: bias, unsupported claims, plagiarism, harmful generalizations..." aria-label="Safety checks"></textarea>
+    <label>When should a human step in?</label>
+    <textarea id="rw-human" placeholder="Example: before publishing, when reviewers disagree, when changes are major..." aria-label="Human intervention points"></textarea>
+
+    <button class="btn btn-accent" onclick="exportReviewPlan()" style="margin-top:16px">&#128196; Export Review Plan</button>
+  </div>
+
+  <div class="callout callout-tip">
+    <span class="callout-icon">&#127942;</span>
+    <div><strong>All Tracks Complete!</strong> You've mastered three essential AI skills: thinking with frameworks, learning while building, and reviewing with multiple perspectives. These habits will make you dramatically more effective with any AI tool.</div>
+  </div>
+
+  <div class="nav-btns">
+    <button class="btn btn-ghost" onclick="goMod(2,2)">&#8592; Back</button>
+    <button class="btn btn-accent" onclick="completeAllTracks()">Complete All Tracks &#127942;</button>
+  </div>
+</div>
+</div><!-- /track2 -->
+
+</div><!-- /container -->
+
+<script>
+// ===== DATA =====
+const tracks = [
+  {id:'track0', mods:['t1m0','t1m1','t1m2','t1m3'], titles:['Thinking Tools','7 Superpowers','Choose Framework','Prompt Builder']},
+  {id:'track1', mods:['t2m0','t2m1','t2m2'], titles:['Projects Teach','Learning Notes','Explain Back']},
+  {id:'track2', mods:['t3m0','t3m1','t3m2','t3m3'], titles:['Blind Spots','Cross-Review','Detective','Review Team']},
+];
+let currentTrack=0, currentMods=[0,0,0];
+let xp=parseInt(localStorage.getItem('sl-xp')||'0');
+let answered=JSON.parse(localStorage.getItem('sl-answered')||'[]');
+let foundIssues=new Set();
+
+// ===== TRACK SWITCHING =====
+function switchTrack(t){
+  currentTrack=t;
+  document.querySelectorAll('.track').forEach(el=>el.classList.remove('active'));
+  document.getElementById(tracks[t].id).classList.add('active');
+  document.querySelectorAll('.track-tab').forEach((el,i)=>{el.classList.toggle('active',i===t)});
+  buildModNav(t);
+  goMod(t,currentMods[t]);
+}
+
+// ===== MODULE NAV =====
+function buildModNav(t){
+  const nav=document.getElementById(`track${t}-nav`);
+  nav.innerHTML=tracks[t].titles.map((title,i)=>{
+    const cls=i===currentMods[t]?'active':'';
+    return `<button class="mod-nav-btn ${cls}" onclick="goMod(${t},${i})">${title}</button>`;
+  }).join('');
+}
+
+function goMod(t,m){
+  currentTrack=t;currentMods[t]=m;
+  switchTrack(t);
+  const track=tracks[t];
+  document.querySelectorAll(`#${track.id} .mod`).forEach(el=>el.classList.remove('active'));
+  document.getElementById(track.mods[m]).classList.add('active');
+  buildModNav(t);
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+// ===== XP =====
+function addXP(n){xp+=n;localStorage.setItem('sl-xp',xp);updateXP()}
+function updateXP(){
+  document.getElementById('xpText').textContent=xp+' XP';
+  document.getElementById('xpFill').style.width=Math.min(xp%200/2,100)+'%';
+}
+
+// ===== QUIZ =====
+function qz(btn,correct,fbId,explanation){
+  const parent=btn.parentElement;
+  parent.querySelectorAll('.quiz-opt').forEach(o=>{o.classList.add('disabled');o.disabled=true});
+  btn.classList.add(correct?'correct':'wrong');
+  const fb=document.getElementById(fbId);
+  fb.className='quiz-fb show';
+  fb.style.background=correct?'var(--green-bg)':'var(--danger-bg)';
+  fb.style.color=correct?'#6ee7b7':'#fca5a5';
+  fb.textContent=(correct?'✓ ':'✗ ')+explanation;
+  if(correct&&!answered.includes(fbId)){answered.push(fbId);localStorage.setItem('sl-answered',JSON.stringify(answered));addXP(15);}
+}
+
+// ===== FLOWCHART =====
+const frameworkInfo={
+  decomp:{title:'Break It Down',desc:'Use when a problem feels too big. Ask AI to split it into 3-5 smaller sub-problems you can tackle one at a time.',prompt:'Break this problem into smaller parts: [your problem]. For each part, explain what I need to solve and in what order.'},
+  first:{title:'Start From Scratch',desc:'Use when you don\'t understand a topic. Ask AI to explain from the most basic concept upward.',prompt:'Explain [topic] starting from the simplest possible concept. Build up layer by layer. Define every term before using it.'},
+  research:{title:'Research Mode',desc:'Use when you need evidence and multiple perspectives on a topic.',prompt:'What are the main positions on [topic]? For each, give me: the key argument, strongest evidence, and main criticism.'},
+  build:{title:'Blueprint Mode',desc:'Use when you want to build something. Ask AI to design the architecture before writing any code.',prompt:'I want to build [project]. Design the architecture: what components, what data flows between them, and what should I build first?'},
+  meta:{title:'Prompt Coach',desc:'Use when your prompts aren\'t working. Ask AI to improve the prompt itself.',prompt:'Here is my prompt: [paste prompt]. What\'s weak about it? Rewrite it to be more specific, structured, and likely to get good results.'},
+  expert:{title:'Expert Lens',desc:'Use when you need a specialist perspective on a question.',prompt:'Answer this as a [type of expert] would: [your question]. Include the specific frameworks or evidence this expert would use.'},
+  debate:{title:'Debate Partner',desc:'Use when you need to stress-test your thinking. Ask AI to challenge everything.',prompt:'Here is my argument/hypothesis: [your idea]. Challenge every assumption. Find the weakest points. What would a strong opponent say?'}
+};
+function showFramework(el,key){
+  document.querySelectorAll('.fc-node').forEach(n=>n.classList.remove('selected'));
+  el.classList.add('selected');
+  const info=frameworkInfo[key];
+  const result=document.getElementById('framework-result');
+  result.style.display='block';
+  result.innerHTML=`<h3>${info.title}</h3><p>${info.desc}</p><div class="terminal"><div class="terminal-bar"><div class="td r"></div><div class="td y"></div><div class="td g"></div></div><div class="terminal-body"><div class="tl"><span class="th">Try this prompt:</span></div><div class="tl"><span class="tc">${info.prompt}</span></div></div></div>`;
+}
+
+// ===== PROMPT BUILDER =====
+function generatePrompt(){
+  const goal=document.getElementById('pb-goal').value||'[your goal]';
+  const fw=document.getElementById('pb-framework').value;
+  const ctx=document.getElementById('pb-context').value||'[your context]';
+  const fmt=document.getElementById('pb-format').value||'[your preferred format]';
+  const fwName={'break':'Break It Down','scratch':'Start From Scratch','research':'Research Mode','blueprint':'Blueprint Mode','coach':'Prompt Coach','expert':'Expert Lens','debate':'Debate Partner'}[fw]||'General';
+  const prompt=`Goal: ${goal}\n\nFramework: ${fwName}\n\nContext: ${ctx}\n\nOutput format: ${fmt}\n\nInstructions: Using the ${fwName} approach, help me achieve my goal. Be specific, structured, and thorough.`;
+  document.getElementById('pb-output').style.display='block';
+  document.getElementById('pb-result').innerHTML=`<div class="tl"><span class="th">Your generated prompt:</span></div><div class="tl"><span class="tc">${prompt.replace(/\n/g,'</span></div><div class="tl"><span class="tc">')}</span></div>`;
+  addXP(20);
+}
+function exportPrompt(){
+  const el=document.getElementById('pb-result');
+  if(!el||!el.textContent){alert('Generate a prompt first!');return;}
+  const blob=new Blob([el.textContent],{type:'text/plain'});
+  const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='my-prompt.txt';a.click();
+}
+
+// ===== LEARNING NOTES EXPORT =====
+function exportLearningNotes(){
+  const type=document.getElementById('ln-type').value;
+  const what=document.getElementById('ln-what').value||'(not filled)';
+  const concept=document.getElementById('ln-concept').value||'(not filled)';
+  const bug=document.getElementById('ln-bug').value||'(not filled)';
+  const quiz=document.getElementById('ln-quiz').value||'(not filled)';
+  const text=`# My Learning Notes\n\n## Project Type: ${type}\n\n## What I Built\n${what}\n\n## Key Concept (with analogy)\n${concept}\n\n## What Went Wrong & What I Learned\n${bug}\n\n## Quiz Myself Later\n- ${quiz}\n`;
+  const blob=new Blob([text],{type:'text/markdown'});
+  const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='my-learning-notes.md';a.click();
+  addXP(20);
+}
+
+// ===== DETECTIVE GAME =====
+function findIssue(el,explanation){
+  if(el.classList.contains('found'))return;
+  el.classList.add('found');
+  foundIssues.add(el.dataset.id);
+  const score=foundIssues.size;
+  document.getElementById('detective-score').textContent=`Found: ${score} / 4 issues`;
+  const fb=document.getElementById('detective-fb');
+  fb.style.display='block';
+  fb.style.background='var(--green-bg)';
+  fb.style.color='#6ee7b7';
+  fb.textContent='✓ '+explanation;
+  if(score===4&&!answered.includes('detective')){answered.push('detective');localStorage.setItem('sl-answered',JSON.stringify(answered));addXP(30);}
+}
+
+// ===== REVIEW PLAN EXPORT =====
+function exportReviewPlan(){
+  const project=document.getElementById('rw-project').value;
+  const critic=document.getElementById('rw-critic').value||'(not filled)';
+  const safety=document.getElementById('rw-safety').value||'(not filled)';
+  const human=document.getElementById('rw-human').value||'(not filled)';
+  const text=`# My Review Workflow\n\n## Project: ${project}\n\n## Step 1: Builder creates the work\n\n## Step 2: Critic reviews for:\n${critic}\n\n## Step 3: Safety Checker looks for:\n${safety}\n\n## Step 4: Human steps in when:\n${human}\n\n## Step 5: Builder fixes issues and re-submits\n`;
+  const blob=new Blob([text],{type:'text/markdown'});
+  const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='my-review-plan.md';a.click();
+  addXP(20);
+}
+
+// ===== COMPLETE =====
+function completeAllTracks(){
+  addXP(50);
+  alert('Congratulations! You completed all three tracks of the AI Skills Lab. Head back to the Academy landing page to take the post-test and measure your growth.');
+}
+
+// ===== INIT =====
+buildModNav(0);buildModNav(1);buildModNav(2);
+updateXP();
+</script>
+</body>
+</html>
