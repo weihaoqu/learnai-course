@@ -116,6 +116,23 @@ body{font-family:var(--font);background:var(--bg);color:var(--text);line-height:
 .gate-btn:hover{transform:scale(1.04);box-shadow:0 6px 28px rgba(16,185,129,0.4)}
 .gate-note{font-size:13px;color:var(--muted);margin-top:12px}
 
+/* ===== NODE BADGE ===== */
+.orbit-node .node-badge{position:absolute;top:-6px;right:-6px;width:18px;height:18px;border-radius:50%;background:var(--purple);color:#fff;font-size:10px;font-weight:700;display:flex;align-items:center;justify-content:center;border:2px solid var(--bg);z-index:6}
+.orbit-node svg{width:24px;height:24px;pointer-events:none}
+
+/* ===== LEARNING PATH TIMELINE ===== */
+.learning-path{max-width:700px;margin:0 auto;padding:60px 24px}
+.lp-step{display:flex;gap:20px;position:relative;padding-bottom:32px}
+.lp-step:last-child{padding-bottom:0}
+.lp-step:not(:last-child)::after{content:'';position:absolute;left:23px;top:48px;bottom:0;width:2px;background:linear-gradient(to bottom,rgba(255,255,255,0.15),rgba(255,255,255,0.05))}
+.lp-num{width:48px;height:48px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;border:2px solid rgba(255,255,255,0.15);background:var(--surface);z-index:1}
+.lp-num svg{width:22px;height:22px}
+.lp-body{flex:1;padding-top:4px}
+.lp-body h4{font-size:16px;font-weight:700;margin-bottom:2px}
+.lp-body p{font-size:13px;color:var(--muted);margin-bottom:8px}
+.lp-body a{font-size:13px;font-weight:600;text-decoration:none;transition:color 0.2s}
+.lp-body a:hover{text-decoration:underline}
+
 /* ===== RESPONSIVE ===== */
 @media(max-width:600px){
   .orbital-hero{min-height:auto;height:auto;padding:40px 16px 120px}
@@ -133,8 +150,36 @@ body{font-family:var(--font);background:var(--bg);color:var(--text);line-height:
 </head>
 <body>
 
-<!-- SVG Gooey Filter -->
-<svg class="svg-filters" aria-hidden="true"><defs><filter id="goo"><feGaussianBlur in="SourceGraphic" stdDeviation="6" result="blur"/><feColorMatrix in="blur" type="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 18 -7" result="goo"/><feComposite in="SourceGraphic" in2="goo" operator="atop"/></filter></defs></svg>
+<!-- SVG Gooey Filter + Icon Symbols -->
+<svg class="svg-filters" aria-hidden="true"><defs>
+  <filter id="goo"><feGaussianBlur in="SourceGraphic" stdDeviation="6" result="blur"/><feColorMatrix in="blur" type="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 18 -7" result="goo"/><feComposite in="SourceGraphic" in2="goo" operator="atop"/></filter>
+  <!-- Pre/Post Test: clipboard checklist -->
+  <symbol id="ico-test" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M9 5H7a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-2"/>
+    <rect x="9" y="3" width="6" height="4" rx="1"/><path d="M9 14l2 2 4-4"/>
+  </symbol>
+  <!-- Course 1: terminal -->
+  <symbol id="ico-terminal" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <rect x="2" y="4" width="20" height="16" rx="2"/><path d="M6 12l4-4M6 12l4 4M14 16h4"/>
+  </symbol>
+  <!-- Course 2: orbit/agent -->
+  <symbol id="ico-orbit" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <circle cx="12" cy="12" r="3"/><ellipse cx="12" cy="12" rx="10" ry="4" transform="rotate(-30 12 12)"/><ellipse cx="12" cy="12" rx="10" ry="4" transform="rotate(30 12 12)"/>
+  </symbol>
+  <!-- Course 3: spark/toolkit -->
+  <symbol id="ico-spark" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/>
+  </symbol>
+  <!-- Course 4: compass -->
+  <symbol id="ico-compass" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76" fill="currentColor" opacity="0.3" stroke="currentColor"/>
+  </symbol>
+  <!-- Post-test: medal -->
+  <symbol id="ico-medal" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M7.21 15L2.66 7.14a2 2 0 0 1 .13-2.2L4.4 2.8A2 2 0 0 1 6 2h12a2 2 0 0 1 1.6.8l1.6 2.14a2 2 0 0 1 .14 2.2L16.79 15"/>
+    <circle cx="12" cy="17" r="5"/><path d="M12 14v3M10 19h4"/>
+  </symbol>
+</defs></svg>
 
 <!-- PRE-TEST GATE -->
 <div class="gate-overlay" id="preTestGate">
@@ -175,6 +220,68 @@ body{font-family:var(--font);background:var(--bg);color:var(--text);line-height:
   </div>
 </section>
 
+<!-- RECOMMENDED LEARNING PATH -->
+<div class="learning-path">
+  <div class="section-header">
+    <h2>Recommended Learning Path</h2>
+    <p>Follow this order for the best experience</p>
+  </div>
+
+  <div class="lp-step">
+    <div class="lp-num" style="color:var(--gold);border-color:rgba(251,191,36,0.3)"><svg><use href="#ico-test"></use></svg></div>
+    <div class="lp-body">
+      <h4>Step 1: Pre-Test</h4>
+      <p>Take the 5-minute assessment to measure your starting point. No wrong answers.</p>
+      <a href="https://weihaoqu.github.io/learnai-assessment-hs/?type=pre" target="_blank" rel="noopener noreferrer" style="color:var(--gold)">Take Pre-Test &#8594;</a>
+    </div>
+  </div>
+
+  <div class="lp-step">
+    <div class="lp-num" style="color:var(--blue);border-color:rgba(59,130,246,0.3)"><svg><use href="#ico-terminal"></use></svg></div>
+    <div class="lp-body">
+      <h4>Step 2: Claude Code Fundamentals</h4>
+      <p>Learn the terminal, GitHub, web apps, and how to use Claude Code. 13 modules, ~2 hours.</p>
+      <a href="claude-code-course.html" style="color:var(--blue-light)">Start Course 1 &#8594;</a>
+    </div>
+  </div>
+
+  <div class="lp-step">
+    <div class="lp-num" style="color:var(--purple);border-color:rgba(124,58,237,0.3)"><svg><use href="#ico-orbit"></use></svg></div>
+    <div class="lp-body">
+      <h4>Step 3: Agentic Engineering Quest</h4>
+      <p>Go deeper into agent design: harnesses, workflows, specs, tools, memory, safety, and multi-agent teams. 10 modules, ~3 hours.</p>
+      <a href="agentic-engineering-quest.html" style="color:var(--purple-light)">Start Course 2 &#8594;</a>
+    </div>
+  </div>
+
+  <div class="lp-step">
+    <div class="lp-num" style="color:var(--cyan);border-color:rgba(6,182,212,0.3)"><svg><use href="#ico-spark"></use></svg></div>
+    <div class="lp-body">
+      <h4>Step 4: AI Skills Lab</h4>
+      <p>Practice prompt frameworks, learning techniques, and cross-model review. 11 modules, 3 tracks.</p>
+      <a href="skills-lab.html" style="color:var(--cyan-light)">Start Skills Lab &#8594;</a>
+    </div>
+  </div>
+
+  <div class="lp-step">
+    <div class="lp-num" style="color:var(--green);border-color:rgba(16,185,129,0.3)"><svg><use href="#ico-compass"></use></svg></div>
+    <div class="lp-body">
+      <h4>Step 5: AI Life Skills</h4>
+      <p>Master AI-powered study skills, critical thinking, and creative tools. 13 modules, 3 tracks.</p>
+      <a href="ai-life-skills.html" style="color:var(--green-light)">Start Life Skills &#8594;</a>
+    </div>
+  </div>
+
+  <div class="lp-step">
+    <div class="lp-num" style="color:var(--gold);border-color:rgba(251,191,36,0.3)"><svg><use href="#ico-medal"></use></svg></div>
+    <div class="lp-body">
+      <h4>Step 6: Post-Test</h4>
+      <p>Retake the assessment and compare your scores to see how much you've grown.</p>
+      <a href="https://weihaoqu.github.io/learnai-assessment-hs/?type=post" target="_blank" rel="noopener noreferrer" style="color:var(--gold)">Take Post-Test &#8594;</a>
+    </div>
+  </div>
+</div>
+
 <!-- BELOW FOLD -->
 <div class="below-fold">
   <div class="section-header">
@@ -210,35 +317,35 @@ body{font-family:var(--font);background:var(--bg);color:var(--text);line-height:
 <script>
 // ===== COURSE DATA =====
 const courses = [
-  {id:'pre', icon:'&#128203;', label:'Pre-Test', color:'gold',
+  {id:'pre', svgId:'ico-test', label:'Pre-Test', color:'gold', step:1,
     title:'AI Readiness Pre-Test', sub:'~5 minutes',
     desc:'Measure your starting point before beginning the courses. Compare with your post-test score after completion.',
-    tags:['Required First','5 min','No wrong answers'],stats:['&#128203; 6 questions'],
+    tags:['Required First','5 min','No wrong answers'],stats:['6 questions'],
     href:'https://weihaoqu.github.io/learnai-assessment-hs/?type=pre', btnText:'Take Pre-Test', btnColor:'var(--gold)'},
-  {id:'c1', icon:'&#128187;', label:'Fundamentals', color:'blue',
+  {id:'c1', svgId:'ico-terminal', label:'Fundamentals', color:'blue', step:2,
     title:'Course 1: Claude Code Fundamentals', sub:'13 modules &middot; ~2 hours',
     desc:'Learn what a terminal is, how GitHub works, what web apps are made of, and how to use Claude Code as your AI coding partner.',
-    tags:['Beginner','13 Modules','No experience needed'],stats:['&#128218; 13 modules','&#127919; 5 capstone tasks'],
+    tags:['Beginner','13 Modules','No experience needed'],stats:['13 modules','5 capstone tasks'],
     href:'claude-code-course.html', btnText:'Start Course 1', btnColor:'var(--blue)'},
-  {id:'c2', icon:'&#129302;', label:'Agentic Eng.', color:'purple',
+  {id:'c2', svgId:'ico-orbit', label:'Agentic Eng.', color:'purple', step:3,
     title:'Course 2: Agentic Engineering Quest', sub:'10 modules &middot; ~3 hours',
     desc:'Go beyond chatbots. Learn harness engineering, spec-driven development, tool design, agent memory, safety, and multi-agent orchestration.',
-    tags:['Advanced','Gamified','10 Modules'],stats:['&#129302; 10 modules','&#127942; Agent Canvas'],
+    tags:['Advanced','Gamified','10 Modules'],stats:['10 modules','Agent Canvas'],
     href:'agentic-engineering-quest.html', btnText:'Start Course 2', btnColor:'var(--purple)'},
-  {id:'c3', icon:'&#129504;', label:'Skills Lab', color:'cyan',
+  {id:'c3', svgId:'ico-spark', label:'Skills Lab', color:'cyan', step:4,
     title:'Course 3: AI Skills Lab', sub:'11 modules &middot; 3 tracks',
     desc:'Master prompt frameworks for better thinking, turn projects into learning opportunities, and catch AI mistakes using cross-model review.',
-    tags:['Skills Practice','3 Tracks','11 Modules'],stats:['&#129504; 3 tracks','&#128196; Exportable artifacts'],
+    tags:['Skills Practice','3 Tracks','11 Modules'],stats:['3 tracks','Exportable artifacts'],
     href:'skills-lab.html', btnText:'Start Skills Lab', btnColor:'var(--cyan)'},
-  {id:'c4', icon:'&#127912;', label:'Life Skills', color:'green',
+  {id:'c4', svgId:'ico-compass', label:'Life Skills', color:'green', step:5,
     title:'Course 4: AI Life Skills', sub:'13 modules &middot; 3 tracks',
     desc:'Master AI-powered study techniques, learn to verify claims and stay independent, then create games, videos, and stories.',
-    tags:['Essential','3 Tracks','13 Modules'],stats:['&#128218; Study smarter','&#127912; Create freely'],
+    tags:['Essential','3 Tracks','13 Modules'],stats:['Study smarter','Create freely'],
     href:'ai-life-skills.html', btnText:'Start Life Skills', btnColor:'var(--green)'},
-  {id:'post', icon:'&#127942;', label:'Post-Test', color:'gold',
+  {id:'post', svgId:'ico-medal', label:'Post-Test', color:'gold', step:6,
     title:'AI Engineering Post-Test', sub:'~5 minutes',
     desc:'Take the same assessment after completing all courses. Compare your pre and post scores to see how much you\'ve grown.',
-    tags:['After All Courses','5 min','Compare scores'],stats:['&#128200; Growth report'],
+    tags:['After All Courses','5 min','Compare scores'],stats:['Growth report'],
     href:'https://weihaoqu.github.io/learnai-assessment-hs/?type=post', btnText:'Take Post-Test', btnColor:'var(--gold)'},
 ];
 
@@ -257,7 +364,7 @@ courses.forEach((c, i) => {
   btn.className = 'orbit-node';
   btn.dataset.color = c.color;
   btn.dataset.idx = i;
-  btn.innerHTML = `${c.icon}<span class="orbit-node-label">${c.label}</span>`;
+  btn.innerHTML = `<svg><use href="#${c.svgId}"></use></svg><span class="node-badge">${c.step}</span><span class="orbit-node-label">${c.label}</span>`;
   btn.setAttribute('aria-label', c.title);
   btn.addEventListener('click', () => selectNode(i));
   stage.appendChild(btn);
