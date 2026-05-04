@@ -54,6 +54,13 @@ body{font-family:var(--font);background:var(--bg);color:var(--text);line-height:
 .tl-step p{font-size:14px;color:rgba(255,255,255,0.6);margin:4px 0 0}
 .tl-artifact{display:inline-block;margin-top:6px;font-size:12px;font-weight:600;padding:3px 10px;border-radius:20px;background:var(--surface2);border:1px solid var(--border);color:var(--muted)}
 
+/* PROMPT BUBBLES */
+.prompt-log{margin:24px 0}
+.prompt-bubble{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius) var(--radius) var(--radius) 4px;padding:14px 18px;margin:12px 0;font-size:14px;position:relative;color:rgba(255,255,255,0.85)}
+.prompt-bubble::before{content:'Q';position:absolute;top:-8px;left:12px;background:var(--green);color:#fff;font-size:10px;font-weight:700;padding:2px 8px;border-radius:10px}
+.prompt-num{font-size:11px;font-weight:700;color:var(--muted);margin-bottom:4px}
+.prompt-context{font-size:12px;color:var(--muted);margin-top:8px;padding-top:8px;border-top:1px solid var(--border);font-style:italic}
+
 /* DECISION CARDS */
 .decision{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:24px;margin:16px 0}
 .decision-header{display:flex;align-items:center;gap:10px;margin-bottom:12px}
@@ -123,7 +130,7 @@ body{font-family:var(--font);background:var(--bg);color:var(--text);line-height:
 <p>Q had two assets: the video and a personal wiki of 161 entries on AI tools, agent design, and engineering practices — accumulated over months of research. The challenge was turning raw knowledge into something a 15-year-old could follow.</p>
 
 <h2>The Build Timeline</h2>
-<p>Every step below actually happened, in this order. No editing, no "let me redo that" — this is the real sequence.</p>
+<p>The major steps below happened during the session, roughly in this order. This is not a polished recreation — it follows the real messy sequence of decisions, reviews, and revisions.</p>
 
 <div class="timeline">
   <div class="tl-step">
@@ -187,7 +194,7 @@ body{font-family:var(--font);background:var(--bg);color:var(--text);line-height:
     <div class="tl-time">Step 8</div>
     <h4>Build Course 3: AI Skills Lab</h4>
     <p>Three tracks based on specific wiki entries: prompt frameworks (7 superpowers), AI as tutor (learning notes), and cross-model review (detective game). Each track produces an exportable artifact.</p>
-    <span class="tl-artifact">skills-lab.html (730 lines)</span>
+    <span class="tl-artifact">skills-lab.html</span>
   </div>
 
   <div class="tl-step">
@@ -203,14 +210,14 @@ body{font-family:var(--font);background:var(--bg);color:var(--text);line-height:
     <div class="tl-time">Step 10</div>
     <h4>Build Course 4: AI Life Skills</h4>
     <p>13 modules across 3 tracks. Study Better (Socratic tutor, cognitive fatigue, deep prompts), Think Critically (hallucinations, benchmarks, safety, independence), Create Cool Stuff (game design, video planning, story writing).</p>
-    <span class="tl-artifact">ai-life-skills.html (690 lines)</span>
+    <span class="tl-artifact">ai-life-skills.html</span>
   </div>
 
   <div class="tl-step">
     <div class="tl-dot" style="border-color:var(--gold)"></div>
     <div class="tl-time">Step 11</div>
     <h4>The Landing Page Journey</h4>
-    <p>Started as a simple card list. Q asked about a React orbital timeline component. Codex said: "Don't use React. Build it in vanilla JS." Built an orbital hero with 6 floating nodes, canvas gooey trail, and pre-test gate. Then Q asked for impressionist painting background instead of dark theme. Generated the painting with AI, added frosted glass effects.</p>
+    <p>Started as a simple card list. Q asked about a React orbital timeline component. Codex said: "Don't use React. Build it in vanilla JS." Built an orbital hero with 6 floating nodes and canvas gooey trail. Then Q asked for impressionist painting background instead of dark theme. Generated the painting with AI, added frosted glass effects, recommended learning path, and iterative UI fixes.</p>
     <span class="tl-artifact">index.html (4 major iterations)</span>
   </div>
 
@@ -231,6 +238,162 @@ body{font-family:var(--font);background:var(--bg);color:var(--text);line-height:
   </div>
 </div>
 
+<!-- ===== ACTUAL PROMPTS ===== -->
+<h2>Every Prompt Q Actually Typed</h2>
+<p>These are the real messages Q sent to Claude Code during this session, unedited and in order. This is what "directing AI" actually looks like — short, messy, human.</p>
+
+<div class="prompt-log">
+  <div class="prompt-bubble">
+    <div class="prompt-num">#1 — The spark</div>
+    "Can you download this video. and work with codex to get the content of this video. It is a Claude code intro presentation. I want you and codex to work together to create a web course based on the content. I will sleep now so I give you all the permission now. You can decide what this web course look like, I hope non CS background students can follow our web course, and it is interactive or self contained. Go ahead, see you tomorrow."
+    <div class="prompt-context">Q shared a video URL and went to sleep. Everything started from here.</div>
+  </div>
+
+  <div class="prompt-bubble">
+    <div class="prompt-num">#2 — Expanding scope</div>
+    "Let us also add github part, explain what is that, why we need, and then add instruction on how to create. These are new non-cs. Also about deployment."
+  </div>
+
+  <div class="prompt-bubble">
+    <div class="prompt-num">#3 — Filling gaps</div>
+    "I think we should also add the fundamental of what is a web app, so they know what Claude is building, which files matches to which."
+  </div>
+
+  <div class="prompt-bubble">
+    <div class="prompt-num">#4 — The big vision</div>
+    "Now, can you check my knowledge base, and my personal wiki (which in this folder) with more than 160 wiki posts. and find enough topics for them to learn, and combine into the tool. Work with codex and give me a plan of these advanced topic. I am interested in building a big tool that covered all my knowledge so far on agentic engineering."
+  </div>
+
+  <div class="prompt-bubble">
+    <div class="prompt-num">#5 — Full delegation</div>
+    "1. you decided all these for me. 2. you and codex decide, i am good for either. 3. for the gaps, can you search online and help me draft these contents. 4. they are non-CS HS students, so you decided. I will leave for 2 hours, so please work heavily with codex to make the tool as complete as you can. After you build something you are confident, create three HS students to test. Always asks codex's opinion."
+    <div class="prompt-context">Q delegated decisions but set clear constraints: HS students, test with personas, use Codex as reviewer.</div>
+  </div>
+
+  <div class="prompt-bubble">
+    <div class="prompt-num">#6 — Checking in</div>
+    "show me now."
+  </div>
+
+  <div class="prompt-bubble">
+    <div class="prompt-num">#7 — Course structure</div>
+    "previously, i have the beginner course of what is github etc, where is it now? I want to start from basic, these agentic engineering part is advanced."
+  </div>
+
+  <div class="prompt-bubble">
+    <div class="prompt-num">#8 — Landing page</div>
+    "yes, create the landing page for that."
+  </div>
+
+  <div class="prompt-bubble">
+    <div class="prompt-num">#9 — Assessment integration</div>
+    "this is a good pre test, I want to embed this pre test as well. how can I do?"
+  </div>
+
+  <div class="prompt-bubble">
+    <div class="prompt-num">#10 — Pre/post test flow</div>
+    "I create the pre test, post test link for them. can we make it the first thing to use the tool before doing the pre-test, and for post test, where should I put in the tool."
+  </div>
+
+  <div class="prompt-bubble">
+    <div class="prompt-num">#11 — Enforcing quality</div>
+    "okay, I think I already set as no.1 rule in claude.md that always asks codex for review. why you skipped this? how to push this to be executed always?"
+    <div class="prompt-context">Q caught Claude skipping the Codex review step and held it accountable.</div>
+  </div>
+
+  <div class="prompt-bubble">
+    <div class="prompt-num">#12 — More courses</div>
+    "I want to add the contents of making AI my thinking partner, and also make AI in teaching mode, and let codex and claude code work together. These three blog wiki are very useful to these students. So I want to create some mini courses to them as well."
+  </div>
+
+  <div class="prompt-bubble">
+    <div class="prompt-num">#13 — Wiki coverage</div>
+    "can you also check all my wiki posts, any of these are good for HS non-cs background."
+  </div>
+
+  <div class="prompt-bubble">
+    <div class="prompt-num">#14 — Holding accountable</div>
+    "I have 160 wikis, but you just scanned 40?"
+    <div class="prompt-context">Q noticed incomplete work and pushed for thoroughness.</div>
+  </div>
+
+  <div class="prompt-bubble">
+    <div class="prompt-num">#15 — Collaborative decision</div>
+    "what does codex say?"
+  </div>
+
+  <div class="prompt-bubble">
+    <div class="prompt-num">#16 — Pushing back on agreement</div>
+    "do you agree?"
+    <div class="prompt-context">Q didn't just accept Claude's plan — asked if it genuinely agreed with Codex or had its own opinion.</div>
+  </div>
+
+  <div class="prompt-bubble">
+    <div class="prompt-num">#17 — Forcing consensus</div>
+    "so talk to codex again with your ideas, let us get a both-agree plan."
+  </div>
+
+  <div class="prompt-bubble">
+    <div class="prompt-num">#18 — Taste judgment</div>
+    "the ui is ugly, the presession is too small."
+    <div class="prompt-context">Direct aesthetic feedback. No sugarcoating needed.</div>
+  </div>
+
+  <div class="prompt-bubble">
+    <div class="prompt-num">#19 — Feature request with reference</div>
+    "can you check this file, it contains a background prompt, can we combine both, with this background and with the floating courses?"
+  </div>
+
+  <div class="prompt-bubble">
+    <div class="prompt-num">#20 — UX bug report</div>
+    "if I click, it is frozen. how can I go back to the landing page. Also, it seems the pop up contents block the main items."
+  </div>
+
+  <div class="prompt-bubble">
+    <div class="prompt-num">#21 — Reversing a decision</div>
+    "I like the previous version better. this square pixel cells is too big. also, I am saying the background. I do not like black color or the theme. I like the color painting style."
+    <div class="prompt-context">Q rejected the pixel grid AND the dark theme in one message. Taste driving design.</div>
+  </div>
+
+  <div class="prompt-bubble">
+    <div class="prompt-num">#22 — Trust</div>
+    "I trust you." <span style="font-size:13px;color:var(--muted)">(when asked to choose between uploading a painting or generating one)</span>
+  </div>
+
+  <div class="prompt-bubble">
+    <div class="prompt-num">#23 — Mascot creation</div>
+    "I want to create a logo for this class, I will give you my cat's image."
+    <div class="prompt-context">Q shared a photo of their tuxedo cat. It became the academy mascot.</div>
+  </div>
+
+  <div class="prompt-bubble">
+    <div class="prompt-num">#24 — Debugging deployment</div>
+    "this website is still the old one in github."
+  </div>
+
+  <div class="prompt-bubble">
+    <div class="prompt-num">#25 — Simplifying</div>
+    "let us remove this gate. I do not think we need it now."
+    <div class="prompt-context">Q removed a feature they had asked for earlier. Good products remove things too.</div>
+  </div>
+
+  <div class="prompt-bubble">
+    <div class="prompt-num">#26 — Meta: the case study</div>
+    "I want to record what I did in this session from scratch to show how I build this platform from scratch. So students can see this real case study."
+  </div>
+
+  <div class="prompt-bubble">
+    <div class="prompt-num">#27 — Final request</div>
+    "can you show all my prompts in order in the case study."
+    <div class="prompt-context">This prompt. Making the process fully transparent.</div>
+  </div>
+</div>
+
+<div class="callout">
+  <span class="callout-icon">&#128161;</span>
+  <div><strong>Notice the pattern:</strong> Q's prompts are short, direct, and focused on <em>what</em> and <em>why</em> — never on <em>how</em>. The AI figured out the how. Q's job was vision, taste, quality enforcement, and knowing when to push back.</div>
+</div>
+
 <!-- ===== DECISIONS ===== -->
 <h2>Key Decisions We Made</h2>
 <p>Building is choosing. Here are the real tradeoffs we debated:</p>
@@ -247,7 +410,7 @@ body{font-family:var(--font);background:var(--bg);color:var(--text);line-height:
     </div>
     <div class="decision-opt chosen">
       <div class="opt-label">Chosen</div>
-      Self-contained HTML files. No install, no server. Just open the file. Works on school Chromebooks.
+      Static HTML files with local images. No install, no server, no build step. Works on school Chromebooks.
     </div>
   </div>
   <p style="font-size:14px;color:var(--muted);margin-top:8px"><strong>Why:</strong> The academy's biggest advantage is accessibility. A teacher can email an HTML file and every student can use it immediately. Adding React would break that for one visual effect.</p>
@@ -331,7 +494,7 @@ body{font-family:var(--font);background:var(--bg);color:var(--text);line-height:
     <ul>
       <li>Transcribed video (Whisper)</li>
       <li>Designed course structures and module plans</li>
-      <li>Wrote all HTML/CSS/JS code</li>
+      <li>Generated and revised all HTML/CSS/JS code</li>
       <li>Reviewed every build for bugs and content accuracy</li>
       <li>Simulated 3 student personas for testing</li>
       <li>Scanned and categorized 161 wiki entries</li>
@@ -345,7 +508,7 @@ body{font-family:var(--font);background:var(--bg);color:var(--text);line-height:
 
 <div class="callout">
   <span class="callout-icon">&#128161;</span>
-  <div>The AI was fast and capable, but <strong>every important decision came from the human</strong>: who the audience is, what "good" looks like, when to push back, when to ship. Speed without direction is just fast chaos.</div>
+  <div>The AI proposed, challenged, drafted, and reviewed. The human held <strong>final judgment</strong> on every important decision: who the audience is, what "good" looks like, when to push back, when to ship. Speed without direction is just fast chaos.</div>
 </div>
 
 <!-- ===== LESSONS ===== -->
@@ -360,7 +523,7 @@ body{font-family:var(--font);background:var(--bg);color:var(--text);line-height:
 </div>
 
 <div class="lesson">
-  <strong>3. The human's job shifts from typing to directing.</strong> Q never wrote a line of code. But Q made every design decision, caught every taste issue, and enforced quality standards. The role changed from "writer" to "director."
+  <strong>3. The human's job shifts from typing to directing.</strong> Q's main contribution was not hand-coding — it was directing, judging, revising, and enforcing quality. The role changed from "writer" to "director."
 </div>
 
 <div class="lesson">
@@ -389,10 +552,10 @@ body{font-family:var(--font);background:var(--bg);color:var(--text);line-height:
   <li><strong>Ask AI to design a 3-module course</strong> — specify your audience (who's learning?)</li>
   <li><strong>Build it</strong> — ask AI to create an interactive HTML page with quizzes</li>
   <li><strong>Review it</strong> — read every word. Fix what's wrong. Ask a friend to try it.</li>
-  <li><strong>Ship it</strong> — put it on GitHub Pages (free) and share the link</li>
+  <li><strong>Ship it</strong> — share the HTML file with your teacher, or put it on GitHub Pages (free)</li>
 </ol>
 
-<p>The whole process can take 2-3 hours. The result is something real that helps real people learn.</p>
+<p>A small first version can take 2-3 hours. A polished version takes more iteration. But the result is something real that helps real people learn.</p>
 
 <div class="callout">
   <span class="callout-icon">&#127942;</span>
@@ -402,7 +565,7 @@ body{font-family:var(--font);background:var(--bg);color:var(--text);line-height:
 </div><!-- /content -->
 
 <footer class="footer">
-  <p>AI Engineering Academy &mdash; Created by <a href="#">Prof. Weihao Qu</a> at Monmouth University</p>
+  <p>AI Engineering Academy &mdash; Created by Prof. Weihao Qu at Monmouth University</p>
   <p style="margin-top:8px"><a href="index.html">&#8592; Back to Academy</a></p>
 </footer>
 
