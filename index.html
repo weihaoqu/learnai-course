@@ -107,18 +107,6 @@ body{font-family:var(--font);background:var(--bg);color:var(--text);line-height:
 .footer p{color:var(--muted);font-size:14px}
 .footer a{color:var(--cyan-light);text-decoration:none}
 
-/* ===== GATE ===== */
-.gate-overlay{position:fixed;inset:0;background:var(--bg);z-index:9999;display:flex;flex-direction:column;padding:0;overflow-y:auto}
-.gate-overlay.hidden{display:none}
-.gate-header{text-align:center;padding:40px 24px 24px;flex-shrink:0}
-.gate-header h1{font-size:clamp(24px,4vw,36px);font-weight:800;margin-bottom:8px;background:linear-gradient(135deg,var(--blue-light),var(--purple-light));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
-.gate-header .gate-sub{color:var(--muted);font-size:16px;max-width:600px;margin:0 auto;line-height:1.7}
-.gate-iframe-wrap{flex:1;padding:0 24px;min-height:0;display:flex;flex-direction:column}
-.gate-iframe-wrap iframe{flex:1;width:100%;min-height:500px;border:none;border-radius:var(--radius);background:var(--surface)}
-.gate-footer{text-align:center;padding:20px 24px 32px;flex-shrink:0}
-.gate-btn{display:inline-flex;align-items:center;gap:8px;padding:16px 40px;border-radius:var(--radius-sm);font-size:18px;font-weight:700;cursor:pointer;border:none;background:linear-gradient(135deg,var(--green),#059669);color:#fff;font-family:var(--font);transition:all 0.2s;box-shadow:0 4px 20px rgba(16,185,129,0.3)}
-.gate-btn:hover{transform:scale(1.04);box-shadow:0 6px 28px rgba(16,185,129,0.4)}
-.gate-note{font-size:13px;color:var(--muted);margin-top:12px}
 
 /* ===== NODE BADGE ===== */
 .orbit-node .node-badge{position:absolute;top:-6px;right:-6px;width:18px;height:18px;border-radius:50%;background:var(--purple);color:#fff;font-size:10px;font-weight:700;display:flex;align-items:center;justify-content:center;border:2px solid var(--bg);z-index:6}
@@ -186,23 +174,8 @@ body{font-family:var(--font);background:var(--bg);color:var(--text);line-height:
   </symbol>
 </defs></svg>
 
-<!-- PRE-TEST GATE -->
-<div class="gate-overlay" id="preTestGate">
-  <div class="gate-header">
-    <h1>Welcome to AI Engineering Academy</h1>
-    <p class="gate-sub">Before you begin, take this quick pre-test (~5 min). No wrong answers — just measuring your starting point.</p>
-  </div>
-  <div class="gate-iframe-wrap">
-    <iframe src="https://weihaoqu.github.io/learnai-assessment-hs/?type=pre" title="AI Engineering Pre-Test" allow="clipboard-write"></iframe>
-  </div>
-  <div class="gate-footer">
-    <button class="gate-btn" onclick="completePreTest()">I've Finished the Pre-Test &#8594;</button>
-    <p class="gate-note">Or <a href="https://weihaoqu.github.io/learnai-assessment-hs/?type=pre" target="_blank" rel="noopener noreferrer" style="color:var(--cyan-light)">open in a new tab</a> &middot; After submitting, click the button above.</p>
-  </div>
-</div>
-
 <!-- MAIN CONTENT -->
-<div id="mainContent" hidden inert>
+<div id="mainContent">
 
 <!-- ORBITAL HERO -->
 <section class="orbital-hero" id="heroSection">
@@ -524,21 +497,8 @@ if (localStorage.getItem('learnai-motion') === 'off') {
   stopParticles();
 }
 
-// ===== PRE-TEST GATE =====
-function completePreTest() {
-  localStorage.setItem('learnai-course-pretest-done-v1', 'true');
-  document.getElementById('preTestGate').classList.add('hidden');
-  document.getElementById('mainContent').removeAttribute('hidden');
-  document.getElementById('mainContent').removeAttribute('inert');
-  resizeCanvas();
-  positionNodes();
-}
-if (localStorage.getItem('learnai-course-pretest-done-v1') === 'true') {
-  document.getElementById('preTestGate').classList.add('hidden');
-  document.getElementById('mainContent').removeAttribute('hidden');
-  document.getElementById('mainContent').removeAttribute('inert');
-  requestAnimationFrame(() => { resizeCanvas(); positionNodes(); });
-}
+// ===== INIT =====
+requestAnimationFrame(() => { resizeCanvas(); positionNodes(); });
 </script>
 </body>
 </html>
