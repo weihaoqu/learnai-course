@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Behind the Scenes: How This Academy Was Built</title>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#08081a;--surface:#111128;--surface2:#1a1a3e;--text:#eeeef5;--muted:#8888aa;
+  --blue:#3b82f6;--blue-light:#93c5fd;--purple:#7c3aed;--purple-light:#a78bfa;
+  --cyan:#06b6d4;--cyan-light:#67e8f9;--green:#10b981;--green-light:#6ee7b7;
+  --gold:#fbbf24;--orange:#f59e0b;--danger:#ef4444;
+  --border:rgba(255,255,255,0.06);--shadow:0 4px 24px rgba(0,0,0,0.4);
+  --radius:16px;--radius-sm:10px;
+  --font:'Inter',system-ui,-apple-system,sans-serif;
+}
+body{font-family:var(--font);background:var(--bg);color:var(--text);line-height:1.8;font-size:16px}
+
+/* NAV */
+.topbar{position:sticky;top:0;z-index:100;background:var(--surface);border-bottom:1px solid var(--border);padding:12px 24px;display:flex;align-items:center;gap:16px;backdrop-filter:blur(12px)}
+.topbar-logo{font-weight:800;font-size:16px;color:var(--purple-light)}
+.topbar a{color:var(--muted);text-decoration:none;font-size:14px;margin-left:auto}
+.topbar a:hover{color:var(--text)}
+
+/* HERO */
+.hero{text-align:center;padding:80px 24px 60px;position:relative;overflow:hidden;background:url('hero-bg.jpg') center/cover no-repeat}
+.hero::before{content:'';position:absolute;inset:0;background:rgba(8,8,26,0.65)}
+.hero *{position:relative;z-index:1}
+.hero h1{font-size:clamp(28px,5vw,48px);font-weight:800;line-height:1.2;margin-bottom:12px;background:linear-gradient(135deg,var(--blue-light),var(--purple-light),var(--cyan-light));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.hero .subtitle{font-size:clamp(15px,2vw,20px);color:var(--muted);max-width:640px;margin:0 auto 32px}
+.hero-stats{display:flex;justify-content:center;gap:32px;flex-wrap:wrap}
+.hs{text-align:center;background:rgba(255,255,255,0.08);backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,0.1);border-radius:var(--radius-sm);padding:16px 24px;min-width:100px}
+.hs-num{font-size:28px;font-weight:800;display:block}
+.hs-label{font-size:12px;color:var(--muted)}
+
+/* CONTENT */
+.content{max-width:800px;margin:0 auto;padding:40px 24px}
+.content h2{font-size:26px;font-weight:800;margin:48px 0 16px;padding-top:24px;border-top:1px solid var(--border)}
+.content h2:first-of-type{border-top:none;margin-top:0}
+.content h3{font-size:18px;font-weight:600;margin:24px 0 8px}
+.content p{margin-bottom:14px;color:rgba(255,255,255,0.8)}
+.content ul,.content ol{margin:0 0 16px 24px}
+.content li{margin-bottom:8px;color:rgba(255,255,255,0.75)}
+
+/* TIMELINE */
+.timeline{position:relative;padding-left:40px;margin:24px 0}
+.timeline::before{content:'';position:absolute;left:15px;top:0;bottom:0;width:2px;background:linear-gradient(to bottom,var(--blue),var(--purple),var(--cyan),var(--green),var(--gold))}
+.tl-step{position:relative;padding-bottom:28px}
+.tl-step:last-child{padding-bottom:0}
+.tl-dot{position:absolute;left:-33px;top:4px;width:12px;height:12px;border-radius:50%;border:2px solid;background:var(--bg)}
+.tl-step .tl-time{font-size:12px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:0.5px}
+.tl-step h4{font-size:15px;font-weight:700;margin:4px 0}
+.tl-step p{font-size:14px;color:rgba(255,255,255,0.6);margin:4px 0 0}
+.tl-artifact{display:inline-block;margin-top:6px;font-size:12px;font-weight:600;padding:3px 10px;border-radius:20px;background:var(--surface2);border:1px solid var(--border);color:var(--muted)}
+
+/* DECISION CARDS */
+.decision{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:24px;margin:16px 0}
+.decision-header{display:flex;align-items:center;gap:10px;margin-bottom:12px}
+.decision-badge{padding:3px 10px;border-radius:20px;font-size:11px;font-weight:700;text-transform:uppercase}
+.decision h4{font-size:16px;font-weight:700}
+.decision-options{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:12px 0}
+.decision-opt{padding:14px;border-radius:var(--radius-sm);font-size:13px;border:1px solid var(--border)}
+.decision-opt.rejected{background:rgba(239,68,68,0.06);border-color:rgba(239,68,68,0.2);opacity:0.6}
+.decision-opt.chosen{background:rgba(16,185,129,0.08);border-color:rgba(16,185,129,0.3)}
+.decision-opt .opt-label{font-size:11px;font-weight:700;text-transform:uppercase;margin-bottom:4px}
+.decision-opt.rejected .opt-label{color:var(--danger)}
+.decision-opt.chosen .opt-label{color:var(--green)}
+
+/* ROLE CARDS */
+.role-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:16px 0}
+.role-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:20px}
+.role-card h4{font-size:16px;font-weight:700;margin-bottom:8px;display:flex;align-items:center;gap:8px}
+.role-card ul{margin:0 0 0 16px;font-size:14px;color:rgba(255,255,255,0.7)}
+.role-card li{margin-bottom:4px}
+
+/* LESSON CARDS */
+.lesson{background:var(--surface);border-left:3px solid var(--purple);border-radius:0 var(--radius-sm) var(--radius-sm) 0;padding:16px 20px;margin:12px 0;font-size:15px}
+.lesson strong{color:var(--purple-light)}
+
+/* CALLOUT */
+.callout{padding:16px 20px;border-radius:var(--radius-sm);margin:20px 0;display:flex;gap:12px;font-size:15px;background:rgba(124,58,237,0.08);border:1px solid rgba(124,58,237,0.2)}
+.callout-icon{font-size:20px;flex-shrink:0}
+
+/* FOOTER */
+.footer{text-align:center;padding:40px 24px;border-top:1px solid var(--border);margin-top:40px}
+.footer p{color:var(--muted);font-size:14px}
+.footer a{color:var(--cyan-light);text-decoration:none}
+
+@media(max-width:600px){
+  .decision-options,.role-grid{grid-template-columns:1fr}
+  .hero-stats{gap:16px}
+  .hs{min-width:80px;padding:12px 16px}
+}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition-duration:0.01ms!important}}
+</style>
+</head>
+<body>
+
+<header class="topbar">
+  <span class="topbar-logo">Behind the Scenes</span>
+  <a href="index.html">&#8592; Back to Academy</a>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <h1>How We Built This Academy<br>in One AI-Assisted Session</h1>
+  <p class="subtitle">A professor, Claude Code, and Codex turned one video transcript and a 161-entry wiki into 47 interactive modules. Here's the real story — decisions, mistakes, iterations, and all.</p>
+  <div class="hero-stats">
+    <div class="hs"><span class="hs-num" style="color:var(--blue-light)">1</span><span class="hs-label">Session</span></div>
+    <div class="hs"><span class="hs-num" style="color:var(--purple-light)">4</span><span class="hs-label">Courses</span></div>
+    <div class="hs"><span class="hs-num" style="color:var(--cyan-light)">47</span><span class="hs-label">Modules</span></div>
+    <div class="hs"><span class="hs-num" style="color:var(--green-light)">161</span><span class="hs-label">Wiki Sources</span></div>
+    <div class="hs"><span class="hs-num" style="color:var(--gold)">6</span><span class="hs-label">HTML Pages</span></div>
+  </div>
+</section>
+
+<div class="content">
+
+<!-- ===== THE STORY ===== -->
+<h2>The Starting Point</h2>
+<p>It started with a single tweet — a video of Boris from Anthropic presenting Claude Code tips at a conference. The professor (Q) had an idea: <em>"Can we turn this 28-minute talk into a full interactive course for high school students who've never coded?"</em></p>
+<p>Q had two assets: the video and a personal wiki of 161 entries on AI tools, agent design, and engineering practices — accumulated over months of research. The challenge was turning raw knowledge into something a 15-year-old could follow.</p>
+
+<h2>The Build Timeline</h2>
+<p>Every step below actually happened, in this order. No editing, no "let me redo that" — this is the real sequence.</p>
+
+<div class="timeline">
+  <div class="tl-step">
+    <div class="tl-dot" style="border-color:var(--blue)"></div>
+    <div class="tl-time">Step 1</div>
+    <h4>Download &amp; Transcribe the Video</h4>
+    <p>Downloaded the presentation from X using yt-dlp. Extracted audio and transcribed with Whisper. 28 minutes of content became a 269-line transcript.</p>
+    <span class="tl-artifact">claude_code_intro.txt (269 lines)</span>
+  </div>
+
+  <div class="tl-step">
+    <div class="tl-dot" style="border-color:var(--blue)"></div>
+    <div class="tl-time">Step 2</div>
+    <h4>Design Course Structure with Codex</h4>
+    <p>Sent the transcript to Codex (OpenAI's model) and asked it to design a beginner course. Codex proposed 10 modules with interactive elements, visual design approach, and how to make terminal concepts accessible to non-CS students.</p>
+    <span class="tl-artifact">10-module course plan</span>
+  </div>
+
+  <div class="tl-step">
+    <div class="tl-dot" style="border-color:var(--blue)"></div>
+    <div class="tl-time">Step 3</div>
+    <h4>Build Course 1: Claude Code Fundamentals</h4>
+    <p>Built a 1,500-line self-contained HTML file with terminal simulator, quizzes, drag-drop exercises, and flashcards. Then Q asked to add GitHub, web app fundamentals, and deployment — growing it to 13 modules and 2,195 lines.</p>
+    <span class="tl-artifact">claude-code-course.html (2,195 lines)</span>
+  </div>
+
+  <div class="tl-step">
+    <div class="tl-dot" style="border-color:var(--purple)"></div>
+    <div class="tl-time">Step 4</div>
+    <h4>3 Rounds of Codex Review</h4>
+    <p>Codex found: privacy statement was inaccurate, install command wrong, shortcut descriptions incorrect, capstone completion wasn't gated, quiz XP could be farmed, drag-drop had no mobile fallback, accessibility gaps. All fixed before shipping.</p>
+    <span class="tl-artifact">15+ bugs fixed</span>
+  </div>
+
+  <div class="tl-step">
+    <div class="tl-dot" style="border-color:var(--purple)"></div>
+    <div class="tl-time">Step 5</div>
+    <h4>Scan the 161-Entry Wiki</h4>
+    <p>Q's personal wiki at Dropbox contained 161 markdown entries on everything from harness engineering to creative writing with AI. Three parallel agents categorized them into 8 themes and identified which entries were accessible to high school students.</p>
+    <span class="tl-artifact">38 HS-accessible entries identified</span>
+  </div>
+
+  <div class="tl-step">
+    <div class="tl-dot" style="border-color:var(--purple)"></div>
+    <div class="tl-time">Step 6</div>
+    <h4>Build Course 2: Agentic Engineering Quest</h4>
+    <p>Designed with Codex as a gamified dark-mode course. 10 modules covering harness engineering, workflows, context, specs, tools, memory, safety, multi-agent teams. Added XP system and localStorage persistence.</p>
+    <span class="tl-artifact">agentic-engineering-quest.html (1,041 lines)</span>
+  </div>
+
+  <div class="tl-step">
+    <div class="tl-dot" style="border-color:var(--cyan)"></div>
+    <div class="tl-time">Step 7</div>
+    <h4>Test with 3 Simulated Student Personas</h4>
+    <p>Codex simulated three HS students: Maya (16, art-focused), Jason (17, gamer), and Priya (15, debate team skeptic). Each revealed different confusion points, vocabulary gaps, and engagement opportunities. Module titles, examples, and wording were adjusted.</p>
+    <span class="tl-artifact">12+ content changes from persona feedback</span>
+  </div>
+
+  <div class="tl-step">
+    <div class="tl-dot" style="border-color:var(--cyan)"></div>
+    <div class="tl-time">Step 8</div>
+    <h4>Build Course 3: AI Skills Lab</h4>
+    <p>Three tracks based on specific wiki entries: prompt frameworks (7 superpowers), AI as tutor (learning notes), and cross-model review (detective game). Each track produces an exportable artifact.</p>
+    <span class="tl-artifact">skills-lab.html (730 lines)</span>
+  </div>
+
+  <div class="tl-step">
+    <div class="tl-dot" style="border-color:var(--green)"></div>
+    <div class="tl-time">Step 9</div>
+    <h4>The Scope Debate</h4>
+    <p>Claude proposed 6 more mini-courses from the remaining wiki entries. Codex pushed back: "That is scope creep. Build one strong course, not six weak ones." After negotiation, both agreed on combining Study Skills + Critical Thinking + Creative Tools into one course, with Track C as the "fun reward."</p>
+    <span class="tl-artifact">6 courses → 1 combined course</span>
+  </div>
+
+  <div class="tl-step">
+    <div class="tl-dot" style="border-color:var(--green)"></div>
+    <div class="tl-time">Step 10</div>
+    <h4>Build Course 4: AI Life Skills</h4>
+    <p>13 modules across 3 tracks. Study Better (Socratic tutor, cognitive fatigue, deep prompts), Think Critically (hallucinations, benchmarks, safety, independence), Create Cool Stuff (game design, video planning, story writing).</p>
+    <span class="tl-artifact">ai-life-skills.html (690 lines)</span>
+  </div>
+
+  <div class="tl-step">
+    <div class="tl-dot" style="border-color:var(--gold)"></div>
+    <div class="tl-time">Step 11</div>
+    <h4>The Landing Page Journey</h4>
+    <p>Started as a simple card list. Q asked about a React orbital timeline component. Codex said: "Don't use React. Build it in vanilla JS." Built an orbital hero with 6 floating nodes, canvas gooey trail, and pre-test gate. Then Q asked for impressionist painting background instead of dark theme. Generated the painting with AI, added frosted glass effects.</p>
+    <span class="tl-artifact">index.html (4 major iterations)</span>
+  </div>
+
+  <div class="tl-step">
+    <div class="tl-dot" style="border-color:var(--gold)"></div>
+    <div class="tl-time">Step 12</div>
+    <h4>Cat Mascot &amp; Icons</h4>
+    <p>Q shared a photo of their tuxedo cat. AI generated a logo: the cat wearing round glasses, sitting next to a laptop with a brain icon. Also generated 6 themed course icons (clipboard, terminal, atom, spark, compass, medal) — all with matching glow effects.</p>
+    <span class="tl-artifact">logo.png + 6 icon files</span>
+  </div>
+
+  <div class="tl-step">
+    <div class="tl-dot" style="border-color:var(--gold)"></div>
+    <div class="tl-time">Step 13</div>
+    <h4>Deploy to GitHub Pages</h4>
+    <p>Created a clean repo with just the course files (no clutter from the working directory), added a GitHub Actions workflow for auto-deploy, and pushed. Live at weihaoqu.github.io/learnai-course.</p>
+    <span class="tl-artifact">Live deployment</span>
+  </div>
+</div>
+
+<!-- ===== DECISIONS ===== -->
+<h2>Key Decisions We Made</h2>
+<p>Building is choosing. Here are the real tradeoffs we debated:</p>
+
+<div class="decision">
+  <div class="decision-header">
+    <span class="decision-badge" style="background:rgba(59,130,246,0.15);color:var(--blue-light)">Architecture</span>
+    <h4>React App vs. Self-Contained HTML?</h4>
+  </div>
+  <div class="decision-options">
+    <div class="decision-opt rejected">
+      <div class="opt-label">Rejected</div>
+      React/Next.js with npm, build step, and component library. Looks more "professional."
+    </div>
+    <div class="decision-opt chosen">
+      <div class="opt-label">Chosen</div>
+      Self-contained HTML files. No install, no server. Just open the file. Works on school Chromebooks.
+    </div>
+  </div>
+  <p style="font-size:14px;color:var(--muted);margin-top:8px"><strong>Why:</strong> The academy's biggest advantage is accessibility. A teacher can email an HTML file and every student can use it immediately. Adding React would break that for one visual effect.</p>
+</div>
+
+<div class="decision">
+  <div class="decision-header">
+    <span class="decision-badge" style="background:rgba(124,58,237,0.15);color:var(--purple-light)">Scope</span>
+    <h4>6 Mini-Courses vs. 1 Combined Course?</h4>
+  </div>
+  <div class="decision-options">
+    <div class="decision-opt rejected">
+      <div class="opt-label">Rejected</div>
+      6 separate mini-courses covering every topic from the wiki. Maximum coverage.
+    </div>
+    <div class="decision-opt chosen">
+      <div class="opt-label">Chosen</div>
+      1 combined course with 3 tracks: Study Better + Think Critically + Create Cool Stuff.
+    </div>
+  </div>
+  <p style="font-size:14px;color:var(--muted);margin-top:8px"><strong>Why:</strong> Codex argued that 6 courses turns a clear learning path into a content maze. Students need depth, not breadth. One strong course beats six thin ones.</p>
+</div>
+
+<div class="decision">
+  <div class="decision-header">
+    <span class="decision-badge" style="background:rgba(16,185,129,0.15);color:var(--green-light)">Audience</span>
+    <h4>Engineers vs. High School Students?</h4>
+  </div>
+  <div class="decision-options">
+    <div class="decision-opt rejected">
+      <div class="opt-label">Original Plan</div>
+      16-module course for CS students and early-career engineers. Production agent architecture, autonomous ML, graph memory.
+    </div>
+    <div class="decision-opt chosen">
+      <div class="opt-label">Adapted</div>
+      10-module course for non-CS HS students. Same concepts, but with analogies, school examples, and "Deeper Dive" panels for advanced material.
+    </div>
+  </div>
+  <p style="font-size:14px;color:var(--muted);margin-top:8px"><strong>Why:</strong> "Harness engineering" means nothing to a 15-year-old. "Set your agent up to succeed" means everything. Same concept, different framing.</p>
+</div>
+
+<div class="decision">
+  <div class="decision-header">
+    <span class="decision-badge" style="background:rgba(251,191,36,0.15);color:var(--gold)">Design</span>
+    <h4>Dark Theme vs. Impressionist Painting?</h4>
+  </div>
+  <div class="decision-options">
+    <div class="decision-opt rejected">
+      <div class="opt-label">V1</div>
+      Pure dark background. Looked technical but felt cold and "coder-only."
+    </div>
+    <div class="decision-opt chosen">
+      <div class="opt-label">Final</div>
+      Impressionist painting hero with dark overlay. Felt warm, artistic, and welcoming to non-CS students.
+    </div>
+  </div>
+  <p style="font-size:14px;color:var(--muted);margin-top:8px"><strong>Why:</strong> Q's taste. The professor wanted something that said "creativity and learning" not "hacker terminal." The painting sets a completely different emotional tone.</p>
+</div>
+
+<!-- ===== HUMAN vs AI ===== -->
+<h2>What the Human Did vs. What the AI Did</h2>
+<p>This is the most important section. Building with AI doesn't mean the AI did everything.</p>
+
+<div class="role-grid">
+  <div class="role-card" style="border-top:3px solid var(--green)">
+    <h4><span style="font-size:20px">&#128100;</span> The Human (Q)</h4>
+    <ul>
+      <li>Set the vision: "I want non-CS HS students to learn agentic engineering"</li>
+      <li>Chose the audience and adapted scope</li>
+      <li>Pushed back on design decisions (dark → painting, pixel → round particles)</li>
+      <li>Judged taste: "this is ugly", "the preset is too small", "I like the previous version better"</li>
+      <li>Enforced quality gates (Codex review rule)</li>
+      <li>Provided source material (161 wiki entries, cat photo)</li>
+      <li>Made final ship/no-ship decisions</li>
+      <li>Caught when Codex review was skipped</li>
+      <li>Defined the pedagogical philosophy</li>
+    </ul>
+  </div>
+  <div class="role-card" style="border-top:3px solid var(--purple)">
+    <h4><span style="font-size:20px">&#129302;</span> The AI (Claude + Codex)</h4>
+    <ul>
+      <li>Transcribed video (Whisper)</li>
+      <li>Designed course structures and module plans</li>
+      <li>Wrote all HTML/CSS/JS code</li>
+      <li>Reviewed every build for bugs and content accuracy</li>
+      <li>Simulated 3 student personas for testing</li>
+      <li>Scanned and categorized 161 wiki entries</li>
+      <li>Debated scope (6 courses → 1) and reached consensus</li>
+      <li>Generated logo and course icons from a cat photo</li>
+      <li>Generated impressionist painting background</li>
+      <li>Fixed 50+ bugs across multiple review rounds</li>
+    </ul>
+  </div>
+</div>
+
+<div class="callout">
+  <span class="callout-icon">&#128161;</span>
+  <div>The AI was fast and capable, but <strong>every important decision came from the human</strong>: who the audience is, what "good" looks like, when to push back, when to ship. Speed without direction is just fast chaos.</div>
+</div>
+
+<!-- ===== LESSONS ===== -->
+<h2>Lessons Learned</h2>
+
+<div class="lesson">
+  <strong>1. AI doesn't remove thinking — it makes your thinking more visible.</strong> Every prompt Q wrote was a decision about what matters. The clearer the thinking, the better the output.
+</div>
+
+<div class="lesson">
+  <strong>2. Good projects come from iteration, not one perfect prompt.</strong> Course 1 went through 4 Codex review rounds. The landing page had 4 major redesigns. Nothing was right the first time.
+</div>
+
+<div class="lesson">
+  <strong>3. The human's job shifts from typing to directing.</strong> Q never wrote a line of code. But Q made every design decision, caught every taste issue, and enforced quality standards. The role changed from "writer" to "director."
+</div>
+
+<div class="lesson">
+  <strong>4. Review matters. AI-generated work still has bugs.</strong> Codex found real issues: security inaccuracies, accessibility gaps, infinite recursion, duplicate event handlers, privacy claims that were too strong. Without review, these would have shipped.
+</div>
+
+<div class="lesson">
+  <strong>5. Audience changes everything.</strong> The same concept ("harness engineering") became a technical deep-dive for engineers OR "set your agent up to succeed" with a smart-student-in-a-bad-exam analogy for high schoolers. Same knowledge, completely different delivery.
+</div>
+
+<div class="lesson">
+  <strong>6. Taste is the human superpower.</strong> "I like the previous version better." "The background is too dark." "This is ugly." These judgments can't be automated. They shaped every visual decision.
+</div>
+
+<div class="lesson">
+  <strong>7. Constraints breed creativity.</strong> "Must be self-contained HTML" forced us to build a canvas particle system instead of using React. "Must work on school Chromebooks" eliminated framework dependencies. The constraints made the project better.
+</div>
+
+<!-- ===== TRY IT ===== -->
+<h2>Try This Yourself</h2>
+<p>You don't need to be a professor or have 161 wiki entries. Here's a simplified version of what we did:</p>
+
+<ol>
+  <li><strong>Pick a topic you know well</strong> — a hobby, a school subject, a skill</li>
+  <li><strong>Find one source</strong> — a YouTube video, a blog post, your own notes</li>
+  <li><strong>Ask AI to design a 3-module course</strong> — specify your audience (who's learning?)</li>
+  <li><strong>Build it</strong> — ask AI to create an interactive HTML page with quizzes</li>
+  <li><strong>Review it</strong> — read every word. Fix what's wrong. Ask a friend to try it.</li>
+  <li><strong>Ship it</strong> — put it on GitHub Pages (free) and share the link</li>
+</ol>
+
+<p>The whole process can take 2-3 hours. The result is something real that helps real people learn.</p>
+
+<div class="callout">
+  <span class="callout-icon">&#127942;</span>
+  <div>The best way to learn agentic engineering is to <strong>use AI agents to build something that matters to you</strong>. This academy was built that way. Now it's your turn.</div>
+</div>
+
+</div><!-- /content -->
+
+<footer class="footer">
+  <p>AI Engineering Academy &mdash; Created by <a href="#">Prof. Weihao Qu</a> at Monmouth University</p>
+  <p style="margin-top:8px"><a href="index.html">&#8592; Back to Academy</a></p>
+</footer>
+
+</body>
+</html>
