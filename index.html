@@ -58,6 +58,7 @@ body{font-family:var(--font);background:var(--bg);color:var(--text);line-height:
 .orbit-node[data-color="purple"]{border-color:rgba(124,58,237,0.4)}.orbit-node[data-color="purple"]:hover,.orbit-node[data-color="purple"].active{border-color:var(--purple);box-shadow:0 0 24px rgba(124,58,237,0.3)}
 .orbit-node[data-color="cyan"]{border-color:rgba(6,182,212,0.4)}.orbit-node[data-color="cyan"]:hover,.orbit-node[data-color="cyan"].active{border-color:var(--cyan);box-shadow:0 0 24px rgba(6,182,212,0.3)}
 .orbit-node[data-color="green"]{border-color:rgba(16,185,129,0.4)}.orbit-node[data-color="green"]:hover,.orbit-node[data-color="green"].active{border-color:var(--green);box-shadow:0 0 24px rgba(16,185,129,0.3)}
+.orbit-node[data-color="orange"]{border-color:rgba(245,158,11,0.4)}.orbit-node[data-color="orange"]:hover,.orbit-node[data-color="orange"].active{border-color:#f59e0b;box-shadow:0 0 24px rgba(245,158,11,0.3)}
 .orbit-node[data-color="gold"]{border-color:rgba(251,191,36,0.4)}.orbit-node[data-color="gold"]:hover,.orbit-node[data-color="gold"].active{border-color:var(--gold);box-shadow:0 0 24px rgba(251,191,36,0.3)}
 
 /* Detail card — below orbit, not overlapping */
@@ -254,9 +255,18 @@ body{font-family:var(--font);background:var(--bg);color:var(--text);line-height:
   </div>
 
   <div class="lp-step">
+    <div class="lp-num" style="color:#f59e0b;border-color:rgba(245,158,11,0.3)"><svg><use href="#ico-test"></use></svg></div>
+    <div class="lp-body">
+      <h4>Step 6: Behind the Scenes</h4>
+      <p>See how this entire academy was built from scratch in one AI-assisted session. Real prompts, real decisions, real lessons.</p>
+      <a href="case-study.html" style="color:#fbbf24">Read Case Study &#8594;</a>
+    </div>
+  </div>
+
+  <div class="lp-step">
     <div class="lp-num" style="color:var(--gold);border-color:rgba(251,191,36,0.3)"><svg><use href="#ico-medal"></use></svg></div>
     <div class="lp-body">
-      <h4>Step 6: Post-Test</h4>
+      <h4>Step 7: Post-Test</h4>
       <p>Retake the assessment and compare your scores to see how much you've grown.</p>
       <a href="https://weihaoqu.github.io/learnai-assessment-hs/?type=post" target="_blank" rel="noopener noreferrer" style="color:var(--gold)">Take Post-Test &#8594;</a>
     </div>
@@ -334,7 +344,12 @@ const courses = [
     desc:'Master AI-powered study techniques, learn to verify claims and stay independent, then create games, videos, and stories.',
     tags:['Essential','3 Tracks','13 Modules'],stats:['Study smarter','Create freely'],
     href:'ai-life-skills.html', btnText:'Start Life Skills', btnColor:'var(--green)'},
-  {id:'post', svgId:'ico-medal', iconImg:'icon-medal.png', label:'Post-Test', color:'gold', step:6,
+  {id:'case', svgId:'ico-test', iconImg:'icon-casestudy.png', label:'Case Study', color:'orange', step:6,
+    title:'Behind the Scenes: How This Was Built', sub:'Real prompts, real decisions',
+    desc:'See every step of how a professor and AI built this entire 47-module academy from scratch in one session. Includes all real prompts, design tradeoffs, mistakes, and lessons learned.',
+    tags:['Case Study','15 Steps','Real Prompts'],stats:['27 real prompts','7 lessons'],
+    href:'case-study.html', btnText:'Read Case Study', btnColor:'var(--orange)'},
+  {id:'post', svgId:'ico-medal', iconImg:'icon-medal.png', label:'Post-Test', color:'gold', step:7,
     title:'AI Engineering Post-Test', sub:'~5 minutes',
     desc:'Take the same assessment after completing all courses. Compare your pre and post scores to see how much you\'ve grown.',
     tags:['After All Courses','5 min','Compare scores'],stats:['Growth report'],
