@@ -129,263 +129,154 @@ body{font-family:var(--font);background:var(--bg);color:var(--text);line-height:
 <p>It started with a single tweet — a video of Boris from Anthropic presenting Claude Code tips at a conference. The professor (Q) had an idea: <em>"Can we turn this 28-minute talk into a full interactive course for high school students who've never coded?"</em></p>
 <p>Q had two assets: the video and a personal wiki of 161 entries on AI tools, agent design, and engineering practices — accumulated over months of research. The challenge was turning raw knowledge into something a 15-year-old could follow.</p>
 
-<h2>The Build Timeline</h2>
-<p>The major steps below happened during the session, roughly in this order. This is not a polished recreation — it follows the real messy sequence of decisions, reviews, and revisions.</p>
+<h2>The Build Timeline + Q's Actual Prompts</h2>
+<p>Each step shows what Q actually typed (the green bubbles) and what happened as a result. These are real, unedited prompts — this is what "directing AI" looks like.</p>
 
 <div class="timeline">
   <div class="tl-step">
     <div class="tl-dot" style="border-color:var(--blue)"></div>
-    <div class="tl-time">Step 1</div>
+    <div class="tl-time">Step 1 — The Spark</div>
     <h4>Download &amp; Transcribe the Video</h4>
-    <p>Downloaded the presentation from X using yt-dlp. Extracted audio and transcribed with Whisper. 28 minutes of content became a 269-line transcript.</p>
-    <span class="tl-artifact">claude_code_intro.txt (269 lines)</span>
+    <div class="prompt-bubble">"Can you download this video. and work with codex to get the content of this video. It is a Claude code intro presentation. I want you and codex to work together to create a web course based on the content. I will sleep now so I give you all the permission now. You can decide what this web course look like, I hope non CS background students can follow our web course, and it is interactive or self contained. Go ahead, see you tomorrow."</div>
+    <p>Downloaded the video from X using yt-dlp. Extracted audio and transcribed with Whisper. 28 minutes of content became a 269-line transcript. Designed a 10-module course structure with Codex while Q slept.</p>
+    <span class="tl-artifact">claude_code_intro.txt + 10-module course plan</span>
   </div>
 
   <div class="tl-step">
     <div class="tl-dot" style="border-color:var(--blue)"></div>
-    <div class="tl-time">Step 2</div>
-    <h4>Design Course Structure with Codex</h4>
-    <p>Sent the transcript to Codex (OpenAI's model) and asked it to design a beginner course. Codex proposed 10 modules with interactive elements, visual design approach, and how to make terminal concepts accessible to non-CS students.</p>
-    <span class="tl-artifact">10-module course plan</span>
-  </div>
-
-  <div class="tl-step">
-    <div class="tl-dot" style="border-color:var(--blue)"></div>
-    <div class="tl-time">Step 3</div>
-    <h4>Build Course 1: Claude Code Fundamentals</h4>
-    <p>Built a 1,500-line self-contained HTML file with terminal simulator, quizzes, drag-drop exercises, and flashcards. Then Q asked to add GitHub, web app fundamentals, and deployment — growing it to 13 modules and 2,195 lines.</p>
-    <span class="tl-artifact">claude-code-course.html (2,195 lines)</span>
+    <div class="tl-time">Step 2 — Build &amp; Expand Course 1</div>
+    <h4>Claude Code Fundamentals</h4>
+    <p>Built a self-contained HTML file with terminal simulator, quizzes, drag-drop exercises, and flashcards. Then Q woke up and expanded the scope:</p>
+    <div class="prompt-bubble">"Let us also add github part, explain what is that, why we need, and then add instruction on how to create. These are new non-cs. Also about deployment."</div>
+    <div class="prompt-bubble">"I think we should also add the fundamental of what is a web app, so they know what Claude is building, which files matches to which."</div>
+    <p>Added GitHub, Web App Basics, and Deployment modules — growing the course from 10 to 13 modules. Codex reviewed 3 times, finding privacy inaccuracies, wrong install commands, accessibility gaps, and quiz XP farming bugs. All fixed.</p>
+    <span class="tl-artifact">claude-code-course.html (13 modules)</span>
   </div>
 
   <div class="tl-step">
     <div class="tl-dot" style="border-color:var(--purple)"></div>
-    <div class="tl-time">Step 4</div>
-    <h4>3 Rounds of Codex Review</h4>
-    <p>Codex found: privacy statement was inaccurate, install command wrong, shortcut descriptions incorrect, capstone completion wasn't gated, quiz XP could be farmed, drag-drop had no mobile fallback, accessibility gaps. All fixed before shipping.</p>
-    <span class="tl-artifact">15+ bugs fixed</span>
+    <div class="tl-time">Step 3 — The Big Vision</div>
+    <h4>Scan the Wiki &amp; Plan Advanced Content</h4>
+    <div class="prompt-bubble">"Now, can you check my knowledge base, and my personal wiki (which in this folder) with more than 160 wiki posts. and find enough topics for them to learn, and combine into the tool. Work with codex and give me a plan of these advanced topic. I am interested in building a big tool that covered all my knowledge so far on agentic engineering."</div>
+    <p>Scanned Q's 161-entry wiki. Categorized into 8 themes. Codex designed a 16-module advanced curriculum based on the "Five Levels of Mastery" framework from Q's own wiki entries.</p>
+    <span class="tl-artifact">161 entries scanned, 8 themes identified</span>
   </div>
 
   <div class="tl-step">
     <div class="tl-dot" style="border-color:var(--purple)"></div>
-    <div class="tl-time">Step 5</div>
-    <h4>Scan the 161-Entry Wiki</h4>
-    <p>Q's personal wiki at Dropbox contained 161 markdown entries on everything from harness engineering to creative writing with AI. Three parallel agents categorized them into 8 themes and identified which entries were accessible to high school students.</p>
-    <span class="tl-artifact">38 HS-accessible entries identified</span>
+    <div class="tl-time">Step 4 — Full Delegation</div>
+    <h4>Build Course 2 + Test with Personas</h4>
+    <div class="prompt-bubble">"1. you decided all these for me. 2. you and codex decide, i am good for either. 3. for the gaps, can you search online and help me draft these contents. 4. they are non-CS HS students, so you decided. I will leave for 2 hours, so please work heavily with codex to make the tool as complete as you can. After you build something you are confident, create three HS students to test. Always asks codex's opinion."</div>
+    <p>Q left for 2 hours. Built the Agentic Engineering Quest (10 modules, gamified, XP system). Codex tested with 3 simulated HS student personas: Maya (16, art-focused), Jason (17, gamer), Priya (15, debate skeptic). Fixed 12+ issues from persona feedback.</p>
+    <span class="tl-artifact">agentic-engineering-quest.html (10 modules)</span>
   </div>
 
   <div class="tl-step">
     <div class="tl-dot" style="border-color:var(--purple)"></div>
-    <div class="tl-time">Step 6</div>
-    <h4>Build Course 2: Agentic Engineering Quest</h4>
-    <p>Designed with Codex as a gamified dark-mode course. 10 modules covering harness engineering, workflows, context, specs, tools, memory, safety, multi-agent teams. Added XP system and localStorage persistence.</p>
-    <span class="tl-artifact">agentic-engineering-quest.html (1,041 lines)</span>
+    <div class="tl-time">Step 5 — Course Structure</div>
+    <h4>Connecting Beginner &amp; Advanced</h4>
+    <div class="prompt-bubble">"previously, i have the beginner course of what is github etc, where is it now? I want to start from basic, these agentic engineering part is advanced."</div>
+    <div class="prompt-bubble">"yes, create the landing page for that."</div>
+    <p>Q returned and wanted a clear progression. Created a landing page connecting both courses with a visual learning path.</p>
+    <span class="tl-artifact">index.html (landing page v1)</span>
   </div>
 
   <div class="tl-step">
     <div class="tl-dot" style="border-color:var(--cyan)"></div>
-    <div class="tl-time">Step 7</div>
-    <h4>Test with 3 Simulated Student Personas</h4>
-    <p>Codex simulated three HS students: Maya (16, art-focused), Jason (17, gamer), and Priya (15, debate team skeptic). Each revealed different confusion points, vocabulary gaps, and engagement opportunities. Module titles, examples, and wording were adjusted.</p>
-    <span class="tl-artifact">12+ content changes from persona feedback</span>
+    <div class="tl-time">Step 6 — Assessment Integration</div>
+    <h4>Pre-Test &amp; Post-Test</h4>
+    <div class="prompt-bubble">"this is a good pre test, I want to embed this pre test as well. how can I do?"</div>
+    <div class="prompt-bubble">"I create the pre test, post test link for them. can we make it the first thing to use the tool before doing the pre-test, and for post test, where should I put in the tool."</div>
+    <p>Embedded Q's existing assessment tool. Added pre-test and post-test links to the learning path. Later, Q decided to remove the mandatory gate — good products remove things too.</p>
   </div>
 
   <div class="tl-step">
     <div class="tl-dot" style="border-color:var(--cyan)"></div>
-    <div class="tl-time">Step 8</div>
+    <div class="tl-time">Step 7 — Quality Enforcement</div>
+    <h4>Catching Skipped Reviews</h4>
+    <div class="prompt-bubble">"okay, I think I already set as no.1 rule in claude.md that always asks codex for review. why you skipped this? how to push this to be executed always?"</div>
+    <p>Q caught Claude skipping the Codex review step on a "small" change and held it accountable. This moment shows the human's role: enforcing process discipline even when AI rationalizes shortcuts.</p>
+  </div>
+
+  <div class="tl-step">
+    <div class="tl-dot" style="border-color:var(--cyan)"></div>
+    <div class="tl-time">Step 8 — More Courses from Wiki</div>
     <h4>Build Course 3: AI Skills Lab</h4>
-    <p>Three tracks based on specific wiki entries: prompt frameworks (7 superpowers), AI as tutor (learning notes), and cross-model review (detective game). Each track produces an exportable artifact.</p>
-    <span class="tl-artifact">skills-lab.html</span>
+    <div class="prompt-bubble">"I want to add the contents of making AI my thinking partner, and also make AI in teaching mode, and let codex and claude code work together. These three blog wiki are very useful to these students. So I want to create some mini courses to them as well."</div>
+    <p>Built 3 tracks from specific wiki entries: prompt frameworks (7 superpowers), AI as tutor (learning notes), and cross-model review (detective game). Each track produces an exportable artifact.</p>
+    <span class="tl-artifact">skills-lab.html (3 tracks, 11 modules)</span>
   </div>
 
   <div class="tl-step">
     <div class="tl-dot" style="border-color:var(--green)"></div>
-    <div class="tl-time">Step 9</div>
-    <h4>The Scope Debate</h4>
-    <p>Claude proposed 6 more mini-courses from the remaining wiki entries. Codex pushed back: "That is scope creep. Build one strong course, not six weak ones." After negotiation, both agreed on combining Study Skills + Critical Thinking + Creative Tools into one course, with Track C as the "fun reward."</p>
-    <span class="tl-artifact">6 courses → 1 combined course</span>
+    <div class="tl-time">Step 9 — Thoroughness Check</div>
+    <h4>Scanning All 161 Wiki Entries</h4>
+    <div class="prompt-bubble">"can you also check all my wiki posts, any of these are good for HS non-cs background."</div>
+    <div class="prompt-bubble">"I have 160 wikis, but you just scanned 40?"</div>
+    <p>Q noticed only 40 of 161 entries had been scanned and pushed for completeness. Three parallel agents scanned the remaining 121 entries. Found 38 total that were accessible to HS students.</p>
+    <span class="tl-artifact">38 HS-accessible entries from 161 total</span>
   </div>
 
   <div class="tl-step">
     <div class="tl-dot" style="border-color:var(--green)"></div>
-    <div class="tl-time">Step 10</div>
-    <h4>Build Course 4: AI Life Skills</h4>
+    <div class="tl-time">Step 10 — The Scope Debate</div>
+    <h4>6 Courses vs. 1 Combined Course</h4>
+    <div class="prompt-bubble">"what does codex say?"</div>
+    <div class="prompt-bubble">"do you agree?"</div>
+    <div class="prompt-bubble">"so talk to codex again with your ideas, let us get a both-agree plan."</div>
+    <p>Claude proposed 6 mini-courses. Codex pushed back: "scope creep." Claude countered: "pure study skills feels preachy — add a creative track as a reward." Q forced them to negotiate until both agreed: 1 combined course with 3 tracks (Study Better + Think Critically + Create Cool Stuff).</p>
+    <span class="tl-artifact">6 courses → 1 combined course (consensus)</span>
+  </div>
+
+  <div class="tl-step">
+    <div class="tl-dot" style="border-color:var(--green)"></div>
+    <div class="tl-time">Step 11 — Build Course 4</div>
+    <h4>AI Life Skills</h4>
     <p>13 modules across 3 tracks. Study Better (Socratic tutor, cognitive fatigue, deep prompts), Think Critically (hallucinations, benchmarks, safety, independence), Create Cool Stuff (game design, video planning, story writing).</p>
-    <span class="tl-artifact">ai-life-skills.html</span>
+    <span class="tl-artifact">ai-life-skills.html (3 tracks, 13 modules)</span>
   </div>
 
   <div class="tl-step">
     <div class="tl-dot" style="border-color:var(--gold)"></div>
-    <div class="tl-time">Step 11</div>
-    <h4>The Landing Page Journey</h4>
-    <p>Started as a simple card list. Q asked about a React orbital timeline component. Codex said: "Don't use React. Build it in vanilla JS." Built an orbital hero with 6 floating nodes and canvas gooey trail. Then Q asked for impressionist painting background instead of dark theme. Generated the painting with AI, added frosted glass effects, recommended learning path, and iterative UI fixes.</p>
+    <div class="tl-time">Step 12 — The Landing Page Journey</div>
+    <h4>4 Major Iterations</h4>
+    <div class="prompt-bubble">"the ui is ugly, the presession is too small."</div>
+    <div class="prompt-bubble">"can you check this file, it contains a background prompt, can we combine both, with this background and with the floating courses?"</div>
+    <div class="prompt-bubble">"if I click, it is frozen. how can I go back to the landing page. Also, it seems the pop up contents block the main items."</div>
+    <div class="prompt-bubble">"I like the previous version better. this square pixel cells is too big. also, I am saying the background. I do not like black color or the theme. I like the color painting style."</div>
+    <div class="prompt-bubble">"I trust you." <span style="font-size:13px;color:var(--muted)">(when asked to choose between uploading a painting or generating one)</span></div>
+    <p>Started as simple card list → added orbital hero → Q rejected dark theme → generated impressionist painting → frosted glass nodes → fixed click bugs → added recommended learning path. The landing page went through more iterations than any other file.</p>
     <span class="tl-artifact">index.html (4 major iterations)</span>
   </div>
 
   <div class="tl-step">
     <div class="tl-dot" style="border-color:var(--gold)"></div>
-    <div class="tl-time">Step 12</div>
+    <div class="tl-time">Step 13 — Branding</div>
     <h4>Cat Mascot &amp; Icons</h4>
-    <p>Q shared a photo of their tuxedo cat. AI generated a logo: the cat wearing round glasses, sitting next to a laptop with a brain icon. Also generated 6 themed course icons (clipboard, terminal, atom, spark, compass, medal) — all with matching glow effects.</p>
+    <div class="prompt-bubble">"I want to create a logo for this class, I will give you my cat's image."</div>
+    <p>Q shared a photo of their tuxedo cat. AI generated a logo: the cat wearing round glasses, sitting next to a laptop with a brain icon. Also generated 6 themed course icons — all with matching glow effects.</p>
     <span class="tl-artifact">logo.png + 6 icon files</span>
   </div>
 
   <div class="tl-step">
     <div class="tl-dot" style="border-color:var(--gold)"></div>
-    <div class="tl-time">Step 13</div>
-    <h4>Deploy to GitHub Pages</h4>
-    <p>Created a clean repo with just the course files (no clutter from the working directory), added a GitHub Actions workflow for auto-deploy, and pushed. Live at weihaoqu.github.io/learnai-course.</p>
-    <span class="tl-artifact">Live deployment</span>
-  </div>
-</div>
-
-<!-- ===== ACTUAL PROMPTS ===== -->
-<h2>Every Prompt Q Actually Typed</h2>
-<p>These are the real messages Q sent to Claude Code during this session, unedited and in order. This is what "directing AI" actually looks like — short, messy, human.</p>
-
-<div class="prompt-log">
-  <div class="prompt-bubble">
-    <div class="prompt-num">#1 — The spark</div>
-    "Can you download this video. and work with codex to get the content of this video. It is a Claude code intro presentation. I want you and codex to work together to create a web course based on the content. I will sleep now so I give you all the permission now. You can decide what this web course look like, I hope non CS background students can follow our web course, and it is interactive or self contained. Go ahead, see you tomorrow."
-    <div class="prompt-context">Q shared a video URL and went to sleep. Everything started from here.</div>
+    <div class="tl-time">Step 14 — Deploy &amp; Debug</div>
+    <h4>Going Live</h4>
+    <div class="prompt-bubble">"this website is still the old one in github."</div>
+    <div class="prompt-bubble">"let us remove this gate. I do not think we need it now."</div>
+    <p>Deployed to GitHub Pages. Debugged caching issues. Q decided to remove the pre-test gate — simplifying the user experience.</p>
+    <span class="tl-artifact">Live at weihaoqu.github.io/learnai-course</span>
   </div>
 
-  <div class="prompt-bubble">
-    <div class="prompt-num">#2 — Expanding scope</div>
-    "Let us also add github part, explain what is that, why we need, and then add instruction on how to create. These are new non-cs. Also about deployment."
-  </div>
-
-  <div class="prompt-bubble">
-    <div class="prompt-num">#3 — Filling gaps</div>
-    "I think we should also add the fundamental of what is a web app, so they know what Claude is building, which files matches to which."
-  </div>
-
-  <div class="prompt-bubble">
-    <div class="prompt-num">#4 — The big vision</div>
-    "Now, can you check my knowledge base, and my personal wiki (which in this folder) with more than 160 wiki posts. and find enough topics for them to learn, and combine into the tool. Work with codex and give me a plan of these advanced topic. I am interested in building a big tool that covered all my knowledge so far on agentic engineering."
-  </div>
-
-  <div class="prompt-bubble">
-    <div class="prompt-num">#5 — Full delegation</div>
-    "1. you decided all these for me. 2. you and codex decide, i am good for either. 3. for the gaps, can you search online and help me draft these contents. 4. they are non-CS HS students, so you decided. I will leave for 2 hours, so please work heavily with codex to make the tool as complete as you can. After you build something you are confident, create three HS students to test. Always asks codex's opinion."
-    <div class="prompt-context">Q delegated decisions but set clear constraints: HS students, test with personas, use Codex as reviewer.</div>
-  </div>
-
-  <div class="prompt-bubble">
-    <div class="prompt-num">#6 — Checking in</div>
-    "show me now."
-  </div>
-
-  <div class="prompt-bubble">
-    <div class="prompt-num">#7 — Course structure</div>
-    "previously, i have the beginner course of what is github etc, where is it now? I want to start from basic, these agentic engineering part is advanced."
-  </div>
-
-  <div class="prompt-bubble">
-    <div class="prompt-num">#8 — Landing page</div>
-    "yes, create the landing page for that."
-  </div>
-
-  <div class="prompt-bubble">
-    <div class="prompt-num">#9 — Assessment integration</div>
-    "this is a good pre test, I want to embed this pre test as well. how can I do?"
-  </div>
-
-  <div class="prompt-bubble">
-    <div class="prompt-num">#10 — Pre/post test flow</div>
-    "I create the pre test, post test link for them. can we make it the first thing to use the tool before doing the pre-test, and for post test, where should I put in the tool."
-  </div>
-
-  <div class="prompt-bubble">
-    <div class="prompt-num">#11 — Enforcing quality</div>
-    "okay, I think I already set as no.1 rule in claude.md that always asks codex for review. why you skipped this? how to push this to be executed always?"
-    <div class="prompt-context">Q caught Claude skipping the Codex review step and held it accountable.</div>
-  </div>
-
-  <div class="prompt-bubble">
-    <div class="prompt-num">#12 — More courses</div>
-    "I want to add the contents of making AI my thinking partner, and also make AI in teaching mode, and let codex and claude code work together. These three blog wiki are very useful to these students. So I want to create some mini courses to them as well."
-  </div>
-
-  <div class="prompt-bubble">
-    <div class="prompt-num">#13 — Wiki coverage</div>
-    "can you also check all my wiki posts, any of these are good for HS non-cs background."
-  </div>
-
-  <div class="prompt-bubble">
-    <div class="prompt-num">#14 — Holding accountable</div>
-    "I have 160 wikis, but you just scanned 40?"
-    <div class="prompt-context">Q noticed incomplete work and pushed for thoroughness.</div>
-  </div>
-
-  <div class="prompt-bubble">
-    <div class="prompt-num">#15 — Collaborative decision</div>
-    "what does codex say?"
-  </div>
-
-  <div class="prompt-bubble">
-    <div class="prompt-num">#16 — Pushing back on agreement</div>
-    "do you agree?"
-    <div class="prompt-context">Q didn't just accept Claude's plan — asked if it genuinely agreed with Codex or had its own opinion.</div>
-  </div>
-
-  <div class="prompt-bubble">
-    <div class="prompt-num">#17 — Forcing consensus</div>
-    "so talk to codex again with your ideas, let us get a both-agree plan."
-  </div>
-
-  <div class="prompt-bubble">
-    <div class="prompt-num">#18 — Taste judgment</div>
-    "the ui is ugly, the presession is too small."
-    <div class="prompt-context">Direct aesthetic feedback. No sugarcoating needed.</div>
-  </div>
-
-  <div class="prompt-bubble">
-    <div class="prompt-num">#19 — Feature request with reference</div>
-    "can you check this file, it contains a background prompt, can we combine both, with this background and with the floating courses?"
-  </div>
-
-  <div class="prompt-bubble">
-    <div class="prompt-num">#20 — UX bug report</div>
-    "if I click, it is frozen. how can I go back to the landing page. Also, it seems the pop up contents block the main items."
-  </div>
-
-  <div class="prompt-bubble">
-    <div class="prompt-num">#21 — Reversing a decision</div>
-    "I like the previous version better. this square pixel cells is too big. also, I am saying the background. I do not like black color or the theme. I like the color painting style."
-    <div class="prompt-context">Q rejected the pixel grid AND the dark theme in one message. Taste driving design.</div>
-  </div>
-
-  <div class="prompt-bubble">
-    <div class="prompt-num">#22 — Trust</div>
-    "I trust you." <span style="font-size:13px;color:var(--muted)">(when asked to choose between uploading a painting or generating one)</span>
-  </div>
-
-  <div class="prompt-bubble">
-    <div class="prompt-num">#23 — Mascot creation</div>
-    "I want to create a logo for this class, I will give you my cat's image."
-    <div class="prompt-context">Q shared a photo of their tuxedo cat. It became the academy mascot.</div>
-  </div>
-
-  <div class="prompt-bubble">
-    <div class="prompt-num">#24 — Debugging deployment</div>
-    "this website is still the old one in github."
-  </div>
-
-  <div class="prompt-bubble">
-    <div class="prompt-num">#25 — Simplifying</div>
-    "let us remove this gate. I do not think we need it now."
-    <div class="prompt-context">Q removed a feature they had asked for earlier. Good products remove things too.</div>
-  </div>
-
-  <div class="prompt-bubble">
-    <div class="prompt-num">#26 — Meta: the case study</div>
-    "I want to record what I did in this session from scratch to show how I build this platform from scratch. So students can see this real case study."
-  </div>
-
-  <div class="prompt-bubble">
-    <div class="prompt-num">#27 — Final request</div>
-    "can you show all my prompts in order in the case study."
-    <div class="prompt-context">This prompt. Making the process fully transparent.</div>
+  <div class="tl-step">
+    <div class="tl-dot" style="border-color:var(--gold)"></div>
+    <div class="tl-time">Step 15 — The Case Study</div>
+    <h4>Recording the Process</h4>
+    <div class="prompt-bubble">"I want to record what I did in this session from scratch to show how I build this platform from scratch. So students can see this real case study."</div>
+    <div class="prompt-bubble">"can you show all my prompts in order in the case study."</div>
+    <div class="prompt-bubble">"it is better to organize my real prompt into these steps you summarized."</div>
+    <p>This page. Q wanted full transparency — not just the result, but the messy, iterative, real process of building with AI.</p>
+    <span class="tl-artifact">case-study.html (this page)</span>
   </div>
 </div>
 
