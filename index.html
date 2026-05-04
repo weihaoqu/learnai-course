@@ -46,7 +46,7 @@ body{font-family:var(--font);background:var(--bg);color:var(--text);line-height:
 .orbit-ring-2{width:620px;height:620px;border-style:dashed;border-color:rgba(255,255,255,0.03)}
 
 /* Orbital nodes */
-.orbit-node{position:absolute;top:50%;left:50%;width:72px;height:72px;margin:-36px 0 0 -36px;border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;border:2px solid rgba(255,255,255,0.25);background:rgba(15,23,42,0.75);backdrop-filter:blur(12px);transition:transform 0.3s,box-shadow 0.3s,border-color 0.3s;z-index:5;font-size:22px;font-family:var(--font);color:var(--text)}
+.orbit-node{position:absolute;top:50%;left:50%;width:80px;height:80px;margin:-40px 0 0 -40px;border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;border:2px solid rgba(255,255,255,0.25);background:rgba(15,23,42,0.75);backdrop-filter:blur(12px);transition:transform 0.3s,box-shadow 0.3s,border-color 0.3s;z-index:5;font-size:22px;font-family:var(--font);color:var(--text)}
 .orbit-node:hover{transform:translate(var(--tx),var(--ty)) scale(1.2)!important;border-color:rgba(255,255,255,0.5);box-shadow:0 0 24px rgba(255,255,255,0.15)}
 .orbit-node:focus-visible{outline:2px solid var(--cyan);outline-offset:4px}
 .orbit-node-label{position:absolute;top:80px;left:50%;transform:translateX(-50%);white-space:nowrap;font-size:13px;font-weight:700;color:rgba(255,255,255,0.7);pointer-events:none;letter-spacing:0.3px;text-shadow:0 1px 4px rgba(0,0,0,0.5)}
@@ -112,7 +112,7 @@ body{font-family:var(--font);background:var(--bg);color:var(--text);line-height:
 /* ===== NODE BADGE ===== */
 .orbit-node .node-badge{position:absolute;top:-6px;right:-6px;width:22px;height:22px;border-radius:50%;background:var(--purple);color:#fff;font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center;border:2px solid var(--bg);z-index:6}
 .orbit-node svg{width:28px;height:28px;pointer-events:none}
-.orbit-node img{width:48px;height:48px;pointer-events:none;border-radius:50%}
+.orbit-node img{width:60px;height:60px;pointer-events:none;border-radius:50%}
 
 /* ===== LEARNING PATH TIMELINE ===== */
 .learning-path{max-width:700px;margin:0 auto;padding:60px 24px}
