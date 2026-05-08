@@ -336,6 +336,45 @@ body{font-family:var(--font);background:var(--bg);color:var(--text);line-height:
     </div>
   </div>
 
+  <div class="card" style="border-left:3px solid var(--accent);margin-top:24px">
+    <h3 style="margin-bottom:12px">&#128203; Prompt Structure Cheat Sheet</h3>
+    <p style="font-size:14px;color:var(--muted);margin-bottom:16px">Keep this one-page reference card handy whenever you write prompts. It covers the 4-part structure, tips, and real examples adapted for students.</p>
+
+    <div style="background:var(--surface2);border-radius:var(--radius-sm);padding:20px;margin-bottom:16px">
+      <h4 style="font-size:14px;margin-bottom:12px">The 4-Part Prompt Structure</h4>
+      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:8px;margin-bottom:16px;text-align:center;font-size:13px">
+        <div style="background:rgba(124,58,237,0.15);padding:10px;border-radius:8px"><strong style="color:var(--primary-light)">1. Context</strong><br>Role, background, knowledge</div>
+        <div style="background:rgba(6,182,212,0.15);padding:10px;border-radius:8px"><strong style="color:var(--accent-light)">2. Instruction</strong><br>Steps, chain of thought, examples</div>
+        <div style="background:rgba(16,185,129,0.15);padding:10px;border-radius:8px"><strong style="color:var(--green)">3. Input</strong><br>The text, data, or question</div>
+        <div style="background:rgba(245,158,11,0.15);padding:10px;border-radius:8px"><strong style="color:#fbbf24">4. Output Format</strong><br>Bullet points, JSON, table, essay</div>
+      </div>
+
+      <h4 style="font-size:14px;margin-bottom:8px">Quick Tips</h4>
+      <ul style="font-size:13px;color:rgba(255,255,255,0.8);margin:0 0 0 20px">
+        <li><strong>Be specific:</strong> "Write an essay" is weak. "Write a 500-word argumentative essay on carbon taxes for my AP Environmental Science class" is strong.</li>
+        <li><strong>Use delimiters:</strong> Wrap your input in quotes or dashes so the AI knows what's instruction vs. what's data.</li>
+        <li><strong>Give examples:</strong> For style or formatting tasks, show 1-2 examples of what you want. The AI learns the pattern.</li>
+        <li><strong>Break it down:</strong> For complex tasks, tell AI to work step by step instead of answering all at once.</li>
+        <li><strong>Say what TO do:</strong> "Summarize in 3 bullet points" works better than "Don't write too much."</li>
+        <li><strong>Iterate:</strong> Your first prompt is a draft. Refine based on what the AI gives back.</li>
+      </ul>
+    </div>
+
+    <div style="background:var(--surface2);border-radius:var(--radius-sm);padding:20px;margin-bottom:16px">
+      <h4 style="font-size:14px;margin-bottom:8px">Student Examples</h4>
+      <div style="font-size:13px;color:rgba(255,255,255,0.8)">
+        <p style="margin-bottom:8px"><strong>Extract key info from a syllabus:</strong></p>
+        <p style="font-style:italic;color:var(--muted);margin-bottom:12px">"You are a study planner. From the syllabus text below, extract all assignment due dates, deliverables, and grading weights. Output as a table with columns: Assignment, Due Date, Weight. Syllabus: [paste text here]"</p>
+        <p style="margin-bottom:8px"><strong>Rewrite for a different audience:</strong></p>
+        <p style="font-style:italic;color:var(--muted);margin-bottom:12px">"Here are 2 examples of engaging TikTok-style scripts: [example 1] [example 2]. Now rewrite the following club announcement in the same style: [paste text here]"</p>
+        <p style="margin-bottom:8px"><strong>Summarize into a title:</strong></p>
+        <p style="font-style:italic;color:var(--muted);margin:0">"Read the article below and generate a concise, descriptive title that captures the main theme. The title should be under 15 words. Article: [paste text here]"</p>
+      </div>
+    </div>
+
+    <button class="btn btn-accent" onclick="downloadCheatSheet()">&#128196; Download Cheat Sheet (.md)</button>
+  </div>
+
   <div class="callout callout-tip">
     <span class="callout-icon">&#127775;</span>
     <div><strong>Track 1 Complete!</strong> You now know 7 different thinking modes for AI. Use them in your schoolwork, projects, and creative work. Switch to Track 2 to learn how to make AI your personal tutor.</div>
@@ -731,6 +770,51 @@ function exportPrompt(){
   if(!el||!el.textContent){alert('Generate a prompt first!');return;}
   const blob=new Blob([el.textContent],{type:'text/plain'});
   const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='my-prompt.txt';a.click();
+}
+
+// ===== CHEAT SHEET DOWNLOAD =====
+function downloadCheatSheet(){
+  const text=`# Prompt Structure Cheat Sheet
+
+## The 4-Part Prompt Structure
+
+1. **Context** — Role, background, knowledge
+2. **Instruction** — Steps, chain of thought, examples
+3. **Input** — The text, data, or question
+4. **Output Format** — Bullet points, table, essay, JSON
+
+## Quick Tips
+
+- **Be specific:** "Write a 500-word argumentative essay on carbon taxes for AP Environmental Science" > "Write an essay"
+- **Use delimiters:** Wrap input in quotes or dashes so AI knows what's instruction vs. data
+- **Give examples:** For style/formatting tasks, show 1-2 examples. AI learns the pattern.
+- **Break it down:** For complex tasks, tell AI to work step by step
+- **Say what TO do:** "Summarize in 3 bullet points" > "Don't write too much"
+- **Iterate:** Your first prompt is a draft. Refine based on what AI gives back.
+
+## Student Examples
+
+### Extract key info from a syllabus
+> You are a study planner. From the syllabus text below, extract all assignment due dates,
+> deliverables, and grading weights. Output as a table with columns: Assignment, Due Date, Weight.
+> Syllabus: [paste text here]
+
+### Rewrite for a different audience
+> Here are 2 examples of engaging TikTok-style scripts: [example 1] [example 2].
+> Now rewrite the following club announcement in the same style: [paste text here]
+
+### Summarize into a title
+> Read the article below and generate a concise, descriptive title that captures the main theme.
+> The title should be under 15 words. Article: [paste text here]
+
+## The Iteration Rule
+
+First prompt → Check output → Refine prompt → Repeat until good.
+Don't expect perfection on the first try. Prompt engineering is iterative.
+`;
+  const blob=new Blob([text],{type:'text/markdown'});
+  const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='prompt-cheat-sheet.md';a.click();
+  addXP(15);
 }
 
 // ===== LEARNING NOTES EXPORT =====
