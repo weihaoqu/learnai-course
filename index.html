@@ -212,7 +212,7 @@ body{font-family:var(--font);background:var(--bg);color:var(--text);line-height:
 
     <h3>Your Assent</h3>
     <div style="background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.15);border-radius:var(--radius-sm);padding:16px 20px;margin:12px 0">
-      <p style="margin-bottom:8px">By clicking <strong>"I Agree"</strong> below and typing your name, you confirm that:</p>
+      <p style="margin-bottom:8px">By clicking <strong>"I Agree"</strong> below, you confirm that:</p>
       <ul style="margin:8px 0 8px 20px">
         <li>You have read and understood this assent form.</li>
         <li>Your parent or guardian has already submitted the Parental Permission Form.</li>
@@ -222,9 +222,6 @@ body{font-family:var(--font);background:var(--bg);color:var(--text);line-height:
       </ul>
       <p style="margin:0">If you do not wish to participate, click <strong>"I Do Not Agree."</strong> You can still participate in the training session, but your data will not be used for research purposes.</p>
     </div>
-
-    <label style="display:block;font-size:14px;font-weight:600;margin-top:16px;color:var(--text)">Type your full name:</label>
-    <input type="text" id="consentName" placeholder="Your full name" style="width:100%;padding:10px 14px;background:var(--surface2);border:1px solid var(--border);border-radius:var(--radius-sm);color:var(--text);font-size:15px;font-family:var(--font);margin:8px 0" aria-label="Full name">
 
     <div style="display:flex;gap:16px;margin-top:20px">
       <button class="consent-btn" id="consentDecline" style="flex:1;background:transparent;border:2px solid var(--danger);color:var(--danger)">I Do Not Agree</button>
@@ -658,10 +655,7 @@ if (localStorage.getItem('learnai-consent')) {
   mainContent.style.display = 'none';
 }
 document.getElementById('consentAccept').addEventListener('click', () => {
-  const name = document.getElementById('consentName').value.trim();
-  if (!name) { alert('Please type your full name before agreeing.'); document.getElementById('consentName').focus(); return; }
   localStorage.setItem('learnai-consent', 'accepted');
-  localStorage.setItem('learnai-consent-name', name);
   consentOverlay.classList.add('hidden');
   mainContent.style.display = '';
 });
