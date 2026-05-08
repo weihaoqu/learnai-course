@@ -313,6 +313,48 @@ body{font-family:var(--font);background:var(--bg);color:var(--text);line-height:
 <div class="mod-nav" id="track1-nav"></div>
 
 <div class="mod active" id="b0">
+  <h1>The Vibe Learning Trap</h1>
+  <p class="subtitle">AI should draft with you, not think for you. Own the reasoning before you accept the output.</p>
+
+  <div class="callout callout-warning">
+    <span class="callout-icon">&#9888;</span>
+    <div><strong>The trap:</strong> When AI gives polished work faster than you can understand it, it feels like progress. For learning, that is the danger point: if you cannot explain the result, you have outsourced the part your brain needed to practice.</div>
+  </div>
+
+  <div class="card" style="border-left:3px solid var(--accent)">
+    <p style="font-size:14px;color:var(--muted);margin-bottom:8px">This video is aimed at software developers, but the core lesson applies to anyone using AI for school: AI can help you move faster, but it can also hide gaps in your understanding. Some examples use developer jargon, so focus on the warning: do not hand over judgment to AI.</p>
+
+    <h2 style="margin-top:0;margin-bottom:12px">&#127916; Why Senior Devs Use AI Differently (4:38)</h2>
+    <div style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:var(--radius-sm);margin-bottom:16px">
+      <iframe src="https://www.youtube.com/embed/24-6yY4hW_w" title="Why Senior Devs Use AI Differently" frameborder="0" allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture" allowfullscreen style="position:absolute;top:0;left:0;width:100%;height:100%"></iframe>
+    </div>
+
+    <h3 style="margin-top:16px;margin-bottom:8px">What This Means For You</h3>
+    <div class="card-grid">
+      <div class="info-card"><div class="ic">&#128187;</div><h4>Developers call it...</h4><p>Vibe coding: generating code without understanding it</p></div>
+      <div class="info-card"><div class="ic">&#128218;</div><h4>For students, it's...</h4><p>Vibe learning: submitting AI work without understanding it</p></div>
+      <div class="info-card"><div class="ic">&#128260;</div><h4>The error loop</h4><p>Pasting problems back into AI without diagnosing them yourself</p></div>
+      <div class="info-card"><div class="ic">&#129504;</div><h4>The real skill</h4><p>Own the thinking. Delegate the drafting.</p></div>
+    </div>
+  </div>
+
+  <div class="quiz">
+    <h3>Which student is staying in charge?</h3>
+    <button class="quiz-opt" onclick="qz(this,false,'b0fb','This is vibe learning. The work may look finished, but the student cannot explain or defend it.')">A student asks AI for an essay, changes a few words, and submits it because it sounds smart.</button>
+    <button class="quiz-opt" onclick="qz(this,true,'b0fb','Correct. The student owns the thinking and uses AI for drafting, critique, and improvement.')">A student writes their own argument first, asks AI to critique it, then revises only the parts they understand.</button>
+    <button class="quiz-opt" onclick="qz(this,false,'b0fb','Avoiding AI entirely misses the point. The skill is learning how to use it without surrendering judgment.')">A student refuses to use AI for anything because it is always cheating.</button>
+    <div class="quiz-fb" id="b0fb" role="status" aria-live="polite"></div>
+  </div>
+
+  <div class="callout callout-insight">
+    <span class="callout-icon">&#129300;</span>
+    <div><strong>Reflect:</strong> Have you ever submitted AI-generated work you could not fully explain? What would you do differently now?</div>
+  </div>
+
+  <div class="nav-btns"><div></div><button class="btn btn-primary" onclick="goMod(1,1)">Next: Define The Problem &#8594;</button></div>
+</div>
+
+<div class="mod" id="b1">
   <h1>Define The Problem First</h1>
   <p class="subtitle">The #1 reason AI gives bad answers: you asked the wrong question.</p>
 
@@ -331,16 +373,19 @@ body{font-family:var(--font);background:var(--bg);color:var(--text);line-height:
 
   <div class="quiz">
     <h3>Which problem definition would get the best AI output?</h3>
-    <button class="quiz-opt" onclick="qz(this,false,'b0fb','Too vague. The AI doesn\'t know your thesis, level, subject, or what kind of help you need.')">Help me with my assignment</button>
-    <button class="quiz-opt" onclick="qz(this,false,'b0fb','Better, but still missing context. What\'s the essay about? What have you already written?')">Write an essay about climate change</button>
-    <button class="quiz-opt" onclick="qz(this,true,'b0fb','Excellent! This has a clear goal (counter-arguments), context (AP Environmental Science, your thesis), format (with citations), and success criteria. The AI can give a precise, useful answer.')">I'm writing an AP Environmental Science essay arguing that carbon taxes are effective. Find 3 strong counter-arguments with citations I should address in my rebuttal paragraph.</button>
-    <div class="quiz-fb" id="b0fb" role="status" aria-live="polite"></div>
+    <button class="quiz-opt" onclick="qz(this,false,'b1fb','Too vague. The AI doesn\'t know your thesis, level, subject, or what kind of help you need.')">Help me with my assignment</button>
+    <button class="quiz-opt" onclick="qz(this,false,'b1fb','Better, but still missing context. What\'s the essay about? What have you already written?')">Write an essay about climate change</button>
+    <button class="quiz-opt" onclick="qz(this,true,'b1fb','Excellent! This has a clear goal (counter-arguments), context (AP Environmental Science, your thesis), format (with citations), and success criteria. The AI can give a precise, useful answer.')">I'm writing an AP Environmental Science essay arguing that carbon taxes are effective. Find 3 strong counter-arguments with citations I should address in my rebuttal paragraph.</button>
+    <div class="quiz-fb" id="b1fb" role="status" aria-live="polite"></div>
   </div>
 
-  <div class="nav-btns"><div></div><button class="btn btn-primary" onclick="goMod(1,1)">Next: Check AI Claims &#8594;</button></div>
+  <div class="nav-btns">
+    <button class="btn btn-ghost" onclick="goMod(1,0)">&#8592; Back</button>
+    <button class="btn btn-primary" onclick="goMod(1,2)">Next: Check AI Claims &#8594;</button>
+  </div>
 </div>
 
-<div class="mod" id="b1">
+<div class="mod" id="b2">
   <h1>Check AI Claims Like A Detective</h1>
   <p class="subtitle">AI sounds confident even when it's completely wrong. Learn to verify.</p>
 
@@ -365,21 +410,42 @@ body{font-family:var(--font);background:var(--bg);color:var(--text);line-height:
 
   <div class="quiz">
     <h3>AI says: "According to Smith et al. (2024), 78% of high school students use AI daily." What should you do?</h3>
-    <button class="quiz-opt" onclick="qz(this,false,'b1fb','Never trust a statistic just because it has a citation attached. AI frequently invents fake citations.')">Include it in your essay — it has a citation so it must be real</button>
-    <button class="quiz-opt" onclick="qz(this,true,'b1fb','Correct! Always verify. Search for the actual paper. If it doesn\'t exist, the AI hallucinated it. Ask AI to provide a real, verifiable source instead.')">Search for 'Smith et al. 2024' to verify it exists. If you can't find it, ask AI for a verifiable source instead.</button>
-    <button class="quiz-opt" onclick="qz(this,false,'b1fb','Ignoring all AI output is wasteful. The right approach is to verify, not avoid.')">Never use any statistic AI provides</button>
-    <div class="quiz-fb" id="b1fb" role="status" aria-live="polite"></div>
+    <button class="quiz-opt" onclick="qz(this,false,'b2fb','Never trust a statistic just because it has a citation attached. AI frequently invents fake citations.')">Include it in your essay — it has a citation so it must be real</button>
+    <button class="quiz-opt" onclick="qz(this,true,'b2fb','Correct! Always verify. Search for the actual paper. If it doesn\'t exist, the AI hallucinated it. Ask AI to provide a real, verifiable source instead.')">Search for 'Smith et al. 2024' to verify it exists. If you can't find it, ask AI for a verifiable source instead.</button>
+    <button class="quiz-opt" onclick="qz(this,false,'b2fb','Ignoring all AI output is wasteful. The right approach is to verify, not avoid.')">Never use any statistic AI provides</button>
+    <div class="quiz-fb" id="b2fb" role="status" aria-live="polite"></div>
   </div>
 
   <div class="nav-btns">
-    <button class="btn btn-ghost" onclick="goMod(1,0)">&#8592; Back</button>
-    <button class="btn btn-primary" onclick="goMod(1,2)">Next: When AI Looks Smarter Than It Is &#8594;</button>
+    <button class="btn btn-ghost" onclick="goMod(1,1)">&#8592; Back</button>
+    <button class="btn btn-primary" onclick="goMod(1,3)">Next: When AI Looks Smarter Than It Is &#8594;</button>
   </div>
 </div>
 
-<div class="mod" id="b2">
+<div class="mod" id="b3">
   <h1>When AI Looks Smarter Than It Is</h1>
   <p class="subtitle">Benchmarks, leaderboards, and hype — how to see through the marketing.</p>
+
+  <div class="card" style="border-left:3px solid var(--accent)">
+    <p style="font-size:14px;color:var(--muted);margin-bottom:8px">Use this short visual explanation to demystify what LLMs are actually doing before you evaluate claims about them. The point is not to memorize architecture details; it is to understand why confident-sounding output is still generated one token at a time.</p>
+
+    <h2 style="margin-top:0;margin-bottom:12px">&#127916; The Surprisingly Simple Idea Behind Every LLM (14:34)</h2>
+    <div style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:var(--radius-sm);margin-bottom:16px">
+      <iframe src="https://www.youtube.com/embed/SHAI7pG3qI8" title="The Surprisingly Simple Idea Behind Every LLM" frameborder="0" allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture" allowfullscreen style="position:absolute;top:0;left:0;width:100%;height:100%"></iframe>
+    </div>
+
+    <h3 style="margin-top:16px;margin-bottom:8px">Watch For</h3>
+    <div class="card-grid">
+      <div class="info-card"><div class="ic">&#128172;</div><h4>Prediction, not truth</h4><p>LLMs choose likely next tokens, which explains why they can sound right while being wrong.</p></div>
+      <div class="info-card"><div class="ic">&#127919;</div><h4>Probabilities</h4><p>Outputs are shaped by probability distributions, not direct access to certainty.</p></div>
+      <div class="info-card"><div class="ic">&#129504;</div><h4>Your judgment matters</h4><p>Understanding the mechanism makes benchmark and marketing claims easier to question.</p></div>
+    </div>
+
+    <div class="callout callout-tip" style="margin-top:16px;margin-bottom:0">
+      <span class="callout-icon">&#128218;</span>
+      <div><strong>Want to go deeper?</strong> See how pretraining, self-attention, and data curation work in our <a href="llm-background.html" style="color:var(--accent-light);font-weight:600">How AI Actually Works</a> page &mdash; three videos that build from simple to advanced.</div>
+    </div>
+  </div>
 
   <h2>The Benchmark Problem</h2>
   <p>AI companies show off scores on "benchmarks" (standardized tests for AI). But here's the dirty secret: <strong>some AI systems cheat on benchmarks</strong> by being trained on the test answers.</p>
@@ -399,19 +465,19 @@ body{font-family:var(--font);background:var(--bg);color:var(--text);line-height:
 
   <div class="quiz">
     <h3>An AI company claims their model "scores 98% on reading comprehension." What should you think?</h3>
-    <button class="quiz-opt" onclick="qz(this,false,'b2fb','Benchmark scores can be misleading. A 98% on a known test set doesn\'t guarantee the AI understands anything.')">This AI must be really smart — 98% is amazing</button>
-    <button class="quiz-opt" onclick="qz(this,true,'b2fb','Critical thinking! Ask: what test? Was it trained on similar questions? How does it perform on truly new content? Benchmark scores are marketing until proven otherwise.')">I should ask: what test? Was it trained on those questions? How does it do on genuinely new content?</button>
-    <button class="quiz-opt" onclick="qz(this,false,'b2fb','That\'s too extreme. Benchmarks provide SOME signal — just not as much as companies imply. Be skeptical, not dismissive.')">All benchmarks are lies — ignore them completely</button>
-    <div class="quiz-fb" id="b2fb" role="status" aria-live="polite"></div>
+    <button class="quiz-opt" onclick="qz(this,false,'b3fb','Benchmark scores can be misleading. A 98% on a known test set doesn\'t guarantee the AI understands anything.')">This AI must be really smart — 98% is amazing</button>
+    <button class="quiz-opt" onclick="qz(this,true,'b3fb','Critical thinking! Ask: what test? Was it trained on similar questions? How does it perform on truly new content? Benchmark scores are marketing until proven otherwise.')">I should ask: what test? Was it trained on those questions? How does it do on genuinely new content?</button>
+    <button class="quiz-opt" onclick="qz(this,false,'b3fb','That\'s too extreme. Benchmarks provide SOME signal — just not as much as companies imply. Be skeptical, not dismissive.')">All benchmarks are lies — ignore them completely</button>
+    <div class="quiz-fb" id="b3fb" role="status" aria-live="polite"></div>
   </div>
 
   <div class="nav-btns">
-    <button class="btn btn-ghost" onclick="goMod(1,1)">&#8592; Back</button>
-    <button class="btn btn-primary" onclick="goMod(1,3)">Next: Safety & Risks &#8594;</button>
+    <button class="btn btn-ghost" onclick="goMod(1,2)">&#8592; Back</button>
+    <button class="btn btn-primary" onclick="goMod(1,4)">Next: Safety & Risks &#8594;</button>
   </div>
 </div>
 
-<div class="mod" id="b3">
+<div class="mod" id="b4">
   <h1>Safety, Privacy, And Hidden Risks</h1>
   <p class="subtitle">Real-world incidents that show why AI safety matters.</p>
 
@@ -434,19 +500,19 @@ body{font-family:var(--font);background:var(--bg);color:var(--text);line-height:
 
   <div class="quiz">
     <h3>Your friend asks you to use AI to generate a "funny" fake image of a teacher. What should you do?</h3>
-    <button class="quiz-opt" onclick="qz(this,false,'b3fb','Generating fake images of real people without consent is harmful, potentially illegal, and violates most school policies — regardless of intent.')">Do it — it's just a joke and nobody will know</button>
-    <button class="quiz-opt" onclick="qz(this,true,'b3fb','Correct. Deepfakes of real people — even meant as jokes — can constitute harassment, violate privacy laws, and get you expelled. The right answer is always no.')">Refuse. Explain that deepfakes of real people can be harassment and have legal consequences.</button>
-    <button class="quiz-opt" onclick="qz(this,false,'b3fb','Being neutral enables harm. If someone asks you to participate in something harmful, saying no is the responsible choice.')">Don't do it yourself but don't say anything if they do it</button>
-    <div class="quiz-fb" id="b3fb" role="status" aria-live="polite"></div>
+    <button class="quiz-opt" onclick="qz(this,false,'b4fb','Generating fake images of real people without consent is harmful, potentially illegal, and violates most school policies — regardless of intent.')">Do it — it's just a joke and nobody will know</button>
+    <button class="quiz-opt" onclick="qz(this,true,'b4fb','Correct. Deepfakes of real people — even meant as jokes — can constitute harassment, violate privacy laws, and get you expelled. The right answer is always no.')">Refuse. Explain that deepfakes of real people can be harassment and have legal consequences.</button>
+    <button class="quiz-opt" onclick="qz(this,false,'b4fb','Being neutral enables harm. If someone asks you to participate in something harmful, saying no is the responsible choice.')">Don't do it yourself but don't say anything if they do it</button>
+    <div class="quiz-fb" id="b4fb" role="status" aria-live="polite"></div>
   </div>
 
   <div class="nav-btns">
-    <button class="btn btn-ghost" onclick="goMod(1,2)">&#8592; Back</button>
-    <button class="btn btn-primary" onclick="goMod(1,4)">Next: Stay In Charge &#8594;</button>
+    <button class="btn btn-ghost" onclick="goMod(1,3)">&#8592; Back</button>
+    <button class="btn btn-primary" onclick="goMod(1,5)">Next: Stay In Charge &#8594;</button>
   </div>
 </div>
 
-<div class="mod" id="b4">
+<div class="mod" id="b5">
   <h1>Stay In Charge</h1>
   <p class="subtitle">AI is a tool. You are the thinker. Never reverse that relationship.</p>
 
@@ -473,11 +539,11 @@ body{font-family:var(--font);background:var(--bg);color:var(--text);line-height:
 
   <div class="callout callout-insight">
     <span class="callout-icon">&#127775;</span>
-    <div><strong>Track B Complete!</strong> You can now think critically about AI, verify claims, stay safe, and maintain your independence. Head to Track C for the fun part — creating things with AI!</div>
+    <div><strong>Track B Complete!</strong> You can now avoid vibe learning, think critically about AI, verify claims, stay safe, and maintain your independence. Head to Track C for the fun part — creating things with AI!</div>
   </div>
 
   <div class="nav-btns">
-    <button class="btn btn-ghost" onclick="goMod(1,3)">&#8592; Back</button>
+    <button class="btn btn-ghost" onclick="goMod(1,4)">&#8592; Back</button>
     <button class="btn btn-primary" onclick="switchTrack(2)">Start Track C: Create Cool Stuff &#8594;</button>
   </div>
 </div>
@@ -534,6 +600,22 @@ body{font-family:var(--font);background:var(--bg);color:var(--text);line-height:
     <div style="background:var(--surface);padding:12px;border-radius:var(--radius-sm);border:1px solid var(--border)"><div style="font-size:20px">&#127912;</div><div style="font-size:12px;font-weight:600">Scenes</div></div>
     <div style="background:var(--surface);padding:12px;border-radius:var(--radius-sm);border:1px solid var(--border)"><div style="font-size:20px">&#127908;</div><div style="font-size:12px;font-weight:600">Voice</div></div>
     <div style="background:var(--surface);padding:12px;border-radius:var(--radius-sm);border:1px solid var(--border)"><div style="font-size:20px">&#127916;</div><div style="font-size:12px;font-weight:600">Edit</div></div>
+  </div>
+
+  <div class="card" style="border-left:3px solid var(--accent)">
+    <p style="font-size:14px;color:var(--muted);margin-bottom:8px">This example is in Chinese Traditional, so students should turn on captions if needed. It is a concrete workflow for using AI to create HTML/CSS animations for presentations, YouTube, or class explainers.</p>
+
+    <h2 style="margin-top:0;margin-bottom:12px">&#127916; My Complete AI Animation Workflow (14:22)</h2>
+    <div style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:var(--radius-sm);margin-bottom:16px">
+      <iframe src="https://www.youtube.com/embed/a0U62XeQqig" title="My complete AI animation workflow" frameborder="0" allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture" allowfullscreen style="position:absolute;top:0;left:0;width:100%;height:100%"></iframe>
+    </div>
+
+    <h3 style="margin-top:16px;margin-bottom:8px">Steal The Workflow</h3>
+    <div class="card-grid">
+      <div class="info-card"><div class="ic">&#128221;</div><h4>Prompt the scene</h4><p>Describe the concept, motion, color, and teaching goal before generating code.</p></div>
+      <div class="info-card"><div class="ic">&#127912;</div><h4>Polish the look</h4><p>Use fonts and color tools to make class visuals feel intentional.</p></div>
+      <div class="info-card"><div class="ic">&#127909;</div><h4>Export for class</h4><p>Record or convert the animation into media that works in slides or videos.</p></div>
+    </div>
   </div>
 
   <h2>Video Storyboard Builder</h2>
@@ -615,7 +697,7 @@ body{font-family:var(--font);background:var(--bg);color:var(--text);line-height:
 <script>
 const tracks=[
   {id:'track0',mods:['a0','a1','a2','a3','a4'],titles:['Don\'t Outsource','Socratic Tutor','Deep Prompts','Fatigue','My System']},
-  {id:'track1',mods:['b0','b1','b2','b3','b4'],titles:['Define Problem','Check Claims','AI Hype','Safety','Stay In Charge']},
+  {id:'track1',mods:['b0','b1','b2','b3','b4','b5'],titles:['Vibe Trap','Define Problem','Check Claims','AI Hype','Safety','Stay In Charge']},
   {id:'track2',mods:['c0','c1','c2'],titles:['Game Design','Video Plan','Story Writing']},
 ];
 let currentTrack=0,currentMods=[0,0,0];

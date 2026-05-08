@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>How AI Works - LLM Background Knowledge</title>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#08081a;--surface:#111128;--surface2:#1a1a3e;--text:#eeeef5;--muted:#8888aa;
+  --blue:#3b82f6;--blue-light:#93c5fd;
+  --purple:#7c3aed;--purple-light:#a78bfa;
+  --cyan:#06b6d4;--cyan-light:#67e8f9;
+  --green:#10b981;--green-light:#6ee7b7;
+  --border:rgba(255,255,255,0.06);--shadow:0 4px 24px rgba(0,0,0,0.4);
+  --radius:16px;--radius-sm:10px;
+  --font:'Inter',system-ui,-apple-system,sans-serif;
+}
+body{font-family:var(--font);background:var(--bg);color:var(--text);line-height:1.7;font-size:16px;min-height:100vh}
+.topnav{background:#08081a;border-bottom:1px solid var(--border);padding:8px 24px;display:flex;align-items:center;gap:16px;font-size:13px;overflow-x:auto;white-space:nowrap}
+.topnav a{text-decoration:none}
+.container{max-width:800px;margin:0 auto;padding:40px 24px 80px}
+h1{font-size:32px;font-weight:800;margin-bottom:8px;background:linear-gradient(135deg,var(--blue-light),var(--purple-light),var(--cyan-light));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.subtitle{color:var(--muted);font-size:16px;margin-bottom:40px}
+.video-section{margin-bottom:48px}
+.video-section h2{font-size:22px;font-weight:700;margin-bottom:8px;display:flex;align-items:center;gap:10px}
+.video-section .step-badge{display:inline-flex;align-items:center;justify-content:center;width:32px;height:32px;border-radius:50%;font-size:14px;font-weight:700;flex-shrink:0}
+.video-section .desc{color:rgba(255,255,255,0.75);font-size:15px;margin-bottom:16px}
+.video-embed{position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:var(--radius-sm);margin-bottom:16px}
+.video-embed iframe{position:absolute;top:0;left:0;width:100%;height:100%}
+.watch-for{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:12px;margin-top:16px}
+.watch-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-sm);padding:16px;transition:all 0.2s}
+.watch-card:hover{border-color:var(--purple);transform:translateY(-2px)}
+.watch-card .ic{font-size:22px;margin-bottom:6px}
+.watch-card h4{font-size:14px;font-weight:600;margin-bottom:4px}
+.watch-card p{font-size:13px;color:var(--muted);margin:0}
+.connector{text-align:center;margin:32px 0;color:var(--muted);font-size:28px}
+.callout{padding:16px 20px;border-radius:var(--radius-sm);margin:24px 0;display:flex;gap:12px;font-size:15px;border:1px solid;background:rgba(124,58,237,0.1);border-color:rgba(124,58,237,0.3)}
+.callout-icon{font-size:20px;flex-shrink:0}
+.back-link{display:inline-flex;align-items:center;gap:8px;padding:12px 28px;border-radius:var(--radius-sm);font-size:15px;font-weight:600;text-decoration:none;background:var(--purple);color:#fff;transition:all 0.2s;margin-top:24px}
+.back-link:hover{background:#6d28d9;transform:scale(1.02)}
+@media(max-width:600px){.watch-for{grid-template-columns:1fr}h1{font-size:24px}}
+</style>
+</head>
+<body>
+<nav class="topnav">
+  <a href="index.html" style="color:#a78bfa;font-weight:700">AI Engineering Academy</a>
+  <a href="claude-code-course.html" style="color:#8888aa">Course 1</a>
+  <a href="agentic-engineering-quest.html" style="color:#8888aa">Course 2</a>
+  <a href="skills-lab.html" style="color:#8888aa">Course 3</a>
+  <a href="ai-life-skills.html" style="color:#8888aa">Course 4</a>
+  <a href="case-study.html" style="color:#8888aa">Behind the Scenes</a>
+</nav>
+
+<div class="container">
+  <h1>How AI Actually Works</h1>
+  <p class="subtitle">Three videos that build your intuition for what happens inside an LLM &mdash; no math required, just watch in order.</p>
+
+  <!-- VIDEO 1: LLM Architectures (D) -->
+  <div class="video-section">
+    <h2><span class="step-badge" style="background:rgba(59,130,246,0.2);color:var(--blue-light)">1</span> The Surprisingly Simple Idea Behind Every LLM</h2>
+    <p class="desc">Start here. Modern LLM chatbots like ChatGPT, Claude, and Gemini generate responses by predicting the next token, one step at a time. This video makes that idea concrete and visual.</p>
+    <div class="video-embed">
+      <iframe src="https://www.youtube.com/embed/SHAI7pG3qI8" title="The Surprisingly Simple Idea Behind Every LLM" frameborder="0" allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture" allowfullscreen></iframe>
+    </div>
+    <p style="font-size:13px;color:var(--muted)">14:34 &middot; Attention Visualized &middot; 30K+ views</p>
+    <div class="watch-for">
+      <div class="watch-card"><div class="ic">&#128172;</div><h4>Autocomplete on steroids</h4><p>LLMs choose the most probable next token &mdash; that's it.</p></div>
+      <div class="watch-card"><div class="ic">&#127919;</div><h4>Probability, not truth</h4><p>Output is shaped by patterns in training data, not direct access to facts.</p></div>
+      <div class="watch-card"><div class="ic">&#128260;</div><h4>One word at a time</h4><p>ChatGPT streams because it literally computes one token per step.</p></div>
+    </div>
+  </div>
+
+  <div class="connector">&#8595;</div>
+
+  <!-- VIDEO 2: Pretraining (A) -->
+  <div class="video-section">
+    <h2><span class="step-badge" style="background:rgba(124,58,237,0.2);color:var(--purple-light)">2</span> The $5 Million Reading Game Behind Every AI</h2>
+    <p class="desc">Now that you know LLMs predict the next word, where do they learn those patterns? This video shows the pretraining process: how 15 trillion words get curated, cleaned, and fed to GPUs for months.</p>
+    <div class="video-embed">
+      <iframe src="https://www.youtube.com/embed/oIIkVBEr6ww" title="The $5 Million Reading Game Behind Every AI - Pretraining" frameborder="0" allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture" allowfullscreen></iframe>
+    </div>
+    <p style="font-size:13px;color:var(--muted)">15:53 &middot; Attention Visualized &middot; 3.8K views</p>
+    <div class="watch-for">
+      <div class="watch-card"><div class="ic">&#128218;</div><h4>The patient reader</h4><p>A model that covers up the next word and guesses &mdash; 15 trillion times.</p></div>
+      <div class="watch-card"><div class="ic">&#128465;</div><h4>Data curation</h4><p>100TB of raw web crawl gets filtered down to 6.8TB of clean training text.</p></div>
+      <div class="watch-card"><div class="ic">&#128187;</div><h4>Scale</h4><p>Thousands of GPUs running for months. No teacher &mdash; just text.</p></div>
+    </div>
+  </div>
+
+  <div class="connector">&#8595;</div>
+
+  <!-- VIDEO 3: Self-Attention (C) -->
+  <div class="video-section">
+    <h2><span class="step-badge" style="background:rgba(6,182,212,0.2);color:var(--cyan-light)">3</span> Self-Attention: How Transformers Actually Work</h2>
+    <p class="desc">The deepest dive. Self-attention is the core mechanism that lets every word in a sentence look at every other word simultaneously. This is what makes modern AI different from everything that came before.</p>
+    <div class="video-embed">
+      <iframe src="https://www.youtube.com/embed/vkhPtpUiLd8" title="Self-Attention Explained: How Transformers Actually Work" frameborder="0" allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture" allowfullscreen></iframe>
+    </div>
+    <p style="font-size:13px;color:var(--muted)">13:01 &middot; Visual AI &middot; 19K+ views</p>
+    <div class="watch-for">
+      <div class="watch-card"><div class="ic">&#128279;</div><h4>Words talk to words</h4><p>Every word queries every other word to understand meaning in context.</p></div>
+      <div class="watch-card"><div class="ic">&#129504;</div><h4>Q, K, V</h4><p>Query, Key, Value &mdash; three projections that compute relevance between words.</p></div>
+      <div class="watch-card"><div class="ic">&#128161;</div><h4>Why it matters</h4><p>Self-attention solved the long-range dependency problem that held AI back for years.</p></div>
+    </div>
+  </div>
+
+  <div class="connector">&#8595;</div>
+
+  <!-- VIDEO 4: Stanford AI Systems (E) -->
+  <div class="video-section">
+    <h2><span class="step-badge" style="background:rgba(16,185,129,0.2);color:var(--green-light)">4</span> The Full Picture: From LLM to Agentic Workflow</h2>
+    <p class="desc">Now that you understand how LLMs work, see how engineers build real products on top of them. This Stanford course summary covers the full technology stack from base models to multi-agent systems.</p>
+    <div style="background:rgba(245,158,11,0.1);border:1px solid rgba(245,158,11,0.3);border-radius:var(--radius-sm);padding:12px 16px;margin-bottom:16px;font-size:14px">
+      <strong>Language note:</strong> This video is in Chinese (Mandarin). To watch with English subtitles: <strong>1)</strong> Click the <strong>CC</strong> button (bottom-right of the video player) to turn on captions. <strong>2)</strong> Click the <strong>gear icon</strong> (&#9881;) next to CC. <strong>3)</strong> Select <strong>Subtitles/CC</strong>. <strong>4)</strong> Select <strong>Auto-translate</strong>. <strong>5)</strong> Choose <strong>English</strong>.
+    </div>
+    <div class="video-embed">
+      <iframe src="https://www.youtube.com/embed/eKW9ITaltWw" title="Stanford AI Systems Course Summary - From LLM to Agentic Workflow" frameborder="0" allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture" allowfullscreen></iframe>
+    </div>
+    <p style="font-size:13px;color:var(--muted)">27:24 &middot; Gary Chen &middot; 58K+ views &middot; Based on Stanford's "Beyond LLM" course</p>
+
+    <h3 style="font-size:17px;font-weight:600;margin:20px 0 12px">Topics Covered (English Summary)</h3>
+    <div class="watch-for">
+      <div class="watch-card"><div class="ic">&#128683;</div><h4>LLM Limitations</h4><p>No domain knowledge, outdated info, hard to control, struggles with long context.</p></div>
+      <div class="watch-card"><div class="ic">&#128221;</div><h4>Prompt Engineering</h4><p>A core skill for every AI user. Includes two usage styles: delegating whole tasks vs. collaborating step by step.</p></div>
+      <div class="watch-card"><div class="ic">&#128269;</div><h4>RAG</h4><p>Retrieval-Augmented Generation &mdash; give the model access to your own documents.</p></div>
+      <div class="watch-card"><div class="ic">&#9881;</div><h4>Fine-Tuning</h4><p>Train the model on your data to specialize it for specific tasks.</p></div>
+      <div class="watch-card"><div class="ic">&#129302;</div><h4>Agentic Workflow</h4><p>LLMs that can plan, use tools, and take actions &mdash; not just answer questions.</p></div>
+      <div class="watch-card"><div class="ic">&#128101;</div><h4>Multi-Agent</h4><p>Multiple AI agents collaborating on complex tasks, each with a specialized role.</p></div>
+    </div>
+  </div>
+
+  <div class="callout">
+    <span class="callout-icon">&#127891;</span>
+    <div><strong>These videos are optional enrichment.</strong> You do not need to understand transformer internals to use AI effectively. But knowing what's happening under the hood makes you a sharper, more critical AI user.</div>
+  </div>
+
+  <a href="ai-life-skills.html" class="back-link">&#8592; Back to AI Life Skills</a>
+</div>
+</body>
+</html>

@@ -141,9 +141,82 @@ body{font-family:var(--font);background:var(--bg);color:var(--text);line-height:
   .hero-stats-bar{position:relative;bottom:auto;left:auto;transform:none;margin-top:24px;flex-wrap:wrap;justify-content:center}
 }
 @media(prefers-reduced-motion:reduce){*{animation:none!important;transition-duration:0.01ms!important}}
+
+/* ===== CONSENT MODAL ===== */
+.consent-overlay{position:fixed;inset:0;z-index:9999;background:rgba(8,8,26,0.92);backdrop-filter:blur(8px);display:flex;align-items:center;justify-content:center;padding:24px;overflow-y:auto}
+.consent-overlay.hidden{display:none}
+.consent-card{max-width:720px;width:100%;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:40px;max-height:90vh;overflow-y:auto;box-shadow:0 16px 64px rgba(0,0,0,0.6)}
+.consent-card h2{text-align:center;font-size:20px;font-weight:800;color:var(--purple-light);margin-bottom:4px;text-transform:uppercase;letter-spacing:1px}
+.consent-card .consent-subtitle{text-align:center;font-size:15px;font-weight:600;margin-bottom:20px}
+.consent-card .consent-pi{font-size:14px;margin-bottom:6px}
+.consent-card .consent-pi strong{color:var(--text)}
+.consent-card .consent-intro{font-size:14px;margin:12px 0 20px;color:var(--muted)}
+.consent-card h3{font-size:15px;font-weight:700;color:var(--purple-light);margin:20px 0 8px}
+.consent-card p,.consent-card li{font-size:14px;color:rgba(255,255,255,0.8);line-height:1.7}
+.consent-card ul{margin:8px 0 8px 24px}
+.consent-card li{margin-bottom:4px}
+.consent-btn{display:block;margin:28px auto 0;padding:14px 40px;border-radius:var(--radius-sm);font-size:16px;font-weight:700;border:none;cursor:pointer;background:var(--purple);color:#fff;font-family:var(--font);transition:all 0.2s}
+.consent-btn:hover{transform:scale(1.02)}
+#consentAccept:hover{background:#059669}
+#consentDecline:hover{background:rgba(239,68,68,0.15)}
 </style>
 </head>
 <body>
+
+<!-- CONSENT MODAL -->
+<div class="consent-overlay" id="consentOverlay">
+  <div class="consent-card">
+    <h2>Informed Consent for Research Participation</h2>
+    <p class="consent-subtitle">Improving Efficiency in Higher Education through Customized AI Training</p>
+
+    <p class="consent-pi"><strong>Principal Investigator:</strong> Weihao Qu, Phone: 732-263-5396, Email: wqu@monmouth.edu</p>
+    <p class="consent-pi"><strong>Co-Investigator:</strong> Ling Zheng, Phone: 732-571-4459, Email: lzheng@monmouth.edu</p>
+
+    <p class="consent-intro">You are being asked to be a participant in a research study.</p>
+
+    <h3>What is the purpose of this study?</h3>
+    <p>The purpose of this study is about how artificial intelligence (AI) tools can be used to improve efficiency in learning, studying, and working at a mid-sized college. The goal of this project is to design and test customized AI training workshops, one-on-one sessions, and online modules for students, staff, and faculty.</p>
+
+    <h3>What will you have to do, if you agree to be in the study?</h3>
+    <p>If you agree to be in this study, your part will involve:</p>
+    <ul>
+      <li>Finish an online pre-assessment on your own AI tool knowledge before the training session when you book the training.</li>
+      <li>Attend a one-on-one training session (about 45&ndash;60 minutes).</li>
+      <li>Complete a short survey (5&ndash;10 minutes) at the end of the training session.</li>
+      <li>Receive a follow-up survey about one month later (5&ndash;10 minutes).</li>
+    </ul>
+    <p>Your total participation time will be about 55&ndash;70 minutes.</p>
+
+    <h3>Are there any possible risks to being in this study?</h3>
+    <p>If you agree to be in this study, there are no foreseeable risks to you, above those that you experience in your daily life.</p>
+
+    <h3>Are there any possible benefits to being in this study?</h3>
+    <p>There is no direct benefit to you by participating in this study.</p>
+
+    <h3>How will your study information be protected?</h3>
+    <p>Your name will not be linked in any way to the information you provide. Neither IP addresses nor any other identifiable information will be collected. The registered email will be collected during the one-on-one training in order to contact the participants with the post survey.</p>
+    <p>Data will be collected using the Internet; no guarantees can be made regarding the interception of data sent via the Internet by any third party. Confidentiality will be maintained to the degree permitted by the technology used.</p>
+    <p>Your information will be viewed by the study team and other people within Monmouth University who help administer and oversee research. If information from this study is published or presented at scientific meetings, your name and other identifiable information will not be used.</p>
+
+    <h3>Important Contact Information</h3>
+    <p>Please contact Dr. Weihao Qu at 732-263-5396 or via e-mail at wqu@monmouth.edu if you have any questions about the study, or if you believe you have experienced harm or injury as a result of being in this study.</p>
+    <p>If your participation in this research study has caused you to feel uncomfortable in any way, or if by participating in this research study it has prompted you to consider personal matters about which you are concerned, we encourage you to immediately stop participating in this research study and strongly encourage you to contact support services. If you are a Monmouth University student, you can contact Monmouth University's Counseling and Psychological Services (CPS) to schedule a confidential appointment to speak to a counselor at 732-571-7517. If you are a Monmouth University employee, you can contact Monmouth University's Employee Assistance Program (EAP) at their confidential intake number at 1-800-300-0628. If you are a member of the general public, you may contact your local community mental health center or the National Helpline of the Substance Abuse and Mental Health Services Administration (SAMHSA) at 1-800-662-HELP (4357) &mdash; a free, confidential, 24/7 resource for individuals seeking counseling or mental health support.</p>
+    <p>In addition, for any questions about your rights as a research participant, please contact the Monmouth University Institutional Review Board via e-mail at IRB@monmouth.edu.</p>
+
+    <h3>Your participation is voluntary!</h3>
+    <p>Your participation in this study is voluntary. You may decide not to participate at all or, if you start the study, you may withdraw at any time without any penalty. Withdrawal or refusing to participate will not affect your relationship with Monmouth University in any way.</p>
+
+    <div style="background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.15);border-radius:var(--radius-sm);padding:16px 20px;margin:20px 0">
+      <p style="margin-bottom:8px"><strong>If you click 'I ACCEPT' below, it means that you have (a) read this consent form, (b) you agree to be a participant in this study, and (c) you are over 18 years old.</strong></p>
+      <p style="margin:0">If you click 'I DO NOT ACCEPT', you will still go through the steps listed within the purpose of the study, but your data will not be used for research purposes.</p>
+    </div>
+
+    <div style="display:flex;gap:16px;margin-top:24px">
+      <button class="consent-btn" id="consentDecline" style="flex:1;background:transparent;border:2px solid var(--danger);color:var(--danger)">I DO NOT ACCEPT</button>
+      <button class="consent-btn" id="consentAccept" style="flex:1;background:var(--green)">I ACCEPT</button>
+    </div>
+  </div>
+</div>
 
 <!-- SVG Gooey Filter + Icon Symbols -->
 <svg class="svg-filters" aria-hidden="true"><defs>
@@ -287,6 +360,7 @@ body{font-family:var(--font);background:var(--bg);color:var(--text);line-height:
     <div class="feature"><div class="feature-icon">&#128218;</div><h4>Research-Backed</h4><p>Drawn from 161 wiki entries on Claude Code and agent design.</p></div>
     <div class="feature"><div class="feature-icon">&#128190;</div><h4>Progress Saved Locally</h4><p>XP and capstone work saved in your browser.</p></div>
     <div class="feature"><div class="feature-icon">&#128640;</div><h4>Beginner to Architect</h4><p>Four courses from "what's a terminal" to multi-agent systems.</p></div>
+    <a class="feature" href="llm-background.html" style="text-decoration:none;color:inherit;display:block"><div class="feature-icon">&#129504;</div><h4>How AI Works</h4><p>Optional deep dive: pretraining, self-attention, and LLM architecture explained visually.</p></a>
   </div>
 
   <!-- CASE STUDY PROMO -->
@@ -522,6 +596,25 @@ if (localStorage.getItem('learnai-motion') === 'off') {
   motionBtn.textContent = 'Motion: Off';
   stopParticles();
 }
+
+// ===== CONSENT GATE =====
+const consentOverlay = document.getElementById('consentOverlay');
+const mainContent = document.getElementById('mainContent');
+if (localStorage.getItem('learnai-consent')) {
+  consentOverlay.classList.add('hidden');
+} else {
+  mainContent.style.display = 'none';
+}
+document.getElementById('consentAccept').addEventListener('click', () => {
+  localStorage.setItem('learnai-consent', 'accepted');
+  consentOverlay.classList.add('hidden');
+  mainContent.style.display = '';
+});
+document.getElementById('consentDecline').addEventListener('click', () => {
+  localStorage.setItem('learnai-consent', 'declined');
+  consentOverlay.classList.add('hidden');
+  mainContent.style.display = '';
+});
 
 // ===== INIT =====
 requestAnimationFrame(() => { resizeCanvas(); positionNodes(); });
