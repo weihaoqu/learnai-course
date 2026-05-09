@@ -692,7 +692,7 @@ function switchTrack(t){
   document.getElementById(tracks[t].id).classList.add('active');
   document.querySelectorAll('.track-tab').forEach((el,i)=>{el.classList.toggle('active',i===t)});
   buildModNav(t);
-  goMod(t,currentMods[t]);
+  showMod(t,currentMods[t]);
 }
 
 // ===== MODULE NAV =====
@@ -704,12 +704,10 @@ function buildModNav(t){
   }).join('');
 }
 
-function goMod(t,m){
-  currentTrack=t;currentMods[t]=m;
-  switchTrack(t);
-  const track=tracks[t];
-  document.querySelectorAll(`#${track.id} .mod`).forEach(el=>el.classList.remove('active'));
-  document.getElementById(track.mods[m]).classList.add('active');
+function goMod(t,m){currentTrack=t;currentMods[t]=m;switchTrack(t)}
+function showMod(t,m){
+  document.querySelectorAll(`#${tracks[t].id} .mod`).forEach(el=>el.classList.remove('active'));
+  document.getElementById(tracks[t].mods[m]).classList.add('active');
   buildModNav(t);
   window.scrollTo({top:0,behavior:'smooth'});
 }
