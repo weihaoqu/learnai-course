@@ -303,13 +303,11 @@ body{font-family:var(--font);background:var(--bg);color:var(--text);line-height:
     <div class="tl-time">Step 17 — Video Content, IRB Consent &amp; QA Audit</div>
     <h4>Making It Real for Research</h4>
     <div class="prompt-bubble">"i want to add a few more contents, but they are video links, help me with that."</div>
-    <div class="prompt-bubble">"i want to have a informed consent form appeared before any content first"</div>
     <div class="prompt-bubble">"one of the tester tells me some buttons go to the link that is not available. I want you and codex to work together to audit the learnai course web app."</div>
     <div class="prompt-bubble">"can you use necessary skill to find necessary contents I am missing for the tool."</div>
     <p>The biggest expansion session. Q provided 12 YouTube links; Claude analyzed each video's transcript, and Codex reviewed placement decisions. 12 videos were embedded across all pages: an "AI for beginners" intro on the landing page, Claude Code and visual workflow demos in Course 1, an optional AI agent builder in Course 2, the "vibe learning" warning and LLM explainer in Course 4, and a dedicated "How AI Actually Works" background page with 4 progressive videos (including a Chinese Stanford course summary with English subtitle instructions).</p>
-    <p>An IRB-compliant informed consent/assent form was added as a modal gate on the landing page (FA 2562 Amended), with full study procedure, MY-CC disclosure, and voluntary participation language. A Chinese prompt engineering tutorial was adapted into a downloadable cheat sheet for Course 3. A "How This Study Works" procedure section was added for parents and students.</p>
-    <p>Codex then ran a full QA audit simulating two student paths and found a <strong>critical infinite recursion bug</strong> in Course 3's navigation — <code>switchTrack()</code> and <code>goMod()</code> called each other endlessly, crashing the browser on any button click. Fixed by extracting a separate <code>showMod()</code> function. Also fixed a missing JS function reference, an HTML injection vulnerability, and a placeholder link.</p>
-    <span class="tl-artifact">12 videos + IRB consent + cheat sheet + critical bug fix + QA audit</span>
+    <p>A Chinese prompt engineering tutorial was adapted into a downloadable cheat sheet for Course 3. Codex then ran a full QA audit simulating two student paths and found a <strong>critical infinite recursion bug</strong> in Course 3's navigation — <code>switchTrack()</code> and <code>goMod()</code> called each other endlessly, crashing the browser on any button click. Fixed by extracting a separate <code>showMod()</code> function. Also fixed a missing JS function reference, an HTML injection vulnerability, and a placeholder link.</p>
+    <span class="tl-artifact">12 videos + cheat sheet + critical bug fix + QA audit</span>
   </div>
 </div>
 
@@ -412,7 +410,6 @@ body{font-family:var(--font);background:var(--bg);color:var(--text);line-height:
       <li>Caught when Codex review was skipped</li>
       <li>Defined the pedagogical philosophy</li>
       <li>Curated 12 video links and decided which to include</li>
-      <li>Wrote IRB consent text and study procedure</li>
       <li>Recruited testers and reported bugs</li>
     </ul>
   </div>
@@ -430,7 +427,6 @@ body{font-family:var(--font);background:var(--bg);color:var(--text);line-height:
       <li>Generated impressionist painting background</li>
       <li>Fixed dozens of bugs and issues across multiple review rounds</li>
       <li>Analyzed 12 YouTube video transcripts and recommended placements</li>
-      <li>Built IRB-compliant consent form with study procedure</li>
       <li>Ran full QA audit simulating student walkthroughs — caught critical recursion bug</li>
       <li>Searched the web for content gaps and recommended new videos</li>
     </ul>
