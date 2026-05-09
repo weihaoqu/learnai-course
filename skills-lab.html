@@ -450,7 +450,7 @@ body{font-family:var(--font);background:var(--bg);color:var(--text);line-height:
 
   <div class="builder">
     <label>Project type:</label>
-    <select id="ln-type" style="width:100%;padding:10px;background:var(--surface2);border:1px solid var(--border);border-radius:var(--radius-sm);color:var(--text);font-size:14px;margin:8px 0" onchange="updateTemplate()">
+    <select id="ln-type" style="width:100%;padding:10px;background:var(--surface2);border:1px solid var(--border);border-radius:var(--radius-sm);color:var(--text);font-size:14px;margin:8px 0">
       <option value="essay">Essay / Research Paper</option>
       <option value="website">Website / App</option>
       <option value="science">Science Project</option>
@@ -760,7 +760,8 @@ function generatePrompt(){
   const fwName={'break':'Break It Down','scratch':'Start From Scratch','research':'Research Mode','blueprint':'Blueprint Mode','coach':'Prompt Coach','expert':'Expert Lens','debate':'Debate Partner'}[fw]||'General';
   const prompt=`Goal: ${goal}\n\nFramework: ${fwName}\n\nContext: ${ctx}\n\nOutput format: ${fmt}\n\nInstructions: Using the ${fwName} approach, help me achieve my goal. Be specific, structured, and thorough.`;
   document.getElementById('pb-output').style.display='block';
-  document.getElementById('pb-result').innerHTML=`<div class="tl"><span class="th">Your generated prompt:</span></div><div class="tl"><span class="tc">${prompt.replace(/\n/g,'</span></div><div class="tl"><span class="tc">')}</span></div>`;
+  const esc=s=>s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+  document.getElementById('pb-result').innerHTML=`<div class="tl"><span class="th">Your generated prompt:</span></div><div class="tl"><span class="tc">${esc(prompt).replace(/\n/g,'</span></div><div class="tl"><span class="tc">')}</span></div>`;
   addXP(20);
 }
 function exportPrompt(){
