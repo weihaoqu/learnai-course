@@ -254,6 +254,12 @@ body{font-family:var(--font);background:var(--bg);color:var(--text);line-height:
   <symbol id="ico-compass" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
     <circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76" fill="currentColor" opacity="0.3" stroke="currentColor"/>
   </symbol>
+  <!-- Graduate Track: cap -->
+  <symbol id="ico-graduate" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M22 10L12 5 2 10l10 5 10-5z"/>
+    <path d="M6 12v5c0 1.7 2.7 3 6 3s6-1.3 6-3v-5"/>
+    <path d="M22 10v6"/>
+  </symbol>
   <!-- Post-test: medal -->
   <symbol id="ico-medal" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
     <path d="M7.21 15L2.66 7.14a2 2 0 0 1 .13-2.2L4.4 2.8A2 2 0 0 1 6 2h12a2 2 0 0 1 1.6.8l1.6 2.14a2 2 0 0 1 .14 2.2L16.79 15"/>
@@ -480,6 +486,11 @@ const courses = [
     desc:'Master AI-powered study techniques, learn to verify claims and stay independent, then create games, videos, and stories.',
     tags:['Essential','3 Tracks','13 Modules'],stats:['Study smarter','Create freely'],
     href:'ai-life-skills.html', btnText:'Start Life Skills', btnColor:'var(--green)'},
+  {id:'grad', svgId:'ico-graduate', label:'Advanced', color:'cyan', step:'G',
+    title:'Graduate Track: Advanced AI Engineering', sub:'20 phases &middot; 416 lessons &middot; ~320 hours',
+    desc:'A professor-ready graduate CS/SE syllabus based on Rohit Ghumare\'s MIT-licensed AI Engineering from Scratch curriculum, organized into four semesters from foundations to production capstone.',
+    tags:['Graduate','CS/SE','Professor Guide'],stats:['4 semesters','20 phases'],
+    href:'advanced.html', btnText:'View Graduate Track', btnColor:'var(--cyan)'},
   {id:'case', svgId:'ico-test', iconImg:'icon-casestudy.png', label:'Case Study', color:'orange', step:6,
     title:'Behind the Scenes: How This Was Built', sub:'Real prompts, real decisions',
     desc:'See every step of how a professor and AI built this entire 47-module academy from scratch in one session. Includes all real prompts, design tradeoffs, mistakes, and lessons learned.',
@@ -507,7 +518,8 @@ courses.forEach((c, i) => {
   btn.className = 'orbit-node';
   btn.dataset.color = c.color;
   btn.dataset.idx = i;
-  btn.innerHTML = `<img src="${c.iconImg}" alt="${c.label}"><span class="node-badge">${c.step}</span><span class="orbit-node-label">${c.label}</span>`;
+  const icon = c.iconImg ? `<img src="${c.iconImg}" alt="${c.label}">` : `<svg aria-hidden="true"><use href="#${c.svgId}"></use></svg>`;
+  btn.innerHTML = `${icon}<span class="node-badge">${c.step}</span><span class="orbit-node-label">${c.label}</span>`;
   btn.setAttribute('aria-label', c.title);
   btn.addEventListener('click', () => selectNode(i));
   stage.appendChild(btn);
