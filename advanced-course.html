@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Advanced AI Engineering Course - Graduate CS/SE</title>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#08081a;--surface:#111128;--surface2:#1a1a3e;--text:#eeeef5;--muted:#8888aa;
+  --blue:#3b82f6;--blue-light:#93c5fd;--purple:#7c3aed;--purple-light:#a78bfa;
+  --cyan:#06b6d4;--cyan-light:#67e8f9;--green:#10b981;--green-light:#6ee7b7;
+  --gold:#fbbf24;--orange:#f59e0b;--danger:#ef4444;
+  --border:rgba(255,255,255,0.08);--shadow:0 4px 24px rgba(0,0,0,0.4);
+  --radius:16px;--radius-sm:10px;
+  --font:'Inter',system-ui,-apple-system,sans-serif;
+}
+html{scroll-behavior:smooth}
+body{font-family:var(--font);background:var(--bg);color:var(--text);line-height:1.7;font-size:16px;min-height:100vh}
+a{color:var(--cyan-light)}
+
+.topnav{position:sticky;top:0;z-index:100;background:#08081a;border-bottom:1px solid var(--border);padding:8px 24px;display:flex;align-items:center;gap:16px;font-size:13px;overflow-x:auto;white-space:nowrap}
+.topnav a{text-decoration:none;color:var(--muted)}
+.topnav a:first-child{color:var(--purple-light);font-weight:700}
+.topnav a.active{color:var(--text);font-weight:700}
+
+.container{max-width:900px;margin:0 auto;padding:40px 24px 80px}
+
+h1{font-size:32px;font-weight:800;margin-bottom:8px;background:linear-gradient(135deg,var(--blue-light),var(--purple-light),var(--cyan-light));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.subtitle{color:var(--muted);font-size:16px;margin-bottom:32px}
+
+.section-title{margin:40px 0 16px}
+.section-title h2{font-size:24px;font-weight:800;margin-bottom:4px}
+.section-title p{color:var(--muted);font-size:14px}
+
+/* Phase cards */
+.phase-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:24px;margin:16px 0;transition:all 0.2s}
+.phase-card:hover{border-color:rgba(167,139,250,0.4);transform:translateY(-2px)}
+.phase-head{display:flex;justify-content:space-between;align-items:flex-start;gap:16px;margin-bottom:14px}
+.phase-kicker{font-size:12px;font-weight:800;letter-spacing:0.8px;text-transform:uppercase;margin-bottom:4px}
+.phase-card h3{font-size:20px;font-weight:800;line-height:1.25}
+.hours{text-align:right;font-size:12px;color:var(--muted);white-space:nowrap}
+.hours strong{display:block;font-size:18px;color:var(--text)}
+.phase-card h4{font-size:13px;font-weight:800;text-transform:uppercase;letter-spacing:0.7px;color:var(--cyan-light);margin:16px 0 8px}
+.phase-card ul{margin-left:20px;color:rgba(255,255,255,0.76);font-size:14px}
+.phase-card li{margin-bottom:5px}
+.topic-row{display:flex;flex-wrap:wrap;gap:6px;margin:8px 0 16px}
+.chip{padding:4px 10px;border-radius:18px;background:var(--surface2);border:1px solid var(--border);color:var(--muted);font-size:11px;font-weight:700}
+.curriculum-link{display:inline-flex;align-items:center;gap:7px;color:var(--cyan-light);font-size:13px;font-weight:800;text-decoration:none}
+.curriculum-link:hover{text-decoration:underline}
+
+/* Video placeholder */
+.video-placeholder{background:var(--surface2);border:2px dashed rgba(255,255,255,0.12);border-radius:var(--radius-sm);padding:24px;text-align:center;margin:16px 0;color:var(--muted);font-size:14px}
+.video-placeholder .vp-icon{font-size:32px;margin-bottom:8px}
+
+/* Callouts */
+.callout{padding:16px 20px;border-radius:var(--radius-sm);margin:16px 0;display:flex;gap:12px;font-size:14px;border:1px solid}
+.callout-icon{font-size:20px;flex-shrink:0}
+.callout-prereq{background:rgba(245,158,11,0.08);border-color:rgba(245,158,11,0.3)}
+.callout-info{background:rgba(124,58,237,0.08);border-color:rgba(124,58,237,0.3)}
+
+/* Stats bar */
+.stats-bar{display:flex;gap:12px;flex-wrap:wrap;margin:24px 0}
+.stat-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-sm);padding:16px 20px;flex:1;min-width:120px;text-align:center}
+.stat-card strong{display:block;font-size:24px;font-weight:800}
+.stat-card span{font-size:12px;color:var(--muted)}
+
+.source-card{margin-top:40px;background:rgba(124,58,237,0.08);border:1px solid rgba(124,58,237,0.28);border-radius:var(--radius);padding:20px 22px;color:rgba(255,255,255,0.78);font-size:14px}
+.source-card h2{font-size:18px;margin-bottom:8px;color:var(--purple-light)}
+
+.footer{text-align:center;padding:36px 24px;border-top:1px solid var(--border);margin-top:40px}
+.footer p{color:var(--muted);font-size:14px}
+.footer a{color:var(--cyan-light);text-decoration:none}
+
+.back-link{display:inline-flex;align-items:center;gap:8px;padding:12px 28px;border-radius:var(--radius-sm);font-size:15px;font-weight:600;text-decoration:none;background:var(--purple);color:#fff;transition:all 0.2s;margin-top:24px}
+.back-link:hover{background:#6d28d9;transform:scale(1.02)}
+
+@media(max-width:600px){
+  .phase-head{flex-direction:column}
+  .hours{text-align:left}
+  .stats-bar{flex-direction:column}
+}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition-duration:0.01ms!important}}
+</style>
+</head>
+<body>
+<nav class="topnav">
+  <a href="index.html">AI Engineering Academy</a>
+  <a href="claude-code-course.html">Course 1</a>
+  <a href="agentic-engineering-quest.html">Course 2</a>
+  <a href="skills-lab.html">Course 3</a>
+  <a href="ai-life-skills.html">Course 4</a>
+  <a href="advanced-course.html" class="active">Advanced Course</a>
+  <a href="case-study.html">Behind the Scenes</a>
+</nav>
+
+<div class="container">
+  <h1>Advanced AI Engineering Course</h1>
+  <p class="subtitle">A focused, one-semester graduate course for CS/SE students. Build AI agents, design tool protocols, ship responsibly.</p>
+
+  <div class="stats-bar">
+    <div class="stat-card"><strong style="color:var(--purple-light)">4</strong><span>Required Phases</span></div>
+    <div class="stat-card"><strong style="color:var(--cyan-light)">100</strong><span>Core Lessons</span></div>
+    <div class="stat-card"><strong style="color:var(--green-light)">~75</strong><span>Hours</span></div>
+    <div class="stat-card"><strong style="color:var(--gold)">1</strong><span>Semester</span></div>
+  </div>
+
+  <div class="callout callout-prereq">
+    <span class="callout-icon">&#9888;</span>
+    <div><strong>Prerequisites:</strong> This course assumes graduate-level knowledge of data structures, algorithms, Python, linear algebra, ML fundamentals, and deep learning core concepts (Phases 0-3 of the source curriculum). Students needing a refresher should self-study from the <a href="https://github.com/rohitg00/ai-engineering-from-scratch" target="_blank" rel="noopener noreferrer">source repository</a>.</div>
+  </div>
+
+  <!-- ===== OPTIONAL BACKGROUND ===== -->
+  <div class="section-title">
+    <h2>Optional Background (Self-Study)</h2>
+    <p>Watch these videos and explore the linked lessons to build deeper intuition before the required phases.</p>
+  </div>
+
+  <article class="phase-card" style="border-left:3px solid var(--blue)">
+    <div class="phase-head">
+      <div>
+        <div class="phase-kicker" style="color:var(--blue-light)">Phase 7 &mdash; Optional</div>
+        <h3>Transformers Deep Dive</h3>
+      </div>
+      <div class="hours"><strong>14</strong>lessons</div>
+    </div>
+    <h4>What You'll Understand</h4>
+    <ul>
+      <li>Self-attention, multi-head attention, positional encoding, and layer normalization from first principles.</li>
+      <li>How encoder-only, decoder-only, and encoder-decoder architectures differ and when to use each.</li>
+      <li>The computational and memory costs that drive real engineering decisions.</li>
+    </ul>
+    <h4>Key Topics</h4>
+    <div class="topic-row"><span class="chip">Self-attention</span><span class="chip">Multi-head</span><span class="chip">Positional encoding</span><span class="chip">Layer norm</span><span class="chip">Architectures</span></div>
+    <div class="video-placeholder">
+      <div class="vp-icon">&#127916;</div>
+      <strong>Videos Coming Soon</strong><br>
+      Curated video lectures will be added here.
+    </div>
+    <a class="curriculum-link" href="https://github.com/rohitg00/ai-engineering-from-scratch" target="_blank" rel="noopener noreferrer">View Phase 7 Lessons &rarr;</a>
+  </article>
+
+  <article class="phase-card" style="border-left:3px solid var(--blue)">
+    <div class="phase-head">
+      <div>
+        <div class="phase-kicker" style="color:var(--blue-light)">Phase 10 &mdash; Optional</div>
+        <h3>LLMs from Scratch</h3>
+      </div>
+      <div class="hours"><strong>22</strong>lessons</div>
+    </div>
+    <h4>What You'll Understand</h4>
+    <ul>
+      <li>Construct a small language model pipeline from tokenizer through pretraining loop.</li>
+      <li>Data curation, objective design, context windows, and scaling constraints.</li>
+      <li>Measure perplexity, downstream behavior, and failure modes.</li>
+    </ul>
+    <h4>Key Topics</h4>
+    <div class="topic-row"><span class="chip">Tokenizers</span><span class="chip">Pretraining</span><span class="chip">Datasets</span><span class="chip">Scaling laws</span><span class="chip">Evaluation</span></div>
+    <div class="video-placeholder">
+      <div class="vp-icon">&#127916;</div>
+      <strong>Videos Coming Soon</strong><br>
+      Curated video lectures will be added here.
+    </div>
+    <a class="curriculum-link" href="https://github.com/rohitg00/ai-engineering-from-scratch" target="_blank" rel="noopener noreferrer">View Phase 10 Lessons &rarr;</a>
+  </article>
+
+  <article class="phase-card" style="border-left:3px solid var(--blue)">
+    <div class="phase-head">
+      <div>
+        <div class="phase-kicker" style="color:var(--blue-light)">Phase 11 &mdash; Optional</div>
+        <h3>LLM Engineering</h3>
+      </div>
+      <div class="hours"><strong>15</strong>lessons</div>
+    </div>
+    <h4>What You'll Understand</h4>
+    <ul>
+      <li>Engineer prompts, structured outputs, RAG, fine-tuning, evaluation, and observability loops.</li>
+      <li>Design LLM applications around reliability, latency, cost, and human review.</li>
+      <li>Build test harnesses that expose regression, hallucination, and prompt-injection risks.</li>
+    </ul>
+    <h4>Key Topics</h4>
+    <div class="topic-row"><span class="chip">RAG</span><span class="chip">Fine-tuning</span><span class="chip">Evals</span><span class="chip">Prompting</span><span class="chip">Observability</span></div>
+    <div class="video-placeholder">
+      <div class="vp-icon">&#127916;</div>
+      <strong>Videos Coming Soon</strong><br>
+      Curated video lectures will be added here.
+    </div>
+    <a class="curriculum-link" href="https://github.com/rohitg00/ai-engineering-from-scratch" target="_blank" rel="noopener noreferrer">View Phase 11 Lessons &rarr;</a>
+  </article>
+
+  <!-- ===== REQUIRED COURSE ===== -->
+  <div class="section-title">
+    <h2>Required Course (1 Semester)</h2>
+    <p>The core of the advanced track. These four phases form a complete one-semester graduate course.</p>
+  </div>
+
+  <article class="phase-card" style="border-left:3px solid var(--purple)">
+    <div class="phase-head">
+      <div>
+        <div class="phase-kicker" style="color:var(--purple-light)">Phase 13 &mdash; Required</div>
+        <h3>Tools &amp; Protocols: MCP / A2A</h3>
+      </div>
+      <div class="hours"><strong>~17</strong>hours<br>23 lessons</div>
+    </div>
+    <h4>Learning Objectives</h4>
+    <ul>
+      <li>Design safe tool interfaces, protocol adapters, and agent-to-agent communication contracts.</li>
+      <li>Build MCP-style tool servers with schema discipline, permissions, and auditability.</li>
+      <li>Evaluate protocol choices for portability, security, and operational maintainability.</li>
+    </ul>
+    <h4>Key Topics</h4>
+    <div class="topic-row"><span class="chip">MCP</span><span class="chip">A2A</span><span class="chip">Tool schemas</span><span class="chip">Permissions</span><span class="chip">Contracts</span></div>
+    <a class="curriculum-link" href="https://github.com/rohitg00/ai-engineering-from-scratch" target="_blank" rel="noopener noreferrer">View Phase 13 Lessons &rarr;</a>
+  </article>
+
+  <article class="phase-card" style="border-left:3px solid var(--purple)">
+    <div class="phase-head">
+      <div>
+        <div class="phase-kicker" style="color:var(--purple-light)">Phase 14 &mdash; Required</div>
+        <h3>Agent Engineering</h3>
+      </div>
+      <div class="hours"><strong>~22.5</strong>hours<br>30 lessons</div>
+    </div>
+    <h4>Learning Objectives</h4>
+    <ul>
+      <li>Implement planner, executor, memory, reflection, tool-use, and guardrail patterns.</li>
+      <li>Move beyond demos by measuring task success, recovery, trace quality, and intervention rates.</li>
+      <li>Design agent systems that degrade predictably under uncertainty and tool failure.</li>
+    </ul>
+    <h4>Key Topics</h4>
+    <div class="topic-row"><span class="chip">Planning</span><span class="chip">Memory</span><span class="chip">Tool use</span><span class="chip">Reflection</span><span class="chip">Guardrails</span></div>
+    <a class="curriculum-link" href="https://github.com/rohitg00/ai-engineering-from-scratch" target="_blank" rel="noopener noreferrer">View Phase 14 Lessons &rarr;</a>
+  </article>
+
+  <article class="phase-card" style="border-left:3px solid var(--purple)">
+    <div class="phase-head">
+      <div>
+        <div class="phase-kicker" style="color:var(--purple-light)">Phase 18 &mdash; Required</div>
+        <h3>Ethics, Safety &amp; Alignment</h3>
+      </div>
+      <div class="hours"><strong>~22.5</strong>hours<br>30 lessons</div>
+    </div>
+    <h4>Learning Objectives</h4>
+    <ul>
+      <li>Apply safety engineering to bias, privacy, misuse, prompt injection, autonomy, and governance risks.</li>
+      <li>Design alignment and evaluation practices that are auditable rather than aspirational.</li>
+      <li>Write deployment memos that connect technical mitigations to institutional accountability.</li>
+    </ul>
+    <h4>Key Topics</h4>
+    <div class="topic-row"><span class="chip">Bias</span><span class="chip">Privacy</span><span class="chip">Alignment</span><span class="chip">Red teaming</span><span class="chip">Governance</span></div>
+    <a class="curriculum-link" href="https://github.com/rohitg00/ai-engineering-from-scratch" target="_blank" rel="noopener noreferrer">View Phase 18 Lessons &rarr;</a>
+  </article>
+
+  <article class="phase-card" style="border-left:3px solid var(--purple)">
+    <div class="phase-head">
+      <div>
+        <div class="phase-kicker" style="color:var(--purple-light)">Phase 19 &mdash; Required</div>
+        <h3>Capstone Projects</h3>
+      </div>
+      <div class="hours"><strong>~13</strong>hours<br>17 projects</div>
+    </div>
+    <h4>Learning Objectives</h4>
+    <ul>
+      <li>Deliver a production-grade AI system with architecture, evaluation, safety case, and deployment plan.</li>
+      <li>Defend design choices through demos, postmortems, ablation evidence, and user-centered metrics.</li>
+      <li>Package the final artifact as a portfolio-ready engineering project or research prototype.</li>
+    </ul>
+    <h4>Key Topics</h4>
+    <div class="topic-row"><span class="chip">System design</span><span class="chip">Capstone demo</span><span class="chip">Evaluation report</span><span class="chip">Safety case</span><span class="chip">Portfolio</span></div>
+    <a class="curriculum-link" href="https://github.com/rohitg00/ai-engineering-from-scratch" target="_blank" rel="noopener noreferrer">View Phase 19 Projects &rarr;</a>
+  </article>
+
+  <!-- ===== MORE RESOURCES ===== -->
+  <div class="callout callout-info">
+    <span class="callout-icon">&#128218;</span>
+    <div><strong>Want the full 416-lesson, 4-semester overview?</strong> See the <a href="advanced.html">complete Graduate Track syllabus</a> covering all 20 phases from math foundations to production capstone.</div>
+  </div>
+
+  <section class="source-card">
+    <h2>Source Attribution</h2>
+    <p>Curriculum adapted from Rohit Ghumare's MIT-licensed <em>AI Engineering from Scratch</em>: <a href="https://github.com/rohitg00/ai-engineering-from-scratch" target="_blank" rel="noopener noreferrer">github.com/rohitg00/ai-engineering-from-scratch</a>. Students should consult the original repository for lesson files, code, and updates.</p>
+  </section>
+
+  <a href="index.html" class="back-link">&#8592; Back to Academy</a>
+</div>
+
+<footer class="footer">
+  <p>AI Engineering Academy &mdash; Created by <a href="mailto:wqu@monmouth.edu">Prof. Weihao Qu</a> at Monmouth University</p>
+</footer>
+<script src="wave-bg.js" defer></script>
+</body>
+</html>
