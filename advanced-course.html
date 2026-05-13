@@ -94,204 +94,49 @@ h1{font-size:32px;font-weight:800;margin-bottom:8px;background:linear-gradient(1
   <a href="case-study.html">Behind the Scenes</a>
 </nav>
 
-<div class="container">
-  <h1>Advanced AI Engineering Course</h1>
-  <p class="subtitle">A focused, one-semester graduate course for CS/SE students. Build AI agents, design tool protocols, ship responsibly.</p>
-
-  <div class="stats-bar">
-    <div class="stat-card"><strong style="color:var(--purple-light)">4</strong><span>Required Phases</span></div>
-    <div class="stat-card"><strong style="color:var(--cyan-light)">100</strong><span>Core Lessons</span></div>
-    <div class="stat-card"><strong style="color:var(--green-light)">~75</strong><span>Hours</span></div>
-    <div class="stat-card"><strong style="color:var(--gold)">1</strong><span>Semester</span></div>
-  </div>
-
-  <div class="callout callout-prereq">
-    <span class="callout-icon">&#9888;</span>
-    <div><strong>Prerequisites:</strong> This course assumes graduate-level knowledge of data structures, algorithms, Python, linear algebra, ML fundamentals, and deep learning core concepts (Phases 0-3 of the source curriculum, ~50 hours self-study). Students needing a refresher should self-study from the <a href="https://github.com/rohitg00/ai-engineering-from-scratch" target="_blank" rel="noopener noreferrer">source repository</a>. <a href="#required" style="color:var(--cyan-light);font-weight:700">Jump to Required Phases &darr;</a></div>
-  </div>
-
-  <!-- ===== OPTIONAL BACKGROUND ===== -->
-  <div class="section-title">
-    <h2>Optional Background (Self-Study)</h2>
-    <p>Watch these videos and explore the linked lessons to build deeper intuition before the required phases.</p>
-  </div>
-
-  <article class="phase-card" style="border-left:3px solid var(--blue)">
-    <div class="phase-head">
-      <div>
-        <div class="phase-kicker" style="color:var(--blue-light)">Phase 7 &mdash; Optional</div>
-        <h3>Transformers Deep Dive</h3>
-      </div>
-      <div class="hours"><strong>14</strong>lessons</div>
-    </div>
-    <h4>What You'll Understand</h4>
-    <ul>
-      <li>Self-attention, multi-head attention, positional encoding, and layer normalization from first principles.</li>
-      <li>How encoder-only, decoder-only, and encoder-decoder architectures differ and when to use each.</li>
-      <li>The computational and memory costs that drive real engineering decisions.</li>
-    </ul>
-    <h4>Key Topics</h4>
-    <div class="topic-row"><span class="chip">Self-attention</span><span class="chip">Multi-head</span><span class="chip">Positional encoding</span><span class="chip">Layer norm</span><span class="chip">Architectures</span></div>
-    <h4>Watch</h4>
-    <div style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:var(--radius-sm);margin:8px 0 16px">
-      <iframe src="https://www.youtube.com/embed/vkhPtpUiLd8" title="Self-Attention Explained: How Transformers Actually Work" frameborder="0" allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture" allowfullscreen style="position:absolute;top:0;left:0;width:100%;height:100%"></iframe>
-    </div>
-    <p style="font-size:13px;color:var(--muted)">13:01 &middot; Visual AI &middot; Full visual breakdown of self-attention with animated math.</p>
-    <div style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:var(--radius-sm);margin:16px 0 16px">
-      <iframe src="https://www.youtube.com/embed/iv-5mZ_9CPY" title="But how do AI images and videos actually work?" frameborder="0" allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture" allowfullscreen style="position:absolute;top:0;left:0;width:100%;height:100%"></iframe>
-    </div>
-    <p style="font-size:13px;color:var(--muted)">37:20 &middot; 3Blue1Brown (Welch Labs) &middot; How AI image and video generation actually works.</p>
-    <a class="curriculum-link" href="https://github.com/rohitg00/ai-engineering-from-scratch" target="_blank" rel="noopener noreferrer">View Phase 7 Lessons &rarr;</a>
-  </article>
-
-  <article class="phase-card" style="border-left:3px solid var(--blue)">
-    <div class="phase-head">
-      <div>
-        <div class="phase-kicker" style="color:var(--blue-light)">Phase 10 &mdash; Optional</div>
-        <h3>LLMs from Scratch</h3>
-      </div>
-      <div class="hours"><strong>22</strong>lessons</div>
-    </div>
-    <h4>What You'll Understand</h4>
-    <ul>
-      <li>Construct a small language model pipeline from tokenizer through pretraining loop.</li>
-      <li>Data curation, objective design, context windows, and scaling constraints.</li>
-      <li>Measure perplexity, downstream behavior, and failure modes.</li>
-    </ul>
-    <h4>Key Topics</h4>
-    <div class="topic-row"><span class="chip">Tokenizers</span><span class="chip">Pretraining</span><span class="chip">Datasets</span><span class="chip">Scaling laws</span><span class="chip">Evaluation</span></div>
-    <h4>Watch</h4>
-    <div style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:var(--radius-sm);margin:8px 0 16px">
-      <iframe src="https://www.youtube.com/embed/SHAI7pG3qI8" title="The Surprisingly Simple Idea Behind Every LLM" frameborder="0" allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture" allowfullscreen style="position:absolute;top:0;left:0;width:100%;height:100%"></iframe>
-    </div>
-    <p style="font-size:13px;color:var(--muted)">14:34 &middot; Attention Visualized &middot; How LLMs predict the next token, one step at a time.</p>
-    <div style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:var(--radius-sm);margin:16px 0 16px">
-      <iframe src="https://www.youtube.com/embed/aircAruvnKk" title="But what is a neural network? | 3Blue1Brown" frameborder="0" allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture" allowfullscreen style="position:absolute;top:0;left:0;width:100%;height:100%"></iframe>
-    </div>
-    <p style="font-size:13px;color:var(--muted)">18:40 &middot; 3Blue1Brown &middot; Start here if you're new to neural networks. The best visual intro ever made.</p>
-    <a class="curriculum-link" href="https://github.com/rohitg00/ai-engineering-from-scratch" target="_blank" rel="noopener noreferrer">View Phase 10 Lessons &rarr;</a>
-  </article>
-
-  <article class="phase-card" style="border-left:3px solid var(--blue)">
-    <div class="phase-head">
-      <div>
-        <div class="phase-kicker" style="color:var(--blue-light)">Phase 11 &mdash; Optional</div>
-        <h3>LLM Engineering</h3>
-      </div>
-      <div class="hours"><strong>15</strong>lessons</div>
-    </div>
-    <h4>What You'll Understand</h4>
-    <ul>
-      <li>Engineer prompts, structured outputs, RAG, fine-tuning, evaluation, and observability loops.</li>
-      <li>Design LLM applications around reliability, latency, cost, and human review.</li>
-      <li>Build test harnesses that expose regression, hallucination, and prompt-injection risks.</li>
-    </ul>
-    <h4>Key Topics</h4>
-    <div class="topic-row"><span class="chip">RAG</span><span class="chip">Fine-tuning</span><span class="chip">Evals</span><span class="chip">Prompting</span><span class="chip">Observability</span></div>
-    <h4>Watch</h4>
-    <div style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:var(--radius-sm);margin:8px 0 16px">
-      <iframe src="https://www.youtube.com/embed/9-Jl0dxWQs8" title="How might LLMs store facts | 3Blue1Brown" frameborder="0" allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture" allowfullscreen style="position:absolute;top:0;left:0;width:100%;height:100%"></iframe>
-    </div>
-    <p style="font-size:13px;color:var(--muted)">22:42 &middot; 3Blue1Brown &middot; How LLMs store and retrieve factual knowledge inside their weights.</p>
-    <a class="curriculum-link" href="https://github.com/rohitg00/ai-engineering-from-scratch" target="_blank" rel="noopener noreferrer">View Phase 11 Lessons &rarr;</a>
-  </article>
-
-  <!-- ===== REQUIRED COURSE ===== -->
-  <div class="section-title" id="required">
-    <h2>Required Course (1 Semester)</h2>
-    <p>The core of the advanced track. These four phases form a complete one-semester graduate course.</p>
-  </div>
-
-  <article class="phase-card" style="border-left:3px solid var(--purple)">
-    <div class="phase-head">
-      <div>
-        <div class="phase-kicker" style="color:var(--purple-light)">Phase 13 &mdash; Required</div>
-        <h3>Tools &amp; Protocols: MCP (Model Context Protocol) / A2A (Agent-to-Agent)</h3>
-      </div>
-      <div class="hours"><strong>~17</strong>hours<br>23 lessons</div>
-    </div>
-    <h4>Learning Objectives</h4>
-    <ul>
-      <li>Design safe tool interfaces, protocol adapters, and agent-to-agent communication contracts.</li>
-      <li>Build MCP-style tool servers with schema discipline, permissions, and auditability.</li>
-      <li>Evaluate protocol choices for portability, security, and operational maintainability.</li>
-    </ul>
-    <h4>Key Topics</h4>
-    <div class="topic-row"><span class="chip">MCP</span><span class="chip">A2A</span><span class="chip">Tool schemas</span><span class="chip">Permissions</span><span class="chip">Contracts</span></div>
-    <a class="curriculum-link" href="https://github.com/rohitg00/ai-engineering-from-scratch" target="_blank" rel="noopener noreferrer">View Phase 13 Lessons &rarr;</a>
-  </article>
-
-  <article class="phase-card" style="border-left:3px solid var(--purple)">
-    <div class="phase-head">
-      <div>
-        <div class="phase-kicker" style="color:var(--purple-light)">Phase 14 &mdash; Required</div>
-        <h3>Agent Engineering</h3>
-      </div>
-      <div class="hours"><strong>~22.5</strong>hours<br>30 lessons</div>
-    </div>
-    <h4>Learning Objectives</h4>
-    <ul>
-      <li>Implement planner, executor, memory, reflection, tool-use, and guardrail patterns.</li>
-      <li>Move beyond demos by measuring task success, recovery, trace quality, and intervention rates.</li>
-      <li>Design agent systems that degrade predictably under uncertainty and tool failure.</li>
-    </ul>
-    <h4>Key Topics</h4>
-    <div class="topic-row"><span class="chip">Planning</span><span class="chip">Memory</span><span class="chip">Tool use</span><span class="chip">Reflection</span><span class="chip">Guardrails</span></div>
-    <a class="curriculum-link" href="https://github.com/rohitg00/ai-engineering-from-scratch" target="_blank" rel="noopener noreferrer">View Phase 14 Lessons &rarr;</a>
-  </article>
-
-  <article class="phase-card" style="border-left:3px solid var(--purple)">
-    <div class="phase-head">
-      <div>
-        <div class="phase-kicker" style="color:var(--purple-light)">Phase 18 &mdash; Required</div>
-        <h3>Ethics, Safety &amp; Alignment</h3>
-      </div>
-      <div class="hours"><strong>~22.5</strong>hours<br>30 lessons</div>
-    </div>
-    <h4>Learning Objectives</h4>
-    <ul>
-      <li>Apply safety engineering to bias, privacy, misuse, prompt injection, autonomy, and governance risks.</li>
-      <li>Design alignment and evaluation practices that are auditable rather than aspirational.</li>
-      <li>Write deployment memos that connect technical mitigations to institutional accountability.</li>
-    </ul>
-    <h4>Key Topics</h4>
-    <div class="topic-row"><span class="chip">Bias</span><span class="chip">Privacy</span><span class="chip">Alignment</span><span class="chip">Red teaming</span><span class="chip">Governance</span></div>
-    <a class="curriculum-link" href="https://github.com/rohitg00/ai-engineering-from-scratch" target="_blank" rel="noopener noreferrer">View Phase 18 Lessons &rarr;</a>
-  </article>
-
-  <article class="phase-card" style="border-left:3px solid var(--purple)">
-    <div class="phase-head">
-      <div>
-        <div class="phase-kicker" style="color:var(--purple-light)">Phase 19 &mdash; Required</div>
-        <h3>Capstone Projects</h3>
-      </div>
-      <div class="hours"><strong>~13</strong>hours<br>17 projects</div>
-    </div>
-    <h4>Learning Objectives</h4>
-    <ul>
-      <li>Deliver a production-grade AI system with architecture, evaluation, safety case, and deployment plan.</li>
-      <li>Defend design choices through demos, postmortems, ablation evidence, and user-centered metrics.</li>
-      <li>Package the final artifact as a portfolio-ready engineering project or research prototype.</li>
-    </ul>
-    <h4>Key Topics</h4>
-    <div class="topic-row"><span class="chip">System design</span><span class="chip">Capstone demo</span><span class="chip">Evaluation report</span><span class="chip">Safety case</span><span class="chip">Portfolio</span></div>
-    <a class="curriculum-link" href="https://github.com/rohitg00/ai-engineering-from-scratch" target="_blank" rel="noopener noreferrer">View Phase 19 Projects &rarr;</a>
-  </article>
-
-  <!-- ===== MORE RESOURCES ===== -->
-  <div class="callout callout-info">
-    <span class="callout-icon">&#128218;</span>
-    <div><strong>Want the full 416-lesson, 4-semester overview?</strong> See the <a href="advanced.html">complete Graduate Track syllabus</a> covering all 20 phases from math foundations to production capstone.</div>
-  </div>
-
-  <section class="source-card">
-    <h2>Source Attribution</h2>
-    <p>Curriculum adapted from Rohit Ghumare's MIT-licensed <em>AI Engineering from Scratch</em>: <a href="https://github.com/rohitg00/ai-engineering-from-scratch" target="_blank" rel="noopener noreferrer">github.com/rohitg00/ai-engineering-from-scratch</a>. Students should consult the original repository for lesson files, code, and updates.</p>
-  </section>
-
-  <a href="index.html" class="back-link">&#8592; Back to Academy</a>
+<div id="passcodeGate" style="max-width:480px;margin:120px auto;padding:32px 24px;text-align:center">
+  <div style="font-size:48px;margin-bottom:16px">&#128274;</div>
+  <h2 style="font-size:24px;font-weight:800;margin-bottom:8px">Advanced Course Access</h2>
+  <p style="color:var(--muted);font-size:15px;margin-bottom:24px">This course is for enrolled graduate students. Enter the passcode provided by Prof. Qu.</p>
+  <input type="password" id="passcodeInput" placeholder="Enter passcode" style="width:100%;padding:12px 16px;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-sm);color:var(--text);font-size:16px;font-family:var(--font);margin-bottom:12px" autofocus>
+  <div id="passcodeError" style="color:var(--danger);font-size:14px;margin-bottom:12px;display:none">Incorrect passcode. Please try again.</div>
+  <button onclick="attemptDecrypt()" style="width:100%;padding:12px;border-radius:var(--radius-sm);font-size:16px;font-weight:700;border:none;cursor:pointer;background:var(--purple);color:#fff;font-family:var(--font);transition:all 0.2s">Unlock Course</button>
+  <p style="color:var(--muted);font-size:12px;margin-top:16px">Questions? Email <a href="mailto:wqu@monmouth.edu" style="color:var(--cyan-light)">wqu@monmouth.edu</a></p>
 </div>
-
+<div id="protectedContent" style="display:none"></div>
+<script id="encPayload" type="application/json">{"salt":"e9LLaplfd0yYE9+ClG1TkA==","iv":"1psBP+3kTgSMjHhh","tag":"cYRnADpTmretP6Fdyil5jg==","data":"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"}</script>
+<script>
+async function attemptDecrypt(){
+  const pw = document.getElementById('passcodeInput').value;
+  if(!pw){document.getElementById('passcodeError').style.display='block';return;}
+  try{
+    const payload = JSON.parse(document.getElementById('encPayload').textContent);
+    const salt = Uint8Array.from(atob(payload.salt),c=>c.charCodeAt(0));
+    const iv = Uint8Array.from(atob(payload.iv),c=>c.charCodeAt(0));
+    const tag = Uint8Array.from(atob(payload.tag),c=>c.charCodeAt(0));
+    const data = Uint8Array.from(atob(payload.data),c=>c.charCodeAt(0));
+    const combined = new Uint8Array(data.length + tag.length);
+    combined.set(data);combined.set(tag, data.length);
+    const enc = new TextEncoder();
+    const keyMaterial = await crypto.subtle.importKey('raw',enc.encode(pw),'PBKDF2',false,['deriveKey']);
+    const key = await crypto.subtle.deriveKey({name:'PBKDF2',salt,iterations:100000,hash:'SHA-256'},keyMaterial,{name:'AES-GCM',length:256},false,['decrypt']);
+    const decrypted = await crypto.subtle.decrypt({name:'AES-GCM',iv},key,combined);
+    const html = new TextDecoder().decode(decrypted);
+    document.getElementById('passcodeGate').style.display='none';
+    document.getElementById('protectedContent').style.display='block';
+    document.getElementById('protectedContent').innerHTML=html;
+    localStorage.setItem('adv-course-auth','1');
+  }catch(e){
+    document.getElementById('passcodeError').style.display='block';
+    document.getElementById('passcodeInput').value='';
+    document.getElementById('passcodeInput').focus();
+  }
+}
+document.getElementById('passcodeInput').addEventListener('keydown',e=>{if(e.key==='Enter')attemptDecrypt()});
+if(localStorage.getItem('adv-course-auth')==='1'){
+  document.getElementById('passcodeGate').querySelector('p').textContent='Previously unlocked. Enter passcode to verify.';
+}
+</script>
 <footer class="footer">
   <p>AI Engineering Academy &mdash; Created by <a href="mailto:wqu@monmouth.edu">Prof. Weihao Qu</a> at Monmouth University</p>
 </footer>
