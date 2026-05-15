@@ -3,330 +3,330 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>AI Engineering Academy - Session Slides</title>
+<title>AI Engineering Academy — Session Slides</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
-  :root, [data-theme="ink"] {
-    --paper: #F5F0E8; --paper2: #EDE8DF; --paper3: #E5DFD4;
-    --ink: #2C3E2D; --ink-light: #4A6B4D; --ink-muted: #7A8E7B;
-    --seal: #B4533C; --seal-light: rgba(180,83,60,0.12);
-    --mist: rgba(44,62,45,0.06);
-    --font-display: 'Instrument Serif', Georgia, 'Times New Roman', serif;
-    --font-body: 'DM Sans', system-ui, -apple-system, sans-serif;
-    --radius: 12px;
-    --noise-opacity: 0.06; --ambient-opacity: 1; --enso-opacity: 0.06; --mist-opacity: 1; --stroke-opacity: 1; --mountain-opacity: 0.035;
-  }
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+:root {
+  --bg-deep: #060b18; --bg-surface: #0c1425; --bg-card: #111c32; --bg-card-hover: #162040;
+  --border-dim: rgba(148,163,184,0.08); --border-glow: rgba(148,163,184,0.18);
+  --text-primary: #f0f4f8; --text-secondary: #b3becf; --text-tertiary: #6b7d97;
+  --accent-blue: #4f8ff7; --accent-violet: #8b6cf6; --accent-rose: #e879a8;
+  --accent-emerald: #34d399; --accent-amber: #f59e0b;
+  --font-display: 'Instrument Serif', Georgia, serif;
+  --font-body: 'DM Sans', -apple-system, sans-serif;
+  --ease: cubic-bezier(0.16,1,0.3,1);
+}
+html, body { height: 100%; }
+body { font-family: var(--font-body); background: var(--bg-deep); color: var(--text-secondary); line-height: 1.6; overflow: hidden; -webkit-font-smoothing: antialiased; }
+body::before { content:''; position:fixed; inset:0; z-index:9999; pointer-events:none; background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E"); background-repeat:repeat; background-size:256px; opacity:0.4; }
+a { color: var(--accent-blue); text-decoration: none; }
 
-  [data-theme="dark"] {
-    --paper: #060b18; --paper2: #0c1425; --paper3: #131d33;
-    --ink: #f0f4f8; --ink-light: #b3becf; --ink-muted: #6b7a8d;
-    --seal: #e879a8; --seal-light: rgba(232,121,168,0.1);
-    --noise-opacity: 0.035; --ambient-opacity: 1; --enso-opacity: 0.04; --mist-opacity: 0.6; --stroke-opacity: 0.7; --mountain-opacity: 0.025;
-  }
+/* ═══ DECK ═══ */
+.deck { width:100vw; height:100vh; position:relative; }
+.slide { position:absolute; inset:0; display:flex; flex-direction:column; justify-content:center; align-items:center; padding:5vh 7vw; opacity:0; pointer-events:none; transition:opacity 0.45s var(--ease); overflow-y:auto; }
+.slide.active { opacity:1; pointer-events:auto; }
+.slide-inner { width:100%; max-width:1180px; }
 
-  * { box-sizing: border-box; margin: 0; padding: 0; }
-  body { font-family: var(--font-body); background: var(--paper); color: var(--ink); overflow: hidden; transition: background 0.4s, color 0.4s; }
+/* Eyebrow */
+.eyebrow { font-size:0.74rem; font-weight:500; text-transform:uppercase; letter-spacing:0.22em; color:var(--accent-violet); margin-bottom:1.4rem; }
+.eyebrow.blue { color:var(--accent-blue); }
+.eyebrow.rose { color:var(--accent-rose); }
+.eyebrow.emerald { color:var(--accent-emerald); }
+.eyebrow.amber { color:var(--accent-amber); }
 
-  /* Rice paper texture */
-  body::after {
-    content: ''; position: fixed; inset: 0; z-index: 9999; pointer-events: none; opacity: var(--noise-opacity);
-    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='5' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-  }
+/* Typography */
+h1 { font-family:var(--font-display); font-size:clamp(2.6rem,5.8vw,4.8rem); font-weight:400; line-height:1.08; color:var(--text-primary); letter-spacing:-0.025em; margin-bottom:1.2rem; }
+h1 em { font-style:italic; background:linear-gradient(135deg,var(--accent-blue),var(--accent-violet),var(--accent-rose)); -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent; background-size:200% 200%; animation:gradShift 8s ease infinite; }
+@keyframes gradShift { 0%,100%{background-position:0% 50%} 50%{background-position:100% 50%} }
+h2 { font-family:var(--font-display); font-size:clamp(1.8rem,3.8vw,2.8rem); font-weight:400; color:var(--text-primary); letter-spacing:-0.02em; line-height:1.12; margin-bottom:1rem; }
+h3 { font-family:var(--font-display); font-size:clamp(1.2rem,2vw,1.6rem); font-weight:400; color:var(--text-primary); margin-bottom:0.5rem; }
+.subtitle { font-size:1.18rem; color:var(--text-secondary); max-width:760px; line-height:1.55; margin-bottom:2rem; }
+.lede { font-family:var(--font-display); font-size:clamp(1.4rem,2.4vw,1.9rem); font-style:italic; line-height:1.4; color:var(--text-primary); max-width:860px; margin-bottom:1.2rem; }
+p, li { font-size:1.05rem; line-height:1.7; color:var(--text-secondary); margin-bottom:0.5rem; }
+.muted { color:var(--text-tertiary); }
+ul { padding-left:20px; } ul li { margin-bottom:6px; } ul li::marker { color:var(--text-tertiary); }
+b, strong { color:var(--text-primary); font-weight:600; }
 
-  /* Ink wash ambient */
-  body::before {
-    content: ''; position: fixed; inset: 0; z-index: 0; pointer-events: none; opacity: var(--ambient-opacity); transition: opacity 0.4s;
-    background:
-      radial-gradient(ellipse at 10% 15%, rgba(44,62,45,0.04) 0%, transparent 50%),
-      radial-gradient(ellipse at 90% 85%, rgba(180,83,60,0.03) 0%, transparent 40%),
-      radial-gradient(ellipse at 50% 100%, rgba(44,62,45,0.06) 0%, transparent 50%);
-  }
+/* Layout */
+.two-col { display:grid; grid-template-columns:1fr 1fr; gap:3rem; align-items:start; }
+.center { text-align:center; }
+.mt { margin-top:1.4rem; }
 
-  /* Slide system */
-  .slide { display: none; min-height: 100vh; padding: 56px 72px 80px; position: relative; flex-direction: column; justify-content: center; z-index: 1; }
-  .slide.active { display: flex; animation: slideIn 0.5s ease; }
-  @keyframes slideIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+/* Stats row */
+.stats-row { display:flex; gap:1px; background:var(--border-dim); border-radius:16px; overflow:hidden; margin-top:1.4rem; max-width:680px; }
+.stat-cell { background:var(--bg-card); padding:1.2rem 1.4rem; text-align:center; flex:1; }
+.stat-cell .num { font-family:var(--font-display); font-size:2.2rem; color:var(--text-primary); line-height:1; margin-bottom:0.3rem; }
+.stat-cell .lbl { font-size:0.68rem; text-transform:uppercase; letter-spacing:0.12em; color:var(--text-tertiary); font-weight:500; }
 
-  /* HUD */
-  .hud { position: fixed; bottom: 24px; right: 36px; z-index: 100; text-align: right; font-size: 12px; color: var(--ink-muted); font-family: var(--font-body); }
-  .hud-title { font-weight: 600; color: var(--ink-light); margin-bottom: 2px; }
-  .hud-counter { font-variant-numeric: tabular-nums; }
-  .hud-bar { width: 120px; height: 2px; background: rgba(44,62,45,0.12); border-radius: 1px; margin-top: 6px; margin-left: auto; }
-  .hud-fill { height: 100%; background: linear-gradient(90deg, var(--ink-light), var(--seal)); border-radius: 1px; transition: width 0.4s; }
+/* Cards */
+.glass-card { background:var(--bg-card); border:1px solid var(--border-dim); border-radius:14px; padding:1.6rem; transition:all 0.25s var(--ease); }
+.glass-card:hover { border-color:var(--border-glow); }
 
-  /* Nav */
-  .nav { position: fixed; bottom: 24px; left: 36px; display: flex; gap: 8px; z-index: 100; }
-  .nav button { background: var(--paper2); border: 1px solid var(--paper3); color: var(--ink-light); padding: 8px 18px; border-radius: 8px; cursor: pointer; font-size: 13px; font-family: var(--font-body); transition: all 0.2s; }
-  .nav button:hover { background: var(--paper3); color: var(--ink); }
-  .nav button:disabled { opacity: 0.25; cursor: not-allowed; }
+/* Diagram */
+.diagram { background:var(--bg-card); border:1px solid var(--border-dim); border-radius:12px; padding:1.4rem; font-family:'SF Mono','Fira Code',monospace; font-size:0.92em; line-height:1.6; white-space:pre; overflow-x:auto; margin:0.8rem 0; color:#7dd3fc; }
+.diagram.small { font-size:0.82em; }
 
-  /* Typography */
-  h1 { font-family: var(--font-display); font-size: clamp(2.4rem, 5vw, 3.6rem); font-weight: 400; margin-bottom: 16px; color: var(--ink); line-height: 1.15; letter-spacing: -0.02em; }
-  h1 em { font-style: italic; color: var(--seal); }
-  h2 { font-family: var(--font-display); font-size: 1.8em; font-weight: 400; margin-bottom: 14px; color: var(--ink); }
-  h3 { font-family: var(--font-body); font-size: 0.85em; font-weight: 600; margin-bottom: 10px; color: var(--ink-muted); text-transform: uppercase; letter-spacing: 0.06em; }
-  p, li { font-size: 1.1em; line-height: 1.75; color: var(--ink-light); margin-bottom: 8px; }
-  .subtitle { font-size: 1.2em; color: var(--ink-muted); margin-bottom: 28px; }
+/* Accent boxes */
+.key-idea { background:linear-gradient(135deg,rgba(79,143,247,0.08),rgba(139,108,246,0.08)); border-left:3px solid var(--accent-blue); border-radius:0 14px 14px 0; padding:1.2rem 1.4rem; margin:0.8rem 0; }
+.warning { background:rgba(245,158,11,0.06); border-left:3px solid var(--accent-amber); border-radius:0 14px 14px 0; padding:1.2rem 1.4rem; margin:0.8rem 0; }
+.warning h3 { color:var(--accent-amber); }
+.analogy { background:rgba(52,211,153,0.06); border-left:3px solid var(--accent-emerald); border-radius:0 14px 14px 0; padding:1.2rem 1.4rem; margin:0.8rem 0; }
+.analogy h3 { color:var(--accent-emerald); }
 
-  /* Layout */
-  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: start; }
-  .center { text-align: center; }
-  .mt { margin-top: 24px; }
+/* Table */
+table { border-collapse:collapse; margin:0.8rem 0; }
+th, td { border:1px solid var(--border-dim); padding:0.6rem 1rem; text-align:center; font-size:0.92em; }
+th { background:var(--bg-card); color:var(--accent-blue); font-weight:600; text-transform:uppercase; font-size:0.75em; letter-spacing:0.06em; }
+td { background:rgba(255,255,255,0.02); }
 
-  /* Ink brush diagram */
-  .diagram { background: rgba(44,62,45,0.04); border: 1px solid rgba(44,62,45,0.1); border-left: 3px solid var(--seal-light); border-left-color: var(--seal); border-radius: 2px var(--radius) var(--radius) 2px; padding: 24px; font-family: 'SF Mono', 'Fira Code', 'Consolas', monospace; font-size: 0.95em; line-height: 1.6; white-space: pre; overflow-x: auto; margin: 16px 0; color: var(--ink); }
-  .diagram.small { font-size: 0.82em; }
+/* Steps */
+.step { opacity:0.2; transition:opacity 0.4s; margin:0.5rem 0; padding:0.6rem 1rem; border-radius:10px; font-size:1.05rem; }
+.step.revealed { opacity:1; background:rgba(79,143,247,0.06); }
 
-  /* Key idea — ink wash blue-green */
-  .key-idea { background: rgba(44,62,45,0.05); border-left: 3px solid var(--ink-light); border-radius: 0 var(--radius) var(--radius) 0; padding: 20px 24px; margin: 14px 0; }
-  /* Warning — seal red */
-  .warning { background: var(--seal-light); border-left: 3px solid var(--seal); border-radius: 0 var(--radius) var(--radius) 0; padding: 20px 24px; margin: 14px 0; }
-  .warning h3 { color: var(--seal); }
-  /* Analogy — mist green */
-  .analogy { background: rgba(74,107,77,0.08); border-left: 3px solid var(--ink-muted); border-radius: 0 var(--radius) var(--radius) 0; padding: 20px 24px; margin: 14px 0; }
-  .analogy h3 { color: var(--ink-light); }
+/* VS */
+.vs-grid { display:grid; grid-template-columns:1fr auto 1fr; gap:1.5rem; align-items:center; }
+.vs-card { background:var(--bg-card); border:1px solid var(--border-dim); border-radius:14px; padding:1.6rem; }
+.vs-card.bad { border-color:rgba(232,121,168,0.3); }
+.vs-card.good { border-color:rgba(52,211,153,0.3); }
+.vs-label { font-size:0.72rem; font-weight:700; text-transform:uppercase; letter-spacing:0.12em; margin-bottom:0.6rem; }
+.vs-card.bad .vs-label { color:var(--accent-rose); }
+.vs-card.good .vs-label { color:var(--accent-emerald); }
 
-  /* Table — ink on paper */
-  table { border-collapse: collapse; margin: 14px 0; width: auto; }
-  th, td { border: 1px solid rgba(44,62,45,0.15); padding: 10px 18px; text-align: center; font-size: 0.95em; }
-  th { background: rgba(44,62,45,0.08); color: var(--ink); font-weight: 600; text-transform: uppercase; font-size: 0.8em; letter-spacing: 0.05em; }
-  td { background: rgba(44,62,45,0.02); color: var(--ink-light); }
+/* Projects */
+.project-grid { display:grid; grid-template-columns:1fr 1fr; gap:0.8rem; }
+.project-card { background:var(--bg-card); border:1px solid var(--border-dim); border-radius:14px; padding:1.4rem; transition:border-color 0.2s; }
+.project-card:hover { border-color:var(--border-glow); }
+.project-card h3 { font-size:1.1rem; margin-bottom:0.3rem; }
+.project-card p { font-size:0.92rem; margin:0; }
 
-  /* Steps */
-  .step { opacity: 0.25; transition: opacity 0.4s; margin: 8px 0; padding: 10px 16px; border-radius: 10px; font-size: 1.05em; color: var(--ink-light); }
-  .step.revealed { opacity: 1; background: rgba(44,62,45,0.05); }
+/* Big accent */
+.big-accent { font-size:4.5rem; line-height:1; margin-bottom:1rem; }
 
-  /* VS layout */
-  .vs-grid { display: grid; grid-template-columns: 1fr auto 1fr; gap: 24px; align-items: center; }
-  .vs-card { background: rgba(44,62,45,0.03); border: 1px solid rgba(44,62,45,0.1); border-radius: var(--radius); padding: 28px; }
-  .vs-card.bad { border-color: rgba(180,83,60,0.3); }
-  .vs-card.good { border-color: rgba(74,107,77,0.4); }
-  .vs-label { font-size: 0.75em; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 10px; }
-  .vs-card.bad .vs-label { color: var(--seal); }
-  .vs-card.good .vs-label { color: var(--ink-light); }
+/* Seal */
+.seal { display:inline-block; color:#B4533C; border:2px solid #B4533C; border-radius:3px; padding:2px 8px; font-family:var(--font-display); font-size:0.82em; transform:rotate(-6deg); opacity:0.7; margin-left:10px; }
 
-  /* Projects */
-  .project-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
-  .project-card { background: rgba(44,62,45,0.03); border: 1px solid rgba(44,62,45,0.1); border-radius: var(--radius); padding: 22px; transition: border-color 0.2s; }
-  .project-card:hover { border-color: rgba(180,83,60,0.3); }
-  .project-card h3 { text-transform: none; font-size: 1.05em; letter-spacing: 0; color: var(--ink); }
-  .project-card p { font-size: 0.95em; margin: 0; }
+/* ═══ TITLEBAR ═══ */
+.titlebar { position:fixed; top:0; left:0; right:0; z-index:50; height:40px; display:flex; align-items:center; justify-content:space-between; padding:0 1.4rem; background:rgba(6,11,24,0.6); backdrop-filter:blur(20px); -webkit-backdrop-filter:blur(20px); border-bottom:1px solid var(--border-dim); font-size:0.7rem; color:var(--text-tertiary); text-transform:uppercase; letter-spacing:0.14em; }
+.titlebar .deck-name { font-family:var(--font-display); text-transform:none; letter-spacing:-0.01em; font-size:0.92rem; color:var(--text-secondary); }
 
-  /* Glass card — paper style */
-  .glass-card { background: rgba(44,62,45,0.04); border: 1px solid rgba(44,62,45,0.1); border-radius: var(--radius); padding: 28px; margin: 12px 0; }
+/* ═══ HUD ═══ */
+.hud { position:fixed; bottom:1rem; right:1.4rem; z-index:50; display:flex; gap:1rem; align-items:center; font-size:0.78rem; color:var(--text-secondary); font-variant-numeric:tabular-nums; background:rgba(6,11,24,0.55); backdrop-filter:blur(10px); -webkit-backdrop-filter:blur(10px); border:1px solid var(--border-dim); padding:0.45rem 0.95rem; border-radius:999px; }
+.hud .slide-title { font-family:var(--font-display); font-style:italic; font-size:0.98rem; color:var(--text-primary); max-width:28ch; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+.hud .counter { opacity:0.8; font-weight:500; }
+.hud .keys { display:inline-flex; gap:0.35rem; font-family:'SF Mono',monospace; }
+.hud .keys kbd { padding:0.15rem 0.4rem; background:var(--bg-card); border:1px solid var(--border-dim); border-radius:4px; font-size:0.7rem; color:var(--text-secondary); }
+.hud .progress { width:80px; height:3px; background:var(--border-dim); border-radius:2px; overflow:hidden; }
+.hud .progress .bar { height:100%; background:linear-gradient(90deg,var(--accent-blue),var(--accent-violet)); transition:width 0.4s var(--ease); }
 
-  /* Big accent — ink brush character */
-  .big-accent { font-family: var(--font-display); font-size: 5rem; line-height: 1; margin-bottom: 20px; opacity: 0.8; }
+/* ═══ NAV ═══ */
+.nav { position:fixed; bottom:1rem; left:1.4rem; display:flex; gap:0.5rem; z-index:50; }
+.nav button { background:rgba(6,11,24,0.55); backdrop-filter:blur(10px); -webkit-backdrop-filter:blur(10px); border:1px solid var(--border-dim); color:var(--text-secondary); padding:0.45rem 1rem; border-radius:999px; cursor:pointer; font-size:0.78rem; font-family:var(--font-body); transition:all 0.2s; }
+.nav button:hover { background:rgba(255,255,255,0.08); color:var(--text-primary); }
+.nav button:disabled { opacity:0.2; cursor:not-allowed; }
 
-  /* Seal stamp — red ink chop */
-  .seal { display: inline-block; color: var(--seal); border: 2px solid var(--seal); border-radius: 3px; padding: 3px 10px; font-family: var(--font-display); font-size: 0.85em; transform: rotate(-6deg); opacity: 0.7; margin-left: 12px; }
+/* ═══ THEME TOGGLE ═══ */
+.theme-toggle { position:fixed; top:8px; right:1.4rem; z-index:60; background:var(--bg-card); border:1px solid var(--border-dim); color:var(--text-secondary); padding:0.35rem 0.8rem; border-radius:999px; cursor:pointer; font-size:0.75rem; font-family:var(--font-body); font-weight:500; transition:all 0.25s; display:flex; align-items:center; gap:0.4rem; }
+.theme-toggle:hover { border-color:var(--border-glow); color:var(--text-primary); }
 
-  /* Ensō circle */
-  .enso { position: fixed; top: -60px; right: -60px; width: 280px; height: 280px; z-index: 0; pointer-events: none; opacity: var(--enso-opacity); transition: opacity 0.4s; border: 14px solid var(--ink); border-radius: 50%; border-top-color: transparent; border-right-width: 8px; border-bottom-width: 20px; transform: rotate(-25deg); }
+/* ═══ BRUSH WIPE ═══ */
+.brush-wipe { position:fixed; inset:0; z-index:9998; pointer-events:none; overflow:hidden; opacity:0; }
+.brush-wipe .ink-stroke { position:absolute; top:-10%; left:-10%; width:120%; height:120%; background:var(--bg-deep); transform:translateX(-110%); }
+.brush-wipe.active { opacity:1; }
+.brush-wipe.sweeping .ink-stroke { animation:brushSweep 0.8s var(--ease) forwards; }
+@keyframes brushSweep { 0%{transform:translateX(-110%)} 100%{transform:translateX(110%)} }
 
-  /* Ink mist bottom */
-  .ink-mist { position: fixed; bottom: 0; left: 0; right: 0; height: 140px; z-index: 0; pointer-events: none; opacity: var(--mist-opacity); transition: opacity 0.4s; background: linear-gradient(to top, var(--paper) 0%, rgba(245,240,232,0.3) 40%, transparent 100%); }
-  [data-theme="dark"] .ink-mist { background: linear-gradient(to top, var(--paper) 0%, rgba(6,11,24,0.3) 40%, transparent 100%); }
-
-  /* Ink stroke — left edge */
-  .ink-stroke { position: fixed; left: 0; top: 0; bottom: 0; width: 4px; z-index: 0; pointer-events: none; opacity: var(--stroke-opacity); transition: opacity 0.4s; background: linear-gradient(to bottom, transparent 10%, rgba(180,83,60,0.08) 30%, rgba(180,83,60,0.15) 50%, rgba(180,83,60,0.08) 70%, transparent 90%); }
-
-  /* Mountain character — ghostly watermark */
-  .ink-mountain { position: fixed; bottom: 60px; right: 80px; z-index: 0; pointer-events: none; opacity: var(--mountain-opacity); transition: opacity 0.4s; font-size: 10em; line-height: 1; color: var(--ink); font-family: var(--font-display); font-style: italic; }
-
-  ul { padding-left: 20px; }
-  ul li { margin-bottom: 6px; }
-  ul li::marker { color: var(--ink-muted); }
-  b { color: var(--ink); }
-
-  /* Dark theme diagram/card overrides */
-  [data-theme="dark"] .diagram { background: rgba(15,25,50,0.7); border-color: rgba(255,255,255,0.08); border-left-color: var(--seal); color: #7dd3fc; }
-  [data-theme="dark"] .key-idea { background: rgba(79,143,247,0.08); border-left-color: #4f8ff7; }
-  [data-theme="dark"] .warning { background: rgba(245,158,11,0.06); border-left-color: #f59e0b; }
-  [data-theme="dark"] .warning h3 { color: #f59e0b; }
-  [data-theme="dark"] .analogy { background: rgba(52,211,153,0.06); border-left-color: #34d399; }
-  [data-theme="dark"] .analogy h3 { color: #34d399; }
-  [data-theme="dark"] .glass-card, [data-theme="dark"] .vs-card, [data-theme="dark"] .project-card { background: rgba(255,255,255,0.04); border-color: rgba(255,255,255,0.08); }
-  [data-theme="dark"] .nav button { background: rgba(255,255,255,0.04); border-color: rgba(255,255,255,0.08); }
-  [data-theme="dark"] .nav button:hover { background: rgba(255,255,255,0.08); }
-  [data-theme="dark"] th { background: rgba(79,143,247,0.1); color: #4f8ff7; }
-  [data-theme="dark"] td { background: rgba(255,255,255,0.03); }
-  [data-theme="dark"] .hud-bar { background: rgba(255,255,255,0.08); }
-  [data-theme="dark"] .enso { border-color: var(--ink-muted); border-top-color: transparent; }
-
-  /* Theme toggle button */
-  .theme-toggle { position: fixed; top: 24px; right: 36px; z-index: 200; background: var(--paper2); border: 1px solid var(--paper3); color: var(--ink-muted); padding: 6px 14px; border-radius: 20px; cursor: pointer; font-size: 12px; font-family: var(--font-body); font-weight: 600; transition: all 0.3s; }
-  .theme-toggle:hover { color: var(--ink); }
-  [data-theme="dark"] .theme-toggle { background: rgba(255,255,255,0.06); border-color: rgba(255,255,255,0.1); }
+/* ═══ INK-WASH THEME ═══ */
+body.theme-ink {
+  --bg-deep:#F5F0E8; --bg-surface:#EFE8DC; --bg-card:#FBF7EE; --bg-card-hover:#F3ECDA;
+  --border-dim:rgba(44,62,45,0.08); --border-glow:rgba(44,62,45,0.20);
+  --text-primary:#2C3E2D; --text-secondary:#5d6f5e; --text-tertiary:#8a9a8a;
+  --accent-blue:#4a6b8a; --accent-violet:#6b5b7a; --accent-rose:#B4533C;
+  --accent-emerald:#5d7a52; --accent-amber:#a47831;
+}
+body.theme-ink::before { opacity:0.2; }
+body.theme-ink h1 em, body.theme-ink h2 em { background:none; -webkit-background-clip:initial; -webkit-text-fill-color:initial; color:#B4533C; animation:none; }
+body.theme-ink .titlebar { background:rgba(245,240,232,0.75); border-bottom-color:rgba(44,62,45,0.10); }
+body.theme-ink .hud { background:rgba(245,240,232,0.78); border-color:rgba(44,62,45,0.20); color:#2C3E2D; }
+body.theme-ink .hud .slide-title { color:#2C3E2D; }
+body.theme-ink .hud .progress .bar { background:linear-gradient(90deg,#2C3E2D,#B4533C); }
+body.theme-ink .hud .keys kbd { background:rgba(255,255,255,0.5); }
+body.theme-ink .nav button { background:rgba(245,240,232,0.7); border-color:rgba(44,62,45,0.15); color:#5d6f5e; }
+body.theme-ink .nav button:hover { background:rgba(245,240,232,0.9); color:#2C3E2D; }
+body.theme-ink .theme-toggle { background:var(--bg-card); border-color:rgba(44,62,45,0.15); }
+body.theme-ink .glass-card, body.theme-ink .vs-card, body.theme-ink .project-card, body.theme-ink .stat-cell { background:var(--bg-card); box-shadow:0 2px 8px -2px rgba(44,62,45,0.08), 0 1px 0 rgba(255,255,255,0.6) inset; }
+body.theme-ink .stats-row { background:var(--border-dim); }
+body.theme-ink .diagram { background:#1a2018; border-color:rgba(44,62,45,0.20); }
+body.theme-ink .eyebrow, body.theme-ink .eyebrow.blue, body.theme-ink .eyebrow.violet { color:#B4533C; }
+body.theme-ink .brush-wipe .ink-stroke { background:var(--bg-deep); }
 </style>
 </head>
 <body>
 
-<!-- Theme toggle -->
-<button class="theme-toggle" id="themeToggle" onclick="toggleTheme()">&#9790; Dark</button>
-
-<!-- Ink wash ambient elements -->
-<div class="enso" aria-hidden="true"></div>
-<div class="ink-mist" aria-hidden="true"></div>
-<div class="ink-stroke" aria-hidden="true"></div>
-<div class="ink-mountain" aria-hidden="true">&#23665;</div>
-
-<!-- HUD -->
-<div class="hud">
-  <div class="hud-title" id="hudTitle">AI Engineering Academy</div>
-  <div class="hud-counter"><span id="hudCurrent">1</span> / <span id="hudTotal">20</span></div>
-  <div class="hud-bar"><div class="hud-fill" id="hudFill" style="width:5%"></div></div>
+<div class="titlebar">
+  <span class="deck-name">AI Engineering Academy</span>
+  <span>Monmouth University · HH216 · Summer 2026</span>
 </div>
 
-<!-- ==================== SLIDE 1 ==================== -->
-<div class="slide active" id="s1">
-  <div class="center">
-    <div class="big-accent">&#129302;</div>
+<button class="theme-toggle" id="themeToggle" onclick="toggleTheme()" title="Press I to toggle">
+  <span id="themeGlyph">🖌</span>
+  <span id="themeLabel">Ink-wash</span>
+</button>
+
+<div class="brush-wipe" id="brushWipe">
+  <svg width="0" height="0" style="position:absolute"><filter id="brushFilter" x="-10%" y="-10%" width="120%" height="120%"><feTurbulence type="fractalNoise" baseFrequency="0.012 0.6" numOctaves="3" seed="7" result="turb"/><feDisplacementMap in="SourceGraphic" in2="turb" scale="80"/></filter></svg>
+  <div class="ink-stroke" style="filter:url(#brushFilter)"></div>
+</div>
+
+<div class="deck" id="deck">
+
+<!-- ═══ SLIDE 1: TITLE ═══ -->
+<div class="slide active" id="s0">
+  <div class="slide-inner center">
+    <div class="eyebrow">Prof. Weihao Qu · Monmouth University</div>
     <h1>AI Engineering <em>Academy</em></h1>
     <p class="subtitle">Learn what AI actually is. Build something real with it. Today.</p>
-    <div style="margin-top: 48px; color: var(--ink-muted);">
-      <p style="font-family: var(--font-display); font-size: 1.2em;">Prof. Weihao Qu <span class="seal">MU</span></p>
-      <p style="margin-top: 8px;">Monmouth University &middot; Summer 2026</p>
-      <p style="margin-top: 20px; font-size: 0.85em;">Arrow keys to navigate &middot; <b>S</b> to reveal steps</p>
+    <div class="stats-row" style="margin:1.4rem auto 0;">
+      <div class="stat-cell"><div class="num">5</div><div class="lbl">Students</div></div>
+      <div class="stat-cell"><div class="num">90</div><div class="lbl">Minutes</div></div>
+      <div class="stat-cell"><div class="num">1</div><div class="lbl">Project</div></div>
     </div>
+    <p class="muted" style="margin-top:2rem; font-size:0.85rem;">Arrow keys to navigate · <kbd style="background:var(--bg-card);border:1px solid var(--border-dim);padding:2px 6px;border-radius:4px;font-size:0.8em">S</kbd> reveal steps · <kbd style="background:var(--bg-card);border:1px solid var(--border-dim);padding:2px 6px;border-radius:4px;font-size:0.8em">I</kbd> ink-wash · <kbd style="background:var(--bg-card);border:1px solid var(--border-dim);padding:2px 6px;border-radius:4px;font-size:0.8em">F</kbd> fullscreen</p>
   </div>
 </div>
 
-<!-- ==================== SLIDE 2 ==================== -->
-<div class="slide" id="s2">
-  <h1>What We'll Do <em>Today</em></h1>
-  <p class="subtitle">90 minutes &middot; 5 students &middot; 1 project each</p>
-  <div class="two-col">
-    <div>
-      <div class="step">&#9201; Pre-Test (5 min)</div>
-      <div class="step">&#127916; Watch: What is AI? (10 min)</div>
-      <div class="step">&#9888; The Vibe Learning Trap (6 min)</div>
-      <div class="step">&#128161; How to talk to AI (6 min)</div>
-      <div class="step">&#128187; Live Demo: Bad vs Good Prompt (3 min)</div>
-      <div class="step">&#128296; YOU Build a Project (30 min)</div>
-      <div class="step">&#127775; Show &amp; Tell (10 min)</div>
-      <div class="step">&#128203; Post-Test + Survey (10 min)</div>
-    </div>
-    <div>
-      <div class="key-idea">
-        <h3>By the end</h3>
-        <p>You will have <b>built something real</b> with AI that you can show your parents.</p>
+<!-- ═══ SLIDE 2: AGENDA ═══ -->
+<div class="slide" id="s1">
+  <div class="slide-inner">
+    <div class="eyebrow blue">Overview</div>
+    <h1>What We'll Do <em>Today</em></h1>
+    <div class="two-col">
+      <div>
+        <div class="step">&#9201; Pre-Test (5 min)</div>
+        <div class="step">&#127916; Watch: What is AI? (10 min)</div>
+        <div class="step">&#9888; The Vibe Learning Trap (6 min)</div>
+        <div class="step">&#128161; How to talk to AI (6 min)</div>
+        <div class="step">&#128187; Live Demo: Bad vs Good (3 min)</div>
+        <div class="step">&#128296; YOU Build a Project (30 min)</div>
+        <div class="step">&#127775; Show &amp; Tell (10 min)</div>
+        <div class="step">&#128203; Post-Test + Survey (10 min)</div>
+      </div>
+      <div>
+        <div class="key-idea">
+          <h3>By the end</h3>
+          <p>You will have <strong>built something real</strong> with AI that you can show your parents.</p>
+        </div>
       </div>
     </div>
   </div>
 </div>
 
-<!-- ==================== SLIDE 3 ==================== -->
-<div class="slide" id="s3">
-  <div class="center">
+<!-- ═══ SLIDE 3: PRE-TEST ═══ -->
+<div class="slide" id="s2">
+  <div class="slide-inner center">
     <div class="big-accent">&#128203;</div>
     <h1>Quick <em>Pre-Test</em></h1>
-    <p class="subtitle">5 minutes &middot; No wrong answers</p>
-    <div class="glass-card" style="max-width: 560px; margin: 24px auto;">
+    <p class="subtitle">5 minutes · No wrong answers</p>
+    <div class="glass-card" style="max-width:560px; margin:1.4rem auto;">
       <p>This is NOT a grade. We just want to see what you already know so we can measure how much you learn today.</p>
     </div>
   </div>
 </div>
 
-<!-- ==================== SLIDE 4 ==================== -->
-<div class="slide" id="s4">
-  <div class="center">
+<!-- ═══ SLIDE 4: CONSENT ═══ -->
+<div class="slide" id="s3">
+  <div class="slide-inner center">
     <div class="big-accent">&#128221;</div>
     <h1>Your <em>Consent</em></h1>
     <p class="subtitle">Open the web app and read the consent form</p>
-    <div class="diagram" style="max-width: 480px; margin: 20px auto; text-align: center; font-size: 1.15em;">
-weihaoqu.github.io/learnai-course/</div>
-    <p style="margin-top: 16px;">Click <b style="color:var(--ink-light)">I Agree</b> to participate in the research, or <b style="color:var(--seal)">I Do Not Agree</b> &mdash; you can still do everything today.</p>
+    <div class="diagram" style="max-width:480px; margin:1rem auto; text-align:center; font-size:1.15em;">weihaoqu.github.io/learnai-course/</div>
+    <p style="margin-top:1rem;">Click <strong style="color:var(--accent-emerald)">I Agree</strong> to participate, or <strong style="color:var(--accent-rose)">I Do Not Agree</strong> — you can still do everything today.</p>
   </div>
 </div>
 
-<!-- ==================== SLIDE 5 ==================== -->
+<!-- ═══ SLIDE 5: WHAT IS AI ═══ -->
+<div class="slide" id="s4">
+  <div class="slide-inner">
+    <div class="eyebrow emerald">Big picture</div>
+    <h1>What Is AI, <em>Really?</em></h1>
+    <p class="subtitle">Let's watch a 9-minute video, then discuss</p>
+    <div class="analogy"><h3>Before we watch</h3><p>Forget the movies. AI is not a robot. AI is not conscious. AI does not "think." What it actually does is much simpler — and much more useful once you understand it.</p></div>
+    <div class="key-idea"><h3>Watch for this</h3><p>AI is a <strong>pattern-matching machine</strong> trained on billions of examples. It predicts what comes next based on patterns. That's it.</p></div>
+  </div>
+</div>
+
+<!-- ═══ SLIDE 6: AI = PREDICTION ═══ -->
 <div class="slide" id="s5">
-  <h1>What Is AI, <em>Really?</em></h1>
-  <p class="subtitle">Let's watch a 9-minute video, then discuss</p>
-  <div class="analogy">
-    <h3>Before we watch</h3>
-    <p>Forget the movies. AI is not a robot. AI is not conscious. AI does not "think." What it actually does is much simpler &mdash; and much more useful once you understand it.</p>
-  </div>
-  <div class="key-idea">
-    <h3>Watch for this</h3>
-    <p>AI is a <b>pattern-matching machine</b> trained on billions of examples. It predicts what comes next based on patterns. That's it.</p>
-  </div>
-</div>
-
-<!-- ==================== SLIDE 6 ==================== -->
-<div class="slide" id="s6">
-  <h1>AI = <em>Prediction</em>, Not Thinking</h1>
-  <div class="two-col">
-    <div>
-      <h3>What AI actually does</h3>
-      <div class="diagram">
-"The cat sat on the ___"
+  <div class="slide-inner">
+    <div class="eyebrow blue">Core concept</div>
+    <h1>AI = <em>Prediction</em>, Not Thinking</h1>
+    <div class="two-col">
+      <div>
+        <h3>What AI actually does</h3>
+        <div class="diagram">"The cat sat on the ___"
 
 AI calculates probabilities:
-  mat    &rarr; 18%
-  floor  &rarr; 12%
-  table  &rarr;  9%
-  ground &rarr;  8%
+  mat    → 18%
+  floor  → 12%
+  table  →  9%
+  ground →  8%
 
 Picks most likely: "mat"
-Then predicts the NEXT word...
+Then predicts the NEXT word...</div>
       </div>
-    </div>
-    <div>
-      <h3>What this means for you</h3>
-      <ul>
-        <li>AI sounds <b>confident</b> even when <b style="color:var(--seal)">wrong</b></li>
-        <li>It doesn't "know" facts &mdash; it predicts likely text</li>
-        <li>Same question can give different answers</li>
-        <li><b>You</b> must verify everything</li>
-      </ul>
-      <div class="warning">
-        <h3>Takeaway</h3>
-        <p>Autocomplete on steroids. Useful, but never blindly trustworthy.</p>
+      <div>
+        <h3>What this means for you</h3>
+        <ul>
+          <li>AI sounds <strong>confident</strong> even when <strong style="color:var(--accent-rose)">wrong</strong></li>
+          <li>It doesn't "know" facts — it predicts likely text</li>
+          <li>Same question → different answers each time</li>
+          <li><strong>You</strong> must verify everything</li>
+        </ul>
+        <div class="warning"><h3>Takeaway</h3><p>Autocomplete on steroids. Useful, but never blindly trustworthy.</p></div>
       </div>
     </div>
   </div>
 </div>
 
-<!-- ==================== SLIDE 7 ==================== -->
+<!-- ═══ SLIDE 7: VIBE TRAP ═══ -->
+<div class="slide" id="s6">
+  <div class="slide-inner">
+    <div class="eyebrow rose">Warning</div>
+    <h1>The <em>Vibe Learning</em> Trap</h1>
+    <p class="subtitle">The #1 mistake people make with AI</p>
+    <div class="vs-grid">
+      <div class="vs-card bad">
+        <div class="vs-label">Crutch mode</div>
+        <p><strong>"Write my essay."</strong><br>"Solve this for me."<br>"Give me the answer."</p>
+        <p style="color:var(--accent-rose); margin-top:0.8rem;">You submit AI's work. You learn nothing.</p>
+      </div>
+      <div style="font-family:var(--font-display); font-size:1.6em; color:var(--text-tertiary); font-style:italic;">vs</div>
+      <div class="vs-card good">
+        <div class="vs-label">Amplifier mode</div>
+        <p><strong>"Explain this concept."</strong><br>"Check my reasoning."<br>"Quiz me on this."</p>
+        <p style="color:var(--accent-emerald); margin-top:0.8rem;">You do the thinking. AI helps you go deeper.</p>
+      </div>
+    </div>
+    <div class="key-idea mt"><h3>The rule</h3><p class="lede" style="margin-bottom:0">Own the thinking. Delegate the drafting.</p></div>
+  </div>
+</div>
+
+<!-- ═══ SLIDE 8: PROMPT STRUCTURE ═══ -->
 <div class="slide" id="s7">
-  <h1>The <em>Vibe Learning</em> Trap</h1>
-  <p class="subtitle">The #1 mistake people make with AI</p>
-  <div class="vs-grid">
-    <div class="vs-card bad">
-      <div class="vs-label">Crutch mode</div>
-      <p>"Write my essay."<br>"Solve this for me."<br>"Give me the answer."</p>
-      <p style="color: var(--seal); margin-top: 14px;">You submit AI's work. You learn nothing.</p>
-    </div>
-    <div style="font-size: 1.8em; color: var(--ink-muted); font-family: var(--font-display); font-style: italic;">vs</div>
-    <div class="vs-card good">
-      <div class="vs-label">Amplifier mode</div>
-      <p>"Explain this concept."<br>"Check my reasoning."<br>"Quiz me on this."</p>
-      <p style="color: var(--ink-light); margin-top: 14px;">You do the thinking. AI helps you go deeper.</p>
-    </div>
-  </div>
-  <div class="key-idea mt">
-    <h3>The rule</h3>
-    <p><b>Own the thinking. Delegate the drafting.</b></p>
-  </div>
-</div>
-
-<!-- ==================== SLIDE 8 ==================== -->
-<div class="slide" id="s8">
-  <h1>The <em>4-Part</em> Prompt Structure</h1>
-  <p class="subtitle">The secret to getting good results from AI</p>
-  <div class="two-col">
-    <div>
-      <div class="step"><b style="color:var(--ink);">1. Context</b> &mdash; Who you are, what the situation is</div>
-      <div class="step"><b style="color:var(--ink);">2. Instruction</b> &mdash; What you want AI to do</div>
-      <div class="step"><b style="color:var(--ink);">3. Input</b> &mdash; The text, data, or question</div>
-      <div class="step"><b style="color:var(--ink);">4. Output Format</b> &mdash; Bullets, table, essay, code</div>
-    </div>
-    <div>
-      <div class="diagram small">
-CONTEXT:
+  <div class="slide-inner">
+    <div class="eyebrow">Prompt engineering</div>
+    <h1>The <em>4-Part</em> Prompt Structure</h1>
+    <p class="subtitle">The secret to getting good results from AI</p>
+    <div class="two-col">
+      <div>
+        <div class="step"><strong style="color:var(--accent-blue)">1. Context</strong> — Who you are, what the situation is</div>
+        <div class="step"><strong style="color:var(--accent-violet)">2. Instruction</strong> — What you want AI to do</div>
+        <div class="step"><strong style="color:var(--accent-emerald)">3. Input</strong> — The text, data, or question</div>
+        <div class="step"><strong style="color:var(--accent-amber)">4. Output Format</strong> — Bullets, table, essay, code</div>
+      </div>
+      <div>
+        <div class="diagram small">CONTEXT:
   "You are a debate coach."
 
 INSTRUCTION:
@@ -337,58 +337,53 @@ INPUT:
 
 OUTPUT:
   "200 words, 2 stats,
-   aimed at a principal"
+   aimed at a principal"</div>
       </div>
     </div>
   </div>
 </div>
 
-<!-- ==================== SLIDE 9 ==================== -->
-<div class="slide" id="s9">
-  <h1>Bad Prompt vs. <em>Good Prompt</em></h1>
-  <p class="subtitle">Same AI. Completely different results.</p>
-  <div class="vs-grid">
-    <div class="vs-card bad">
-      <div class="vs-label">Bad</div>
-      <div class="diagram small">write an essay</div>
-      <p style="margin-top: 12px;">Generic. Vague. You'll get garbage.</p>
-    </div>
-    <div style="font-size: 1.8em; color: var(--ink-muted); font-family: var(--font-display); font-style: italic;">vs</div>
-    <div class="vs-card good">
-      <div class="vs-label">Good</div>
-      <div class="diagram small">You are a high school debate
+<!-- ═══ SLIDE 9: BAD vs GOOD ═══ -->
+<div class="slide" id="s8">
+  <div class="slide-inner">
+    <div class="eyebrow rose">Live demo</div>
+    <h1>Bad Prompt vs. <em>Good Prompt</em></h1>
+    <p class="subtitle">Same AI. Completely different results.</p>
+    <div class="vs-grid">
+      <div class="vs-card bad">
+        <div class="vs-label">Bad</div>
+        <div class="diagram small">write an essay</div>
+        <p style="margin-top:0.8rem;">Generic. Vague. You'll get garbage.</p>
+      </div>
+      <div style="font-family:var(--font-display); font-size:1.6em; color:var(--text-tertiary); font-style:italic;">vs</div>
+      <div class="vs-card good">
+        <div class="vs-label">Good</div>
+        <div class="diagram small">You are a high school debate
 coach. Write a 200-word
 persuasive paragraph arguing
 school should start at 9 AM.
 Include 2 statistics. Tone:
 convincing a principal.</div>
-      <p style="margin-top: 12px;">Specific. Clear. Night and day.</p>
+        <p style="margin-top:0.8rem;">Specific. Clear. Night and day.</p>
+      </div>
     </div>
   </div>
 </div>
 
-<!-- ==================== SLIDE 10 ==================== -->
-<div class="slide" id="s10">
-  <h1>What Is <em>Claude Code?</em></h1>
-  <p class="subtitle">Your AI-powered building partner</p>
-  <div class="two-col">
-    <div>
-      <p>Claude Code lives in your terminal. You describe what you want, it:</p>
-      <ul>
-        <li>Reads your project files</li>
-        <li>Makes a plan</li>
-        <li>Writes the code</li>
-        <li>Checks its own work</li>
-        <li>Fixes bugs</li>
-      </ul>
-      <div class="analogy">
-        <h3>Think of it like</h3>
-        <p>A very fast colleague you talk to by typing. You describe what you want, it figures out how.</p>
+<!-- ═══ SLIDE 10: CLAUDE CODE ═══ -->
+<div class="slide" id="s9">
+  <div class="slide-inner">
+    <div class="eyebrow blue">Your tool</div>
+    <h1>What Is <em>Claude Code?</em></h1>
+    <p class="subtitle">Your AI-powered building partner</p>
+    <div class="two-col">
+      <div>
+        <p>Claude Code lives in your terminal. You describe what you want, it:</p>
+        <ul><li>Reads your project files</li><li>Makes a plan</li><li>Writes the code</li><li>Checks its own work</li><li>Fixes bugs</li></ul>
+        <div class="analogy"><h3>Think of it like</h3><p>A very fast colleague you talk to by typing. You describe what you want, it figures out how.</p></div>
       </div>
-    </div>
-    <div>
-      <div class="diagram">
-You: Build me a quiz app
+      <div>
+        <div class="diagram">You: Build me a quiz app
      about space facts with
      a scoring system.
 
@@ -399,204 +394,164 @@ Claude: I'll create an HTML
 
   [writes code]
   [tests it]
-  [opens in browser]
+  [opens in browser]</div>
       </div>
     </div>
   </div>
 </div>
 
-<!-- ==================== SLIDE 11 ==================== -->
-<div class="slide" id="s11">
-  <h1>The <em>Golden</em> Workflow</h1>
-  <p class="subtitle">How to work with AI without losing control</p>
-  <div class="diagram" style="text-align: center; font-size: 1.2em; max-width: 680px; margin: 0 auto;">
-&#128270; EXPLORE    &rarr;    &#128221; PLAN    &rarr;    &#9989; CONFIRM    &rarr;    &#128187; BUILD
+<!-- ═══ SLIDE 11: WORKFLOW ═══ -->
+<div class="slide" id="s10">
+  <div class="slide-inner">
+    <div class="eyebrow emerald">Process</div>
+    <h1>The <em>Golden</em> Workflow</h1>
+    <p class="subtitle">How to work with AI without losing control</p>
+    <div class="diagram" style="text-align:center; font-size:1.15em; max-width:680px; margin:0 auto;">🔎 EXPLORE    →    📝 PLAN    →    ✅ CONFIRM    →    💻 BUILD
 
  "Look at          "Make a        "Show me         "OK, now
   my project        plan"          first"            build it"
   first"</div>
-  <div class="warning mt">
-    <h3>Never skip plan and confirm</h3>
-    <p>If you just say "do it" without planning, AI will build the wrong thing fast.</p>
-  </div>
-  <div class="key-idea">
-    <h3>The magic phrase</h3>
-    <p style="font-family: var(--font-display); font-size: 1.15em; font-style: italic;">"Before you write any code, brainstorm ideas, make a plan, and show me for approval."</p>
+    <div class="warning mt"><h3>Never skip plan and confirm</h3><p>If you just say "do it" without planning, AI will build the wrong thing fast.</p></div>
+    <div class="key-idea"><h3>The magic phrase</h3><p class="lede" style="margin-bottom:0">"Before you write any code, brainstorm ideas, make a plan, and show me for approval."</p></div>
   </div>
 </div>
 
-<!-- ==================== SLIDE 12 ==================== -->
+<!-- ═══ SLIDE 12: VERIFY ═══ -->
+<div class="slide" id="s11">
+  <div class="slide-inner">
+    <div class="eyebrow amber">Critical skill</div>
+    <h1>Always <em>Check</em> AI's Work</h1>
+    <div class="two-col">
+      <div>
+        <h3>AI can</h3>
+        <ul><li>Invent fake citations</li><li>Make up statistics</li><li>Present outdated info as current</li><li>Say wrong things confidently</li></ul>
+        <h3 class="mt">Verification checklist</h3>
+        <ol style="padding-left:20px"><li style="margin-bottom:4px">Can I find this source?</li><li style="margin-bottom:4px">Does the number make sense?</li><li style="margin-bottom:4px">Is this current?</li><li style="margin-bottom:4px">Does another source agree?</li><li>Would my teacher accept this?</li></ol>
+      </div>
+      <div>
+        <div class="warning"><h3>Real example</h3><p>AI said: "According to Smith et al. (2024), 78% of students use AI daily."</p><p style="color:var(--accent-rose); margin-top:0.5rem;">That paper doesn't exist. AI hallucinated the entire citation.</p></div>
+        <div class="key-idea"><h3>Rule</h3><p>If you can't verify it, don't include it.</p></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ SLIDE 13: SAFETY ═══ -->
 <div class="slide" id="s12">
-  <h1>Always <em>Check</em> AI's Work</h1>
-  <p class="subtitle">AI sounds confident even when completely wrong</p>
-  <div class="two-col">
-    <div>
-      <h3>AI can</h3>
-      <ul>
-        <li>Invent fake citations</li>
-        <li>Make up statistics</li>
-        <li>Present outdated info as current</li>
-        <li>Say wrong things confidently</li>
-      </ul>
-      <h3 class="mt">Verification checklist</h3>
-      <ol style="padding-left:20px;">
-        <li style="margin-bottom:6px;">Can I find this source?</li>
-        <li style="margin-bottom:6px;">Does the number make sense?</li>
-        <li style="margin-bottom:6px;">Is this current?</li>
-        <li style="margin-bottom:6px;">Does another source agree?</li>
-        <li style="margin-bottom:6px;">Would my teacher accept this?</li>
-      </ol>
-    </div>
-    <div>
-      <div class="warning">
-        <h3>Real example</h3>
-        <p>AI said: "According to Smith et al. (2024), 78% of students use AI daily."</p>
-        <p style="color:var(--seal); margin-top:8px;">That paper doesn't exist. AI hallucinated the entire citation.</p>
-      </div>
-      <div class="key-idea">
-        <h3>Rule</h3>
-        <p>If you can't verify it, don't include it.</p>
-      </div>
-    </div>
+  <div class="slide-inner">
+    <div class="eyebrow rose">Non-negotiable</div>
+    <h1><em>5</em> Safety Rules</h1>
+    <p class="subtitle">Memorize these</p>
+    <div class="step"><strong style="color:var(--accent-rose)">1.</strong> <strong>Never paste personal info</strong> — no addresses, passwords, private photos</div>
+    <div class="step"><strong style="color:var(--accent-amber)">2.</strong> <strong>Never trust without verifying</strong> — check every citation, fact, and claim</div>
+    <div class="step"><strong style="color:var(--accent-emerald)">3.</strong> <strong>Never generate harmful content</strong> — no fake images of real people</div>
+    <div class="step"><strong style="color:var(--accent-blue)">4.</strong> <strong>Know your school's AI policy</strong> — every school has different rules</div>
+    <div class="step"><strong style="color:var(--accent-violet)">5.</strong> <strong>Credit AI when required</strong> — always be honest about AI assistance</div>
   </div>
 </div>
 
-<!-- ==================== SLIDE 13 ==================== -->
+<!-- ═══ SLIDE 14: PROJECT TIME ═══ -->
 <div class="slide" id="s13">
-  <h1><em>5</em> Safety Rules</h1>
-  <p class="subtitle">Memorize these</p>
-  <div class="step"><b style="color:var(--seal)">1.</b> <b>Never paste personal info</b> &mdash; no addresses, passwords, private photos</div>
-  <div class="step"><b style="color:var(--seal)">2.</b> <b>Never trust without verifying</b> &mdash; check every citation, fact, and claim</div>
-  <div class="step"><b style="color:var(--seal)">3.</b> <b>Never generate harmful content</b> &mdash; no fake images of real people</div>
-  <div class="step"><b style="color:var(--seal)">4.</b> <b>Know your school's AI policy</b> &mdash; every school has different rules</div>
-  <div class="step"><b style="color:var(--seal)">5.</b> <b>Credit AI when required</b> &mdash; always be honest about AI assistance</div>
-</div>
-
-<!-- ==================== SLIDE 14 ==================== -->
-<div class="slide" id="s14">
-  <div class="center">
+  <div class="slide-inner center">
     <div class="big-accent">&#128296;</div>
     <h1><em>Project</em> Time!</h1>
     <p class="subtitle">Pick a project. 30 minutes. Show your parents at the end.</p>
-  </div>
-  <div class="project-grid">
-    <div class="project-card"><h3>&#129504; AI Study Buddy</h3><p>Build a personal AI tutor that quizzes you</p></div>
-    <div class="project-card"><h3>&#127918; Playable Game</h3><p>Design and build a browser game with AI</p></div>
-    <div class="project-card"><h3>&#127916; Video Script</h3><p>Write a 60-second explainer video script</p></div>
-    <div class="project-card"><h3>&#128269; AI Myth Buster</h3><p>Catch AI lying and write a fact-check report</p></div>
-    <div class="project-card" style="grid-column: span 2;"><h3>&#128214; Story + Chapter</h3><p>World-build a story universe and co-write the opening with AI</p></div>
+    <div class="project-grid" style="max-width:760px; margin:0 auto;">
+      <div class="project-card"><h3>&#129504; AI Study Buddy</h3><p>Build a personal AI tutor that quizzes you</p></div>
+      <div class="project-card"><h3>&#127918; Playable Game</h3><p>Design and build a browser game with AI</p></div>
+      <div class="project-card"><h3>&#127916; Video Script</h3><p>Write a 60-second explainer video script</p></div>
+      <div class="project-card"><h3>&#128269; AI Myth Buster</h3><p>Catch AI lying and write a fact-check report</p></div>
+      <div class="project-card" style="grid-column:span 2"><h3>&#128214; Story + Chapter</h3><p>World-build a story universe and co-write the opening with AI</p></div>
+    </div>
   </div>
 </div>
 
-<!-- ==================== SLIDE 15 ==================== -->
-<div class="slide" id="s15">
-  <h1>Tips for <em>Building</em></h1>
-  <div class="two-col">
-    <div>
-      <h3>If you're stuck</h3>
-      <ul>
-        <li>Write what you want on paper first</li>
-        <li>Use the 4-part structure</li>
-        <li>Bad output? <b>Improve your prompt</b></li>
-        <li>Raise your hand &mdash; Prof. Qu is your prompt coach</li>
-      </ul>
-      <div class="analogy">
-        <h3>Remember</h3>
-        <p>Your first prompt is a draft. The best results come from iteration.</p>
+<!-- ═══ SLIDE 15: TIPS ═══ -->
+<div class="slide" id="s14">
+  <div class="slide-inner">
+    <div class="eyebrow emerald">Building time</div>
+    <h1>Tips for <em>Building</em></h1>
+    <div class="two-col">
+      <div>
+        <h3>If you're stuck</h3>
+        <ul><li>Write what you want on paper first</li><li>Use the 4-part structure</li><li>Bad output? <strong>Improve your prompt</strong></li><li>Raise your hand — Prof. Qu is your prompt coach</li></ul>
+        <div class="analogy"><h3>Remember</h3><p>Your first prompt is a draft. The best results come from iteration.</p></div>
+      </div>
+      <div>
+        <div class="diagram">1. Think: What do I want?
+       ↓
+2. Write: Specific prompt
+       ↓
+3. Read: Check AI's output
+       ↓
+4. Fix: Improve the prompt
+       ↓
+5. Repeat until good
+       ↓
+6. Show parents! 🎉</div>
       </div>
     </div>
-    <div>
-      <div class="diagram">
-1. Think: What do I want?
-       &#8595;
-2. Write: Specific prompt
-       &#8595;
-3. Read: Check AI's output
-       &#8595;
-4. Fix: Improve the prompt
-       &#8595;
-5. Repeat until good
-       &#8595;
-6. Show parents! &#127881;</div>
-    </div>
   </div>
 </div>
 
-<!-- ==================== SLIDE 16 ==================== -->
-<div class="slide" id="s16">
-  <div class="center">
+<!-- ═══ SLIDE 16: SHOW & TELL ═══ -->
+<div class="slide" id="s15">
+  <div class="slide-inner center">
     <div class="big-accent">&#127775;</div>
     <h1>Show &amp; <em>Tell</em></h1>
-    <p class="subtitle">2 minutes each &middot; Show what you built &middot; One thing you learned</p>
-    <div class="glass-card" style="max-width: 560px; margin: 28px auto;">
-      <p style="font-family: var(--font-display); font-size: 1.3em; font-style: italic;">You directed the AI. You made the decisions. You owned the result.</p>
-      <p style="margin-top: 8px;">That's agentic engineering.</p>
+    <p class="subtitle">2 minutes each · Show what you built · One thing you learned</p>
+    <div class="glass-card" style="max-width:560px; margin:1.4rem auto;">
+      <p class="lede" style="margin-bottom:0.5rem;">You directed the AI. You made the decisions. You owned the result.</p>
+      <p class="muted">That's agentic engineering.</p>
     </div>
   </div>
 </div>
 
-<!-- ==================== SLIDE 17 ==================== -->
+<!-- ═══ SLIDE 17: HOMEWORK ═══ -->
+<div class="slide" id="s16">
+  <div class="slide-inner">
+    <div class="eyebrow amber">What's next</div>
+    <h1>Homework</h1>
+    <p class="subtitle">2 weeks · Learn + Build</p>
+    <div class="two-col">
+      <div>
+        <h3>Week 1: Complete the courses</h3>
+        <table><tr><th>Course</th><th>Time</th></tr><tr><td style="text-align:left">1: Claude Code Fundamentals</td><td>~90 min</td></tr><tr><td style="text-align:left">2: Agentic Engineering</td><td>~60 min</td></tr><tr><td style="text-align:left">3: AI Skills Lab</td><td>~40 min</td></tr><tr><td style="text-align:left">4: AI Life Skills</td><td>~75 min</td></tr></table>
+      </div>
+      <div>
+        <h3>Week 2: Build a project</h3>
+        <ul><li>Build a web app</li><li>Create a teaching course</li><li>AI investigative report</li><li>Design an agent system</li><li>Creative portfolio</li></ul>
+        <p style="margin-top:0.8rem;"><strong>Submit:</strong> Send your link to wqu@monmouth.edu</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ SLIDE 18: POST-TEST ═══ -->
 <div class="slide" id="s17">
-  <h1>What's <em>Next</em></h1>
-  <p class="subtitle">Homework &middot; 2 weeks &middot; Learn + Build</p>
-  <div class="two-col">
-    <div>
-      <h3>Week 1: Complete the courses</h3>
-      <table>
-        <tr><th>Course</th><th>Time</th></tr>
-        <tr><td style="text-align:left">1: Claude Code Fundamentals</td><td>~90 min</td></tr>
-        <tr><td style="text-align:left">2: Agentic Engineering</td><td>~60 min</td></tr>
-        <tr><td style="text-align:left">3: AI Skills Lab</td><td>~40 min</td></tr>
-        <tr><td style="text-align:left">4: AI Life Skills</td><td>~75 min</td></tr>
-      </table>
-    </div>
-    <div>
-      <h3>Week 2: Build a project</h3>
-      <ul>
-        <li>Build a web app</li>
-        <li>Create a teaching course</li>
-        <li>AI investigative report</li>
-        <li>Design an agent system</li>
-        <li>Creative portfolio</li>
-      </ul>
-      <p style="margin-top: 12px;"><b>Submit:</b> Send your link to wqu@monmouth.edu</p>
-    </div>
-  </div>
-</div>
-
-<!-- ==================== SLIDE 18 ==================== -->
-<div class="slide" id="s18">
-  <div class="center">
+  <div class="slide-inner center">
     <div class="big-accent">&#128203;</div>
     <h1>Post-Test + <em>Survey</em></h1>
-    <p class="subtitle">Same quiz as before + a short survey &middot; 10 minutes</p>
-    <p>Be honest &mdash; your answers help us improve this for future students.</p>
+    <p class="subtitle">Same quiz as before + a short survey · 10 minutes</p>
+    <p>Be honest — your answers help us improve this for future students.</p>
   </div>
 </div>
 
-<!-- ==================== SLIDE 19 ==================== -->
-<div class="slide" id="s19">
-  <h1>Summary</h1>
-  <div class="two-col">
-    <div>
-      <div class="key-idea">
-        <h3>1</h3>
-        <p style="font-family: var(--font-display); font-size: 1.2em;">AI is a tool &mdash; you are the thinker</p>
+<!-- ═══ SLIDE 19: SUMMARY ═══ -->
+<div class="slide" id="s18">
+  <div class="slide-inner">
+    <div class="eyebrow">Recap</div>
+    <h1>Summary</h1>
+    <div class="two-col">
+      <div>
+        <div class="key-idea"><h3>1</h3><p class="lede" style="margin:0">AI is a tool — you are the thinker</p></div>
+        <div class="key-idea"><h3>2</h3><p class="lede" style="margin:0">Good prompts beat good AI models</p></div>
+        <div class="key-idea"><h3>3</h3><p class="lede" style="margin:0">Own the thinking, delegate the drafting</p></div>
       </div>
-      <div class="key-idea">
-        <h3>2</h3>
-        <p style="font-family: var(--font-display); font-size: 1.2em;">Good prompts beat good AI models</p>
-      </div>
-      <div class="key-idea">
-        <h3>3</h3>
-        <p style="font-family: var(--font-display); font-size: 1.2em;">Own the thinking, delegate the drafting</p>
-      </div>
-    </div>
-    <div>
-      <div class="glass-card">
-        <h3>Your resources</h3>
-        <div class="diagram small">
-Web App:
+      <div>
+        <div class="glass-card">
+          <h3>Your resources</h3>
+          <div class="diagram small">Web App:
   weihaoqu.github.io/learnai-course/
 
 Homework due:
@@ -604,87 +559,110 @@ Homework due:
 
 Submit to:
   wqu@monmouth.edu</div>
-      </div>
-      <div class="warning">
-        <h3>Don't forget</h3>
-        <p>Complete all 4 courses (Week 1), build your project (Week 2), send the link.</p>
+        </div>
+        <div class="warning"><h3>Don't forget</h3><p>Complete all 4 courses (Week 1), build your project (Week 2), send the link.</p></div>
       </div>
     </div>
   </div>
 </div>
 
-<!-- ==================== SLIDE 20 ==================== -->
-<div class="slide" id="s20">
-  <div class="center">
+<!-- ═══ SLIDE 20: THANK YOU ═══ -->
+<div class="slide" id="s19">
+  <div class="slide-inner center">
     <div class="big-accent">&#127881;</div>
     <h1>Thank <em>You</em></h1>
-    <p class="subtitle" style="font-family: var(--font-display); font-size: 1.4em; font-style: italic;">You just built something real with AI.<br>Now go build something that matters to you.</p>
-    <div style="margin-top: 48px; color: var(--ink-muted);">
-      <p style="font-size: 1.05em;"><b>Web App:</b> weihaoqu.github.io/learnai-course/</p>
-      <p><b>Contact:</b> wqu@monmouth.edu &middot; 732-263-5396</p>
-      <p style="margin-top: 24px; font-family: var(--font-display); font-size: 1.1em;">Prof. Weihao Qu <span class="seal">MU</span></p>
+    <p class="lede">You just built something real with AI.<br>Now go build something that matters to you.</p>
+    <div style="margin-top:2.4rem; color:var(--text-tertiary);">
+      <p><strong style="color:var(--text-secondary)">Web App:</strong> weihaoqu.github.io/learnai-course/</p>
+      <p><strong style="color:var(--text-secondary)">Contact:</strong> wqu@monmouth.edu · 732-263-5396</p>
+      <p style="margin-top:1.4rem; font-family:var(--font-display); font-size:1.1em; color:var(--text-secondary);">Prof. Weihao Qu <span class="seal">MU</span></p>
     </div>
   </div>
 </div>
+
+</div><!-- /deck -->
 
 <!-- Nav -->
 <div class="nav">
-  <button id="prevBtn" onclick="changeSlide(-1)">&larr; Prev</button>
-  <button id="nextBtn" onclick="changeSlide(1)">Next &rarr;</button>
+  <button id="prevBtn" onclick="go(-1)">← Prev</button>
+  <button id="nextBtn" onclick="go(1)">Next →</button>
+</div>
+
+<!-- HUD -->
+<div class="hud">
+  <span class="slide-title" id="hudTitle">AI Engineering Academy</span>
+  <span class="counter"><span id="hudCurrent">1</span>/<span id="hudTotal">20</span></span>
+  <span class="keys"><kbd>←</kbd><kbd>→</kbd></span>
+  <div class="progress"><div class="bar" id="hudBar" style="width:5%"></div></div>
 </div>
 
 <script>
-const totalSlides = 20;
-let current = 1;
-const slideTitles = ['','AI Engineering Academy','Today\'s Plan','Pre-Test','Consent','What Is AI?','AI = Prediction','Vibe Learning Trap','Prompt Structure','Bad vs Good','Claude Code','Golden Workflow','Check AI\'s Work','Safety Rules','Project Time','Building Tips','Show & Tell','Homework','Post-Test','Summary','Thank You'];
+const slides = document.querySelectorAll('.slide');
+const total = slides.length;
+let current = 0;
+const titles = ['AI Engineering Academy','Today\'s Plan','Pre-Test','Consent','What Is AI?','AI = Prediction','Vibe Learning Trap','Prompt Structure','Bad vs Good','Claude Code','Golden Workflow','Check AI\'s Work','Safety Rules','Project Time','Building Tips','Show & Tell','Homework','Post-Test','Summary','Thank You'];
 
-function showSlide(n) {
-  document.querySelectorAll('.slide').forEach(s => s.classList.remove('active'));
-  const slide = document.getElementById('s' + n);
-  if (slide) { slide.classList.add('active'); }
-  document.getElementById('prevBtn').disabled = (n === 1);
-  document.getElementById('nextBtn').disabled = (n === totalSlides);
-  document.getElementById('hudFill').style.width = ((n / totalSlides) * 100) + '%';
-  document.getElementById('hudCurrent').textContent = n;
-  document.getElementById('hudTitle').textContent = slideTitles[n] || '';
+document.getElementById('hudTotal').textContent = total;
+
+function show(n) {
+  if (n < 0 || n >= total) return;
+  slides[current].classList.remove('active');
+  current = n;
+  slides[current].classList.add('active');
+  document.getElementById('prevBtn').disabled = (n === 0);
+  document.getElementById('nextBtn').disabled = (n === total - 1);
+  document.getElementById('hudBar').style.width = (((n + 1) / total) * 100) + '%';
+  document.getElementById('hudCurrent').textContent = n + 1;
+  document.getElementById('hudTitle').textContent = titles[n] || '';
 }
 
-function changeSlide(delta) {
-  const next = current + delta;
-  if (next >= 1 && next <= totalSlides) { current = next; showSlide(current); }
+function go(d) { show(current + d); }
+
+// Theme
+const brushWipe = document.getElementById('brushWipe');
+const themeGlyph = document.getElementById('themeGlyph');
+const themeLabel = document.getElementById('themeLabel');
+
+function toggleTheme() {
+  brushWipe.classList.add('active', 'sweeping');
+  setTimeout(() => {
+    document.body.classList.toggle('theme-ink');
+    const isInk = document.body.classList.contains('theme-ink');
+    themeGlyph.textContent = isInk ? '🌑' : '🖌';
+    themeLabel.textContent = isInk ? 'Dark' : 'Ink-wash';
+  }, 380);
+  setTimeout(() => { brushWipe.classList.remove('active', 'sweeping'); }, 850);
+}
+
+function enterFullscreen() {
+  const el = document.documentElement;
+  if (el.requestFullscreen) el.requestFullscreen();
+  else if (el.webkitRequestFullscreen) el.webkitRequestFullscreen();
 }
 
 document.addEventListener('keydown', (e) => {
-  if (e.key === 'ArrowRight' || e.key === 'ArrowDown' || e.key === ' ') { e.preventDefault(); changeSlide(1); }
-  else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') { e.preventDefault(); changeSlide(-1); }
+  if (e.key === 'ArrowRight' || e.key === ' ' || e.key === 'PageDown') { e.preventDefault(); go(1); }
+  else if (e.key === 'ArrowLeft' || e.key === 'PageUp') { e.preventDefault(); go(-1); }
+  else if (e.key === 'Home') { e.preventDefault(); show(0); }
+  else if (e.key === 'End') { e.preventDefault(); show(total - 1); }
+  else if (e.key === 'f' || e.key === 'F') { e.preventDefault(); enterFullscreen(); }
+  else if (e.key === 'i' || e.key === 'I') { e.preventDefault(); toggleTheme(); }
   else if (e.key === 's' || e.key === 'S') {
-    const slide = document.getElementById('s' + current);
+    const slide = slides[current];
     const steps = slide.querySelectorAll('.step:not(.revealed)');
     if (steps.length > 0) steps[0].classList.add('revealed');
   }
 });
 
-showSlide(1);
+// Click edges to navigate
+document.addEventListener('click', (e) => {
+  if (e.target.closest('a, button, kbd')) return;
+  const w = window.innerWidth;
+  if (e.clientX < w * 0.15) go(-1);
+  else if (e.clientX > w * 0.85) go(1);
+});
 
-// Theme toggle
-function toggleTheme() {
-  const html = document.documentElement;
-  const btn = document.getElementById('themeToggle');
-  if (html.getAttribute('data-theme') === 'dark') {
-    html.setAttribute('data-theme', 'ink');
-    btn.innerHTML = '&#9790; Dark';
-    localStorage.setItem('slide-theme', 'ink');
-  } else {
-    html.setAttribute('data-theme', 'dark');
-    btn.innerHTML = '&#9788; Ink Wash';
-    localStorage.setItem('slide-theme', 'dark');
-  }
-}
-// Restore saved theme
-if (localStorage.getItem('slide-theme') === 'dark') {
-  document.documentElement.setAttribute('data-theme', 'dark');
-  document.getElementById('themeToggle').innerHTML = '&#9788; Ink Wash';
-}
+show(0);
 </script>
 </body>
 </html>
