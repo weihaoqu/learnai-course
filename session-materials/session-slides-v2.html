@@ -700,6 +700,65 @@ Output a structured plan.</div>
   </svg>
 </div>
 
+<!-- ═══ S16 FIRST MAIN BUILD PROMPT ═══ -->
+<div class="slide phase-build" id="s15">
+  <div class="slide-inner">
+    <div class="eyebrow">PHASE 06 · BUILD</div>
+    <h1>Now the <em>real one.</em></h1>
+    <div class="copy-block" style="text-align:left; margin:1.2rem auto; white-space:pre-line;">Using the plan we just made, build me
+a single HTML file for a personal
+landing page. Open it when done.</div>
+    <div class="warning" style="max-width:680px; margin:1.2rem auto;">
+      <h3>Why one prompt</h3>
+      <p>Small site = one-prompt scaffold for learning. Real projects = small prompts, verify each step.</p>
+    </div>
+  </div>
+  <div class="slide-meta">PHASE 06 · BUILD · 50:00 → 70:00</div>
+  <svg class="orbit-mark" viewBox="0 0 28 28" aria-hidden="true">
+    <circle class="ring" cx="14" cy="14" r="12" />
+    <circle class="ring" cx="14" cy="14" r="7" />
+    <circle class="node" cx="14" cy="2" r="1.8" />
+  </svg>
+</div>
+
+<!-- ═══ S17 AI GETS STUFF WRONG ═══ -->
+<div class="slide phase-build" id="s16">
+  <div class="slide-inner">
+    <div class="eyebrow">PHASE 06 · BUILD</div>
+    <h1>Expect 1–2 things <em>broken.</em></h1>
+    <ul class="rhythm-list">
+      <li>A link goes to the wrong place</li>
+      <li>The font looks weird</li>
+      <li>A section is missing</li>
+    </ul>
+    <p class="lede" style="margin-top:1.4rem;">Bug ≠ failure. Bug = iteration.</p>
+  </div>
+  <div class="slide-meta">PHASE 06 · BUILD · 50:00 → 70:00</div>
+  <svg class="orbit-mark" viewBox="0 0 28 28" aria-hidden="true">
+    <circle class="ring" cx="14" cy="14" r="12" />
+    <circle class="ring" cx="14" cy="14" r="7" />
+    <circle class="node" cx="14" cy="2" r="1.8" />
+  </svg>
+</div>
+
+<!-- ═══ S18 FIX IT ═══ -->
+<div class="slide phase-build" id="s17">
+  <div class="slide-inner">
+    <div class="eyebrow">PHASE 06 · BUILD</div>
+    <h1>Talk like a <em>teammate.</em></h1>
+    <div class="diagram" style="text-align:left; margin:1.2rem auto; white-space:pre-line; max-width:56ch;">"Make the header bigger."
+"The font is ugly. Try modern."
+"Add a dark mode toggle."</div>
+    <p class="subtitle">Plain English. Specific. One at a time.</p>
+  </div>
+  <div class="slide-meta">PHASE 06 · BUILD · 50:00 → 70:00</div>
+  <svg class="orbit-mark" viewBox="0 0 28 28" aria-hidden="true">
+    <circle class="ring" cx="14" cy="14" r="12" />
+    <circle class="ring" cx="14" cy="14" r="7" />
+    <circle class="node" cx="14" cy="2" r="1.8" />
+  </svg>
+</div>
+
 </div><!-- /deck -->
 
 <!-- §3.11 — S15 BUILD flash overlay (sibling of .deck, hidden by default) -->
@@ -731,7 +790,7 @@ const slides = document.querySelectorAll('.slide');
 const total = slides.length;
 let current = 0;
 // Titles array — Task 2 populated S1-S4; Tasks 3-11 fill the rest. Final population in Task 16 Step 1.
-const titles = ['AI Engineering Academy','Pre-Test','Consent','Launch Claude','Safety First','Pick Your Nickname','Quick Win — First Page','Chatbot vs Agent','CLAUDE.md & Context','Permissions · Context · Usage','Plan Beats Prompt','The Pro Workflow','Make Claude Interview You','A Good Plan Has','Plan Check','','','','','','','','','','','','','','','','',''];
+const titles = ['AI Engineering Academy','Pre-Test','Consent','Launch Claude','Safety First','Pick Your Nickname','Quick Win — First Page','Chatbot vs Agent','CLAUDE.md & Context','Permissions · Context · Usage','Plan Beats Prompt','The Pro Workflow','Make Claude Interview You','A Good Plan Has','Plan Check','First Main Build Prompt','AI Gets Stuff Wrong','Fix It','','','','','','','','','','','','','',''];
 
 document.getElementById('hudTotal').textContent = total;
 
