@@ -369,7 +369,82 @@ body.theme-ink .brush-wipe .ink-stroke { background:var(--bg-deep); }
 </div>
 
 <div class="deck" id="deck">
-<!-- Slides will be populated by Tasks 2-11. Empty scaffold for now. -->
+
+<!-- ═══ S1 TITLE ═══ -->
+<div class="slide billboard phase-open active" id="s0">
+  <div class="slide-inner center">
+    <div class="eyebrow">PHASE 01 · OPEN</div>
+    <h1>AI Engineering <em>Academy</em></h1>
+    <p class="subtitle" style="margin-left:auto; margin-right:auto;">A landing page about who you wish you were. 110 min.</p>
+    <svg class="orbit-mark" viewBox="0 0 28 28" aria-hidden="true" style="position:static; display:block; margin:1.8rem auto 0.6rem; width:56px; height:56px; opacity:.8;">
+      <circle class="ring" cx="14" cy="14" r="12" />
+      <circle class="ring" cx="14" cy="14" r="7" />
+      <circle class="node" cx="14" cy="2" r="1.8" />
+    </svg>
+    <p class="muted" style="font-size:0.82rem;">the orbit is your agenda — each phase rotates one notch</p>
+    <p class="muted" style="margin-top:1.4rem; font-size:0.78rem;">&larr; &rarr; navigate &middot; <kbd>I</kbd> ink-wash &middot; <kbd>F</kbd> fullscreen</p>
+  </div>
+  <div class="slide-meta">PHASE 01 &middot; OPEN &middot; 00:00 &rarr; 10:00</div>
+  <svg class="orbit-mark" viewBox="0 0 28 28" aria-hidden="true">
+    <circle class="ring" cx="14" cy="14" r="12" />
+    <circle class="ring" cx="14" cy="14" r="7" />
+    <circle class="node" cx="14" cy="2" r="1.8" />
+  </svg>
+</div>
+
+<!-- ═══ S2 PRE-TEST ═══ -->
+<div class="slide billboard phase-open" id="s1">
+  <div class="slide-inner center">
+    <div class="eyebrow">PHASE 01 · OPEN</div>
+    <h1>5-minute <em>quiz</em></h1>
+    <p class="subtitle" style="margin-left:auto; margin-right:auto;">No grade. We measure what you learn today.</p>
+    <div class="glass-card" style="max-width:520px; margin:1.4rem auto;">
+      <p><strong>QR: Q to fill — pre-test URL</strong></p>
+    </div>
+  </div>
+  <div class="slide-meta">PHASE 01 &middot; OPEN &middot; 00:00 &rarr; 10:00</div>
+  <svg class="orbit-mark" viewBox="0 0 28 28" aria-hidden="true">
+    <circle class="ring" cx="14" cy="14" r="12" />
+    <circle class="ring" cx="14" cy="14" r="7" />
+    <circle class="node" cx="14" cy="2" r="1.8" />
+  </svg>
+</div>
+
+<!-- ═══ S3 CONSENT ═══ -->
+<div class="slide billboard phase-open" id="s2">
+  <div class="slide-inner center">
+    <div class="eyebrow">PHASE 01 · OPEN</div>
+    <h1>Read. <em>Decide.</em></h1>
+    <p class="subtitle" style="margin-left:auto; margin-right:auto;">I Agree or I Do Not Agree — either way you do everything today.</p>
+    <div class="glass-card" style="max-width:520px; margin:1.4rem auto;">
+      <p><strong>QR: Q to fill — consent URL (weihaoqu.github.io/learnai-course/)</strong></p>
+    </div>
+    <p class="muted" style="font-size:0.8rem; margin-top:1rem;">Non-consent path &rarr; facilitator runbook (NOT shown to students)</p>
+  </div>
+  <div class="slide-meta">PHASE 01 &middot; OPEN &middot; 00:00 &rarr; 10:00</div>
+  <svg class="orbit-mark" viewBox="0 0 28 28" aria-hidden="true">
+    <circle class="ring" cx="14" cy="14" r="12" />
+    <circle class="ring" cx="14" cy="14" r="7" />
+    <circle class="node" cx="14" cy="2" r="1.8" />
+  </svg>
+</div>
+
+<!-- ═══ S4 LAUNCH CLAUDE ═══ -->
+<div class="slide billboard phase-open" id="s3">
+  <div class="slide-inner center">
+    <div class="eyebrow">PHASE 01 · OPEN</div>
+    <h1>Open terminal. Type: <em>claude</em></h1>
+    <p class="subtitle" style="margin-left:auto; margin-right:auto;">Hit enter. Raise hand if anything is red.</p>
+    <p class="muted" style="margin-top:1.4rem;">Tech help happens in parallel — we don't wait.</p>
+  </div>
+  <div class="slide-meta">PHASE 01 &middot; OPEN &middot; 00:00 &rarr; 10:00</div>
+  <svg class="orbit-mark" viewBox="0 0 28 28" aria-hidden="true">
+    <circle class="ring" cx="14" cy="14" r="12" />
+    <circle class="ring" cx="14" cy="14" r="7" />
+    <circle class="node" cx="14" cy="2" r="1.8" />
+  </svg>
+</div>
+
 </div><!-- /deck -->
 
 <!-- Nav -->
@@ -390,8 +465,8 @@ body.theme-ink .brush-wipe .ink-stroke { background:var(--bg-deep); }
 const slides = document.querySelectorAll('.slide');
 const total = slides.length;
 let current = 0;
-// Placeholder titles array — Tasks 2-11 fill specific entries; final population in Task 16 Step 1.
-const titles = ['','','','','','','','','','','','','','','','','','','','','','','','','','','','','',''];
+// Titles array — Task 2 populated S1-S4; Tasks 3-11 fill the rest. Final population in Task 16 Step 1.
+const titles = ['AI Engineering Academy','Pre-Test','Consent','Launch Claude','','','','','','','','','','','','','','','','','','','','','','','','','',''];
 
 document.getElementById('hudTotal').textContent = total;
 
