@@ -2,11 +2,28 @@
 
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
 
-**Goal:** Replace `session-materials/session-slides.html` with a 30-slide / 110-min build-first deck per the approved spec at `docs/superpowers/specs/2026-05-16-slide-redesign-design.md`; create two facilitator-only docs and a static starter HTML for the ops fallback; update the agenda markdown.
+> ## ⚠️ THIS PLAN IS AMENDED — read both documents
+>
+> This plan was Codex-approved on 2026-05-16. On 2026-05-17, Q requested a "fancy minimal" pivot. The amendment lives at:
+>
+> **`docs/superpowers/specs/2026-05-17-fancy-minimal-amendment.md`**
+>
+> When the plan and the amendment conflict, **the amendment wins.** The amendment's §7 "Implementation plan delta" is the authoritative list of task-by-task changes. Read it BEFORE acting on any task here. Specifically the amendment changes:
+> - Inter loaded as a variable font with `opsz` axis (not static weights)
+> - Adds CSS for `font-variation-settings`, semantic status colors (`--status-danger/success/warning`), motion system (entrance + underscore + step reveal), orbit-mark SVG, click-to-copy on `.copy-block`
+> - Updates every slide to: drop `.eyebrow.color` modifier classes, add `PHASE NN · NAME` eyebrow text, add `.slide-meta` footer, add orbit-mark inline SVG, apply correct `.phase-X` class
+> - Adds live-moment features (S7 render counter, S15 plan-check scoreboard, S22 fumble chip — all count-only by default, `sessionStorage` only, no nickname projection)
+> - Adds ACs 10-13 for reduced-motion, contrast+CVD, keyboard scenarios, and IRB consult
+> - Removes inline emoji on S10/S27 and `.big-accent` on S2/S3/S28
+> - Reframes S13 headline + applies cringe-audit rewrites on S29/S30/S5/S20/S25/S1 subtitle
+>
+> If an implementer encounters a step here that contradicts the amendment, follow the amendment and note the divergence in the commit message.
 
-**Architecture:** Build the new deck in a side-by-side file (`session-slides-v2.html`) so the current 20-slide deck stays usable mid-build; swap with `git mv` only after the new file passes visual verification. The new file copies the existing CSS framework (deck navigation, keyboard shortcuts, ink-wash toggle, HUD) verbatim, adds 6 new CSS classes for the hi-contrast billboard aesthetic, and rewrites all 30 slides as inline HTML. No build step, no dependencies, no JS framework — same constraints as the rest of the static site.
+**Goal:** Replace `session-materials/session-slides.html` with a 30-slide / 110-min build-first deck per the approved spec at `docs/superpowers/specs/2026-05-16-slide-redesign-design.md` AS AMENDED by `docs/superpowers/specs/2026-05-17-fancy-minimal-amendment.md`; create two facilitator-only docs and a static starter HTML for the ops fallback; update the agenda markdown.
 
-**Tech Stack:** Vanilla HTML5 + inline CSS + inline ES2015 (no modules). Fonts: **Inter** as the single sans-serif family (per spec §6), with italic weights loaded so `<em>` still works without a second family. QR codes: existing base64-embedded PNG pattern used in current S4. Testing: open in browser via `open` and visually verify against spec §5 content.
+**Architecture:** Build the new deck in a side-by-side file (`session-slides-v2.html`) so the current 20-slide deck stays usable mid-build; swap with `git rm` + `git mv` only after the new file passes visual verification. The new file copies the existing CSS framework (deck navigation, keyboard shortcuts, ink-wash toggle, HUD) verbatim, adds ~14 new CSS classes for the hi-contrast billboard aesthetic + motion + status + orbit-mark + click-to-copy + live-moment systems, and rewrites all 30 slides as inline HTML. No build step, no dependencies, no JS framework — same constraints as the rest of the static site.
+
+**Tech Stack:** Vanilla HTML5 + inline CSS + inline ES2015 (no modules). Fonts: **Inter variable** with `opsz` axis (per amendment §6.1), single sans-serif family. QR codes: existing base64-embedded PNG pattern used in current S4. Testing: open in browser via `python -m http.server` (required for click-to-copy Clipboard API) and visually verify against amendment §6 + spec §5 content.
 
 ---
 
