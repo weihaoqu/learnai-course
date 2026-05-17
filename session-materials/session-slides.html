@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>AI Engineering Academy — Session Slides</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,400..800;1,14..32,400..700&display=swap" rel="stylesheet">
 <style>
 *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 :root {
@@ -14,12 +14,42 @@
   --text-primary: #f0f4f8; --text-secondary: #b3becf; --text-tertiary: #6b7d97;
   --accent-blue: #4f8ff7; --accent-violet: #8b6cf6; --accent-rose: #e879a8;
   --accent-emerald: #34d399; --accent-amber: #f59e0b;
-  --font-display: 'Instrument Serif', Georgia, serif;
-  --font-body: 'DM Sans', -apple-system, sans-serif;
+
+  /* §6.0 — Semantic status colors (fixed-purpose, used in addition to phase accent) */
+  --status-danger: #f87171;
+  --status-success: #34d399;
+  --status-warning: #f59e0b;
+  /* RGB triplets for use with rgba() in box-shadow/animation alpha contexts */
+  --status-danger-rgb: 248, 113, 113;
+  --status-success-rgb: 52, 211, 153;
+  --status-warning-rgb: 245, 158, 11;
+
+  /* §6.1 — Type scale custom properties (single source of truth) */
+  --type-hero:     clamp(4.5rem, 9vw,   8rem);
+  --type-headline: clamp(3rem,   6vw,   5rem);
+  --type-sub:      clamp(1.35rem,1.9vw, 1.7rem);
+  --type-list:     clamp(1.25rem,1.5vw, 1.55rem);
+  --type-body:     clamp(1.1rem, 1.2vw, 1.25rem);
+  --type-eyebrow:  clamp(0.92rem,1vw,   1rem);
+  --type-code:     clamp(1.05rem,1.2vw, 1.2rem);
+  --type-muted:    clamp(0.95rem,1vw,   1.05rem);
+
+  /* Line-heights */
+  --lh-hero: 0.98;
+  --lh-headline: 1.04;
+  --lh-list: 1.45;
+  --lh-body: 1.55;
+  --lh-code: 1.6;
+
+  /* Tracking */
+  --track-eyebrow: 0.22em;
+
+  --font-body: 'Inter', -apple-system, sans-serif;
   --ease: cubic-bezier(0.16,1,0.3,1);
 }
-html, body { height: 100%; }
-body { font-family: var(--font-body); background: var(--bg-deep); color: var(--text-secondary); line-height: 1.6; overflow: hidden; -webkit-font-smoothing: antialiased; }
+html { font-optical-sizing: auto; height: 100%; }
+body { height: 100%; }
+body { font-family: var(--font-body); background: var(--bg-deep); color: var(--text-secondary); line-height: var(--lh-body); overflow: hidden; -webkit-font-smoothing: antialiased; }
 body::before { content:''; position:fixed; inset:0; z-index:9999; pointer-events:none; background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E"); background-repeat:repeat; background-size:256px; opacity:0.4; }
 a { color: var(--accent-blue); text-decoration: none; }
 
@@ -29,25 +59,128 @@ a { color: var(--accent-blue); text-decoration: none; }
 .slide.active { opacity:1; pointer-events:auto; }
 .slide-inner { width:100%; max-width:1180px; }
 
-/* Eyebrow */
-.eyebrow { font-size:0.74rem; font-weight:500; text-transform:uppercase; letter-spacing:0.22em; color:var(--accent-violet); margin-bottom:1.4rem; }
-.eyebrow.blue { color:var(--accent-blue); }
-.eyebrow.rose { color:var(--accent-rose); }
-.eyebrow.emerald { color:var(--accent-emerald); }
-.eyebrow.amber { color:var(--accent-amber); }
+/* §6.1 — Variable-axis bindings (Inter optical sizing) */
+h1            { font-size: var(--type-headline);
+                font-variation-settings: 'opsz' 28, 'wght' 700;
+                line-height: var(--lh-headline);
+                color: var(--text-primary);
+                letter-spacing: -0.005em;
+                margin-bottom: 1.2rem; }
 
-/* Typography */
-h1 { font-family:var(--font-display); font-size:clamp(2.6rem,5.8vw,4.8rem); font-weight:400; line-height:1.08; color:var(--text-primary); letter-spacing:-0.025em; margin-bottom:1.2rem; }
-h1 em { font-style:italic; background:linear-gradient(135deg,var(--accent-blue),var(--accent-violet),var(--accent-rose)); -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent; background-size:200% 200%; animation:gradShift 8s ease infinite; }
-@keyframes gradShift { 0%,100%{background-position:0% 50%} 50%{background-position:100% 50%} }
-h2 { font-family:var(--font-display); font-size:clamp(1.8rem,3.8vw,2.8rem); font-weight:400; color:var(--text-primary); letter-spacing:-0.02em; line-height:1.12; margin-bottom:1rem; }
-h3 { font-family:var(--font-display); font-size:clamp(1.2rem,2vw,1.6rem); font-weight:400; color:var(--text-primary); margin-bottom:0.5rem; }
-.subtitle { font-size:1.18rem; color:var(--text-secondary); max-width:760px; line-height:1.55; margin-bottom:2rem; }
-.lede { font-family:var(--font-display); font-size:clamp(1.4rem,2.4vw,1.9rem); font-style:italic; line-height:1.4; color:var(--text-primary); max-width:860px; margin-bottom:1.2rem; }
-p, li { font-size:1.05rem; line-height:1.7; color:var(--text-secondary); margin-bottom:0.5rem; }
-.muted { color:var(--text-tertiary); }
-ul { padding-left:20px; } ul li { margin-bottom:6px; } ul li::marker { color:var(--text-tertiary); }
-b, strong { color:var(--text-primary); font-weight:600; }
+.slide.billboard h1 { font-size: var(--type-hero);
+                      font-variation-settings: 'opsz' 32, 'wght' 700;
+                      line-height: var(--lh-hero);
+                      letter-spacing: -0.005em; }
+
+.subtitle     { font-size: var(--type-sub);
+                font-variation-settings: 'opsz' 20, 'wght' 400;
+                line-height: var(--lh-body);
+                color: var(--text-secondary);
+                max-width: 760px;
+                margin-bottom: 2rem; }
+
+p, li         { font-size: var(--type-body);
+                font-variation-settings: 'opsz' 16, 'wght' 400;
+                line-height: var(--lh-body);
+                color: var(--text-secondary);
+                margin-bottom: 0.5rem; }
+
+/* §6.1 move #4 — Rhythm list: typographic phase-tag numerals (01, 02, 03…) in phase accent */
+.rhythm-list { counter-reset: li; list-style: none; padding-left: 0; }
+.rhythm-list li { font-size: var(--type-list);
+                  font-variation-settings: 'opsz' 18, 'wght' 500;
+                  line-height: var(--lh-list);
+                  counter-increment: li;
+                  position: relative;
+                  padding-left: 3.2em;
+                  margin-bottom: 0.9rem; }
+.rhythm-list li::before { content: counter(li, decimal-leading-zero) "  ·";
+                          position: absolute; left: 0; top: 0;
+                          font-family: 'SF Mono','Fira Code',monospace;
+                          font-size: 0.78em; letter-spacing: 0.08em;
+                          color: var(--phase-accent); font-weight: 600;
+                          line-height: var(--lh-list); }
+
+.muted        { font-size: var(--type-muted);
+                font-variation-settings: 'opsz' 14, 'wght' 400;
+                color: var(--text-tertiary);
+                letter-spacing: 0.02em; }
+
+.copy-block, .diagram {
+                font-family: 'SF Mono','Fira Code',monospace;
+                font-size: var(--type-code);
+                line-height: var(--lh-code);
+                letter-spacing: -0.01em;
+                /* monospace falls back through default opsz; no font-variation-settings here */ }
+
+h2 { font-size: clamp(1.8rem, 3.8vw, 2.8rem); font-variation-settings: 'opsz' 24, 'wght' 600; color: var(--text-primary); letter-spacing: -0.005em; line-height: 1.12; margin-bottom: 1rem; }
+h3 { font-size: clamp(1.2rem, 2vw, 1.6rem); font-variation-settings: 'opsz' 20, 'wght' 600; color: var(--text-primary); margin-bottom: 0.5rem; }
+
+ul { padding-left: 20px; } ul li { margin-bottom: 6px; } ul li::marker { color: var(--text-tertiary); }
+b, strong { color: var(--text-primary); font-weight: 600; }
+
+/* Measure caps */
+.slide.billboard .subtitle, .slide.billboard p { max-width: 32ch; }
+.copy-block, .rhythm-list { max-width: 56ch; }
+
+/* §6.4 — Eyebrow as anchor (Typography #3 + Brand #5 merged) */
+.eyebrow { font-size: var(--type-eyebrow);
+           font-variation-settings: 'opsz' 14, 'wght' 600;
+           font-weight: 600;
+           letter-spacing: var(--track-eyebrow);
+           text-transform: uppercase;
+           color: var(--phase-accent);
+           margin-bottom: 1.6rem;
+           display: inline-flex;
+           align-items: center;
+           gap: 0.7rem; }
+.eyebrow::before { content: ''; width: 24px; height: 1px; background: currentColor; }
+
+/* §6.4 — Slide-meta footer (Brand #5) */
+.slide-meta { position:absolute; left:7vw; bottom:5vh;
+              font-family:'SF Mono',monospace; font-size:.7rem; letter-spacing:.14em;
+              color:var(--text-tertiary); text-transform:uppercase; }
+.slide-meta b { color: var(--phase-accent); font-weight: 600; }
+
+/* §6.4 — Corner orbit-mark (Brand signature SVG) */
+.orbit-mark { position:absolute; right:1.6rem; bottom:1.6rem; width:28px; height:28px;
+              opacity:.55; transition: opacity .3s, transform .8s; }
+.orbit-mark .ring { fill:none; stroke: var(--border-glow); stroke-width:.6; }
+.orbit-mark .node { fill: var(--phase-accent); transform-origin: 14px 14px;
+                    transform: rotate(var(--phase-angle, 0deg)); transition: transform .8s; }
+
+/* §6.2 — Color system: "one accent per slide" (10 phase classes) */
+.slide { --phase-accent: var(--text-primary); } /* default: no accent at all */
+.slide.phase-open     { --phase-accent: #67e8f9; --phase-angle:   0deg; } /* cyan */
+.slide.phase-safety   { --phase-accent: #f87171; --phase-angle:  36deg; } /* rose, AAA-safe */
+.slide.phase-quickwin { --phase-accent: #34d399; --phase-angle:  72deg; } /* emerald */
+.slide.phase-decode   { --phase-accent: #c4b5fd; --phase-angle: 108deg; } /* violet (lifted from #a78bfa for AAA) */
+.slide.phase-plan     { --phase-accent: #60a5fa; --phase-angle: 144deg; } /* blue */
+.slide.phase-build    { --phase-accent: #f59e0b; --phase-angle: 180deg; } /* amber */
+.slide.phase-polish   { --phase-accent: #d4a73d; --phase-angle: 216deg; } /* gold */
+.slide.phase-share    { --phase-accent: #38bdf8; --phase-angle: 252deg; } /* sky-cyan (differentiated from Open's #67e8f9) */
+.slide.phase-levelup  { --phase-accent: #c4b5fd; --phase-angle: 288deg; } /* violet */
+.slide.phase-close    { --phase-accent: #34d399; --phase-angle: 324deg; } /* emerald */
+
+/* §6.2 — S5 Safety slide single-column triple-redundant CVD cues */
+.safety-grid { display: grid; grid-template-columns: 1fr; max-width: 640px; gap: 0.5rem; margin: 1rem auto; }
+.safety-grid .no  { padding:.6rem 1rem; border-radius:8px; font-weight:600;
+                    color:#fecaca; background:rgba(220,38,38,.18);
+                    border-left:4px solid #f87171; }
+.safety-grid .yes { padding:.6rem 1rem; border-radius:8px; font-weight:600;
+                    color:#bbf7d0; background:rgba(16,185,129,.14);
+                    border-left:4px solid #34d399; }
+
+/* Cards (border-left accent, transparent fill — §6.2) */
+.glass-card { background:var(--bg-card); border:1px solid var(--border-dim); border-radius:14px; padding:1.6rem; transition:all 0.25s var(--ease); }
+.glass-card:hover { border-color:var(--border-glow); }
+.key-idea { border-left:3px solid var(--phase-accent); border-radius:0 14px 14px 0; padding:1.2rem 1.4rem; margin:0.8rem 0; background: transparent; }
+.warning { border-left:3px solid var(--phase-accent); border-radius:0 14px 14px 0; padding:1.2rem 1.4rem; margin:0.8rem 0; background: transparent; }
+.analogy { border-left:3px solid var(--phase-accent); border-radius:0 14px 14px 0; padding:1.2rem 1.4rem; margin:0.8rem 0; background: transparent; }
+
+/* Diagram */
+.diagram { background:var(--bg-card); border:1px solid var(--border-dim); border-radius:12px; padding:1.4rem; white-space:pre; overflow-x:auto; margin:0.8rem 0; color:#7dd3fc; }
+.diagram.small { font-size:0.82em; }
 
 /* Layout */
 .two-col { display:grid; grid-template-columns:1fr 1fr; gap:3rem; align-items:start; }
@@ -57,33 +190,14 @@ b, strong { color:var(--text-primary); font-weight:600; }
 /* Stats row */
 .stats-row { display:flex; gap:1px; background:var(--border-dim); border-radius:16px; overflow:hidden; margin-top:1.4rem; max-width:680px; }
 .stat-cell { background:var(--bg-card); padding:1.2rem 1.4rem; text-align:center; flex:1; }
-.stat-cell .num { font-family:var(--font-display); font-size:2.2rem; color:var(--text-primary); line-height:1; margin-bottom:0.3rem; }
+.stat-cell .num { font-size:2.2rem; font-variation-settings: 'opsz' 24, 'wght' 700; color:var(--text-primary); line-height:1; margin-bottom:0.3rem; }
 .stat-cell .lbl { font-size:0.68rem; text-transform:uppercase; letter-spacing:0.12em; color:var(--text-tertiary); font-weight:500; }
-
-/* Cards */
-.glass-card { background:var(--bg-card); border:1px solid var(--border-dim); border-radius:14px; padding:1.6rem; transition:all 0.25s var(--ease); }
-.glass-card:hover { border-color:var(--border-glow); }
-
-/* Diagram */
-.diagram { background:var(--bg-card); border:1px solid var(--border-dim); border-radius:12px; padding:1.4rem; font-family:'SF Mono','Fira Code',monospace; font-size:0.92em; line-height:1.6; white-space:pre; overflow-x:auto; margin:0.8rem 0; color:#7dd3fc; }
-.diagram.small { font-size:0.82em; }
-
-/* Accent boxes */
-.key-idea { background:linear-gradient(135deg,rgba(79,143,247,0.08),rgba(139,108,246,0.08)); border-left:3px solid var(--accent-blue); border-radius:0 14px 14px 0; padding:1.2rem 1.4rem; margin:0.8rem 0; }
-.warning { background:rgba(245,158,11,0.06); border-left:3px solid var(--accent-amber); border-radius:0 14px 14px 0; padding:1.2rem 1.4rem; margin:0.8rem 0; }
-.warning h3 { color:var(--accent-amber); }
-.analogy { background:rgba(52,211,153,0.06); border-left:3px solid var(--accent-emerald); border-radius:0 14px 14px 0; padding:1.2rem 1.4rem; margin:0.8rem 0; }
-.analogy h3 { color:var(--accent-emerald); }
 
 /* Table */
 table { border-collapse:collapse; margin:0.8rem 0; }
 th, td { border:1px solid var(--border-dim); padding:0.6rem 1rem; text-align:center; font-size:0.92em; }
-th { background:var(--bg-card); color:var(--accent-blue); font-weight:600; text-transform:uppercase; font-size:0.75em; letter-spacing:0.06em; }
+th { background:var(--bg-card); color:var(--phase-accent); font-weight:600; text-transform:uppercase; font-size:0.75em; letter-spacing:0.06em; }
 td { background:rgba(255,255,255,0.02); }
-
-/* Steps */
-.step { opacity:0.2; transition:opacity 0.4s; margin:0.5rem 0; padding:0.6rem 1rem; border-radius:10px; font-size:1.05rem; }
-.step.revealed { opacity:1; background:rgba(79,143,247,0.06); }
 
 /* VS */
 .vs-grid { display:grid; grid-template-columns:1fr auto 1fr; gap:1.5rem; align-items:center; }
@@ -91,8 +205,8 @@ td { background:rgba(255,255,255,0.02); }
 .vs-card.bad { border-color:rgba(232,121,168,0.3); }
 .vs-card.good { border-color:rgba(52,211,153,0.3); }
 .vs-label { font-size:0.72rem; font-weight:700; text-transform:uppercase; letter-spacing:0.12em; margin-bottom:0.6rem; }
-.vs-card.bad .vs-label { color:var(--accent-rose); }
-.vs-card.good .vs-label { color:var(--accent-emerald); }
+.vs-card.bad .vs-label { color:var(--status-danger); }
+.vs-card.good .vs-label { color:var(--status-success); }
 
 /* Projects */
 .project-grid { display:grid; grid-template-columns:1fr 1fr; gap:0.8rem; }
@@ -101,19 +215,117 @@ td { background:rgba(255,255,255,0.02); }
 .project-card h3 { font-size:1.1rem; margin-bottom:0.3rem; }
 .project-card p { font-size:0.92rem; margin:0; }
 
-/* Big accent */
-.big-accent { font-size:4.5rem; line-height:1; margin-bottom:1rem; }
-
 /* Seal */
-.seal { display:inline-block; color:#B4533C; border:2px solid #B4533C; border-radius:3px; padding:2px 8px; font-family:var(--font-display); font-size:0.82em; transform:rotate(-6deg); opacity:0.7; margin-left:10px; }
+.seal { display:inline-block; color:#B4533C; border:2px solid #B4533C; border-radius:3px; padding:2px 8px; font-size:0.82em; transform:rotate(-6deg); opacity:0.7; margin-left:10px; }
+
+/* ═══ §6.3 MOTION SYSTEM ═══ */
+
+/* Move A — Staggered entrance (every slide, fires once on .active) */
+@keyframes riseIn { from { opacity:0; transform:translateY(12px); } to { opacity:1; transform:translateY(0); } }
+.slide.active .eyebrow   { animation: riseIn .42s cubic-bezier(.16,1,.3,1) both;     animation-delay:   0ms; }
+.slide.active h1         { animation: riseIn .52s cubic-bezier(.16,1,.3,1) both;     animation-delay:  80ms; }
+.slide.active .subtitle,
+.slide.active .lede,
+.slide.active ul,
+.slide.active .copy-block,
+.slide.active .diagram,
+.slide.active .safety-grid { animation: riseIn .56s cubic-bezier(.16,1,.3,1) both;   animation-delay: 180ms; }
+.slide.active .muted,
+.slide.active .parent-box  { animation: riseIn .56s cubic-bezier(.16,1,.3,1) both;   animation-delay: 280ms; }
+
+/* Move B — Phase-color underscore on billboards (one-shot on .active) */
+.slide.billboard h1 { position: relative; display: inline-block; }
+.slide.billboard h1::after { content:''; position:absolute; left:50%; bottom:-10px; width:0; height:3px;
+                             background: var(--phase-accent); border-radius:2px; transform:translateX(-50%); }
+.slide.billboard.active h1::after { animation: underscore .54s cubic-bezier(.16,1,.3,1) .26s forwards; }
+@keyframes underscore { to { width: 62%; } }
+
+/* Move C — Step reveal punch (existing S key reveal, with snap) */
+.step { opacity:.18; transform:translateX(-8px); transition: opacity .35s, transform .35s, background .35s;
+        margin:0.5rem 0; padding:0.6rem 1rem; border-radius:10px; font-size:1.05rem; }
+.step.revealed { opacity:1; transform:translateX(0); background: rgba(79,143,247,.06); }
+.step.revealed::before { content:''; display:inline-block; width:6px; height:6px; border-radius:50%;
+                         background: var(--phase-accent); margin-right:.6rem; vertical-align:middle;
+                         animation: dotPop .32s cubic-bezier(.34,1.56,.64,1) both; }
+@keyframes dotPop { from{transform:scale(0);} to{transform:scale(1);} }
+
+/* Gradient on <em> — scoped to S1 + S30 only (one-shot on entry, freezes) */
+h1 em { font-style:italic; color:inherit; position:relative;
+        background-image: linear-gradient(transparent 78%, var(--phase-accent) 78%, var(--phase-accent) 92%, transparent 92%);
+        background-size: 100% 100%; background-repeat: no-repeat; padding: 0 .05em; }
+.slide#s0 h1 em, .slide#s29 h1 em { /* S1 and S30 only: keep gradient as scarcity flourish, one-shot */
+  background: linear-gradient(135deg, #93c5fd, #c4b5fd, #fbcfe8) text;
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  background-size: 220% 220%; background-position: 0% 50%;
+  animation: gradSweep 1.2s cubic-bezier(.16,1,.3,1) .14s both;
+}
+@keyframes gradSweep { to { background-position: 100% 50%; } }
+
+/* §6.4 — Copy-block click-to-copy */
+.copy-block { cursor: pointer;
+              background: var(--bg-card); border: 1px solid var(--border-dim); border-radius: 12px;
+              padding: 1.2rem 1.4rem; margin: 0.8rem 0; position: relative;
+              transition: border-color .2s var(--ease), transform .2s var(--ease); }
+.copy-block:hover { border-color: var(--phase-accent); transform: translateY(-1px); }
+.copy-block::after { content: 'click to copy'; position: absolute; top: 0.6rem; right: 0.8rem;
+                     font-size: 0.7rem; color: var(--text-tertiary); opacity: 0.6;
+                     transition: color .2s, opacity .2s; }
+.copy-block:hover::after { color: var(--phase-accent); opacity: 1; }
+.copy-block.copied { border-color: var(--status-success); animation: copiedPulse .6s var(--ease); }
+.copy-block.copied::after { content: 'copied ✓'; color: var(--status-success); opacity: 1; }
+@keyframes copiedPulse {
+  0%   { box-shadow: 0 0 0 0   rgba(var(--status-success-rgb), 0.45); }
+  100% { box-shadow: 0 0 0 14px rgba(var(--status-success-rgb), 0); }
+}
+
+/* §3.11 — S7 render counter 5th-render success pulse (one-shot, non-looping) */
+@keyframes fifthRenderPulse {
+  0%   { box-shadow: 0 0 0 0   rgba(var(--status-success-rgb), 0.55); }
+  100% { box-shadow: 0 0 0 18px rgba(var(--status-success-rgb), 0); }
+}
+
+/* Reduced-motion global (covers ALL motion in the deck — non-negotiable) */
+@media (prefers-reduced-motion: reduce) {
+  /* Universal kill: animations to ~zero, transitions to ~zero, scroll auto */
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+  /* Slide entrance lands in final state */
+  .slide.active * { opacity: 1 !important; transform: none !important; }
+  /* Billboard underscore appears at full width, no draw */
+  .slide.billboard.active h1::after { width: 62%; }
+  /* S1/S30 gradient settles at midpoint instead of sweeping */
+  h1 em { background-position: 50% 50%; }
+  /* Step reveal: all steps visible by default; no slide/pop */
+  .step { opacity: 1; transform: none; }
+  .step.revealed::before { animation: none; }
+  /* Copy-block click states: no lift, no pulse — click still copies */
+  .copy-block, .copy-block:hover { transform: none; }
+  .copy-block.copied { animation: none; }
+  /* Brush-wipe between slides: instant, no displacement filter */
+  .brush-wipe.sweeping .ink-stroke { animation: none; transform: translateX(110%); }
+  /* Phase-rotation orbit-mark: snap to final angle, no transition */
+  .orbit-mark .node { transition: none; }
+  /* Live-moment features (S7 counter, S15 scoreboard, S22 chip): static */
+  .render-counter, .render-counter * { animation: none !important; transition: none; }
+  .scoreboard, .scoreboard * { animation: none; transition: none; }
+  .scoreboard .build-flash { display: none; }   /* skip the "BUILD" flash on auto-advance */
+  .fumble-chip { animation: none; }
+}
+
+/* Ink-wash toggle debounce — 500ms transition on background-color/color */
+body, body.theme-ink { transition: background-color 500ms ease, color 500ms ease; }
 
 /* ═══ TITLEBAR ═══ */
 .titlebar { position:fixed; top:0; left:0; right:0; z-index:50; height:40px; display:flex; align-items:center; justify-content:space-between; padding:0 1.4rem; background:rgba(6,11,24,0.6); backdrop-filter:blur(20px); -webkit-backdrop-filter:blur(20px); border-bottom:1px solid var(--border-dim); font-size:0.7rem; color:var(--text-tertiary); text-transform:uppercase; letter-spacing:0.14em; }
-.titlebar .deck-name { font-family:var(--font-display); text-transform:none; letter-spacing:-0.01em; font-size:0.92rem; color:var(--text-secondary); }
+.titlebar .deck-name { text-transform:none; letter-spacing:-0.01em; font-size:0.92rem; color:var(--text-secondary); font-variation-settings: 'opsz' 14, 'wght' 500; }
 
 /* ═══ HUD ═══ */
 .hud { position:fixed; bottom:1rem; right:1.4rem; z-index:50; display:flex; gap:1rem; align-items:center; font-size:0.78rem; color:var(--text-secondary); font-variant-numeric:tabular-nums; background:rgba(6,11,24,0.55); backdrop-filter:blur(10px); -webkit-backdrop-filter:blur(10px); border:1px solid var(--border-dim); padding:0.45rem 0.95rem; border-radius:999px; }
-.hud .slide-title { font-family:var(--font-display); font-style:italic; font-size:0.98rem; color:var(--text-primary); max-width:28ch; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+.hud .slide-title { font-size:0.98rem; font-variation-settings: 'opsz' 16, 'wght' 500; color:var(--text-primary); max-width:28ch; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
 .hud .counter { opacity:0.8; font-weight:500; }
 .hud .keys { display:inline-flex; gap:0.35rem; font-family:'SF Mono',monospace; }
 .hud .keys kbd { padding:0.15rem 0.4rem; background:var(--bg-card); border:1px solid var(--border-dim); border-radius:4px; font-size:0.7rem; color:var(--text-secondary); }
@@ -158,7 +370,6 @@ body.theme-ink .theme-toggle { background:var(--bg-card); border-color:rgba(44,6
 body.theme-ink .glass-card, body.theme-ink .vs-card, body.theme-ink .project-card, body.theme-ink .stat-cell { background:var(--bg-card); box-shadow:0 2px 8px -2px rgba(44,62,45,0.08), 0 1px 0 rgba(255,255,255,0.6) inset; }
 body.theme-ink .stats-row { background:var(--border-dim); }
 body.theme-ink .diagram { background:#1a2018; border-color:rgba(44,62,45,0.20); }
-body.theme-ink .eyebrow, body.theme-ink .eyebrow.blue, body.theme-ink .eyebrow.violet { color:#B4533C; }
 body.theme-ink .brush-wipe .ink-stroke { background:var(--bg-deep); }
 </style>
 </head>
@@ -181,408 +392,635 @@ body.theme-ink .brush-wipe .ink-stroke { background:var(--bg-deep); }
 
 <div class="deck" id="deck">
 
-<!-- ═══ SLIDE 1: TITLE ═══ -->
-<div class="slide active" id="s0">
+<!-- ═══ S1 TITLE ═══ -->
+<div class="slide billboard phase-open active" id="s0">
   <div class="slide-inner center">
-    <div class="eyebrow">Prof. Weihao Qu · Monmouth University</div>
+    <div class="eyebrow">PHASE 01 · OPEN</div>
     <h1>AI Engineering <em>Academy</em></h1>
-    <p class="subtitle">Learn what AI actually is. Build something real with it. Today.</p>
-    <div class="stats-row" style="margin:1.4rem auto 0;">
-      <div class="stat-cell"><div class="num">5</div><div class="lbl">Students</div></div>
-      <div class="stat-cell"><div class="num">90</div><div class="lbl">Minutes</div></div>
-      <div class="stat-cell"><div class="num">1</div><div class="lbl">Project</div></div>
-    </div>
-    <p class="muted" style="margin-top:2rem; font-size:0.85rem;">Arrow keys to navigate · <kbd style="background:var(--bg-card);border:1px solid var(--border-dim);padding:2px 6px;border-radius:4px;font-size:0.8em">S</kbd> reveal steps · <kbd style="background:var(--bg-card);border:1px solid var(--border-dim);padding:2px 6px;border-radius:4px;font-size:0.8em">I</kbd> ink-wash · <kbd style="background:var(--bg-card);border:1px solid var(--border-dim);padding:2px 6px;border-radius:4px;font-size:0.8em">F</kbd> fullscreen</p>
+    <p class="subtitle" style="margin-left:auto; margin-right:auto;">A landing page about who you wish you were. 110 min.</p>
+    <svg class="orbit-mark" viewBox="0 0 28 28" aria-hidden="true" style="position:static; display:block; margin:1.8rem auto 0.6rem; width:56px; height:56px; opacity:.8;">
+      <circle class="ring" cx="14" cy="14" r="12" />
+      <circle class="ring" cx="14" cy="14" r="7" />
+      <circle class="node" cx="14" cy="2" r="1.8" />
+    </svg>
+    <p class="muted" style="font-size:0.82rem;">the orbit is your agenda — each phase rotates one notch</p>
+    <p class="muted" style="margin-top:1.4rem; font-size:0.78rem;">&larr; &rarr; navigate &middot; <kbd>I</kbd> ink-wash &middot; <kbd>F</kbd> fullscreen</p>
   </div>
+  <div class="slide-meta">PHASE 01 &middot; OPEN &middot; 00:00 &rarr; 10:00</div>
+  <svg class="orbit-mark" viewBox="0 0 28 28" aria-hidden="true">
+    <circle class="ring" cx="14" cy="14" r="12" />
+    <circle class="ring" cx="14" cy="14" r="7" />
+    <circle class="node" cx="14" cy="2" r="1.8" />
+  </svg>
 </div>
 
-<!-- ═══ SLIDE 2: AGENDA ═══ -->
-<div class="slide" id="s1">
-  <div class="slide-inner">
-    <div class="eyebrow blue">Overview</div>
-    <h1>What We'll Do <em>Today</em></h1>
-    <div class="two-col">
-      <div>
-        <div class="step">&#9201; Pre-Test (5 min)</div>
-        <div class="step">&#127916; Watch: What is AI? (10 min)</div>
-        <div class="step">&#9888; The Vibe Learning Trap (6 min)</div>
-        <div class="step">&#128161; How to talk to AI (6 min)</div>
-        <div class="step">&#128187; Live Demo: Bad vs Good (3 min)</div>
-        <div class="step">&#128296; YOU Build a Project (30 min)</div>
-        <div class="step">&#127775; Show &amp; Tell (10 min)</div>
-        <div class="step">&#128203; Post-Test + Survey (10 min)</div>
-      </div>
-      <div>
-        <div class="key-idea">
-          <h3>By the end</h3>
-          <p>You will have <strong>built something real</strong> with AI that you can show your parents.</p>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- ═══ SLIDE 3: PRE-TEST ═══ -->
-<div class="slide" id="s2">
+<!-- ═══ S2 PRE-TEST ═══ -->
+<div class="slide billboard phase-open" id="s1">
   <div class="slide-inner center">
-    <div class="big-accent">&#128203;</div>
-    <h1>Quick <em>Pre-Test</em></h1>
-    <p class="subtitle">5 minutes · No wrong answers</p>
-    <div class="glass-card" style="max-width:560px; margin:1.4rem auto;">
-      <p>This is NOT a grade. We just want to see what you already know so we can measure how much you learn today.</p>
+    <div class="eyebrow">PHASE 01 · OPEN</div>
+    <h1>5-minute <em>quiz</em></h1>
+    <p class="subtitle" style="margin-left:auto; margin-right:auto;">No grade. We measure what you learn today.</p>
+    <div class="glass-card" style="max-width:520px; margin:1.4rem auto;">
+      <p>Open the web course on your laptop:</p>
+      <p style="margin-top:0.4rem;"><strong>weihaoqu.github.io/learnai-course</strong></p>
+      <p class="muted" style="margin-top:0.4rem; font-size:0.85rem;">Pre-test is the first step inside.</p>
     </div>
   </div>
+  <div class="slide-meta">PHASE 01 &middot; OPEN &middot; 00:00 &rarr; 10:00</div>
+  <svg class="orbit-mark" viewBox="0 0 28 28" aria-hidden="true">
+    <circle class="ring" cx="14" cy="14" r="12" />
+    <circle class="ring" cx="14" cy="14" r="7" />
+    <circle class="node" cx="14" cy="2" r="1.8" />
+  </svg>
 </div>
 
-<!-- ═══ SLIDE 4: CONSENT ═══ -->
-<div class="slide" id="s3">
+<!-- ═══ S3 CONSENT ═══ -->
+<div class="slide billboard phase-open" id="s2">
   <div class="slide-inner center">
-    <div class="big-accent">&#128221;</div>
-    <h1>Your <em>Consent</em></h1>
-    <p class="subtitle">Open the web app and read the consent form</p>
-    <div class="diagram" style="max-width:480px; margin:1rem auto; text-align:center; font-size:1.15em;">weihaoqu.github.io/learnai-course/</div>
-    <div style="margin:1rem auto 0;"><img src="data:image/png;base64,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" alt="QR Code" style="width:160px;height:160px;border-radius:8px;"></div>
-    <p style="margin-top:0.8rem;">Scan the QR code or type the URL. Click <strong style="color:var(--accent-emerald)">I Agree</strong> to participate, or <strong style="color:var(--accent-rose)">I Do Not Agree</strong> — you can still do everything today.</p>
-  </div>
-</div>
-
-<!-- ═══ SLIDE 5: WHAT IS AI ═══ -->
-<div class="slide" id="s4">
-  <div class="slide-inner">
-    <div class="eyebrow emerald">Big picture</div>
-    <h1>What Is AI, <em>Really?</em></h1>
-    <p class="subtitle">Let's watch a 9-minute video, then discuss</p>
-    <div class="analogy"><h3>Before we watch</h3><p>Forget the movies. AI is not a robot. AI is not conscious. AI does not "think." What it actually does is much simpler — and much more useful once you understand it.</p></div>
-    <div class="key-idea"><h3>Watch for this</h3><p>AI is a <strong>pattern-matching machine</strong> trained on billions of examples. It predicts what comes next based on patterns. That's it.</p></div>
-  </div>
-</div>
-
-<!-- ═══ SLIDE 6: AI = PREDICTION ═══ -->
-<div class="slide" id="s5">
-  <div class="slide-inner">
-    <div class="eyebrow blue">Core concept</div>
-    <h1>AI = <em>Prediction</em>, Not Thinking</h1>
-    <div class="two-col">
-      <div>
-        <h3>What AI actually does</h3>
-        <div class="diagram">"The cat sat on the ___"
-
-AI calculates probabilities:
-  mat    → 18%
-  floor  → 12%
-  table  →  9%
-  ground →  8%
-
-Picks most likely: "mat"
-Then predicts the NEXT word...</div>
-      </div>
-      <div>
-        <h3>What this means for you</h3>
-        <ul>
-          <li>AI sounds <strong>confident</strong> even when <strong style="color:var(--accent-rose)">wrong</strong></li>
-          <li>It doesn't "know" facts — it predicts likely text</li>
-          <li>Same question → different answers each time</li>
-          <li><strong>You</strong> must verify everything</li>
-        </ul>
-        <div class="warning"><h3>Takeaway</h3><p>Autocomplete on steroids. Useful, but never blindly trustworthy.</p></div>
-      </div>
+    <div class="eyebrow">PHASE 01 · OPEN</div>
+    <h1>Read. <em>Decide.</em></h1>
+    <p class="subtitle" style="margin-left:auto; margin-right:auto;">I Agree or I Do Not Agree — either way you do everything today.</p>
+    <div class="glass-card" style="max-width:520px; margin:1.4rem auto;">
+      <p>Inside the web course:</p>
+      <p style="margin-top:0.4rem;"><strong>weihaoqu.github.io/learnai-course</strong></p>
+      <p class="muted" style="margin-top:0.4rem; font-size:0.85rem;">Read the consent. Click your choice.</p>
     </div>
+    <p class="muted" style="font-size:0.8rem; margin-top:1rem;">Non-consent path &rarr; facilitator runbook (NOT shown to students)</p>
   </div>
+  <div class="slide-meta">PHASE 01 &middot; OPEN &middot; 00:00 &rarr; 10:00</div>
+  <svg class="orbit-mark" viewBox="0 0 28 28" aria-hidden="true">
+    <circle class="ring" cx="14" cy="14" r="12" />
+    <circle class="ring" cx="14" cy="14" r="7" />
+    <circle class="node" cx="14" cy="2" r="1.8" />
+  </svg>
 </div>
 
-<!-- ═══ SLIDE 7: VIBE TRAP ═══ -->
-<div class="slide" id="s6">
-  <div class="slide-inner">
-    <div class="eyebrow rose">Warning</div>
-    <h1>The <em>Vibe Learning</em> Trap</h1>
-    <p class="subtitle">The #1 mistake people make with AI</p>
-    <div class="vs-grid">
-      <div class="vs-card bad">
-        <div class="vs-label">Crutch mode</div>
-        <p><strong>"Write my essay."</strong><br>"Solve this for me."<br>"Give me the answer."</p>
-        <p style="color:var(--accent-rose); margin-top:0.8rem;">You submit AI's work. You learn nothing.</p>
-      </div>
-      <div style="font-family:var(--font-display); font-size:1.6em; color:var(--text-tertiary); font-style:italic;">vs</div>
-      <div class="vs-card good">
-        <div class="vs-label">Amplifier mode</div>
-        <p><strong>"Explain this concept."</strong><br>"Check my reasoning."<br>"Quiz me on this."</p>
-        <p style="color:var(--accent-emerald); margin-top:0.8rem;">You do the thinking. AI helps you go deeper.</p>
-      </div>
-    </div>
-    <div class="key-idea mt"><h3>The rule</h3><p class="lede" style="margin-bottom:0">Own the thinking. Delegate the drafting.</p></div>
-  </div>
-</div>
-
-<!-- ═══ SLIDE 8: PROMPT STRUCTURE ═══ -->
-<div class="slide" id="s7">
-  <div class="slide-inner">
-    <div class="eyebrow">Prompt engineering</div>
-    <h1>The <em>4-Part</em> Prompt Structure</h1>
-    <p class="subtitle">The secret to getting good results from AI</p>
-    <div class="two-col">
-      <div>
-        <div class="step"><strong style="color:var(--accent-blue)">1. Context</strong> — Who you are, what the situation is</div>
-        <div class="step"><strong style="color:var(--accent-violet)">2. Instruction</strong> — What you want AI to do</div>
-        <div class="step"><strong style="color:var(--accent-emerald)">3. Input</strong> — The text, data, or question</div>
-        <div class="step"><strong style="color:var(--accent-amber)">4. Output Format</strong> — Bullets, table, essay, code</div>
-      </div>
-      <div>
-        <div class="diagram small">CONTEXT:
-  "You are a debate coach."
-
-INSTRUCTION:
-  "Write a persuasive paragraph."
-
-INPUT:
-  "Topic: school start times"
-
-OUTPUT:
-  "200 words, 2 stats,
-   aimed at a principal"</div>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- ═══ SLIDE 9: BAD vs GOOD ═══ -->
-<div class="slide" id="s8">
-  <div class="slide-inner">
-    <div class="eyebrow rose">Live demo</div>
-    <h1>Bad Prompt vs. <em>Good Prompt</em></h1>
-    <p class="subtitle">Same AI. Completely different results.</p>
-    <div class="vs-grid">
-      <div class="vs-card bad">
-        <div class="vs-label">Bad</div>
-        <div class="diagram small">write an essay</div>
-        <p style="margin-top:0.8rem;">Generic. Vague. You'll get garbage.</p>
-      </div>
-      <div style="font-family:var(--font-display); font-size:1.6em; color:var(--text-tertiary); font-style:italic;">vs</div>
-      <div class="vs-card good">
-        <div class="vs-label">Good</div>
-        <div class="diagram small">You are a high school debate
-coach. Write a 200-word
-persuasive paragraph arguing
-school should start at 9 AM.
-Include 2 statistics. Tone:
-convincing a principal.</div>
-        <p style="margin-top:0.8rem;">Specific. Clear. Night and day.</p>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- ═══ SLIDE 10: CLAUDE CODE ═══ -->
-<div class="slide" id="s9">
-  <div class="slide-inner">
-    <div class="eyebrow blue">Your tool</div>
-    <h1>What Is <em>Claude Code?</em></h1>
-    <p class="subtitle">Your AI-powered building partner</p>
-    <div class="two-col">
-      <div>
-        <p>Claude Code lives in your terminal. You describe what you want, it:</p>
-        <ul><li>Reads your project files</li><li>Makes a plan</li><li>Writes the code</li><li>Checks its own work</li><li>Fixes bugs</li></ul>
-        <div class="analogy"><h3>Think of it like</h3><p>A very fast colleague you talk to by typing. You describe what you want, it figures out how.</p></div>
-      </div>
-      <div>
-        <div class="diagram">You: Build me a quiz app
-     about space facts with
-     a scoring system.
-
-Claude: I'll create an HTML
-  file with 10 questions,
-  a score tracker, and
-  a results screen...
-
-  [writes code]
-  [tests it]
-  [opens in browser]</div>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- ═══ SLIDE 11: WORKFLOW ═══ -->
-<div class="slide" id="s10">
-  <div class="slide-inner">
-    <div class="eyebrow emerald">Process</div>
-    <h1>The <em>Golden</em> Workflow</h1>
-    <p class="subtitle">How to work with AI without losing control</p>
-    <div class="diagram" style="text-align:center; font-size:1.15em; max-width:680px; margin:0 auto;">🔎 EXPLORE    →    📝 PLAN    →    ✅ CONFIRM    →    💻 BUILD
-
- "Look at          "Make a        "Show me         "OK, now
-  my project        plan"          first"            build it"
-  first"</div>
-    <div class="warning mt"><h3>Never skip plan and confirm</h3><p>If you just say "do it" without planning, AI will build the wrong thing fast.</p></div>
-    <div class="key-idea"><h3>The magic phrase</h3><p class="lede" style="margin-bottom:0">"Before you write any code, brainstorm ideas, make a plan, and show me for approval."</p></div>
-  </div>
-</div>
-
-<!-- ═══ SLIDE 12: VERIFY ═══ -->
-<div class="slide" id="s11">
-  <div class="slide-inner">
-    <div class="eyebrow amber">Critical skill</div>
-    <h1>Always <em>Check</em> AI's Work</h1>
-    <div class="two-col">
-      <div>
-        <h3>AI can</h3>
-        <ul><li>Invent fake citations</li><li>Make up statistics</li><li>Present outdated info as current</li><li>Say wrong things confidently</li></ul>
-        <h3 class="mt">Verification checklist</h3>
-        <ol style="padding-left:20px"><li style="margin-bottom:4px">Can I find this source?</li><li style="margin-bottom:4px">Does the number make sense?</li><li style="margin-bottom:4px">Is this current?</li><li style="margin-bottom:4px">Does another source agree?</li><li>Would my teacher accept this?</li></ol>
-      </div>
-      <div>
-        <div class="warning"><h3>Real example</h3><p>AI said: "According to Smith et al. (2024), 78% of students use AI daily."</p><p style="color:var(--accent-rose); margin-top:0.5rem;">That paper doesn't exist. AI hallucinated the entire citation.</p></div>
-        <div class="key-idea"><h3>Rule</h3><p>If you can't verify it, don't include it.</p></div>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- ═══ SLIDE 13: SAFETY ═══ -->
-<div class="slide" id="s12">
-  <div class="slide-inner">
-    <div class="eyebrow rose">Non-negotiable</div>
-    <h1><em>5</em> Safety Rules</h1>
-    <p class="subtitle">Memorize these</p>
-    <div class="step"><strong style="color:var(--accent-rose)">1.</strong> <strong>Never paste personal info</strong> — no addresses, passwords, private photos</div>
-    <div class="step"><strong style="color:var(--accent-amber)">2.</strong> <strong>Never trust without verifying</strong> — check every citation, fact, and claim</div>
-    <div class="step"><strong style="color:var(--accent-emerald)">3.</strong> <strong>Never generate harmful content</strong> — no fake images of real people</div>
-    <div class="step"><strong style="color:var(--accent-blue)">4.</strong> <strong>Know your school's AI policy</strong> — every school has different rules</div>
-    <div class="step"><strong style="color:var(--accent-violet)">5.</strong> <strong>Credit AI when required</strong> — always be honest about AI assistance</div>
-  </div>
-</div>
-
-<!-- ═══ SLIDE 14: PROJECT TIME ═══ -->
-<div class="slide" id="s13">
+<!-- ═══ S4 LAUNCH CLAUDE ═══ -->
+<div class="slide billboard phase-open" id="s3">
   <div class="slide-inner center">
-    <div class="big-accent">&#128296;</div>
-    <h1><em>Project</em> Time!</h1>
-    <p class="subtitle">Pick a project. 30 minutes. Show your parents at the end.</p>
-    <div class="project-grid" style="max-width:760px; margin:0 auto;">
-      <div class="project-card"><h3>&#129504; AI Study Buddy</h3><p>Build a personal AI tutor that quizzes you</p></div>
-      <div class="project-card"><h3>&#127918; Playable Game</h3><p>Design and build a browser game with AI</p></div>
-      <div class="project-card"><h3>&#127916; Video Script</h3><p>Write a 60-second explainer video script</p></div>
-      <div class="project-card"><h3>&#128269; AI Myth Buster</h3><p>Catch AI lying and write a fact-check report</p></div>
-      <div class="project-card" style="grid-column:span 2"><h3>&#128214; Story + Chapter</h3><p>World-build a story universe and co-write the opening with AI</p></div>
-    </div>
+    <div class="eyebrow">PHASE 01 · OPEN</div>
+    <h1>Open terminal. Type: <em>claude</em></h1>
+    <p class="subtitle" style="margin-left:auto; margin-right:auto;">Hit enter. Raise hand if anything is red.</p>
+    <p class="muted" style="margin-top:1.4rem;">Tech help happens in parallel — we don't wait.</p>
   </div>
+  <div class="slide-meta">PHASE 01 &middot; OPEN &middot; 00:00 &rarr; 10:00</div>
+  <svg class="orbit-mark" viewBox="0 0 28 28" aria-hidden="true">
+    <circle class="ring" cx="14" cy="14" r="12" />
+    <circle class="ring" cx="14" cy="14" r="7" />
+    <circle class="node" cx="14" cy="2" r="1.8" />
+  </svg>
 </div>
 
-<!-- ═══ SLIDE 15: TIPS ═══ -->
-<div class="slide" id="s14">
+<!-- ═══ S5 SAFETY RULES ═══ -->
+<div class="slide phase-safety" id="s4">
   <div class="slide-inner">
-    <div class="eyebrow emerald">Building time</div>
-    <h1>Tips for <em>Building</em></h1>
-    <div class="two-col">
-      <div>
-        <h3>If you're stuck</h3>
-        <ul><li>Write what you want on paper first</li><li>Use the 4-part structure</li><li>Bad output? <strong>Improve your prompt</strong></li><li>Raise your hand — Prof. Qu is your prompt coach</li></ul>
-        <div class="analogy"><h3>Remember</h3><p>Your first prompt is a draft. The best results come from iteration.</p></div>
-      </div>
-      <div>
-        <div class="diagram">1. Think: What do I want?
-       ↓
-2. Write: Specific prompt
-       ↓
-3. Read: Check AI's output
-       ↓
-4. Fix: Improve the prompt
-       ↓
-5. Repeat until good
-       ↓
-6. Show parents! 🎉</div>
-      </div>
+    <div class="eyebrow">PHASE 02 · SAFETY</div>
+    <h1 style="text-align:center;">Read this before you <em>talk to Claude.</em></h1>
+    <div class="safety-grid">
+      <div class="no">❌ NO real name (use a nickname)</div>
+      <div class="no">❌ NO address, school name, phone, email</div>
+      <div class="no">❌ NO passwords, health, family details</div>
+      <div class="no">❌ NO face photos</div>
+      <div class="yes">✅ Files stay on YOUR laptop</div>
+      <div class="yes">✅ Read every permission prompt</div>
     </div>
+    <p class="muted" style="font-style:italic; max-width:640px; margin:1.2rem auto; text-align:center;">Parents: no screen photos · no coaching answers · no pressure around consent.</p>
   </div>
+  <div class="slide-meta">PHASE 02 &middot; SAFETY &middot; 10:00 &rarr; 15:00</div>
+  <svg class="orbit-mark" viewBox="0 0 28 28" aria-hidden="true">
+    <circle class="ring" cx="14" cy="14" r="12" />
+    <circle class="ring" cx="14" cy="14" r="7" />
+    <circle class="node" cx="14" cy="2" r="1.8" />
+  </svg>
 </div>
 
-<!-- ═══ SLIDE 16: SHOW & TELL ═══ -->
-<div class="slide" id="s15">
+<!-- ═══ S6 PICK YOUR NICKNAME ═══ -->
+<div class="slide billboard phase-safety" id="s5">
   <div class="slide-inner center">
-    <div class="big-accent">&#127775;</div>
-    <h1>Show &amp; <em>Tell</em></h1>
-    <p class="subtitle">2 minutes each · Show what you built · One thing you learned</p>
-    <div class="glass-card" style="max-width:560px; margin:1.4rem auto;">
-      <p class="lede" style="margin-bottom:0.5rem;">You directed the AI. You made the decisions. You owned the result.</p>
-      <p class="muted">That's agentic engineering.</p>
-    </div>
+    <div class="eyebrow">PHASE 02 · SAFETY</div>
+    <h1>Pick your <em>nickname.</em></h1>
+    <p class="subtitle" style="margin-left:auto; margin-right:auto;">Write it on a sticky note. We use it for the whole session.</p>
+    <input type="text" id="nicknameInput" placeholder="Type a nickname…" maxlength="20"
+           style="background: var(--bg-card); border: 1px solid var(--border-glow); border-radius: 8px;
+                  padding: 0.6rem 1rem; color: var(--text-primary); font-size: 1.1rem;
+                  font-family: 'SF Mono', monospace; width: 280px; margin: 0.8rem auto 0; display: block;
+                  text-align: center; outline: none;" />
+    <div id="nicknameWarning" class="muted" style="font-size: 0.85rem; margin-top: 0.6rem; min-height: 1.4rem; color: var(--status-warning);"></div>
+    <p class="muted" style="margin-top:1.4rem; font-size:0.9rem;">Skyline &middot; NebulaCat &middot; Trail &middot; GameDev42 &middot; null</p>
   </div>
+  <div class="slide-meta">PHASE 02 &middot; SAFETY &middot; 10:00 &rarr; 15:00</div>
+  <svg class="orbit-mark" viewBox="0 0 28 28" aria-hidden="true">
+    <circle class="ring" cx="14" cy="14" r="12" />
+    <circle class="ring" cx="14" cy="14" r="7" />
+    <circle class="node" cx="14" cy="2" r="1.8" />
+  </svg>
 </div>
 
-<!-- ═══ SLIDE 17: HOMEWORK ═══ -->
-<div class="slide" id="s16">
+<!-- ═══ S7 TINY BUILD (Quick Win) ═══ -->
+<div class="slide phase-quickwin" id="s6">
+  <div class="slide-inner center">
+    <div class="eyebrow">PHASE 03 · QUICK WIN</div>
+    <h1>First page. <em>Right now.</em></h1>
+    <p class="subtitle" style="margin-left:auto; margin-right:auto;">Paste this. Hit enter. Watch.</p>
+    <div class="copy-block" style="text-align:left; margin:1.2rem auto; white-space:pre-line;">Make me a starter.html that says
+"Hi, I'm &lt;nickname&gt;". Dark background.
+One sentence about what my persona likes
+(anything fictional is fine).
+Open it in my browser when done.</div>
+    <div class="render-counter" style="display:flex; align-items:center; justify-content:center;
+         gap:0.6rem; max-width:280px; margin:1.4rem auto 0; padding:0.6rem 1.2rem;
+         background:var(--bg-card); border:1px solid var(--border-glow); border-radius:12px;
+         font-family:'SF Mono', monospace; font-size:1rem;">
+      <span id="renderCount" style="color:var(--status-success); font-size:1.4rem; font-variation-settings:'opsz' 18,'wght' 700;">0</span>
+      <span>/ 5 pages rendered</span>
+    </div>
+    <div class="countdown" id="countdown" style="font-family:'SF Mono', monospace;
+         font-size:1rem; color:var(--text-tertiary); text-align:center; margin-top:0.6rem;
+         letter-spacing:0.1em;">10:00</div>
+    <p class="muted" style="margin-top:1.2rem; font-size:0.88rem;">Goal: every student has a page on screen by minute 25.</p>
+  </div>
+  <div class="slide-meta">PHASE 03 · QUICK WIN · 15:00 → 25:00</div>
+  <svg class="orbit-mark" viewBox="0 0 28 28" aria-hidden="true">
+    <circle class="ring" cx="14" cy="14" r="12" />
+    <circle class="ring" cx="14" cy="14" r="7" />
+    <circle class="node" cx="14" cy="2" r="1.8" />
+  </svg>
+</div>
+
+<!-- S8: Chatbot vs Agent -->
+<div class="slide phase-decode" id="s7">
   <div class="slide-inner">
-    <div class="eyebrow amber">What's next</div>
-    <h1>Homework</h1>
-    <p class="subtitle">2 weeks · Learn + Build</p>
-    <div class="two-col">
-      <div>
-        <h3>Week 1: Complete the courses</h3>
-        <table><tr><th>Course</th><th>Time</th></tr><tr><td style="text-align:left">1: Claude Code Fundamentals</td><td>~90 min</td></tr><tr><td style="text-align:left">2: Agentic Engineering</td><td>~60 min</td></tr><tr><td style="text-align:left">3: AI Skills Lab</td><td>~40 min</td></tr><tr><td style="text-align:left">4: AI Life Skills</td><td>~75 min</td></tr></table>
-      </div>
-      <div>
-        <h3>Week 2: Build a project</h3>
-        <ul><li>Build a web app</li><li>Create a teaching course</li><li>AI investigative report</li><li>Design an agent system</li><li>Creative portfolio</li></ul>
-        <p style="margin-top:0.8rem;"><strong>Submit:</strong> Send your link to wqu@monmouth.edu</p>
-      </div>
-    </div>
+    <div class="eyebrow">PHASE 04 · DECODE</div>
+    <h1>Chatbot answers. <em>Agent does.</em></h1>
+    <div class="diagram">CHATBOT:  ask  →  answer
+
+AGENT:    ask  →  USE TOOLS  →  CHECK  →  try again</div>
+    <p class="subtitle">What you just saw: the tool loop. That's what makes Claude Code an agent.</p>
   </div>
+  <div class="slide-meta">PHASE 04 · DECODE · 25:00 → 32:00</div>
+  <svg class="orbit-mark" viewBox="0 0 28 28" aria-hidden="true">
+    <circle class="ring" cx="14" cy="14" r="12" />
+    <circle class="ring" cx="14" cy="14" r="7" />
+    <circle class="node" cx="14" cy="2" r="1.8" />
+  </svg>
 </div>
 
-<!-- ═══ SLIDE 18: POST-TEST ═══ -->
-<div class="slide" id="s17">
-  <div class="slide-inner center">
-    <div class="big-accent">&#128203;</div>
-    <h1>Post-Test + <em>Survey</em></h1>
-    <p class="subtitle">Same quiz as before + a short survey · 10 minutes</p>
-    <p>Be honest — your answers help us improve this for future students.</p>
-  </div>
-</div>
-
-<!-- ═══ SLIDE 19: SUMMARY ═══ -->
-<div class="slide" id="s18">
+<!-- S9: CLAUDE.md & Context -->
+<div class="slide phase-decode" id="s8">
   <div class="slide-inner">
-    <div class="eyebrow">Recap</div>
-    <h1>Summary</h1>
-    <div class="two-col">
-      <div>
-        <div class="key-idea"><h3>1</h3><p class="lede" style="margin:0">AI is a tool — you are the thinker</p></div>
-        <div class="key-idea"><h3>2</h3><p class="lede" style="margin:0">Good prompts beat good AI models</p></div>
-        <div class="key-idea"><h3>3</h3><p class="lede" style="margin:0">Own the thinking, delegate the drafting</p></div>
-      </div>
-      <div>
-        <div class="glass-card">
-          <h3>Your resources</h3>
-          <div class="diagram small">Web App:
-  weihaoqu.github.io/learnai-course/
-
-Homework due:
-  2 weeks from today
-
-Submit to:
-  wqu@monmouth.edu</div>
-        </div>
-        <div class="warning"><h3>Don't forget</h3><p>Complete all 4 courses (Week 1), build your project (Week 2), send the link.</p></div>
-      </div>
-    </div>
+    <div class="eyebrow">PHASE 04 · DECODE</div>
+    <h1>Claude reads <em>CLAUDE.md</em> first.</h1>
+    <div class="diagram">── CLAUDE.md ──────────────────
+# Workshop Notes
+- Call me &lt;nickname&gt;
+- I'm 15 — keep code simple
+- Plain HTML/CSS only
+──────────────────────────────</div>
+    <p class="subtitle">Guidance, not enforcement. Loaded into context every session.</p>
   </div>
+  <div class="slide-meta">PHASE 04 · DECODE · 25:00 → 32:00</div>
+  <svg class="orbit-mark" viewBox="0 0 28 28" aria-hidden="true">
+    <circle class="ring" cx="14" cy="14" r="12" />
+    <circle class="ring" cx="14" cy="14" r="7" />
+    <circle class="node" cx="14" cy="2" r="1.8" />
+  </svg>
 </div>
 
-<!-- ═══ SLIDE 20: THANK YOU ═══ -->
-<div class="slide" id="s19">
+<!-- S10: Permissions · Context · Usage (NO EMOJI — typographic phase-tag pattern) -->
+<div class="slide phase-decode" id="s9">
+  <div class="slide-inner">
+    <div class="eyebrow">PHASE 04 · DECODE</div>
+    <h1>Three things to <em>watch.</em></h1>
+    <ol class="rhythm-list">
+      <li><b>Permissions</b> — Claude asks before writing files. Read carefully.</li>
+      <li><b>Context</b> — Working memory. Finite. <code>/clear</code> starts fresh.</li>
+      <li><b>Usage</b> — Your account budget. Pro is plenty for learning.</li>
+    </ol>
+    <p class="muted" style="margin-top:1.6rem;">/clear resets the conversation. Not your files. Not your usage.</p>
+  </div>
+  <div class="slide-meta">PHASE 04 · DECODE · 25:00 → 32:00</div>
+  <svg class="orbit-mark" viewBox="0 0 28 28" aria-hidden="true">
+    <circle class="ring" cx="14" cy="14" r="12" />
+    <circle class="ring" cx="14" cy="14" r="7" />
+    <circle class="node" cx="14" cy="2" r="1.8" />
+  </svg>
+</div>
+
+<!-- ═══ S11 PLAN BEATS PROMPT (billboard) ═══ -->
+<div class="slide billboard phase-plan" id="s10">
   <div class="slide-inner center">
-    <div class="big-accent">&#127881;</div>
-    <h1>Thank <em>You</em></h1>
-    <p class="lede">You just built something real with AI.<br>Now go build something that matters to you.</p>
-    <div style="margin-top:2.4rem; color:var(--text-tertiary);">
-      <p><strong style="color:var(--text-secondary)">Web App:</strong> weihaoqu.github.io/learnai-course/</p>
-      <div style="margin:1rem 0;"><img src="data:image/png;base64,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" alt="QR Code" style="width:140px;height:140px;border-radius:8px;"></div>
-      <p><strong style="color:var(--text-secondary)">Contact:</strong> wqu@monmouth.edu · 732-263-5396</p>
-      <p style="margin-top:1.4rem; font-family:var(--font-display); font-size:1.1em; color:var(--text-secondary);">Prof. Weihao Qu <span class="seal">MU</span></p>
+    <div class="eyebrow">PHASE 05 · PLAN</div>
+    <h1>Plan beats <em>Prompt.</em></h1>
+    <p class="subtitle" style="margin-left:auto; margin-right:auto;">The #1 mistake: jumping in too fast.</p>
+  </div>
+  <div class="slide-meta">PHASE 05 · PLAN · 32:00 → 50:00</div>
+  <svg class="orbit-mark" viewBox="0 0 28 28" aria-hidden="true">
+    <circle class="ring" cx="14" cy="14" r="12" />
+    <circle class="ring" cx="14" cy="14" r="7" />
+    <circle class="node" cx="14" cy="2" r="1.8" />
+  </svg>
+</div>
+
+<!-- ═══ S12 PRO WORKFLOW ═══ -->
+<div class="slide phase-plan" id="s11">
+  <div class="slide-inner" style="text-align:center;">
+    <div class="eyebrow">PHASE 05 · PLAN</div>
+    <h1><em>PLAN</em> → ONE PROMPT → ITERATE → POLISH</h1>
+    <p class="subtitle" style="margin-left:auto; margin-right:auto;">You'll do all four — same way pros do.</p>
+  </div>
+  <div class="slide-meta">PHASE 05 · PLAN · 32:00 → 50:00</div>
+  <svg class="orbit-mark" viewBox="0 0 28 28" aria-hidden="true">
+    <circle class="ring" cx="14" cy="14" r="12" />
+    <circle class="ring" cx="14" cy="14" r="7" />
+    <circle class="node" cx="14" cy="2" r="1.8" />
+  </svg>
+</div>
+
+<!-- ═══ S13 ASK CLAUDE TO INTERVIEW YOU ═══ -->
+<div class="slide phase-plan" id="s12">
+  <div class="slide-inner">
+    <div class="eyebrow">PHASE 05 · PLAN</div>
+    <h1>Make Claude <em>interview</em> you.</h1>
+    <p class="subtitle">You're the expert on your persona. It's not.</p>
+    <div class="copy-block" style="text-align:left; margin:1.2rem auto; white-space:pre-line;">Interview me one question at a time
+to plan a personal landing page for
+my nickname persona. Cover: who they
+are, sections, vibe, color, signature.
+Output a structured plan.</div>
+    <p class="muted" style="margin-top:1rem;">Answer carefully. Better plan = better build.</p>
+  </div>
+  <div class="slide-meta">PHASE 05 · PLAN · 32:00 → 50:00</div>
+  <svg class="orbit-mark" viewBox="0 0 28 28" aria-hidden="true">
+    <circle class="ring" cx="14" cy="14" r="12" />
+    <circle class="ring" cx="14" cy="14" r="7" />
+    <circle class="node" cx="14" cy="2" r="1.8" />
+  </svg>
+</div>
+
+<!-- ═══ S14 A GOOD PLAN HAS ═══ -->
+<div class="slide phase-plan" id="s13">
+  <div class="slide-inner">
+    <div class="eyebrow">PHASE 05 · PLAN</div>
+    <h1>A good plan <em>has:</em></h1>
+    <ul class="rhythm-list">
+      <li>1 sentence about your persona</li>
+      <li>3 sections (e.g., About / Projects / Contact)</li>
+      <li>A vibe word (calm / bold / playful / pro)</li>
+      <li>A color</li>
+      <li>One thing that makes it YOURS</li>
+    </ul>
+  </div>
+  <div class="slide-meta">PHASE 05 · PLAN · 32:00 → 50:00</div>
+  <svg class="orbit-mark" viewBox="0 0 28 28" aria-hidden="true">
+    <circle class="ring" cx="14" cy="14" r="12" />
+    <circle class="ring" cx="14" cy="14" r="7" />
+    <circle class="node" cx="14" cy="2" r="1.8" />
+  </svg>
+</div>
+
+<!-- ═══ S15 PLAN CHECK (billboard, scoreboard) ═══ -->
+<div class="slide billboard phase-plan" id="s14">
+  <div class="slide-inner" style="text-align:center;">
+    <div class="eyebrow">PHASE 05 · PLAN</div>
+    <h1>Show Q your <em>plan.</em></h1>
+    <p class="subtitle" style="margin-left:auto; margin-right:auto;">30-second review. Wave me over.</p>
+    <div class="scoreboard" id="scoreboard" style="display:flex; align-items:center; justify-content:center;
+         gap:0.8rem; max-width:340px; margin:1.8rem auto; padding:0.8rem 1.4rem;
+         background:var(--bg-card); border:1px solid var(--border-glow); border-radius:14px;
+         font-family:'SF Mono',monospace;">
+      <span id="approvalCount" style="color:var(--status-success); font-size:1.6rem;
+            font-variation-settings:'opsz' 18,'wght' 700;">0</span>
+      <span style="font-size:1rem;">/ 5 plans approved</span>
+    </div>
+    <div id="scoreboardNames" class="muted" style="font-size:0.85rem; margin-top:0.6rem;
+         min-height:1.4rem; opacity:0;"></div>
+    <p class="muted" style="margin-top:1rem;">No good plan, no build.</p>
+  </div>
+  <div class="slide-meta">PHASE 05 · PLAN · 32:00 → 50:00</div>
+  <svg class="orbit-mark" viewBox="0 0 28 28" aria-hidden="true">
+    <circle class="ring" cx="14" cy="14" r="12" />
+    <circle class="ring" cx="14" cy="14" r="7" />
+    <circle class="node" cx="14" cy="2" r="1.8" />
+  </svg>
+</div>
+
+<!-- ═══ S16 FIRST MAIN BUILD PROMPT ═══ -->
+<div class="slide phase-build" id="s15">
+  <div class="slide-inner">
+    <div class="eyebrow">PHASE 06 · BUILD</div>
+    <h1>Now the <em>real one.</em></h1>
+    <div class="copy-block" style="text-align:left; margin:1.2rem auto; white-space:pre-line;">Using the plan we just made, build me
+a single HTML file for a personal
+landing page. Open it when done.</div>
+    <div class="warning" style="max-width:680px; margin:1.2rem auto;">
+      <h3>Why one prompt</h3>
+      <p>Small site = one-prompt scaffold for learning. Real projects = small prompts, verify each step.</p>
     </div>
   </div>
+  <div class="slide-meta">PHASE 06 · BUILD · 50:00 → 70:00</div>
+  <svg class="orbit-mark" viewBox="0 0 28 28" aria-hidden="true">
+    <circle class="ring" cx="14" cy="14" r="12" />
+    <circle class="ring" cx="14" cy="14" r="7" />
+    <circle class="node" cx="14" cy="2" r="1.8" />
+  </svg>
+</div>
+
+<!-- ═══ S17 AI GETS STUFF WRONG ═══ -->
+<div class="slide phase-build" id="s16">
+  <div class="slide-inner">
+    <div class="eyebrow">PHASE 06 · BUILD</div>
+    <h1>Expect 1–2 things <em>broken.</em></h1>
+    <ul class="rhythm-list">
+      <li>A link goes to the wrong place</li>
+      <li>The font looks weird</li>
+      <li>A section is missing</li>
+    </ul>
+    <p class="lede" style="margin-top:1.4rem;">Bug ≠ failure. Bug = iteration.</p>
+  </div>
+  <div class="slide-meta">PHASE 06 · BUILD · 50:00 → 70:00</div>
+  <svg class="orbit-mark" viewBox="0 0 28 28" aria-hidden="true">
+    <circle class="ring" cx="14" cy="14" r="12" />
+    <circle class="ring" cx="14" cy="14" r="7" />
+    <circle class="node" cx="14" cy="2" r="1.8" />
+  </svg>
+</div>
+
+<!-- ═══ S18 FIX IT ═══ -->
+<div class="slide phase-build" id="s17">
+  <div class="slide-inner">
+    <div class="eyebrow">PHASE 06 · BUILD</div>
+    <h1>Talk like a <em>teammate.</em></h1>
+    <div class="diagram" style="text-align:left; margin:1.2rem auto; white-space:pre-line; max-width:56ch;">"Make the header bigger."
+"The font is ugly. Try modern."
+"Add a dark mode toggle."</div>
+    <p class="subtitle">Plain English. Specific. One at a time.</p>
+  </div>
+  <div class="slide-meta">PHASE 06 · BUILD · 50:00 → 70:00</div>
+  <svg class="orbit-mark" viewBox="0 0 28 28" aria-hidden="true">
+    <circle class="ring" cx="14" cy="14" r="12" />
+    <circle class="ring" cx="14" cy="14" r="7" />
+    <circle class="node" cx="14" cy="2" r="1.8" />
+  </svg>
+</div>
+
+<!-- ═══ S19 OPEN COMPONENTS ═══ -->
+<div class="slide phase-polish" id="s18">
+  <div class="slide-inner">
+    <div class="eyebrow">PHASE 07 · POLISH</div>
+    <h1>Use <em>open</em> components.</h1>
+    <p class="subtitle">21st.dev · shadcn/ui — free, open licenses.</p>
+    <div class="warning" style="max-width:680px; margin:1.2rem auto;">
+      <h3>Check the license</h3>
+      <p>Don't paste closed-source code. Open licenses are clearly labeled (MIT, Apache, etc.).</p>
+    </div>
+  </div>
+  <div class="slide-meta">PHASE 07 · POLISH · 70:00 → 80:00</div>
+  <svg class="orbit-mark" viewBox="0 0 28 28" aria-hidden="true">
+    <circle class="ring" cx="14" cy="14" r="12" />
+    <circle class="ring" cx="14" cy="14" r="7" />
+    <circle class="node" cx="14" cy="2" r="1.8" />
+  </svg>
+</div>
+
+<!-- ═══ S20 UI QUICK WINS ═══ -->
+<div class="slide phase-polish" id="s19">
+  <div class="slide-inner">
+    <div class="eyebrow">PHASE 07 · POLISH</div>
+    <h1>5 cheats to look <em>pro.</em></h1>
+    <ul class="rhythm-list">
+      <li>Gradient background</li>
+      <li>One sans-serif font (Inter, Geist)</li>
+      <li>Lucide icons, not emojis</li>
+      <li>Generous whitespace</li>
+      <li>Dark mode by default</li>
+    </ul>
+    <p class="muted">Tell Claude: "apply these."</p>
+  </div>
+  <div class="slide-meta">PHASE 07 · POLISH · 70:00 → 80:00</div>
+  <svg class="orbit-mark" viewBox="0 0 28 28" aria-hidden="true">
+    <circle class="ring" cx="14" cy="14" r="12" />
+    <circle class="ring" cx="14" cy="14" r="7" />
+    <circle class="node" cx="14" cy="2" r="1.8" />
+  </svg>
+</div>
+
+<!-- ═══ S21 CODEX REVIEW ═══ -->
+<div class="slide phase-polish" id="s20">
+  <div class="slide-inner">
+    <div class="eyebrow">PHASE 07 · POLISH · SECOND OPINION</div>
+    <h1>Second <em>opinion.</em></h1>
+    <p class="subtitle">Different AI. Different blind spots.</p>
+    <div class="copy-block">/codex review</div>
+    <div class="warning" style="max-width:680px; margin:1.2rem auto;">
+      <h3>Important</h3>
+      <p>Review <strong>reduces risk</strong>. It does <strong>not prove correctness</strong>.</p>
+    </div>
+  </div>
+  <div class="slide-meta">PHASE 07 · POLISH · 70:00 → 80:00</div>
+  <svg class="orbit-mark" viewBox="0 0 28 28" aria-hidden="true">
+    <circle class="ring" cx="14" cy="14" r="12" />
+    <circle class="ring" cx="14" cy="14" r="7" />
+    <circle class="node" cx="14" cy="2" r="1.8" />
+  </svg>
+</div>
+
+<!-- ═══ S22 SHOW & TELL ═══ -->
+<div class="slide phase-share" id="s21">
+  <div class="slide-inner">
+    <div class="eyebrow">PHASE 08 · SHARE</div>
+    <h1>2 min <em>each.</em></h1>
+    <ul class="rhythm-list">
+      <li>Show your page</li>
+      <li>One thing you learned</li>
+      <li>One thing AI got wrong</li>
+    </ul>
+    <div class="fumble-chip" style="display:inline-block; margin-top:1.4rem;
+         padding:.5rem 1rem; border:1px dashed var(--status-warning);
+         border-radius:999px; font-size:.9rem;
+         color:var(--status-warning); letter-spacing:.05em;
+         font-family:'SF Mono',monospace;">Best AI fumble of the day</div>
+    <p class="muted">Verbal award only — no name on screen. Criteria: funniest bug narrative, not most embarrassed student.</p>
+  </div>
+  <div class="slide-meta">PHASE 08 · SHARE · 80:00 → 90:00</div>
+  <svg class="orbit-mark" viewBox="0 0 28 28" aria-hidden="true">
+    <circle class="ring" cx="14" cy="14" r="12" />
+    <circle class="ring" cx="14" cy="14" r="7" />
+    <circle class="node" cx="14" cy="2" r="1.8" />
+  </svg>
+</div>
+
+<!-- ═══ S23 SKILLS — USE & MAKE ═══ -->
+<div class="slide phase-levelup" id="s22">
+  <div class="slide-inner">
+    <div class="eyebrow">PHASE 09 · LEVEL UP</div>
+    <h1>Pre-packaged <em>superpowers.</em></h1>
+    <pre class="copy-block">── .claude/skills/landing-page/SKILL.md ──
+---
+name: landing-page
+description: Build a personal landing page
+---
+Interview me one question at a time.
+Cover: persona, sections, vibe, color.
+Then build the HTML file.
+──────────────────────────────────────</pre>
+    <p class="lede">Did it twice? Codify it. Type /landing-page anywhere.</p>
+    <p class="muted">Project: .claude/skills/…/SKILL.md  ·  Personal: ~/.claude/skills/…/SKILL.md</p>
+  </div>
+  <div class="slide-meta">PHASE 09 · LEVEL UP · 90:00 → 103:00</div>
+  <svg class="orbit-mark" viewBox="0 0 28 28" aria-hidden="true">
+    <circle class="ring" cx="14" cy="14" r="12" />
+    <circle class="ring" cx="14" cy="14" r="7" />
+    <circle class="node" cx="14" cy="2" r="1.8" />
+  </svg>
+</div>
+
+<!-- ═══ S24 MCP ═══ -->
+<div class="slide phase-levelup" id="s23">
+  <div class="slide-inner">
+    <div class="eyebrow">PHASE 09 · LEVEL UP</div>
+    <h1><em>MCP</em> = connect to anything.</h1>
+    <p class="lede">Protocol for external tools, data, and APIs.</p>
+    <pre class="diagram">[ Claude Code ] ─── MCP ─── [ Gmail · GitHub · Drive · custom ]</pre>
+    <div class="warning" style="max-width:680px; margin:1.2rem auto;">
+      <h3>Today</h3>
+      <p>We did <strong>NOT</strong> connect personal accounts.</p>
+    </div>
+  </div>
+  <div class="slide-meta">PHASE 09 · LEVEL UP · 90:00 → 103:00</div>
+  <svg class="orbit-mark" viewBox="0 0 28 28" aria-hidden="true">
+    <circle class="ring" cx="14" cy="14" r="12" />
+    <circle class="ring" cx="14" cy="14" r="7" />
+    <circle class="node" cx="14" cy="2" r="1.8" />
+  </svg>
+</div>
+
+<!-- ═══ S25 AUTOMATION ═══ -->
+<div class="slide phase-levelup" id="s24">
+  <div class="slide-inner">
+    <div class="eyebrow">PHASE 09 · LEVEL UP</div>
+    <h1>Set once. <em>It runs without you.</em></h1>
+    <ul class="rhythm-list">
+      <li><b>Hooks</b> — on every save</li>
+      <li><b>Cron</b> — daily/weekly</li>
+      <li><b>Agents</b> — background jobs</li>
+    </ul>
+    <p class="lede">Pros set it once. The work happens without them.</p>
+  </div>
+  <div class="slide-meta">PHASE 09 · LEVEL UP · 90:00 → 103:00</div>
+  <svg class="orbit-mark" viewBox="0 0 28 28" aria-hidden="true">
+    <circle class="ring" cx="14" cy="14" r="12" />
+    <circle class="ring" cx="14" cy="14" r="7" />
+    <circle class="node" cx="14" cy="2" r="1.8" />
+  </svg>
+</div>
+
+<!-- ═══ S26 YOUR TOOLCHAIN ═══ -->
+<div class="slide phase-levelup" id="s25">
+  <div class="slide-inner">
+    <div class="eyebrow">PHASE 09 · LEVEL UP</div>
+    <h1>You direct. Tools <em>execute.</em></h1>
+    <pre class="diagram">YOU (supervisor)
+ ├─ Claude Code  →  builds
+ ├─ Codex        →  reviews
+ ├─ Skills       →  workflows
+ ├─ MCP          →  connections
+ └─ CLAUDE.md    →  your rules</pre>
+    <p class="lede">Toolchain under your supervision.</p>
+  </div>
+  <div class="slide-meta">PHASE 09 · LEVEL UP · 90:00 → 103:00</div>
+  <svg class="orbit-mark" viewBox="0 0 28 28" aria-hidden="true">
+    <circle class="ring" cx="14" cy="14" r="12" />
+    <circle class="ring" cx="14" cy="14" r="7" />
+    <circle class="node" cx="14" cy="2" r="1.8" />
+  </svg>
+</div>
+
+<!-- ═══ S27 WHAT TO READ NEXT ═══ -->
+<div class="slide phase-levelup" id="s26">
+  <div class="slide-inner">
+    <div class="eyebrow">PHASE 09 · LEVEL UP</div>
+    <h1>Keep <em>going.</em></h1>
+    <ul class="rhythm-list">
+      <li><b>LearnAI Wiki</b> — weihaoqu.github.io/learnAIDoc</li>
+      <li><b>Claude 101 playlist</b> — Anthropic on YouTube</li>
+      <li><b>Office hours</b> — Saturdays (web app)</li>
+      <li><b>Email Prof. Qu</b> — weihaoqu25@gmail.com</li>
+    </ul>
+  </div>
+  <div class="slide-meta">PHASE 09 · LEVEL UP · 90:00 → 103:00</div>
+  <svg class="orbit-mark" viewBox="0 0 28 28" aria-hidden="true">
+    <circle class="ring" cx="14" cy="14" r="12" />
+    <circle class="ring" cx="14" cy="14" r="7" />
+    <circle class="node" cx="14" cy="2" r="1.8" />
+  </svg>
+</div>
+
+<!-- S28 — Phase 10 CLOSE · Post-test + Survey (billboard, no .big-accent emoji per amendment) -->
+<div class="slide billboard phase-close" id="s27">
+  <div class="slide-inner">
+    <div class="eyebrow">PHASE 10 · CLOSE</div>
+    <h1>Same quiz. <em>New score.</em></h1>
+    <p class="subtitle">10 min. Honest answers shape the next session.</p>
+    <div class="glass-card" style="max-width:520px; margin:1.4rem auto;">
+      <p>Same place — the web course:</p>
+      <p style="margin-top:0.4rem;"><strong>weihaoqu.github.io/learnai-course</strong></p>
+      <p class="muted" style="margin-top:0.4rem; font-size:0.85rem;">Post-test + 5-min survey at the end.</p>
+    </div>
+  </div>
+  <div class="slide-meta">PHASE 10 · CLOSE · 103:00 → 110:00</div>
+  <svg class="orbit-mark" viewBox="0 0 28 28" aria-hidden="true">
+    <circle class="ring" cx="14" cy="14" r="12" />
+    <circle class="ring" cx="14" cy="14" r="7" />
+    <circle class="node" cx="14" cy="2" r="1.8" />
+  </svg>
+</div>
+
+<!-- S29 — Phase 10 CLOSE · Remember (rhythm-list, takeaway #1 cringe-audited per §8) -->
+<div class="slide phase-close" id="s28">
+  <div class="slide-inner">
+    <div class="eyebrow">PHASE 10 · CLOSE · TAKE THIS HOME</div>
+    <h1>Three <em>things.</em></h1>
+    <ul class="rhythm-list">
+      <li>AI is fast. You are slow on purpose.</li>
+      <li>A plan beats a clever prompt.</li>
+      <li>You direct the toolchain.</li>
+    </ul>
+  </div>
+  <div class="slide-meta">PHASE 10 · CLOSE · 103:00 → 110:00</div>
+  <svg class="orbit-mark" viewBox="0 0 28 28" aria-hidden="true">
+    <circle class="ring" cx="14" cy="14" r="12" />
+    <circle class="ring" cx="14" cy="14" r="7" />
+    <circle class="node" cx="14" cy="2" r="1.8" />
+  </svg>
+</div>
+
+<!-- S30 — Phase 10 CLOSE · Thank You (billboard, gradient <em> one-shot per §6.3) -->
+<div class="slide billboard phase-close" id="s29">
+  <div class="slide-inner">
+    <div class="eyebrow">PHASE 10 · CLOSE</div>
+    <h1>Thank <em>you.</em></h1>
+    <p class="subtitle">Build something dumb this week. Email it to me.</p>
+    <p class="muted">weihaoqu.github.io/learnai-course · weihaoqu25@gmail.com</p>
+  </div>
+  <div class="slide-meta">PHASE 10 · CLOSE · 103:00 → 110:00</div>
+  <svg class="orbit-mark" viewBox="0 0 28 28" aria-hidden="true" style="width:56px; height:56px;">
+    <circle class="ring" cx="14" cy="14" r="12" />
+    <circle class="ring" cx="14" cy="14" r="7" />
+    <circle class="node" cx="14" cy="2" r="1.8" />
+  </svg>
 </div>
 
 </div><!-- /deck -->
+
+<!-- §3.11 — S15 BUILD flash overlay (sibling of .deck, hidden by default) -->
+<div class="build-flash" id="buildFlash" style="position:fixed; inset:0; z-index:9000;
+     display:none; align-items:center; justify-content:center;
+     background:rgba(6,11,24,0.96); pointer-events:none;">
+  <div style="font-family:'Inter',sans-serif; font-size:clamp(8rem,15vw,16rem);
+       font-variation-settings:'opsz' 32,'wght' 800; letter-spacing:-0.05em;
+       background:linear-gradient(135deg,#60a5fa,#c4b5fd,#fbcfe8);
+       -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent;">BUILD</div>
+</div>
 
 <!-- Nav -->
 <div class="nav">
@@ -592,17 +1030,18 @@ Submit to:
 
 <!-- HUD -->
 <div class="hud">
-  <span class="slide-title" id="hudTitle">AI Engineering Academy</span>
-  <span class="counter"><span id="hudCurrent">1</span>/<span id="hudTotal">20</span></span>
+  <span class="slide-title" id="hudTitle"></span>
+  <span class="counter"><span id="hudCurrent">0</span>/<span id="hudTotal">0</span></span>
   <span class="keys"><kbd>←</kbd><kbd>→</kbd></span>
-  <div class="progress"><div class="bar" id="hudBar" style="width:5%"></div></div>
+  <div class="progress"><div class="bar" id="hudBar" style="width:0%"></div></div>
 </div>
 
 <script>
 const slides = document.querySelectorAll('.slide');
 const total = slides.length;
 let current = 0;
-const titles = ['AI Engineering Academy','Today\'s Plan','Pre-Test','Consent','What Is AI?','AI = Prediction','Vibe Learning Trap','Prompt Structure','Bad vs Good','Claude Code','Golden Workflow','Check AI\'s Work','Safety Rules','Project Time','Building Tips','Show & Tell','Homework','Post-Test','Summary','Thank You'];
+// Titles array — Task 2 populated S1-S4; Tasks 3-11 fill the rest. Final population in Task 16 Step 1.
+const titles = ['AI Engineering Academy','Pre-Test','Consent','Launch Claude','Safety First','Pick Your Nickname','Quick Win — First Page','Chatbot vs Agent','CLAUDE.md & Context','Permissions · Context · Usage','Plan Beats Prompt','The Pro Workflow','Make Claude Interview You','A Good Plan Has','Plan Check','First Main Build Prompt','AI Gets Stuff Wrong','Fix It','Open Components','UI Quick Wins','Codex Review','Show & Tell','Skills — Use & Make','MCP','Automation','Your Toolchain','What to Read Next','Post-Test + Survey','Remember','Thank You'];
 
 document.getElementById('hudTotal').textContent = total;
 
@@ -613,19 +1052,22 @@ function show(n) {
   slides[current].classList.add('active');
   document.getElementById('prevBtn').disabled = (n === 0);
   document.getElementById('nextBtn').disabled = (n === total - 1);
-  document.getElementById('hudBar').style.width = (((n + 1) / total) * 100) + '%';
-  document.getElementById('hudCurrent').textContent = n + 1;
+  document.getElementById('hudBar').style.width = (total ? (((n + 1) / total) * 100) : 0) + '%';
+  document.getElementById('hudCurrent').textContent = total ? (n + 1) : 0;
   document.getElementById('hudTitle').textContent = titles[n] || '';
 }
 
-function go(d) { show(current + d); }
+function go(d) { if (total) show(current + d); }
 
-// Theme
+// Theme — 600ms debounce on the I keypress (§6.3)
 const brushWipe = document.getElementById('brushWipe');
 const themeGlyph = document.getElementById('themeGlyph');
 const themeLabel = document.getElementById('themeLabel');
+let themeBusy = false;
 
 function toggleTheme() {
+  if (themeBusy) return;
+  themeBusy = true;
   brushWipe.classList.add('active', 'sweeping');
   setTimeout(() => {
     document.body.classList.toggle('theme-ink');
@@ -634,6 +1076,7 @@ function toggleTheme() {
     themeLabel.textContent = isInk ? 'Dark' : 'Ink-wash';
   }, 380);
   setTimeout(() => { brushWipe.classList.remove('active', 'sweeping'); }, 850);
+  setTimeout(() => { themeBusy = false; }, 600);
 }
 
 function enterFullscreen() {
@@ -646,10 +1089,11 @@ document.addEventListener('keydown', (e) => {
   if (e.key === 'ArrowRight' || e.key === ' ' || e.key === 'PageDown') { e.preventDefault(); go(1); }
   else if (e.key === 'ArrowLeft' || e.key === 'PageUp') { e.preventDefault(); go(-1); }
   else if (e.key === 'Home') { e.preventDefault(); show(0); }
-  else if (e.key === 'End') { e.preventDefault(); show(total - 1); }
+  else if (e.key === 'End') { e.preventDefault(); if (total) show(total - 1); }
   else if (e.key === 'f' || e.key === 'F') { e.preventDefault(); enterFullscreen(); }
   else if (e.key === 'i' || e.key === 'I') { e.preventDefault(); toggleTheme(); }
   else if (e.key === 's' || e.key === 'S') {
+    if (!total) return;
     const slide = slides[current];
     const steps = slide.querySelectorAll('.step:not(.revealed)');
     if (steps.length > 0) steps[0].classList.add('revealed');
@@ -658,13 +1102,279 @@ document.addEventListener('keydown', (e) => {
 
 // Click edges to navigate
 document.addEventListener('click', (e) => {
-  if (e.target.closest('a, button, kbd')) return;
+  if (e.target.closest('a, button, kbd, .copy-block')) return;
   const w = window.innerWidth;
   if (e.clientX < w * 0.15) go(-1);
   else if (e.clientX > w * 0.85) go(1);
 });
 
-show(0);
+// §6.4 — Click-to-copy for .copy-block elements (Web Clipboard API with fallback)
+function wireCopyBlocks(root) {
+  (root || document).querySelectorAll('.copy-block').forEach(el => {
+    if (el.dataset.copyWired) return;
+    el.dataset.copyWired = '1';
+    el.addEventListener('click', async () => {
+      // Strip the affordance hint from the copied text
+      const text = el.innerText.replace(/click to copy|copied ✓/g, '').trim();
+      try {
+        if (navigator.clipboard && window.isSecureContext) {
+          await navigator.clipboard.writeText(text);
+        } else {
+          // Fallback for non-secure contexts (file://): use a temporary textarea + execCommand
+          const ta = document.createElement('textarea');
+          ta.value = text;
+          ta.setAttribute('readonly', '');
+          ta.style.position = 'absolute';
+          ta.style.left = '-9999px';
+          document.body.appendChild(ta);
+          ta.select();
+          try { document.execCommand('copy'); } catch (_) { /* swallow */ }
+          document.body.removeChild(ta);
+        }
+        el.classList.add('copied');
+        setTimeout(() => el.classList.remove('copied'), 1400);
+      } catch (e) {
+        // Final fallback: fail silently — Q can select text manually.
+      }
+    });
+  });
+}
+wireCopyBlocks();
+
+// §3.11 — Nickname input (S6). sessionStorage ONLY. No projection on any other slide.
+(function wireNicknameInput() {
+  const input = document.getElementById('nicknameInput');
+  const warn  = document.getElementById('nicknameWarning');
+  if (!input || !warn) return;
+
+  // Heuristic: 3-10 chars, all letters, single-cased or title-cased, no digits/symbols → looks like a real name.
+  function looksLikeRealName(s) {
+    if (!s) return false;
+    const v = s.trim();
+    if (v.length < 3 || v.length > 10) return false;
+    if (!/^[A-Za-z]+$/.test(v)) return false; // letters only — digits/symbols disqualify
+    const isLower = v === v.toLowerCase();
+    const isUpper = v === v.toUpperCase();
+    const isTitle = /^[A-Z][a-z]+$/.test(v);
+    return isLower || isUpper || isTitle;
+  }
+
+  function readStored() {
+    try { return JSON.parse(sessionStorage.getItem('nicknames') || '[]'); }
+    catch (_) { return []; }
+  }
+  function writeStored(arr) {
+    try { sessionStorage.setItem('nicknames', JSON.stringify(arr)); } catch (_) {}
+  }
+
+  function updateWarning() {
+    warn.textContent = looksLikeRealName(input.value) ? 'Looks like a real name. Try something fictional.' : '';
+  }
+
+  input.addEventListener('input', updateWarning);
+  input.addEventListener('blur', updateWarning);
+  input.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') {
+      e.preventDefault();
+      const v = input.value.trim();
+      if (!v) return;
+      const arr = readStored();
+      if (!arr.includes(v)) {
+        arr.push(v);
+        writeStored(arr);
+      }
+      input.value = '';
+      warn.textContent = '';
+    }
+  });
+})();
+
+// §3.11 — S7 render counter + 10-min countdown (facilitator keys R, T)
+// State persists across reloads within the browser tab via sessionStorage.
+// Use `:clear` typed command (see wireClearCommand below) to reset.
+(function wireRenderCounter(){
+  let renderCount = parseInt(sessionStorage.getItem('renderCount') || '0', 10);
+  let timerEnd = parseInt(sessionStorage.getItem('timerEnd') || '0', 10);
+  let timerRAF = null;
+
+  function tick(){
+    const ms = Math.max(0, timerEnd - Date.now());
+    const mm = Math.floor(ms / 60000);
+    const ss = Math.floor((ms % 60000) / 1000);
+    const el = document.getElementById('countdown');
+    if (el) el.textContent = mm + ':' + String(ss).padStart(2, '0');
+    if (ms > 0) timerRAF = requestAnimationFrame(tick);
+  }
+
+  function bumpCount(){
+    if (renderCount >= 5) return;
+    renderCount += 1;
+    sessionStorage.setItem('renderCount', String(renderCount));
+    const el = document.getElementById('renderCount');
+    if (el) el.textContent = renderCount;
+    if (renderCount === 5) {
+      // 5th render: non-looping --status-success box-shadow pulse on the counter
+      const counter = document.querySelector('.render-counter');
+      if (counter) {
+        counter.style.animation = 'none';
+        // Reflow to retrigger
+        void counter.offsetWidth;
+        counter.style.animation = 'fifthRenderPulse 1.4s cubic-bezier(.16,1,.3,1) both';
+      }
+    }
+  }
+
+  function startTimer(){
+    if (timerEnd && timerEnd > Date.now()) return;  // already running
+    timerEnd = Date.now() + 10 * 60 * 1000;
+    sessionStorage.setItem('timerEnd', String(timerEnd));
+    tick();
+  }
+
+  // Restore persisted state on page load
+  if (renderCount > 0) {
+    const el = document.getElementById('renderCount');
+    if (el) el.textContent = renderCount;
+  }
+  if (timerEnd > Date.now()) {
+    tick();  // resume countdown
+  }
+
+  document.addEventListener('keydown', function(e){
+    if (e.target && e.target.tagName === 'INPUT') return;  // don't capture in inputs
+    if (e.key === 'r' || e.key === 'R') bumpCount();
+    if (e.key === 't' || e.key === 'T') startTimer();
+  });
+
+  // Listen for :clear-driven reset so closure state matches sessionStorage + DOM.
+  window.addEventListener('liveMomentClear', function(){
+    renderCount = 0;
+    timerEnd = 0;
+    if (timerRAF) { cancelAnimationFrame(timerRAF); timerRAF = null; }
+  });
+})();
+
+// §3.11 — `:clear` typed command resets ALL live-moment state across the deck.
+// Dispatches a `liveMomentClear` event so each live-moment owner can reset its
+// own closure-scoped state (this is what makes :clear actually work).
+(function wireClearCommand(){
+  let buffer = '';
+  document.addEventListener('keydown', function(e){
+    if (e.target && e.target.tagName === 'INPUT') return;
+    // Track only printable single-char keys and Enter
+    if (e.key.length === 1) {
+      buffer = (buffer + e.key).slice(-12);  // keep last 12 chars (':names on'/':names off')
+    } else if (e.key === 'Enter') {
+      if (buffer.endsWith(':clear')) {
+        sessionStorage.clear();
+        // Reset any visible counters/timers in the DOM
+        const rc = document.getElementById('renderCount');
+        if (rc) rc.textContent = '0';
+        const cd = document.getElementById('countdown');
+        if (cd) cd.textContent = '10:00';
+        const ac = document.getElementById('approvalCount');
+        if (ac) ac.textContent = '0';
+        // Fire event so closure-scoped owners reset their own state.
+        window.dispatchEvent(new Event('liveMomentClear'));
+        console.log('Live-moment state cleared.');
+      } else if (buffer.endsWith(':names on')) {
+        window.dispatchEvent(new CustomEvent('namedModeToggle', { detail: { on: true } }));
+        console.log('Scoreboard: named mode ON.');
+        if (!sessionStorage.getItem('nicknames')) {
+          console.warn('No nicknames in sessionStorage — scoreboard will revert to count-only.');
+        }
+      } else if (buffer.endsWith(':names off')) {
+        window.dispatchEvent(new CustomEvent('namedModeToggle', { detail: { on: false } }));
+        console.log('Scoreboard: named mode OFF (count-only).');
+      }
+      buffer = '';
+    } else {
+      // non-printable key resets buffer (Escape, arrows, etc. except Enter)
+      // — except don't reset on Tab/Shift modifiers
+      if (e.key !== 'Tab' && e.key !== 'Shift' && e.key !== 'Control' && e.key !== 'Meta' && e.key !== 'Alt') {
+        buffer = '';
+      }
+    }
+  });
+})();
+
+// §3.11 — S15 plan-check scoreboard (facilitator key A, count-only default,
+// optional named mode via :names on/off, auto-advance to S16 on 5th approval)
+(function wireScoreboard(){
+  let approvalCount = parseInt(sessionStorage.getItem('approvalCount') || '0', 10);
+  let namedMode = sessionStorage.getItem('namedMode') === '1';
+  let advanced = false;  // guard against double-fire on 5th increment
+
+  function getNicknames(){
+    try { return JSON.parse(sessionStorage.getItem('nicknames') || '[]'); }
+    catch (_) { return []; }
+  }
+
+  function render(){
+    const cnt = document.getElementById('approvalCount');
+    if (cnt) cnt.textContent = approvalCount;
+    const names = document.getElementById('scoreboardNames');
+    if (!names) return;
+    if (namedMode) {
+      const list = getNicknames().slice(0, approvalCount);
+      names.textContent = list.length ? list.join(' · ') : '';
+      names.style.opacity = '1';
+    } else {
+      names.textContent = '';
+      names.style.opacity = '0';
+    }
+  }
+
+  function bumpApproval(){
+    if (approvalCount >= 5) return;
+    approvalCount += 1;
+    sessionStorage.setItem('approvalCount', String(approvalCount));
+    render();
+    if (approvalCount === 5 && !advanced) {
+      advanced = true;
+      flashBuildAndAdvance();
+    }
+  }
+
+  function flashBuildAndAdvance(){
+    const flash = document.getElementById('buildFlash');
+    if (!flash) return;
+    // Show BUILD for 1.4s, then advance to S16 (current index + 1)
+    flash.style.display = 'flex';
+    setTimeout(function(){
+      flash.style.display = 'none';
+      if (typeof show === 'function' && typeof current === 'number') {
+        show(current + 1);  // S15 is index 14, S16 is index 15
+      }
+    }, 1400);
+  }
+
+  // Facilitator key A
+  document.addEventListener('keydown', function(e){
+    if (e.target && e.target.tagName === 'INPUT') return;
+    if (e.key === 'a' || e.key === 'A') bumpApproval();
+  });
+
+  // :clear support
+  window.addEventListener('liveMomentClear', function(){
+    approvalCount = 0;
+    namedMode = false;
+    advanced = false;
+    render();
+  });
+
+  // :names on/off support — wireClearCommand dispatches namedModeToggle events.
+  window.addEventListener('namedModeToggle', function(e){
+    namedMode = !!(e.detail && e.detail.on);
+    sessionStorage.setItem('namedMode', namedMode ? '1' : '0');
+    render();
+  });
+
+  // Initial render on load
+  render();
+})();
+
+if (total) show(0);
 </script>
 </body>
 </html>
