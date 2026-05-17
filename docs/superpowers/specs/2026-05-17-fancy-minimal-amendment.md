@@ -2,7 +2,7 @@
 
 **Date:** 2026-05-17 (overnight)
 **Author:** Q (via Claude) · synthesis of 5 expert reviews · pending Codex review + Q approval
-**Status:** DRAFT — amends `2026-05-16-slide-redesign-design.md`
+**Status:** APPROVED — Codex SIGNOFF on round 3; Q approved both critical decisions (click-to-copy + social-risk mitigations). Amends `2026-05-16-slide-redesign-design.md`.
 **Parent spec:** `docs/superpowers/specs/2026-05-16-slide-redesign-design.md`
 **Trigger:** Q's late-night message: *"make this slides as fancy as possible, with animation, UI improvement"* + chosen direction "fancy minimal" (Q26).
 
@@ -484,8 +484,8 @@ The existing plan (`2026-05-16-slide-redesign-plan.md`) needs these changes if Q
 | Task 10 — S23 | (no change — Skills SKILL.md sample stays; copy-block now click-to-copy.) |
 | Task 10 — S27 | Remove inline emoji (📚 🎥 💬 📧). Replace with the typographic phase-tag pattern + plain text labels. |
 | Task 11 — S28 | Remove `.big-accent` 📋. Replace with the typographic phase tag. |
-| Task 11 — S29 | Apply cringe-audit rewrite: takeaway #1 → "AI is fast. You are slow on purpose." (See §8 open question 2 — pending Q final approval.) |
-| Task 11 — S30 | Keep gradient `<em>` one-shot. Apply cringe-audit rewrite of subtitle (pending §8 question 3). Add 2× scale orbit-mark final position. |
+| Task 11 — S29 | Apply cringe-audit rewrite: takeaway #1 → "AI is fast. You are slow on purpose." (§8 default — ships as-drafted unless Q overrides.) |
+| Task 11 — S30 | Keep gradient `<em>` one-shot. Apply cringe-audit rewrite of subtitle to "Build something dumb this week. Email it to me." (§8 default — ships as-drafted unless Q overrides.) Add 2× scale orbit-mark final position. |
 | Task 13 (IRB runbook) | Add a new section: "Live-moment features — when nicknames may be projected." Documents the `:names on` opt-in and the criteria for the verbal-only fumble award. |
 | Task 14 (ops-fallback) | Add a `T-7d` block for AC13 IRB consult. Add a `T-15min` reminder: serve via `python -m http.server` so the Clipboard API works. |
 | Task 16 (LOCAL final verification) | Add local checks for AC10 (DevTools reduced-motion toggle, slide-by-slide), AC11 (Sim Daltonism / DevTools CVD emulation on flagged slides), AC12 (the 8 enumerated keyboard scenarios). AC13 is NOT a local gate (it's Q + IRB). |
@@ -524,13 +524,11 @@ All five default to "ship as drafted." None of these gate implementation. Overri
 ## 10. Status
 
 - 5 expert reports synthesized.
-- This amendment NOT yet sent to Codex for review.
-- This amendment NOT yet approved by Q.
-- No implementation has started.
+- ✅ Amendment Codex-reviewed (3 rounds, final verdict SIGNOFF on 2026-05-17).
+- ✅ Q approved the 2 critical decisions: click-to-copy enabled; social-risk mitigations applied.
+- ✅ §8 style defaults are shipping as-drafted unless Q overrides — they DO NOT block implementation.
+- ✅ Amendment committed to git (commit `79d9252`).
+- ✅ Plan (`2026-05-16-slide-redesign-plan.md`) has been pointed at this amendment; amendment wins on conflict.
+- ⏸ Implementation has NOT started — execution gate is Q's go-ahead.
 
-**Next steps (in order):**
-1. Send this amendment to Codex for review (Rule #1).
-2. Bring Codex's verdict + this doc to Q for sign-off.
-3. If Q approves, update `2026-05-16-slide-redesign-plan.md` with the deltas from §7.
-4. Re-run Codex review on the updated plan.
-5. Begin implementation per Q's earlier execution choice (branch-only, stop after Task 2, Codex per-task).
+**Resuming execution:** Per Q's earlier execution choice (Q25): branch-only workspace (`slide-redesign-2026-05`), stop after Task 2 OPEN for sanity check, Codex per-task review. Plan + this amendment are the joint source-of-truth.
