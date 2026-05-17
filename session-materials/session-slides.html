@@ -205,8 +205,8 @@ td { background:rgba(255,255,255,0.02); }
 .vs-card.bad { border-color:rgba(232,121,168,0.3); }
 .vs-card.good { border-color:rgba(52,211,153,0.3); }
 .vs-label { font-size:0.72rem; font-weight:700; text-transform:uppercase; letter-spacing:0.12em; margin-bottom:0.6rem; }
-.vs-card.bad .vs-label { color:var(--status-danger); }
-.vs-card.good .vs-label { color:var(--status-success); }
+.vs-card.bad .vs-label { color:var(--accent-rose); }
+.vs-card.good .vs-label { color:var(--accent-emerald); }
 
 /* Projects */
 .project-grid { display:grid; grid-template-columns:1fr 1fr; gap:0.8rem; }
@@ -295,6 +295,8 @@ h1 em { font-style:italic; color:inherit; position:relative;
   }
   /* Slide entrance lands in final state */
   .slide.active * { opacity: 1 !important; transform: none !important; }
+  /* Preserve the per-phase orbit-mark rotation even in reduced-motion (it's a static rotation, not animation) */
+  .slide.active .orbit-mark .node { transform: rotate(var(--phase-angle, 0deg)) !important; }
   /* Billboard underscore appears at full width, no draw */
   .slide.billboard.active h1::after { width: 62%; }
   /* S1/S30 gradient settles at midpoint instead of sweeping */
@@ -312,7 +314,7 @@ h1 em { font-style:italic; color:inherit; position:relative;
   /* Live-moment features (S7 counter, S15 scoreboard, S22 chip): static */
   .render-counter, .render-counter * { animation: none !important; transition: none; }
   .scoreboard, .scoreboard * { animation: none; transition: none; }
-  .scoreboard .build-flash { display: none; }   /* skip the "BUILD" flash on auto-advance */
+  .build-flash { display: none; }   /* skip the "BUILD" flash on auto-advance */
   .fumble-chip { animation: none; }
 }
 
@@ -505,7 +507,7 @@ body.theme-ink .brush-wipe .ink-stroke { background:var(--bg-deep); }
                   padding: 0.6rem 1rem; color: var(--text-primary); font-size: 1.1rem;
                   font-family: 'SF Mono', monospace; width: 280px; margin: 0.8rem auto 0; display: block;
                   text-align: center; outline: none;" />
-    <div id="nicknameWarning" class="muted" style="font-size: 0.85rem; margin-top: 0.6rem; min-height: 1.4rem; color: var(--status-warning);"></div>
+    <div id="nicknameWarning" class="muted" style="font-size: 0.85rem; margin-top: 0.6rem; min-height: 1.4rem; color: var(--accent-amber);"></div>
     <p class="muted" style="margin-top:1.4rem; font-size:0.9rem;">Skyline &middot; NebulaCat &middot; Trail &middot; GameDev42 &middot; null</p>
   </div>
   <div class="slide-meta">PHASE 02 &middot; SAFETY &middot; 10:00 &rarr; 15:00</div>
@@ -807,7 +809,7 @@ landing page. Open it when done.</div>
 <!-- ═══ S21 CODEX REVIEW ═══ -->
 <div class="slide phase-polish" id="s20">
   <div class="slide-inner">
-    <div class="eyebrow">PHASE 07 · POLISH · SECOND OPINION</div>
+    <div class="eyebrow">PHASE 07 · POLISH</div>
     <h1>Second <em>opinion.</em></h1>
     <p class="subtitle">Different AI. Different blind spots.</p>
     <div class="copy-block">/codex review</div>
@@ -978,7 +980,7 @@ Then build the HTML file.
 <!-- S29 — Phase 10 CLOSE · Remember (rhythm-list, takeaway #1 cringe-audited per §8) -->
 <div class="slide phase-close" id="s28">
   <div class="slide-inner">
-    <div class="eyebrow">PHASE 10 · CLOSE · TAKE THIS HOME</div>
+    <div class="eyebrow">PHASE 10 · CLOSE</div>
     <h1>Three <em>things.</em></h1>
     <ul class="rhythm-list">
       <li>AI is fast. You are slow on purpose.</li>
@@ -1242,6 +1244,7 @@ wireCopyBlocks();
 
   document.addEventListener('keydown', function(e){
     if (e.target && e.target.tagName === 'INPUT') return;  // don't capture in inputs
+    if (window.__typingCommand) return;  // skip while typing colon-commands
     if (e.key === 'r' || e.key === 'R') bumpCount();
     if (e.key === 't' || e.key === 'T') startTimer();
   });
@@ -1259,11 +1262,15 @@ wireCopyBlocks();
 // own closure-scoped state (this is what makes :clear actually work).
 (function wireClearCommand(){
   let buffer = '';
+  function setTypingFlag(){
+    window.__typingCommand = buffer.startsWith(':') && buffer.length > 0;
+  }
   document.addEventListener('keydown', function(e){
     if (e.target && e.target.tagName === 'INPUT') return;
     // Track only printable single-char keys and Enter
     if (e.key.length === 1) {
       buffer = (buffer + e.key).slice(-12);  // keep last 12 chars (':names on'/':names off')
+      setTypingFlag();
     } else if (e.key === 'Enter') {
       if (buffer.endsWith(':clear')) {
         sessionStorage.clear();
@@ -1288,11 +1295,13 @@ wireCopyBlocks();
         console.log('Scoreboard: named mode OFF (count-only).');
       }
       buffer = '';
+      setTypingFlag();
     } else {
       // non-printable key resets buffer (Escape, arrows, etc. except Enter)
       // — except don't reset on Tab/Shift modifiers
       if (e.key !== 'Tab' && e.key !== 'Shift' && e.key !== 'Control' && e.key !== 'Meta' && e.key !== 'Alt') {
         buffer = '';
+        setTypingFlag();
       }
     }
   });
@@ -1352,7 +1361,10 @@ wireCopyBlocks();
   // Facilitator key A
   document.addEventListener('keydown', function(e){
     if (e.target && e.target.tagName === 'INPUT') return;
-    if (e.key === 'a' || e.key === 'A') bumpApproval();
+    if (e.key === 'a' || e.key === 'A') {
+      if (window.__typingCommand) return;  // skip while typing :names on/off etc
+      bumpApproval();
+    }
   });
 
   // :clear support
