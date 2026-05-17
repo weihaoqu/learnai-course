@@ -3,25 +3,30 @@
 
 | Time | Duration | Activity | Notes |
 |------|----------|----------|-------|
-| 0:00 | 3 min | **Welcome** | Greet students and parents. Introduce yourself. Explain what they'll do today. |
-| 0:03 | 5 min | **Pre-Test** | Hand out devices. Open pre-test link. Students complete the knowledge assessment. |
-| 0:08 | 1 min | **Transition** | "Great! Now let's see what AI actually is." |
-| 0:09 | 5 min | **Consent/Assent** | Open web app on projector. Walk through consent form together. Students click I Agree / I Do Not Agree on their own devices. |
-| 0:14 | 10 min | **"What is AI?" Video** | Play Google AI for Beginners (9:18) on projector. |
-| 0:24 | 2 min | **Quick Discussion** | "What surprised you? AI is pattern matching at scale — it predicts, it doesn't think." |
-| 0:26 | 6 min | **Vibe Learning Trap** | Show Course 4, Track B, Module 0. Play the video (4:38). "This is the trap — using AI without understanding." |
-| 0:32 | 3 min | **Prompt Structure** | Show Course 3 cheat sheet. Context → Instruction → Input → Output. |
-| 0:35 | 3 min | **Live Demo** | On projector with ChatGPT: bad prompt vs. good prompt. Show the difference. |
-| 0:38 | 2 min | **Introduce Projects** | Hand out project briefs. Let students pick their project. |
-| 0:40 | 30 min | **Students Build** | Students work on their projects with Claude Code / ChatGPT. Circulate and help. Check in every 5 min. |
-| 1:10 | 10 min | **Show & Tell** | Each student shows their project (~2 min each). Parents watch. Celebrate! |
-| 1:20 | 10 min | **Post-Test + Survey** | Same knowledge quiz + attitude survey via Google Forms. |
-| 1:30 | 5 min | **Wrap Up** | "You built something with AI today. The web app is yours — explore at home." Hand parents the info sheet. |
+| 0:00 | 10 min | **Phase 1 OPEN** | Pre-test + consent + launch Claude. Tech rescue parallel. |
+| 0:10 | 5 min | **Phase 2 SAFETY** | Safety rules + pick nickname. Before any AI input. |
+| 0:15 | 10 min | **Phase 3 QUICK WIN** | starter.html prompt → every student has a page by 0:25. |
+| 0:25 | 7 min | **Phase 4 DECODE** | Chatbot vs Agent · CLAUDE.md · Permissions/Context/Usage. |
+| 0:32 | 18 min | **Phase 5 PLAN** | Plan beats Prompt → ask Claude to interview you → plan check. |
+| 0:50 | 20 min | **Phase 6 BUILD** | One main build prompt → expect bugs → iterate. |
+| 1:10 | 10 min | **Phase 7 POLISH** | Open components · UI quick wins · /codex review. |
+| 1:20 | 10 min | **Phase 8 SHARE** | 2 min each: page + lesson + AI fumble. |
+| 1:30 | 13 min | **Phase 9 LEVEL UP** | Skills · MCP · Automation · toolchain · what to read next. |
+| 1:43 | 7 min | **Phase 10 CLOSE** | Post-test + survey + 3 takeaways + thank you. |
 
-**Total: ~90 minutes**
+**Total: 110 minutes**
 
 ## Pacing Tips
-- If running short on time: cut the Vibe Learning Trap video (save 5 min)
-- If students finish projects early: have them try a second project or explore Course 4 quizzes
-- If a student is stuck: help them write their prompt on paper first, then type it
-- Keep energy high during project time — walk around, praise progress, ask what they're building
+- If running short: cut S25 Automation first, then S24 MCP, then S20 UI Quick Wins. Never cut Safety, Quick Win, Plan Check, Show & Tell, or Post-test.
+- Plan Check (S15) can be done shoulder-to-shoulder during the plan phase to save serialized time.
+- If a student finishes their build very early: have them try one Polish improvement and then run /codex review.
+
+## Facilitator-only docs
+- `IRB-non-consent-runbook.md` — exact words for "I Do Not Agree" path.
+- `ops-fallback-checklist.md` — pre-session checks + recovery scripts.
+- `starter.html` — static fallback if Claude is unreachable.
+
+## Tech notes
+- Slides: `session-slides.html` (30 slides, 110 min).
+- Keyboard: ←/→ navigate, `I` ink-wash toggle, `F` fullscreen, `S` reveal steps.
+- Facilitator keys during live session: `R` (S7 render counter), `T` (S7 timer start), `A` (S15 plan-check approval count), `:names on/off` (toggle named-mode scoreboard), `:clear` (reset all live-moment state).
