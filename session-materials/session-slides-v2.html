@@ -262,6 +262,12 @@ h1 em { font-style:italic; color:inherit; position:relative;
   100% { box-shadow: 0 0 0 14px rgba(52,211,153,0); }
 }
 
+/* §3.11 — S7 render counter 5th-render success pulse (one-shot, non-looping) */
+@keyframes fifthRenderPulse {
+  0%   { box-shadow: 0 0 0 0 rgba(52,211,153,0.55); }
+  100% { box-shadow: 0 0 0 18px rgba(52,211,153,0); }
+}
+
 /* Reduced-motion global (covers ALL motion in the deck — non-negotiable) */
 @media (prefers-reduced-motion: reduce) {
   /* Universal kill: animations to ~zero, transitions to ~zero, scroll auto */
@@ -288,7 +294,7 @@ h1 em { font-style:italic; color:inherit; position:relative;
   /* Phase-rotation orbit-mark: snap to final angle, no transition */
   .orbit-mark .node { transition: none; }
   /* Live-moment features (S7 counter, S15 scoreboard, S22 chip): static */
-  .render-counter, .render-counter * { animation: none; transition: none; }
+  .render-counter, .render-counter * { animation: none !important; transition: none; }
   .scoreboard, .scoreboard * { animation: none; transition: none; }
   .scoreboard .build-flash { display: none; }   /* skip the "BUILD" flash on auto-advance */
   .fumble-chip { animation: none; }
@@ -490,6 +496,37 @@ body.theme-ink .brush-wipe .ink-stroke { background:var(--bg-deep); }
   </svg>
 </div>
 
+<!-- ═══ S7 TINY BUILD (Quick Win) ═══ -->
+<div class="slide phase-quickwin" id="s6">
+  <div class="slide-inner center">
+    <div class="eyebrow">PHASE 03 · QUICK WIN</div>
+    <h1>First page. <em>Right now.</em></h1>
+    <p class="subtitle" style="margin-left:auto; margin-right:auto;">Paste this. Hit enter. Watch.</p>
+    <div class="copy-block" style="text-align:left; margin:1.2rem auto; white-space:pre-line;">Make me a starter.html that says
+"Hi, I'm &lt;nickname&gt;". Dark background.
+One sentence about what my persona likes
+(anything fictional is fine).
+Open it in my browser when done.</div>
+    <div class="render-counter" style="display:flex; align-items:center; justify-content:center;
+         gap:0.6rem; max-width:280px; margin:1.4rem auto 0; padding:0.6rem 1.2rem;
+         background:var(--bg-card); border:1px solid var(--border-glow); border-radius:12px;
+         font-family:'SF Mono', monospace; font-size:1rem;">
+      <strong id="renderCount" style="color:var(--status-success); font-size:1.4rem; font-variation-settings:'opsz' 18,'wght' 700;">0</strong>
+      <span>/ 5 pages rendered</span>
+    </div>
+    <div class="countdown" id="countdown" style="font-family:'SF Mono', monospace;
+         font-size:1rem; color:var(--text-tertiary); text-align:center; margin-top:0.6rem;
+         letter-spacing:0.1em;">10:00</div>
+    <p class="muted" style="margin-top:1.2rem; font-size:0.88rem;">Goal: every student has a page on screen by minute 25.</p>
+  </div>
+  <div class="slide-meta">PHASE 03 · QUICK WIN · 15:00 → 25:00</div>
+  <svg class="orbit-mark" viewBox="0 0 28 28" aria-hidden="true">
+    <circle class="ring" cx="14" cy="14" r="12" />
+    <circle class="ring" cx="14" cy="14" r="7" />
+    <circle class="node" cx="14" cy="2" r="1.8" />
+  </svg>
+</div>
+
 </div><!-- /deck -->
 
 <!-- Nav -->
@@ -511,7 +548,7 @@ const slides = document.querySelectorAll('.slide');
 const total = slides.length;
 let current = 0;
 // Titles array — Task 2 populated S1-S4; Tasks 3-11 fill the rest. Final population in Task 16 Step 1.
-const titles = ['AI Engineering Academy','Pre-Test','Consent','Launch Claude','Safety First','Pick Your Nickname','','','','','','','','','','','','','','','','','','','','','','','',''];
+const titles = ['AI Engineering Academy','Pre-Test','Consent','Launch Claude','Safety First','Pick Your Nickname','Quick Win — First Page','','','','','','','','','','','','','','','','','','','','','','',''];
 
 document.getElementById('hudTotal').textContent = total;
 
@@ -656,6 +693,51 @@ wireCopyBlocks();
       input.value = '';
       warn.textContent = '';
     }
+  });
+})();
+
+// §3.11 — S7 render counter + 10-min countdown (facilitator keys R, T)
+(function wireRenderCounter(){
+  let renderCount = 0;
+  let timerEnd = 0;
+  let timerRAF = null;
+
+  function tick(){
+    const ms = Math.max(0, timerEnd - Date.now());
+    const mm = Math.floor(ms / 60000);
+    const ss = Math.floor((ms % 60000) / 1000);
+    const el = document.getElementById('countdown');
+    if (el) el.textContent = mm + ':' + String(ss).padStart(2, '0');
+    if (ms > 0) timerRAF = requestAnimationFrame(tick);
+  }
+
+  function bumpCount(){
+    if (renderCount >= 5) return;
+    renderCount += 1;
+    const el = document.getElementById('renderCount');
+    if (el) el.textContent = renderCount;
+    if (renderCount === 5) {
+      // 5th render: non-looping --status-success box-shadow pulse on the counter
+      const counter = document.querySelector('.render-counter');
+      if (counter) {
+        counter.style.animation = 'none';
+        // Reflow to retrigger
+        void counter.offsetWidth;
+        counter.style.animation = 'fifthRenderPulse 1.4s cubic-bezier(.16,1,.3,1) both';
+      }
+    }
+  }
+
+  function startTimer(){
+    if (timerEnd) return;
+    timerEnd = Date.now() + 10 * 60 * 1000;
+    tick();
+  }
+
+  document.addEventListener('keydown', function(e){
+    if (e.target && e.target.tagName === 'INPUT') return;  // don't capture in inputs
+    if (e.key === 'r' || e.key === 'R') bumpCount();
+    if (e.key === 't' || e.key === 'T') startTimer();
   });
 })();
 
