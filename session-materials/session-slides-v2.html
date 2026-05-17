@@ -756,10 +756,18 @@ wireCopyBlocks();
     if (e.key === 'r' || e.key === 'R') bumpCount();
     if (e.key === 't' || e.key === 'T') startTimer();
   });
+
+  // Listen for :clear-driven reset so closure state matches sessionStorage + DOM.
+  window.addEventListener('liveMomentClear', function(){
+    renderCount = 0;
+    timerEnd = 0;
+    if (timerRAF) { cancelAnimationFrame(timerRAF); timerRAF = null; }
+  });
 })();
 
 // §3.11 — `:clear` typed command resets ALL live-moment state across the deck.
-// Future Task 6 (scoreboard) and beyond should also clear their DOM here.
+// Dispatches a `liveMomentClear` event so each live-moment owner can reset its
+// own closure-scoped state (this is what makes :clear actually work).
 (function wireClearCommand(){
   let buffer = '';
   document.addEventListener('keydown', function(e){
@@ -775,7 +783,8 @@ wireCopyBlocks();
         if (rc) rc.textContent = '0';
         const cd = document.getElementById('countdown');
         if (cd) cd.textContent = '10:00';
-        // Future: also reset scoreboard, etc. (Task 6 will add)
+        // Fire event so closure-scoped owners reset their own state.
+        window.dispatchEvent(new Event('liveMomentClear'));
         console.log('Live-moment state cleared.');
       }
       buffer = '';
