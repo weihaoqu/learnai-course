@@ -445,6 +445,51 @@ body.theme-ink .brush-wipe .ink-stroke { background:var(--bg-deep); }
   </svg>
 </div>
 
+<!-- ═══ S5 SAFETY RULES ═══ -->
+<div class="slide phase-safety" id="s4">
+  <div class="slide-inner">
+    <div class="eyebrow">PHASE 02 · SAFETY</div>
+    <h1 style="text-align:center;">Read this before you <em>talk to Claude.</em></h1>
+    <div class="safety-grid">
+      <div class="no">❌ NO real name (use a nickname)</div>
+      <div class="no">❌ NO address, school name, phone, email</div>
+      <div class="no">❌ NO passwords, health, family details</div>
+      <div class="no">❌ NO face photos</div>
+      <div class="yes">✅ Files stay on YOUR laptop</div>
+      <div class="yes">✅ Read every permission prompt</div>
+    </div>
+    <p class="muted" style="font-style:italic; max-width:640px; margin:1.2rem auto; text-align:center;">Parents: no screen photos · no coaching answers · no pressure around consent.</p>
+  </div>
+  <div class="slide-meta">PHASE 02 &middot; SAFETY &middot; 10:00 &rarr; 15:00</div>
+  <svg class="orbit-mark" viewBox="0 0 28 28" aria-hidden="true">
+    <circle class="ring" cx="14" cy="14" r="12" />
+    <circle class="ring" cx="14" cy="14" r="7" />
+    <circle class="node" cx="14" cy="2" r="1.8" />
+  </svg>
+</div>
+
+<!-- ═══ S6 PICK YOUR NICKNAME ═══ -->
+<div class="slide billboard phase-safety" id="s5">
+  <div class="slide-inner center">
+    <div class="eyebrow">PHASE 02 · SAFETY</div>
+    <h1>Pick your <em>nickname.</em></h1>
+    <p class="subtitle" style="margin-left:auto; margin-right:auto;">Write it on a sticky note. We use it for the whole session.</p>
+    <input type="text" id="nicknameInput" placeholder="Type a nickname…" maxlength="20"
+           style="background: var(--bg-card); border: 1px solid var(--border-glow); border-radius: 8px;
+                  padding: 0.6rem 1rem; color: var(--text-primary); font-size: 1.1rem;
+                  font-family: 'SF Mono', monospace; width: 280px; margin: 0.8rem auto 0; display: block;
+                  text-align: center; outline: none;" />
+    <div id="nicknameWarning" class="muted" style="font-size: 0.85rem; margin-top: 0.6rem; min-height: 1.4rem; color: var(--status-warning);"></div>
+    <p class="muted" style="margin-top:1.4rem; font-size:0.9rem;">Skyline &middot; NebulaCat &middot; Trail &middot; GameDev42 &middot; null</p>
+  </div>
+  <div class="slide-meta">PHASE 02 &middot; SAFETY &middot; 10:00 &rarr; 15:00</div>
+  <svg class="orbit-mark" viewBox="0 0 28 28" aria-hidden="true">
+    <circle class="ring" cx="14" cy="14" r="12" />
+    <circle class="ring" cx="14" cy="14" r="7" />
+    <circle class="node" cx="14" cy="2" r="1.8" />
+  </svg>
+</div>
+
 </div><!-- /deck -->
 
 <!-- Nav -->
@@ -466,7 +511,7 @@ const slides = document.querySelectorAll('.slide');
 const total = slides.length;
 let current = 0;
 // Titles array — Task 2 populated S1-S4; Tasks 3-11 fill the rest. Final population in Task 16 Step 1.
-const titles = ['AI Engineering Academy','Pre-Test','Consent','Launch Claude','','','','','','','','','','','','','','','','','','','','','','','','','',''];
+const titles = ['AI Engineering Academy','Pre-Test','Consent','Launch Claude','Safety First','Pick Your Nickname','','','','','','','','','','','','','','','','','','','','','','','',''];
 
 document.getElementById('hudTotal').textContent = total;
 
@@ -565,6 +610,54 @@ function wireCopyBlocks(root) {
   });
 }
 wireCopyBlocks();
+
+// §3.11 — Nickname input (S6). sessionStorage ONLY. No projection on any other slide.
+(function wireNicknameInput() {
+  const input = document.getElementById('nicknameInput');
+  const warn  = document.getElementById('nicknameWarning');
+  if (!input || !warn) return;
+
+  // Heuristic: 3-10 chars, all letters, single-cased or title-cased, no digits/symbols → looks like a real name.
+  function looksLikeRealName(s) {
+    if (!s) return false;
+    const v = s.trim();
+    if (v.length < 3 || v.length > 10) return false;
+    if (!/^[A-Za-z]+$/.test(v)) return false; // letters only — digits/symbols disqualify
+    const isLower = v === v.toLowerCase();
+    const isUpper = v === v.toUpperCase();
+    const isTitle = /^[A-Z][a-z]+$/.test(v);
+    return isLower || isUpper || isTitle;
+  }
+
+  function readStored() {
+    try { return JSON.parse(sessionStorage.getItem('nicknames') || '[]'); }
+    catch (_) { return []; }
+  }
+  function writeStored(arr) {
+    try { sessionStorage.setItem('nicknames', JSON.stringify(arr)); } catch (_) {}
+  }
+
+  function updateWarning() {
+    warn.textContent = looksLikeRealName(input.value) ? 'Looks like a real name. Try something fictional.' : '';
+  }
+
+  input.addEventListener('input', updateWarning);
+  input.addEventListener('blur', updateWarning);
+  input.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') {
+      e.preventDefault();
+      const v = input.value.trim();
+      if (!v) return;
+      const arr = readStored();
+      if (!arr.includes(v)) {
+        arr.push(v);
+        writeStored(arr);
+      }
+      input.value = '';
+      warn.textContent = '';
+    }
+  });
+})();
 
 if (total) show(0);
 </script>
