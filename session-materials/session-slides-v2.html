@@ -19,6 +19,10 @@
   --status-danger: #f87171;
   --status-success: #34d399;
   --status-warning: #f59e0b;
+  /* RGB triplets for use with rgba() in box-shadow/animation alpha contexts */
+  --status-danger-rgb: 248, 113, 113;
+  --status-success-rgb: 52, 211, 153;
+  --status-warning-rgb: 245, 158, 11;
 
   /* §6.1 — Type scale custom properties (single source of truth) */
   --type-hero:     clamp(4.5rem, 9vw,   8rem);
@@ -258,14 +262,14 @@ h1 em { font-style:italic; color:inherit; position:relative;
 .copy-block.copied { border-color: var(--status-success); animation: copiedPulse .6s var(--ease); }
 .copy-block.copied::after { content: 'copied ✓'; color: var(--status-success); opacity: 1; }
 @keyframes copiedPulse {
-  0%   { box-shadow: 0 0 0 0 rgba(52,211,153,.45); }
-  100% { box-shadow: 0 0 0 14px rgba(52,211,153,0); }
+  0%   { box-shadow: 0 0 0 0   rgba(var(--status-success-rgb), 0.45); }
+  100% { box-shadow: 0 0 0 14px rgba(var(--status-success-rgb), 0); }
 }
 
 /* §3.11 — S7 render counter 5th-render success pulse (one-shot, non-looping) */
 @keyframes fifthRenderPulse {
-  0%   { box-shadow: 0 0 0 0 rgba(52,211,153,0.55); }
-  100% { box-shadow: 0 0 0 18px rgba(52,211,153,0); }
+  0%   { box-shadow: 0 0 0 0   rgba(var(--status-success-rgb), 0.55); }
+  100% { box-shadow: 0 0 0 18px rgba(var(--status-success-rgb), 0); }
 }
 
 /* Reduced-motion global (covers ALL motion in the deck — non-negotiable) */
@@ -511,7 +515,7 @@ Open it in my browser when done.</div>
          gap:0.6rem; max-width:280px; margin:1.4rem auto 0; padding:0.6rem 1.2rem;
          background:var(--bg-card); border:1px solid var(--border-glow); border-radius:12px;
          font-family:'SF Mono', monospace; font-size:1rem;">
-      <strong id="renderCount" style="color:var(--status-success); font-size:1.4rem; font-variation-settings:'opsz' 18,'wght' 700;">0</strong>
+      <span id="renderCount" style="color:var(--status-success); font-size:1.4rem; font-variation-settings:'opsz' 18,'wght' 700;">0</span>
       <span>/ 5 pages rendered</span>
     </div>
     <div class="countdown" id="countdown" style="font-family:'SF Mono', monospace;
@@ -697,9 +701,11 @@ wireCopyBlocks();
 })();
 
 // §3.11 — S7 render counter + 10-min countdown (facilitator keys R, T)
+// State persists across reloads within the browser tab via sessionStorage.
+// Use `:clear` typed command (see wireClearCommand below) to reset.
 (function wireRenderCounter(){
-  let renderCount = 0;
-  let timerEnd = 0;
+  let renderCount = parseInt(sessionStorage.getItem('renderCount') || '0', 10);
+  let timerEnd = parseInt(sessionStorage.getItem('timerEnd') || '0', 10);
   let timerRAF = null;
 
   function tick(){
@@ -714,6 +720,7 @@ wireCopyBlocks();
   function bumpCount(){
     if (renderCount >= 5) return;
     renderCount += 1;
+    sessionStorage.setItem('renderCount', String(renderCount));
     const el = document.getElementById('renderCount');
     if (el) el.textContent = renderCount;
     if (renderCount === 5) {
@@ -729,15 +736,56 @@ wireCopyBlocks();
   }
 
   function startTimer(){
-    if (timerEnd) return;
+    if (timerEnd && timerEnd > Date.now()) return;  // already running
     timerEnd = Date.now() + 10 * 60 * 1000;
+    sessionStorage.setItem('timerEnd', String(timerEnd));
     tick();
+  }
+
+  // Restore persisted state on page load
+  if (renderCount > 0) {
+    const el = document.getElementById('renderCount');
+    if (el) el.textContent = renderCount;
+  }
+  if (timerEnd > Date.now()) {
+    tick();  // resume countdown
   }
 
   document.addEventListener('keydown', function(e){
     if (e.target && e.target.tagName === 'INPUT') return;  // don't capture in inputs
     if (e.key === 'r' || e.key === 'R') bumpCount();
     if (e.key === 't' || e.key === 'T') startTimer();
+  });
+})();
+
+// §3.11 — `:clear` typed command resets ALL live-moment state across the deck.
+// Future Task 6 (scoreboard) and beyond should also clear their DOM here.
+(function wireClearCommand(){
+  let buffer = '';
+  document.addEventListener('keydown', function(e){
+    if (e.target && e.target.tagName === 'INPUT') return;
+    // Track only printable single-char keys and Enter
+    if (e.key.length === 1) {
+      buffer = (buffer + e.key).slice(-10);  // keep last 10 chars
+    } else if (e.key === 'Enter') {
+      if (buffer.endsWith(':clear')) {
+        sessionStorage.clear();
+        // Reset any visible counters/timers in the DOM
+        const rc = document.getElementById('renderCount');
+        if (rc) rc.textContent = '0';
+        const cd = document.getElementById('countdown');
+        if (cd) cd.textContent = '10:00';
+        // Future: also reset scoreboard, etc. (Task 6 will add)
+        console.log('Live-moment state cleared.');
+      }
+      buffer = '';
+    } else {
+      // non-printable key resets buffer (Escape, arrows, etc. except Enter)
+      // — except don't reset on Tab/Shift modifiers
+      if (e.key !== 'Tab' && e.key !== 'Shift' && e.key !== 'Control' && e.key !== 'Meta' && e.key !== 'Alt') {
+        buffer = '';
+      }
+    }
   });
 })();
 
