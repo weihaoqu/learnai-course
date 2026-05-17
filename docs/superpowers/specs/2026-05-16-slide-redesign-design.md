@@ -570,7 +570,9 @@ The redesigned deck is done when:
 5. `session-materials/IRB-non-consent-runbook.md` exists with content per §7.1.
 6. `session-materials/ops-fallback-checklist.md` exists with content per §7.2.
 7. A static HTML starter template exists in `session-materials/` for ops fallback.
-8. A live dry-run on the projector confirms every slide reads from the back of HH216.
+8. Readability is verified two ways — both required, but only AC8a blocks implementation completion:
+   - **AC8a (completion gate):** Q does a readability walk-through on her own monitor at 8–10ft: every slide's headline and primary text reads from that distance. Slides that fail get a follow-up font-bump commit.
+   - **AC8b (Q follow-up, NOT a plan-completion gate):** A live dry-run on the projector at HH216 — done by Q at least 24 hours before the actual session — confirms every slide reads from the back row. This step requires physical access to HH216 and cannot be satisfied from the development machine; the implementation plan completes without it, and the dry-run is tracked in `session-materials/ops-fallback-checklist.md` under a `T-24h` block.
 9. The session-agenda markdown (`session-materials/1-session-agenda.md`) is updated to match the new 10-phase / 110-min plan.
 
 ---
