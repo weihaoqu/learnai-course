@@ -951,6 +951,62 @@ Then build the HTML file.
   </svg>
 </div>
 
+<!-- S28 — Phase 10 CLOSE · Post-test + Survey (billboard, no .big-accent emoji per amendment) -->
+<div class="slide billboard phase-close" id="s27">
+  <div class="slide-inner">
+    <div class="eyebrow">PHASE 10 · CLOSE</div>
+    <h1>Same quiz. <em>New score.</em></h1>
+    <p class="subtitle">10 min. Honest answers shape the next session.</p>
+    <div class="glass-card" style="max-width:520px; margin:1.4rem auto;">
+      <p><strong>QR code goes here</strong> — placeholder until Q provides the post-test/survey URL.</p>
+    </div>
+  </div>
+  <div class="slide-meta">PHASE 10 · CLOSE · 103:00 → 110:00</div>
+  <svg class="orbit-mark" viewBox="0 0 28 28" aria-hidden="true">
+    <circle class="ring" cx="14" cy="14" r="12" />
+    <circle class="ring" cx="14" cy="14" r="7" />
+    <circle class="node" cx="14" cy="2" r="1.8" />
+  </svg>
+</div>
+
+<!-- S29 — Phase 10 CLOSE · Remember (rhythm-list, takeaway #1 cringe-audited per §8) -->
+<div class="slide phase-close" id="s28">
+  <div class="slide-inner">
+    <div class="eyebrow">PHASE 10 · CLOSE · TAKE THIS HOME</div>
+    <h1>Three <em>things.</em></h1>
+    <ul class="rhythm-list">
+      <li>AI is fast. You are slow on purpose.</li>
+      <li>A plan beats a clever prompt.</li>
+      <li>You direct the toolchain.</li>
+    </ul>
+  </div>
+  <div class="slide-meta">PHASE 10 · CLOSE · 103:00 → 110:00</div>
+  <svg class="orbit-mark" viewBox="0 0 28 28" aria-hidden="true">
+    <circle class="ring" cx="14" cy="14" r="12" />
+    <circle class="ring" cx="14" cy="14" r="7" />
+    <circle class="node" cx="14" cy="2" r="1.8" />
+  </svg>
+</div>
+
+<!-- S30 — Phase 10 CLOSE · Thank You (billboard, gradient <em> one-shot per §6.3) -->
+<div class="slide billboard phase-close" id="s29">
+  <div class="slide-inner">
+    <div class="eyebrow">PHASE 10 · CLOSE</div>
+    <h1>Thank <em>you.</em></h1>
+    <p class="subtitle">Build something dumb this week. Email it to me.</p>
+    <div class="glass-card" style="max-width:520px; margin:1.4rem auto;">
+      <p><strong>QR code goes here</strong> — placeholder for web-app home (weihaoqu.github.io/learnai-course/).</p>
+    </div>
+    <p class="muted">weihaoqu.github.io/learnai-course · weihaoqu25@gmail.com</p>
+  </div>
+  <div class="slide-meta">PHASE 10 · CLOSE · 103:00 → 110:00</div>
+  <svg class="orbit-mark" viewBox="0 0 28 28" aria-hidden="true" style="width:56px; height:56px;">
+    <circle class="ring" cx="14" cy="14" r="12" />
+    <circle class="ring" cx="14" cy="14" r="7" />
+    <circle class="node" cx="14" cy="2" r="1.8" />
+  </svg>
+</div>
+
 </div><!-- /deck -->
 
 <!-- §3.11 — S15 BUILD flash overlay (sibling of .deck, hidden by default) -->
@@ -982,7 +1038,7 @@ const slides = document.querySelectorAll('.slide');
 const total = slides.length;
 let current = 0;
 // Titles array — Task 2 populated S1-S4; Tasks 3-11 fill the rest. Final population in Task 16 Step 1.
-const titles = ['AI Engineering Academy','Pre-Test','Consent','Launch Claude','Safety First','Pick Your Nickname','Quick Win — First Page','Chatbot vs Agent','CLAUDE.md & Context','Permissions · Context · Usage','Plan Beats Prompt','The Pro Workflow','Make Claude Interview You','A Good Plan Has','Plan Check','First Main Build Prompt','AI Gets Stuff Wrong','Fix It','Open Components','UI Quick Wins','Codex Review','Show & Tell','Skills — Use & Make','MCP','Automation','Your Toolchain','What to Read Next','','','','',''];
+const titles = ['AI Engineering Academy','Pre-Test','Consent','Launch Claude','Safety First','Pick Your Nickname','Quick Win — First Page','Chatbot vs Agent','CLAUDE.md & Context','Permissions · Context · Usage','Plan Beats Prompt','The Pro Workflow','Make Claude Interview You','A Good Plan Has','Plan Check','First Main Build Prompt','AI Gets Stuff Wrong','Fix It','Open Components','UI Quick Wins','Codex Review','Show & Tell','Skills — Use & Make','MCP','Automation','Your Toolchain','What to Read Next','Post-Test + Survey','Remember','Thank You'];
 
 document.getElementById('hudTotal').textContent = total;
 
