@@ -845,6 +845,112 @@ landing page. Open it when done.</div>
   </svg>
 </div>
 
+<!-- ═══ S23 SKILLS — USE & MAKE ═══ -->
+<div class="slide phase-levelup" id="s22">
+  <div class="slide-inner">
+    <div class="eyebrow">PHASE 09 · LEVEL UP</div>
+    <h1>Pre-packaged <em>superpowers.</em></h1>
+    <pre class="copy-block">── .claude/skills/landing-page/SKILL.md ──
+---
+name: landing-page
+description: Build a personal landing page
+---
+Interview me one question at a time.
+Cover: persona, sections, vibe, color.
+Then build the HTML file.
+──────────────────────────────────────</pre>
+    <p class="lede">Did it twice? Codify it. Type /landing-page anywhere.</p>
+    <p class="muted">Project: .claude/skills/…/SKILL.md  ·  Personal: ~/.claude/skills/…/SKILL.md</p>
+  </div>
+  <div class="slide-meta">PHASE 09 · LEVEL UP · 90:00 → 103:00</div>
+  <svg class="orbit-mark" viewBox="0 0 28 28" aria-hidden="true">
+    <circle class="ring" cx="14" cy="14" r="12" />
+    <circle class="ring" cx="14" cy="14" r="7" />
+    <circle class="node" cx="14" cy="2" r="1.8" />
+  </svg>
+</div>
+
+<!-- ═══ S24 MCP ═══ -->
+<div class="slide phase-levelup" id="s23">
+  <div class="slide-inner">
+    <div class="eyebrow">PHASE 09 · LEVEL UP</div>
+    <h1><em>MCP</em> = connect to anything.</h1>
+    <p class="lede">Protocol for external tools, data, and APIs.</p>
+    <pre class="diagram">[ Claude Code ] ─── MCP ─── [ Gmail · GitHub · Drive · custom ]</pre>
+    <div class="warning" style="max-width:680px; margin:1.2rem auto;">
+      <h3>Today</h3>
+      <p>We did <strong>NOT</strong> connect personal accounts.</p>
+    </div>
+  </div>
+  <div class="slide-meta">PHASE 09 · LEVEL UP · 90:00 → 103:00</div>
+  <svg class="orbit-mark" viewBox="0 0 28 28" aria-hidden="true">
+    <circle class="ring" cx="14" cy="14" r="12" />
+    <circle class="ring" cx="14" cy="14" r="7" />
+    <circle class="node" cx="14" cy="2" r="1.8" />
+  </svg>
+</div>
+
+<!-- ═══ S25 AUTOMATION ═══ -->
+<div class="slide phase-levelup" id="s24">
+  <div class="slide-inner">
+    <div class="eyebrow">PHASE 09 · LEVEL UP</div>
+    <h1>Set once. <em>It runs without you.</em></h1>
+    <ul class="rhythm-list">
+      <li><b>Hooks</b> — on every save</li>
+      <li><b>Cron</b> — daily/weekly</li>
+      <li><b>Agents</b> — background jobs</li>
+    </ul>
+    <p class="lede">Pros set it once. The work happens without them.</p>
+  </div>
+  <div class="slide-meta">PHASE 09 · LEVEL UP · 90:00 → 103:00</div>
+  <svg class="orbit-mark" viewBox="0 0 28 28" aria-hidden="true">
+    <circle class="ring" cx="14" cy="14" r="12" />
+    <circle class="ring" cx="14" cy="14" r="7" />
+    <circle class="node" cx="14" cy="2" r="1.8" />
+  </svg>
+</div>
+
+<!-- ═══ S26 YOUR TOOLCHAIN ═══ -->
+<div class="slide phase-levelup" id="s25">
+  <div class="slide-inner">
+    <div class="eyebrow">PHASE 09 · LEVEL UP</div>
+    <h1>You direct. Tools <em>execute.</em></h1>
+    <pre class="diagram">YOU (supervisor)
+ ├─ Claude Code  →  builds
+ ├─ Codex        →  reviews
+ ├─ Skills       →  workflows
+ ├─ MCP          →  connections
+ └─ CLAUDE.md    →  your rules</pre>
+    <p class="lede">Toolchain under your supervision.</p>
+  </div>
+  <div class="slide-meta">PHASE 09 · LEVEL UP · 90:00 → 103:00</div>
+  <svg class="orbit-mark" viewBox="0 0 28 28" aria-hidden="true">
+    <circle class="ring" cx="14" cy="14" r="12" />
+    <circle class="ring" cx="14" cy="14" r="7" />
+    <circle class="node" cx="14" cy="2" r="1.8" />
+  </svg>
+</div>
+
+<!-- ═══ S27 WHAT TO READ NEXT ═══ -->
+<div class="slide phase-levelup" id="s26">
+  <div class="slide-inner">
+    <div class="eyebrow">PHASE 09 · LEVEL UP</div>
+    <h1>Keep <em>going.</em></h1>
+    <ul class="rhythm-list">
+      <li><b>LearnAI Wiki</b> — weihaoqu.github.io/learnAIDoc</li>
+      <li><b>Claude 101 playlist</b> — Anthropic on YouTube</li>
+      <li><b>Office hours</b> — Saturdays (web app)</li>
+      <li><b>Email Prof. Qu</b> — weihaoqu25@gmail.com</li>
+    </ul>
+  </div>
+  <div class="slide-meta">PHASE 09 · LEVEL UP · 90:00 → 103:00</div>
+  <svg class="orbit-mark" viewBox="0 0 28 28" aria-hidden="true">
+    <circle class="ring" cx="14" cy="14" r="12" />
+    <circle class="ring" cx="14" cy="14" r="7" />
+    <circle class="node" cx="14" cy="2" r="1.8" />
+  </svg>
+</div>
+
 </div><!-- /deck -->
 
 <!-- §3.11 — S15 BUILD flash overlay (sibling of .deck, hidden by default) -->
@@ -876,7 +982,7 @@ const slides = document.querySelectorAll('.slide');
 const total = slides.length;
 let current = 0;
 // Titles array — Task 2 populated S1-S4; Tasks 3-11 fill the rest. Final population in Task 16 Step 1.
-const titles = ['AI Engineering Academy','Pre-Test','Consent','Launch Claude','Safety First','Pick Your Nickname','Quick Win — First Page','Chatbot vs Agent','CLAUDE.md & Context','Permissions · Context · Usage','Plan Beats Prompt','The Pro Workflow','Make Claude Interview You','A Good Plan Has','Plan Check','First Main Build Prompt','AI Gets Stuff Wrong','Fix It','Open Components','UI Quick Wins','Codex Review','Show & Tell','','','','','','','','','',''];
+const titles = ['AI Engineering Academy','Pre-Test','Consent','Launch Claude','Safety First','Pick Your Nickname','Quick Win — First Page','Chatbot vs Agent','CLAUDE.md & Context','Permissions · Context · Usage','Plan Beats Prompt','The Pro Workflow','Make Claude Interview You','A Good Plan Has','Plan Check','First Main Build Prompt','AI Gets Stuff Wrong','Fix It','Open Components','UI Quick Wins','Codex Review','Show & Tell','Skills — Use & Make','MCP','Automation','Your Toolchain','What to Read Next','','','','',''];
 
 document.getElementById('hudTotal').textContent = total;
 
