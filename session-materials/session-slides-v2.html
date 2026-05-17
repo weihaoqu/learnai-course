@@ -85,9 +85,21 @@ p, li         { font-size: var(--type-body);
                 color: var(--text-secondary);
                 margin-bottom: 0.5rem; }
 
+/* §6.1 move #4 — Rhythm list: typographic phase-tag numerals (01, 02, 03…) in phase accent */
+.rhythm-list { counter-reset: li; list-style: none; padding-left: 0; }
 .rhythm-list li { font-size: var(--type-list);
                   font-variation-settings: 'opsz' 18, 'wght' 500;
-                  line-height: var(--lh-list); }
+                  line-height: var(--lh-list);
+                  counter-increment: li;
+                  position: relative;
+                  padding-left: 3.2em;
+                  margin-bottom: 0.9rem; }
+.rhythm-list li::before { content: counter(li, decimal-leading-zero) "  ·";
+                          position: absolute; left: 0; top: 0;
+                          font-family: 'SF Mono','Fira Code',monospace;
+                          font-size: 0.78em; letter-spacing: 0.08em;
+                          color: var(--phase-accent); font-weight: 600;
+                          line-height: var(--lh-list); }
 
 .muted        { font-size: var(--type-muted);
                 font-variation-settings: 'opsz' 14, 'wght' 400;
@@ -531,6 +543,65 @@ Open it in my browser when done.</div>
   </svg>
 </div>
 
+<!-- S8: Chatbot vs Agent -->
+<div class="slide phase-decode" id="s7">
+  <div class="slide-inner">
+    <div class="eyebrow">PHASE 04 · DECODE</div>
+    <h1>Chatbot answers. <em>Agent does.</em></h1>
+    <div class="diagram">CHATBOT:  ask  →  answer
+
+AGENT:    ask  →  USE TOOLS  →  CHECK  →  try again</div>
+    <p class="subtitle">What you just saw: the tool loop. That's what makes Claude Code an agent.</p>
+  </div>
+  <div class="slide-meta">PHASE 04 · DECODE · 25:00 → 32:00</div>
+  <svg class="orbit-mark" viewBox="0 0 28 28" aria-hidden="true">
+    <circle class="ring" cx="14" cy="14" r="12" />
+    <circle class="ring" cx="14" cy="14" r="7" />
+    <circle class="node" cx="14" cy="2" r="1.8" />
+  </svg>
+</div>
+
+<!-- S9: CLAUDE.md & Context -->
+<div class="slide phase-decode" id="s8">
+  <div class="slide-inner">
+    <div class="eyebrow">PHASE 04 · DECODE</div>
+    <h1>Claude reads <em>CLAUDE.md</em> first.</h1>
+    <div class="diagram">── CLAUDE.md ──────────────────
+# Workshop Notes
+- Call me &lt;nickname&gt;
+- I'm 15 — keep code simple
+- Plain HTML/CSS only
+──────────────────────────────</div>
+    <p class="subtitle">Guidance, not enforcement. Loaded into context every session.</p>
+  </div>
+  <div class="slide-meta">PHASE 04 · DECODE · 25:00 → 32:00</div>
+  <svg class="orbit-mark" viewBox="0 0 28 28" aria-hidden="true">
+    <circle class="ring" cx="14" cy="14" r="12" />
+    <circle class="ring" cx="14" cy="14" r="7" />
+    <circle class="node" cx="14" cy="2" r="1.8" />
+  </svg>
+</div>
+
+<!-- S10: Permissions · Context · Usage (NO EMOJI — typographic phase-tag pattern) -->
+<div class="slide phase-decode" id="s9">
+  <div class="slide-inner">
+    <div class="eyebrow">PHASE 04 · DECODE</div>
+    <h1>Three things to <em>watch.</em></h1>
+    <ol class="rhythm-list">
+      <li><b>Permissions</b> — Claude asks before writing files. Read carefully.</li>
+      <li><b>Context</b> — Working memory. Finite. <code>/clear</code> starts fresh.</li>
+      <li><b>Usage</b> — Your account budget. Pro is plenty for learning.</li>
+    </ol>
+    <p class="muted" style="margin-top:1.6rem;">/clear resets the conversation. Not your files. Not your usage.</p>
+  </div>
+  <div class="slide-meta">PHASE 04 · DECODE · 25:00 → 32:00</div>
+  <svg class="orbit-mark" viewBox="0 0 28 28" aria-hidden="true">
+    <circle class="ring" cx="14" cy="14" r="12" />
+    <circle class="ring" cx="14" cy="14" r="7" />
+    <circle class="node" cx="14" cy="2" r="1.8" />
+  </svg>
+</div>
+
 </div><!-- /deck -->
 
 <!-- Nav -->
@@ -552,7 +623,7 @@ const slides = document.querySelectorAll('.slide');
 const total = slides.length;
 let current = 0;
 // Titles array — Task 2 populated S1-S4; Tasks 3-11 fill the rest. Final population in Task 16 Step 1.
-const titles = ['AI Engineering Academy','Pre-Test','Consent','Launch Claude','Safety First','Pick Your Nickname','Quick Win — First Page','','','','','','','','','','','','','','','','','','','','','','',''];
+const titles = ['AI Engineering Academy','Pre-Test','Consent','Launch Claude','Safety First','Pick Your Nickname','Quick Win — First Page','Chatbot vs Agent','CLAUDE.md & Context','Permissions · Context · Usage','','','','','','','','','','','','','','','','','','','','',''];
 
 document.getElementById('hudTotal').textContent = total;
 
