@@ -412,6 +412,134 @@ body.facilitator-active .mag-sidebar { display: block; }
   }
 }
 
+/* ── Device chrome components (2026-05-18 amendment) ── */
+
+/* Shared chrome wrapper */
+.chrome-wrap {
+  border-radius: 8px;
+  overflow: hidden;
+  border: 1px solid rgba(255,255,255,0.12);
+  background: rgba(0,0,0,0.4);
+  font-family: var(--font-mono);
+  font-size: var(--size-mono);
+}
+.chrome-titlebar {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.4rem 0.75rem;
+  background: rgba(255,255,255,0.05);
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+}
+.chrome-lights {
+  display: flex; gap: 5px;
+}
+.chrome-lights span {
+  width: 11px; height: 11px;
+  border-radius: 50%;
+  display: inline-block;
+}
+.chrome-lights .red    { background: #ff5f57; }
+.chrome-lights .yellow { background: #febc2e; }
+.chrome-lights .green  { background: #28c840; }
+.chrome-title {
+  font-size: 0.72em;
+  color: var(--text-tertiary);
+  margin-left: 0.25rem;
+}
+.chrome-body {
+  padding: 0.75rem 1rem;
+  line-height: 1.6;
+}
+
+/* Terminal: prompt style */
+.chrome-terminal .prompt { color: var(--phase-a, #3b82f6); }
+.chrome-terminal .cmd    { color: var(--text-primary); }
+.chrome-terminal .output { color: var(--text-tertiary); }
+
+/* Browser: URL bar */
+.chrome-browser .url-bar {
+  flex: 1;
+  background: rgba(255,255,255,0.08);
+  border-radius: 4px;
+  padding: 0.15rem 0.5rem;
+  font-size: 0.75em;
+  color: var(--text-primary);
+}
+.chrome-browser .chrome-body {
+  background: rgba(255,255,255,0.03);
+}
+
+/* Editor: sidebar + line numbers */
+.chrome-editor { display: flex; flex-direction: column; }
+.chrome-editor .editor-layout {
+  display: flex; flex: 1;
+}
+.chrome-editor .editor-sidebar {
+  width: 140px;
+  background: rgba(255,255,255,0.03);
+  border-right: 1px solid rgba(255,255,255,0.08);
+  padding: 0.5rem;
+  font-size: 0.75em;
+  color: var(--text-tertiary);
+}
+.chrome-editor .editor-sidebar .active-file {
+  background: color-mix(in srgb, var(--phase-a) 15%, transparent);
+  border-radius: 3px;
+  color: var(--text-primary);
+}
+.chrome-editor .editor-content {
+  flex: 1;
+  display: flex;
+  padding: 0.5rem 0;
+}
+.chrome-editor .line-nums {
+  padding: 0 0.5rem;
+  color: var(--text-tertiary);
+  opacity: 0.5;
+  user-select: none;
+  text-align: right;
+  min-width: 2rem;
+}
+.chrome-editor .code-area {
+  padding: 0 0.75rem;
+  color: var(--text-primary);
+}
+
+/* Claude Code TUI */
+.chrome-claudecode .tui-prompt { color: var(--phase-a, #3b82f6); }
+.chrome-claudecode .tui-user   { color: var(--text-primary); }
+.chrome-claudecode .tui-thinking {
+  color: var(--text-tertiary);
+  font-style: italic;
+}
+.chrome-claudecode .tui-response {
+  color: var(--text-primary);
+  border-left: 2px solid var(--phase-a, #3b82f6);
+  padding-left: 0.75rem;
+  margin-top: 0.5rem;
+}
+.chrome-claudecode .tui-success {
+  color: var(--phase-a, #3b82f6);
+}
+
+/* Chat bubbles */
+.chrome-chat { display: flex; flex-direction: column; gap: 0.75rem; padding: 0.75rem; }
+.chat-msg    { max-width: 80%; padding: 0.6rem 0.9rem; border-radius: 12px; font-size: 0.9em; }
+.chat-user   {
+  align-self: flex-end;
+  background: var(--surface2, #1a1a3e);
+  border-radius: 12px 12px 0 12px;
+  color: var(--text-primary);
+}
+.chat-claude {
+  align-self: flex-start;
+  background: var(--surface, #111128);
+  border-radius: 12px 12px 12px 0;
+  border-left: 2px solid var(--phase-a, #3b82f6);
+  color: var(--text-primary);
+}
+
 /* §6.2 — S5 Safety slide single-column triple-redundant CVD cues */
 .safety-grid { display: grid; grid-template-columns: 1fr; max-width: 640px; gap: 0.5rem; margin: 1rem auto; }
 .safety-grid .no  { padding:.6rem 1rem; border-radius:8px; font-weight:600;
