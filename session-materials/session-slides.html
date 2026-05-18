@@ -883,6 +883,37 @@ body.theme-ink .brush-wipe .ink-stroke { background:var(--bg-deep); }
   </svg>
 </div>
 
+<!-- ═══ S4a OPEN — You're in ═══ -->
+<div class="slide phase-open layout-stage" id="s3a" data-phase="open">
+  <p class="phase-eyebrow stagger-child">— PHASE 01 · OPEN</p>
+  <h1 class="stagger-child">You're in.</h1>
+
+  <div class="chrome-wrap chrome-claudecode stagger-child" style="max-width: min(560px, 90%); margin-top: 1.5rem;">
+    <div class="chrome-titlebar">
+      <div class="chrome-lights"><span class="red"></span><span class="yellow"></span><span class="green"></span></div>
+      <span class="chrome-title">Claude Code</span>
+    </div>
+    <div class="chrome-body">
+      <div><span class="tui-prompt">&gt;</span> <span class="tui-user typewriter-target">claude</span></div>
+      <div class="tui-response" style="margin-top:0.75rem;">
+        Hi! I'm Claude. I can read your files, write code, run commands,<br>
+        and build things with you. What are we making today?
+      </div>
+    </div>
+  </div>
+
+  <p class="stagger-child" style="margin-top: 1.5rem; max-width: 40ch;">
+    This is your agent. It edits files, runs code, and builds things.
+  </p>
+
+  <div class="slide-meta">PHASE 01 &middot; OPEN &middot; 00:00 &rarr; 16:00</div>
+  <svg class="orbit-mark" viewBox="0 0 28 28" aria-hidden="true">
+    <circle class="ring" cx="14" cy="14" r="12" />
+    <circle class="ring" cx="14" cy="14" r="7" />
+    <circle class="node" cx="14" cy="2" r="1.8" />
+  </svg>
+</div>
+
 <!-- ═══ S5 SAFETY RULES ═══ -->
 <div class="slide phase-safety layout-magazine" id="s4" data-phase="safety">
   <div class="slide-inner">
@@ -1453,7 +1484,7 @@ const slides = document.querySelectorAll('.slide');
 const total = slides.length;
 let current = 0;
 // Titles array — Task 2 populated S1-S4; Tasks 3-11 fill the rest. Final population in Task 16 Step 1.
-const titles = ['AI Engineering Academy','Pre-Test','Consent','Install Claude Code','Safety First','Pick Your Nickname','Quick Win — First Page','Chatbot vs Agent','CLAUDE.md & Context','Permissions · Context · Usage','Plan Beats Prompt','The Pro Workflow','Make Claude Interview You','A Good Plan Has','Plan Check','First Main Build Prompt','AI Gets Stuff Wrong','Fix It','Open Components','UI Quick Wins','Codex Review','Show & Tell','Skills — Use & Make','MCP','Automation','Your Toolchain','What to Read Next','Post-Test + Survey','Remember','Thank You'];
+const titles = ['AI Engineering Academy','Pre-Test','Consent','Install Claude Code',"You're In",'Safety First','Pick Your Nickname','Quick Win — First Page','Chatbot vs Agent','CLAUDE.md & Context','Permissions · Context · Usage','Plan Beats Prompt','The Pro Workflow','Make Claude Interview You','A Good Plan Has','Plan Check','First Main Build Prompt','AI Gets Stuff Wrong','Fix It','Open Components','UI Quick Wins','Codex Review','Show & Tell','Skills — Use & Make','MCP','Automation','Your Toolchain','What to Read Next','Post-Test + Survey','Remember','Thank You'];
 
 document.getElementById('hudTotal').textContent = total;
 
