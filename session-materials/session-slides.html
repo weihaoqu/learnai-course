@@ -154,6 +154,21 @@ b, strong { color: var(--text-primary); font-weight: 600; }
               color:var(--text-tertiary); text-transform:uppercase; }
 .slide-meta b { color: var(--phase-accent); font-weight: 600; }
 
+.slide-footer {
+  position: absolute;
+  bottom: 1.5rem;
+  left: 2rem;
+  right: 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.65rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-tertiary);
+  opacity: 0.6;
+}
+
 /* §6.4 — Corner orbit-mark (Brand signature SVG) */
 .orbit-mark { position:absolute; right:1.6rem; bottom:1.6rem; width:28px; height:28px;
               opacity:.55; transition: opacity .3s, transform .8s; }
@@ -992,17 +1007,17 @@ Open it in my browser when done.</div>
 
 <!-- S8: Chatbot vs Agent -->
 <div class="slide phase-decode layout-split" id="s7" data-phase="decode">
-  <p class="phase-eyebrow" style="grid-column: 1/-1">— PHASE 04 · DECODE</p>
+  <p class="phase-eyebrow" style="flex-basis: 100%; margin-bottom: 0.5rem;">— PHASE 04 · DECODE</p>
 
   <div class="split-col">
     <h2 style="color: var(--text-tertiary); font-size: var(--size-h2);">claude.ai</h2>
     <p style="font-size: 0.85em; color: var(--text-tertiary);">Chat. Answers. Explains.</p>
     <table style="border-collapse: collapse; width: 100%; margin-top: 0.5rem;">
-      <tr class="stagger-child"><td style="padding: 0.4rem 0; color: var(--text-tertiary);">Edit your files</td><td style="text-align:center; color: #ef4444;">✗</td></tr>
-      <tr class="stagger-child"><td style="padding: 0.4rem 0; color: var(--text-tertiary);">Run terminal commands</td><td style="text-align:center; color: #ef4444;">✗</td></tr>
-      <tr class="stagger-child"><td style="padding: 0.4rem 0; color: var(--text-tertiary);">Remember your project</td><td style="text-align:center; color: #ef4444;">✗</td></tr>
-      <tr class="stagger-child"><td style="padding: 0.4rem 0; color: var(--text-tertiary);">Install skills</td><td style="text-align:center; color: #ef4444;">✗</td></tr>
-      <tr class="stagger-child"><td style="padding: 0.4rem 0; color: var(--text-tertiary);">Build across a codebase</td><td style="text-align:center; color: #ef4444;">✗</td></tr>
+      <tr class="stagger-child"><td style="padding: 0.4rem 0; color: var(--text-tertiary);">Edit your files</td><td style="text-align:center; color: #f87171;">✗</td></tr>
+      <tr class="stagger-child"><td style="padding: 0.4rem 0; color: var(--text-tertiary);">Run terminal commands</td><td style="text-align:center; color: #f87171;">✗</td></tr>
+      <tr class="stagger-child"><td style="padding: 0.4rem 0; color: var(--text-tertiary);">Remember your project</td><td style="text-align:center; color: #f87171;">✗</td></tr>
+      <tr class="stagger-child"><td style="padding: 0.4rem 0; color: var(--text-tertiary);">Install skills</td><td style="text-align:center; color: #f87171;">✗</td></tr>
+      <tr class="stagger-child"><td style="padding: 0.4rem 0; color: var(--text-tertiary);">Build across a codebase</td><td style="text-align:center; color: #f87171;">✗</td></tr>
       <tr class="stagger-child"><td style="padding: 0.4rem 0; color: var(--text-tertiary);">Answer questions</td><td style="text-align:center; color: var(--phase-a);">✅</td></tr>
     </table>
   </div>
