@@ -258,7 +258,7 @@ b, strong { color: var(--text-primary); font-weight: 600; }
 .layout-magazine .mag-sidebar {
   grid-column: 2;
   font-size: 0.85em;
-  color: var(--muted);
+  color: var(--text-tertiary);
   border-left: 1px solid color-mix(in srgb, var(--phase-a) 30%, transparent);
   padding-left: 1rem;
   display: none; /* hidden unless :facilitator active */
@@ -276,7 +276,7 @@ body.facilitator-active .mag-sidebar { display: block; }
 .layout-workshop .ws-label {
   writing-mode: vertical-rl;
   font-size: var(--size-eyebrow);
-  color: var(--muted);
+  color: var(--text-tertiary);
   letter-spacing: 0.1em;
   text-transform: uppercase;
 }
@@ -296,7 +296,7 @@ body.facilitator-active .mag-sidebar { display: block; }
   gap: clamp(0.5rem, 1vw, 1rem);
 }
 .bento-tile {
-  background: color-mix(in srgb, var(--phase-a) 6%, var(--surface));
+  background: color-mix(in srgb, var(--phase-a) 6%, var(--bg-card));
   border: 1px solid color-mix(in srgb, var(--phase-a) 20%, transparent);
   border-radius: var(--radius-sm, 12px);
   padding: clamp(0.8rem, 1.5vw, 1.5rem);
