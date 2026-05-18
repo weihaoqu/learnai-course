@@ -6,235 +6,279 @@
 
 ---
 
+## 0. Supersedes
+
+This amendment explicitly supersedes the following sections of `2026-05-17-fancy-minimal-amendment.md`:
+
+| Superseded section | What replaces it |
+|---|---|
+| §4 CSS variable system (`--phase-accent`, `phase-X` classes, single-accent rule) | §7 of this doc: per-phase 2-color palette (`--phase-a`, `--phase-b`, `data-phase` attribute) |
+| §5 Motion system (3-animation vocabulary: entrance stagger, underline, click-to-copy pulse) | §6 of this doc: 7-animation vocabulary |
+| §6 Typography (Inter variable only, `opsz` axis, 2-weight scale) | §8 of this doc: 3-face system (Mona Sans + Inter + JetBrains Mono) |
+| §7 Layout (single skeleton: eyebrow → heading → card → body) | §5 of this doc: 6-template layout system |
+
+**Preserved from 2026-05-17 amendment (not superseded):**
+- Orbit-mark corner glyph (one node rotates per phase) — kept as-is
+- Click-to-copy on `.copy-block` with Web Clipboard API + "copied ✓" state
+- Emoji ban (decorative emoji removed) — with **one explicit exception**: S8 capability matrix uses ✅ and ✗ as semantic content, not decoration. This is not a violation of the emoji-ban rule.
+- `prefers-reduced-motion` mandate (scope extended in §6.7 of this doc)
+- Live-moment features: S7 render counter, S15 plan-check scoreboard, S22 fumble chip — all preserved exactly
+- `prefers-reduced-motion` behavior for live-moment features (unchanged from prior amendment)
+- IRB/social-risk decisions: nicknames never projected, scoreboard `:names on` is opt-in
+
+---
+
 ## 1. Overview
 
-This amendment makes two simultaneous changes to `session-materials/session-slides.html`:
+Two simultaneous changes to `session-materials/session-slides.html`:
 
-1. **Content expansion** — add 3 new slides + strengthen 2 existing slides to mirror Q's proven 1-on-1 teaching arc (install → agent vs chat → skills install → interview demo). Session extends from 110 → 125 min.
+1. **Content expansion** — 3 new slides + 2 strengthened slides mirroring Q's proven 1-on-1 arc: install → agent-vs-chat concrete → interview demo → skills install workflow. Session extends from 110 → **125 min**. First page rendered by students by **minute 30**.
 
-2. **UI overhaul** — replace the current single-skeleton layout with 6 phase-distinct layout templates, a 7-animation motion language, a 3-face typography system, and a per-phase 2-color accent palette. This directly addresses the four user-identified gripes: static slides, formulaic layout, plain code blocks, and flat/low-density color.
-
-Prior amendments addressed motion + type + color as polish on the existing skeleton. This amendment breaks the skeleton.
+2. **UI overhaul** — 6 phase-distinct layout templates, 7-animation motion language, 3-face typography system, per-phase 2-color accent palette. Directly addresses: static slides, formulaic layout, plain code blocks, flat/low-density color.
 
 ---
 
 ## 2. Scope
 
 ### In scope
-- `session-materials/session-slides.html` — all 30 existing slides + 3 new slides
-- Phase layout templates (pure CSS)
-- Motion language (pure CSS keyframes + minimal JS for typewriter)
-- Typography system (Google Fonts CDN — Mona Sans, JetBrains Mono; Inter already loaded)
-- Phase-color palette variables
-- Device chrome components (terminal, browser, editor, TUI, chat bubble)
-- S8 content rewrite (capability matrix)
-- S13 content rewrite (interview demo slide vs tell-slide)
-- S23 content reframe (paired with new S23a)
+- `session-materials/session-slides.html` — all slides (33 total after additions)
+- `session-materials/1-session-agenda.md` — update to 125-min phase timing table
 
 ### Out of scope
-- `starter.html`, agenda, ops checklist, IRB runbook — no changes
-- IRB consent flow — no changes
-- Live-moment features (S7 counter, S15 scoreboard, S22 fumble chip) — preserved exactly
-- Keyboard navigation, autoplay, fullscreen, typed commands — preserved exactly
-- Any push to remote — Q decides after local verification
+- `starter.html`, `ops-fallback-checklist.md`, `IRB-non-consent-runbook.md` — no changes
+- IRB consent/assent flow — no changes
+- GitHub Pages deployment — no push without Q approval
 
 ---
 
-## 3. Content Map
+## 3. 125-Min Phase Timing Table
 
-### Session timing: 110 → 125 min (extend, do not cut)
+This table is authoritative. Footer timing labels on each slide use these values. The agenda must be updated to match.
 
-### New slides (3)
-
-#### S4a — Install Claude Code (after current S4 "Open terminal. Type: claude")
-- **Phase:** OPEN
-- **Heading:** `Install in 60 seconds.`
-- **Time allocation:** ~6 min
-- **Content:**
-  - Terminal chrome showing: `npm install -g @anthropic-ai/claude-code`
-  - Then: `claude` to verify
-  - Callout: "Need Node? → nodejs.org" with mini browser chrome
-  - Facilitator note: Q demos on Q's laptop projected; students follow on their own Mac
-- **Layout:** Stage (big type + terminal chrome below)
-
-#### S13.5 — Interview Demo (between current S13 "Make Claude interview you" and S14 "A good plan has")
-- **Phase:** PLAN
-- **Heading:** `Watch it happen.`
-- **Time allocation:** ~5 min
-- **Content:**
-  - Claude Code TUI chrome showing the interview skill running: questions flowing one at a time
-  - Student volunteer on Q's laptop
-  - Facilitator cue: "Tell Claude what you want to build. Watch what happens."
-- **Layout:** Magazine spread (TUI chrome takes 60% width, facilitator cues in sidebar)
-
-#### S23a — Install a Skill (after current S23 "Skills — Use & Make")
-- **Phase:** LEVEL UP
-- **Heading:** `Add a superpower in 30 seconds.`
-- **Time allocation:** ~4 min
-- **Content:**
-  - Browser chrome showing `skills.sh`
-  - Arrow pointing to "copy GitHub link"
-  - Claude Code TUI chrome showing: `"please install this skill from https://github.com/..."`
-  - Claude's response installing
-  - Callout: "This is how Q installed 50+ skills."
-- **Layout:** Bento grid (browser tile left, TUI tile right, callout tile spanning bottom)
-
-### Strengthened slides (2)
-
-#### S8 — Chatbot vs Agent (rewrite)
-**Current:** abstract "Chatbot answers. Agent does."
-**New:** concrete capability matrix, side-by-side
-
-| Feature | claude.ai (chat) | Claude Code (agent) |
-|---|---|---|
-| Edit files | ✗ | ✅ |
-| Run terminal commands | ✗ | ✅ |
-| Persist project context | ✗ | ✅ |
-| Install skills | ✗ | ✅ |
-| Work across a codebase | ✗ | ✅ |
-| Quick questions | ✅ | ✅ |
-| Explain concepts | ✅ | ✅ |
-
-**Layout:** Comparison/Split — two columns with clear ✗ / ✅ visual contrast using phase color for agent side.
-
-#### S23 — Skills reframe (paired with S23a)
-**Current:** "Pre-packaged superpowers."
-**New:** Same theme but ends with explicit bridge: "→ Next slide: install one right now." S23 becomes the concept, S23a becomes the demo.
-
----
-
-## 4. Layout System
-
-Six layout patterns, shared across 10 phases. Each is a named CSS class applied to the `.slide` element. Layouts share the same CSS custom properties (phase color, accent, etc.) and differ only in grid/flex structure.
-
-### 4.1 Stage (`layout-stage`)
-**Used by:** OPEN (S1–S4, S4a), SHARE (S22)
-- Single column, vertically centered
-- Hero type: display sans, weight 800, very large (clamp 56px–96px)
-- Phase eyebrow top-left, footer bottom
-- Phase color bar sweeps in from left on entry (800ms)
-- Maximum breathing room — no card clutter
-
-### 4.2 Comparison/Split (`layout-split`)
-**Used by:** DECODE (S8–S10)
-- Two equal columns separated by a 1px phase-color border
-- Left: "old way" (neutral palette)
-- Right: "new way" (phase color accent, slight gradient tint)
-- Each column: heading + bullet list
-- S8 gets the capability matrix here
-
-### 4.3 Live Canvas (`layout-canvas`)
-**Used by:** QUICK WIN (S7)
-- Full-bleed content area with minimal chrome
-- Render counter / live output as the hero
-- Phase eyebrow + slide number only — no card, no body copy
-
-### 4.4 Magazine Spread (`layout-magazine`)
-**Used by:** SAFETY (S5–S6), PLAN (S11–S15, S13.5)
-- Asymmetric grid: 60% content area + 40% sidebar
-- Content: heading + body
-- Sidebar: facilitator cues (dimmed), supplemental examples, or scoreboard hero (S15)
-- Mixed weight type (800 display + 400 body)
-
-### 4.5 Workshop (`layout-workshop`)
-**Used by:** BUILD (S16–S18), POLISH (S19–S21)
-- Center-dominant layout: large build prompt / code block takes center stage
-- Narrow sidebar strips (left: phase label, right: quick cues)
-- S19 open-components: 3-card grid inside center area
-- S20 UI cheats: 5-chip grid inside center area
-
-### 4.6 Bento Grid (`layout-bento`)
-**Used by:** LEVEL UP (S23–S27, S23a), CLOSE (S28–S30)
-- CSS grid with named areas, varied tile sizes (1×1, 1×2, 2×1, 2×2)
-- Each tile: phase-color tinted card with icon + title + 1-line description
-- S30 CLOSE uses big-number variant (oversized numerals as hero tiles)
-
----
-
-## 5. Motion Language
-
-All animations use CSS `@keyframes` + `animation` properties. JS is used only for the typewriter effect and for respecting `prefers-reduced-motion`.
-
-### 5.1 Animation vocabulary
-
-| Name | Trigger | Duration | Easing | Reduced-motion fallback |
+| Phase | Slides | Start | End | Duration |
 |---|---|---|---|---|
-| **Phase intro sweep** | Slide change to new phase | 800ms | ease-out | instant |
-| **Title underline shimmer** | Slide entry | 600ms | ease-in-out | skip |
-| **Content stagger** | Slide entry | 60ms per item, cascading | ease-out | instant reveal |
-| **Typewriter** | Slide entry (code blocks only) | 35ms/char | linear | instant reveal |
-| **Cursor pulse** | After typewriter, continuous | 1s blink | step-end | hidden |
-| **Hover lift** | `hover` on interactive chips/tiles | 150ms | ease | 0px lift |
-| **Phase-color glow** | Continuous on slide-number indicator | 2s | ease-in-out, loop | none |
+| OPEN | S1–S4, S4a | 0:00 | 16:00 | 16 min |
+| SAFETY | S5–S6 | 16:00 | 21:00 | 5 min |
+| QUICK WIN | S7 | 21:00 | 29:00 | 8 min |
+| DECODE | S8–S10 | 29:00 | 39:00 | 10 min |
+| PLAN | S11–S13, S13.5, S14–S15 | 39:00 | 57:00 | 18 min |
+| BUILD | S16–S18 | 57:00 | 75:00 | 18 min |
+| POLISH | S19–S21 | 75:00 | 87:00 | 12 min |
+| SHARE | S22 | 87:00 | 93:00 | 6 min |
+| LEVEL UP | S23, S23a, S24–S27 | 93:00 | 115:00 | 22 min |
+| CLOSE | S28–S30 | 115:00 | 125:00 | 10 min |
 
-### 5.2 Timing guard
-Total slide settling time (stagger + sweep) must not exceed 800ms. Slides with both phase sweep AND content stagger run them in parallel, not sequence.
-
-### 5.3 Typewriter detail
-- Triggered on `.slide.active .typewriter-target` elements
-- Characters revealed by expanding `max-width` clip, not by JS DOM manipulation (CSS-only for performance)
-- `Esc` key dispatches `skipTypewriter` event → instant reveal of all pending typewriters on current slide
-- Cursor blink starts after reveal completes
-
-### 5.4 Accessibility
-- `@media (prefers-reduced-motion: reduce)` wraps all keyframe declarations; fallback is instant state
-- Phase sweep: `animation: none`, final state set immediately
-- Typewriter: content shown immediately, no cursor pulse
-- All motion is decorative — no information is hidden behind animation
+**First student page rendered: ~29:00** (end of Quick Win phase). The 110-min spec's "minute 25" target shifts to minute 30 because the OPEN phase now includes install.
 
 ---
 
-## 6. Typography System
+## 4. Content Map — 33 Slides
 
-### 6.1 Faces
+### Updated slide index
 
-| Role | Face | Weights | Usage |
-|---|---|---|---|
-| Display | Mona Sans (variable) | 800 | Slide hero headings only |
-| Body | Inter (already loaded) | 400, 600 | Body copy, eyebrows, footer, facilitator cues |
-| Mono | JetBrains Mono | 400, 700 | All code blocks, device chrome labels |
-
-**Load via Google Fonts CDN** (single `<link>` in `<head>`):
-```html
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Mona+Sans:wght@800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+```
+S1   OPEN      · Title card
+S2   OPEN      · Pre-test
+S3   OPEN      · Consent
+S4   OPEN      · Install Claude Code       [RENAMED + REWRITTEN — was "Launch Claude"]
+S4a  OPEN      · You're in.                [NEW — verify + first CLI moment]
+S5   SAFETY    · Safety first
+S6   SAFETY    · Pick nickname
+S7   QUICKWIN  · Quick win — first page
+S8   DECODE    · Chatbot vs Agent           [REWRITTEN — capability matrix]
+S9   DECODE    · CLAUDE.md & context
+S10  DECODE    · Permissions · context · usage
+S11  PLAN      · Plan beats prompt
+S12  PLAN      · The pro workflow
+S13  PLAN      · Make Claude interview you  [REFRAMED — bridges to S13.5]
+S13.5 PLAN     · Watch it happen            [NEW — live interview demo]
+S14  PLAN      · A good plan has
+S15  PLAN      · Plan check / scoreboard
+S16  BUILD     · First main build prompt
+S17  BUILD     · AI gets stuff wrong
+S18  BUILD     · Fix it
+S19  POLISH    · Open components
+S20  POLISH    · UI quick wins
+S21  POLISH    · Codex review
+S22  SHARE     · Show & tell / fumble chip
+S23  LEVELUP   · Skills — use & make        [REFRAMED — bridges to S23a]
+S23a LEVELUP   · Install a skill            [NEW — skills.sh + TUI demo]
+S24  LEVELUP   · MCP
+S25  LEVELUP   · Automation
+S26  LEVELUP   · Your toolchain
+S27  LEVELUP   · What to read next
+S28  CLOSE     · Post-test + survey
+S29  CLOSE     · Remember
+S30  CLOSE     · Thank you
 ```
 
-Note: Mona Sans is a GitHub-commissioned font available on Google Fonts as of 2024. If unavailable at build time, fallback: `'Geist', 'Inter', sans-serif`.
+**Note on ordering:** S4 (Install) comes before S4a (Verify). Students must install before they can launch. Old S4 content ("type: claude") becomes the verify step of S4a.
 
-### 6.2 Scale
-```css
---font-display: 'Mona Sans', 'Geist', 'Inter', sans-serif;
---font-body: 'Inter', system-ui, sans-serif;
---font-mono: 'JetBrains Mono', 'Fira Code', monospace;
+### New and rewritten slides — content spec
 
-/* Heading sizes: clamp(min, preferred, max) */
---size-hero: clamp(48px, 7vw, 96px);    /* display, weight 800 */
---size-h1: clamp(32px, 4.5vw, 60px);   /* body bold, weight 600 */
---size-h2: clamp(20px, 2.5vw, 32px);   /* section label, weight 600 */
---size-body: clamp(16px, 1.8vw, 22px); /* body, weight 400 */
---size-mono: clamp(13px, 1.4vw, 18px); /* code, weight 400 */
---size-eyebrow: clamp(11px, 1.2vw, 14px); /* phase label, weight 600, letter-spaced */
-```
+#### S4 — Install Claude Code (replaces old "Launch Claude")
+- **Heading:** `Install Claude Code.`
+- **Time:** OPEN phase, ~6 min
+- **Content:**
+  - Terminal chrome: `npm install -g @anthropic-ai/claude-code` → wait → success
+  - Terminal chrome: node prerequisite note (`node -v` if needed; point to nodejs.org)
+  - Facilitator note (`:facilitator` typed command toggles visibility): "Q demos on projected laptop. Students follow on their own Mac."
+- **Layout:** `layout-stage`
+
+#### S4a — You're in.
+- **Heading:** `You're in.`
+- **Time:** OPEN phase, ~1 min
+- **Content:**
+  - Terminal chrome: `claude` → Claude Code TUI appears
+  - Single body line: "This is your agent. It can edit files, run code, and build things."
+- **Layout:** `layout-stage`
+
+#### S8 — Chatbot vs Agent (rewritten)
+- **Heading:** `Chatbot answers. Agent does.`
+- **Time:** DECODE phase
+- **Content:** side-by-side capability matrix
+
+| Feature | claude.ai (chatbot) | Claude Code (agent) |
+|---|---|---|
+| Edit your files | ✗ | ✅ |
+| Run terminal commands | ✗ | ✅ |
+| Remember your project | ✗ | ✅ |
+| Install skills | ✗ | ✅ |
+| Build across a codebase | ✗ | ✅ |
+| Answer questions | ✅ | ✅ |
+
+Note: ✅ / ✗ here are **semantic content** — an explicit exception to the decorative-emoji ban. These must render as Unicode characters, not emoji images. CSS: `font-family: --font-body; font-variant: normal;`
+- **Layout:** `layout-split` — chatbot column left (neutral), agent column right (phase-a accent tint)
+
+#### S13 — Make Claude interview you (reframed)
+- **Heading:** `Make Claude interview you.`
+- **Change:** Add last line: "→ Next: watch it happen."
+- **Layout:** unchanged (magazine spread)
+
+#### S13.5 — Watch it happen (new)
+- **Heading:** `Watch it happen.`
+- **Time:** PLAN phase, ~5 min
+- **Content:**
+  - Claude Code TUI chrome showing interview questions flowing one at a time
+  - Sidebar (facilitator-visible): "Student volunteer on Q's laptop. Prompt: tell Claude what you want to build."
+  - Body: "One question at a time. Claude builds your plan."
+- **Layout:** `layout-magazine` — TUI chrome 60% width, facilitator sidebar 40%
+
+#### S23 — Skills (reframed)
+- **Change:** Add last line: "→ Next: install one right now."
+- **Layout:** unchanged (bento grid)
+
+#### S23a — Install a Skill (new)
+- **Heading:** `Add a superpower in 30 seconds.`
+- **Time:** LEVEL UP phase, ~4 min
+- **Content:**
+  - Browser chrome: `skills.sh` — annotated with arrow "copy GitHub URL"
+  - Claude Code TUI chrome: user types `"please install this skill from https://github.com/..."` → Claude installs → success
+  - Callout tile: "This is how Q has 50+ skills."
+- **Layout:** `layout-bento` — browser tile left (1×2), TUI tile right (1×2), callout tile bottom (2×1)
+
+---
+
+## 5. Layout System
+
+Six named layout patterns applied via CSS class on `.slide`. All share CSS custom properties. Slides must not use the legacy pattern (bare `<h1>` + `.glass-card` + body text with no layout class).
+
+### 5.1 Stage (`layout-stage`)
+**Slides:** S1–S4a, S22
+- Single centered column, vertically centered
+- Hero: `--font-display`, weight 800, `--size-hero`
+- Phase eyebrow top-left, footer bottom
+- Generous padding — no card overlay, no sidebar
+
+### 5.2 Comparison/Split (`layout-split`)
+**Slides:** S8–S10
+- Two equal columns (`1fr 1fr`), separated by 1px `var(--phase-a)` divider at 40% opacity
+- Left column: neutral palette (`--surface`, `--text`)
+- Right column: `var(--phase-a)` at 8% opacity background tint, full-opacity labels
+- Each column: heading + list or table
+
+### 5.3 Live Canvas (`layout-canvas`)
+**Slides:** S7
+- Full-bleed content area — live output or render counter as hero
+- Phase eyebrow + slide number only (no card, no `.copy-block`)
+- Counter element uses display type, phase-a color
+
+### 5.4 Magazine Spread (`layout-magazine`)
+**Slides:** S5–S6, S11–S15, S13.5
+- Asymmetric grid: `2fr 1fr` (content + sidebar)
+- Content: heading + body
+- Sidebar: facilitator cues in `--muted`, `font-size: 0.85em`; hidden by default, shown via `:facilitator` typed command
+- S15 scoreboard overrides sidebar with the live plan-check scoreboard
+
+### 5.5 Workshop (`layout-workshop`)
+**Slides:** S16–S21
+- Center-dominant: large build prompt / code chrome occupies `min(680px, 80%)` center
+- Narrow label strip left (`--phase-eyebrow`), quick-cue strip right (`--muted`)
+- S19–S20 use a 3-card or 5-chip grid inside the center zone
+
+### 5.6 Bento Grid (`layout-bento`)
+**Slides:** S22–S30, S23a
+- CSS grid with named areas, tile sizes vary: `1×1`, `1×2`, `2×1`, `2×2`
+- Each tile: `--surface` card, phase-a tint at 6%, `border-radius: var(--radius-sm)`
+- S30 CLOSE big-number variant: hero tiles show oversized numerals (`font-size: clamp(80px, 12vw, 160px)`)
+
+---
+
+## 6. Motion Language
+
+All motion uses CSS `@keyframes` declared outside any media query. `prefers-reduced-motion: reduce` applies `animation-duration: 0.001ms !important` globally, which collapses all animations to instant state without removing their structural role. Typewriter also checks `matchMedia` in JS.
+
+**No information is ever hidden behind animation.** All text and content is present in the DOM. Animation affects opacity/transform/timing, not display or visibility.
+
+### 6.1 Phase intro sweep
+- **Trigger:** slide entry into a new phase (not within-phase slide changes)
+- **What:** full-width bar in `--phase-a` slides in from left edge to right, then fades out. Height: 3px, `position: fixed`, `top: 0`.
+- **Duration:** 800ms, `cubic-bezier(0.25, 0, 0, 1)`
+- **Reduced-motion:** collapses to instant (0.001ms rule)
+
+### 6.2 Title underline shimmer
+- **Trigger:** every slide entry
+- **What:** `<em>` inside `<h1>` gets an animated underline that sweeps right-to-left using `background-size` animation on a `linear-gradient` pseudo-element
+- **Duration:** 600ms, `ease-in-out`
+- **Reduced-motion:** instant (0.001ms rule)
+
+### 6.3 Content stagger
+- **Trigger:** every slide entry
+- **What:** `.stagger-child` elements (list items, body paragraphs, cards) start at `opacity: 0, translateY: 8px` and animate to `opacity: 1, translateY: 0` with 60ms cascade delay between items
+- **Total settle time:** ≤ 800ms. If >10 items, reduce delay to `40ms` to stay within budget.
+- **Reduced-motion:** instant (0.001ms rule)
+
+### 6.4 Typewriter
+- **Trigger:** slide entry, on `.typewriter-target` elements inside device chrome
+- **Implementation:** JS function. Characters appended one at a time to a visible `<span>` via `setInterval` at 35ms/char. A `.cursor` span with CSS blink follows the revealed text.
+- **Skip:** `Esc` keydown calls `skipTypewriter()` — clears interval, sets `.typewriter-target` to full visible text, moves cursor to end. Only skips typewriters on the current active slide.
+- **Conflict guard:** `skipTypewriter` must not interfere with typed-command input (`:names on`, `:clear`, etc.). Check `document.activeElement` is not an `<input>`.
+- **Reduced-motion:** `matchMedia('(prefers-reduced-motion: reduce)').matches` → reveal full text immediately on entry, no interval
+
+### 6.5 Cursor pulse
+- **Trigger:** after typewriter completes (or immediately on reduced-motion fallback if cursor is shown)
+- **What:** `.cursor::after { content: '|'; animation: blink 1s step-end infinite; }`
+- **Reduced-motion:** cursor hidden (`display: none` inside reduced-motion media query override)
+
+### 6.6 Hover lift
+- **Trigger:** `hover` on `.skill-tile`, `.copy-block`, `.bento-tile`
+- **What:** `transform: translateY(-2px)`, `box-shadow` adds 4px blur in `--phase-a` at 30% opacity
+- **Duration:** 150ms, `ease`
+- **Reduced-motion:** no transform change, only color shift (`:hover` border color → `--phase-a`)
+
+### 6.7 Phase-color glow
+- **Trigger:** continuous, on `.slide-number-indicator`
+- **What:** `box-shadow` pulses between `0 0 4px var(--phase-a)` and `0 0 10px var(--phase-a)` in a 2s loop
+- **Period:** 2s ± 200ms (measured)
+- **Reduced-motion:** glow removed (`animation: none; box-shadow: none` inside reduced-motion query)
 
 ---
 
 ## 7. Phase Color Palette
 
-Each phase gets two accent colors. These drive:
-- Phase intro sweep background
-- Gradient tint on slide (`background: linear-gradient(...)` at 6–8% opacity)
-- Accent bars, borders, status pills
-- Phase-color glow on slide-number indicator
-- `layout-split` right-column tint
+Applied via `data-phase` attribute on each `.slide`. The attribute drives CSS custom properties using `[data-phase="..."]` selectors. These values replace the prior `--phase-accent` single-color system entirely.
 
 ```css
-/* CSS custom properties, set per-slide via JS data attribute or per-phase class */
---phase-a: ...;  /* primary */
---phase-b: ...;  /* secondary */
-
-/* Values */
 [data-phase="open"]      { --phase-a: #3b82f6; --phase-b: #a78bfa; }
 [data-phase="safety"]    { --phase-a: #fbbf24; --phase-b: #f97316; }
 [data-phase="quickwin"]  { --phase-a: #10b981; --phase-b: #34d399; }
@@ -247,165 +291,206 @@ Each phase gets two accent colors. These drive:
 [data-phase="close"]     { --phase-a: #3b82f6; --phase-b: #06b6d4; }
 ```
 
-Master surface colors unchanged: `--bg: #08081a`, `--surface: #111128`, `--text: #eeeef5`, `--muted: #8888aa`.
+**Gradient tint:** `background: linear-gradient(135deg, color-mix(in srgb, var(--phase-a) 7%, transparent), transparent)`. Opacity equivalent: 7% (between 5–8%, measurable in DevTools).
+
+**Master palette unchanged:** `--bg: #08081a`, `--surface: #111128`, `--surface2: #1a1a3e`, `--text: #eeeef5`, `--muted: #8888aa`.
 
 ---
 
-## 8. Device Chrome Components
+## 8. Typography System
 
-All chrome is pure CSS + HTML. No external images. SVG inline for traffic lights.
+Three faces loaded via single Google Fonts CDN `<link>`. Added in `<head>` after existing meta tags.
 
-### 8.1 Terminal (`<div class="chrome-terminal">`)
-```
-┌─ ◉ ◎ ◌  ~/workshop ──────────────────┐
-│ $ cat CLAUDE.md                        │
-│ # Workshop Notes_  ← cursor blinks    │
-│ - Call me <nickname>                   │
-└────────────────────────────────────────┘
-```
-- Traffic lights: inline SVG circles (red `#ff5f57`, yellow `#febc2e`, green `#28c840`)
-- Title: `--font-mono`, `--muted`, small
-- Prompt: `$` in `--phase-a`, command in `--text`
-- Content: typewriter-eligible (`.typewriter-target`)
-- Border: `1px solid rgba(255,255,255,0.12)`, `border-radius: 8px`
-
-### 8.2 Browser (`<div class="chrome-browser">`)
-```
-┌─ ◉ ◎ ◌  [←] [→]  🔒 skills.sh  ─────┐
-│ [tab: Skills.sh]                       │
-│                                        │
-│   (page content)                       │
-└────────────────────────────────────────┘
+```html
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Mona+Sans:wght@800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
 ```
 
-### 8.3 Editor (`<div class="chrome-editor">`)
-```
-┌─ ◉ ◎ ◌ ─ [index.html ×] ─────────────┐
-│ 📁 workshop/      │  1  <!DOCTYPE...   │
-│   index.html  ← │  2  <html>          │
-│   CLAUDE.md      │  3    <head>        │
-└──────────────────┴────────────────────┘
+| Role | Face | Weights | Usage |
+|---|---|---|---|
+| Display | Mona Sans | 800 | Slide hero `<h1>` only — layout-stage and layout-canvas |
+| Body | Inter (already loaded) | 400, 600 | Body copy, eyebrows, footer, sidebar cues |
+| Mono | JetBrains Mono | 400, 700 | All device chrome, code blocks |
+
+```css
+--font-display: 'Mona Sans', 'Inter', sans-serif;   /* fallback: Inter */
+--font-body:    'Inter', system-ui, sans-serif;
+--font-mono:    'JetBrains Mono', 'Fira Code', monospace;
+
+--size-hero:    clamp(48px, 7vw, 96px);   /* display, 800 */
+--size-h1:      clamp(32px, 4.5vw, 60px); /* body, 600 */
+--size-h2:      clamp(20px, 2.5vw, 32px); /* section label, 600 */
+--size-body:    clamp(16px, 1.8vw, 22px); /* body, 400 */
+--size-mono:    clamp(13px, 1.4vw, 18px); /* code, 400 */
+--size-eyebrow: clamp(11px, 1.2vw, 14px); /* tracked caps, 600 */
 ```
 
-### 8.4 Claude Code TUI (`<div class="chrome-claudecode">`)
-```
-┌─ Claude Code ──────────────────────────┐
-│ > please install this skill from       │
-│   https://github.com/...               │
-│                                        │
-│   ··· thinking                         │
-│                                        │
-│   ✓ Skill installed successfully       │
-└────────────────────────────────────────┘
-```
+**Offline/no-CDN fallback:** If Mona Sans fails to load, Inter renders. Font display is `swap` so no FOIT. The slide deck works offline — only hero headings degrade to Inter (still acceptable).
 
-### 8.5 Chat bubble (`<div class="chrome-chat">`)
-```
-  You ──────────────────── [user bubble] │
-  What is an agent?                      │
-
-  Claude ─────────────── [claude bubble] │
-  An agent can take actions, not just    │
-  generate text...                       │
-```
-- User: right-aligned, `--surface2` background
-- Claude: left-aligned, `--surface` background, subtle `--phase-a` left border
+**Font resolution:** Mona Sans is available on Google Fonts. If it becomes unavailable, replace with `'Geist'` which may need self-hosting. This is a Q decision, not an implementation blocker.
 
 ---
 
-## 9. Updated Slide Index (33 slides)
+## 9. Device Chrome Components
 
-```
-S1   OPEN       · Title card
-S2   OPEN       · Pre-test
-S3   OPEN       · Consent
-S4   OPEN       · Launch Claude (open terminal, type claude)
-S4a  OPEN       · Install Claude Code [NEW]
-S5   SAFETY     · Safety first
-S6   SAFETY     · Pick nickname
-S7   QUICKWIN   · Quick win — first page
-S8   DECODE     · Chatbot vs Agent [REWRITTEN — capability matrix]
-S9   DECODE     · CLAUDE.md + context
-S10  DECODE     · Permissions · context · usage
-S11  PLAN       · Plan beats prompt
-S12  PLAN       · The pro workflow
-S13  PLAN       · Make Claude interview you [REFRAMED — bridges to S13.5]
-S13.5 PLAN      · Watch it happen — interview demo [NEW]
-S14  PLAN       · A good plan has
-S15  PLAN       · Plan check / scoreboard
-S16  BUILD      · First main build prompt
-S17  BUILD      · AI gets stuff wrong
-S18  BUILD      · Fix it
-S19  POLISH     · Open components
-S20  POLISH     · UI quick wins
-S21  POLISH     · Codex review
-S22  SHARE      · Show & tell / fumble chip
-S23  LEVELUP    · Skills — use & make [REFRAMED — bridges to S23a]
-S23a LEVELUP    · Install a skill — skills.sh + TUI demo [NEW]
-S24  LEVELUP    · MCP
-S25  LEVELUP    · Automation
-S26  LEVELUP    · Your toolchain
-S27  LEVELUP    · What to read next
-S28  CLOSE      · Post-test + survey
-S29  CLOSE      · Remember
-S30  CLOSE      · Thank you
-```
+Pure CSS + HTML + inline SVG. No external images. No CDN image dependencies.
+
+### 9.1 Terminal (`<div class="chrome-terminal">`)
+- Header bar: inline SVG traffic lights (◉ red `#ff5f57`, ◉ yellow `#febc2e`, ◉ green `#28c840`), title in `--font-mono --muted`
+- Content area: `--font-mono`, `--text`; prompt `$` in `--phase-a`
+- `.typewriter-target` inside content area is typewriter-eligible
+- Border: `1px solid rgba(255,255,255,0.12)`, `border-radius: 8px`, `background: rgba(0,0,0,0.4)`
+
+### 9.2 Browser (`<div class="chrome-browser">`)
+- Header bar: traffic lights + back/fwd arrows (CSS `‹ ›`) + URL bar (`border-radius: 4px`, `--surface2`, lock icon `🔒` — semantic UI icon, not decorative) + tab strip
+- Content area: white or near-white background to simulate real browser
+- Note: `🔒` lock icon is a semantic UI cue (HTTPS), not decoration. Allowed exception per emoji-ban rule same as S8 ✅/✗.
+
+### 9.3 Editor (`<div class="chrome-editor">`)
+- Header: traffic lights + tab bar with filename + close ×
+- Left sidebar: file tree (indented `<ul>` with folder/file CSS icons, no images)
+- Content: line numbers column (`--muted`) + code column (`--font-mono`)
+- Active file highlighted in sidebar: `--phase-a` at 15% background
+
+### 9.4 Claude Code TUI (`<div class="chrome-claudecode">`)
+- Header: `Claude Code` label in `--muted`, `--font-mono`
+- Prompt: `>` in `--phase-a`, user input in `--text`
+- Thinking indicator: `···` animated with `opacity` pulse (collapses to static under reduced-motion)
+- Response: `--text` with subtle left border `2px solid var(--phase-a)`
+- Success indicator: `✓` in `--phase-a` (semantic status, allowed)
+
+### 9.5 Chat bubble (`<div class="chrome-chat">`)
+- User message: right-aligned, `--surface2` background, `border-radius: 12px 12px 0 12px`
+- Claude response: left-aligned, `--surface` background, `border-radius: 12px 12px 12px 0`, `2px solid var(--phase-a)` left border
+- Used for: S8 illustration, S13.5 if needed
 
 ---
 
-## 10. Acceptance Criteria
+## 10. Keyboard and Typed-Command Preservation
 
-### Content
-- **AC1** S4a teaches npm install + `claude` verify with terminal chrome. Facilitator note visible (dimmed, toggle with `F` or `:facilitator` typed command).
-- **AC2** S8 shows capability matrix with ✗/✅; claude.ai column neutral, Claude Code column in phase-a color.
-- **AC3** S13 ends with explicit bridge to S13.5.
-- **AC4** S13.5 shows Claude Code TUI chrome with interview questions flowing. Facilitator cue sidebar.
-- **AC5** S23 ends with explicit bridge to S23a.
-- **AC6** S23a shows browser chrome (skills.sh) + TUI chrome (install command + response) in bento layout.
+### Preserved keyboard bindings (no changes)
+| Key | Action |
+|---|---|
+| `←` / `→` | Previous / next slide |
+| `Home` / `End` | First / last slide |
+| `A` | Toggle autoplay |
+| `F` | Toggle fullscreen |
+| `Esc` | Skip typewriter on current slide (new, added by this amendment) |
+
+### Facilitator notes
+**Not** toggled by `F`. `F` = fullscreen only (no change). Facilitator notes are toggled via typed command `:facilitator` (new typed command added by this amendment). When active, sidebar shows dimmed cues in magazine-spread slides.
+
+### Existing typed commands (preserved)
+- `:names on` / `:names off` — scoreboard mode
+- `:clear` — wipe live-moment state
+
+### New typed command (this amendment)
+- `:facilitator` — toggle facilitator sidebar visibility
+
+### Conflict guard for `Esc` / typewriter skip
+The existing keydown guard (from commit `dc58cae`) already blocks typed-command keys during active input. `Esc` handler must check: only skip typewriter if no typed-command input is in progress.
+
+---
+
+## 11. Live-Moment Preservation
+
+All three live moments must pass the following specific checks:
+
+### S7 render counter
+- Counter persists across slide changes (`sessionStorage` or module-level variable)
+- Counter increments on user-triggered action (not auto)
+- Display: `--font-display`, phase-a color, accessible label
+- Reduced-motion: counter still increments; no animation on number change
+
+### S15 plan-check scoreboard
+- `:names on` activates named-mode; `:names off` reverts to count-only mode
+- Count-only mode is default (no names projected — IRB requirement)
+- Max display: 5 students (clamp-at-5)
+- `:clear` resets scoreboard to 0
+- `sessionStorage` persists across slide navigation but not page reload
+- Reduced-motion: checkmarks appear instantly, no slide-in animation
+- Scoreboard does NOT use `A` as a trigger key (`A` = autoplay only)
+
+### S22 fumble chip
+- Chip displayed after facilitator triggers (`:fumble` typed command or click — use whichever the prior implementation uses, do not change the trigger mechanism)
+- No nicknames projected by default
+
+---
+
+## 12. Acceptance Criteria
+
+### Content (S4, S4a, S8, S13, S13.5, S23, S23a)
+- **AC1** S4 shows npm install command + node prerequisite note in terminal chrome. Facilitator note visible only when `:facilitator` is active.
+- **AC2** S4a shows `claude` verify command in terminal chrome + Claude Code TUI appearing. Body text present.
+- **AC3** S8 shows capability matrix with ✅ / ✗ as Unicode characters (not emoji images). Agent column has `--phase-a` tint. Matrix is factually accurate (no false claims).
+- **AC4** S13 last line reads "→ Next: watch it happen." and links semantically to S13.5.
+- **AC5** S13.5 shows Claude Code TUI chrome with interview questions. Facilitator sidebar cue present (hidden unless `:facilitator` active).
+- **AC6** S23 last line reads "→ Next: install one right now."
+- **AC7** S23a shows browser chrome (skills.sh) + Claude Code TUI chrome in bento layout. Callout tile present.
+
+### Slide count and ordering
+- **AC8** Total slide count is 33. `titles[]` JS array has exactly 33 entries matching the slide index in §4.
+- **AC9** S4 (Install) appears before S4a (Verify) in DOM order and navigation.
+- **AC10** `data-phase` attribute is set on every slide element. All 10 phase values from §7 are used.
 
 ### Layout
-- **AC7** Each of the 6 layout patterns (`layout-stage`, `layout-split`, `layout-canvas`, `layout-magazine`, `layout-workshop`, `layout-bento`) is applied to the correct slides.
-- **AC8** No slide uses the old single-skeleton layout (the pre-amendment `<h1> + .glass-card + body` pattern) — all slides migrate to one of the 6 templates.
+- **AC11** Every slide uses one of the 6 layout classes: `layout-stage`, `layout-split`, `layout-canvas`, `layout-magazine`, `layout-workshop`, `layout-bento`.
+- **AC12** No slide uses the legacy pattern of bare `<h1>` + `.glass-card` + body text without a layout class.
+- **AC13** `layout-split` slides (S8–S10) render two equal columns with phase-a divider.
+- **AC14** `layout-bento` slides (S22–S30, S23a) render with CSS grid named areas and varied tile sizes.
 
 ### Motion
-- **AC9** Phase intro sweep (800ms) fires on every phase transition (not on within-phase slide changes).
-- **AC10** Title underline shimmer fires on every slide entry.
-- **AC11** Content stagger: items reveal with 60ms cascade, total settle ≤ 800ms.
-- **AC12** Typewriter fires on `.typewriter-target` elements in code-block chromes. `Esc` skips to instant reveal.
-- **AC13** Cursor pulse visible after typewriter completes. Not visible mid-typewriter.
-- **AC14** `prefers-reduced-motion: reduce` collapses all animations to instant state. No information hidden behind animation.
+- **AC15** Phase intro sweep (3px bar, 800ms) fires on phase boundary changes. Does not fire on within-phase navigation.
+- **AC16** Title underline shimmer fires on every slide entry (measured: ≤ 700ms duration).
+- **AC17** Content stagger: ≥ 2 `.stagger-child` elements per slide cascade with 60ms delay. Total settle ≤ 800ms.
+- **AC18** Typewriter fires on `.typewriter-target` in device chrome. `Esc` skips to full reveal. Skip does not interfere with typed commands.
+- **AC19** Cursor pulse (`.cursor::after blink`) visible after typewriter completes. Not visible during typewriter. Hidden under reduced-motion.
+- **AC20** Hover lift: `.bento-tile`, `.skill-tile`, `.copy-block` lift 2px on hover in browser. Under reduced-motion: no transform, border color changes to `--phase-a`.
+- **AC21** Phase-color glow on slide-number indicator: period 2s ± 200ms (verifiable in DevTools Animations panel). Absent under reduced-motion.
+
+### Reduced-motion
+- **AC22** `@media (prefers-reduced-motion: reduce)` sets `*, *::before, *::after { animation-duration: 0.001ms !important; }` — collapses all CSS animations to instant.
+- **AC23** Typewriter JS checks `matchMedia('(prefers-reduced-motion: reduce)').matches` on slide entry and reveals full text immediately if true.
+- **AC24** No information is hidden by animation: all text is in the DOM regardless of animation state.
 
 ### Typography
-- **AC15** Mona Sans (weight 800) loads via Google Fonts CDN and renders on hero headings.
-- **AC16** JetBrains Mono loads and renders in all device chrome components.
-- **AC17** Font fallbacks work without network: Geist/Inter for display, Fira Code/monospace for mono.
+- **AC25** Mona Sans weight 800 renders on hero `<h1>` in `layout-stage` and `layout-canvas` slides. Verified in DevTools Computed Styles.
+- **AC26** JetBrains Mono renders in all device chrome elements. Verified in DevTools.
+- **AC27** With CDN blocked (DevTools > Network > disable): Inter renders for display, monospace stack renders for code. Slide is legible.
 
-### Color
-- **AC18** All 10 phase `data-phase` attributes are set on slides and phase CSS vars resolve correctly.
-- **AC19** Phase gradient tint visible on slide background (6–8% opacity, not overwhelming).
-- **AC20** Phase-color glow on slide-number indicator cycles smoothly.
+### Phase palette
+- **AC28** `[data-phase]` CSS selectors resolve `--phase-a` and `--phase-b` correctly for all 10 phases.
+- **AC29** Slide background gradient tint: opacity in DevTools is between 5–8% (use color-mix output).
 
-### Device Chrome
-- **AC21** Terminal chrome renders with traffic lights, `$` prompt, typewriter-eligible content area.
-- **AC22** No external images — chrome is pure CSS/HTML/SVG.
+### Device chrome
+- **AC30** Terminal chrome: traffic lights (3 circles) render with correct colors, no external images.
+- **AC31** Browser chrome renders with URL bar, tab strip, and back/fwd controls — pure CSS/HTML.
+- **AC32** Editor chrome renders with sidebar file tree, line numbers, and tab bar — pure CSS/HTML.
+- **AC33** Claude Code TUI renders with `>` prompt, thinking indicator, and response area.
+- **AC34** Chat bubble renders user (right) and Claude (left) messages with correct alignment and phase-a border.
 
-### Preservation
-- **AC23** S7 render counter still works.
-- **AC24** S15 scoreboard (`:names on` / `:clear`) still works.
-- **AC25** S22 fumble chip still works.
-- **AC26** All keyboard navigation preserved: ← / → / Home / End / A (autoplay) / F (fullscreen).
-- **AC27** Typed commands (`:names on`, `:clear`, any others) still work.
-- **AC28** Total slide count is 33. `titles[]` array updated to 33 entries.
+### Live moments (preserved)
+- **AC35** S7 render counter increments correctly and persists across navigation. No regression.
+- **AC36** S15 scoreboard: `:names on` activates, `:names off` reverts, `:clear` resets. Count-only is default. Clamp at 5. `sessionStorage` persists. `A` key does NOT affect scoreboard.
+- **AC37** S22 fumble chip displays correctly. No nicknames projected by default.
 
-### Session timing
-- **AC29** Footer phase-timing labels updated to reflect 125-min session (not 110).
+### Keyboard and commands
+- **AC38** `←` / `→` / `Home` / `End` / `A` / `F` all behave as before (no regression).
+- **AC39** `:facilitator` typed command toggles facilitator sidebar in magazine-spread slides.
+- **AC40** `:names on`, `:names off`, `:clear` still work (no regression).
+- **AC41** `Esc` skips typewriter on current slide. Does not affect other keys or typed commands.
+
+### Timing
+- **AC42** Footer timing labels on all 33 slides match the phase timing table in §3.
+- **AC43** `1-session-agenda.md` updated to 125-min schedule matching §3.
 
 ---
 
-## 11. Open Q-side items (not blocking implementation)
+## 13. Open Q-side items (not blocking implementation)
 
 - IRB runbook wording (FA 2562 fills) — placeholder text remains
 - AC13 IRB consult at T-7d before session
 - AC8b HH216 projector dry-run at T-24h
-- Confirm `skills.sh` URL to show in S23a (likely `skills.sh` directly)
-- Decide whether Mona Sans or Geist for display face (Mona Sans preferred; Geist if Mona not on GFonts)
+- Confirm exact skills.sh URL to display in S23a (likely `https://skills.sh`)
+- If Mona Sans becomes unavailable on Google Fonts: Q decides whether to self-host Geist or stay on Inter fallback
