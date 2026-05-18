@@ -18,8 +18,8 @@ This amendment explicitly supersedes the following sections of `2026-05-17-fancy
 | §7 Layout (single skeleton: eyebrow → heading → card → body) | §5 of this doc: 6-template layout system |
 
 **Preserved from 2026-05-17 amendment (not superseded):**
-- Orbit-mark corner glyph (one node rotates per phase) — kept as-is
-- Click-to-copy on `.copy-block` with Web Clipboard API + "copied ✓" state
+- Orbit-mark corner glyph (one node rotates per phase) — kept as-is. The orbit-mark depends on `.phase-X` CSS classes setting `--phase-accent` and `--phase-angle`. These classes must be **kept alongside** the new `data-phase` attributes — do not remove them. Both systems coexist: `.phase-X` drives orbit-mark; `data-phase` drives the new 2-color palette.
+- Click-to-copy on `.copy-block` with Web Clipboard API (`navigator.clipboard`) + `execCommand` fallback for non-secure contexts (file:// or http://). "copied ✓" state after 1400ms. Already implemented — do not change.
 - Emoji ban (decorative emoji removed) — with **one explicit exception**: S8 capability matrix uses ✅ and ✗ as semantic content, not decoration. This is not a violation of the emoji-ban rule.
 - `prefers-reduced-motion` mandate (scope extended in §6.7 of this doc)
 - Live-moment features: S7 render counter, S15 plan-check scoreboard, S22 fumble chip — all preserved exactly
@@ -184,7 +184,7 @@ Note: ✅ / ✗ here are **semantic content** — an explicit exception to the d
 Six named layout patterns applied via CSS class on `.slide`. All share CSS custom properties. Slides must not use the legacy pattern (bare `<h1>` + `.glass-card` + body text with no layout class).
 
 ### 5.1 Stage (`layout-stage`)
-**Slides:** S1–S4a, S22
+**Slides:** S1–S4a, S22 (SHARE phase)
 - Single centered column, vertically centered
 - Hero: `--font-display`, weight 800, `--size-hero`
 - Phase eyebrow top-left, footer bottom
@@ -199,9 +199,10 @@ Six named layout patterns applied via CSS class on `.slide`. All share CSS custo
 
 ### 5.3 Live Canvas (`layout-canvas`)
 **Slides:** S7
-- Full-bleed content area — live output or render counter as hero
-- Phase eyebrow + slide number only (no card, no `.copy-block`)
+- Full-bleed content area — render counter as hero
+- Phase eyebrow + slide number only
 - Counter element uses display type, phase-a color
+- **Exception:** S7 retains its `.copy-block` starter-prompt card as a secondary element below the counter. The counter is visually dominant; the copy-block sits beneath it at reduced scale. `layout-canvas` does not suppress `.copy-block` on S7.
 
 ### 5.4 Magazine Spread (`layout-magazine`)
 **Slides:** S5–S6, S11–S15, S13.5
@@ -217,7 +218,7 @@ Six named layout patterns applied via CSS class on `.slide`. All share CSS custo
 - S19–S20 use a 3-card or 5-chip grid inside the center zone
 
 ### 5.6 Bento Grid (`layout-bento`)
-**Slides:** S22–S30, S23a
+**Slides:** S23, S23a, S24–S30
 - CSS grid with named areas, tile sizes vary: `1×1`, `1×2`, `2×1`, `2×2`
 - Each tile: `--surface` card, phase-a tint at 6%, `border-radius: var(--radius-sm)`
 - S30 CLOSE big-number variant: hero tiles show oversized numerals (`font-size: clamp(80px, 12vw, 160px)`)
@@ -307,6 +308,8 @@ Three faces loaded via single Google Fonts CDN `<link>`. Added in `<head>` after
 <link href="https://fonts.googleapis.com/css2?family=Mona+Sans:wght@800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
 ```
 
+**Note on Inter:** Inter is already loaded by the existing `<link>` tag in the HTML (prior to this amendment). The new CDN link adds only Mona Sans and JetBrains Mono. If the CDN is blocked, Inter loads from the existing link or browser cache; the new fonts degrade to fallbacks. Do not remove the existing Inter link.
+
 | Role | Face | Weights | Usage |
 |---|---|---|---|
 | Display | Mona Sans | 800 | Slide hero `<h1>` only — layout-stage and layout-canvas |
@@ -369,17 +372,27 @@ Pure CSS + HTML + inline SVG. No external images. No CDN image dependencies.
 
 ## 10. Keyboard and Typed-Command Preservation
 
-### Preserved keyboard bindings (no changes)
+### Preserved keyboard bindings (no changes to existing)
 | Key | Action |
 |---|---|
-| `←` / `→` | Previous / next slide |
+| `←` / `→` / `Space` / `PageDown` / `PageUp` | Navigation |
 | `Home` / `End` | First / last slide |
-| `A` | Toggle autoplay |
 | `F` | Toggle fullscreen |
-| `Esc` | Skip typewriter on current slide (new, added by this amendment) |
+| `I` | Toggle theme |
+| `S` | Reveal next `.step` on current slide |
+| `R` | S7: increment render counter (facilitator key) |
+| `T` | S7: start 10-min countdown timer (facilitator key) |
+| `A` | S15: record one plan-check approval (facilitator key) |
+
+**There is no autoplay feature.** Prior spec references to `A = autoplay` were incorrect — `A` is the S15 approval key.
+
+### New key (this amendment)
+| Key | Action |
+|---|---|
+| `Esc` | Skip typewriter on current slide — reveal full text instantly |
 
 ### Facilitator notes
-**Not** toggled by `F`. `F` = fullscreen only (no change). Facilitator notes are toggled via typed command `:facilitator` (new typed command added by this amendment). When active, sidebar shows dimmed cues in magazine-spread slides.
+Toggled via typed command `:facilitator` only. `F` = fullscreen, unchanged.
 
 ### Existing typed commands (preserved)
 - `:names on` / `:names off` — scoreboard mode
@@ -407,10 +420,10 @@ All three live moments must pass the following specific checks:
 - `:names on` activates named-mode; `:names off` reverts to count-only mode
 - Count-only mode is default (no names projected — IRB requirement)
 - Max display: 5 students (clamp-at-5)
+- `A` / `a` key increments the approval count (facilitator presses once per student plan approved)
 - `:clear` resets scoreboard to 0
-- `sessionStorage` persists across slide navigation but not page reload
+- `sessionStorage` persists within the browser tab, **including across page reloads** — this is intentional
 - Reduced-motion: checkmarks appear instantly, no slide-in animation
-- Scoreboard does NOT use `A` as a trigger key (`A` = autoplay only)
 
 ### S22 fumble chip
 - Chip displayed after facilitator triggers (`:fumble` typed command or click — use whichever the prior implementation uses, do not change the trigger mechanism)
@@ -457,7 +470,7 @@ All three live moments must pass the following specific checks:
 ### Typography
 - **AC25** Mona Sans weight 800 renders on hero `<h1>` in `layout-stage` and `layout-canvas` slides. Verified in DevTools Computed Styles.
 - **AC26** JetBrains Mono renders in all device chrome elements. Verified in DevTools.
-- **AC27** With CDN blocked (DevTools > Network > disable): Inter renders for display, monospace stack renders for code. Slide is legible.
+- **AC27** With Mona Sans / JetBrains Mono CDN blocked: display headings fall back to Inter (loaded by the pre-existing Inter `<link>` tag, not the new CDN link), code falls back to `'Fira Code', monospace`. Slide is fully legible. Verify: DevTools > Network > Block `fonts.googleapis.com`; Inter still renders.
 
 ### Phase palette
 - **AC28** `[data-phase]` CSS selectors resolve `--phase-a` and `--phase-b` correctly for all 10 phases.
@@ -472,14 +485,23 @@ All three live moments must pass the following specific checks:
 
 ### Live moments (preserved)
 - **AC35** S7 render counter increments correctly and persists across navigation. No regression.
-- **AC36** S15 scoreboard: `:names on` activates, `:names off` reverts, `:clear` resets. Count-only is default. Clamp at 5. `sessionStorage` persists. `A` key does NOT affect scoreboard.
+- **AC36** S15 scoreboard: `:names on` activates, `:names off` reverts, `:clear` resets to 0. Count-only is default. Clamp at 5. `A` key increments approval count. `sessionStorage` persists count within browser tab (including across page reloads — intentional).
 - **AC37** S22 fumble chip displays correctly. No nicknames projected by default.
 
 ### Keyboard and commands
-- **AC38** `←` / `→` / `Home` / `End` / `A` / `F` all behave as before (no regression).
-- **AC39** `:facilitator` typed command toggles facilitator sidebar in magazine-spread slides.
-- **AC40** `:names on`, `:names off`, `:clear` still work (no regression).
-- **AC41** `Esc` skips typewriter on current slide. Does not affect other keys or typed commands.
+- **AC38** Navigation keys (← → Space PageDown PageUp Home End), `F` (fullscreen), `I` (theme), `S` (step reveal) all behave as before (no regression).
+- **AC39** `R` increments S7 render counter. `T` starts S7 10-min timer. `A` increments S15 plan-check approval. All three are guarded: no-op outside their respective live-moment contexts.
+- **AC40** `:facilitator` typed command toggles facilitator sidebar in `layout-magazine` slides. Sidebar hidden by default.
+- **AC41** `:names on`, `:names off`, `:clear` still work (no regression).
+- **AC43-b** `Esc` skips typewriter on current slide. Does not affect navigation or typed commands.
+
+### Orbit-mark
+- **AC44** Orbit-mark corner glyph renders on every slide. Node rotates to the correct `--phase-angle` for the current phase.
+- **AC45** Both `.phase-X` CSS classes AND `data-phase` attributes are present on every slide element. Removing either breaks something: `.phase-X` = orbit-mark; `data-phase` = 2-color palette.
+
+### Click-to-copy
+- **AC46** Clicking a `.copy-block` on localhost:8765 copies text to clipboard (verified by pasting). The "copied ✓" label appears for ~1400ms.
+- **AC47** Fallback path (`execCommand`) is present in code for non-secure contexts. Not regression-tested in isolation — existing implementation is preserved unchanged.
 
 ### Timing
 - **AC42** Footer timing labels on all 33 slides match the phase timing table in §3.
