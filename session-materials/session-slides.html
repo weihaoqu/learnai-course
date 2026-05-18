@@ -992,20 +992,41 @@ Open it in my browser when done.</div>
 
 <!-- S8: Chatbot vs Agent -->
 <div class="slide phase-decode layout-split" id="s7" data-phase="decode">
-  <div class="slide-inner">
-    <div class="eyebrow">PHASE 04 · DECODE</div>
-    <h1>Chatbot answers. <em>Agent does.</em></h1>
-    <div class="diagram">CHATBOT:  ask  →  answer
+  <p class="phase-eyebrow" style="grid-column: 1/-1">— PHASE 04 · DECODE</p>
 
-AGENT:    ask  →  USE TOOLS  →  CHECK  →  try again</div>
-    <p class="subtitle">What you just saw: the tool loop. That's what makes Claude Code an agent.</p>
+  <div class="split-col">
+    <h2 style="color: var(--text-tertiary); font-size: var(--size-h2);">claude.ai</h2>
+    <p style="font-size: 0.85em; color: var(--text-tertiary);">Chat. Answers. Explains.</p>
+    <table style="border-collapse: collapse; width: 100%; margin-top: 0.5rem;">
+      <tr class="stagger-child"><td style="padding: 0.4rem 0; color: var(--text-tertiary);">Edit your files</td><td style="text-align:center; color: #ef4444;">✗</td></tr>
+      <tr class="stagger-child"><td style="padding: 0.4rem 0; color: var(--text-tertiary);">Run terminal commands</td><td style="text-align:center; color: #ef4444;">✗</td></tr>
+      <tr class="stagger-child"><td style="padding: 0.4rem 0; color: var(--text-tertiary);">Remember your project</td><td style="text-align:center; color: #ef4444;">✗</td></tr>
+      <tr class="stagger-child"><td style="padding: 0.4rem 0; color: var(--text-tertiary);">Install skills</td><td style="text-align:center; color: #ef4444;">✗</td></tr>
+      <tr class="stagger-child"><td style="padding: 0.4rem 0; color: var(--text-tertiary);">Build across a codebase</td><td style="text-align:center; color: #ef4444;">✗</td></tr>
+      <tr class="stagger-child"><td style="padding: 0.4rem 0; color: var(--text-tertiary);">Answer questions</td><td style="text-align:center; color: var(--phase-a);">✅</td></tr>
+    </table>
   </div>
-  <div class="slide-meta">PHASE 04 · DECODE · 25:00 → 32:00</div>
-  <svg class="orbit-mark" viewBox="0 0 28 28" aria-hidden="true">
-    <circle class="ring" cx="14" cy="14" r="12" />
-    <circle class="ring" cx="14" cy="14" r="7" />
-    <circle class="node" cx="14" cy="2" r="1.8" />
-  </svg>
+
+  <div class="split-col">
+    <h2 style="color: var(--phase-a); font-size: var(--size-h2);">Claude Code</h2>
+    <p style="font-size: 0.85em; color: var(--text-tertiary);">Agent. Acts. Builds.</p>
+    <table style="border-collapse: collapse; width: 100%; margin-top: 0.5rem;">
+      <tr class="stagger-child"><td style="padding: 0.4rem 0;">Edit your files</td><td style="text-align:center; color: var(--phase-a);">✅</td></tr>
+      <tr class="stagger-child"><td style="padding: 0.4rem 0;">Run terminal commands</td><td style="text-align:center; color: var(--phase-a);">✅</td></tr>
+      <tr class="stagger-child"><td style="padding: 0.4rem 0;">Remember your project</td><td style="text-align:center; color: var(--phase-a);">✅</td></tr>
+      <tr class="stagger-child"><td style="padding: 0.4rem 0;">Install skills</td><td style="text-align:center; color: var(--phase-a);">✅</td></tr>
+      <tr class="stagger-child"><td style="padding: 0.4rem 0;">Build across a codebase</td><td style="text-align:center; color: var(--phase-a);">✅</td></tr>
+      <tr class="stagger-child"><td style="padding: 0.4rem 0;">Answer questions</td><td style="text-align:center; color: var(--phase-a);">✅</td></tr>
+    </table>
+  </div>
+
+  <div class="slide-footer">
+    <span>— PHASE 04 · DECODE · 25:00 — 32:00</span>
+    <span class="slide-number-indicator"></span>
+  </div>
+  <div class="orbit-mark" aria-hidden="true">
+    <svg viewBox="0 0 28 28"><circle class="ring" cx="14" cy="14" r="11"/><circle class="node" cx="14" cy="3" r="2"/></svg>
+  </div>
 </div>
 
 <!-- S9: CLAUDE.md & Context -->
