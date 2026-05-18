@@ -1451,6 +1451,12 @@ function runTypewriter(el) {
   el.dataset.twText = full;
   el.textContent = '';
 
+  // Remove any leftover cursor from a previous visit
+  const oldCursor = el.nextSibling;
+  if (oldCursor && oldCursor.classList && oldCursor.classList.contains('cursor-blink')) {
+    oldCursor.remove();
+  }
+
   const cursor = document.createElement('span');
   cursor.className = 'cursor-blink';
   el.parentNode.insertBefore(cursor, el.nextSibling);
@@ -1489,6 +1495,7 @@ function show(n) {
   maybeFirePhaseSweep(slides[current]);
   wireTypewriters(slides[n]);
   setTimeout(() => {
+    if (current !== n) return;
     slides[n].querySelectorAll('.typewriter-target').forEach(runTypewriter);
   }, 400);
   document.getElementById('prevBtn').disabled = (n === 0);
