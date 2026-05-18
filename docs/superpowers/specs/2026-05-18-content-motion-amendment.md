@@ -18,7 +18,7 @@ This amendment explicitly supersedes the following sections of `2026-05-17-fancy
 | §7 Layout (single skeleton: eyebrow → heading → card → body) | §5 of this doc: 6-template layout system |
 
 **Preserved from 2026-05-17 amendment (not superseded):**
-- Orbit-mark corner glyph (one node rotates per phase) — kept as-is. The orbit-mark depends on `.phase-X` CSS classes setting `--phase-accent` and `--phase-angle`. These classes must be **kept alongside** the new `data-phase` attributes — do not remove them. Both systems coexist: `.phase-X` drives orbit-mark; `data-phase` drives the new 2-color palette.
+- Orbit-mark corner glyph (one node rotates per phase) — kept as-is. The orbit-mark depends on `.phase-X` CSS classes setting `--phase-accent` and `--phase-angle`. These classes must be **kept alongside** the new `data-phase` attributes — do not remove them. Both systems coexist: `.phase-X` drives orbit-mark; `data-phase` drives the new 2-color palette. **Critical implementation note:** do not remove `--phase-accent` from `.phase-X` class definitions — the orbit-mark node fill (`fill: var(--phase-accent)`) depends on it. The new palette adds `--phase-a`/`--phase-b` as separate variables; it does not replace `--phase-accent`.
 - Click-to-copy on `.copy-block` with Web Clipboard API (`navigator.clipboard`) + `execCommand` fallback for non-secure contexts (file:// or http://). "copied ✓" state after 1400ms. Already implemented — do not change.
 - Emoji ban (decorative emoji removed) — with **one explicit exception**: S8 capability matrix uses ✅ and ✗ as semantic content, not decoration. This is not a violation of the emoji-ban rule.
 - `prefers-reduced-motion` mandate (scope extended in §6.7 of this doc)
