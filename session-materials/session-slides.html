@@ -1127,6 +1127,9 @@ my nickname persona. Cover: who they
 are, sections, vibe, color, signature.
 Output a structured plan.</div>
     <p class="muted" style="margin-top:1rem;">Answer carefully. Better plan = better build.</p>
+    <p class="stagger-child" style="margin-top: 1.5rem; color: var(--phase-a); font-weight: 600;">
+  → Next: watch it happen.
+</p>
   </div>
   <div class="slide-meta">PHASE 05 · PLAN · 32:00 → 50:00</div>
   <svg class="orbit-mark" viewBox="0 0 28 28" aria-hidden="true">
@@ -1134,6 +1137,49 @@ Output a structured plan.</div>
     <circle class="ring" cx="14" cy="14" r="7" />
     <circle class="node" cx="14" cy="2" r="1.8" />
   </svg>
+</div>
+
+<!-- ═══ S13.5 PLAN — Watch it happen (interview demo) ═══ -->
+<div class="slide phase-plan layout-magazine" id="s12a" data-phase="plan">
+  <p class="phase-eyebrow mag-eyebrow stagger-child">— PHASE 05 · PLAN</p>
+
+  <div class="mag-content">
+    <h1 class="stagger-child">Watch it happen.</h1>
+    <div class="chrome-wrap chrome-claudecode stagger-child" style="margin-top: 1.5rem; max-width: 520px;">
+      <div class="chrome-titlebar">
+        <div class="chrome-lights"><span class="red"></span><span class="yellow"></span><span class="green"></span></div>
+        <span class="chrome-title">Claude Code — interview skill</span>
+      </div>
+      <div class="chrome-body">
+        <div class="tui-response" style="margin-bottom: 0.75rem;">
+          Let's build your plan. First question:<br>
+          <strong>What do you want someone to be able to do with what you build?</strong>
+        </div>
+        <div><span class="tui-prompt">&gt;</span> <span class="tui-user typewriter-target">I want people to be able to track their mood every day</span></div>
+        <div class="tui-thinking" style="margin-top:0.5rem;">··· thinking</div>
+        <div class="tui-response" style="margin-top:0.5rem;">
+          Nice. Next question:<br>
+          <strong>Who's using it — just you, or others?</strong>
+        </div>
+      </div>
+    </div>
+    <p class="stagger-child" style="margin-top: 1rem;">One question at a time. Claude builds your plan.</p>
+  </div>
+
+  <div class="mag-sidebar facilitator-note">
+    <strong>Facilitator cue:</strong><br>
+    Student volunteer on your laptop.<br>
+    Prompt: "Tell Claude what you want to build. Use the interview skill."<br>
+    Let it run 3–4 questions. Then move on.
+  </div>
+
+  <div class="slide-footer">
+    <span>— PHASE 05 · PLAN · 39:00 — 57:00</span>
+    <span class="slide-number-indicator"></span>
+  </div>
+  <div class="orbit-mark" aria-hidden="true">
+    <svg viewBox="0 0 28 28"><circle class="ring" cx="14" cy="14" r="11"/><circle class="node" cx="14" cy="3" r="2"/></svg>
+  </div>
 </div>
 
 <!-- ═══ S14 A GOOD PLAN HAS ═══ -->
@@ -1520,7 +1566,7 @@ const slides = document.querySelectorAll('.slide');
 const total = slides.length;
 let current = 0;
 // Titles array — Task 2 populated S1-S4; Tasks 3-11 fill the rest. Final population in Task 16 Step 1.
-const titles = ['AI Engineering Academy','Pre-Test','Consent','Install Claude Code',"You're In",'Safety First','Pick Your Nickname','Quick Win — First Page','Chatbot vs Agent','CLAUDE.md & Context','Permissions · Context · Usage','Plan Beats Prompt','The Pro Workflow','Make Claude Interview You','A Good Plan Has','Plan Check','First Main Build Prompt','AI Gets Stuff Wrong','Fix It','Open Components','UI Quick Wins','Codex Review','Show & Tell','Skills — Use & Make','MCP','Automation','Your Toolchain','What to Read Next','Post-Test + Survey','Remember','Thank You'];
+const titles = ['AI Engineering Academy','Pre-Test','Consent','Install Claude Code',"You're In",'Safety First','Pick Your Nickname','Quick Win — First Page','Chatbot vs Agent','CLAUDE.md & Context','Permissions · Context · Usage','Plan Beats Prompt','The Pro Workflow','Make Claude Interview You','Watch It Happen','A Good Plan Has','Plan Check','First Main Build Prompt','AI Gets Stuff Wrong','Fix It','Open Components','UI Quick Wins','Codex Review','Show & Tell','Skills — Use & Make','MCP','Automation','Your Toolchain','What to Read Next','Post-Test + Survey','Remember','Thank You'];
 
 document.getElementById('hudTotal').textContent = total;
 
