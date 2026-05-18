@@ -312,6 +312,110 @@ body.facilitator-active .mag-sidebar { display: block; }
 .bento-tile.span-2 { grid-column: span 2; }
 .bento-tile.span-row { grid-row: span 2; }
 
+/* ── Motion language (2026-05-18 amendment) ── */
+
+/* Reduced-motion: collapse all CSS animations globally */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    transition-duration: 0.001ms !important;
+  }
+}
+
+/* 1. Phase intro sweep — 3px bar slides left→right on phase entry */
+@keyframes phaseSweep {
+  from { transform: scaleX(0); }
+  to   { transform: scaleX(1); }
+}
+.phase-sweep-bar {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 3px;
+  background: var(--phase-a, #3b82f6);
+  transform-origin: left center;
+  transform: scaleX(0);
+  pointer-events: none;
+  z-index: 1000;
+}
+.phase-sweep-bar.sweeping {
+  animation: phaseSweep 800ms cubic-bezier(0.25, 0, 0, 1) forwards;
+}
+
+/* 2. Title underline shimmer — on slide entry */
+@keyframes underlineShimmer {
+  from { background-size: 0% 2px; }
+  to   { background-size: 100% 2px; }
+}
+.slide.active h1 em {
+  background-image: linear-gradient(var(--phase-a, #3b82f6), var(--phase-a, #3b82f6));
+  background-repeat: no-repeat;
+  background-position: 0 100%;
+  background-size: 0% 2px;
+  animation: underlineShimmer 600ms ease-in-out 200ms forwards;
+}
+
+/* 3. Content stagger — .stagger-child elements */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.slide.active .stagger-child {
+  opacity: 0;
+  animation: fadeUp 300ms ease-out forwards;
+}
+/* nth-child delays — up to 10 items, 60ms each */
+.slide.active .stagger-child:nth-child(1)  { animation-delay:  60ms; }
+.slide.active .stagger-child:nth-child(2)  { animation-delay: 120ms; }
+.slide.active .stagger-child:nth-child(3)  { animation-delay: 180ms; }
+.slide.active .stagger-child:nth-child(4)  { animation-delay: 240ms; }
+.slide.active .stagger-child:nth-child(5)  { animation-delay: 300ms; }
+.slide.active .stagger-child:nth-child(6)  { animation-delay: 360ms; }
+.slide.active .stagger-child:nth-child(7)  { animation-delay: 420ms; }
+.slide.active .stagger-child:nth-child(8)  { animation-delay: 480ms; }
+.slide.active .stagger-child:nth-child(9)  { animation-delay: 540ms; }
+.slide.active .stagger-child:nth-child(10) { animation-delay: 600ms; }
+
+/* 4. Cursor blink — used by typewriter */
+@keyframes cursorBlink {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0; }
+}
+.cursor-blink {
+  display: inline-block;
+  width: 2px; height: 1em;
+  background: var(--phase-a, #3b82f6);
+  vertical-align: text-bottom;
+  animation: cursorBlink 1s step-end infinite;
+  margin-left: 1px;
+}
+@media (prefers-reduced-motion: reduce) {
+  .cursor-blink { display: none; }
+}
+
+/* 5. Phase-color glow on slide-number indicator */
+@keyframes phaseGlow {
+  0%, 100% { box-shadow: 0 0 4px var(--phase-a, #3b82f6); }
+  50%       { box-shadow: 0 0 10px var(--phase-a, #3b82f6); }
+}
+.slide-number-indicator {
+  animation: phaseGlow 2s ease-in-out infinite;
+}
+@media (prefers-reduced-motion: reduce) {
+  .slide-number-indicator { animation: none; box-shadow: none; }
+}
+
+/* 6. Hover lift — copy-blocks and bento tiles */
+.copy-block:hover, .bento-tile:hover, .skill-tile:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 16px color-mix(in srgb, var(--phase-a, #3b82f6) 30%, transparent);
+}
+@media (prefers-reduced-motion: reduce) {
+  .copy-block:hover, .bento-tile:hover, .skill-tile:hover {
+    transform: none;
+    border-color: var(--phase-a, #3b82f6);
+  }
+}
+
 /* §6.2 — S5 Safety slide single-column triple-redundant CVD cues */
 .safety-grid { display: grid; grid-template-columns: 1fr; max-width: 640px; gap: 0.5rem; margin: 1rem auto; }
 .safety-grid .no  { padding:.6rem 1rem; border-radius:8px; font-weight:600;
@@ -526,6 +630,7 @@ body.theme-ink .brush-wipe .ink-stroke { background:var(--bg-deep); }
 </style>
 </head>
 <body>
+<div class="phase-sweep-bar" aria-hidden="true"></div>
 
 <div class="titlebar">
   <span class="deck-name">AI Engineering Academy</span>
@@ -1183,7 +1288,7 @@ Then build the HTML file.
 <!-- HUD -->
 <div class="hud">
   <span class="slide-title" id="hudTitle"></span>
-  <span class="counter"><span id="hudCurrent">0</span>/<span id="hudTotal">0</span></span>
+  <span class="counter"><span id="hudCurrent" class="slide-number-indicator">0</span>/<span id="hudTotal">0</span></span>
   <span class="keys"><kbd>←</kbd><kbd>→</kbd></span>
   <div class="progress"><div class="bar" id="hudBar" style="width:0%"></div></div>
 </div>
@@ -1197,11 +1302,27 @@ const titles = ['AI Engineering Academy','Pre-Test','Consent','Launch Claude','S
 
 document.getElementById('hudTotal').textContent = total;
 
+// Phase intro sweep — fires only on phase boundary changes
+let lastPhase = null;
+function maybeFirePhaseSweep(slideEl) {
+  const phase = slideEl.dataset.phase;
+  if (phase && phase !== lastPhase) {
+    lastPhase = phase;
+    const bar = document.querySelector('.phase-sweep-bar');
+    if (!bar) return;
+    bar.classList.remove('sweeping');
+    void bar.offsetWidth; // force reflow to restart animation
+    bar.classList.add('sweeping');
+    bar.addEventListener('animationend', () => bar.classList.remove('sweeping'), { once: true });
+  }
+}
+
 function show(n) {
   if (n < 0 || n >= total) return;
   slides[current].classList.remove('active');
   current = n;
   slides[current].classList.add('active');
+  maybeFirePhaseSweep(slides[current]);
   document.getElementById('prevBtn').disabled = (n === 0);
   document.getElementById('nextBtn').disabled = (n === total - 1);
   document.getElementById('hudBar').style.width = (total ? (((n + 1) / total) * 100) : 0) + '%';
