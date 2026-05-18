@@ -774,7 +774,7 @@ body.theme-ink .brush-wipe .ink-stroke { background:var(--bg-deep); }
 <div class="deck" id="deck">
 
 <!-- ═══ S1 TITLE ═══ -->
-<div class="slide billboard phase-open active" id="s0">
+<div class="slide billboard phase-open layout-stage active" id="s0" data-phase="open">
   <div class="slide-inner center">
     <div class="eyebrow">PHASE 01 · OPEN</div>
     <h1>AI Engineering <em>Academy</em></h1>
@@ -796,7 +796,7 @@ body.theme-ink .brush-wipe .ink-stroke { background:var(--bg-deep); }
 </div>
 
 <!-- ═══ S2 PRE-TEST ═══ -->
-<div class="slide billboard phase-open" id="s1">
+<div class="slide billboard phase-open layout-stage" id="s1" data-phase="open">
   <div class="slide-inner center">
     <div class="eyebrow">PHASE 01 · OPEN</div>
     <h1>5-minute <em>quiz</em></h1>
@@ -816,7 +816,7 @@ body.theme-ink .brush-wipe .ink-stroke { background:var(--bg-deep); }
 </div>
 
 <!-- ═══ S3 CONSENT ═══ -->
-<div class="slide billboard phase-open" id="s2">
+<div class="slide billboard phase-open layout-stage" id="s2" data-phase="open">
   <div class="slide-inner center">
     <div class="eyebrow">PHASE 01 · OPEN</div>
     <h1>Read. <em>Decide.</em></h1>
@@ -837,7 +837,7 @@ body.theme-ink .brush-wipe .ink-stroke { background:var(--bg-deep); }
 </div>
 
 <!-- ═══ S4 LAUNCH CLAUDE ═══ -->
-<div class="slide billboard phase-open" id="s3">
+<div class="slide billboard phase-open layout-stage" id="s3" data-phase="open">
   <div class="slide-inner center">
     <div class="eyebrow">PHASE 01 · OPEN</div>
     <h1>Open terminal. Type: <em>claude</em></h1>
@@ -853,7 +853,7 @@ body.theme-ink .brush-wipe .ink-stroke { background:var(--bg-deep); }
 </div>
 
 <!-- ═══ S5 SAFETY RULES ═══ -->
-<div class="slide phase-safety" id="s4">
+<div class="slide phase-safety layout-magazine" id="s4" data-phase="safety">
   <div class="slide-inner">
     <div class="eyebrow">PHASE 02 · SAFETY</div>
     <h1 style="text-align:center;">Read this before you <em>talk to Claude.</em></h1>
@@ -876,7 +876,7 @@ body.theme-ink .brush-wipe .ink-stroke { background:var(--bg-deep); }
 </div>
 
 <!-- ═══ S6 PICK YOUR NICKNAME ═══ -->
-<div class="slide billboard phase-safety" id="s5">
+<div class="slide billboard phase-safety layout-magazine" id="s5" data-phase="safety">
   <div class="slide-inner center">
     <div class="eyebrow">PHASE 02 · SAFETY</div>
     <h1>Pick your <em>nickname.</em></h1>
@@ -898,7 +898,7 @@ body.theme-ink .brush-wipe .ink-stroke { background:var(--bg-deep); }
 </div>
 
 <!-- ═══ S7 TINY BUILD (Quick Win) ═══ -->
-<div class="slide phase-quickwin" id="s6">
+<div class="slide phase-quickwin layout-canvas" id="s6" data-phase="quickwin">
   <div class="slide-inner center">
     <div class="eyebrow">PHASE 03 · QUICK WIN</div>
     <h1>First page. <em>Right now.</em></h1>
@@ -929,7 +929,7 @@ Open it in my browser when done.</div>
 </div>
 
 <!-- S8: Chatbot vs Agent -->
-<div class="slide phase-decode" id="s7">
+<div class="slide phase-decode layout-split" id="s7" data-phase="decode">
   <div class="slide-inner">
     <div class="eyebrow">PHASE 04 · DECODE</div>
     <h1>Chatbot answers. <em>Agent does.</em></h1>
@@ -947,7 +947,7 @@ AGENT:    ask  →  USE TOOLS  →  CHECK  →  try again</div>
 </div>
 
 <!-- S9: CLAUDE.md & Context -->
-<div class="slide phase-decode" id="s8">
+<div class="slide phase-decode layout-split" id="s8" data-phase="decode">
   <div class="slide-inner">
     <div class="eyebrow">PHASE 04 · DECODE</div>
     <h1>Claude reads <em>CLAUDE.md</em> first.</h1>
@@ -968,7 +968,7 @@ AGENT:    ask  →  USE TOOLS  →  CHECK  →  try again</div>
 </div>
 
 <!-- S10: Permissions · Context · Usage (NO EMOJI — typographic phase-tag pattern) -->
-<div class="slide phase-decode" id="s9">
+<div class="slide phase-decode layout-split" id="s9" data-phase="decode">
   <div class="slide-inner">
     <div class="eyebrow">PHASE 04 · DECODE</div>
     <h1>Three things to <em>watch.</em></h1>
@@ -988,7 +988,7 @@ AGENT:    ask  →  USE TOOLS  →  CHECK  →  try again</div>
 </div>
 
 <!-- ═══ S11 PLAN BEATS PROMPT (billboard) ═══ -->
-<div class="slide billboard phase-plan" id="s10">
+<div class="slide billboard phase-plan layout-magazine" id="s10" data-phase="plan">
   <div class="slide-inner center">
     <div class="eyebrow">PHASE 05 · PLAN</div>
     <h1>Plan beats <em>Prompt.</em></h1>
@@ -1003,7 +1003,7 @@ AGENT:    ask  →  USE TOOLS  →  CHECK  →  try again</div>
 </div>
 
 <!-- ═══ S12 PRO WORKFLOW ═══ -->
-<div class="slide phase-plan" id="s11">
+<div class="slide phase-plan layout-magazine" id="s11" data-phase="plan">
   <div class="slide-inner" style="text-align:center;">
     <div class="eyebrow">PHASE 05 · PLAN</div>
     <h1><em>PLAN</em> → ONE PROMPT → ITERATE → POLISH</h1>
@@ -1018,7 +1018,7 @@ AGENT:    ask  →  USE TOOLS  →  CHECK  →  try again</div>
 </div>
 
 <!-- ═══ S13 ASK CLAUDE TO INTERVIEW YOU ═══ -->
-<div class="slide phase-plan" id="s12">
+<div class="slide phase-plan layout-magazine" id="s12" data-phase="plan">
   <div class="slide-inner">
     <div class="eyebrow">PHASE 05 · PLAN</div>
     <h1>Make Claude <em>interview</em> you.</h1>
@@ -1039,16 +1039,16 @@ Output a structured plan.</div>
 </div>
 
 <!-- ═══ S14 A GOOD PLAN HAS ═══ -->
-<div class="slide phase-plan" id="s13">
+<div class="slide phase-plan layout-magazine" id="s13" data-phase="plan">
   <div class="slide-inner">
     <div class="eyebrow">PHASE 05 · PLAN</div>
     <h1>A good plan <em>has:</em></h1>
     <ul class="rhythm-list">
-      <li>1 sentence about your persona</li>
-      <li>3 sections (e.g., About / Projects / Contact)</li>
-      <li>A vibe word (calm / bold / playful / pro)</li>
-      <li>A color</li>
-      <li>One thing that makes it YOURS</li>
+      <li class="stagger-child">1 sentence about your persona</li>
+      <li class="stagger-child">3 sections (e.g., About / Projects / Contact)</li>
+      <li class="stagger-child">A vibe word (calm / bold / playful / pro)</li>
+      <li class="stagger-child">A color</li>
+      <li class="stagger-child">One thing that makes it YOURS</li>
     </ul>
   </div>
   <div class="slide-meta">PHASE 05 · PLAN · 32:00 → 50:00</div>
@@ -1060,7 +1060,7 @@ Output a structured plan.</div>
 </div>
 
 <!-- ═══ S15 PLAN CHECK (billboard, scoreboard) ═══ -->
-<div class="slide billboard phase-plan" id="s14">
+<div class="slide billboard phase-plan layout-magazine" id="s14" data-phase="plan">
   <div class="slide-inner" style="text-align:center;">
     <div class="eyebrow">PHASE 05 · PLAN</div>
     <h1>Show Q your <em>plan.</em></h1>
@@ -1086,7 +1086,7 @@ Output a structured plan.</div>
 </div>
 
 <!-- ═══ S16 FIRST MAIN BUILD PROMPT ═══ -->
-<div class="slide phase-build" id="s15">
+<div class="slide phase-build layout-workshop" id="s15" data-phase="build">
   <div class="slide-inner">
     <div class="eyebrow">PHASE 06 · BUILD</div>
     <h1>Now the <em>real one.</em></h1>
@@ -1107,14 +1107,14 @@ landing page. Open it when done.</div>
 </div>
 
 <!-- ═══ S17 AI GETS STUFF WRONG ═══ -->
-<div class="slide phase-build" id="s16">
+<div class="slide phase-build layout-workshop" id="s16" data-phase="build">
   <div class="slide-inner">
     <div class="eyebrow">PHASE 06 · BUILD</div>
     <h1>Expect 1–2 things <em>broken.</em></h1>
     <ul class="rhythm-list">
-      <li>A link goes to the wrong place</li>
-      <li>The font looks weird</li>
-      <li>A section is missing</li>
+      <li class="stagger-child">A link goes to the wrong place</li>
+      <li class="stagger-child">The font looks weird</li>
+      <li class="stagger-child">A section is missing</li>
     </ul>
     <p class="lede" style="margin-top:1.4rem;">Bug ≠ failure. Bug = iteration.</p>
   </div>
@@ -1127,7 +1127,7 @@ landing page. Open it when done.</div>
 </div>
 
 <!-- ═══ S18 FIX IT ═══ -->
-<div class="slide phase-build" id="s17">
+<div class="slide phase-build layout-workshop" id="s17" data-phase="build">
   <div class="slide-inner">
     <div class="eyebrow">PHASE 06 · BUILD</div>
     <h1>Talk like a <em>teammate.</em></h1>
@@ -1145,7 +1145,7 @@ landing page. Open it when done.</div>
 </div>
 
 <!-- ═══ S19 OPEN COMPONENTS ═══ -->
-<div class="slide phase-polish" id="s18">
+<div class="slide phase-polish layout-workshop" id="s18" data-phase="polish">
   <div class="slide-inner">
     <div class="eyebrow">PHASE 07 · POLISH</div>
     <h1>Use <em>open</em> components.</h1>
@@ -1164,16 +1164,16 @@ landing page. Open it when done.</div>
 </div>
 
 <!-- ═══ S20 UI QUICK WINS ═══ -->
-<div class="slide phase-polish" id="s19">
+<div class="slide phase-polish layout-workshop" id="s19" data-phase="polish">
   <div class="slide-inner">
     <div class="eyebrow">PHASE 07 · POLISH</div>
     <h1>5 cheats to look <em>pro.</em></h1>
     <ul class="rhythm-list">
-      <li>Gradient background</li>
-      <li>One sans-serif font (Inter, Geist)</li>
-      <li>Lucide icons, not emojis</li>
-      <li>Generous whitespace</li>
-      <li>Dark mode by default</li>
+      <li class="stagger-child">Gradient background</li>
+      <li class="stagger-child">One sans-serif font (Inter, Geist)</li>
+      <li class="stagger-child">Lucide icons, not emojis</li>
+      <li class="stagger-child">Generous whitespace</li>
+      <li class="stagger-child">Dark mode by default</li>
     </ul>
     <p class="muted">Tell Claude: "apply these."</p>
   </div>
@@ -1186,7 +1186,7 @@ landing page. Open it when done.</div>
 </div>
 
 <!-- ═══ S21 CODEX REVIEW ═══ -->
-<div class="slide phase-polish" id="s20">
+<div class="slide phase-polish layout-workshop" id="s20" data-phase="polish">
   <div class="slide-inner">
     <div class="eyebrow">PHASE 07 · POLISH</div>
     <h1>Second <em>opinion.</em></h1>
@@ -1206,7 +1206,7 @@ landing page. Open it when done.</div>
 </div>
 
 <!-- ═══ S22 SHOW & TELL ═══ -->
-<div class="slide phase-share" id="s21">
+<div class="slide phase-share layout-stage" id="s21" data-phase="share">
   <div class="slide-inner">
     <div class="eyebrow">PHASE 08 · SHARE</div>
     <h1>2 min <em>each.</em></h1>
@@ -1231,7 +1231,7 @@ landing page. Open it when done.</div>
 </div>
 
 <!-- ═══ S23 SKILLS — USE & MAKE ═══ -->
-<div class="slide phase-levelup" id="s22">
+<div class="slide phase-levelup layout-bento" id="s22" data-phase="levelup">
   <div class="slide-inner">
     <div class="eyebrow">PHASE 09 · LEVEL UP</div>
     <h1>Pre-packaged <em>superpowers.</em></h1>
@@ -1256,7 +1256,7 @@ Then build the HTML file.
 </div>
 
 <!-- ═══ S24 MCP ═══ -->
-<div class="slide phase-levelup" id="s23">
+<div class="slide phase-levelup layout-bento" id="s23" data-phase="levelup">
   <div class="slide-inner">
     <div class="eyebrow">PHASE 09 · LEVEL UP</div>
     <h1><em>MCP</em> = connect to anything.</h1>
@@ -1276,14 +1276,14 @@ Then build the HTML file.
 </div>
 
 <!-- ═══ S25 AUTOMATION ═══ -->
-<div class="slide phase-levelup" id="s24">
+<div class="slide phase-levelup layout-bento" id="s24" data-phase="levelup">
   <div class="slide-inner">
     <div class="eyebrow">PHASE 09 · LEVEL UP</div>
     <h1>Set once. <em>It runs without you.</em></h1>
     <ul class="rhythm-list">
-      <li><b>Hooks</b> — on every save</li>
-      <li><b>Cron</b> — daily/weekly</li>
-      <li><b>Agents</b> — background jobs</li>
+      <li class="stagger-child"><b>Hooks</b> — on every save</li>
+      <li class="stagger-child"><b>Cron</b> — daily/weekly</li>
+      <li class="stagger-child"><b>Agents</b> — background jobs</li>
     </ul>
     <p class="lede">Pros set it once. The work happens without them.</p>
   </div>
@@ -1296,7 +1296,7 @@ Then build the HTML file.
 </div>
 
 <!-- ═══ S26 YOUR TOOLCHAIN ═══ -->
-<div class="slide phase-levelup" id="s25">
+<div class="slide phase-levelup layout-bento" id="s25" data-phase="levelup">
   <div class="slide-inner">
     <div class="eyebrow">PHASE 09 · LEVEL UP</div>
     <h1>You direct. Tools <em>execute.</em></h1>
@@ -1317,15 +1317,15 @@ Then build the HTML file.
 </div>
 
 <!-- ═══ S27 WHAT TO READ NEXT ═══ -->
-<div class="slide phase-levelup" id="s26">
+<div class="slide phase-levelup layout-bento" id="s26" data-phase="levelup">
   <div class="slide-inner">
     <div class="eyebrow">PHASE 09 · LEVEL UP</div>
     <h1>Keep <em>going.</em></h1>
     <ul class="rhythm-list">
-      <li><b>LearnAI Wiki</b> — weihaoqu.github.io/learnAIDoc</li>
-      <li><b>Claude 101 playlist</b> — Anthropic on YouTube</li>
-      <li><b>Office hours</b> — Saturdays (web app)</li>
-      <li><b>Email Prof. Qu</b> — weihaoqu25@gmail.com</li>
+      <li class="stagger-child"><b>LearnAI Wiki</b> — weihaoqu.github.io/learnAIDoc</li>
+      <li class="stagger-child"><b>Claude 101 playlist</b> — Anthropic on YouTube</li>
+      <li class="stagger-child"><b>Office hours</b> — Saturdays (web app)</li>
+      <li class="stagger-child"><b>Email Prof. Qu</b> — weihaoqu25@gmail.com</li>
     </ul>
   </div>
   <div class="slide-meta">PHASE 09 · LEVEL UP · 90:00 → 103:00</div>
@@ -1337,7 +1337,7 @@ Then build the HTML file.
 </div>
 
 <!-- S28 — Phase 10 CLOSE · Post-test + Survey (billboard, no .big-accent emoji per amendment) -->
-<div class="slide billboard phase-close" id="s27">
+<div class="slide billboard phase-close layout-bento" id="s27" data-phase="close">
   <div class="slide-inner">
     <div class="eyebrow">PHASE 10 · CLOSE</div>
     <h1>Same quiz. <em>New score.</em></h1>
@@ -1357,14 +1357,14 @@ Then build the HTML file.
 </div>
 
 <!-- S29 — Phase 10 CLOSE · Remember (rhythm-list, takeaway #1 cringe-audited per §8) -->
-<div class="slide phase-close" id="s28">
+<div class="slide phase-close layout-bento" id="s28" data-phase="close">
   <div class="slide-inner">
     <div class="eyebrow">PHASE 10 · CLOSE</div>
     <h1>Three <em>things.</em></h1>
     <ul class="rhythm-list">
-      <li>AI is fast. You are slow on purpose.</li>
-      <li>A plan beats a clever prompt.</li>
-      <li>You direct the toolchain.</li>
+      <li class="stagger-child">AI is fast. You are slow on purpose.</li>
+      <li class="stagger-child">A plan beats a clever prompt.</li>
+      <li class="stagger-child">You direct the toolchain.</li>
     </ul>
   </div>
   <div class="slide-meta">PHASE 10 · CLOSE · 103:00 → 110:00</div>
@@ -1376,7 +1376,7 @@ Then build the HTML file.
 </div>
 
 <!-- S30 — Phase 10 CLOSE · Thank You (billboard, gradient <em> one-shot per §6.3) -->
-<div class="slide billboard phase-close" id="s29">
+<div class="slide billboard phase-close layout-bento" id="s29" data-phase="close">
   <div class="slide-inner">
     <div class="eyebrow">PHASE 10 · CLOSE</div>
     <h1>Thank <em>you.</em></h1>
