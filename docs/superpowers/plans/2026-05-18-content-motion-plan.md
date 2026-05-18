@@ -383,7 +383,8 @@
 
 - [ ] **Step 5: Verify motion**
 
-  Open deck in browser. Navigate between phases (e.g., from S7 to S8). Confirm a brief colored bar flashes at the top. Navigate within a phase — bar should NOT fire.
+  Open deck in browser. Navigate S7 → S8 (phase change). Confirm a brief colored bar flashes at top.
+  Then navigate S8 → S9 → S10 (all within DECODE phase). Confirm bar does NOT appear on those transitions — within-phase navigation must be silent.
   Check DevTools Animation panel: `underlineShimmer` fires on `<em>` inside `<h1>` on every slide entry.
 
 - [ ] **Step 6: Commit**
@@ -619,7 +620,13 @@
   }, 400);
   ```
 
-- [ ] **Step 3: Add Esc key handler**
+- [ ] **Step 3: Confirm guard token, then add Esc key handler**
+
+  First, grep to confirm the typed-command guard token name:
+  ```bash
+  grep -n '__typingCommand\|typingCommand\|colonCommand' session-materials/session-slides.html | head -10
+  ```
+  The existing keydown handler guards with `if (window.__typingCommand) return;` at line ~1093. Use the same token name.
 
   In the existing `document.addEventListener('keydown', ...)` handler, add a new branch:
   ```js
@@ -631,7 +638,7 @@
     }
   }
   ```
-  Place this after the existing `else if` branches but before the closing `}`  of the keydown handler.
+  Place this after the existing `else if` branches but before the closing `}` of the keydown handler.
 
 - [ ] **Step 4: Add `:facilitator` typed command**
 
@@ -713,7 +720,12 @@ This is mechanical. For each `.slide` div, add `data-phase="..."` and the correc
 
 - [ ] **Step 2: Add `.stagger-child` to list items in magazine/workshop/bento slides**
 
-  For slides using `layout-magazine`, `layout-workshop`, `layout-bento`: find `<li>`, `<p>`, and `<div class="...card">` elements that are direct content children and add `class="stagger-child"` (or append to existing class). Skip elements inside live-moment widgets (scoreboard, fumble chip, render counter).
+  For slides using `layout-magazine`, `layout-workshop`, `layout-bento`: find `<li>`, `<p>`, and `<div class="...card">` elements that are direct content children and add `class="stagger-child"` (or append to existing class).
+
+  **Exclude these live-moment widget elements — do NOT add `.stagger-child` inside them:**
+  - `#scoreboardArea` or any parent of `#scoreboard` (S15) — animation on scoreboard breaks live-count display
+  - `#renderCount` and its container (S7) — counter must be visible instantly, not faded in
+  - `.fumble-chip` and its container (S22) — already has its own static animation per spec
 
 - [ ] **Step 3: Verify**
 
@@ -1020,6 +1032,7 @@ S4 currently reads: heading "Open terminal. Type: *claude*" + brief body. Replac
           Find a skill → copy its GitHub link
         </div>
       </div>
+      <!-- TODO Q: confirm exact URL before shipping — spec §13 open item -->
       <p style="font-size: 0.8em; color: var(--phase-a); margin-top: 0.5rem;">↗ skills.sh</p>
     </div>
 
