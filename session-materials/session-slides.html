@@ -5,6 +5,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>AI Engineering Academy — Session Slides</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Mona+Sans:wght@800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,400..800;1,14..32,400..700&display=swap" rel="stylesheet">
 <style>
 *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
@@ -44,7 +46,17 @@
   /* Tracking */
   --track-eyebrow: 0.22em;
 
-  --font-body: 'Inter', -apple-system, sans-serif;
+  --font-display: 'Mona Sans', 'Inter', sans-serif;
+  --font-body:    'Inter', system-ui, sans-serif;
+  --font-mono:    'JetBrains Mono', 'Fira Code', monospace;
+
+  --size-hero:    clamp(48px, 7vw, 96px);
+  --size-h1:      clamp(32px, 4.5vw, 60px);
+  --size-h2:      clamp(20px, 2.5vw, 32px);
+  --size-body:    clamp(16px, 1.8vw, 22px);
+  --size-mono:    clamp(13px, 1.4vw, 18px);
+  --size-eyebrow: clamp(11px, 1.2vw, 14px);
+
   --ease: cubic-bezier(0.16,1,0.3,1);
 }
 html { font-optical-sizing: auto; height: 100%; }
@@ -161,6 +173,18 @@ b, strong { color: var(--text-primary); font-weight: 600; }
 .slide.phase-share    { --phase-accent: #38bdf8; --phase-angle: 252deg; } /* sky-cyan (differentiated from Open's #67e8f9) */
 .slide.phase-levelup  { --phase-accent: #c4b5fd; --phase-angle: 288deg; } /* violet */
 .slide.phase-close    { --phase-accent: #34d399; --phase-angle: 324deg; } /* emerald */
+
+/* 2026-05-18 amendment — per-phase 2-color palette */
+[data-phase="open"]      { --phase-a: #3b82f6; --phase-b: #a78bfa; }
+[data-phase="safety"]    { --phase-a: #fbbf24; --phase-b: #f97316; }
+[data-phase="quickwin"]  { --phase-a: #10b981; --phase-b: #34d399; }
+[data-phase="decode"]    { --phase-a: #06b6d4; --phase-b: #22d3ee; }
+[data-phase="plan"]      { --phase-a: #a78bfa; --phase-b: #c084fc; }
+[data-phase="build"]     { --phase-a: #7c3aed; --phase-b: #a855f7; }
+[data-phase="polish"]    { --phase-a: #ec4899; --phase-b: #f472b6; }
+[data-phase="share"]     { --phase-a: #fbbf24; --phase-b: #fcd34d; }
+[data-phase="levelup"]   { --phase-a: #10b981; --phase-b: #06b6d4; }
+[data-phase="close"]     { --phase-a: #3b82f6; --phase-b: #06b6d4; }
 
 /* §6.2 — S5 Safety slide single-column triple-redundant CVD cues */
 .safety-grid { display: grid; grid-template-columns: 1fr; max-width: 640px; gap: 0.5rem; margin: 1rem auto; }
