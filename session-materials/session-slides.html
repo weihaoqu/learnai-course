@@ -540,6 +540,10 @@ body.facilitator-active .mag-sidebar { display: block; }
   color: var(--text-primary);
 }
 
+/* Facilitator notes — hidden by default, shown via :facilitator typed command */
+.facilitator-note { display: none; }
+body.facilitator-active .facilitator-note { display: block; }
+
 /* §6.2 — S5 Safety slide single-column triple-redundant CVD cues */
 .safety-grid { display: grid; grid-template-columns: 1fr; max-width: 640px; gap: 0.5rem; margin: 1rem auto; }
 .safety-grid .no  { padding:.6rem 1rem; border-radius:8px; font-weight:600;
@@ -836,15 +840,33 @@ body.theme-ink .brush-wipe .ink-stroke { background:var(--bg-deep); }
   </svg>
 </div>
 
-<!-- ═══ S4 LAUNCH CLAUDE ═══ -->
+<!-- ═══ S4 INSTALL CLAUDE CODE ═══ -->
 <div class="slide billboard phase-open layout-stage" id="s3" data-phase="open">
-  <div class="slide-inner center">
-    <div class="eyebrow">PHASE 01 · OPEN</div>
-    <h1>Open terminal. Type: <em>claude</em></h1>
-    <p class="subtitle" style="margin-left:auto; margin-right:auto;">Hit enter. Raise hand if anything is red.</p>
-    <p class="muted" style="margin-top:1.4rem;">Tech help happens in parallel — we don't wait.</p>
+  <p class="phase-eyebrow stagger-child">— PHASE 01 · OPEN</p>
+  <h1 class="stagger-child">Install Claude Code.</h1>
+
+  <div class="chrome-wrap chrome-terminal stagger-child" style="max-width: min(640px, 90%); margin-top: 1.5rem;">
+    <div class="chrome-titlebar">
+      <div class="chrome-lights"><span class="red"></span><span class="yellow"></span><span class="green"></span></div>
+      <span class="chrome-title">~/workshop</span>
+    </div>
+    <div class="chrome-body">
+      <div><span class="prompt">$</span> <span class="cmd typewriter-target">npm install -g @anthropic-ai/claude-code</span></div>
+      <div class="output" style="margin-top:0.5rem;">added 847 packages in 12s</div>
+      <div class="output">✓ claude-code installed successfully</div>
+    </div>
   </div>
-  <div class="slide-meta">PHASE 01 &middot; OPEN &middot; 00:00 &rarr; 10:00</div>
+
+  <p class="stagger-child" style="margin-top: 1.5rem; font-size: 0.85em; opacity: 0.7;">
+    Need Node first? → <strong>nodejs.org</strong> → install LTS
+  </p>
+
+  <p class="facilitator-note stagger-child" style="margin-top:2rem; font-size:0.8em; color: var(--text-tertiary);">
+    <em>Facilitator:</em> Demo on your laptop. Students follow on their own Mac.
+    If someone's stuck: pair them with a neighbor who's done.
+  </p>
+
+  <div class="slide-meta">PHASE 01 &middot; OPEN &middot; 00:00 &rarr; 16:00</div>
   <svg class="orbit-mark" viewBox="0 0 28 28" aria-hidden="true">
     <circle class="ring" cx="14" cy="14" r="12" />
     <circle class="ring" cx="14" cy="14" r="7" />
@@ -1422,7 +1444,7 @@ const slides = document.querySelectorAll('.slide');
 const total = slides.length;
 let current = 0;
 // Titles array — Task 2 populated S1-S4; Tasks 3-11 fill the rest. Final population in Task 16 Step 1.
-const titles = ['AI Engineering Academy','Pre-Test','Consent','Launch Claude','Safety First','Pick Your Nickname','Quick Win — First Page','Chatbot vs Agent','CLAUDE.md & Context','Permissions · Context · Usage','Plan Beats Prompt','The Pro Workflow','Make Claude Interview You','A Good Plan Has','Plan Check','First Main Build Prompt','AI Gets Stuff Wrong','Fix It','Open Components','UI Quick Wins','Codex Review','Show & Tell','Skills — Use & Make','MCP','Automation','Your Toolchain','What to Read Next','Post-Test + Survey','Remember','Thank You'];
+const titles = ['AI Engineering Academy','Pre-Test','Consent','Install Claude Code','Safety First','Pick Your Nickname','Quick Win — First Page','Chatbot vs Agent','CLAUDE.md & Context','Permissions · Context · Usage','Plan Beats Prompt','The Pro Workflow','Make Claude Interview You','A Good Plan Has','Plan Check','First Main Build Prompt','AI Gets Stuff Wrong','Fix It','Open Components','UI Quick Wins','Codex Review','Show & Tell','Skills — Use & Make','MCP','Automation','Your Toolchain','What to Read Next','Post-Test + Survey','Remember','Thank You'];
 
 document.getElementById('hudTotal').textContent = total;
 
