@@ -1441,12 +1441,56 @@ function maybeFirePhaseSweep(slideEl) {
   }
 }
 
+// ── Typewriter (2026-05-18 amendment) ──
+const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+
+function runTypewriter(el) {
+  if (!el || el.dataset.twDone) return;
+  el.dataset.twDone = '1';
+  const full = el.dataset.twText || el.textContent;
+  el.dataset.twText = full;
+  el.textContent = '';
+
+  const cursor = document.createElement('span');
+  cursor.className = 'cursor-blink';
+  el.parentNode.insertBefore(cursor, el.nextSibling);
+
+  if (reducedMotion.matches) {
+    el.textContent = full;
+    return;
+  }
+
+  let i = 0;
+  const interval = setInterval(() => {
+    el.textContent = full.slice(0, ++i);
+    if (i >= full.length) clearInterval(interval);
+  }, 35);
+  el._twInterval = interval;
+}
+
+function skipTypewriter(slide) {
+  (slide || document).querySelectorAll('.typewriter-target').forEach(el => {
+    if (el._twInterval) clearInterval(el._twInterval);
+    if (el.dataset.twText) el.textContent = el.dataset.twText;
+  });
+}
+
+function wireTypewriters(slide) {
+  slide.querySelectorAll('.typewriter-target').forEach(el => {
+    delete el.dataset.twDone;
+  });
+}
+
 function show(n) {
   if (n < 0 || n >= total) return;
   slides[current].classList.remove('active');
   current = n;
   slides[current].classList.add('active');
   maybeFirePhaseSweep(slides[current]);
+  wireTypewriters(slides[n]);
+  setTimeout(() => {
+    slides[n].querySelectorAll('.typewriter-target').forEach(runTypewriter);
+  }, 400);
   document.getElementById('prevBtn').disabled = (n === 0);
   document.getElementById('nextBtn').disabled = (n === total - 1);
   document.getElementById('hudBar').style.width = (total ? (((n + 1) / total) * 100) : 0) + '%';
@@ -1497,6 +1541,12 @@ document.addEventListener('keydown', (e) => {
     const slide = slides[current];
     const steps = slide.querySelectorAll('.step:not(.revealed)');
     if (steps.length > 0) steps[0].classList.add('revealed');
+  }
+  else if (e.key === 'Escape') {
+    if (!window.__typingCommand) {
+      e.preventDefault();
+      skipTypewriter(slides[current]);
+    }
   }
 });
 
@@ -1691,6 +1741,9 @@ wireCopyBlocks();
       } else if (buffer.endsWith(':names off')) {
         window.dispatchEvent(new CustomEvent('namedModeToggle', { detail: { on: false } }));
         console.log('Scoreboard: named mode OFF (count-only).');
+      } else if (buffer.endsWith(':facilitator')) {
+        document.body.classList.toggle('facilitator-active');
+        console.log('Facilitator mode:', document.body.classList.contains('facilitator-active') ? 'ON' : 'OFF');
       }
       buffer = '';
       setTypingFlag();
