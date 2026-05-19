@@ -1,20 +1,21 @@
 # Session Agenda — Minute-by-Minute Plan
 ## 5 High School Students | Monmouth University HH216 | Summer 2026
 
-| Time | Duration | Activity | Notes |
-|------|----------|----------|-------|
-| 0:00 | 10 min | **Phase 1 OPEN** | Pre-test + consent + launch Claude. Tech rescue parallel. |
-| 0:10 | 5 min | **Phase 2 SAFETY** | Safety rules + pick nickname. Before any AI input. |
-| 0:15 | 10 min | **Phase 3 QUICK WIN** | starter.html prompt → every student has a page by 0:25. |
-| 0:25 | 7 min | **Phase 4 DECODE** | Chatbot vs Agent · CLAUDE.md · Permissions/Context/Usage. |
-| 0:32 | 18 min | **Phase 5 PLAN** | Plan beats Prompt → ask Claude to interview you → plan check. |
-| 0:50 | 20 min | **Phase 6 BUILD** | One main build prompt → expect bugs → iterate. |
-| 1:10 | 10 min | **Phase 7 POLISH** | Open components · UI quick wins · /codex review. |
-| 1:20 | 10 min | **Phase 8 SHARE** | 2 min each: page + lesson + AI fumble. |
-| 1:30 | 13 min | **Phase 9 LEVEL UP** | Skills · MCP · Automation · toolchain · what to read next. |
-| 1:43 | 7 min | **Phase 10 CLOSE** | Post-test + survey + 3 takeaways + thank you. |
+| Phase | Slides | Start | End | Duration |
+|---|---|---|---|---|
+| OPEN | S1–S4, S4a | 0:00 | 16:00 | 16 min |
+| SAFETY | S5–S6 | 16:00 | 21:00 | 5 min |
+| QUICK WIN | S7 | 21:00 | 29:00 | 8 min |
+| DECODE | S8–S10 | 29:00 | 39:00 | 10 min |
+| PLAN | S11–S13, S13.5, S14–S15 | 39:00 | 57:00 | 18 min |
+| BUILD | S16–S18 | 57:00 | 75:00 | 18 min |
+| POLISH | S19–S21 | 75:00 | 87:00 | 12 min |
+| SHARE | S22 | 87:00 | 93:00 | 6 min |
+| LEVEL UP | S23, S23a, S24–S27 | 93:00 | 115:00 | 22 min |
+| CLOSE | S28–S30 | 115:00 | 125:00 | 10 min |
 
-**Total: 110 minutes**
+**Total: 125 min**
+**First student page rendered: ~29:00 (end of Quick Win)**
 
 ## Pacing Tips
 - If running short: cut S25 Automation first, then S24 MCP, then S20 UI Quick Wins. Never cut Safety, Quick Win, Plan Check, Show & Tell, or Post-test.
@@ -27,6 +28,6 @@
 - `starter.html` — static fallback if Claude is unreachable.
 
 ## Tech notes
-- Slides: `session-slides.html` (30 slides, 110 min).
+- Slides: `session-slides.html` (30 slides, 125 min).
 - Keyboard: ←/→ navigate, `I` ink-wash toggle, `F` fullscreen, `S` reveal steps.
 - Facilitator keys during live session: `R` (S7 render counter), `T` (S7 timer start), `A` (S15 plan-check approval count), `:names on/off` (toggle named-mode scoreboard), `:clear` (reset all live-moment state).
