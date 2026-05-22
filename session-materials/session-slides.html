@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>AI Engineering Academy — Session Slides</title>
+<link rel="icon" href="data:,">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Mona+Sans:wght@800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
@@ -301,6 +302,11 @@ body.facilitator-active .mag-sidebar { display: block; }
   gap: 1.5rem;
   align-items: flex-start;
 }
+.layout-workshop > .slide-inner {
+  grid-column: 2;
+  width: 100%;
+  justify-self: center;
+}
 
 /* Bento: variable-size tile grid */
 .layout-bento {
@@ -577,6 +583,24 @@ body.facilitator-active .facilitator-note { display: block; }
                     color:#bbf7d0; background:rgba(16,185,129,.14);
                     border-left:4px solid #34d399; }
 
+/* Beginner setup cards — compact enough for projector use */
+.setup-ladder { display:grid; grid-template-columns:repeat(4, minmax(0, 1fr)); gap:0.75rem; width:min(980px, 100%); margin:1.15rem 0; }
+.setup-ladder.three { grid-template-columns:repeat(3, minmax(0, 1fr)); max-width:920px; }
+.setup-step { background:color-mix(in srgb, var(--phase-a) 8%, var(--bg-card));
+              border:1px solid color-mix(in srgb, var(--phase-a) 24%, transparent);
+              border-radius:10px; padding:0.85rem; }
+.setup-step .num { font-family:var(--font-mono); font-size:0.68rem; letter-spacing:0.12em;
+                   text-transform:uppercase; color:var(--phase-a); margin-bottom:0.35rem; }
+.setup-step p { font-size:clamp(0.82rem, 1vw, 0.98rem); line-height:1.45; margin:0; }
+.setup-step code { font-family:var(--font-mono); color:var(--text-primary); font-size:0.92em; }
+.setup-callout { width:min(760px, 100%); border-left:3px solid var(--phase-a);
+                 padding:0.8rem 1rem; margin-top:1rem; background:rgba(255,255,255,0.03); }
+.setup-callout p { font-size:clamp(0.9rem, 1vw, 1rem); margin:0; }
+@media (max-width: 900px) {
+  .setup-ladder { grid-template-columns:repeat(2, minmax(0, 1fr)); }
+  .setup-ladder.three { grid-template-columns:1fr; }
+}
+
 /* Cards (border-left accent, transparent fill — §6.2) */
 .glass-card { background:var(--bg-card); border:1px solid var(--border-dim); border-radius:14px; padding:1.6rem; transition:all 0.25s var(--ease); }
 .glass-card:hover { border-color:var(--border-glow); }
@@ -805,15 +829,15 @@ body.theme-ink .brush-wipe .ink-stroke { background:var(--bg-deep); }
 <div class="slide billboard phase-open layout-stage active" id="s0" data-phase="open">
   <div class="slide-inner center">
     <div class="eyebrow">PHASE 01 · OPEN</div>
-    <h1>AI Engineering <em>Academy</em></h1>
-    <p class="subtitle" style="margin-left:auto; margin-right:auto;">A landing page about who you wish you were. 125 min.</p>
-    <svg class="orbit-mark" viewBox="0 0 28 28" aria-hidden="true" style="position:static; display:block; margin:1.8rem auto 0.6rem; width:56px; height:56px; opacity:.8;">
+    <h1 style="font-size:clamp(3.6rem,6vw,5.8rem); margin-bottom:0.8rem;">AI Engineering <em>Academy</em></h1>
+    <p class="subtitle" style="margin-left:auto; margin-right:auto; margin-bottom:1rem;">Build a local web page with an AI teammate. No coding background required. 125 min.</p>
+    <svg class="orbit-mark" viewBox="0 0 28 28" aria-hidden="true" style="position:static; display:block; margin:0.9rem auto 0.4rem; width:48px; height:48px; opacity:.8;">
       <circle class="ring" cx="14" cy="14" r="12" />
       <circle class="ring" cx="14" cy="14" r="7" />
       <circle class="node" cx="14" cy="2" r="1.8" />
     </svg>
     <p class="muted" style="font-size:0.82rem;">the orbit is your agenda — each phase rotates one notch</p>
-    <p class="muted" style="margin-top:1.4rem; font-size:0.78rem;">&larr; &rarr; navigate &middot; <kbd>I</kbd> ink-wash &middot; <kbd>F</kbd> fullscreen</p>
+    <p class="muted" style="margin-top:0.7rem; font-size:0.78rem;">&larr; &rarr; navigate &middot; <kbd>I</kbd> ink-wash &middot; <kbd>F</kbd> fullscreen</p>
   </div>
   <div class="slide-meta">PHASE 01 · OPEN · 0:00 — 16:00</div>
   <svg class="orbit-mark" viewBox="0 0 28 28" aria-hidden="true">
@@ -867,27 +891,47 @@ body.theme-ink .brush-wipe .ink-stroke { background:var(--bg-deep); }
 <!-- ═══ S4 INSTALL CLAUDE CODE ═══ -->
 <div class="slide billboard phase-open layout-stage" id="s3" data-phase="open">
   <p class="phase-eyebrow stagger-child">— PHASE 01 · OPEN</p>
-  <h1 class="stagger-child">Install Claude Code.</h1>
+  <h1 class="stagger-child" style="font-size:clamp(2.6rem,4.2vw,4.6rem); margin-bottom:0.7rem;">Setup in <em>four checks.</em></h1>
+  <p class="subtitle stagger-child" style="max-width: 42ch; margin-bottom:0.8rem;">Copy only the text after the <code>$</code>. If any check fails, raise your hand.</p>
 
-  <div class="chrome-wrap chrome-terminal stagger-child" style="max-width: min(640px, 90%); margin-top: 1.5rem;">
+  <div class="setup-ladder stagger-child" style="margin:0.75rem 0;">
+    <div class="setup-step">
+      <div class="num">01 · Open</div>
+      <p>Open <strong>Terminal</strong>. This is where commands go.</p>
+    </div>
+    <div class="setup-step">
+      <div class="num">02 · Node</div>
+      <p><code>node --version</code><br><span class="muted">If not found: nodejs.org → LTS.</span></p>
+    </div>
+    <div class="setup-step">
+      <div class="num">03 · Install</div>
+      <p><code>npm install -g @anthropic-ai/claude-code</code></p>
+    </div>
+    <div class="setup-step">
+      <div class="num">04 · Start</div>
+      <p><code>claude</code><br><span class="muted">Log in when it asks.</span></p>
+    </div>
+  </div>
+
+  <div class="chrome-wrap chrome-terminal stagger-child" style="max-width: min(560px, 90%); margin-top: 0.75rem; font-size:0.82em;">
     <div class="chrome-titlebar">
       <div class="chrome-lights"><span class="red"></span><span class="yellow"></span><span class="green"></span></div>
       <span class="chrome-title">~/workshop</span>
     </div>
     <div class="chrome-body">
-      <div><span class="prompt">$</span> <span class="cmd typewriter-target">npm install -g @anthropic-ai/claude-code</span></div>
-      <div class="output" style="margin-top:0.5rem;">added 847 packages in 12s</div>
+      <div><span class="prompt">$</span> <span class="cmd">node --version</span></div>
+      <div class="output">v22.11.0</div>
+      <div style="margin-top:0.5rem;"><span class="prompt">$</span> <span class="cmd typewriter-target">npm install -g @anthropic-ai/claude-code</span></div>
       <div class="output">✓ claude-code installed successfully</div>
+      <div style="margin-top:0.5rem;"><span class="prompt">$</span> <span class="cmd">claude</span></div>
     </div>
   </div>
 
-  <p class="stagger-child" style="margin-top: 1.5rem; font-size: 0.85em; opacity: 0.7;">
-    Need Node first? → <strong>nodejs.org</strong> → install LTS
-  </p>
+  <p class="muted stagger-child" style="margin-top:0.65rem;"><strong>Do not type the $.</strong> It only means Terminal is ready.</p>
 
   <p class="facilitator-note stagger-child" style="margin-top:2rem; font-size:0.8em; color: var(--text-tertiary);">
-    <em>Facilitator:</em> Demo on your laptop. Students follow on their own Mac.
-    If someone's stuck: pair them with a neighbor who's done.
+    <em>Facilitator:</em> Demo slowly. Confirm Terminal, Node, install, and first Claude prompt.
+    If someone is stuck for more than 90 seconds, pair or move them to the browser fallback.
   </p>
 
   <div class="slide-meta">PHASE 01 · OPEN · 0:00 — 16:00</div>
@@ -901,7 +945,7 @@ body.theme-ink .brush-wipe .ink-stroke { background:var(--bg-deep); }
 <!-- ═══ S4a OPEN — You're in ═══ -->
 <div class="slide phase-open layout-stage" id="s3a" data-phase="open">
   <p class="phase-eyebrow stagger-child">— PHASE 01 · OPEN</p>
-  <h1 class="stagger-child">You're in.</h1>
+  <h1 class="stagger-child" style="font-size:clamp(3rem,5.5vw,5.8rem);">You're ready when <em>Claude answers.</em></h1>
 
   <div class="chrome-wrap chrome-claudecode stagger-child" style="max-width: min(560px, 90%); margin-top: 1.5rem;">
     <div class="chrome-titlebar">
@@ -917,8 +961,23 @@ body.theme-ink .brush-wipe .ink-stroke { background:var(--bg-deep); }
     </div>
   </div>
 
-  <p class="stagger-child" style="margin-top: 1.5rem; max-width: 40ch;">
-    This is your agent. It edits files, runs code, and builds things.
+  <div class="setup-ladder three stagger-child">
+    <div class="setup-step">
+      <div class="num">Success</div>
+      <p>You see a <code>&gt;</code> prompt and Claude asks what to build.</p>
+    </div>
+    <div class="setup-step">
+      <div class="num">Stuck</div>
+      <p>Raise your hand. Do not keep retrying random commands.</p>
+    </div>
+    <div class="setup-step">
+      <div class="num">Fallback</div>
+      <p>Use <strong>claude.ai</strong>: ask for one self-contained HTML file, save it, open it locally.</p>
+    </div>
+  </div>
+
+  <p class="stagger-child" style="margin-top: 1.1rem; max-width: 48ch;">
+    This is your agent. It edits files, runs code, and builds things under your supervision.
   </p>
 
   <div class="slide-meta">PHASE 01 · OPEN · 0:00 — 16:00</div>
@@ -933,16 +992,17 @@ body.theme-ink .brush-wipe .ink-stroke { background:var(--bg-deep); }
 <div class="slide phase-safety layout-magazine" id="s4" data-phase="safety">
   <div class="slide-inner">
     <div class="eyebrow">PHASE 02 · SAFETY</div>
-    <h1 style="text-align:center;">Read this before you <em>talk to Claude.</em></h1>
-    <div class="safety-grid">
+    <h1 style="text-align:center; font-size:clamp(2.5rem,4.4vw,4.7rem); margin-bottom:0.8rem;">Read this before you <em>talk to Claude.</em></h1>
+    <div class="safety-grid" style="grid-template-columns:repeat(2,minmax(0,1fr)); max-width:900px; gap:0.45rem; margin:0.8rem auto;">
       <div class="no">❌ NO real name (use a nickname)</div>
       <div class="no">❌ NO address, school name, phone, email</div>
-      <div class="no">❌ NO passwords, health, family details</div>
-      <div class="no">❌ NO face photos</div>
-      <div class="yes">✅ Files stay on YOUR laptop</div>
-      <div class="yes">✅ Read every permission prompt</div>
+      <div class="no">❌ NO passwords, API keys, health, family details</div>
+      <div class="no">❌ NO face photos or screenshots with personal info</div>
+      <div class="no">❌ NO surprise installs after setup: npm, brew, pip, git clone</div>
+      <div class="yes">✅ OK: create, edit, and open today's local HTML file</div>
+      <div class="yes">✅ Pause on prompts that mention delete, network, login, or secrets</div>
     </div>
-    <p class="muted" style="font-style:italic; max-width:640px; margin:1.2rem auto; text-align:center;">Parents: no screen photos · no coaching answers · no pressure around consent.</p>
+    <p class="muted" style="font-style:italic; max-width:720px; margin:0.9rem auto; text-align:center;">Parents: no screen photos · no coaching answers · no pressure around consent.</p>
   </div>
   <div class="slide-meta">PHASE 02 · SAFETY · 16:00 — 21:00</div>
   <svg class="orbit-mark" viewBox="0 0 28 28" aria-hidden="true">
@@ -980,7 +1040,11 @@ body.theme-ink .brush-wipe .ink-stroke { background:var(--bg-deep); }
     <div class="eyebrow">PHASE 03 · QUICK WIN</div>
     <h1>First page. <em>Right now.</em></h1>
     <p class="subtitle" style="margin-left:auto; margin-right:auto;">Paste this. Hit enter. Watch.</p>
-    <div class="copy-block" style="text-align:left; margin:1.2rem auto; white-space:pre-line;">Make me a starter.html that says
+    <div class="copy-block" style="text-align:left; margin:1.2rem auto; white-space:pre-line;">Create one local file named starter.html.
+Use plain HTML and CSS only.
+No React, Vite, Next, npm installs, or API keys.
+
+The page should say:
 "Hi, I'm &lt;nickname&gt;". Dark background.
 One sentence about what my persona likes
 (anything fictional is fine).
@@ -1006,32 +1070,32 @@ Open it in my browser when done.</div>
 </div>
 
 <!-- S8: Chatbot vs Agent -->
-<div class="slide phase-decode layout-split" id="s7" data-phase="decode">
-  <p class="phase-eyebrow" style="flex-basis: 100%; margin-bottom: 0.5rem;">— PHASE 04 · DECODE</p>
+<div class="slide phase-decode layout-split" id="s7" data-phase="decode" style="padding:1.35rem 2.6rem 2.1rem;">
+  <p class="phase-eyebrow" style="flex-basis: 100%; margin-bottom: 0.2rem;">— PHASE 04 · DECODE</p>
 
-  <div class="split-col">
+  <div class="split-col" style="gap:0.65rem; padding:1rem 1.4rem;">
     <h2 style="color: var(--text-tertiary); font-size: var(--size-h2);">claude.ai</h2>
     <p style="font-size: 0.85em; color: var(--text-tertiary);">Chat. Answers. Explains.</p>
     <table style="border-collapse: collapse; width: 100%; margin-top: 0.5rem;">
-      <tr class="stagger-child"><td style="padding: 0.4rem 0; color: var(--text-tertiary);">Edit your files</td><td style="text-align:center; color: #f87171;">✗</td></tr>
-      <tr class="stagger-child"><td style="padding: 0.4rem 0; color: var(--text-tertiary);">Run terminal commands</td><td style="text-align:center; color: #f87171;">✗</td></tr>
-      <tr class="stagger-child"><td style="padding: 0.4rem 0; color: var(--text-tertiary);">Remember your project</td><td style="text-align:center; color: #f87171;">✗</td></tr>
-      <tr class="stagger-child"><td style="padding: 0.4rem 0; color: var(--text-tertiary);">Install skills</td><td style="text-align:center; color: #f87171;">✗</td></tr>
-      <tr class="stagger-child"><td style="padding: 0.4rem 0; color: var(--text-tertiary);">Build across a codebase</td><td style="text-align:center; color: #f87171;">✗</td></tr>
-      <tr class="stagger-child"><td style="padding: 0.4rem 0; color: var(--text-tertiary);">Answer questions</td><td style="text-align:center; color: var(--phase-a);">✅</td></tr>
+      <tr class="stagger-child"><td style="padding: 0.32rem 0; color: var(--text-tertiary);">Edit your files</td><td style="text-align:center; color: #f87171;">✗</td></tr>
+      <tr class="stagger-child"><td style="padding: 0.32rem 0; color: var(--text-tertiary);">Run terminal commands</td><td style="text-align:center; color: #f87171;">✗</td></tr>
+      <tr class="stagger-child"><td style="padding: 0.32rem 0; color: var(--text-tertiary);">Remember your project</td><td style="text-align:center; color: #f87171;">✗</td></tr>
+      <tr class="stagger-child"><td style="padding: 0.32rem 0; color: var(--text-tertiary);">Install skills</td><td style="text-align:center; color: #f87171;">✗</td></tr>
+      <tr class="stagger-child"><td style="padding: 0.32rem 0; color: var(--text-tertiary);">Build across a codebase</td><td style="text-align:center; color: #f87171;">✗</td></tr>
+      <tr class="stagger-child"><td style="padding: 0.32rem 0; color: var(--text-tertiary);">Answer questions</td><td style="text-align:center; color: var(--phase-a);">✅</td></tr>
     </table>
   </div>
 
-  <div class="split-col">
+  <div class="split-col" style="gap:0.65rem; padding:1rem 1.4rem;">
     <h2 style="color: var(--phase-a); font-size: var(--size-h2);">Claude Code</h2>
     <p style="font-size: 0.85em; color: var(--text-tertiary);">Agent. Acts. Builds.</p>
     <table style="border-collapse: collapse; width: 100%; margin-top: 0.5rem;">
-      <tr class="stagger-child"><td style="padding: 0.4rem 0;">Edit your files</td><td style="text-align:center; color: var(--phase-a);">✅</td></tr>
-      <tr class="stagger-child"><td style="padding: 0.4rem 0;">Run terminal commands</td><td style="text-align:center; color: var(--phase-a);">✅</td></tr>
-      <tr class="stagger-child"><td style="padding: 0.4rem 0;">Remember your project</td><td style="text-align:center; color: var(--phase-a);">✅</td></tr>
-      <tr class="stagger-child"><td style="padding: 0.4rem 0;">Install skills</td><td style="text-align:center; color: var(--phase-a);">✅</td></tr>
-      <tr class="stagger-child"><td style="padding: 0.4rem 0;">Build across a codebase</td><td style="text-align:center; color: var(--phase-a);">✅</td></tr>
-      <tr class="stagger-child"><td style="padding: 0.4rem 0;">Answer questions</td><td style="text-align:center; color: var(--phase-a);">✅</td></tr>
+      <tr class="stagger-child"><td style="padding: 0.32rem 0;">Edit your files</td><td style="text-align:center; color: var(--phase-a);">✅</td></tr>
+      <tr class="stagger-child"><td style="padding: 0.32rem 0;">Run terminal commands</td><td style="text-align:center; color: var(--phase-a);">✅</td></tr>
+      <tr class="stagger-child"><td style="padding: 0.32rem 0;">Remember your project</td><td style="text-align:center; color: var(--phase-a);">✅</td></tr>
+      <tr class="stagger-child"><td style="padding: 0.32rem 0;">Install skills</td><td style="text-align:center; color: var(--phase-a);">✅</td></tr>
+      <tr class="stagger-child"><td style="padding: 0.32rem 0;">Build across a codebase</td><td style="text-align:center; color: var(--phase-a);">✅</td></tr>
+      <tr class="stagger-child"><td style="padding: 0.32rem 0;">Answer questions</td><td style="text-align:center; color: var(--phase-a);">✅</td></tr>
     </table>
   </div>
 
@@ -1052,10 +1116,11 @@ Open it in my browser when done.</div>
     <div class="diagram">── CLAUDE.md ──────────────────
 # Workshop Notes
 - Call me &lt;nickname&gt;
-- I'm 15 — keep code simple
-- Plain HTML/CSS only
+- Beginner mode: explain before changing code
+- Plain HTML/CSS only; no installs
+- Ask before deleting, networking, or using secrets
 ──────────────────────────────</div>
-    <p class="subtitle">Guidance, not enforcement. Loaded into context every session.</p>
+    <p class="subtitle">A project note for your AI teammate. Guidance, not enforcement.</p>
   </div>
   <div class="slide-meta">PHASE 04 · DECODE · 29:00 — 39:00</div>
   <svg class="orbit-mark" viewBox="0 0 28 28" aria-hidden="true">
@@ -1069,13 +1134,13 @@ Open it in my browser when done.</div>
 <div class="slide phase-decode layout-split" id="s9" data-phase="decode">
   <div class="slide-inner">
     <div class="eyebrow">PHASE 04 · DECODE</div>
-    <h1>Three things to <em>watch.</em></h1>
+    <h1>Permission prompt = <em>pause.</em></h1>
     <ol class="rhythm-list">
-      <li><b>Permissions</b> — Claude asks before writing files. Read carefully.</li>
-      <li><b>Context</b> — Working memory. Finite. <code>/clear</code> starts fresh.</li>
-      <li><b>Usage</b> — Your account budget. Pro is plenty for learning.</li>
+      <li><b>Usually OK</b> — create, edit, or open your local HTML file.</li>
+      <li><b>Ask Q first</b> — install, delete, network, login, API key, password.</li>
+      <li><b>Reset</b> — <code>/clear</code> starts a fresh conversation, not a fresh file.</li>
     </ol>
-    <p class="muted" style="margin-top:1.6rem;">/clear resets the conversation. Not your files. Not your usage.</p>
+    <p class="muted" style="margin-top:1.6rem;">Read the file path and command out loud before approving.</p>
   </div>
   <div class="slide-meta">PHASE 04 · DECODE · 29:00 — 39:00</div>
   <svg class="orbit-mark" viewBox="0 0 28 28" aria-hidden="true">
@@ -1120,13 +1185,14 @@ Open it in my browser when done.</div>
   <div class="slide-inner">
     <div class="eyebrow">PHASE 05 · PLAN</div>
     <h1>Make Claude <em>interview</em> you.</h1>
-    <p class="subtitle">You're the expert on your persona. It's not.</p>
-    <div class="copy-block" style="text-align:left; margin:1.2rem auto; white-space:pre-line;">Interview me one question at a time
+    <p class="subtitle">Today: no-install prompt. Later: Q's reusable interview skill.</p>
+    <div class="copy-block" style="text-align:left; margin:1rem auto; white-space:pre-line; font-size:clamp(0.86rem,1vw,0.98rem); line-height:1.42;">Interview me one question at a time
 to plan a personal landing page for
 my nickname persona. Cover: who they
-are, sections, vibe, color, signature.
+are, sections, vibe, color, signature,
+edge cases, and done checks.
 Output a structured plan.</div>
-    <p class="muted" style="margin-top:1rem;">Answer carefully. Better plan = better build.</p>
+    <p class="muted" style="margin-top:0.8rem;">The reusable version is <code>project-spec-interviewer</code>: vague idea -> implementation-ready spec.</p>
     <p class="stagger-child" style="margin-top: 1.5rem; color: var(--phase-a); font-weight: 600;">
   → Next: watch it happen.
 </p>
@@ -1148,29 +1214,29 @@ Output a structured plan.</div>
     <div class="chrome-wrap chrome-claudecode stagger-child" style="margin-top: 1.5rem; max-width: 520px;">
       <div class="chrome-titlebar">
         <div class="chrome-lights"><span class="red"></span><span class="yellow"></span><span class="green"></span></div>
-        <span class="chrome-title">Claude Code — interview skill</span>
+        <span class="chrome-title">Claude Code — project-spec-interviewer pattern</span>
       </div>
       <div class="chrome-body">
         <div class="tui-response" style="margin-bottom: 0.75rem;">
-          Let's build your plan. First question:<br>
+          Let's turn this into an implementation-ready plan. First question:<br>
           <strong>What do you want someone to be able to do with what you build?</strong>
         </div>
-        <div><span class="tui-prompt">&gt;</span> <span class="tui-user typewriter-target">I want people to be able to track their mood every day</span></div>
+        <div><span class="tui-prompt">&gt;</span> <span class="tui-user typewriter-target">I want visitors to understand my fictional space-designer persona</span></div>
         <div class="tui-thinking" style="margin-top:0.5rem;">··· thinking</div>
         <div class="tui-response" style="margin-top:0.5rem;">
           Nice. Next question:<br>
-          <strong>Who's using it — just you, or others?</strong>
+          <strong>What sections should the landing page have?</strong>
         </div>
       </div>
     </div>
-    <p class="stagger-child" style="margin-top: 1rem;">One question at a time. Claude builds your plan.</p>
+    <p class="stagger-child" style="margin-top: 1rem;">One question at a time. Build only after the done checks are visible.</p>
   </div>
 
   <div class="mag-sidebar facilitator-note">
     <strong>Facilitator cue:</strong><br>
     Student volunteer on your laptop.<br>
-    Prompt: "Tell Claude what you want to build. Use the interview skill."<br>
-    Let it run 3–4 questions. Then move on.
+    Prompt: "Use the project-spec-interviewer pattern. Ask one question at a time."<br>
+    Let it surface 2–3 done checks. Then move on.
   </div>
 
   <div class="slide-footer">
@@ -1234,9 +1300,10 @@ Output a structured plan.</div>
   <div class="slide-inner">
     <div class="eyebrow">PHASE 06 · BUILD</div>
     <h1>Now the <em>real one.</em></h1>
-    <div class="copy-block" style="text-align:left; margin:1.2rem auto; white-space:pre-line;">Using the plan we just made, build me
-a single HTML file for a personal
-landing page. Open it when done.</div>
+    <div class="copy-block" style="text-align:left; margin:1.2rem auto; white-space:pre-line;">Using the plan we just made, create one local file named landing.html.
+Use self-contained HTML, CSS, and vanilla JavaScript only.
+Do not install packages. Do not use React, Vite, Next, API keys, or accounts.
+Open landing.html in my browser when done.</div>
     <div class="warning" style="max-width:680px; margin:1.2rem auto;">
       <h3>Why one prompt</h3>
       <p>Small site = one-prompt scaffold for learning. Real projects = small prompts, verify each step.</p>
@@ -1254,13 +1321,13 @@ landing page. Open it when done.</div>
 <div class="slide phase-build layout-workshop" id="s16" data-phase="build">
   <div class="slide-inner">
     <div class="eyebrow">PHASE 06 · BUILD</div>
-    <h1>Expect 1–2 things <em>broken.</em></h1>
+    <h1>Test before you <em>trust.</em></h1>
     <ul class="rhythm-list">
-      <li class="stagger-child">A link goes to the wrong place</li>
-      <li class="stagger-child">The font looks weird</li>
-      <li class="stagger-child">A section is missing</li>
+      <li class="stagger-child">Does the file open in the browser?</li>
+      <li class="stagger-child">Does it match your plan?</li>
+      <li class="stagger-child">Do links, buttons, and text look right?</li>
     </ul>
-    <p class="lede" style="margin-top:1.4rem;">Bug ≠ failure. Bug = iteration.</p>
+    <p class="lede" style="margin-top:1.4rem;">One bug found = one better prompt.</p>
   </div>
   <div class="slide-meta">PHASE 06 · BUILD · 57:00 — 75:00</div>
   <svg class="orbit-mark" viewBox="0 0 28 28" aria-hidden="true">
@@ -1275,9 +1342,14 @@ landing page. Open it when done.</div>
   <div class="slide-inner">
     <div class="eyebrow">PHASE 06 · BUILD</div>
     <h1>Talk like a <em>teammate.</em></h1>
-    <div class="diagram" style="text-align:left; margin:1.2rem auto; white-space:pre-line; max-width:56ch;">"Make the header bigger."
-"The font is ugly. Try modern."
-"Add a dark mode toggle."</div>
+    <div class="diagram" style="text-align:left; margin:1.2rem auto; white-space:pre-line; max-width:56ch;">"The page opens, but the header is too small.
+Make only the header bigger."
+
+"The colors feel harsh. Try a calmer palette.
+Keep it one HTML file."
+
+"Add a dark mode toggle.
+Do not install anything."</div>
     <p class="subtitle">Plain English. Specific. One at a time.</p>
   </div>
   <div class="slide-meta">PHASE 06 · BUILD · 57:00 — 75:00</div>
@@ -1349,6 +1421,44 @@ landing page. Open it when done.</div>
   </svg>
 </div>
 
+<!-- ═══ S21a GOAL — Completion Conditions ═══ -->
+<div class="slide phase-polish layout-workshop" id="s20a" data-phase="polish">
+  <div class="slide-inner">
+    <div class="eyebrow">PHASE 07 · POLISH</div>
+    <h1 style="font-size:clamp(2.4rem,4.4vw,4.4rem); margin-bottom:0.7rem;">Give Codex a <em>persistent direction.</em></h1>
+    <p class="subtitle" style="margin-bottom:0.7rem;">Interview first; <code>/goal</code> second. Objective + completion conditions.</p>
+    <div class="copy-block" style="text-align:left; margin:0.7rem auto; white-space:pre-line; font-size:clamp(0.8rem,0.95vw,0.94rem); line-height:1.38;">In Codex, type:
+/goal &lt;objective&gt; so it is done when &lt;checks pass&gt;
+
+Case study: these slides
+/goal improve these slides so HS beginners can write a /goal, faculty can reuse the workflow, research students can track evidence, and checks pass: clean layout, self-contained, no JS errors.
+
+Your turn:
+/goal build my science fair page so it opens locally, explains my idea, and has one checklist I can test.</div>
+    <div class="setup-ladder three stagger-child" style="margin-top:0.65rem; margin-bottom:0.45rem;">
+      <div class="setup-step">
+        <div class="num">PAUSE</div>
+        <p>Pause before starting when audience, constraints, or done checks are missing.</p>
+      </div>
+      <div class="setup-step">
+        <div class="num">MOVE ON</div>
+        <p>Proceed when the output is visible and the checks are clear and testable.</p>
+      </div>
+      <div class="setup-step">
+        <div class="num">FINISH</div>
+        <p>Stop or rewrite the goal when checks pass or the direction has changed.</p>
+      </div>
+    </div>
+    <p class="muted" style="margin-top:0.6rem;"><code>/goal</code> is experimental direction, not autopilot. You still review every step.</p>
+  </div>
+  <div class="slide-meta">PHASE 07 · POLISH · 75:00 — 87:00</div>
+  <svg class="orbit-mark" viewBox="0 0 28 28" aria-hidden="true">
+    <circle class="ring" cx="14" cy="14" r="12" />
+    <circle class="ring" cx="14" cy="14" r="7" />
+    <circle class="node" cx="14" cy="2" r="1.8" />
+  </svg>
+</div>
+
 <!-- ═══ S22 SHOW & TELL ═══ -->
 <div class="slide phase-share layout-stage" id="s21" data-phase="share">
   <div class="slide-inner">
@@ -1406,33 +1516,32 @@ Then build the HTML file.
 <div class="slide phase-levelup layout-bento" id="s22a" data-phase="levelup">
   <p class="phase-eyebrow stagger-child" style="grid-column: 1/-1">— PHASE 09 · LEVEL UP</p>
 
-  <!-- Browser tile -->
+  <!-- Install tile -->
   <div class="bento-tile stagger-child" style="grid-column: 1; grid-row: 1 / 3;">
-    <p style="font-size: 0.75em; color: var(--text-tertiary); margin-bottom: 0.5rem;">Step 1: Go to</p>
-    <div class="chrome-wrap chrome-browser" style="font-size: 0.8em;">
+    <p style="font-size: 0.75em; color: var(--phase-a); margin-bottom: 0.5rem; font-weight:600;">Verified setup command · facilitator only</p>
+    <div class="chrome-wrap chrome-terminal" style="font-size: 0.76em;">
       <div class="chrome-titlebar">
         <div class="chrome-lights"><span class="red"></span><span class="yellow"></span><span class="green"></span></div>
-        <span class="chrome-title url-bar">🔒 www.skills.sh</span>
+        <span class="chrome-title">~/setup</span>
       </div>
-      <div class="chrome-body" style="font-size:0.9em; color: var(--text-primary);">
-        Find a skill → copy its GitHub link
+      <div class="chrome-body" style="overflow-wrap:anywhere;">
+        <div><span class="prompt">$</span> <span class="cmd typewriter-target">npm install -g @weihaoqu/project-spec-interviewer-skill</span></div>
       </div>
     </div>
-    <p style="font-size: 0.8em; color: var(--phase-a); margin-top: 0.5rem;">↗ www.skills.sh</p>
+    <p style="font-size: 0.78em; color: var(--text-tertiary); margin-top: 0.55rem;">Students: do not type this live unless Q or the facilitator says it is part of setup.</p>
   </div>
 
   <!-- TUI tile -->
   <div class="bento-tile stagger-child" style="grid-column: 2; grid-row: 1 / 3;">
-    <p style="font-size: 0.75em; color: var(--text-tertiary); margin-bottom: 0.5rem;">Step 2: Tell Claude</p>
+    <p style="font-size: 0.75em; color: var(--text-tertiary); margin-bottom: 0.5rem;">What it gives you</p>
     <div class="chrome-wrap chrome-claudecode" style="font-size: 0.8em;">
       <div class="chrome-titlebar">
         <div class="chrome-lights"><span class="red"></span><span class="yellow"></span><span class="green"></span></div>
         <span class="chrome-title">Claude Code</span>
       </div>
       <div class="chrome-body">
-        <div><span class="tui-prompt">&gt;</span> <span class="tui-user typewriter-target">please install this skill from https://github.com/...</span></div>
-        <div class="tui-thinking" style="margin-top:0.5rem;">··· installing</div>
-        <div class="tui-success" style="margin-top:0.5rem;">✓ Skill installed successfully</div>
+        <div><span class="tui-prompt">&gt;</span> <span class="tui-user typewriter-target">Use project-spec-interviewer for my app idea.</span></div>
+        <div class="tui-response" style="margin-top:0.5rem;">I will ask one question at a time, then write the plan, edge cases, and acceptance criteria.</div>
       </div>
     </div>
   </div>
@@ -1440,8 +1549,7 @@ Then build the HTML file.
   <!-- Callout tile -->
   <div class="bento-tile stagger-child" style="grid-column: 1 / -1; background: color-mix(in srgb, var(--phase-a) 12%, var(--bg-card));">
     <p style="font-size: 0.9em;">
-      Add a superpower in <strong style="color: var(--phase-a);">30 seconds.</strong>
-      This is how Q has 50+ skills.
+      Interview skill = better specs. Better specs = cleaner plans, better <code>/goal</code> checks, fewer rebuilds.
     </p>
   </div>
 
@@ -1494,18 +1602,34 @@ Then build the HTML file.
   </svg>
 </div>
 
-<!-- ═══ S26 YOUR TOOLCHAIN ═══ -->
+<!-- ═══ S26 RESEARCH WORKSPACE ═══ -->
 <div class="slide phase-levelup layout-bento" id="s25" data-phase="levelup">
-  <div class="slide-inner">
+  <div class="slide-inner" style="grid-column:1 / -1; max-width:1100px; justify-self:center;">
     <div class="eyebrow">PHASE 09 · LEVEL UP</div>
-    <h1>You direct. Tools <em>execute.</em></h1>
-    <pre class="diagram">YOU (supervisor)
- ├─ Claude Code  →  builds
- ├─ Codex        →  reviews
- ├─ Skills       →  workflows
- ├─ MCP          →  connections
- └─ CLAUDE.md    →  your rules</pre>
-    <p class="lede">Toolchain under your supervision.</p>
+    <h1>Research <em>workspace.</em></h1>
+    <p class="subtitle" style="margin-bottom:1rem;">After today: same pattern, higher stakes.</p>
+    <div style="display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:0.8rem; margin:1rem 0;">
+      <div class="bento-tile">
+        <h3>Rules</h3>
+        <p><code>CLAUDE.md</code><br><code>AGENTS.md</code></p>
+        <p class="muted">Ask. Challenge. Name tradeoffs.</p>
+      </div>
+      <div class="bento-tile">
+        <h3>Evidence</h3>
+        <p><code>notes/</code> <code>sources/</code><br><code>drafts/</code> <code>reviews/</code></p>
+        <p class="muted">Verify claims, paths, and counts.</p>
+      </div>
+      <div class="bento-tile">
+        <h3>Review loop</h3>
+        <p><code>draft -> review -> fix -> verify -> record</code></p>
+        <p class="muted">Done means evidence, not confidence.</p>
+      </div>
+    </div>
+    <div class="warning" style="max-width:760px; margin:1rem auto 0;">
+      <h3>Working agreement</h3>
+      <p>Builder agent drafts. Reviewer agent checks. You decide when the evidence is strong enough.</p>
+      <p class="muted">In our setup: Claude writes and revises; Codex reviews.</p>
+    </div>
   </div>
   <div class="slide-meta">PHASE 09 · LEVEL UP · 93:00 — 115:00</div>
   <svg class="orbit-mark" viewBox="0 0 28 28" aria-hidden="true">
@@ -1515,17 +1639,21 @@ Then build the HTML file.
   </svg>
 </div>
 
-<!-- ═══ S27 WHAT TO READ NEXT ═══ -->
+<!-- ═══ S27 BEGINNER READING PATH ═══ -->
 <div class="slide phase-levelup layout-bento" id="s26" data-phase="levelup">
-  <div class="slide-inner">
+  <div class="slide-inner" style="grid-column:1 / -1; width:100%; max-width:1100px; justify-self:center;">
     <div class="eyebrow">PHASE 09 · LEVEL UP</div>
-    <h1>Keep <em>going.</em></h1>
-    <ul class="rhythm-list">
-      <li class="stagger-child"><b>LearnAI Wiki</b> — weihaoqu.github.io/learnAIDoc</li>
-      <li class="stagger-child"><b>Claude 101 playlist</b> — Anthropic on YouTube</li>
-      <li class="stagger-child"><b>Office hours</b> — Saturdays (web app)</li>
-      <li class="stagger-child"><b>Email Prof. Qu</b> — weihaoqu25@gmail.com</li>
+    <h1 style="font-size:clamp(2.7rem,4.8vw,5.2rem); margin-bottom:0.8rem;">Keep going in <em>order.</em></h1>
+    <p class="subtitle" style="margin-bottom:0.6rem;">Open the hub page, then read these pages top to bottom.</p>
+    <ul class="rhythm-list" style="display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:0.25rem 1rem; max-width:1000px; font-size:clamp(0.78rem,0.95vw,0.94rem); line-height:1.3; overflow-wrap:anywhere;">
+      <li class="stagger-child"><b>1. Agentic Engineering</b> — <code>what-is-agentic-engineering</code></li>
+      <li class="stagger-child"><b>2. Vibe Coding</b> — <code>vibe-coding-beginners-guide</code></li>
+      <li class="stagger-child"><b>3. Claude Code 101</b> — <code>claude-code-101</code></li>
+      <li class="stagger-child"><b>4. Agent Vocabulary</b> — <code>ai-agent-primer-ladder-workflow</code></li>
+      <li class="stagger-child"><b>5. Roadmap</b> — <code>agentic-ai-engineer-roadmap-2026</code></li>
     </ul>
+    <p class="muted" style="margin-top:0.7rem;">Then choose a route: teaching, agents, power-user workflow, or academic research.</p>
+    <p class="muted" style="font-family:var(--font-mono); font-size:0.76rem; overflow-wrap:anywhere;">weihaoqu.github.io/learnAIDoc/wiki/start-here-ai-agents-beginners/</p>
   </div>
   <div class="slide-meta">PHASE 09 · LEVEL UP · 93:00 — 115:00</div>
   <svg class="orbit-mark" viewBox="0 0 28 28" aria-hidden="true">
@@ -1621,7 +1749,7 @@ const slides = document.querySelectorAll('.slide');
 const total = slides.length;
 let current = 0;
 // Titles array — Task 2 populated S1-S4; Tasks 3-11 fill the rest. Final population in Task 16 Step 1.
-const titles = ['AI Engineering Academy','Pre-Test','Consent','Install Claude Code',"You're In",'Safety First','Pick Your Nickname','Quick Win — First Page','Chatbot vs Agent','CLAUDE.md & Context','Permissions · Context · Usage','Plan Beats Prompt','The Pro Workflow','Make Claude Interview You','Watch It Happen','A Good Plan Has','Plan Check','First Main Build Prompt','AI Gets Stuff Wrong','Fix It','Open Components','UI Quick Wins','Codex Review','Show & Tell','Skills — Use & Make','Install a Skill','MCP','Automation','Your Toolchain','What to Read Next','Post-Test + Survey','Remember','Thank You'];
+const titles = ['AI Engineering Academy','Pre-Test','Consent','Setup Checklist',"You're Ready",'Safety First','Pick Your Nickname','Quick Win — First Page','Chatbot vs Agent','CLAUDE.md & Context','Permission Prompts','Plan Beats Prompt','The Pro Workflow','Make Claude Interview You','Watch It Happen','A Good Plan Has','Plan Check','First Main Build Prompt','Test Before Trust','Fix One Thing','Open Components','UI Quick Wins','Codex Review','Goal — Completion Conditions','Show & Tell','Skills — Use & Make','Install a Skill','MCP','Automation','Research Workspace','Beginner Reading Path','Post-Test + Survey','Remember','Thank You'];
 
 document.getElementById('hudTotal').textContent = total;
 
@@ -1643,51 +1771,84 @@ function maybeFirePhaseSweep(slideEl) {
 // ── Typewriter (2026-05-18 amendment) ──
 const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
 
+function clearTypewriterInterval(el) {
+  if (el && el._twInterval) {
+    clearInterval(el._twInterval);
+    el._twInterval = null;
+  }
+}
+
+function removeTypewriterCursor(el) {
+  if (!el) return;
+  if (el._twCursor && el._twCursor.parentNode) {
+    el._twCursor.remove();
+    el._twCursor = null;
+    return;
+  }
+  const oldCursor = el.nextSibling;
+  if (oldCursor && oldCursor.classList && oldCursor.classList.contains('cursor-blink')) {
+    oldCursor.remove();
+  }
+}
+
+function restoreTypewriterText(el) {
+  if (!el) return;
+  const full = el.dataset.twText || el.textContent;
+  el.dataset.twText = full;
+  el.textContent = full;
+}
+
 function runTypewriter(el) {
   if (!el || el.dataset.twDone) return;
   el.dataset.twDone = '1';
   const full = el.dataset.twText || el.textContent;
   el.dataset.twText = full;
-  el.textContent = '';
-
-  // Remove any leftover cursor from a previous visit
-  const oldCursor = el.nextSibling;
-  if (oldCursor && oldCursor.classList && oldCursor.classList.contains('cursor-blink')) {
-    oldCursor.remove();
-  }
-
-  const cursor = document.createElement('span');
-  cursor.className = 'cursor-blink';
-  el.parentNode.insertBefore(cursor, el.nextSibling);
+  clearTypewriterInterval(el);
+  removeTypewriterCursor(el);
 
   if (reducedMotion.matches) {
     el.textContent = full;
     return;
   }
 
+  el.textContent = '';
+  const cursor = document.createElement('span');
+  cursor.className = 'cursor-blink';
+  el.parentNode.insertBefore(cursor, el.nextSibling);
+  el._twCursor = cursor;
+
   let i = 0;
   const interval = setInterval(() => {
     el.textContent = full.slice(0, ++i);
-    if (i >= full.length) clearInterval(interval);
+    if (i >= full.length) {
+      clearTypewriterInterval(el);
+      removeTypewriterCursor(el);
+    }
   }, 35);
   el._twInterval = interval;
 }
 
 function skipTypewriter(slide) {
   (slide || document).querySelectorAll('.typewriter-target').forEach(el => {
-    if (el._twInterval) clearInterval(el._twInterval);
-    if (el.dataset.twText) el.textContent = el.dataset.twText;
+    clearTypewriterInterval(el);
+    restoreTypewriterText(el);
+    el.dataset.twDone = '1';
+    removeTypewriterCursor(el);
   });
 }
 
 function wireTypewriters(slide) {
   slide.querySelectorAll('.typewriter-target').forEach(el => {
+    clearTypewriterInterval(el);
+    restoreTypewriterText(el);
+    removeTypewriterCursor(el);
     delete el.dataset.twDone;
   });
 }
 
 function show(n) {
   if (n < 0 || n >= total) return;
+  skipTypewriter(slides[current]);
   slides[current].classList.remove('active');
   current = n;
   slides[current].classList.add('active');
