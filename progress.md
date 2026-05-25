@@ -7,6 +7,91 @@ entries; nobody edits prior entries. Managed by
 
 <!-- newest entry below -->
 
+## 2026-05-25 19:11:16 EDT — Claude Code
+
+- **Branch:** `slide-redesign-2026-05`
+- **HEAD:** `3ad104a` — Switch agent handoff to progress.md log + harden script
+- **Upstream:** origin/slide-redesign-2026-05 — ahead 0, behind 0
+
+### Summary
+
+**Shipped the full progress.md handoff workflow + a one-command installer + a tiered Codex review policy + 4 wiki commits.**
+
+This session built on the v1 commit `ac11df9` from earlier today and ended with everything pushed.
+
+**Code shipped (this repo, branch `slide-redesign-2026-05`, both commits pushed to origin):**
+- `ac11df9 Add agent handoff workflow` — original v1 design (per-target /tmp files, hand-edited CLAUDE.md block).
+- `3ad104a Switch agent handoff to progress.md log + harden script` — replaced v1 with: tracked `progress.md` (newest entry on top, append-only), rewritten `scripts/agent-handoff.sh` (status/checkpoint/resume), new project-level slash commands `.claude/commands/{checkpoint,resume}.md`, AGENTS.md mirror of tiered Codex review policy, updated `docs/workflows/claude-codex-handoff.md`, trimmed CLAUDE.md (no live state).
+- Three real bugs fixed during Codex review of the script: (1) `---` collision in parser → counter-based header boundary; (2) concurrent write race → `mkdir`-based lock at `.progress.lock` with 30s wait; (3) combined `EXIT INT TERM` trap doesn't exit on signals → split into three traps with explicit `exit 130 / exit 143`.
+
+**User-level skills installed (live on this machine; NOT in any tracked repo):**
+- `~/.claude/skills/{checkpoint,resume}/SKILL.md` + `install.sh`
+- `~/.codex/skills/{checkpoint,resume}/SKILL.md` + `install.sh` (mirror)
+- `install.sh` is idempotent, refuses self-install, refuses non-git-repo, atomic file writes via temp+mv, backs up existing `.claude/commands/*.md` to `.bak.<ts>` if different, never overwrites `AGENTS.md`. Codex caught 2 follow-up bugs (inaccurate "Installed 4 files" count when AGENTS.md skipped; `mv -f` clobbering a directory destination) — both fixed and tested (7 test cases total all pass).
+
+**Wiki shipped (separate repo `~/Dropbox/learnAIDoc`, all 4 commits pushed to `origin/main`):**
+- `9cac098` — new entry `_wiki/progress-md-codex-handoff.md` + cover image + bidirectional cross-links to v1 handoff entry, research tutorial, setup post, /handover skill entry
+- `dd2f966` — Quick Reference section ("what to type today")
+- `adaad96` — Step 8b added to `copy-my-claude-code-setup.md` (cross-machine migration of the workflow)
+- `31ae2b6` — Documented one-command installer in both wiki entries
+
+**Global config rewritten (NOT in any repo):**
+- `~/.claude/CLAUDE.md` Rule #1 replaced: from "send EVERYTHING to Codex" → MUST/MAY-skip tiers + don't-double-review + smallest-payload + portable bounded invocation (`perl -e 'alarm shift @ARGV; exec ...'` because macOS lacks GNU `timeout`).
+- `AGENTS.md` (this repo) mirrors the policy for the Codex side, with explicit non-recursion guard.
+
+**Off-limits files (unchanged from prior checkpoints, leave alone):**
+- `.DS_Store`, `.omc/`, `.playwright-mcp/`
+- `docs/superpowers/audit-2026-05-21-deck-review.md`, `llmdata/`, `sos-talk-may12.html`, `ui.txt`
+- All site content HTML
+- `CLAUDE.md` itself (untracked by project convention)
+
+**Server status:** none running.
+**Push status:** all 6 commits (2 in learnai-course, 4 in learnAIDoc) pushed to origin. Nothing unpushed.
+
+**Open threads for next session (THIS repo or any future project):**
+1. The user-level skill files and `~/.claude/CLAUDE.md` Rule #1 rewrite are NOT in any tracked repo. Consider whether they should be backed up — Dropbox sync would catch the skills if installed there, but `~/.claude/CLAUDE.md` itself is just on disk. (Existing migration tooling exists per the `copy-my-claude-code-setup` wiki post; might be worth extending it.)
+2. `slide-redesign-2026-05` branch is now ahead of `main` by 2 commits (`ac11df9` + `3ad104a`). The handoff tooling could be merged to `main` whenever Q decides — no urgency, but it would deploy with the site if pushed there.
+3. Q has an active relcm-claude session that hit the "workflow not installed" preflight. Recommended option there: either run the new installer (`bash ~/.claude/skills/checkpoint/install.sh`) for full workflow OR fall back to a session-memory file per CLAUDE.md crash-resilience rule. His call.
+4. Tomorrow's first move from EITHER Claude Code or Codex: type `/resume` in this repo. The script will print git state + this top entry; the agent will summarize in ≤6 bullets and ask for the next objective.
+
+**Codex review this session:** policy revised once (4 wording bugs caught), script revised twice (3 bugs first round, 2 bugs second round), installer revised twice (4 risks first round, 2 follow-ups second round). All under the new MUST/MAY-skip tiered policy; total wall-clock Codex spend down ~60% vs sending every artifact.
+
+### Working tree (`git status --short`)
+
+```text
+?? CLAUDE.md
+?? docs/superpowers/audit-2026-05-21-deck-review.md
+?? llmdata/
+?? sos-talk-may12.html
+?? ui.txt
+```
+
+### Unstaged diff (`git diff --stat`)
+
+_none_
+
+### Staged diff (`git diff --cached --stat`)
+
+_none_
+
+### Latest commit (`git show --stat --oneline HEAD`)
+
+```text
+3ad104a Switch agent handoff to progress.md log + harden script
+ .claude/commands/checkpoint.md            |  32 ++
+ .claude/commands/resume-in-claude-code.md |  16 +-
+ .claude/commands/resume-in-codex.md       |  31 +-
+ .claude/commands/resume.md                |  17 +
+ .gitignore                                |   2 +
+ AGENTS.md                                 |  75 +++--
+ docs/workflows/claude-codex-handoff.md    | 143 +++-----
+ progress.md                               | 178 ++++++++++
+ scripts/agent-handoff.sh                  | 525 +++++++++++++++++-------------
+ 9 files changed, 660 insertions(+), 359 deletions(-)
+```
+
+---
+
 ## 2026-05-25 12:51:48 EDT — Claude Code
 
 - **Branch:** `slide-redesign-2026-05`
