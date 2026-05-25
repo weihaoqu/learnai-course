@@ -1,105 +1,52 @@
 # Claude <-> Codex Handoff Workflow
 
-Use this when Q works in Claude Code, switches to Codex for review/editing/verification, then syncs the result back to a Claude Code session.
-
-The goal is simple: both agents know the current state, neither overwrites the other, and only the session Q explicitly authorizes may push.
-
-## When To Use
-
-- Q has one Claude Code session and one Codex session on the same project.
-- One agent has made or reviewed changes that the other session must know about.
-- Work may be committed locally before another session pushes.
-- The worktree has unrelated untracked or dirty files that must not be swept into a commit.
+Use this when Q alternates between Claude Code and Codex on the same project. Goal: both agents see the same state; neither overwrites the other; only the session Q explicitly authorizes may push.
 
 ## Core Rule
 
-Treat Git state as the shared source of truth, and treat `CLAUDE.md` as the live human-readable handoff for Claude Code.
+Treat Git state as the shared source of truth. Treat the top entry of `progress.md` as the live handoff. `CLAUDE.md` holds standing project guidance; `AGENTS.md` holds standing agent rules. Neither holds live state.
 
-Before any handoff, record:
+Before any handoff, the **outgoing** agent runs:
 
-- Branch name.
-- Current commit hash and commit message.
-- Files intentionally changed.
-- Files/directories that are unrelated and must be left alone.
+```bash
+scripts/agent-handoff.sh checkpoint <self> --stdin <<'EOF'
+<summary>
+EOF
+```
+
+and records in the summary:
+
+- Branch, HEAD, ahead/behind upstream (the script captures these automatically too).
+- Files intentionally changed this session.
+- Files/directories that are off-limits.
 - Verification already run.
 - Whether any local server is running.
 - Who, if anyone, is explicitly allowed to push.
+- What the next session should do first.
 
-## Claude Code -> Codex
+The **incoming** agent runs:
 
-Before switching from Claude Code to Codex:
-
-1. Run `git status --short`.
-2. If Q approved a commit, commit completed scoped work before handing it off.
-3. If not committing, write down exactly which files are intentionally dirty.
-4. Stop local dev servers unless the next session needs them.
-5. Tell Codex:
-   - Branch.
-   - Goal.
-   - Key files.
-   - Current dirty/untracked files.
-   - What must not be overwritten.
-
-Example handoff:
-
-```text
-Branch: slide-redesign-2026-05
-Goal: review and improve session-materials/session-slides.html
-Intentional files: session-materials/session-slides.html
-Do not touch: unrelated untracked files, consent text, deployment config
-Server: stopped
-Push: do not push
+```bash
+scripts/agent-handoff.sh resume
 ```
 
-## Codex Work Rules
+and then:
 
-When Codex picks up a Claude Code project:
+1. Reads the printed top entry.
+2. Reads `CLAUDE.md` and `AGENTS.md`.
+3. Confirms `git status` and `git rev-parse HEAD` match the entry. If not, flags the conflict to Q before editing.
 
-1. Inspect `git status --short` before editing.
-2. Read `CLAUDE.md` and any current handoff block.
-3. Protect user/Claude changes. Do not reset, checkout, revert, or overwrite files unless Q explicitly asks.
+## Universal Work Rules
+
+When any agent picks up the project:
+
+1. Inspect `git status --short --branch` before editing.
+2. Read `CLAUDE.md`, `AGENTS.md`, and the top of `progress.md`.
+3. Protect prior work. Do not reset, checkout, revert, or overwrite files unless Q explicitly asks.
 4. Keep commits scoped. Stage only intentional files.
-5. Verify with the project-appropriate checks before calling work done.
+5. Verify with project-appropriate checks before calling work done.
 6. Send plans, diffs, and final reports through the Codex review gate when required by project rules.
-7. Do not push unless Q explicitly says this Codex session should push.
-
-## Codex -> Claude Code
-
-Before switching back to Claude Code:
-
-1. Commit finished scoped work if Q asked for a commit.
-2. Stop any local server unless Q is actively testing.
-3. Update the top of `CLAUDE.md` with a current handoff block.
-4. Include:
-   - Branch.
-   - Commit hash and message.
-   - Commit scope.
-   - Verification summary.
-   - Server status.
-   - Push permission status.
-   - Files/directories the next session must not touch.
-5. Tell Q whether the handoff block is committed or only local.
-
-## Current Handoff Block Template
-
-Paste this at the top of `CLAUDE.md`, above the stable project guidance:
-
-```markdown
-# Current Handoff — YYYY-MM-DD
-
-Read this before pushing or editing.
-
-- Current branch: `<branch>`
-- Current committed work: `<hash> <message>`
-- Commit scope: `<files>`
-- Do not reset, checkout, revert, or overwrite `<protected files>` unless Q explicitly asks.
-- Summary of completed work: `<short bullets>`
-- Verification: `<checks run>`
-- Before pushing, run `git status` and confirm `git log -1 --oneline` shows `<hash>` or a descendant that includes it.
-- Push only if Q explicitly tells this session to push.
-- Leave unrelated untracked files/directories alone: `<list>`.
-- Local server: `<running/stopped + port>`.
-```
+7. Do not push unless Q explicitly says this session should push.
 
 ## Push Rule
 
@@ -107,7 +54,7 @@ Pushing is externally visible. Only the session Q explicitly authorizes should p
 
 If Q says another session will push:
 
-- Prepare the handoff.
+- Prepare the handoff via `checkpoint`.
 - Do not push from the current session.
 - Do not imply push approval for future sessions beyond Q's exact instruction.
 
@@ -118,26 +65,34 @@ Committing is local but still changes project history.
 Before committing:
 
 1. Run `git status --short`.
-2. Stage only intended files.
+2. Stage only intended files. `progress.md` may be staged alongside the work it describes, or left for Q.
 3. Use `git diff --cached --stat` to confirm scope.
 4. Commit with an imperative message.
 5. Report the commit hash.
 
-Do not include local coordination files, scratch files, generated browser state, or unrelated untracked assets unless Q explicitly wants them committed.
+Do not include scratch files, generated browser state, or unrelated untracked assets unless Q explicitly wants them committed.
 
-If `CLAUDE.md` is local/untracked in a project, edits to it are workspace coordination only until Q explicitly asks to commit it.
+## When `progress.md` Conflicts with Current State
+
+If the top entry's HEAD differs from `git rev-parse HEAD`, someone committed without checkpointing. Do NOT silently update `progress.md`. Instead:
+
+1. Tell Q both HEADs and the gap.
+2. Ask whether to (a) write a fresh checkpoint now to catch up, or (b) investigate before adding entries.
 
 ## Quick Checklist
 
-Use this checklist when moving between Claude Code and Codex:
+Before handing off:
 
 - [ ] `git status --short` checked.
-- [ ] Current branch recorded.
-- [ ] Current commit hash recorded.
-- [ ] Intentional files listed.
-- [ ] Unrelated dirty/untracked files listed as off-limits.
+- [ ] `scripts/agent-handoff.sh checkpoint <self> ...` run.
+- [ ] Off-limits files listed in the entry.
 - [ ] Server status recorded.
 - [ ] Verification recorded.
 - [ ] Push permission explicit.
-- [ ] `CLAUDE.md` current handoff updated.
-- [ ] Final message tells Q what was committed, what stayed local, and what remains unpushed.
+- [ ] Final message to Q says what was committed, what stayed local, and what remains unpushed.
+
+After picking up:
+
+- [ ] `scripts/agent-handoff.sh resume` run.
+- [ ] Top entry's HEAD matches current HEAD (or conflict flagged to Q).
+- [ ] State summarized in ≤6 bullets back to Q.

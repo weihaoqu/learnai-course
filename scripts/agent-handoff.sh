@@ -1,16 +1,28 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
+PROGRESS_MARKER="<!-- newest entry below -->"
+
 usage() {
   cat <<'USAGE'
 Usage:
   scripts/agent-handoff.sh status
-  scripts/agent-handoff.sh save codex
-  scripts/agent-handoff.sh save claude
-  scripts/agent-handoff.sh load [codex|claude]
+  scripts/agent-handoff.sh checkpoint <agent> -m "<summary>"
+  scripts/agent-handoff.sh checkpoint <agent> --stdin
+  scripts/agent-handoff.sh resume
 
-This script writes handoff notes only. It never commits, pushes, resets,
-cleans, checks out, or switches branches.
+<agent> identifies who is writing the entry: 'codex' or 'claude'.
+With --stdin, the summary is read from standard input (use a heredoc).
+
+This script only reads from git and writes progress.md. It never
+commits, pushes, resets, cleans, checks out, or switches branches.
+
+Concurrent checkpoints are serialized via a mkdir-based lock at
+.progress.lock (in repo root). If the lock is stale, remove it manually:
+    rmdir .progress.lock
+
+Deprecated subcommands ('save', 'load') print upgrade instructions
+and exit non-zero.
 USAGE
 }
 
@@ -24,11 +36,44 @@ repo_root() {
 ROOT="$(repo_root)"
 cd "$ROOT"
 
-PROJECT_NAME="$(basename "$ROOT")"
-SESSION_DIR=".omc/state/sessions"
-DATE="$(date +%F)"
-TIME_SLUG="$(date +%H%M%S)"
-TIMESTAMP="$(date '+%Y-%m-%d %H:%M:%S %Z')"
+PROGRESS_FILE="${ROOT}/progress.md"
+PROGRESS_LOCK_DIR="${ROOT}/.progress.lock"
+
+# State for the global cleanup trap. Set by insert_entry; cleared once
+# the move succeeds so cleanup is a no-op on the happy path.
+PROGRESS_TMP=""
+PROGRESS_LOCK_HELD=0
+
+cleanup_progress() {
+  if [[ -n "$PROGRESS_TMP" && -e "$PROGRESS_TMP" ]]; then
+    rm -f "$PROGRESS_TMP"
+  fi
+  if (( PROGRESS_LOCK_HELD == 1 )); then
+    rmdir "$PROGRESS_LOCK_DIR" 2>/dev/null || true
+    PROGRESS_LOCK_HELD=0
+  fi
+}
+# EXIT runs on normal exit. INT/TERM must explicitly exit, otherwise bash
+# can resume the script body after the trap and act on stale state.
+# cleanup_progress is idempotent so the EXIT-after-signal double-run is safe.
+trap cleanup_progress EXIT
+trap 'cleanup_progress; exit 130' INT
+trap 'cleanup_progress; exit 143' TERM
+
+acquire_progress_lock() {
+  local max_wait=30
+  local waited=0
+  while ! mkdir "$PROGRESS_LOCK_DIR" 2>/dev/null; do
+    if (( waited >= max_wait )); then
+      echo "agent-handoff: could not acquire lock $PROGRESS_LOCK_DIR within ${max_wait}s." >&2
+      echo "Another checkpoint may be in progress. If stale: rmdir $PROGRESS_LOCK_DIR" >&2
+      exit 1
+    fi
+    sleep 1
+    waited=$((waited + 1))
+  done
+  PROGRESS_LOCK_HELD=1
+}
 
 current_branch() {
   local branch
@@ -40,13 +85,8 @@ current_branch() {
   fi
 }
 
-head_hash() {
-  git rev-parse HEAD
-}
-
-head_subject() {
-  git log -1 --format=%s
-}
+head_hash() { git rev-parse HEAD; }
+head_subject() { git log -1 --format=%s; }
 
 upstream_ref() {
   git rev-parse --abbrev-ref --symbolic-full-name '@{u}' 2>/dev/null || true
@@ -58,259 +98,300 @@ ahead_behind() {
     echo "no upstream"
     return
   fi
-  local counts
+  local counts behind ahead
   counts="$(git rev-list --left-right --count "$upstream"...HEAD 2>/dev/null || true)"
   if [[ -z "$counts" ]]; then
     echo "upstream unavailable"
     return
   fi
-  local behind ahead
-  behind="${counts%%[[:space:]]*}"
-  ahead="${counts##*[[:space:]]}"
+  read -r behind ahead <<< "$counts"
   echo "ahead ${ahead}, behind ${behind}"
 }
 
-tracked_dirty() {
-  git status --short --untracked-files=no
-}
-
-full_status() {
-  git status --short
-}
-
-latest_session_memory() {
-  if [[ ! -d "$SESSION_DIR" ]]; then
-    echo "(none)"
-    return
-  fi
-  ls -t "$SESSION_DIR"/session_*.md 2>/dev/null | grep -v '_resume_in_' | head -1 || true
-}
-
-latest_resume_handoff() {
-  if [[ ! -d "$SESSION_DIR" ]]; then
-    echo ""
-    return
-  fi
-  local raw_target="${1:-}"
-  if [[ -n "$raw_target" ]]; then
-    local slug
-    slug="$(target_slug "$raw_target")"
-    ls -t "$SESSION_DIR"/session_*_resume_in_"$slug".md 2>/dev/null | head -1 || true
-    return
-  fi
-  ls -t "$SESSION_DIR"/session_*_resume_in_*.md 2>/dev/null | head -1 || true
-}
-
-print_status() {
-  local branch upstream hash subject latest
-  branch="$(current_branch)"
-  upstream="$(upstream_ref)"
-  hash="$(head_hash)"
-  subject="$(head_subject)"
-  latest="$(latest_session_memory)"
-
-  echo "# Agent Handoff Status"
-  echo
-  echo "- Project: ${PROJECT_NAME}"
-  echo "- Repo: ${ROOT}"
-  echo "- Time: ${TIMESTAMP}"
-  echo "- Branch: ${branch}"
-  echo "- HEAD: ${hash}"
-  echo "- Commit: ${subject}"
-  echo "- Upstream: ${upstream:-"(none)"}"
-  echo "- Ahead/behind: $(ahead_behind "$upstream")"
-  echo "- Latest session memory: ${latest:-"(none)"}"
-  echo
-  echo "## Dirty Tracked Files"
-  local dirty
-  dirty="$(tracked_dirty)"
-  if [[ -n "$dirty" ]]; then
-    echo "$dirty"
-  else
-    echo "(none)"
-  fi
-  echo
-  echo "## Full Short Status"
-  local status
-  status="$(full_status)"
-  if [[ -n "$status" ]]; then
-    echo "$status"
-  else
-    echo "(clean)"
-  fi
-}
-
-target_slug() {
+agent_label() {
   case "${1:-}" in
-    codex) echo "codex" ;;
-    claude|claude-code|claude_code) echo "claude_code" ;;
+    codex) echo "Codex" ;;
+    claude|claude-code|claude_code) echo "Claude Code" ;;
     *)
-      echo "agent-handoff: expected target 'codex' or 'claude'" >&2
+      echo "agent-handoff: agent must be 'codex' or 'claude' (got '${1:-}')" >&2
       exit 2
       ;;
   esac
 }
 
-target_label() {
-  case "$1" in
-    codex) echo "Codex" ;;
-    claude_code) echo "Claude Code" ;;
-  esac
-}
-
-next_command() {
-  case "$1" in
-    codex)
-      echo "cd \"$ROOT\" && codex \"Read /tmp/learnai_resume_in_codex_latest.md and resume.\""
-      ;;
-    claude_code)
-      echo "cd \"$ROOT\" && claude"
-      echo "# In Claude Code, run: /resume-in-claude-code"
-      ;;
-  esac
-}
-
-write_handoff() {
-  local raw_target="$1"
-  local slug label branch upstream hash subject latest status dirty out tmp tmp_build
-  umask 077
-  slug="$(target_slug "$raw_target")"
-  label="$(target_label "$slug")"
+print_status() {
+  local branch upstream hash subject ab
   branch="$(current_branch)"
   upstream="$(upstream_ref)"
   hash="$(head_hash)"
   subject="$(head_subject)"
-  latest="$(latest_session_memory)"
-  dirty="$(tracked_dirty)"
-  status="$(full_status)"
+  ab="$(ahead_behind "$upstream")"
 
-  mkdir -p "$SESSION_DIR"
-  out="${SESSION_DIR}/session_${DATE}_${TIME_SLUG}_resume_in_${slug}.md"
-  tmp="/tmp/learnai_resume_in_${slug}_latest.md"
-
-  {
-    echo "# Resume in ${label} - ${DATE}"
-    echo
-    echo "Generated: ${TIMESTAMP}"
-    echo
-    echo "## Target Agent"
-    echo
-    echo "${label}"
-    echo
-    echo "## Current Git State"
-    echo
-    echo "- Project: ${PROJECT_NAME}"
-    echo "- Repo: ${ROOT}"
-    echo "- Branch: ${branch}"
-    echo "- HEAD: ${hash}"
-    echo "- Commit: ${subject}"
-    echo "- Upstream: ${upstream:-"(none)"}"
-    echo "- Ahead/behind: $(ahead_behind "$upstream")"
-    echo
-    echo "## Dirty Tracked Files"
-    echo
-    if [[ -n "$dirty" ]]; then
-      echo '```text'
-      echo "$dirty"
-      echo '```'
-    else
-      echo "(none)"
-    fi
-    echo
-    echo "## Full Short Status"
-    echo
-    if [[ -n "$status" ]]; then
-      echo '```text'
-      echo "$status"
-      echo '```'
-    else
-      echo "(clean)"
-    fi
-    echo
-    echo "## Latest Session Memory"
-    echo
-    echo "${latest:-"(none)"}"
-    echo
-    echo "## Context Excerpt From Latest Session Memory"
-    echo
-    if [[ -n "$latest" && "$latest" != "(none)" && -f "$latest" ]]; then
-      echo '```markdown'
-      sed -n '1,160p' "$latest"
-      echo '```'
-    else
-      echo "(none)"
-    fi
-    echo
-    echo "## Required Local Context"
-    echo
-    echo "- Read \`CLAUDE.md\` if present, but treat this handoff and current Git state as the latest session state."
-    echo "- Read \`docs/workflows/claude-codex-handoff.md\` if present."
-    echo "- Leave unrelated untracked/local files alone unless Q explicitly asks."
-    echo "- Do not push, reset, clean, or force-update unless Q explicitly approves."
-    echo
-    echo "## Open Questions / Blockers"
-    echo
-    echo "- Ask Q for the next objective before editing unless the current chat gives one."
-    echo "- Decide whether to commit the handoff tooling after Q reviews it."
-    echo
-    echo "## Exact Next Command"
-    echo
-    echo '```bash'
-    next_command "$slug"
-    echo '```'
-  } > "$out"
-
-  tmp_build="$(mktemp "/tmp/learnai_resume_in_${slug}_latest.XXXXXX")"
-  cp "$out" "$tmp_build"
-  chmod 600 "$out" "$tmp_build"
-  if [[ -d "$tmp" ]]; then
-    echo "agent-handoff: refusing to replace directory '$tmp'" >&2
-    rm -f "$tmp_build"
-    exit 1
+  echo "# Agent Handoff Status"
+  echo
+  echo "- Project: $(basename "$ROOT")"
+  echo "- Repo: ${ROOT}"
+  echo "- Time: $(date '+%Y-%m-%d %H:%M:%S %Z')"
+  echo "- Branch: ${branch}"
+  echo "- HEAD: ${hash}"
+  echo "- Commit: ${subject}"
+  echo "- Upstream: ${upstream:-"(none)"}"
+  echo "- Ahead/behind: ${ab}"
+  if [[ -f "$PROGRESS_FILE" ]]; then
+    echo "- progress.md: ${PROGRESS_FILE}"
+  else
+    echo "- progress.md: (missing — first checkpoint will create it)"
   fi
-  mv -f "$tmp_build" "$tmp"
-  if [[ -L "$tmp" || ! -f "$tmp" ]]; then
-    echo "agent-handoff: expected regular file at '$tmp'" >&2
-    exit 1
+  echo
+  echo "## Working tree (git status --short)"
+  local short
+  short="$(git status --short)"
+  if [[ -n "$short" ]]; then
+    echo "$short"
+  else
+    echo "(clean)"
   fi
-  chmod 600 "$tmp"
-  echo "Wrote project handoff: $out"
-  echo "Wrote temp handoff: $tmp"
-  echo "Next command:"
-  next_command "$slug"
 }
 
-load_handoff() {
-  local raw_target="${1:-}"
-  local handoff
-  handoff="$(latest_resume_handoff "$raw_target")"
+# Parse the top entry from progress.md.
+# Boundary: from after $PROGRESS_MARKER through (but not including) the
+# SECOND "## <ISO-date> — " heading. The top entry's own header counts
+# as the first such heading; the next entry's header is the second and
+# stops the parse. Anchored on YYYY-MM-DD so a user-authored "## " inside
+# a summary won't be misinterpreted as an entry boundary, and on header
+# (not '---') so a summary containing a Markdown horizontal rule or a
+# code-block line of '---' doesn't truncate the entry.
+print_top_entry() {
+  if [[ ! -f "$PROGRESS_FILE" ]]; then
+    echo "(no progress.md yet — run: scripts/agent-handoff.sh checkpoint <agent> -m \"...\")"
+    return
+  fi
+  if ! grep -qF -- "$PROGRESS_MARKER" "$PROGRESS_FILE"; then
+    echo "(progress.md missing marker; showing first 80 lines verbatim)"
+    head -80 "$PROGRESS_FILE"
+    return
+  fi
+  awk -v marker="$PROGRESS_MARKER" '
+    seen == 1 && /^## [0-9][0-9][0-9][0-9]-[0-9][0-9]-[0-9][0-9] / {
+      headers++
+      if (headers > 1) exit
+    }
+    seen == 1 { print }
+    $0 == marker { seen = 1; next }
+  ' "$PROGRESS_FILE"
+}
+
+print_resume() {
   print_status
   echo
-  echo "# Latest Resume Handoff"
+  echo "## Latest progress.md entry"
   echo
-  if [[ -n "$handoff" && -f "$handoff" ]]; then
-    echo "Path: $handoff"
-    echo
-    cat "$handoff"
+  print_top_entry
+  echo
+  echo "## Next"
+  echo
+  echo "- Read CLAUDE.md and AGENTS.md if present."
+  echo "- Confirm the working tree and HEAD above match what you expect."
+  echo "- Ask Q for the next objective unless the entry already specifies one."
+}
+
+build_entry() {
+  local label="$1" timestamp="$2" branch="$3" hash="$4" subject="$5"
+  local upstream="$6" ab="$7" summary="$8"
+  local status_short="$9" diff_stat="${10}" cached_stat="${11}" last_commit="${12}"
+
+  echo
+  echo "## ${timestamp} — ${label}"
+  echo
+  echo "- **Branch:** \`${branch}\`"
+  echo "- **HEAD:** \`${hash:0:7}\` — ${subject}"
+  echo "- **Upstream:** ${upstream:-"(none)"} — ${ab}"
+  echo
+  echo "### Summary"
+  echo
+  echo "${summary}"
+  echo
+  echo "### Working tree (\`git status --short\`)"
+  echo
+  if [[ -n "$status_short" ]]; then
+    echo '```text'
+    echo "$status_short"
+    echo '```'
   else
-    echo "(none found)"
+    echo "_clean_"
   fi
+  echo
+  echo "### Unstaged diff (\`git diff --stat\`)"
+  echo
+  if [[ -n "$diff_stat" ]]; then
+    echo '```text'
+    echo "$diff_stat"
+    echo '```'
+  else
+    echo "_none_"
+  fi
+  echo
+  echo "### Staged diff (\`git diff --cached --stat\`)"
+  echo
+  if [[ -n "$cached_stat" ]]; then
+    echo '```text'
+    echo "$cached_stat"
+    echo '```'
+  else
+    echo "_none_"
+  fi
+  echo
+  echo "### Latest commit (\`git show --stat --oneline HEAD\`)"
+  echo
+  if [[ -n "$last_commit" ]]; then
+    echo '```text'
+    echo "$last_commit"
+    echo '```'
+  else
+    echo "_no commits yet_"
+  fi
+  echo
+  echo "---"
+}
+
+# Inserts a new entry directly after $PROGRESS_MARKER (or creates the file
+# with the entry on first run). Serialized via mkdir lock; atomic via
+# temp-file + mv. Cleanup is handled by the script-level trap.
+insert_entry() {
+  local entry="$1"
+  acquire_progress_lock
+  PROGRESS_TMP="$(mktemp "${ROOT}/.progress.tmp.XXXXXX")"
+  if [[ ! -f "$PROGRESS_FILE" ]]; then
+    {
+      echo "# Project Progress"
+      echo
+      echo "Live cross-agent handoff log. Newest entry on top. Each entry is one"
+      echo "checkpoint written by one agent. Both Codex and Claude Code append"
+      echo "entries; nobody edits prior entries. Managed by"
+      echo "\`scripts/agent-handoff.sh checkpoint\`."
+      echo
+      echo "$PROGRESS_MARKER"
+      printf '%s\n' "$entry"
+    } > "$PROGRESS_TMP"
+  else
+    if ! grep -qF -- "$PROGRESS_MARKER" "$PROGRESS_FILE"; then
+      echo "agent-handoff: progress.md missing marker; refusing to overwrite" >&2
+      exit 1
+    fi
+    local marker_line
+    marker_line="$(grep -nF -- "$PROGRESS_MARKER" "$PROGRESS_FILE" | head -1 | cut -d: -f1)"
+    head -n "$marker_line" "$PROGRESS_FILE" > "$PROGRESS_TMP"
+    printf '%s\n' "$entry" >> "$PROGRESS_TMP"
+    tail -n +"$((marker_line + 1))" "$PROGRESS_FILE" >> "$PROGRESS_TMP"
+  fi
+  chmod 644 "$PROGRESS_TMP"
+  mv -f "$PROGRESS_TMP" "$PROGRESS_FILE"
+  # Signal to cleanup_progress that the tmp file no longer exists.
+  PROGRESS_TMP=""
+  # Release the lock here so the cleanup trap doesn't double-rmdir.
+  rmdir "$PROGRESS_LOCK_DIR" 2>/dev/null || true
+  PROGRESS_LOCK_HELD=0
+}
+
+write_checkpoint() {
+  local agent_raw="${1:-}"
+  if [[ -z "$agent_raw" ]]; then
+    echo "agent-handoff: checkpoint requires <agent> ('codex' or 'claude')" >&2
+    exit 2
+  fi
+  shift
+  local label
+  label="$(agent_label "$agent_raw")"
+
+  local summary="" source=""
+  while [[ $# -gt 0 ]]; do
+    case "$1" in
+      -m|--message)
+        shift
+        if [[ $# -eq 0 ]]; then
+          echo "agent-handoff: -m requires a value" >&2
+          exit 2
+        fi
+        summary="$1"
+        source="-m"
+        ;;
+      --stdin)
+        if [[ -t 0 ]]; then
+          echo "agent-handoff: --stdin given but stdin is a TTY" >&2
+          exit 2
+        fi
+        summary="$(cat)"
+        source="--stdin"
+        ;;
+      *)
+        echo "agent-handoff: unknown checkpoint arg '$1'" >&2
+        exit 2
+        ;;
+    esac
+    shift
+  done
+
+  if [[ -z "$source" ]]; then
+    echo "agent-handoff: checkpoint requires -m \"<summary>\" or --stdin" >&2
+    exit 2
+  fi
+  summary="${summary%$'\n'}"
+  if [[ -z "${summary//[[:space:]]/}" ]]; then
+    echo "agent-handoff: checkpoint summary is empty" >&2
+    exit 2
+  fi
+
+  local branch upstream hash subject ab status_short diff_stat cached_stat last_commit timestamp
+  branch="$(current_branch)"
+  upstream="$(upstream_ref)"
+  hash="$(head_hash)"
+  subject="$(head_subject)"
+  ab="$(ahead_behind "$upstream")"
+  status_short="$(git status --short)"
+  diff_stat="$(git diff --stat)"
+  cached_stat="$(git diff --cached --stat)"
+  last_commit="$(git show --stat --oneline HEAD 2>/dev/null || true)"
+  timestamp="$(date '+%Y-%m-%d %H:%M:%S %Z')"
+
+  local entry
+  entry="$(build_entry "$label" "$timestamp" "$branch" "$hash" "$subject" \
+    "$upstream" "$ab" "$summary" \
+    "$status_short" "$diff_stat" "$cached_stat" "$last_commit")"
+
+  insert_entry "$entry"
+  echo "Wrote checkpoint for ${label} -> ${PROGRESS_FILE}"
+  echo
+  echo "Latest entry:"
+  echo
+  print_top_entry
+}
+
+deprecated_save() {
+  echo "agent-handoff: 'save' is DEPRECATED in favor of 'checkpoint'." >&2
+  echo >&2
+  echo "  Old: scripts/agent-handoff.sh save <target>" >&2
+  echo "  New: scripts/agent-handoff.sh checkpoint <your-agent> -m \"<summary>\"" >&2
+  echo >&2
+  echo "  <your-agent> is who YOU are (codex or claude), not the audience." >&2
+  exit 2
+}
+
+deprecated_load() {
+  echo "agent-handoff: 'load' is DEPRECATED in favor of 'resume'." >&2
+  echo >&2
+  echo "  Old: scripts/agent-handoff.sh load [target]" >&2
+  echo "  New: scripts/agent-handoff.sh resume" >&2
+  exit 2
 }
 
 cmd="${1:-}"
 case "$cmd" in
-  status)
-    print_status
-    ;;
-  save)
-    write_handoff "${2:-}"
-    ;;
-  load)
-    load_handoff "${2:-}"
-    ;;
-  -h|--help|help|"")
-    usage
-    ;;
+  status)            print_status ;;
+  checkpoint)        shift; write_checkpoint "$@" ;;
+  resume)            print_resume ;;
+  save)              deprecated_save ;;
+  load)              deprecated_load ;;
+  -h|--help|help|"") usage ;;
   *)
     echo "agent-handoff: unknown command '$cmd'" >&2
     usage >&2

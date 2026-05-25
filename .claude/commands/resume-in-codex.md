@@ -1,27 +1,24 @@
 # /resume-in-codex
 
+> **DEPRECATED**: prefer `/checkpoint` (then tell Q to run Codex). Kept for muscle memory; forwards to the new flow.
+
 Prepare the current project state for Codex to resume.
 
 ## Steps
 
-1. Run:
+1. Write a checkpoint to `progress.md` (Claude Code is the writer):
 
-```bash
-scripts/agent-handoff.sh save codex
-```
+   ```bash
+   scripts/agent-handoff.sh checkpoint claude --stdin <<'EOF'
+   <summary of session, what to do next, off-limits files>
+   EOF
+   ```
 
-2. Report both generated handoff paths.
-3. Report the exact Codex command printed by the script.
-4. Do not commit, push, reset, clean, or switch branches unless Q explicitly asks.
+2. Tell Q exactly:
 
-## Output Shape
+   ```
+   Codex can resume by running:
+       cd "<repo>" && codex "Run /resume and continue."
+   ```
 
-```text
-Codex handoff ready.
-
-Project handoff: <path>
-Temp handoff: <path>
-
-Next Codex command:
-<command>
-```
+3. Stop unless Q asks for more work.
