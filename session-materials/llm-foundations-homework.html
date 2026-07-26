@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LLM Foundations Homework Sheet</title>
+<style>
+*,*::before,*::after{box-sizing:border-box}
+:root{
+  --ink:#15151f;--muted:#5f6272;--line:#d9dbe7;--soft:#f4f6fb;--accent:#2563eb;--accent2:#7c3aed;
+  --ok:#047857;--warn:#b45309;--danger:#b91c1c;
+  --font:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+}
+body{margin:0;background:#eef1f8;color:var(--ink);font-family:var(--font);line-height:1.55;font-size:15px}
+.page{max-width:900px;margin:24px auto;background:#fff;padding:40px 48px;border-radius:14px}
+h1{font-size:30px;line-height:1.15;margin:0 0 8px;color:#111827}
+h2{font-size:20px;margin:30px 0 10px;padding-top:4px;border-top:2px solid var(--line)}
+h3{font-size:16px;margin:18px 0 8px}
+p{margin:0 0 10px}
+a{color:var(--accent);font-weight:700}
+.subtitle{color:var(--muted);font-size:16px;margin-bottom:18px}
+.meta{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:18px 0 24px}
+.blank{border-bottom:1px solid var(--ink);min-height:28px;padding:4px 0;color:var(--muted)}
+.callout{border:1px solid #bfdbfe;background:#eff6ff;border-radius:10px;padding:14px 16px;margin:16px 0}
+.warn{border-color:#fde68a;background:#fffbeb}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.card{border:1px solid var(--line);border-radius:10px;padding:14px;background:var(--soft)}
+.card h3{margin-top:0}
+.check{display:flex;gap:8px;margin:8px 0}
+.box{width:18px;height:18px;border:1.8px solid var(--ink);border-radius:3px;flex:0 0 auto;margin-top:2px}
+.answer{border:1px solid var(--line);border-radius:8px;min-height:72px;margin:8px 0 14px;padding:10px;background:#fff}
+.answer.sm{min-height:44px}
+.answer.lg{min-height:120px}
+.timeline{border-left:4px solid var(--accent);padding-left:14px;margin:14px 0}
+.checkpoint{break-inside:avoid;border:1px solid var(--line);border-radius:10px;padding:12px 14px;margin:10px 0;background:#fff}
+.time{display:inline-block;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-weight:800;color:var(--accent2);margin-right:6px}
+table{width:100%;border-collapse:collapse;margin:12px 0}
+th,td{border:1px solid var(--line);padding:8px 10px;vertical-align:top;text-align:left}
+th{background:var(--soft)}
+.small{font-size:13px;color:var(--muted)}
+.rubric td:first-child{width:70%}
+.footer{margin-top:32px;color:var(--muted);font-size:12px;text-align:center}
+@media print{
+  body{background:#fff;font-size:12px}
+  .page{margin:0;max-width:none;padding:0}
+  a{color:#000;text-decoration:none}
+  h2{break-after:avoid}
+  .checkpoint,.card,.callout{break-inside:avoid}
+  @page{size:Letter;margin:0.6in}
+}
+</style>
+</head>
+<body>
+<main class="page">
+  <h1>LLM Foundations Homework Sheet</h1>
+  <p class="subtitle">Required preparation for Module 0: LLM Basics</p>
+
+  <div class="meta">
+    <div><strong>Name</strong><div class="blank"></div></div>
+    <div><strong>Date</strong><div class="blank"></div></div>
+  </div>
+
+  <div class="callout warn">
+    <strong>Required workload:</strong> Watch the 8-minute 3Blue1Brown warm-up and the full 3h31m Karpathy video outside class. You may watch Karpathy at 1.25x or 1.5x, but pause at each checkpoint and answer in your own words. The class session will use this worksheet.
+  </div>
+
+  <h2>Required Videos</h2>
+  <div class="grid">
+    <div class="card">
+      <h3>1. Warm-Up Video</h3>
+      <p><strong>3Blue1Brown:</strong> Large Language Models explained briefly</p>
+      <p><a href="https://www.youtube.com/watch?v=LPZh9BOjkQs">https://www.youtube.com/watch?v=LPZh9BOjkQs</a></p>
+      <p class="small">Purpose: simple visual model of next-token prediction, chatbots, pretraining, and transformers.</p>
+    </div>
+    <div class="card">
+      <h3>2. Main Homework Video</h3>
+      <p><strong>Andrej Karpathy:</strong> Deep Dive into LLMs like ChatGPT</p>
+      <p><a href="https://www.youtube.com/watch?v=7xTGNNLPyMI">https://www.youtube.com/watch?v=7xTGNNLPyMI</a></p>
+      <p class="small">Purpose: full foundation for data, tokens, training, inference, hallucinations, tool use, RLHF, and practical use.</p>
+    </div>
+  </div>
+
+  <h2>Before Watching</h2>
+  <p>In one sentence, what do you think ChatGPT is doing when it answers a question?</p>
+  <div class="answer"></div>
+
+  <h2>Tiny Glossary</h2>
+  <table>
+    <tr><th>Term</th><th>Meaning for this course</th></tr>
+    <tr><td>Token</td><td>A chunk of text the model processes. It can be a word, part of a word, punctuation, or code fragment.</td></tr>
+    <tr><td>Context window</td><td>The current working memory: the text the model can see while answering.</td></tr>
+    <tr><td>Pretraining</td><td>Learning broad patterns from massive text and code data.</td></tr>
+    <tr><td>SFT</td><td>Supervised fine-tuning: training from example conversations or desired outputs.</td></tr>
+    <tr><td>RLHF</td><td>Reinforcement learning from human feedback: using human preferences to shape model behavior.</td></tr>
+    <tr><td>Inference</td><td>Running the trained model to generate output, usually one token at a time.</td></tr>
+    <tr><td>Hallucination</td><td>A fluent answer that is unsupported, misleading, or false.</td></tr>
+    <tr><td>Tool</td><td>An external action the system lets the model request, such as search, calculation, or code execution.</td></tr>
+    <tr><td>Guardrail</td><td>A rule, approval step, or check that limits risky behavior.</td></tr>
+  </table>
+
+  <h2>3Blue1Brown Warm-Up Reflection</h2>
+  <p>After the short video, write two ideas that became clearer.</p>
+  <div class="answer"></div>
+  <p>What is one question you still have before watching Karpathy?</p>
+  <div class="answer sm"></div>
+
+  <h2>Karpathy Checkpoints</h2>
+  <p class="small">Timestamps are based on the current YouTube chapters for "Deep Dive into LLMs like ChatGPT." Use them as anchors, not as exact quiz boundaries.</p>
+
+  <div class="timeline">
+    <div class="checkpoint">
+      <p><span class="time">00:01:00</span><strong>Pretraining data (internet)</strong></p>
+      <p>What kinds of data help train an LLM? Why does data quality matter?</p>
+      <div class="answer"></div>
+    </div>
+    <div class="checkpoint">
+      <p><span class="time">00:07:47</span><strong>Tokenization</strong></p>
+      <p>What is a token? Give one example where tokenization might surprise a user.</p>
+      <div class="answer"></div>
+    </div>
+    <div class="checkpoint">
+      <p><span class="time">00:14:27</span><strong>Neural network input/output</strong></p>
+      <p>What goes into the model, and what comes out?</p>
+      <div class="answer"></div>
+    </div>
+    <div class="checkpoint">
+      <p><span class="time">00:20:11</span><strong>Neural network internals</strong></p>
+      <p>You do not need the math. What is the useful mental model for what the network has learned?</p>
+      <div class="answer"></div>
+    </div>
+    <div class="checkpoint">
+      <p><span class="time">00:26:01</span><strong>Inference</strong></p>
+      <p>Why does the answer appear one piece at a time?</p>
+      <div class="answer"></div>
+    </div>
+    <div class="checkpoint">
+      <p><span class="time">00:31:09</span><strong>GPT-2: training and inference</strong></p>
+      <p>What does a base model do? How is that different from a helpful chat assistant?</p>
+      <div class="answer"></div>
+    </div>
+    <div class="checkpoint">
+      <p><span class="time">00:42:52</span><strong>Llama 3.1 base model inference</strong></p>
+      <p>What did you notice about interacting with a base model?</p>
+      <div class="answer"></div>
+    </div>
+    <div class="checkpoint">
+      <p><span class="time">00:59:23</span><strong>Pretraining to post-training</strong></p>
+      <p>Why is pretraining not enough if we want a useful assistant?</p>
+      <div class="answer"></div>
+    </div>
+    <div class="checkpoint">
+      <p><span class="time">01:01:06</span><strong>Post-training data (conversations)</strong></p>
+      <p>How do conversation examples change the behavior of a model?</p>
+      <div class="answer"></div>
+    </div>
+    <div class="checkpoint">
+      <p><span class="time">01:20:32</span><strong>Hallucinations, tool use, knowledge, working memory</strong></p>
+      <p>Why can a model sound confident and still be wrong? How can tools help?</p>
+      <div class="answer lg"></div>
+    </div>
+    <div class="checkpoint">
+      <p><span class="time">01:41:46</span><strong>Knowledge of self</strong></p>
+      <p>Why might a model be confused about what it is, what version it is, or what it can access?</p>
+      <div class="answer"></div>
+    </div>
+    <div class="checkpoint">
+      <p><span class="time">01:46:56</span><strong>Models need tokens to think</strong></p>
+      <p>Why can writing intermediate reasoning or scratch work help a model perform better?</p>
+      <div class="answer"></div>
+    </div>
+    <div class="checkpoint">
+      <p><span class="time">02:01:11</span><strong>Tokenization revisited</strong></p>
+      <p>Why can spelling, counting letters, or manipulating strings be surprisingly hard?</p>
+      <div class="answer"></div>
+    </div>
+    <div class="checkpoint">
+      <p><span class="time">02:04:53</span><strong>Jagged intelligence</strong></p>
+      <p>What does it mean for a model to be brilliant at one task and weak at another?</p>
+      <div class="answer"></div>
+    </div>
+    <div class="checkpoint">
+      <p><span class="time">02:07:28</span><strong>SFT to reinforcement learning</strong></p>
+      <p>What changes when the system moves beyond examples and starts using feedback or rewards?</p>
+      <div class="answer"></div>
+    </div>
+    <div class="checkpoint">
+      <p><span class="time">02:14:42</span><strong>Reinforcement learning</strong></p>
+      <p>Explain reinforcement learning in one sentence using your own words.</p>
+      <div class="answer"></div>
+    </div>
+    <div class="checkpoint">
+      <p><span class="time">02:48:26</span><strong>RLHF</strong></p>
+      <p>Why do human preferences matter when building assistant-like models?</p>
+      <div class="answer"></div>
+    </div>
+    <div class="checkpoint">
+      <p><span class="time">03:21:46</span><strong>Grand summary</strong></p>
+      <p>Write three takeaways you want to remember before learning agents.</p>
+      <div class="answer lg"></div>
+    </div>
+  </div>
+
+  <h2>Bridge to Agents</h2>
+  <p>Use this course definition:</p>
+  <div class="callout">
+    <strong>Practical agent = LLM + goal + context + tools + loop + guardrails</strong>
+  </div>
+
+  <p>Classify each example as <strong>chatbot answer</strong>, <strong>tool call</strong>, or <strong>agent loop</strong>.</p>
+  <table>
+    <tr><th>Example</th><th>Your classification</th><th>Why?</th></tr>
+    <tr><td>ChatGPT explains the difference between pretraining and post-training.</td><td></td><td></td></tr>
+    <tr><td>A model asks a calculator tool to compute 438 * 27.</td><td></td><td></td></tr>
+    <tr><td>A coding system reads files, proposes a plan, edits code, runs tests, and asks before deploying.</td><td></td><td></td></tr>
+  </table>
+
+  <h2>Verification Habit</h2>
+  <p>Pick one important claim from the video or from a chatbot answer. How would you verify it?</p>
+  <div class="answer lg"></div>
+
+  <h2>Exit Ticket</h2>
+  <p>In 4-6 sentences, explain why an agent needs guardrails.</p>
+  <div class="answer lg"></div>
+
+  <h2>Completion Checklist</h2>
+  <div class="check"><span class="box"></span><span>I watched the 3Blue1Brown warm-up video.</span></div>
+  <div class="check"><span class="box"></span><span>I watched the full Karpathy video, using the checkpoint questions.</span></div>
+  <div class="check"><span class="box"></span><span>I completed the glossary and checkpoint responses in my own words.</span></div>
+  <div class="check"><span class="box"></span><span>I can explain the difference between chatbot answer, tool call, and agent loop.</span></div>
+  <div class="check"><span class="box"></span><span>I wrote an exit ticket about guardrails.</span></div>
+
+  <h2>Teacher Grading Guide</h2>
+  <table class="rubric">
+    <tr><th>Criteria</th><th>Points</th></tr>
+    <tr><td>Completed video checkpoints with specific, non-copy-pasted responses</td><td>40</td></tr>
+    <tr><td>Accurate use of core vocabulary: token, context, pretraining, post-training, inference, hallucination</td><td>20</td></tr>
+    <tr><td>Clear explanation of hallucination and verification behavior</td><td>15</td></tr>
+    <tr><td>Correctly distinguishes chatbot answer, tool call, and agent loop</td><td>15</td></tr>
+    <tr><td>Exit ticket explains why guardrails matter for risky actions</td><td>10</td></tr>
+  </table>
+
+  <p class="footer">AI Engineering Academy - Module 0: LLM Basics</p>
+</main>
+</body>
+</html>

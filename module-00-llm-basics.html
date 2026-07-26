@@ -1,0 +1,606 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Module 0 Slides - LLM Basics</title>
+<link rel="icon" href="data:,">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#070817;--panel:#101426;--panel2:#171d34;--line:rgba(255,255,255,.1);
+  --text:#f5f7fb;--muted:#a5adc2;--faint:#707a96;
+  --cyan:#22d3ee;--blue:#60a5fa;--violet:#a78bfa;--green:#34d399;--amber:#f59e0b;--rose:#fb7185;
+  --font:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  --mono:"SFMono-Regular",Consolas,"Liberation Mono",Menlo,monospace;
+}
+html,body{height:100%;overflow:hidden}
+body{font-family:var(--font);background:
+  radial-gradient(circle at 18% 12%,rgba(34,211,238,.16),transparent 32%),
+  radial-gradient(circle at 78% 18%,rgba(167,139,250,.14),transparent 34%),
+  linear-gradient(135deg,#070817,#0c1022 52%,#080b17);color:var(--text)}
+a{color:var(--cyan);text-decoration:none}
+button{font:inherit}
+.deck{height:100vh;width:100vw;position:relative}
+.slide{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:82px 7vw 84px;opacity:0;pointer-events:none;transition:opacity .25s ease;overflow:auto}
+.slide.active{opacity:1;pointer-events:auto}
+.inner{width:min(1180px,100%)}
+.kicker{display:inline-flex;align-items:center;gap:10px;color:var(--cyan);font-size:13px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;margin-bottom:18px}
+.kicker::before{content:"";width:34px;height:2px;background:currentColor;border-radius:99px}
+h1{font-size:clamp(42px,6vw,76px);line-height:1.02;letter-spacing:0;margin-bottom:18px}
+h2{font-size:clamp(34px,4.6vw,58px);line-height:1.06;letter-spacing:0;margin-bottom:18px}
+h3{font-size:clamp(23px,2.4vw,32px);line-height:1.18;margin-bottom:14px}
+p,li{font-size:clamp(18px,1.55vw,23px);line-height:1.45;color:var(--muted)}
+ul{padding-left:1.2em;margin:18px 0}
+li{margin:8px 0}
+.lede{font-size:clamp(22px,2.2vw,31px);max-width:900px;color:#dce5f7}
+.muted{color:var(--faint);font-size:16px}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px;margin-top:28px}
+.grid.three{grid-template-columns:repeat(3,minmax(0,1fr))}
+.card{background:rgba(16,20,38,.82);border:1px solid var(--line);border-radius:16px;padding:22px}
+.card h3{font-size:22px}
+.tag{display:inline-flex;border:1px solid rgba(255,255,255,.14);border-radius:999px;padding:7px 11px;color:#dbeafe;font-size:13px;font-weight:800;margin-bottom:12px;background:rgba(255,255,255,.04)}
+.formula{font-family:var(--mono);font-size:clamp(21px,2vw,30px);line-height:1.45;background:#050713;border:1px solid rgba(96,165,250,.28);border-radius:18px;padding:24px;margin-top:26px;color:#bfdbfe}
+.diagram{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-top:28px}
+.node{border:1px solid rgba(255,255,255,.18);background:rgba(255,255,255,.06);border-radius:14px;padding:16px 18px;min-width:130px;text-align:center;color:#edf2ff;font-weight:800}
+.arrow{color:var(--cyan);font-size:28px;font-weight:900}
+.challenge{border-left:6px solid var(--amber);background:rgba(245,158,11,.1)}
+.quiz{border-left:6px solid var(--green);background:rgba(52,211,153,.08)}
+.optional{border-left:6px solid var(--violet);background:rgba(167,139,250,.08)}
+.danger{border-left:6px solid var(--rose);background:rgba(251,113,133,.08)}
+.choices{display:grid;gap:12px;margin-top:22px}
+.choice{width:100%;text-align:left;color:var(--text);background:rgba(255,255,255,.055);border:1px solid var(--line);border-radius:13px;padding:15px 16px;cursor:pointer}
+.choice:hover,.choice:focus{outline:2px solid rgba(34,211,238,.65)}
+.choice.correct{border-color:rgba(52,211,153,.9);background:rgba(52,211,153,.16)}
+.choice.wrong{border-color:rgba(251,113,133,.9);background:rgba(251,113,133,.14)}
+.feedback{display:none;margin-top:16px;padding:14px 16px;border-radius:12px;background:rgba(255,255,255,.07);color:#dbeafe;font-size:17px}
+.feedback.show{display:block}
+.teacher-note{display:none;margin-top:24px;border:1px dashed rgba(255,255,255,.28);background:rgba(255,255,255,.055);border-radius:14px;padding:16px;color:#d7dded;font-size:16px}
+body.notes-on .teacher-note{display:block}
+.hud{position:fixed;top:0;left:0;right:0;height:54px;background:rgba(7,8,23,.88);backdrop-filter:blur(14px);border-bottom:1px solid var(--line);display:flex;align-items:center;gap:14px;padding:0 18px;z-index:5}
+.brand{font-weight:900;color:#fff;white-space:nowrap}
+.progress{height:6px;background:rgba(255,255,255,.08);border-radius:999px;flex:1;overflow:hidden}
+.bar{height:100%;width:0;background:linear-gradient(90deg,var(--cyan),var(--violet));transition:width .2s ease}
+.status{color:var(--muted);font-size:13px;white-space:nowrap}
+.controls{position:fixed;left:0;right:0;bottom:0;min-height:62px;background:rgba(7,8,23,.9);backdrop-filter:blur(14px);border-top:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;gap:12px;padding:10px 18px;z-index:5}
+.btn{border:1px solid var(--line);background:rgba(255,255,255,.06);color:#fff;border-radius:11px;padding:9px 13px;cursor:pointer;font-weight:800}
+.btn:hover,.btn:focus{outline:2px solid rgba(34,211,238,.5)}
+.jump{display:flex;gap:8px;flex-wrap:wrap;justify-content:center}
+.jump .btn{font-size:13px;color:var(--muted)}
+.jump .btn.active{color:#07111f;background:var(--cyan)}
+.video-frame{position:relative;width:100%;max-width:860px;aspect-ratio:16/9;border-radius:16px;overflow:hidden;border:1px solid var(--line);background:#000;margin-top:22px}
+.video-frame iframe{position:absolute;inset:0;width:100%;height:100%}
+.artifact{background:linear-gradient(135deg,rgba(34,211,238,.12),rgba(167,139,250,.12));border:1px solid rgba(34,211,238,.26)}
+.print-only{display:none}
+@media(max-width:760px){
+  .slide{justify-content:flex-start;padding:76px 22px 230px}
+  .grid,.grid.three{grid-template-columns:1fr}
+  .hud{height:auto;min-height:58px;align-items:flex-start;flex-wrap:wrap;padding:9px 12px}
+  .brand{width:100%}
+  .status{font-size:12px}
+  .controls{display:grid;grid-template-columns:1fr auto;align-items:center;min-height:0}
+  .jump{grid-column:1/-1;order:0}
+  .controls>div:last-child{display:flex;gap:8px;justify-content:flex-end}
+  .btn{padding:8px 10px}
+}
+</style>
+</head>
+<body>
+<div class="hud">
+  <div class="brand">Module 0: LLM Basics</div>
+  <div class="progress" aria-hidden="true"><div class="bar" id="bar"></div></div>
+  <div class="status" id="status">Slide 1</div>
+</div>
+
+<main class="deck" id="deck">
+  <section class="slide active" id="start" data-part="Open" data-title="Module 0">
+    <div class="inner">
+      <div class="kicker">First instructional class</div>
+      <h1>LLM Basics</h1>
+      <p class="lede">Before we use AI tools seriously, we need a mental model of what they are doing, where they break, and how they become agents.</p>
+      <div class="grid three">
+        <div class="card"><span class="tag">3 hours</span><p>Half teaching and demo, half challenges and checks.</p></div>
+        <div class="card"><span class="tag">No prerequisite</span><p>We start from autocomplete and build toward agent loops.</p></div>
+        <div class="card"><span class="tag">Homework later</span><p>Videos are assigned after class. Class time is for understanding and practice.</p></div>
+      </div>
+      <div class="teacher-note">Pacing: 5 minutes. Set the norm: students should interrupt with questions and expect to do short activities throughout.</div>
+    </div>
+  </section>
+
+  <section class="slide" data-part="Open" data-title="Class rhythm">
+    <div class="inner">
+      <div class="kicker">How today works</div>
+      <h2>We alternate between learning and doing.</h2>
+      <div class="grid">
+        <div class="card"><h3>Teaching + demo</h3><p>Short explanations, mental models, examples, and instructor demonstration.</p></div>
+        <div class="card"><h3>Challenge + quiz</h3><p>Students test the idea immediately with a task, question, artifact, or quick decision.</p></div>
+      </div>
+      <div class="formula">Listen briefly -> try something -> check your model -> revise</div>
+    </div>
+  </section>
+
+  <section class="slide" id="hour1" data-part="Hour 1" data-title="Why it works">
+    <div class="inner">
+      <div class="kicker">Hour 1 question</div>
+      <h2>Why does this thing work at all?</h2>
+      <p class="lede">The simplest useful answer: an LLM has learned patterns in text and code, then uses the current context to predict useful next tokens.</p>
+      <div class="diagram">
+        <div class="node">text</div><div class="arrow">-></div>
+        <div class="node">tokens</div><div class="arrow">-></div>
+        <div class="node">probabilities</div><div class="arrow">-></div>
+        <div class="node">next token</div>
+      </div>
+      <div class="teacher-note">Cold open: write "The best way to learn AI is..." and ask students to shout likely continuations.</div>
+    </div>
+  </section>
+
+  <section class="slide" data-part="Hour 1" data-title="Autocomplete intuition">
+    <div class="inner">
+      <div class="kicker">Mental model</div>
+      <h2>Start with autocomplete, then scale it up.</h2>
+      <p>Phone autocomplete predicts a few likely next words. An LLM predicts the next token using a much larger context and a much richer model of patterns learned during training.</p>
+      <div class="grid">
+        <div class="card"><h3>Small autocomplete</h3><p>Looks at a short phrase and offers common continuations.</p></div>
+        <div class="card"><h3>LLM</h3><p>Looks at a long context and can continue explanations, code, plans, arguments, and conversations.</p></div>
+      </div>
+      <div class="teacher-note">Stress the analogy's limit: an LLM is not just a phone keyboard. The useful part is next-token prediction as the interface to learned patterns.</div>
+    </div>
+  </section>
+
+  <section class="slide challenge" data-part="Hour 1" data-title="Next token challenge">
+    <div class="inner">
+      <div class="kicker">Challenge 1 - 8 minutes</div>
+      <h2>Next-token guessing</h2>
+      <p>Complete each sentence with three possible next words. Then rank which word is most likely and which word is most interesting.</p>
+      <div class="grid">
+        <div class="card"><h3>Prompt A</h3><p><code>The student opened GitHub and created a...</code></p></div>
+        <div class="card"><h3>Prompt B</h3><p><code>The AI answered confidently, but the source...</code></p></div>
+      </div>
+      <p class="muted">Deliverable: one sentence explaining why "likely" and "best" are not always the same.</p>
+    </div>
+  </section>
+
+  <section class="slide quiz" data-part="Hour 1" data-title="Quiz">
+    <div class="inner">
+      <div class="kicker">Quick check</div>
+      <h2>What is the model choosing during generation?</h2>
+      <div class="choices">
+        <button class="choice" data-correct="false">A final fully planned answer before it starts typing.</button>
+        <button class="choice" data-correct="true">A next token, then another next token, repeatedly.</button>
+        <button class="choice" data-correct="false">A verified fact from a private database every time.</button>
+      </div>
+      <div class="feedback">The useful mental model is repeated next-token generation. The final answer emerges from many local choices.</div>
+    </div>
+  </section>
+
+  <section class="slide" data-part="Hour 1" data-title="Tokens">
+    <div class="inner">
+      <div class="kicker">Tokens</div>
+      <h2>The model does not read text the way you do.</h2>
+      <p>Before text reaches the model, it is split into tokens: words, parts of words, spaces, punctuation, numbers, or code fragments.</p>
+      <div class="formula">"unbelievable" might become "un" + "believ" + "able"</div>
+      <p>This explains why spelling, letter counting, and exact formatting can feel strange. The model sees chunks, not your visual page.</p>
+    </div>
+  </section>
+
+  <section class="slide challenge" data-part="Hour 1" data-title="Tokenizer challenge">
+    <div class="inner">
+      <div class="kicker">Challenge 2 - 12 minutes</div>
+      <h2>Tokenizer surprises</h2>
+      <p>Predict which items are easy or hard for a token-based model. Then test with an AI tool only if the instructor says to use live tools.</p>
+      <div class="grid three">
+        <div class="card"><h3>Counting</h3><p>How many letter r's are in strawberry?</p></div>
+        <div class="card"><h3>Formatting</h3><p>Make exactly 17 words, no more and no less.</p></div>
+        <div class="card"><h3>Code</h3><p>Explain why <code>user_id</code> and <code>userid</code> may behave differently.</p></div>
+      </div>
+      <p class="muted">Deliverable: one tokenizer mistake you now know how to anticipate.</p>
+    </div>
+  </section>
+
+  <section class="slide" data-part="Hour 1" data-title="Context">
+    <div class="inner">
+      <div class="kicker">Context window</div>
+      <h2>Context is the model's working memory.</h2>
+      <p>The model can only use what is inside the current context: your prompt, prior messages, pasted files, system instructions, tool outputs, and other text the app provides.</p>
+      <div class="grid">
+        <div class="card"><h3>Inside context</h3><p>Available for the next answer.</p></div>
+        <div class="card"><h3>Outside context</h3><p>Not directly visible unless retrieved, pasted, or remembered by the system.</p></div>
+      </div>
+      <div class="teacher-note">Use a whiteboard box labeled "context." Put sticky notes inside and outside. Ask which notes the model can use.</div>
+    </div>
+  </section>
+
+  <section class="slide challenge" data-part="Hour 1" data-title="Context challenge">
+    <div class="inner">
+      <div class="kicker">Challenge 3 - 8 minutes</div>
+      <h2>What should go in the context?</h2>
+      <p>You want help debugging a web page. Choose the three most useful pieces of context to give the AI assistant.</p>
+      <ul>
+        <li>The exact error message.</li>
+        <li>The file or function where the error appears.</li>
+        <li>Your favorite programming language.</li>
+        <li>What changed right before the bug appeared.</li>
+        <li>A vague sentence: "it does not work."</li>
+      </ul>
+      <p class="muted">Deliverable: a better debugging prompt in two sentences.</p>
+    </div>
+  </section>
+
+  <section class="slide" data-part="Hour 1" data-title="Probability not truth">
+    <div class="inner">
+      <div class="kicker">Core limit</div>
+      <h2>Probability is not the same as truth.</h2>
+      <p>An LLM can produce a fluent answer because the text is likely, not because the claim has been verified. This is why we treat AI output as a draft, hypothesis, or plan until checked.</p>
+      <div class="formula">fluent != verified</div>
+      <div class="teacher-note">Do not make this sound like "AI is useless." The point is role clarity: generation is powerful; verification is a separate step.</div>
+    </div>
+  </section>
+
+  <section class="slide quiz" data-part="Hour 1" data-title="Quiz">
+    <div class="inner">
+      <div class="kicker">Quick check</div>
+      <h2>Which statement is safest?</h2>
+      <div class="choices">
+        <button class="choice" data-correct="false">If the answer sounds confident, it is probably verified.</button>
+        <button class="choice" data-correct="true">Fluent output can be useful, but important claims need checking.</button>
+        <button class="choice" data-correct="false">LLMs never know anything useful because they only predict tokens.</button>
+      </div>
+      <div class="feedback">Good AI use means separating generation from verification.</div>
+    </div>
+  </section>
+
+  <section class="slide optional" data-part="Hour 1" data-title="Optional cut slide">
+    <div class="inner">
+      <div class="kicker">Optional if time</div>
+      <h2>Temperature: one control over variety</h2>
+      <p>Some AI apps let developers adjust how predictable or varied the next-token choices are. Lower settings tend to be more conservative; higher settings can be more creative but less stable.</p>
+      <div class="grid">
+        <div class="card"><h3>Low variety</h3><p>Useful for summaries, extraction, and reproducible formats.</p></div>
+        <div class="card"><h3>High variety</h3><p>Useful for brainstorming, names, examples, and alternative phrasings.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="slide" id="hour2" data-part="Hour 2" data-title="Where behavior comes from">
+    <div class="inner">
+      <div class="kicker">Hour 2 question</div>
+      <h2>Where does the behavior come from, and where does it break?</h2>
+      <p class="lede">Training creates broad language and code ability. Post-training shapes the model into an assistant. Neither step adds a built-in truth detector.</p>
+    </div>
+  </section>
+
+  <section class="slide" data-part="Hour 2" data-title="Training">
+    <div class="inner">
+      <div class="kicker">Training data</div>
+      <h2>The model learns from patterns in data.</h2>
+      <p>During pretraining, the model sees large amounts of text and code and learns to predict missing or next tokens. It does not memorize a clean textbook of facts; it learns statistical structure from messy human data.</p>
+      <div class="diagram">
+        <div class="node">documents</div><div class="arrow">-></div>
+        <div class="node">tokens</div><div class="arrow">-></div>
+        <div class="node">training</div><div class="arrow">-></div>
+        <div class="node">base model</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="slide" data-part="Hour 2" data-title="Base vs assistant">
+    <div class="inner">
+      <div class="kicker">Two model roles</div>
+      <h2>Base model is not the same as assistant.</h2>
+      <div class="grid">
+        <div class="card"><h3>Base model</h3><p>Continues text. It has broad learned patterns but is not yet tuned to behave like a helpful chat assistant.</p></div>
+        <div class="card"><h3>Assistant</h3><p>Post-training teaches the model to follow instructions, refuse some requests, and format answers more helpfully.</p></div>
+      </div>
+      <div class="teacher-note">This distinction helps students understand why "the model" and "the product" are not identical.</div>
+    </div>
+  </section>
+
+  <section class="slide" data-part="Hour 2" data-title="Inference">
+    <div class="inner">
+      <div class="kicker">Inference</div>
+      <h2>Using the trained model is called inference.</h2>
+      <p>At inference time, the system sends context into the model, receives next-token probabilities, chooses a token, adds it to the context, and repeats.</p>
+      <div class="formula">context -> model -> next token -> updated context -> repeat</div>
+      <p class="muted">This is why outputs can stream onto the screen one piece at a time.</p>
+    </div>
+  </section>
+
+  <section class="slide danger" data-part="Hour 2" data-title="Hallucination">
+    <div class="inner">
+      <div class="kicker">Failure mode</div>
+      <h2>Hallucination is fluent unsupported output.</h2>
+      <p>A hallucination is not always nonsense. The dangerous version sounds plausible, fits the style, and still points you to the wrong answer.</p>
+      <div class="grid">
+        <div class="card"><h3>Low-risk example</h3><p>A made-up title in a brainstorming list.</p></div>
+        <div class="card"><h3>High-risk example</h3><p>A fake legal rule, source, medical claim, or financial fact.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="slide challenge" data-part="Hour 2" data-title="Hallucination hunt">
+    <div class="inner">
+      <div class="kicker">Challenge 4 - 18 minutes</div>
+      <h2>Hallucination hunt</h2>
+      <p>Given four confident claims from an AI assistant, decide which claims need outside verification. Then verify two of them with sources or instructor-provided references.</p>
+      <div class="grid">
+        <div class="card"><h3>Your job</h3><p>Mark: verified, unsupported, false, or cannot tell yet.</p></div>
+        <div class="card"><h3>Deliverable</h3><p>One corrected answer with a source or reasoning trail.</p></div>
+      </div>
+      <div class="teacher-note">Prepare claims in advance. Mix course facts, local facts, and one source that looks plausible but is wrong.</div>
+    </div>
+  </section>
+
+  <section class="slide" data-part="Hour 2" data-title="Verification">
+    <div class="inner">
+      <div class="kicker">Working rule</div>
+      <h2>Use AI for drafts. Use evidence for decisions.</h2>
+      <div class="diagram">
+        <div class="node">AI output</div><div class="arrow">-></div>
+        <div class="node">claim list</div><div class="arrow">-></div>
+        <div class="node">source check</div><div class="arrow">-></div>
+        <div class="node">decision</div>
+      </div>
+      <p class="muted">For code, the evidence may be tests. For facts, it may be primary sources. For designs, it may be user feedback or constraints.</p>
+    </div>
+  </section>
+
+  <section class="slide quiz" data-part="Hour 2" data-title="Quiz">
+    <div class="inner">
+      <div class="kicker">Quick check</div>
+      <h2>Which output needs verification first?</h2>
+      <div class="choices">
+        <button class="choice" data-correct="false">"Here are five possible names for your study group."</button>
+        <button class="choice" data-correct="true">"The university policy says you can publish these student records."</button>
+        <button class="choice" data-correct="false">"Here is a rough first draft of a thank-you email."</button>
+      </div>
+      <div class="feedback">Risk decides verification priority. Claims about policy, safety, money, health, or people need stronger checking.</div>
+    </div>
+  </section>
+
+  <section class="slide optional" data-part="Hour 2" data-title="Optional transformer intuition">
+    <div class="inner">
+      <div class="kicker">Optional if time</div>
+      <h2>Transformer intuition: words look at other words.</h2>
+      <p>The transformer architecture lets tokens use information from other tokens in the context. You do not need the math today. The useful intuition is that meaning depends on relationships.</p>
+      <div class="formula">"bank" near "river" != "bank" near "loan"</div>
+    </div>
+  </section>
+
+  <section class="slide" id="hour3" data-part="Hour 3" data-title="From LLM to agent">
+    <div class="inner">
+      <div class="kicker">Hour 3 question</div>
+      <h2>How does an LLM become an agent?</h2>
+      <p class="lede">An agent is not just a smarter answer. It is an LLM placed inside a loop with a goal, context, tools, and guardrails.</p>
+      <div class="formula">practical agent = LLM + goal + context + tools + loop + guardrails</div>
+    </div>
+  </section>
+
+  <section class="slide" data-part="Hour 3" data-title="Tools">
+    <div class="inner">
+      <div class="kicker">Tool calls</div>
+      <h2>Tools let the system act outside text.</h2>
+      <p>A tool can search, calculate, run code, read a file, create a draft, send a request, or call another system. The LLM usually does not perform the action directly; it requests the tool.</p>
+      <div class="grid">
+        <div class="card"><h3>Without tool</h3><p>The model can describe what it would do.</p></div>
+        <div class="card"><h3>With tool</h3><p>The system can actually retrieve, compute, inspect, or change something.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="slide" data-part="Hour 3" data-title="Agent loop">
+    <div class="inner">
+      <div class="kicker">Control loop</div>
+      <h2>An agent loop repeats until done or blocked.</h2>
+      <div class="diagram">
+        <div class="node">goal</div><div class="arrow">-></div>
+        <div class="node">plan</div><div class="arrow">-></div>
+        <div class="node">act</div><div class="arrow">-></div>
+        <div class="node">observe</div><div class="arrow">-></div>
+        <div class="node">revise</div>
+      </div>
+      <p class="muted">This loop is why agents need boundaries. A loop can be useful, but also expensive or risky if unchecked.</p>
+    </div>
+  </section>
+
+  <section class="slide challenge" data-part="Hour 3" data-title="Paper agent loop">
+    <div class="inner">
+      <div class="kicker">Challenge 5 - 18 minutes</div>
+      <h2>Paper agent loop</h2>
+      <p>Three roles: LLM, tool, and human approver. Solve one task using index cards. The LLM writes a proposed action, the tool returns an observation, and the human decides whether to approve risky steps.</p>
+      <div class="grid three">
+        <div class="card"><h3>LLM</h3><p>Proposes next action and explains why.</p></div>
+        <div class="card"><h3>Tool</h3><p>Returns only what the action can observe.</p></div>
+        <div class="card"><h3>Human</h3><p>Approves, blocks, or asks for a safer plan.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="slide danger" data-part="Hour 3" data-title="Guardrails">
+    <div class="inner">
+      <div class="kicker">Guardrails</div>
+      <h2>Power should flow through approval.</h2>
+      <p>Anything that spends money, publishes, deletes, emails, changes accounts, exposes private information, or affects another person should require stronger checks.</p>
+      <div class="formula">low-risk draft -> fast path<br>high-risk action -> human approval</div>
+    </div>
+  </section>
+
+  <section class="slide quiz" data-part="Hour 3" data-title="Approval quiz">
+    <div class="inner">
+      <div class="kicker">Quick check</div>
+      <h2>Which action needs approval?</h2>
+      <div class="choices">
+        <button class="choice" data-correct="false">Summarize notes pasted by the user.</button>
+        <button class="choice" data-correct="false">Suggest three possible project names.</button>
+        <button class="choice" data-correct="true">Send an email to the entire class list.</button>
+      </div>
+      <div class="feedback">Actions that affect other people or external systems should pass through human approval.</div>
+    </div>
+  </section>
+
+  <section class="slide challenge" data-part="Hour 3" data-title="Design challenge">
+    <div class="inner">
+      <div class="kicker">Challenge 6 - 15 minutes</div>
+      <h2>Design a safe study agent.</h2>
+      <p>Your group designs an agent that helps a student study for an exam. Fill in the six parts.</p>
+      <div class="grid three">
+        <div class="card"><h3>Goal</h3><p>What should it help with?</p></div>
+        <div class="card"><h3>Context</h3><p>What can it see?</p></div>
+        <div class="card"><h3>Tools</h3><p>What can it do?</p></div>
+        <div class="card"><h3>Loop</h3><p>When does it stop?</p></div>
+        <div class="card"><h3>Guardrails</h3><p>What requires approval?</p></div>
+        <div class="card"><h3>Artifact</h3><p>What does the student receive?</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="slide quiz" data-part="Hour 3" data-title="Exit ticket">
+    <div class="inner">
+      <div class="kicker">Exit ticket</div>
+      <h2>One-sentence model</h2>
+      <p>Write one sentence that explains the difference between a chatbot and an agent.</p>
+      <div class="formula">A chatbot mainly answers. An agent uses an LLM inside a loop to pursue a goal with tools and guardrails.</div>
+      <p class="muted">Deliverable: submit your own version, not this exact sentence.</p>
+    </div>
+  </section>
+
+  <section class="slide" id="homework" data-part="Homework" data-title="Homework path">
+    <div class="inner">
+      <div class="kicker">After class</div>
+      <h2>Homework videos deepen the model.</h2>
+      <p class="lede">Class gives the usable mental model. Homework gives the deeper technical story and more examples.</p>
+      <div class="grid">
+        <div class="card"><h3>Required warm-up</h3><p>3Blue1Brown: Large Language Models explained briefly.</p></div>
+        <div class="card"><h3>Required deep dive</h3><p>Andrej Karpathy: Deep Dive into LLMs like ChatGPT.</p></div>
+      </div>
+      <p style="margin-top:20px"><a href="session-materials/llm-foundations-homework.html">Open homework sheet</a></p>
+    </div>
+  </section>
+
+  <section class="slide" data-part="Homework" data-title="3Blue1Brown warm-up">
+    <div class="inner">
+      <div class="kicker">Required homework video</div>
+      <h2>Large Language Models explained briefly</h2>
+      <p>Watch first. Focus on the high-level picture: next-token prediction, training, and why a simple objective can produce useful behavior at scale.</p>
+      <div class="video-frame">
+        <iframe src="https://www.youtube.com/embed/LPZh9BOjkQs" title="Large Language Models explained briefly" frameborder="0" allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture" allowfullscreen></iframe>
+      </div>
+    </div>
+  </section>
+
+  <section class="slide" data-part="Homework" data-title="Karpathy deep dive">
+    <div class="inner">
+      <div class="kicker">Required homework video</div>
+      <h2>Deep Dive into LLMs like ChatGPT</h2>
+      <p>Watch outside class with the homework sheet. The goal is not memorizing every detail. The goal is to strengthen your mental model for tokens, training, inference, hallucinations, tool use, and assistant behavior.</p>
+      <div class="video-frame">
+        <iframe src="https://www.youtube.com/embed/7xTGNNLPyMI" title="Deep Dive into LLMs like ChatGPT" frameborder="0" allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture" allowfullscreen></iframe>
+      </div>
+    </div>
+  </section>
+
+  <section class="slide optional" data-part="Homework" data-title="Optional deep dives">
+    <div class="inner">
+      <div class="kicker">Optional</div>
+      <h2>Go deeper if you want the machinery.</h2>
+      <div class="grid">
+        <div class="card"><h3>Transformers</h3><p><a href="https://www.youtube.com/watch?v=wjZofJX0v4M" target="_blank" rel="noopener noreferrer">3Blue1Brown transformer explanation</a></p></div>
+        <div class="card"><h3>Facts in LLMs</h3><p><a href="https://www.youtube.com/watch?v=9-Jl0dxWQs8" target="_blank" rel="noopener noreferrer">3Blue1Brown: how LLMs store facts</a></p></div>
+        <div class="card"><h3>Legacy deep dive</h3><p><a href="llm-background.html">Additional LLM background videos</a></p></div>
+        <div class="card"><h3>Homework PDF</h3><p><a href="session-materials/llm-foundations-homework.pdf">Printable homework sheet</a></p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="slide artifact" data-part="Close" data-title="Student artifact">
+    <div class="inner">
+      <div class="kicker">Submit</div>
+      <h2>Module 0 artifact</h2>
+      <p>Submit a one-page concept card that explains:</p>
+      <ul>
+        <li>What an LLM does with tokens and context.</li>
+        <li>Why fluent output can still be wrong.</li>
+        <li>How tools and guardrails turn an LLM into an agent system.</li>
+      </ul>
+      <p class="muted">This artifact prepares you for Module 1: GitHub + Agents.</p>
+      <p style="margin-top:18px"><a href="module-01-github-agents.html">Next: Module 1 slides</a></p>
+    </div>
+  </section>
+</main>
+
+<nav class="controls" aria-label="Slide controls">
+  <button class="btn" id="prevBtn">Back</button>
+  <div class="jump" aria-label="Jump to section">
+    <button class="btn" data-jump="start">Start</button>
+    <button class="btn" data-jump="hour1">Hour 1</button>
+    <button class="btn" data-jump="hour2">Hour 2</button>
+    <button class="btn" data-jump="hour3">Hour 3</button>
+    <button class="btn" data-jump="homework">Homework</button>
+  </div>
+  <div>
+    <button class="btn" id="notesBtn">Notes</button>
+    <button class="btn" id="nextBtn">Next</button>
+  </div>
+</nav>
+
+<script>
+const slides = Array.from(document.querySelectorAll('.slide'));
+const statusEl = document.getElementById('status');
+const barEl = document.getElementById('bar');
+const prevBtn = document.getElementById('prevBtn');
+const nextBtn = document.getElementById('nextBtn');
+const notesBtn = document.getElementById('notesBtn');
+let current = 0;
+slides.forEach((slide, index) => {
+  if (!slide.id) slide.id = `slide-${index + 1}`;
+});
+
+function show(index){
+  current = Math.max(0, Math.min(slides.length - 1, index));
+  slides.forEach((slide, i) => slide.classList.toggle('active', i === current));
+  const slide = slides[current];
+  const part = slide.dataset.part || 'Module';
+  const title = slide.dataset.title || '';
+  statusEl.textContent = `${part} - ${current + 1}/${slides.length}${title ? ' - ' + title : ''}`;
+  barEl.style.width = `${((current + 1) / slides.length) * 100}%`;
+  document.querySelectorAll('[data-jump]').forEach(btn => {
+    const target = document.getElementById(btn.dataset.jump);
+    const targetIndex = slides.indexOf(target);
+    btn.classList.toggle('active', targetIndex <= current && targetIndex >= 0 && ![...document.querySelectorAll('[data-jump]')].some(other => {
+      const otherIndex = slides.indexOf(document.getElementById(other.dataset.jump));
+      return otherIndex > targetIndex && otherIndex <= current;
+    }));
+  });
+  history.replaceState(null, '', `#${slide.id || 'slide-' + (current + 1)}`);
+}
+
+prevBtn.addEventListener('click', () => show(current - 1));
+nextBtn.addEventListener('click', () => show(current + 1));
+notesBtn.addEventListener('click', () => document.body.classList.toggle('notes-on'));
+document.querySelectorAll('[data-jump]').forEach(btn => {
+  btn.addEventListener('click', () => show(slides.indexOf(document.getElementById(btn.dataset.jump))));
+});
+document.addEventListener('keydown', event => {
+  if (event.target.closest('button,a,input,textarea')) return;
+  if (['ArrowRight','PageDown',' '].includes(event.key)) { event.preventDefault(); show(current + 1); }
+  if (['ArrowLeft','PageUp'].includes(event.key)) { event.preventDefault(); show(current - 1); }
+  if (event.key === 'Home') { event.preventDefault(); show(0); }
+  if (event.key === 'End') { event.preventDefault(); show(slides.length - 1); }
+  if (event.key.toLowerCase() === 'n') document.body.classList.toggle('notes-on');
+});
+document.querySelectorAll('.choice').forEach(choice => {
+  choice.addEventListener('click', () => {
+    const group = choice.closest('.slide');
+    group.querySelectorAll('.choice').forEach(item => item.classList.remove('correct','wrong'));
+    choice.classList.add(choice.dataset.correct === 'true' ? 'correct' : 'wrong');
+    const feedback = group.querySelector('.feedback');
+    if (feedback) feedback.classList.add('show');
+  });
+});
+if (location.hash) {
+  const target = document.getElementById(location.hash.slice(1));
+  if (target) current = slides.indexOf(target);
+}
+show(current);
+</script>
+</body>
+</html>

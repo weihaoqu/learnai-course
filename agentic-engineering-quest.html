@@ -78,6 +78,19 @@ a{color:var(--accent-light)}
 .info-card .card-icon{font-size:32px;margin-bottom:12px}
 .info-card h4{font-size:16px;font-weight:600;margin-bottom:6px}
 .info-card p{font-size:14px;color:var(--muted)}
+.wide-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:20px;margin:16px 0}
+.two-col{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;margin:16px 0}
+.unit-plan{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin:16px 0}
+.unit-step{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-sm);padding:16px}
+.unit-step .time{font-size:12px;font-weight:800;text-transform:uppercase;letter-spacing:1px;color:var(--accent-light);margin-bottom:6px}
+.formula{background:#101024;border:1px solid rgba(6,182,212,0.3);border-radius:var(--radius);padding:18px;margin:16px 0;font-family:var(--mono);font-size:18px;text-align:center;color:var(--accent-light);overflow-x:auto}
+.video-card{background:linear-gradient(135deg,var(--surface),var(--surface2));border:1px solid var(--border);border-radius:var(--radius);padding:20px;margin:16px 0}
+.video-frame{position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:var(--radius-sm);margin:12px 0}
+.video-frame iframe{position:absolute;top:0;left:0;width:100%;height:100%}
+.worksheet-link{display:inline-flex;align-items:center;gap:8px;margin-top:8px;padding:10px 16px;border-radius:var(--radius-sm);background:var(--accent);color:#04111d;font-weight:800;text-decoration:none}
+.checkpoint-list{counter-reset:check;margin:16px 0}
+.checkpoint{counter-increment:check;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-sm);padding:14px 16px;margin-bottom:10px}
+.checkpoint::before{content:counter(check);display:inline-flex;align-items:center;justify-content:center;width:24px;height:24px;border-radius:50%;background:var(--primary);color:#fff;font-size:12px;font-weight:800;margin-right:8px}
 
 /* ===== CALLOUTS ===== */
 .callout{padding:16px 20px;border-radius:var(--radius-sm);margin:16px 0;display:flex;gap:12px;font-size:15px;border:1px solid}
@@ -111,13 +124,44 @@ a{color:var(--accent-light)}
 .wf-step .step-label{font-size:13px;font-weight:600}
 .wf-arrow{font-size:20px;color:var(--muted);flex-shrink:0}
 
+/* ===== INTERACTIVE: AGENTOPS BOARD ===== */
+.agentops-board{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(280px,0.9fr);gap:16px;margin:20px 0}
+.agentops-panel{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:18px;min-width:0}
+.agentops-panel h3{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:12px}
+.agentops-meta{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0}
+.agentops-pill{display:inline-flex;align-items:center;gap:6px;padding:5px 10px;border-radius:999px;background:var(--surface2);border:1px solid var(--border);color:var(--muted);font-size:12px;font-weight:600}
+.agentops-list{display:flex;flex-direction:column;gap:8px}
+.agentops-row{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:10px;align-items:center;background:var(--surface2);border:1px solid var(--border);border-radius:var(--radius-sm);padding:10px 12px}
+.agentops-title{font-weight:700;font-size:14px}
+.agentops-sub{color:var(--muted);font-size:12px;margin-top:2px}
+.agentops-status{border-radius:999px;padding:4px 9px;font-size:11px;font-weight:800;text-transform:uppercase;white-space:nowrap}
+.agentops-status.todo{background:rgba(136,136,168,0.18);color:#c4c4dc}
+.agentops-status.idle{background:rgba(136,136,168,0.14);color:#c4c4dc}
+.agentops-status.active{background:var(--primary-bg);color:var(--primary-light)}
+.agentops-status.waiting{background:rgba(6,182,212,0.14);color:var(--accent-light)}
+.agentops-status.review{background:var(--warning-bg);color:#fcd34d}
+.agentops-status.done{background:var(--success-bg);color:#6ee7b7}
+.agentops-status.blocked{background:var(--danger-bg);color:#fca5a5}
+.agentops-controls{display:flex;flex-wrap:wrap;gap:8px;margin:12px 0}
+.agentops-controls .btn{padding:8px 14px;font-size:13px}
+.agentops-command{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:8px;margin-top:12px}
+.agentops-command input{width:100%;background:var(--surface2);border:1px solid var(--border);border-radius:var(--radius-sm);color:var(--text);padding:10px 12px;font-family:var(--mono);font-size:13px}
+.agentops-command input:focus{outline:2px solid var(--primary);outline-offset:2px}
+.agentops-log{max-height:260px;overflow:auto;font-family:var(--mono);font-size:12px;line-height:1.5}
+.agentops-log div{padding:6px 0;border-bottom:1px solid rgba(255,255,255,0.05)}
+.agentops-log time{color:var(--accent-light)}
+@media(max-width:820px){.agentops-board{grid-template-columns:1fr}.agentops-command{grid-template-columns:1fr}}
+
 /* ===== INTERACTIVE: COMPARISON ===== */
 .compare{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:20px 0}
+.compare.three{grid-template-columns:repeat(3,minmax(0,1fr))}
 .compare-col{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:20px}
 .compare-col.bad{border-color:rgba(239,68,68,0.3)}
+.compare-col.tool{border-color:rgba(6,182,212,0.3)}
 .compare-col.good{border-color:rgba(16,185,129,0.3)}
 .compare-label{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:1px;margin-bottom:12px}
 .compare-col.bad .compare-label{color:var(--danger)}
+.compare-col.tool .compare-label{color:var(--accent-light)}
 .compare-col.good .compare-label{color:var(--success)}
 
 /* ===== DEEPER DIVE ===== */
@@ -153,12 +197,20 @@ a{color:var(--accent-light)}
 
 /* ===== RESPONSIVE ===== */
 @media(max-width:768px){
+  .topbar{padding:10px 12px;gap:10px;flex-wrap:nowrap}
+  .topbar-logo{font-size:15px}
+  .topbar-level{font-size:11px;padding:3px 10px}
+  .topbar-xp{margin-left:auto;width:auto;flex:0 0 auto;font-size:12px}
+  .topbar-xp .xp-bar{display:none}
   .sidebar{display:none;position:fixed;top:56px;left:0;width:100%;height:calc(100vh - 56px);z-index:99}
   .sidebar.open{display:block}
   .menu-toggle{display:block}
   .main{padding:24px 16px}
   .compare{grid-template-columns:1fr}
+  .compare.three{grid-template-columns:1fr}
   .card-grid{grid-template-columns:1fr}
+  .two-col{grid-template-columns:1fr}
+  .unit-plan{grid-template-columns:1fr}
 }
 @media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:0.01ms!important;transition-duration:0.01ms!important}}
 </style>
@@ -191,84 +243,85 @@ a{color:var(--accent-light)}
 <!-- MAIN CONTENT -->
 <main class="main" id="mainContent">
 
-<!-- ===== MODULE 0: WELCOME ===== -->
+<!-- ===== MODULE 0: LLM FOUNDATIONS ===== -->
 <div class="module" id="mod0">
   <div class="mod-header">
-    <div class="mod-level l1">&#127775; Start Here</div>
-    <h1>Welcome to Agentic Engineering</h1>
-    <p class="subtitle">Learn to design, direct, and build AI agent systems — no coding experience required.</p>
+    <div class="mod-level l1">Bridge</div>
+    <h1>Before Course 2: Complete Module 0</h1>
+    <p class="subtitle">Course 2 assumes you already completed the standalone Module 0 slides on LLM basics. This bridge keeps your Course 2 progress stable while pointing you to the official foundation module.</p>
   </div>
 
   <div class="section">
-    <p>You've probably used AI chatbots like ChatGPT or Claude. You type a question, it answers. That's useful — but it's just the beginning.</p>
-    <p><strong>Agentic Engineering</strong> is the next level. Instead of just chatting with AI, you learn to <em>design systems</em> where AI agents work autonomously — using tools, following plans, checking their own work, and even collaborating with other agents.</p>
-
     <div class="callout callout-insight">
       <span class="callout-icon">&#128161;</span>
-      <div><strong>Key insight:</strong> The difference between a chatbot and an agent is like the difference between asking someone a question and hiring them to complete a project.</div>
+      <div><strong>New course structure:</strong> LLM foundations now live in the standalone Module 0 teaching slides. Course 2 starts after that foundation and goes deeper into agent workflows, tools, memory, safety, multi-agent teams, and control planes.</div>
+    </div>
+
+    <div class="card-grid">
+      <div class="info-card"><div class="card-icon">&#128250;</div><h4>Open Module 0 Slides</h4><p>Use the slide deck for the first instructional class: teaching, quizzes, tokenizer challenge, hallucination hunt, and paper agent loop.</p><a class="worksheet-link" href="module-00-llm-basics.html">Open Module 0 Slides &#8594;</a></div>
+      <div class="info-card"><div class="card-icon">&#128221;</div><h4>Homework Sheet</h4><p>Use the homework sheet for the required 3Blue1Brown warm-up and Karpathy deep dive.</p><a class="worksheet-link" href="session-materials/llm-foundations-homework.html">Open Homework Sheet &#8594;</a></div>
+      <div class="info-card"><div class="card-icon">&#128295;</div><h4>Continue Course 2</h4><p>After Module 0, continue here to learn how to build reliable agent workflows around LLMs.</p></div>
     </div>
   </div>
 
   <div class="section">
-    <h2>&#127916; Optional: Build Your First AI Agent (No Coding)</h2>
-    <p>This 25-minute video walks you through building a real AI agent from scratch without writing any code. Watch it now for motivation, or come back after completing the course.</p>
-    <div style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:12px;margin:16px 0">
-      <iframe src="https://www.youtube.com/embed/EH5jx5qPabU" title="From Zero to Your First AI Agent in 25 Minutes (No Coding)" frameborder="0" allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture" allowfullscreen style="position:absolute;top:0;left:0;width:100%;height:100%"></iframe>
+    <h2>Quick Prerequisite Check</h2>
+    <p>Before moving to Course 2 Module 1, make sure you can explain these ideas in your own words.</p>
+    <div class="checkpoint-list">
+      <div class="checkpoint"><strong>Tokens:</strong> text is split into chunks before the model processes it.</div>
+      <div class="checkpoint"><strong>Context:</strong> the model can only use what the current system provides inside its working context.</div>
+      <div class="checkpoint"><strong>Generation:</strong> the model produces output one token at a time.</div>
+      <div class="checkpoint"><strong>Verification:</strong> fluent output still needs evidence when the claim matters.</div>
+      <div class="checkpoint"><strong>Tools:</strong> external actions let an AI system retrieve, compute, inspect, or change something.</div>
+      <div class="checkpoint"><strong>Guardrails:</strong> human approval and checks keep powerful actions under control.</div>
     </div>
-    <p style="font-size:13px;color:var(--text-muted)">25:58 &middot; Futurepedia &middot; 3.6M views &middot; Optional — watch for inspiration or revisit after the course.</p>
   </div>
 
   <div class="section">
-    <h2>Chatbot vs. Agent</h2>
-    <div class="compare">
+    <h2>Bridge Mental Model</h2>
+    <div class="formula">practical agent = LLM + goal + context + tools + loop + guardrails</div>
+
+    <div class="compare three">
       <div class="compare-col bad">
         <div class="compare-label">&#128172; Chatbot</div>
         <ul style="margin-left:16px;font-size:14px">
-          <li>You ask, it answers</li>
-          <li>One turn at a time</li>
-          <li>No tools, no actions</li>
-          <li>Forgets everything next session</li>
-          <li>You do all the thinking</li>
+          <li>You ask, it answers with text</li>
+          <li>No external action by itself</li>
+          <li>You decide what to verify or do next</li>
+        </ul>
+      </div>
+      <div class="compare-col tool">
+        <div class="compare-label">&#128295; Tool Call</div>
+        <ul style="margin-left:16px;font-size:14px">
+          <li>The model requests one external action</li>
+          <li>The app executes the tool and returns a result</li>
+          <li>Useful, but not a full goal-driven loop by itself</li>
         </ul>
       </div>
       <div class="compare-col good">
         <div class="compare-label">&#129302; Agent</div>
         <ul style="margin-left:16px;font-size:14px">
-          <li>You describe a goal, it works toward it</li>
-          <li>Multiple steps, plans ahead</li>
-          <li>Uses tools (search, edit, run code)</li>
-          <li>Can save and reuse context when configured</li>
-          <li>It thinks, plans, and executes</li>
+          <li>You give a goal, it follows a loop</li>
+          <li>It can request tools and inspect results</li>
+          <li>Risky actions wait for guardrails or approval</li>
         </ul>
       </div>
     </div>
   </div>
 
   <div class="section">
-    <h2>The 5 Levels of Mastery</h2>
-    <p>This course follows a progression from beginner to expert:</p>
-    <div class="card-grid">
-      <div class="info-card"><div class="card-icon">&#128483;</div><h4>L1: Prompter</h4><p>Communicate clearly with AI agents</p></div>
-      <div class="info-card"><div class="card-icon">&#9889;</div><h4>L2: Automator</h4><p>Build repeatable workflows</p></div>
-      <div class="info-card"><div class="card-icon">&#128736;</div><h4>L3: Architect</h4><p>Design context, tools, and specs</p></div>
-      <div class="info-card"><div class="card-icon">&#128295;</div><h4>L4: Engineer</h4><p>Build reliable agent systems</p></div>
-      <div class="info-card"><div class="card-icon">&#127942;</div><h4>L5: Orchestrator</h4><p>Coordinate multi-agent teams</p></div>
-    </div>
-  </div>
-
-  <div class="section">
     <div class="quiz">
-      <h3>Quick Check: What makes something an "agent"?</h3>
-      <button class="quiz-opt" onclick="qCheck(this,true,'q0fb','Correct! An agent can use tools and take actions to accomplish goals autonomously. A chatbot just responds to messages.')">It can use tools, make plans, and take actions on its own</button>
-      <button class="quiz-opt" onclick="qCheck(this,false,'q0fb','Not quite. Being fast is nice, but agents are defined by their ability to take autonomous actions, not speed.')">It responds faster than a regular chatbot</button>
-      <button class="quiz-opt" onclick="qCheck(this,false,'q0fb','Agents can be wrong too! What makes them special is autonomous action, not perfect accuracy.')">It always gives the correct answer</button>
-      <div class="quiz-fb" id="q0fb" role="status" aria-live="polite"></div>
+      <h3>Bridge Check: Which example is closest to an agent loop?</h3>
+      <button class="quiz-opt" onclick="qCheck(this,false,'q0agent','That is a chatbot answer. It may be useful, but there is no loop or tool result.')">A chatbot explains what a bug might be from your description</button>
+      <button class="quiz-opt" onclick="qCheck(this,false,'q0agent','That is a tool call. It is one action, not a full loop with checking and guardrails.')">A model asks a calculator tool to compute one number</button>
+      <button class="quiz-opt" onclick="qCheck(this,true,'q0agent','Correct. This has a goal, context, tool actions, result checking, and a stop/approval point.')">A system reads code, plans a fix, edits files, runs tests, reports results, and asks before deploying</button>
+      <div class="quiz-fb" id="q0agent" role="status" aria-live="polite"></div>
     </div>
   </div>
 
   <div class="nav-btns">
     <div></div>
-    <button class="btn btn-primary" onclick="goTo(1)">Begin the Quest &#8594;</button>
+    <button class="btn btn-primary" onclick="goTo(1)">Next: Set Up Agents to Succeed &#8594;</button>
   </div>
 </div>
 
@@ -849,12 +902,130 @@ a{color:var(--accent-light)}
 
   <div class="nav-btns">
     <button class="btn btn-ghost" onclick="goTo(7)">&#8592; Back</button>
-    <button class="btn btn-primary" onclick="goTo(9)">Next: Design Your Own Agent &#8594;</button>
+    <button class="btn btn-primary" onclick="goTo(9)">Next: Agent Control Planes &#8594;</button>
   </div>
 </div>
 
-<!-- ===== MODULE 9: CAPSTONE ===== -->
+<!-- ===== MODULE 9: AGENT CONTROL PLANES ===== -->
 <div class="module" id="mod9">
+  <div class="mod-header">
+    <div class="mod-level l5">Level 5: Orchestrator</div>
+    <h1>Agent Control Planes</h1>
+    <p class="subtitle">Move from chatting with one agent to supervising a team with shared state, approval gates, and audit logs.</p>
+  </div>
+
+  <div class="section">
+    <h2>From Chat Box to Control Room</h2>
+    <p>A chat window is fine when one agent answers one question. Once agents have roles, tools, budgets, and risky actions, you need a <strong>control plane</strong>: one place that shows what exists, what is moving, what is blocked, and what needs your decision.</p>
+
+    <div class="callout callout-warning">
+      <span class="callout-icon">&#9888;</span>
+      <div><strong>Important framing:</strong> "Agent OS" is a metaphor, not a literal operating system. In this module, it means a control-plane pattern for coordinating AI workers. The lab below is a browser-only simulation, not a real autonomous agent runtime.</div>
+    </div>
+
+    <div class="compare">
+      <div class="compare-col bad">
+        <div class="compare-label">Chat Window</div>
+        <ul style="margin-left:16px;font-size:14px">
+          <li>One conversation stream</li>
+          <li>State lives in memory and scrollback</li>
+          <li>Approvals happen informally</li>
+          <li>Hard to see what changed while away</li>
+        </ul>
+      </div>
+      <div class="compare-col good">
+        <div class="compare-label">Control Plane</div>
+        <ul style="margin-left:16px;font-size:14px">
+          <li>Shared state for agents, goals, and tasks</li>
+          <li>Risky actions wait in an approval queue</li>
+          <li>Every important event enters an audit log</li>
+          <li>Permissions and budget are visible</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>The Six Questions</h2>
+    <p>A useful agent control plane answers these questions at all times:</p>
+    <div class="card-grid">
+      <div class="info-card"><div class="card-icon">&#128100;</div><h4>Who owns what?</h4><p>Every task has an agent or human owner.</p></div>
+      <div class="info-card"><div class="card-icon">&#127919;</div><h4>Which goals matter?</h4><p>Work is tied to priorities, not random activity.</p></div>
+      <div class="info-card"><div class="card-icon">&#9940;</div><h4>What is blocked?</h4><p>Blocked work is visible before it quietly stalls.</p></div>
+      <div class="info-card"><div class="card-icon">&#128176;</div><h4>What is burning?</h4><p>Budget and time costs are tracked explicitly.</p></div>
+      <div class="info-card"><div class="card-icon">&#9995;</div><h4>What needs yes?</h4><p>Deploy, spend, delete, or invite actions need approval.</p></div>
+      <div class="info-card"><div class="card-icon">&#128221;</div><h4>What happened?</h4><p>An append-only log records decisions and events.</p></div>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>Mini Lab: AgentOps Board</h2>
+    <p>This simulation has three fake agents, five tasks, one heartbeat, one approval queue, and one audit log. No real model is called. No files, money, accounts, OAuth, or API keys are touched.</p>
+
+    <div class="agentops-board" aria-label="AgentOps simulation board">
+      <div class="agentops-panel">
+        <h3>Mission Control <span class="agentops-pill" id="ops-tick">Tick 0</span></h3>
+        <div class="agentops-meta">
+          <span class="agentops-pill" id="ops-budget">$0.00 simulated burn</span>
+          <span class="agentops-pill" id="ops-blockers">0 blockers</span>
+          <span class="agentops-pill">Fixed commands only</span>
+        </div>
+
+        <h3 style="margin-top:18px">Agents</h3>
+        <div class="agentops-list" id="ops-agents"></div>
+
+        <h3 style="margin-top:18px">Tasks</h3>
+        <div class="agentops-list" id="ops-tasks"></div>
+
+        <div class="agentops-controls">
+          <button class="btn btn-primary" onclick="opsAction('tick')">Heartbeat Tick</button>
+          <button class="btn btn-ghost" onclick="opsAction('requestDeploy')">Request Deploy Approval</button>
+          <button class="btn btn-ghost" onclick="opsAction('approveFirst')">Approve First Request</button>
+          <button class="btn btn-ghost" onclick="opsAction('reset')">Reset Board</button>
+        </div>
+
+        <div class="agentops-command">
+          <input id="ops-command" aria-label="AgentOps command" placeholder="Try: tick, request deploy, approve first, assign qa">
+          <button class="btn btn-primary" onclick="runOpsCommand()">Run</button>
+        </div>
+        <p style="font-size:12px;color:var(--muted);margin-top:8px">The command line is intentionally narrow: fixed verbs, visible state changes, no hidden side effects.</p>
+      </div>
+
+      <div class="agentops-panel">
+        <h3>Approval Queue <span class="agentops-pill" id="ops-approval-count">0 waiting</span></h3>
+        <div class="agentops-list" id="ops-approvals"></div>
+
+        <h3 style="margin-top:18px">Audit Log</h3>
+        <div class="agentops-log" id="ops-log"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="quiz">
+      <h3>Why does the deploy request go into an approval queue?</h3>
+      <button class="quiz-opt" onclick="qCheck(this,false,'q9fb','Speed helps, but risky actions need visibility before speed. A fast unsafe system is still unsafe.')">Because approvals make the system faster</button>
+      <button class="quiz-opt" onclick="qCheck(this,true,'q9fb','Correct. Anything that ships, spends, deletes, invites, or exposes secrets should wait for a human yes.')">Because risky actions should wait for an explicit human yes</button>
+      <button class="quiz-opt" onclick="qCheck(this,false,'q9fb','The queue is not for hiding work. It makes pending decisions visible and auditable.')">Because agents should hide uncertain work until later</button>
+      <div class="quiz-fb" id="q9fb" role="status" aria-live="polite"></div>
+    </div>
+  </div>
+
+  <div class="deeper">
+    <button class="deeper-toggle" onclick="this.parentElement.classList.toggle('open')">&#128218; Optional Reference: Meridian Company OS</button>
+    <div class="deeper-content">
+      <p><a href="https://github.com/codejunkie99/meridian-company-os" target="_blank" rel="noopener noreferrer">Meridian Company OS</a> is a larger open-source reference for this pattern. Treat it as a case study, not a required dependency. Do not run external agent bridges, OAuth flows, local process execution, or API-key integrations until the code and sandboxing assumptions have been reviewed.</p>
+    </div>
+  </div>
+
+  <div class="nav-btns">
+    <button class="btn btn-ghost" onclick="goTo(8)">&#8592; Back</button>
+    <button class="btn btn-primary" onclick="goTo(10)">Next: Design Your Own Agent &#8594;</button>
+  </div>
+</div>
+
+<!-- ===== MODULE 10: CAPSTONE ===== -->
+<div class="module" id="mod10">
   <div class="mod-header">
     <div class="mod-level l5">Level 5: Orchestrator</div>
     <h1>Design Your Own Agent System</h1>
@@ -926,7 +1097,7 @@ a{color:var(--accent-light)}
   </div>
 
   <div class="nav-btns">
-    <button class="btn btn-ghost" onclick="goTo(8)">&#8592; Back</button>
+    <button class="btn btn-ghost" onclick="goTo(9)">&#8592; Back</button>
     <button class="btn btn-success" onclick="completeQuest()">Complete Quest &#127942;</button>
   </div>
 </div>
@@ -938,7 +1109,7 @@ a{color:var(--accent-light)}
 <script>
 // ===== DATA =====
 const mods = [
-  {id:'mod0',title:'Welcome',level:'Start'},
+  {id:'mod0',title:'Module 0 Bridge',level:'Start'},
   {id:'mod1',title:'Set Up to Succeed',level:'L1'},
   {id:'mod2',title:'First Workflows',level:'L2'},
   {id:'mod3',title:'Context is King',level:'L2'},
@@ -947,12 +1118,17 @@ const mods = [
   {id:'mod6',title:'Agent Memory',level:'L4'},
   {id:'mod7',title:'Safety & Guardrails',level:'L4'},
   {id:'mod8',title:'Multi-Agent Teams',level:'L5'},
-  {id:'mod9',title:'Design Your Own Agent',level:'L5'},
+  {id:'mod9',title:'Agent Control Planes',level:'L5'},
+  {id:'mod10',title:'Design Your Own Agent',level:'L5'},
 ];
 
+const XP_KEY = 'aeq-xp-v2';
+const DONE_KEY = 'aeq-done-v2';
+const QUIZ_KEY = 'aeq-quizzes-v2';
+
 let current = 0;
-let xp = parseInt(localStorage.getItem('aeq-xp')||'0');
-let completed = JSON.parse(localStorage.getItem('aeq-done')||'[]');
+let xp = parseInt(localStorage.getItem(XP_KEY)||'0');
+let completed = JSON.parse(localStorage.getItem(DONE_KEY)||'[]');
 
 // ===== NAVIGATION =====
 function buildSidebar(){
@@ -968,7 +1144,7 @@ function buildSidebar(){
 }
 
 function goTo(idx){
-  if(current!==idx && current<idx && !completed.includes(current)){completed.push(current);localStorage.setItem('aeq-done',JSON.stringify(completed));addXP(10);}
+  if(current!==idx && current<idx && !completed.includes(current)){completed.push(current);localStorage.setItem(DONE_KEY,JSON.stringify(completed));addXP(10);}
   current = idx;
   document.querySelectorAll('.module').forEach(m=>m.classList.remove('active'));
   document.getElementById(mods[idx].id).classList.add('active');
@@ -979,7 +1155,7 @@ function goTo(idx){
 
 function addXP(amount){
   xp += amount;
-  localStorage.setItem('aeq-xp',xp);
+  localStorage.setItem(XP_KEY,xp);
   updateXP();
 }
 
@@ -992,7 +1168,7 @@ function updateXP(){
 }
 
 // ===== QUIZ =====
-let answeredQuizzes = JSON.parse(localStorage.getItem('aeq-quizzes')||'[]');
+let answeredQuizzes = JSON.parse(localStorage.getItem(QUIZ_KEY)||'[]');
 function qCheck(btn,correct,fbId,explanation){
   const parent = btn.parentElement;
   parent.querySelectorAll('.quiz-opt').forEach(o=>{o.classList.add('disabled');o.disabled=true});
@@ -1004,9 +1180,166 @@ function qCheck(btn,correct,fbId,explanation){
   fb.textContent=(correct?'✓ ':'✗ ')+explanation;
   if(correct && !answeredQuizzes.includes(fbId)){
     answeredQuizzes.push(fbId);
-    localStorage.setItem('aeq-quizzes',JSON.stringify(answeredQuizzes));
+    localStorage.setItem(QUIZ_KEY,JSON.stringify(answeredQuizzes));
     addXP(20);
   }
+}
+
+// ===== AGENTOPS BOARD =====
+const initialOpsState = () => ({
+  tick: 0,
+  burn: 0,
+  agents: [
+    {id:'pm', name:'Planner', role:'PM', status:'active'},
+    {id:'eng', name:'Builder', role:'Engineer', status:'active'},
+    {id:'qa', name:'Reviewer', role:'QA', status:'idle'}
+  ],
+  tasks: [
+    {id:'t1', title:'Write product brief', owner:'Planner', status:'done', risk:'low'},
+    {id:'t2', title:'Draft architecture', owner:'Planner', status:'active', risk:'low'},
+    {id:'t3', title:'Build landing page', owner:'Builder', status:'todo', risk:'medium'},
+    {id:'t4', title:'Review accessibility', owner:'Reviewer', status:'todo', risk:'low'},
+    {id:'t5', title:'Deploy preview', owner:'Builder', status:'blocked', risk:'high'}
+  ],
+  approvals: [
+    {id:'a1', title:'Deploy preview site', reason:'Shipping public changes is a high-risk action.', status:'waiting'}
+  ],
+  logs: [
+    {tick:0, text:'Board seeded with agents, tasks, approval queue, and audit log.'}
+  ]
+});
+
+let opsState = initialOpsState();
+
+function statusClass(status){
+  return status === 'in review' ? 'review' : status;
+}
+
+function escapeHtml(value){
+  return String(value).replace(/[&<>"']/g, ch => ({
+    '&':'&amp;',
+    '<':'&lt;',
+    '>':'&gt;',
+    '"':'&quot;',
+    "'":'&#39;'
+  }[ch]));
+}
+
+function logOps(text){
+  opsState.logs.unshift({tick:opsState.tick, text});
+  opsState.logs = opsState.logs.slice(0, 12);
+}
+
+function opsAction(action){
+  if(action === 'reset'){
+    opsState = initialOpsState();
+    renderOps();
+    return;
+  }
+
+  if(action === 'tick'){
+    opsState.tick += 1;
+    opsState.burn += 0.07;
+    const task = opsState.tasks.find(t => t.status === 'active') || opsState.tasks.find(t => t.status === 'todo');
+    if(task){
+      if(task.status === 'active'){
+        task.status = task.risk === 'medium' ? 'in review' : 'done';
+        logOps(`${task.owner} moved "${task.title}" to ${task.status}.`);
+      } else {
+        task.status = 'active';
+        logOps(`${task.owner} started "${task.title}".`);
+      }
+    } else {
+      logOps('Heartbeat tick: no unblocked task changed.');
+    }
+  }
+
+  if(action === 'requestDeploy'){
+    if(!opsState.approvals.some(a => a.status === 'waiting' && a.title === 'Deploy preview site')){
+      opsState.approvals.push({id:'a'+Date.now(), title:'Deploy preview site', reason:'Shipping public changes is a high-risk action.', status:'waiting'});
+      logOps('Builder requested human approval to deploy preview.');
+    } else {
+      logOps('Deploy request is already waiting for approval.');
+    }
+  }
+
+  if(action === 'approveFirst'){
+    const approval = opsState.approvals.find(a => a.status === 'waiting');
+    if(approval){
+      const deployTask = opsState.tasks.find(t => t.id === 't5');
+      if(deployTask) deployTask.status = 'in review';
+      opsState.approvals = opsState.approvals.filter(item => item !== approval);
+      logOps(`Human approved: ${approval.title}.`);
+    } else {
+      logOps('No approval request is waiting.');
+    }
+  }
+
+  if(action === 'assignQa'){
+    const task = opsState.tasks.find(t => t.id === 't4');
+    if(task){
+      task.status = 'active';
+      task.owner = 'Reviewer';
+      opsState.agents = opsState.agents.map(a => a.id === 'qa' ? {...a, status:'active'} : a);
+      logOps('Reviewer picked up accessibility review.');
+    }
+  }
+
+  renderOps();
+}
+
+function runOpsCommand(){
+  const input = document.getElementById('ops-command');
+  const cmd = input.value.trim().toLowerCase();
+  const map = {
+    'tick':'tick',
+    'request deploy':'requestDeploy',
+    'approve first':'approveFirst',
+    'assign qa':'assignQa',
+    'reset':'reset'
+  };
+  if(map[cmd]){
+    opsAction(map[cmd]);
+    input.value = '';
+  } else {
+    logOps('Unknown command. Try: tick, request deploy, approve first, assign qa, or reset.');
+    renderOps();
+  }
+}
+
+function renderOps(){
+  const agentsEl = document.getElementById('ops-agents');
+  if(!agentsEl) return;
+  document.getElementById('ops-tick').textContent = `Tick ${opsState.tick}`;
+  document.getElementById('ops-budget').textContent = `$${opsState.burn.toFixed(2)} simulated burn`;
+  document.getElementById('ops-blockers').textContent = `${opsState.tasks.filter(t => t.status === 'blocked').length} blockers`;
+  document.getElementById('ops-approval-count').textContent = `${opsState.approvals.filter(a => a.status === 'waiting').length} waiting`;
+
+  agentsEl.innerHTML = opsState.agents.map(agent => `
+    <div class="agentops-row">
+      <div><div class="agentops-title">${escapeHtml(agent.name)}</div><div class="agentops-sub">${escapeHtml(agent.role)}</div></div>
+      <span class="agentops-status ${statusClass(agent.status)}">${escapeHtml(agent.status)}</span>
+    </div>
+  `).join('');
+
+  document.getElementById('ops-tasks').innerHTML = opsState.tasks.map(task => `
+    <div class="agentops-row">
+      <div><div class="agentops-title">${escapeHtml(task.title)}</div><div class="agentops-sub">Owner: ${escapeHtml(task.owner)} &middot; Risk: ${escapeHtml(task.risk)}</div></div>
+      <span class="agentops-status ${statusClass(task.status)}">${escapeHtml(task.status)}</span>
+    </div>
+  `).join('');
+
+  const approvals = opsState.approvals.length ? opsState.approvals : [{title:'No pending approvals', reason:'Risky actions will wait here.', status:'done'}];
+  document.getElementById('ops-approvals').innerHTML = approvals.map(item => `
+    <div class="agentops-row">
+      <div><div class="agentops-title">${escapeHtml(item.title)}</div><div class="agentops-sub">${escapeHtml(item.reason)}</div></div>
+      <span class="agentops-status ${statusClass(item.status)}">${escapeHtml(item.status)}</span>
+    </div>
+  `).join('');
+
+  document.getElementById('ops-log').innerHTML = opsState.logs.map(entry => `
+    <div><time>T${escapeHtml(entry.tick)}</time> ${escapeHtml(entry.text)}</div>
+  `).join('');
 }
 
 // ===== CAPSTONE =====
@@ -1029,16 +1362,16 @@ function exportCanvas(){
   a.click();
 }
 function completeQuest(){
-  if(completed.includes(9))return;
+  if(completed.includes(10))return;
   const goal=document.getElementById('canvas-goal').value.trim();
   const tools=document.getElementById('canvas-tools').value.trim();
   if(!goal||!tools){alert('Please fill in at least the Goal and Tools sections of your design before completing.');return;}
-  completed.push(9);
-  localStorage.setItem('aeq-done',JSON.stringify(completed));
+  completed.push(10);
+  localStorage.setItem(DONE_KEY,JSON.stringify(completed));
   addXP(50);
   document.getElementById('completion-section').style.display='block';
-  document.querySelector('#mod9 .btn-success').disabled=true;
-  document.querySelector('#mod9 .btn-success').textContent='Quest Completed!';
+  document.querySelector('#mod10 .btn-success').disabled=true;
+  document.querySelector('#mod10 .btn-success').textContent='Quest Completed!';
   buildSidebar();
 }
 
@@ -1053,6 +1386,7 @@ buildSidebar();
 goTo(0);
 updateXP();
 loadCanvas();
+renderOps();
 </script>
 <script src="wave-bg.js" defer></script>
 </body>

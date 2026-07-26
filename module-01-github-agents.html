@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Module 1 Slides - GitHub + Agents</title>
+<link rel="icon" href="data:,">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#070817;--panel:#101426;--panel2:#171d34;--line:rgba(255,255,255,.1);
+  --text:#f5f7fb;--muted:#a5adc2;--faint:#707a96;
+  --cyan:#22d3ee;--blue:#60a5fa;--violet:#a78bfa;--green:#34d399;--amber:#f59e0b;--rose:#fb7185;
+  --font:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  --mono:"SFMono-Regular",Consolas,"Liberation Mono",Menlo,monospace;
+}
+html,body{height:100%;overflow:hidden}
+body{font-family:var(--font);background:
+  radial-gradient(circle at 12% 18%,rgba(96,165,250,.16),transparent 34%),
+  radial-gradient(circle at 85% 12%,rgba(52,211,153,.12),transparent 32%),
+  linear-gradient(135deg,#070817,#0d1126 52%,#090d18);color:var(--text)}
+a{color:var(--cyan);text-decoration:none}
+button{font:inherit}
+code{font-family:var(--mono);color:#bfdbfe}
+.deck{height:100vh;width:100vw;position:relative}
+.slide{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:82px 7vw 84px;opacity:0;pointer-events:none;transition:opacity .25s ease;overflow:auto}
+.slide.active{opacity:1;pointer-events:auto}
+.inner{width:min(1180px,100%)}
+.kicker{display:inline-flex;align-items:center;gap:10px;color:var(--green);font-size:13px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;margin-bottom:18px}
+.kicker::before{content:"";width:34px;height:2px;background:currentColor;border-radius:99px}
+h1{font-size:clamp(42px,6vw,76px);line-height:1.02;letter-spacing:0;margin-bottom:18px}
+h2{font-size:clamp(34px,4.6vw,58px);line-height:1.06;letter-spacing:0;margin-bottom:18px}
+h3{font-size:clamp(23px,2.4vw,32px);line-height:1.18;margin-bottom:14px}
+p,li{font-size:clamp(18px,1.55vw,23px);line-height:1.45;color:var(--muted)}
+ul{padding-left:1.2em;margin:18px 0}
+li{margin:8px 0}
+.lede{font-size:clamp(22px,2.2vw,31px);max-width:920px;color:#dce5f7}
+.muted{color:var(--faint);font-size:16px}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px;margin-top:28px}
+.grid.three{grid-template-columns:repeat(3,minmax(0,1fr))}
+.card{background:rgba(16,20,38,.82);border:1px solid var(--line);border-radius:16px;padding:22px}
+.card h3{font-size:22px}
+.tag{display:inline-flex;border:1px solid rgba(255,255,255,.14);border-radius:999px;padding:7px 11px;color:#dcfce7;font-size:13px;font-weight:800;margin-bottom:12px;background:rgba(255,255,255,.04)}
+.formula{font-family:var(--mono);font-size:clamp(20px,1.9vw,28px);line-height:1.45;background:#050713;border:1px solid rgba(52,211,153,.28);border-radius:18px;padding:24px;margin-top:26px;color:#bbf7d0}
+.diagram{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-top:28px}
+.node{border:1px solid rgba(255,255,255,.18);background:rgba(255,255,255,.06);border-radius:14px;padding:16px 18px;min-width:130px;text-align:center;color:#edf2ff;font-weight:800}
+.arrow{color:var(--green);font-size:28px;font-weight:900}
+.challenge{border-left:6px solid var(--amber);background:rgba(245,158,11,.1)}
+.quiz{border-left:6px solid var(--green);background:rgba(52,211,153,.08)}
+.optional{border-left:6px solid var(--violet);background:rgba(167,139,250,.08)}
+.danger{border-left:6px solid var(--rose);background:rgba(251,113,133,.08)}
+.choices{display:grid;gap:12px;margin-top:22px}
+.choice{width:100%;text-align:left;color:var(--text);background:rgba(255,255,255,.055);border:1px solid var(--line);border-radius:13px;padding:15px 16px;cursor:pointer}
+.choice:hover,.choice:focus{outline:2px solid rgba(52,211,153,.65)}
+.choice.correct{border-color:rgba(52,211,153,.9);background:rgba(52,211,153,.16)}
+.choice.wrong{border-color:rgba(251,113,133,.9);background:rgba(251,113,133,.14)}
+.feedback{display:none;margin-top:16px;padding:14px 16px;border-radius:12px;background:rgba(255,255,255,.07);color:#dbeafe;font-size:17px}
+.feedback.show{display:block}
+.teacher-note{display:none;margin-top:24px;border:1px dashed rgba(255,255,255,.28);background:rgba(255,255,255,.055);border-radius:14px;padding:16px;color:#d7dded;font-size:16px}
+body.notes-on .teacher-note{display:block}
+.hud{position:fixed;top:0;left:0;right:0;height:54px;background:rgba(7,8,23,.88);backdrop-filter:blur(14px);border-bottom:1px solid var(--line);display:flex;align-items:center;gap:14px;padding:0 18px;z-index:5}
+.brand{font-weight:900;color:#fff;white-space:nowrap}
+.progress{height:6px;background:rgba(255,255,255,.08);border-radius:999px;flex:1;overflow:hidden}
+.bar{height:100%;width:0;background:linear-gradient(90deg,var(--green),var(--blue));transition:width .2s ease}
+.status{color:var(--muted);font-size:13px;white-space:nowrap}
+.controls{position:fixed;left:0;right:0;bottom:0;min-height:62px;background:rgba(7,8,23,.9);backdrop-filter:blur(14px);border-top:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;gap:12px;padding:10px 18px;z-index:5}
+.btn{border:1px solid var(--line);background:rgba(255,255,255,.06);color:#fff;border-radius:11px;padding:9px 13px;cursor:pointer;font-weight:800}
+.btn:hover,.btn:focus{outline:2px solid rgba(52,211,153,.5)}
+.jump{display:flex;gap:8px;flex-wrap:wrap;justify-content:center}
+.jump .btn{font-size:13px;color:var(--muted)}
+.jump .btn.active{color:#06140f;background:var(--green)}
+.terminal{background:#030712;border:1px solid rgba(148,163,184,.24);border-radius:16px;padding:18px;font-family:var(--mono);color:#d1d5db;font-size:clamp(15px,1.25vw,18px);line-height:1.55;margin-top:20px;white-space:pre-wrap}
+.artifact{background:linear-gradient(135deg,rgba(52,211,153,.12),rgba(96,165,250,.12));border:1px solid rgba(52,211,153,.26)}
+@media(max-width:760px){
+  .slide{justify-content:flex-start;padding:76px 22px 230px}
+  .grid,.grid.three{grid-template-columns:1fr}
+  .hud{height:auto;min-height:58px;align-items:flex-start;flex-wrap:wrap;padding:9px 12px}
+  .brand{width:100%}
+  .status{font-size:12px}
+  .controls{display:grid;grid-template-columns:1fr auto;align-items:center;min-height:0}
+  .jump{grid-column:1/-1;order:0}
+  .controls>div:last-child{display:flex;gap:8px;justify-content:flex-end}
+  .btn{padding:8px 10px}
+}
+</style>
+</head>
+<body>
+<div class="hud">
+  <div class="brand">Module 1: GitHub + Agents</div>
+  <div class="progress" aria-hidden="true"><div class="bar" id="bar"></div></div>
+  <div class="status" id="status">Slide 1</div>
+</div>
+
+<main class="deck" id="deck">
+  <section class="slide active" id="start" data-part="Open" data-title="Module 1">
+    <div class="inner">
+      <div class="kicker">Second foundation module</div>
+      <h1>GitHub + Agents</h1>
+      <p class="lede">Today we connect two ideas: GitHub is where software work becomes visible, and agents are AI systems that can help move work through a controlled loop.</p>
+      <div class="grid three">
+        <div class="card"><span class="tag">Teaching</span><p>GitHub mental model, agent mental model, and safe workflow demo.</p></div>
+        <div class="card"><span class="tag">Practice</span><p>Repo map, diff reading, prompt review, approval decisions, and artifact.</p></div>
+        <div class="card"><span class="tag">No blind trust</span><p>Students learn to inspect agent work before accepting it.</p></div>
+      </div>
+      <div class="teacher-note">Pacing: 4 minutes. Present this as the bridge from LLM basics to real software collaboration.</div>
+    </div>
+  </section>
+
+  <section class="slide" data-part="Open" data-title="Class rhythm">
+    <div class="inner">
+      <div class="kicker">How today works</div>
+      <h2>Every idea becomes a small action.</h2>
+      <div class="diagram">
+        <div class="node">learn</div><div class="arrow">-></div>
+        <div class="node">try</div><div class="arrow">-></div>
+        <div class="node">inspect</div><div class="arrow">-></div>
+        <div class="node">decide</div>
+      </div>
+      <p class="muted">The goal is not to become a Git expert today. The goal is to understand enough to work safely with AI coding tools.</p>
+    </div>
+  </section>
+
+  <section class="slide" id="github" data-part="Part 1" data-title="GitHub mental model">
+    <div class="inner">
+      <div class="kicker">Part 1 question</div>
+      <h2>Why does GitHub matter for AI work?</h2>
+      <p class="lede">If an AI assistant changes code, you need a place where the task, files, proposed changes, review, and history are visible. GitHub is that shared workspace.</p>
+      <div class="formula">task -> repo -> change -> diff -> review -> commit</div>
+    </div>
+  </section>
+
+  <section class="slide" data-part="Part 1" data-title="Repo">
+    <div class="inner">
+      <div class="kicker">Repository</div>
+      <h2>A repo is a project with memory.</h2>
+      <p>A repository holds files plus the history of how those files changed. That history matters because AI work should be inspectable and reversible.</p>
+      <div class="grid">
+        <div class="card"><h3>Files</h3><p>The current project state: HTML, CSS, JavaScript, docs, images, tests.</p></div>
+        <div class="card"><h3>History</h3><p>The record of who changed what, when, and why.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="slide" data-part="Part 1" data-title="Commit">
+    <div class="inner">
+      <div class="kicker">Commit</div>
+      <h2>A commit is a named checkpoint.</h2>
+      <p>Good commits make work understandable later. A useful commit answers: what changed, why, and where should a reviewer look?</p>
+      <div class="terminal">commit 8c14...
+Add quiz feedback to Module 0 slides
+
+- adds interactive quiz choices
+- preserves keyboard navigation
+- verifies mobile layout</div>
+      <div class="teacher-note">Ask students which line is most useful to a future teammate. Usually it is the concise title plus the why.</div>
+    </div>
+  </section>
+
+  <section class="slide" data-part="Part 1" data-title="Branch and pull request">
+    <div class="inner">
+      <div class="kicker">Branch + PR</div>
+      <h2>A branch lets you try work before merging it.</h2>
+      <div class="grid">
+        <div class="card"><h3>Branch</h3><p>A separate workspace for a change. It protects the main version while you experiment.</p></div>
+        <div class="card"><h3>Pull request</h3><p>A review request that shows the diff, discussion, checks, and decision before merge.</p></div>
+      </div>
+      <div class="diagram">
+        <div class="node">main</div><div class="arrow">-></div>
+        <div class="node">branch</div><div class="arrow">-></div>
+        <div class="node">PR</div><div class="arrow">-></div>
+        <div class="node">merge</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="slide" data-part="Part 1" data-title="Issue">
+    <div class="inner">
+      <div class="kicker">Issue</div>
+      <h2>An issue is a task with context.</h2>
+      <p>Agents work better when the task is written down. A good issue includes the problem, the desired outcome, constraints, files to inspect, and how to know the work is done.</p>
+      <div class="formula">problem + constraints + done condition = usable task</div>
+    </div>
+  </section>
+
+  <section class="slide quiz" data-part="Part 1" data-title="GitHub quiz">
+    <div class="inner">
+      <div class="kicker">Quick check</div>
+      <h2>Which object is the review request?</h2>
+      <div class="choices">
+        <button class="choice" data-correct="false">Repository</button>
+        <button class="choice" data-correct="false">Commit</button>
+        <button class="choice" data-correct="true">Pull request</button>
+      </div>
+      <div class="feedback">A pull request packages the change for review: diff, discussion, checks, and merge decision.</div>
+    </div>
+  </section>
+
+  <section class="slide challenge" data-part="Part 1" data-title="Repo map challenge">
+    <div class="inner">
+      <div class="kicker">Challenge 1 - 15 minutes</div>
+      <h2>Map a repo before changing it.</h2>
+      <p>Given a small project, identify the likely files for each responsibility.</p>
+      <div class="grid three">
+        <div class="card"><h3>Content</h3><p>Where is the text students see?</p></div>
+        <div class="card"><h3>Style</h3><p>Where are layout and colors defined?</p></div>
+        <div class="card"><h3>Behavior</h3><p>Where do clicks, quizzes, or navigation run?</p></div>
+      </div>
+      <p class="muted">Deliverable: a three-line repo map.</p>
+    </div>
+  </section>
+
+  <section class="slide challenge" data-part="Part 1" data-title="Diff challenge">
+    <div class="inner">
+      <div class="kicker">Challenge 2 - 12 minutes</div>
+      <h2>Read a diff like a reviewer.</h2>
+      <p>In a diff, removed lines usually start with minus and added lines with plus. Your job is to explain the behavioral change, not just count lines.</p>
+      <div class="terminal">- button.textContent = "Submit";
++ button.textContent = "Check answer";
++ feedback.hidden = false;</div>
+      <p class="muted">Deliverable: one sentence describing what the user now experiences.</p>
+    </div>
+  </section>
+
+  <section class="slide quiz" data-part="Part 1" data-title="Diff quiz">
+    <div class="inner">
+      <div class="kicker">Quick check</div>
+      <h2>What changed in the diff?</h2>
+      <div class="choices">
+        <button class="choice" data-correct="false">Only the visual color changed.</button>
+        <button class="choice" data-correct="true">The button label changed and feedback becomes visible.</button>
+        <button class="choice" data-correct="false">The file was deleted.</button>
+      </div>
+      <div class="feedback">Reviewers translate code changes into user-visible behavior and risk.</div>
+    </div>
+  </section>
+
+  <section class="slide" id="agents" data-part="Part 2" data-title="Agent mental model">
+    <div class="inner">
+      <div class="kicker">Part 2 question</div>
+      <h2>What makes an AI assistant an agent?</h2>
+      <p class="lede">An agent uses an LLM inside a loop. It has a goal, context, tools, observations, and stopping rules.</p>
+      <div class="formula">LLM + goal + context + tools + loop + guardrails</div>
+    </div>
+  </section>
+
+  <section class="slide" data-part="Part 2" data-title="Three levels">
+    <div class="inner">
+      <div class="kicker">Three levels</div>
+      <h2>Answer, tool call, or agent loop?</h2>
+      <div class="grid three">
+        <div class="card"><h3>LLM answer</h3><p>Responds in text from context.</p></div>
+        <div class="card"><h3>Tool call</h3><p>Requests an external action such as reading a file or running a test.</p></div>
+        <div class="card"><h3>Agent loop</h3><p>Plans, acts, observes, and revises across multiple steps.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="slide" data-part="Part 2" data-title="Agent loop">
+    <div class="inner">
+      <div class="kicker">Loop</div>
+      <h2>The loop is where usefulness and risk both grow.</h2>
+      <div class="diagram">
+        <div class="node">task</div><div class="arrow">-></div>
+        <div class="node">plan</div><div class="arrow">-></div>
+        <div class="node">tool</div><div class="arrow">-></div>
+        <div class="node">observe</div><div class="arrow">-></div>
+        <div class="node">revise</div>
+      </div>
+      <p class="muted">The loop should stop when the task is done, blocked, too risky, or waiting on human approval.</p>
+    </div>
+  </section>
+
+  <section class="slide danger" data-part="Part 2" data-title="Approval">
+    <div class="inner">
+      <div class="kicker">Human control</div>
+      <h2>The agent should not approve itself for powerful actions.</h2>
+      <p>Changing a file in a local exercise is low risk. Publishing, deleting, spending, emailing, or touching personal data is different. Those actions need human approval.</p>
+      <div class="grid">
+        <div class="card"><h3>Fast path</h3><p>Draft text, summarize, suggest, explain, make reversible local changes.</p></div>
+        <div class="card"><h3>Approval path</h3><p>Send, publish, delete, merge, spend, expose private information, or affect other people.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="slide quiz" data-part="Part 2" data-title="Agent quiz">
+    <div class="inner">
+      <div class="kicker">Quick check</div>
+      <h2>Which one is an agent loop?</h2>
+      <div class="choices">
+        <button class="choice" data-correct="false">"Explain what a branch is."</button>
+        <button class="choice" data-correct="false">"Read this file and summarize it."</button>
+        <button class="choice" data-correct="true">"Find the failing test, inspect the code, propose a fix, run tests, and revise until green."</button>
+      </div>
+      <div class="feedback">An agent loop has multiple steps with observations and revision, usually involving tools.</div>
+    </div>
+  </section>
+
+  <section class="slide challenge" data-part="Part 2" data-title="Approval challenge">
+    <div class="inner">
+      <div class="kicker">Challenge 3 - 10 minutes</div>
+      <h2>Fast path or approval path?</h2>
+      <p>Sort each action into fast path or approval path, then explain one borderline case.</p>
+      <ul>
+        <li>Summarize a README.</li>
+        <li>Commit code to a branch.</li>
+        <li>Merge to the main branch.</li>
+        <li>Email a project update to outside partners.</li>
+        <li>Generate three alternate button labels.</li>
+      </ul>
+      <p class="muted">Deliverable: one rule your group would give an agent.</p>
+    </div>
+  </section>
+
+  <section class="slide" id="workflow" data-part="Part 3" data-title="First workflow">
+    <div class="inner">
+      <div class="kicker">Part 3 question</div>
+      <h2>How do we work with an agent without losing control?</h2>
+      <p class="lede">Use a small loop: write the task, ask for a plan, inspect the plan, allow a tiny change, review the diff, then decide.</p>
+      <div class="formula">issue -> plan -> tiny change -> diff -> review -> commit</div>
+    </div>
+  </section>
+
+  <section class="slide" data-part="Part 3" data-title="Good task">
+    <div class="inner">
+      <div class="kicker">Task writing</div>
+      <h2>A good agent task has boundaries.</h2>
+      <div class="terminal">Goal: Change the quiz button label from "Submit" to "Check answer".
+Files to inspect: module-00-llm-basics.html
+Constraints: Do not change slide navigation.
+Done when: The button text changes and quiz feedback still works.</div>
+      <p class="muted">Boundaries make agent work smaller, reviewable, and safer.</p>
+    </div>
+  </section>
+
+  <section class="slide challenge" data-part="Part 3" data-title="Plan challenge">
+    <div class="inner">
+      <div class="kicker">Challenge 4 - 12 minutes</div>
+      <h2>Ask for a plan before code.</h2>
+      <p>Write a prompt that asks an AI assistant for a plan, not an immediate edit. The plan must mention files, risks, and verification.</p>
+      <div class="formula">"Before changing files, inspect the relevant code and give me a short plan with verification steps."</div>
+      <p class="muted">Deliverable: one plan-first prompt.</p>
+    </div>
+  </section>
+
+  <section class="slide challenge" data-part="Part 3" data-title="Review challenge">
+    <div class="inner">
+      <div class="kicker">Challenge 5 - 18 minutes</div>
+      <h2>Review the agent's proposed change.</h2>
+      <p>You receive a small diff. Decide whether to accept, ask for revision, or reject. Your answer must include evidence.</p>
+      <div class="grid">
+        <div class="card"><h3>Check behavior</h3><p>Does the change match the task?</p></div>
+        <div class="card"><h3>Check blast radius</h3><p>Did it touch unrelated files or behavior?</p></div>
+        <div class="card"><h3>Check verification</h3><p>How do we know it still works?</p></div>
+        <div class="card"><h3>Check wording</h3><p>Would another student understand it?</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="slide quiz" data-part="Part 3" data-title="Workflow quiz">
+    <div class="inner">
+      <div class="kicker">Quick check</div>
+      <h2>What should come before accepting an agent's code?</h2>
+      <div class="choices">
+        <button class="choice" data-correct="false">Trust it because the agent sounds confident.</button>
+        <button class="choice" data-correct="true">Inspect the diff and run or reason through verification.</button>
+        <button class="choice" data-correct="false">Immediately merge to main so progress is saved.</button>
+      </div>
+      <div class="feedback">Agent work becomes useful when humans review the evidence and decide.</div>
+    </div>
+  </section>
+
+  <section class="slide challenge" data-part="Part 3" data-title="Mini lab">
+    <div class="inner">
+      <div class="kicker">Challenge 6 - 25 minutes</div>
+      <h2>Mini lab: one tiny safe change</h2>
+      <p>In pairs, complete a controlled workflow. If accounts or live tools are not available, use the instructor's projected repo and printed diff.</p>
+      <div class="grid three">
+        <div class="card"><h3>1. Task</h3><p>Write a small issue with a done condition.</p></div>
+        <div class="card"><h3>2. Plan</h3><p>Ask the assistant for a plan first.</p></div>
+        <div class="card"><h3>3. Review</h3><p>Inspect the proposed diff before accepting.</p></div>
+      </div>
+      <div class="teacher-note">This can be live with GitHub or fully simulated. The learning target is the control loop, not account setup.</div>
+    </div>
+  </section>
+
+  <section class="slide quiz" data-part="Part 3" data-title="Exit quiz">
+    <div class="inner">
+      <div class="kicker">Exit check</div>
+      <h2>Choose the best commit message.</h2>
+      <div class="choices">
+        <button class="choice" data-correct="false">Update stuff</button>
+        <button class="choice" data-correct="true">Clarify Module 0 quiz feedback wording</button>
+        <button class="choice" data-correct="false">Final final fixed new version</button>
+      </div>
+      <div class="feedback">A good commit message is specific enough for a future reviewer to understand the change.</div>
+    </div>
+  </section>
+
+  <section class="slide artifact" id="artifact" data-part="Close" data-title="Student artifact">
+    <div class="inner">
+      <div class="kicker">Submit</div>
+      <h2>Module 1 artifact</h2>
+      <p>Submit an Agent Workflow Card with:</p>
+      <ul>
+        <li>A small GitHub issue or task statement.</li>
+        <li>A plan-first prompt for the AI assistant.</li>
+        <li>One diff-review checklist.</li>
+        <li>One approval rule for risky actions.</li>
+      </ul>
+      <p class="muted">This prepares you for Course 1 and deeper agentic engineering work.</p>
+      <p style="margin-top:18px"><a href="claude-code-course.html">Continue to Course 1 slides</a></p>
+    </div>
+  </section>
+
+  <section class="slide optional" id="homework" data-part="Homework" data-title="Homework">
+    <div class="inner">
+      <div class="kicker">After class</div>
+      <h2>Homework and optional setup</h2>
+      <div class="grid">
+        <div class="card"><h3>Required reflection</h3><p>Write three sentences: what GitHub records, what an agent loop does, and what should require human approval.</p></div>
+        <div class="card"><h3>If assigned by instructor</h3><p>Create or verify GitHub access before the next lab. Do not put private information into AI tools beyond what the instructor approves.</p></div>
+        <div class="card"><h3>Optional practice</h3><p>Browse a public GitHub repo and find the README, issues, commits, and pull requests.</p></div>
+        <div class="card"><h3>Next module</h3><p>Course 1 begins practical AI collaboration and coding workflows.</p></div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<nav class="controls" aria-label="Slide controls">
+  <button class="btn" id="prevBtn">Back</button>
+  <div class="jump" aria-label="Jump to section">
+    <button class="btn" data-jump="start">Start</button>
+    <button class="btn" data-jump="github">GitHub</button>
+    <button class="btn" data-jump="agents">Agents</button>
+    <button class="btn" data-jump="workflow">Workflow</button>
+    <button class="btn" data-jump="artifact">Artifact</button>
+    <button class="btn" data-jump="homework">Homework</button>
+  </div>
+  <div>
+    <button class="btn" id="notesBtn">Notes</button>
+    <button class="btn" id="nextBtn">Next</button>
+  </div>
+</nav>
+
+<script>
+const slides = Array.from(document.querySelectorAll('.slide'));
+const statusEl = document.getElementById('status');
+const barEl = document.getElementById('bar');
+const prevBtn = document.getElementById('prevBtn');
+const nextBtn = document.getElementById('nextBtn');
+const notesBtn = document.getElementById('notesBtn');
+let current = 0;
+slides.forEach((slide, index) => {
+  if (!slide.id) slide.id = `slide-${index + 1}`;
+});
+
+function activeJump(){
+  let selected = null;
+  document.querySelectorAll('[data-jump]').forEach(btn => {
+    const target = document.getElementById(btn.dataset.jump);
+    const index = slides.indexOf(target);
+    if (index >= 0 && index <= current) selected = btn;
+    btn.classList.remove('active');
+  });
+  if (selected) selected.classList.add('active');
+}
+
+function show(index){
+  current = Math.max(0, Math.min(slides.length - 1, index));
+  slides.forEach((slide, i) => slide.classList.toggle('active', i === current));
+  const slide = slides[current];
+  const part = slide.dataset.part || 'Module';
+  const title = slide.dataset.title || '';
+  statusEl.textContent = `${part} - ${current + 1}/${slides.length}${title ? ' - ' + title : ''}`;
+  barEl.style.width = `${((current + 1) / slides.length) * 100}%`;
+  activeJump();
+  history.replaceState(null, '', `#${slide.id || 'slide-' + (current + 1)}`);
+}
+
+prevBtn.addEventListener('click', () => show(current - 1));
+nextBtn.addEventListener('click', () => show(current + 1));
+notesBtn.addEventListener('click', () => document.body.classList.toggle('notes-on'));
+document.querySelectorAll('[data-jump]').forEach(btn => {
+  btn.addEventListener('click', () => show(slides.indexOf(document.getElementById(btn.dataset.jump))));
+});
+document.addEventListener('keydown', event => {
+  if (event.target.closest('button,a,input,textarea')) return;
+  if (['ArrowRight','PageDown',' '].includes(event.key)) { event.preventDefault(); show(current + 1); }
+  if (['ArrowLeft','PageUp'].includes(event.key)) { event.preventDefault(); show(current - 1); }
+  if (event.key === 'Home') { event.preventDefault(); show(0); }
+  if (event.key === 'End') { event.preventDefault(); show(slides.length - 1); }
+  if (event.key.toLowerCase() === 'n') document.body.classList.toggle('notes-on');
+});
+document.querySelectorAll('.choice').forEach(choice => {
+  choice.addEventListener('click', () => {
+    const group = choice.closest('.slide');
+    group.querySelectorAll('.choice').forEach(item => item.classList.remove('correct','wrong'));
+    choice.classList.add(choice.dataset.correct === 'true' ? 'correct' : 'wrong');
+    const feedback = group.querySelector('.feedback');
+    if (feedback) feedback.classList.add('show');
+  });
+});
+if (location.hash) {
+  const target = document.getElementById(location.hash.slice(1));
+  if (target) current = slides.indexOf(target);
+}
+show(current);
+</script>
+</body>
+</html>
