@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Module 0 Slides - LLM Basics</title>
+<title>Week 1 / Module 0 Slides - What Is an LLM?</title>
 <link rel="icon" href="data:,">
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
@@ -87,21 +87,21 @@ body.notes-on .teacher-note{display:block}
 </head>
 <body>
 <div class="hud">
-  <div class="brand">Module 0: LLM Basics</div>
+  <div class="brand">Week 1 / Module 0: What Is an LLM?</div>
   <div class="progress" aria-hidden="true"><div class="bar" id="bar"></div></div>
   <div class="status" id="status">Slide 1</div>
 </div>
 
 <main class="deck" id="deck">
-  <section class="slide active" id="start" data-part="Open" data-title="Module 0">
+  <section class="slide active" id="start" data-part="Open" data-title="Week 1 / Module 0">
     <div class="inner">
       <div class="kicker">First instructional class</div>
-      <h1>LLM Basics</h1>
-      <p class="lede">Before we use AI tools seriously, we need a mental model of what they are doing, where they break, and how they become agents.</p>
+      <h1>What Is an LLM?</h1>
+      <p class="lede">Before we use AI tools seriously, we need a plain-language mental model of what large language models do, why they can be useful, and why they still need human checking.</p>
       <div class="grid three">
         <div class="card"><span class="tag">3 hours</span><p>Half teaching and demo, half challenges and checks.</p></div>
         <div class="card"><span class="tag">No prerequisite</span><p>We start from autocomplete and build toward agent loops.</p></div>
-        <div class="card"><span class="tag">Homework later</span><p>Videos are assigned after class. Class time is for understanding and practice.</p></div>
+        <div class="card"><span class="tag">Guided video</span><p>We use the short 3Blue1Brown video in class, then save Karpathy for homework.</p></div>
       </div>
       <div class="teacher-note">Pacing: 5 minutes. Set the norm: students should interrupt with questions and expect to do short activities throughout.</div>
     </div>
@@ -116,6 +116,52 @@ body.notes-on .teacher-note{display:block}
         <div class="card"><h3>Challenge + quiz</h3><p>Students test the idea immediately with a task, question, artifact, or quick decision.</p></div>
       </div>
       <div class="formula">Listen briefly -> try something -> check your model -> revise</div>
+    </div>
+  </section>
+
+  <section class="slide challenge" data-part="Open" data-title="Before video">
+    <div class="inner">
+      <div class="kicker">Opening challenge - 6 minutes</div>
+      <h2>Before we define anything, predict the next word.</h2>
+      <p>Work with a partner. For each phrase, write three possible next words and circle the one you think a phone keyboard would suggest first.</p>
+      <div class="grid">
+        <div class="card"><h3>Phrase A</h3><p><code>The best way to learn AI is...</code></p></div>
+        <div class="card"><h3>Phrase B</h3><p><code>When a model is unsure, it should...</code></p></div>
+        <div class="card"><h3>Phrase C</h3><p><code>The code failed because...</code></p></div>
+        <div class="card"><h3>Question</h3><p>What did you use: facts, grammar, memory, or pattern guessing?</p></div>
+      </div>
+      <p class="muted">Deliverable: one sentence beginning, "Prediction is useful because..."</p>
+      <div class="teacher-note">This sets up the 3Blue1Brown video. Do not define token yet; let students feel prediction first.</div>
+    </div>
+  </section>
+
+  <section class="slide" id="video" data-part="Open" data-title="Guided 3Blue1Brown video">
+    <div class="inner">
+      <div class="kicker">Guided watch - 10 minutes</div>
+      <h2>3Blue1Brown: LLMs explained briefly</h2>
+      <p>Watch this short video as a class. Pause for the checks below; the goal is not to memorize details, but to build the first mental model.</p>
+      <div class="video-frame">
+        <iframe src="https://www.youtube.com/embed/LPZh9BOjkQs" title="Large Language Models explained briefly" frameborder="0" allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture" allowfullscreen></iframe>
+      </div>
+      <div class="grid three">
+        <div class="card"><span class="tag">Pause 1</span><p>What does "predict the next token" mean in your own words?</p></div>
+        <div class="card"><span class="tag">Pause 2</span><p>Why can a simple prediction task become powerful at huge scale?</p></div>
+        <div class="card"><span class="tag">End check</span><p>What is one thing the video made clearer, and one thing still confusing?</p></div>
+      </div>
+      <div class="teacher-note">If time is tight, play only the opening/middle sections and use the pause prompts. Students can replay the full video from the homework section.</div>
+    </div>
+  </section>
+
+  <section class="slide quiz" data-part="Open" data-title="Video check">
+    <div class="inner">
+      <div class="kicker">Quick check</div>
+      <h2>After the video: which explanation is closest?</h2>
+      <div class="choices">
+        <button class="choice" data-correct="false">An LLM looks up one correct answer from a giant table.</button>
+        <button class="choice" data-correct="true">An LLM uses context and learned patterns to predict likely next tokens.</button>
+        <button class="choice" data-correct="false">An LLM understands truth the same way a human expert does.</button>
+      </div>
+      <div class="feedback">This is the foundation for the rest of the week: context plus learned patterns plus next-token prediction.</div>
     </div>
   </section>
 
@@ -466,21 +512,21 @@ body.notes-on .teacher-note{display:block}
   <section class="slide" id="homework" data-part="Homework" data-title="Homework path">
     <div class="inner">
       <div class="kicker">After class</div>
-      <h2>Homework videos deepen the model.</h2>
-      <p class="lede">Class gives the usable mental model. Homework gives the deeper technical story and more examples.</p>
+      <h2>Homework deepens the model.</h2>
+      <p class="lede">Class gives the usable mental model. Karpathy's long video gives the deeper technical story and more examples.</p>
       <div class="grid">
-        <div class="card"><h3>Required warm-up</h3><p>3Blue1Brown: Large Language Models explained briefly.</p></div>
-        <div class="card"><h3>Required deep dive</h3><p>Andrej Karpathy: Deep Dive into LLMs like ChatGPT.</p></div>
+        <div class="card"><h3>Required homework</h3><p>Andrej Karpathy: Deep Dive into LLMs like ChatGPT. Watch with the homework sheet.</p></div>
+        <div class="card"><h3>Class video replay</h3><p>Replay the short 3Blue1Brown video if you want to review the beginner mental model.</p></div>
       </div>
       <p style="margin-top:20px"><a href="session-materials/llm-foundations-homework.html">Open homework sheet</a></p>
     </div>
   </section>
 
-  <section class="slide" data-part="Homework" data-title="3Blue1Brown warm-up">
+  <section class="slide" data-part="Homework" data-title="3Blue1Brown replay">
     <div class="inner">
-      <div class="kicker">Required homework video</div>
+      <div class="kicker">Class video replay</div>
       <h2>Large Language Models explained briefly</h2>
-      <p>Watch first. Focus on the high-level picture: next-token prediction, training, and why a simple objective can produce useful behavior at scale.</p>
+      <p>This is the short video we used in class. Replay it if tokens, prediction, or scale still feel fuzzy.</p>
       <div class="video-frame">
         <iframe src="https://www.youtube.com/embed/LPZh9BOjkQs" title="Large Language Models explained briefly" frameborder="0" allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture" allowfullscreen></iframe>
       </div>
@@ -531,6 +577,7 @@ body.notes-on .teacher-note{display:block}
   <button class="btn" id="prevBtn">Back</button>
   <div class="jump" aria-label="Jump to section">
     <button class="btn" data-jump="start">Start</button>
+    <button class="btn" data-jump="video">Video</button>
     <button class="btn" data-jump="hour1">Hour 1</button>
     <button class="btn" data-jump="hour2">Hour 2</button>
     <button class="btn" data-jump="hour3">Hour 3</button>
