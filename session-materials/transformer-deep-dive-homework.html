@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Week 2 / Module 0B Homework - Inside an LLM</title>
+<style>
+@page{size:Letter;margin:.55in}
+*{box-sizing:border-box}
+body{font-family:Inter,Arial,sans-serif;color:#111827;line-height:1.45;margin:0;background:#fff}
+.page{max-width:8.5in;margin:0 auto;padding:28px}
+h1{font-size:28px;margin:0 0 6px;color:#0f172a}
+h2{font-size:18px;margin:24px 0 8px;color:#1e3a8a;border-bottom:2px solid #dbeafe;padding-bottom:4px}
+h3{font-size:15px;margin:0 0 6px;color:#111827}
+p,li,td,th{font-size:12.5px}
+.subtitle{color:#475569;margin:0 0 18px;font-size:14px}
+.meta{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:18px 0}
+.blank{border-bottom:1px solid #94a3b8;height:24px}
+.callout{background:#eff6ff;border:1px solid #bfdbfe;border-radius:10px;padding:12px;margin:14px 0}
+.warn{background:#fffbeb;border-color:#fde68a}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:12px 0}
+.card{border:1px solid #d1d5db;border-radius:10px;padding:12px;background:#f8fafc}
+a{color:#2563eb;word-break:break-all}
+.answer{height:72px;border:1px solid #cbd5e1;border-radius:8px;margin:8px 0 14px;background:#fff}
+.answer.sm{height:44px}.answer.lg{height:108px}
+table{width:100%;border-collapse:collapse;margin:10px 0 16px}
+th,td{border:1px solid #cbd5e1;padding:8px;vertical-align:top}
+th{background:#eff6ff;text-align:left}
+.checkpoint{break-inside:avoid;border:1px solid #e5e7eb;border-radius:10px;padding:10px;margin:10px 0}
+.time{font-family:Menlo,Consolas,monospace;background:#e0f2fe;color:#0c4a6e;border-radius:5px;padding:2px 5px;margin-right:6px}
+.check{display:flex;gap:8px;align-items:flex-start;margin:7px 0}
+.box{width:14px;height:14px;border:1px solid #64748b;display:inline-block;flex:0 0 auto;margin-top:2px}
+.small{font-size:11px;color:#64748b}
+.footer{margin-top:22px;color:#64748b;font-size:10px;text-align:center}
+</style>
+</head>
+<body>
+<main class="page">
+  <h1>Inside an LLM Homework Sheet</h1>
+  <p class="subtitle">Guided homework for Week 2 / Module 0B: Transformers, attention, facts, and verification.</p>
+
+  <div class="meta">
+    <div><strong>Name</strong><div class="blank"></div></div>
+    <div><strong>Date</strong><div class="blank"></div></div>
+  </div>
+
+  <div class="callout warn">
+    <strong>Purpose:</strong> These videos deepen the Week 2 classroom examples. Do not try to memorize every architectural detail. Focus on the practical mental model: tokens become representations, attention uses context, learned facts are not the same as verified truth.
+  </div>
+
+  <h2>Required Video Path</h2>
+  <div class="grid">
+    <div class="card">
+      <h3>3Blue1Brown: Transformers, the tech behind LLMs</h3>
+      <p><a href="https://www.youtube.com/watch?v=wjZofJX0v4M">https://www.youtube.com/watch?v=wjZofJX0v4M</a></p>
+      <p class="small">Watch for: tokens, embeddings, attention, repeated layers, next-token prediction.</p>
+    </div>
+    <div class="card">
+      <h3>3Blue1Brown: How might LLMs store facts?</h3>
+      <p><a href="https://www.youtube.com/watch?v=9-Jl0dxWQs8">https://www.youtube.com/watch?v=9-Jl0dxWQs8</a></p>
+      <p class="small">Watch for: facts in model weights, MLP intuition, why memory is not a source.</p>
+    </div>
+  </div>
+
+  <h2>Before Watching</h2>
+  <p>In your own words, explain what Week 1 taught: what does an LLM do when it generates an answer?</p>
+  <div class="answer"></div>
+  <p>Write one example where context changes the meaning of a word.</p>
+  <div class="answer sm"></div>
+
+  <h2>Tiny Glossary</h2>
+  <table>
+    <tr><th>Term</th><th>Meaning for this course</th><th>Your example</th></tr>
+    <tr><td>Token</td><td>A chunk of text the model processes.</td><td></td></tr>
+    <tr><td>Embedding</td><td>A numeric representation that places a token in a useful meaning space.</td><td></td></tr>
+    <tr><td>Attention</td><td>A mechanism that lets tokens use information from other tokens in context.</td><td></td></tr>
+    <tr><td>Transformer layer</td><td>One repeated block that updates token representations.</td><td></td></tr>
+    <tr><td>MLP</td><td>A component that transforms representations and may help encode patterns or facts.</td><td></td></tr>
+    <tr><td>Verification</td><td>Checking an important claim against evidence outside fluent model output.</td><td></td></tr>
+  </table>
+
+  <h2>Video 1 Checkpoints: Transformers</h2>
+  <div class="checkpoint">
+    <p><span class="time">Start</span><strong>Tokens and embeddings</strong></p>
+    <p>Why does the model need to turn text into numerical representations?</p>
+    <div class="answer"></div>
+  </div>
+  <div class="checkpoint">
+    <p><span class="time">Middle</span><strong>Context and attention</strong></p>
+    <p>Use the word <em>bank</em> or <em>pitcher</em>. How can surrounding words change the useful meaning?</p>
+    <div class="answer"></div>
+  </div>
+  <div class="checkpoint">
+    <p><span class="time">End</span><strong>Transformer structure</strong></p>
+    <p>What gets updated again and again inside the transformer?</p>
+    <div class="answer"></div>
+  </div>
+
+  <h2>Video 2 Checkpoints: Facts</h2>
+  <div class="checkpoint">
+    <p><span class="time">Start</span><strong>Facts in a model</strong></p>
+    <p>What does it mean to say a fact may be encoded in model weights?</p>
+    <div class="answer"></div>
+  </div>
+  <div class="checkpoint">
+    <p><span class="time">Middle</span><strong>MLP intuition</strong></p>
+    <p>What role do MLP layers appear to play in the video's explanation?</p>
+    <div class="answer"></div>
+  </div>
+  <div class="checkpoint">
+    <p><span class="time">End</span><strong>Memory vs evidence</strong></p>
+    <p>Why is learned factual recall different from checking a source?</p>
+    <div class="answer"></div>
+  </div>
+
+  <h2>Fact or Source?</h2>
+  <table>
+    <tr><th>Claim</th><th>Use model recall, source, tool, or human approval?</th><th>Why?</th></tr>
+    <tr><td>The Eiffel Tower is in Paris.</td><td></td><td></td></tr>
+    <tr><td>Our class policy allows late work after illness.</td><td></td><td></td></tr>
+    <tr><td>The library closes at 6pm today.</td><td></td><td></td></tr>
+    <tr><td>A private class decision from yesterday.</td><td></td><td></td></tr>
+  </table>
+
+  <h2>Exit Ticket</h2>
+  <p>In 5-7 sentences, explain the full Week 2 mental model: text -> tokens -> embeddings -> attention/context -> repeated layers -> prediction -> verification.</p>
+  <div class="answer lg"></div>
+
+  <h2>Completion Checklist</h2>
+  <div class="check"><span class="box"></span><span>I watched the transformer video and answered the checkpoint questions.</span></div>
+  <div class="check"><span class="box"></span><span>I watched the facts video and answered the checkpoint questions.</span></div>
+  <div class="check"><span class="box"></span><span>I completed the glossary with my own examples.</span></div>
+  <div class="check"><span class="box"></span><span>I can explain why learned facts still need verification in important cases.</span></div>
+
+  <h2>Teacher Grading Guide</h2>
+  <table>
+    <tr><th>Criteria</th><th>Points</th></tr>
+    <tr><td>Accurate glossary with examples</td><td>20</td></tr>
+    <tr><td>Transformer video checkpoints show understanding of embeddings and attention</td><td>25</td></tr>
+    <tr><td>Facts video checkpoints distinguish learned memory from evidence</td><td>25</td></tr>
+    <tr><td>Fact/source table uses appropriate verification judgment</td><td>15</td></tr>
+    <tr><td>Exit ticket connects the whole flow clearly</td><td>15</td></tr>
+  </table>
+
+  <p class="footer">AI Engineering Academy - Week 2 / Module 0B: Inside an LLM</p>
+</main>
+</body>
+</html>

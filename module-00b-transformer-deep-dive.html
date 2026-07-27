@@ -1,0 +1,599 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Week 2 / Module 0B Slides - Inside an LLM</title>
+<link rel="icon" href="data:,">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#070817;--panel:#101426;--panel2:#171d34;--line:rgba(255,255,255,.1);
+  --text:#f5f7fb;--muted:#a5adc2;--faint:#707a96;
+  --cyan:#22d3ee;--blue:#60a5fa;--violet:#a78bfa;--green:#34d399;--amber:#f59e0b;--rose:#fb7185;
+  --font:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  --mono:"SFMono-Regular",Consolas,"Liberation Mono",Menlo,monospace;
+}
+html,body{height:100%;overflow:hidden}
+body{font-family:var(--font);background:
+  radial-gradient(circle at 18% 12%,rgba(34,211,238,.15),transparent 32%),
+  radial-gradient(circle at 78% 18%,rgba(167,139,250,.16),transparent 34%),
+  linear-gradient(135deg,#070817,#0c1022 52%,#080b17);color:var(--text)}
+a{color:var(--cyan);text-decoration:none}
+button{font:inherit}
+.deck{height:100vh;width:100vw;position:relative}
+.slide{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:82px 7vw 84px;opacity:0;pointer-events:none;transition:opacity .25s ease;overflow:auto}
+.slide.active{opacity:1;pointer-events:auto}
+.inner{width:min(1180px,100%)}
+.kicker{display:inline-flex;align-items:center;gap:10px;color:var(--cyan);font-size:13px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;margin-bottom:18px}
+.kicker::before{content:"";width:34px;height:2px;background:currentColor;border-radius:99px}
+h1{font-size:clamp(42px,6vw,76px);line-height:1.02;letter-spacing:0;margin-bottom:18px}
+h2{font-size:clamp(34px,4.6vw,58px);line-height:1.06;letter-spacing:0;margin-bottom:18px}
+h3{font-size:clamp(23px,2.4vw,32px);line-height:1.18;margin-bottom:14px}
+p,li{font-size:clamp(18px,1.55vw,23px);line-height:1.45;color:var(--muted)}
+ul{padding-left:1.2em;margin:18px 0}
+li{margin:8px 0}
+.lede{font-size:clamp(22px,2.2vw,31px);max-width:930px;color:#dce5f7}
+.muted{color:var(--faint);font-size:16px}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px;margin-top:28px}
+.grid.three{grid-template-columns:repeat(3,minmax(0,1fr))}
+.card{background:rgba(16,20,38,.82);border:1px solid var(--line);border-radius:16px;padding:22px}
+.card h3{font-size:22px}
+.tag{display:inline-flex;border:1px solid rgba(255,255,255,.14);border-radius:999px;padding:7px 11px;color:#dbeafe;font-size:13px;font-weight:800;margin-bottom:12px;background:rgba(255,255,255,.04)}
+.formula{font-family:var(--mono);font-size:clamp(20px,1.8vw,28px);line-height:1.45;background:#050713;border:1px solid rgba(96,165,250,.28);border-radius:18px;padding:22px;margin-top:24px;color:#bfdbfe}
+.concept-card{background:linear-gradient(135deg,rgba(34,211,238,.13),rgba(96,165,250,.08));border:1px solid rgba(34,211,238,.28);border-radius:20px;padding:26px;margin:22px 0}
+.concept-card strong{display:block;color:#fff;font-size:clamp(24px,2.4vw,34px);line-height:1.2;margin-bottom:10px}
+.concept-card p{color:#dce5f7}
+.story-strip{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin-top:24px}
+.story-step{border:1px solid rgba(96,165,250,.24);background:rgba(96,165,250,.08);border-radius:16px;padding:18px;min-height:136px}
+.story-step b{display:block;color:#fff;margin-bottom:8px}
+.story-step span{display:inline-flex;align-items:center;justify-content:center;width:28px;height:28px;border-radius:999px;background:rgba(34,211,238,.18);color:#a5f3fc;font-weight:900;margin-bottom:12px}
+.token-stream{display:flex;gap:10px;flex-wrap:wrap;margin-top:24px}
+.token{border:1px solid rgba(34,211,238,.38);background:rgba(34,211,238,.1);color:#dffaff;border-radius:12px;padding:10px 12px;font-family:var(--mono);font-weight:900;animation:chipIn .5s ease both}
+.token.dim{opacity:.38}
+.vector-space{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin-top:24px}
+.vector-card{border:1px solid rgba(255,255,255,.14);background:rgba(255,255,255,.055);border-radius:16px;padding:18px;min-height:150px}
+.vector-card b{display:block;color:#fff;margin-bottom:8px}
+.axis{height:8px;border-radius:999px;background:linear-gradient(90deg,var(--cyan),var(--violet));margin:14px 0}
+.attention-lab{display:grid;grid-template-columns:340px minmax(0,1fr);gap:18px;margin-top:24px;align-items:start}
+.lab-controls,.lab-output{border:1px solid rgba(255,255,255,.13);background:rgba(255,255,255,.055);border-radius:18px;padding:18px}
+.lab-controls h3,.lab-output h3{font-size:22px;color:#fff}
+.chip-row{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+.attn-chip,.fact-chip{border:1px solid rgba(255,255,255,.16);background:rgba(255,255,255,.06);color:#eaf2ff;border-radius:999px;padding:10px 13px;font-weight:900;cursor:pointer;font-size:14px}
+.attn-chip:hover,.attn-chip:focus-visible,.fact-chip:hover,.fact-chip:focus-visible{outline:2px solid rgba(34,211,238,.55)}
+.attn-chip.active,.fact-chip.active{border-color:rgba(52,211,153,.8);background:rgba(52,211,153,.16);color:#dcfce7}
+.sentence-box{font-family:var(--mono);background:#050713;border:1px solid rgba(255,255,255,.12);border-radius:14px;padding:16px;margin:14px 0;color:#dbeafe;font-size:18px;line-height:1.45}
+.meaning-card{border:1px solid rgba(34,211,238,.28);background:linear-gradient(135deg,rgba(34,211,238,.12),rgba(167,139,250,.08));border-radius:18px;padding:20px}
+.meaning-card strong{color:#fff}
+.flow-loop{display:flex;gap:12px;align-items:center;flex-wrap:wrap;margin-top:26px}
+.loop-step{border:1px solid rgba(52,211,153,.28);background:rgba(52,211,153,.08);border-radius:15px;padding:15px 17px;color:#dcfce7;font-weight:900;animation:pulseStep 2.8s ease-in-out infinite}
+.loop-step:nth-child(3){animation-delay:.25s}.loop-step:nth-child(5){animation-delay:.5s}.loop-step:nth-child(7){animation-delay:.75s}.loop-step:nth-child(9){animation-delay:1s}
+.arrow{color:var(--cyan);font-size:28px;font-weight:900}
+.video-frame{position:relative;width:100%;max-width:900px;aspect-ratio:16/9;border-radius:16px;overflow:hidden;border:1px solid var(--line);background:#000;margin-top:22px}
+.video-frame iframe{position:absolute;inset:0;width:100%;height:100%}
+.quiz{border-left:6px solid var(--green);background:rgba(52,211,153,.08)}
+.challenge{border-left:6px solid var(--amber);background:rgba(245,158,11,.1)}
+.optional{border-left:6px solid var(--violet);background:rgba(167,139,250,.08)}
+.danger{border-left:6px solid var(--rose);background:rgba(251,113,133,.08)}
+.choices{display:grid;gap:12px;margin-top:22px}
+.choice{width:100%;text-align:left;color:var(--text);background:rgba(255,255,255,.055);border:1px solid var(--line);border-radius:13px;padding:15px 16px;cursor:pointer}
+.choice:hover,.choice:focus{outline:2px solid rgba(34,211,238,.65)}
+.choice.correct{border-color:rgba(52,211,153,.9);background:rgba(52,211,153,.16)}
+.choice.wrong{border-color:rgba(251,113,133,.9);background:rgba(251,113,133,.14)}
+.feedback{display:none;margin-top:16px;padding:14px 16px;border-radius:12px;background:rgba(255,255,255,.07);color:#dbeafe;font-size:17px}
+.feedback.show{display:block}
+.fact-lab{display:grid;grid-template-columns:320px minmax(0,1fr);gap:18px;margin-top:24px;align-items:start}
+.fact-panel{display:none}
+.fact-panel.show{display:block}
+.fact-result{border:1px solid rgba(34,211,238,.28);background:linear-gradient(135deg,rgba(34,211,238,.12),rgba(167,139,250,.08));border-radius:18px;padding:20px;min-height:230px}
+.fact-result h3{font-size:24px;color:#fff}
+.source-note{border:1px solid rgba(245,158,11,.34);background:rgba(245,158,11,.1);border-radius:14px;padding:13px;color:#fdecc8;font-size:15px;margin-top:14px}
+.teacher-note{display:none;margin-top:24px;border:1px dashed rgba(255,255,255,.28);background:rgba(255,255,255,.055);border-radius:14px;padding:16px;color:#d7dded;font-size:16px}
+body.notes-on .teacher-note{display:block}
+.hud{position:fixed;top:0;left:0;right:0;height:54px;background:rgba(7,8,23,.88);backdrop-filter:blur(14px);border-bottom:1px solid var(--line);display:flex;align-items:center;gap:14px;padding:0 18px;z-index:5}
+.brand{font-weight:900;color:#fff;white-space:nowrap}
+.progress{height:6px;background:rgba(255,255,255,.08);border-radius:999px;flex:1;overflow:hidden}
+.bar{height:100%;width:0;background:linear-gradient(90deg,var(--cyan),var(--violet));transition:width .2s ease}
+.status{color:var(--muted);font-size:13px;white-space:nowrap}
+.controls{position:fixed;left:0;right:0;bottom:0;min-height:62px;background:rgba(7,8,23,.9);backdrop-filter:blur(14px);border-top:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;gap:12px;padding:10px 18px;z-index:5}
+.btn{border:1px solid var(--line);background:rgba(255,255,255,.06);color:#fff;border-radius:11px;padding:9px 13px;cursor:pointer;font-weight:800}
+.btn:hover,.btn:focus{outline:2px solid rgba(34,211,238,.5)}
+.jump{display:flex;gap:8px;flex-wrap:wrap;justify-content:center}
+.jump .btn{font-size:13px;color:var(--muted)}
+.jump .btn.active{color:#07111f;background:var(--cyan)}
+.artifact{background:linear-gradient(135deg,rgba(34,211,238,.12),rgba(167,139,250,.12));border:1px solid rgba(34,211,238,.26)}
+@keyframes chipIn{from{opacity:0;transform:translateY(8px) scale(.96)}to{opacity:1;transform:translateY(0) scale(1)}}
+@keyframes pulseStep{0%,100%{box-shadow:none;transform:translateY(0)}50%{box-shadow:0 0 22px rgba(52,211,153,.16);transform:translateY(-2px)}}
+@media(max-width:760px){
+  .slide{justify-content:flex-start;padding:76px 22px 230px}
+  .grid,.grid.three,.story-strip,.vector-space,.attention-lab,.fact-lab{grid-template-columns:1fr}
+  .hud{height:auto;min-height:58px;align-items:flex-start;flex-wrap:wrap;padding:9px 12px}
+  .brand{width:100%}
+  .status{font-size:12px}
+  .controls{display:grid;grid-template-columns:1fr auto;align-items:center;min-height:0}
+  .jump{grid-column:1/-1;order:0}
+  .controls>div:last-child{display:flex;gap:8px;justify-content:flex-end}
+  .btn{padding:8px 10px}
+}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:0.01ms!important;transition-duration:0.01ms!important}}
+</style>
+</head>
+<body>
+<div class="hud">
+  <div class="brand">Week 2 / Module 0B: Inside an LLM</div>
+  <div class="progress" aria-hidden="true"><div class="bar" id="bar"></div></div>
+  <div class="status" id="status">Slide 1</div>
+</div>
+
+<main class="deck" id="deck">
+  <section class="slide active" id="start" data-part="Open" data-title="Week 2 / Module 0B">
+    <div class="inner">
+      <div class="kicker">Second foundation week</div>
+      <h1>Inside an LLM</h1>
+      <p class="lede">Week 1 showed what an LLM does from the outside. Week 2 opens the box just enough to understand transformers, attention, learned facts, and why verification still matters.</p>
+      <div class="grid three">
+        <div class="card"><span class="tag">3 hours</span><p>Half visual teaching, half examples, checks, and small challenges.</p></div>
+        <div class="card"><span class="tag">No heavy math</span><p>We use pictures, sentences, and interactive examples instead of matrix calculations.</p></div>
+        <div class="card"><span class="tag">Main idea</span><p>LLMs transform context into better next-token guesses; useful output is not proof.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="slide" data-part="Open" data-title="What changed from Week 1">
+    <div class="inner">
+      <div class="kicker">Bridge from Module 0</div>
+      <h2>Last week: the model predicted useful text.</h2>
+      <p class="lede">This week: how can the same word mean different things in different contexts, and how can a model seem to know facts?</p>
+      <div class="story-strip">
+        <div class="story-step"><span>1</span><b>Text</b><p>Student prompt, email draft, syllabus, or question.</p></div>
+        <div class="story-step"><span>2</span><b>Tokens</b><p>Text becomes chunks the model can process.</p></div>
+        <div class="story-step"><span>3</span><b>Context</b><p>Other tokens change what each token means.</p></div>
+        <div class="story-step"><span>4</span><b>Prediction</b><p>The final representation helps choose the next token.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="slide" data-part="Open" data-title="Three questions">
+    <div class="inner">
+      <div class="kicker">Today's map</div>
+      <h2>Three questions guide the module.</h2>
+      <div class="grid three">
+        <div class="card"><h3>Hour 1</h3><p>How does text become something a model can work with?</p></div>
+        <div class="card"><h3>Hour 2</h3><p>How does context change meaning inside a transformer?</p></div>
+        <div class="card"><h3>Hour 3</h3><p>How can a model store facts, and why do we still verify?</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="slide" id="hour1" data-part="Hour 1" data-title="Text to representation">
+    <div class="inner">
+      <div class="kicker">Hour 1 question</div>
+      <h2>How does text become meaning?</h2>
+      <p class="lede">A transformer does not start with human understanding. It starts with tokens, turns them into numerical representations, and repeatedly updates those representations using context.</p>
+      <div class="formula">text -> tokens -> embeddings -> context-updated representations -> next-token prediction</div>
+    </div>
+  </section>
+
+  <section class="slide" data-part="Hour 1" data-title="Tokens">
+    <div class="inner">
+      <div class="kicker">Step 1</div>
+      <h2>Start with tokens.</h2>
+      <p class="lede">The input sentence is split into pieces. The model never receives a human page of text; it receives a sequence of tokens.</p>
+      <div class="token-stream" aria-label="Token stream example">
+        <span class="token">The</span>
+        <span class="token">student</span>
+        <span class="token">opened</span>
+        <span class="token">the</span>
+        <span class="token">bank</span>
+        <span class="token">...</span>
+      </div>
+      <p class="muted">The word "bank" is the problem. Is it money, a river edge, or something else? The token alone is not enough.</p>
+    </div>
+  </section>
+
+  <section class="slide" data-part="Hour 1" data-title="Embeddings">
+    <div class="inner">
+      <div class="kicker">Step 2</div>
+      <h2>Tokens become embeddings.</h2>
+      <div class="concept-card">
+        <strong>An embedding is a numeric representation of a token.</strong>
+        <p>You can imagine it as a location in a meaning space. Nearby locations tend to share useful patterns, such as topic, grammar, role, or style.</p>
+      </div>
+      <div class="vector-space">
+        <div class="vector-card"><b>river</b><p>Water, shore, flow, flood.</p><div class="axis"></div><p class="muted">Nature direction</p></div>
+        <div class="vector-card"><b>bank</b><p>Ambiguous before context updates it.</p><div class="axis"></div><p class="muted">Needs context</p></div>
+        <div class="vector-card"><b>loan</b><p>Money, account, interest.</p><div class="axis"></div><p class="muted">Finance direction</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="slide challenge" data-part="Hour 1" data-title="Embedding intuition">
+    <div class="inner">
+      <div class="kicker">Challenge 1 - 10 minutes</div>
+      <h2>Sort words by meaning, not spelling.</h2>
+      <p>Put these into two meaning neighborhoods. Then explain where "bank" should go before and after context.</p>
+      <div class="grid">
+        <div class="card"><h3>Words</h3><p><code>river, shore, money, bank, account, flood, loan, stream</code></p></div>
+        <div class="card"><h3>Question</h3><p>What extra words would help the model place "bank" correctly?</p></div>
+      </div>
+      <p class="muted">Deliverable: one sentence beginning, "A token's meaning becomes clearer when..."</p>
+    </div>
+  </section>
+
+  <section class="slide" id="transformer-video" data-part="Hour 1" data-title="Transformer video">
+    <div class="inner">
+      <div class="kicker">Video anchor - 18 minutes</div>
+      <h2>3Blue1Brown: Transformers, the tech behind LLMs</h2>
+      <p>Use this video as visual reinforcement. We are watching for structure: tokens, embeddings, attention, and repeated layers.</p>
+      <div class="video-frame">
+        <iframe src="https://www.youtube.com/embed/wjZofJX0v4M" title="Transformers, the tech behind LLMs" frameborder="0" allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture" allowfullscreen></iframe>
+      </div>
+      <div class="grid three">
+        <div class="card"><span class="tag">Pause 1</span><p>What is one reason a word needs more than its own token?</p></div>
+        <div class="card"><span class="tag">Pause 2</span><p>What does attention help move between words?</p></div>
+        <div class="card"><span class="tag">End check</span><p>What does the transformer keep updating?</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="slide quiz" data-part="Hour 1" data-title="Quick check">
+    <div class="inner">
+      <div class="kicker">Quick check</div>
+      <h2>What is the most useful Week 2 mental model?</h2>
+      <div class="choices">
+        <button class="choice" data-correct="false">A transformer directly stores sentences in a giant lookup table.</button>
+        <button class="choice" data-correct="true">A transformer repeatedly updates token representations using context.</button>
+        <button class="choice" data-correct="false">A transformer verifies truth before every word it generates.</button>
+      </div>
+      <div class="feedback">The key idea is repeated context updating, not a database lookup or truth-checking machine.</div>
+    </div>
+  </section>
+
+  <section class="slide" id="hour2" data-part="Hour 2" data-title="Attention">
+    <div class="inner">
+      <div class="kicker">Hour 2 question</div>
+      <h2>How does context change meaning?</h2>
+      <p class="lede">Attention is one mechanism that lets tokens use information from other tokens. It helps the model update an ambiguous representation into a more useful one.</p>
+      <div class="formula">"bank" + "river" -> nature meaning<br>"bank" + "loan" -> finance meaning</div>
+    </div>
+  </section>
+
+  <section class="slide challenge" data-part="Hour 2" data-title="Attention lab">
+    <div class="inner">
+      <div class="kicker">Interactive demo - 12 minutes</div>
+      <h2>Click the context that changes the word.</h2>
+      <p class="lede">The ambiguous token starts blurry. Context words pull it toward a meaning.</p>
+      <div class="attention-lab" id="attentionLab">
+        <div class="lab-controls">
+          <h3>Choose context</h3>
+          <div class="chip-row">
+            <button class="attn-chip active" data-attn="river" aria-pressed="true">river / shore / water</button>
+            <button class="attn-chip" data-attn="money" aria-pressed="false">loan / account / money</button>
+            <button class="attn-chip" data-attn="baseball" aria-pressed="false">pitcher / mound / game</button>
+          </div>
+          <div class="source-note">This is a teaching model, not a literal attention heatmap from a real model.</div>
+        </div>
+        <div class="lab-output" aria-live="polite">
+          <h3 id="attnTitle">Bank means river edge.</h3>
+          <div class="sentence-box" id="attnSentence">The student sat by the bank and watched the water rise.</div>
+          <div class="meaning-card">
+            <strong id="attnMeaning">Context words: water, rise, sat by.</strong>
+            <p id="attnExplanation">These words make the ambiguous token "bank" behave like a place near a river.</p>
+          </div>
+        </div>
+      </div>
+      <div class="teacher-note">Ask students which words carried the most evidence. Then connect that to attention moving contextual information.</div>
+    </div>
+  </section>
+
+  <section class="slide" data-part="Hour 2" data-title="Attention is routing">
+    <div class="inner">
+      <div class="kicker">Attention intuition</div>
+      <h2>Attention routes useful information.</h2>
+      <p class="lede">A token representation can borrow information from other tokens. The model is not reading like a person; it is updating numeric representations so the next-token prediction gets better.</p>
+      <div class="flow-loop">
+        <div class="loop-step">token meaning</div><div class="arrow">-></div>
+        <div class="loop-step">look at context</div><div class="arrow">-></div>
+        <div class="loop-step">update representation</div><div class="arrow">-></div>
+        <div class="loop-step">predict better</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="slide" data-part="Hour 2" data-title="Layers">
+    <div class="inner">
+      <div class="kicker">Repeated layers</div>
+      <h2>One update is not enough.</h2>
+      <p class="lede">Transformers stack many layers. Early layers may capture local grammar or simple relationships; later layers can combine richer patterns.</p>
+      <div class="story-strip">
+        <div class="story-step"><span>1</span><b>Token</b><p>Initial chunk representation.</p></div>
+        <div class="story-step"><span>2</span><b>Attention</b><p>Bring in relevant context.</p></div>
+        <div class="story-step"><span>3</span><b>MLP</b><p>Transform features and patterns.</p></div>
+        <div class="story-step"><span>4</span><b>Repeat</b><p>Build a better representation for prediction.</p></div>
+      </div>
+      <p class="muted">We do not need the math today. We need the direction: representation gets refined by repeated computation.</p>
+    </div>
+  </section>
+
+  <section class="slide challenge" data-part="Hour 2" data-title="Context rewrite">
+    <div class="inner">
+      <div class="kicker">Challenge 2 - 12 minutes</div>
+      <h2>Rewrite the context to change the meaning.</h2>
+      <p>Start with: <code>The pitcher was ready.</code> Write two contexts that make "pitcher" mean different things.</p>
+      <div class="grid">
+        <div class="card"><h3>Sports meaning</h3><p>Add surrounding words that point to baseball.</p></div>
+        <div class="card"><h3>Kitchen meaning</h3><p>Add surrounding words that point to a container.</p></div>
+      </div>
+      <p class="muted">Deliverable: underline the context words that do the work.</p>
+    </div>
+  </section>
+
+  <section class="slide quiz" data-part="Hour 2" data-title="Quick check">
+    <div class="inner">
+      <div class="kicker">Quick check</div>
+      <h2>Why does context matter inside a transformer?</h2>
+      <div class="choices">
+        <button class="choice" data-correct="false">Because the model searches the internet for the meaning of each word.</button>
+        <button class="choice" data-correct="true">Because surrounding tokens help update each token's representation.</button>
+        <button class="choice" data-correct="false">Because words always have one fixed meaning.</button>
+      </div>
+      <div class="feedback">The important idea is context-sensitive representation, not web search and not fixed dictionary meaning.</div>
+    </div>
+  </section>
+
+  <section class="slide" id="hour3" data-part="Hour 3" data-title="Facts and verification">
+    <div class="inner">
+      <div class="kicker">Hour 3 question</div>
+      <h2>How can a model seem to know facts?</h2>
+      <p class="lede">Some facts are reflected in the model's learned weights because they appeared in training patterns. But this is not the same as a verified database or a live source.</p>
+      <div class="formula">learned pattern != current evidence</div>
+    </div>
+  </section>
+
+  <section class="slide" data-part="Hour 3" data-title="Facts in weights">
+    <div class="inner">
+      <div class="kicker">Knowledge intuition</div>
+      <h2>Facts can be encoded as learned patterns.</h2>
+      <div class="concept-card">
+        <strong>The model may complete common facts because training shaped its internal numbers.</strong>
+        <p>That can be useful, but it also means factual recall depends on training data, model behavior, and context. It is not the same as opening a source.</p>
+      </div>
+      <div class="grid">
+        <div class="card"><h3>Likely learned</h3><p><code>The Eiffel Tower is in...</code></p></div>
+        <div class="card"><h3>Needs evidence</h3><p><code>Our class policy says...</code></p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="slide" id="facts-video" data-part="Hour 3" data-title="Facts video">
+    <div class="inner">
+      <div class="kicker">Video anchor - 18 minutes</div>
+      <h2>3Blue1Brown: How might LLMs store facts?</h2>
+      <p>Watch for the distinction between learned internal patterns and verified external evidence.</p>
+      <div class="video-frame">
+        <iframe src="https://www.youtube.com/embed/9-Jl0dxWQs8" title="How might LLMs store facts" frameborder="0" allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture" allowfullscreen></iframe>
+      </div>
+      <div class="grid three">
+        <div class="card"><span class="tag">Pause 1</span><p>Where might factual associations appear inside a model?</p></div>
+        <div class="card"><span class="tag">Pause 2</span><p>Why is this different from database lookup?</p></div>
+        <div class="card"><span class="tag">End check</span><p>What kinds of facts should still be verified?</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="slide challenge" data-part="Hour 3" data-title="Fact or source">
+    <div class="inner">
+      <div class="kicker">Interactive demo - 12 minutes</div>
+      <h2>Classify the claim before trusting it.</h2>
+      <p class="lede">Click a claim. Decide whether learned recall is enough, or whether we need a source, tool, or human approval.</p>
+      <div class="fact-lab">
+        <div class="lab-controls">
+          <h3>Choose a claim</h3>
+          <div class="chip-row">
+            <button class="fact-chip active" data-fact="public" aria-pressed="true">Common public fact</button>
+            <button class="fact-chip" data-fact="policy" aria-pressed="false">Class policy</button>
+            <button class="fact-chip" data-fact="current" aria-pressed="false">Current date/event</button>
+            <button class="fact-chip" data-fact="private" aria-pressed="false">Private student detail</button>
+          </div>
+        </div>
+        <div class="fact-result" aria-live="polite">
+          <div class="fact-panel show" id="fact-public">
+            <h3>Useful recall, still check if important.</h3>
+            <p><code>The Eiffel Tower is in Paris.</code></p>
+            <p>For low-risk background knowledge, the model may be useful. For graded, legal, medical, or publication work, cite a source.</p>
+          </div>
+          <div class="fact-panel" id="fact-policy">
+            <h3>Needs source.</h3>
+            <p><code>Our class policy says make-up work is due in 48 hours.</code></p>
+            <p>This should come from the syllabus, LMS, or instructor, not from model memory.</p>
+          </div>
+          <div class="fact-panel" id="fact-current">
+            <h3>Needs current context or a tool.</h3>
+            <p><code>Today, the library closes at...</code></p>
+            <p>The answer can change. Use a current source or a tool result.</p>
+          </div>
+          <div class="fact-panel" id="fact-private">
+            <h3>Needs human handling and privacy care.</h3>
+            <p><code>The instructor decided yesterday that...</code></p>
+            <p>Private or local decisions must come from provided notes, not from model guessing.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="slide danger" data-part="Hour 3" data-title="Why hallucination happens">
+    <div class="inner">
+      <div class="kicker">Failure mode</div>
+      <h2>Fluent recall can become fluent invention.</h2>
+      <p class="lede">If the model has enough pattern to sound plausible but not enough evidence to be correct, it may generate unsupported output.</p>
+      <div class="grid">
+        <div class="card"><h3>Looks good</h3><p>Confident tone, precise dates, professional formatting.</p></div>
+        <div class="card"><h3>Still risky</h3><p>No source, stale information, wrong local policy, invented citation.</p></div>
+      </div>
+      <div class="formula">generation step: useful draft<br>verification step: evidence before decisions</div>
+    </div>
+  </section>
+
+  <section class="slide quiz" data-part="Hour 3" data-title="Quick check">
+    <div class="inner">
+      <div class="kicker">Quick check</div>
+      <h2>Which claim needs verification first?</h2>
+      <div class="choices">
+        <button class="choice" data-correct="false">"Here are three possible email subject lines."</button>
+        <button class="choice" data-correct="true">"The syllabus allows late work for illness without documentation."</button>
+        <button class="choice" data-correct="false">"A more respectful phrase is: could you please advise me?"</button>
+      </div>
+      <div class="feedback">Policy, deadlines, people, money, health, and safety claims need stronger evidence than fluent text.</div>
+    </div>
+  </section>
+
+  <section class="slide artifact" data-part="Close" data-title="Student artifact">
+    <div class="inner">
+      <div class="kicker">Submit</div>
+      <h2>Module 0B artifact</h2>
+      <p>Create a one-page visual explanation of one sentence flowing through an LLM.</p>
+      <ul>
+        <li>Show text turning into tokens.</li>
+        <li>Show one ambiguous word being changed by context.</li>
+        <li>Explain why a common fact may be recalled but class policy needs evidence.</li>
+        <li>End with one verification rule you will use when working with AI.</li>
+      </ul>
+      <p class="muted">This prepares you for Module 1: GitHub + Agents.</p>
+      <p style="margin-top:18px"><a href="session-materials/transformer-deep-dive-homework.html">Open Module 0B homework sheet</a> &middot; <a href="session-materials/transformer-deep-dive-homework.pdf">PDF</a></p>
+      <p style="margin-top:18px"><a href="module-01-github-agents.html">Next: Module 1 slides</a></p>
+    </div>
+  </section>
+</main>
+
+<nav class="controls" aria-label="Slide controls">
+  <button class="btn" id="prevBtn">Back</button>
+  <div class="jump" aria-label="Jump to section">
+    <button class="btn" data-jump="start">Start</button>
+    <button class="btn" data-jump="hour1">Hour 1</button>
+    <button class="btn" data-jump="transformer-video">Transformer</button>
+    <button class="btn" data-jump="hour2">Attention</button>
+    <button class="btn" data-jump="hour3">Facts</button>
+    <button class="btn" data-jump="facts-video">Facts Video</button>
+  </div>
+  <div>
+    <button class="btn" id="notesBtn">Notes</button>
+    <button class="btn" id="nextBtn">Next</button>
+  </div>
+</nav>
+
+<script>
+const slides = Array.from(document.querySelectorAll('.slide'));
+const statusEl = document.getElementById('status');
+const barEl = document.getElementById('bar');
+const prevBtn = document.getElementById('prevBtn');
+const nextBtn = document.getElementById('nextBtn');
+const notesBtn = document.getElementById('notesBtn');
+let current = 0;
+slides.forEach((slide, index) => {
+  if (!slide.id) slide.id = `slide-${index + 1}`;
+});
+
+function show(index){
+  current = Math.max(0, Math.min(slides.length - 1, index));
+  slides.forEach((slide, i) => slide.classList.toggle('active', i === current));
+  const slide = slides[current];
+  const part = slide.dataset.part || 'Module';
+  const title = slide.dataset.title || '';
+  statusEl.textContent = `${part} - ${current + 1}/${slides.length}${title ? ' - ' + title : ''}`;
+  barEl.style.width = `${((current + 1) / slides.length) * 100}%`;
+  document.querySelectorAll('[data-jump]').forEach(btn => {
+    const target = document.getElementById(btn.dataset.jump);
+    const targetIndex = slides.indexOf(target);
+    btn.classList.toggle('active', targetIndex <= current && targetIndex >= 0 && ![...document.querySelectorAll('[data-jump]')].some(other => {
+      const otherIndex = slides.indexOf(document.getElementById(other.dataset.jump));
+      return otherIndex > targetIndex && otherIndex <= current;
+    }));
+  });
+  history.replaceState(null, '', `#${slide.id || 'slide-' + (current + 1)}`);
+}
+
+prevBtn.addEventListener('click', () => show(current - 1));
+nextBtn.addEventListener('click', () => show(current + 1));
+notesBtn.addEventListener('click', () => document.body.classList.toggle('notes-on'));
+document.querySelectorAll('[data-jump]').forEach(btn => {
+  btn.addEventListener('click', () => show(slides.indexOf(document.getElementById(btn.dataset.jump))));
+});
+document.addEventListener('keydown', event => {
+  if (event.target.closest('button,a,input,textarea')) return;
+  if (['ArrowRight','PageDown',' '].includes(event.key)) { event.preventDefault(); show(current + 1); }
+  if (['ArrowLeft','PageUp'].includes(event.key)) { event.preventDefault(); show(current - 1); }
+  if (event.key === 'Home') { event.preventDefault(); show(0); }
+  if (event.key === 'End') { event.preventDefault(); show(slides.length - 1); }
+  if (event.key.toLowerCase() === 'n') document.body.classList.toggle('notes-on');
+});
+document.querySelectorAll('.choice').forEach(choice => {
+  choice.addEventListener('click', () => {
+    const group = choice.closest('.slide');
+    group.querySelectorAll('.choice').forEach(item => item.classList.remove('correct','wrong'));
+    choice.classList.add(choice.dataset.correct === 'true' ? 'correct' : 'wrong');
+    const feedback = group.querySelector('.feedback');
+    if (feedback) feedback.classList.add('show');
+  });
+});
+
+const attentionExamples = {
+  river: {
+    title: 'Bank means river edge.',
+    sentence: 'The student sat by the bank and watched the water rise.',
+    meaning: 'Context words: water, rise, sat by.',
+    explanation: 'These words make the ambiguous token "bank" behave like a place near a river.'
+  },
+  money: {
+    title: 'Bank means financial institution.',
+    sentence: 'The student went to the bank to ask about a loan.',
+    meaning: 'Context words: loan, went to, ask about.',
+    explanation: 'These words pull "bank" toward money and accounts.'
+  },
+  baseball: {
+    title: 'Pitcher means baseball player.',
+    sentence: 'The pitcher stood on the mound before the game.',
+    meaning: 'Context words: mound, game, stood on.',
+    explanation: 'The same attention idea applies to other ambiguous words, not only bank.'
+  }
+};
+function renderAttention(key) {
+  const data = attentionExamples[key] || attentionExamples.river;
+  document.getElementById('attnTitle').textContent = data.title;
+  document.getElementById('attnSentence').textContent = data.sentence;
+  document.getElementById('attnMeaning').textContent = data.meaning;
+  document.getElementById('attnExplanation').textContent = data.explanation;
+}
+document.querySelectorAll('.attn-chip').forEach(button => {
+  button.addEventListener('click', () => {
+    document.querySelectorAll('.attn-chip').forEach(item => {
+      item.classList.remove('active');
+      item.setAttribute('aria-pressed', 'false');
+    });
+    button.classList.add('active');
+    button.setAttribute('aria-pressed', 'true');
+    renderAttention(button.dataset.attn);
+  });
+});
+document.querySelectorAll('.fact-chip').forEach(button => {
+  button.addEventListener('click', () => {
+    const group = button.closest('.slide');
+    group.querySelectorAll('.fact-chip').forEach(item => {
+      item.classList.remove('active');
+      item.setAttribute('aria-pressed', 'false');
+    });
+    group.querySelectorAll('.fact-panel').forEach(item => item.classList.remove('show'));
+    button.classList.add('active');
+    button.setAttribute('aria-pressed', 'true');
+    const target = document.getElementById(`fact-${button.dataset.fact}`);
+    if (target) target.classList.add('show');
+  });
+});
+if (location.hash) {
+  const target = document.getElementById(location.hash.slice(1));
+  if (target) current = slides.indexOf(target);
+}
+show(current);
+</script>
+</body>
+</html>
