@@ -67,6 +67,28 @@ li{margin:8px 0}
 .think-box{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin-top:22px}
 .think-card{border:1px solid rgba(255,255,255,.13);border-radius:16px;padding:18px;background:rgba(255,255,255,.055)}
 .think-card b{display:block;color:#fff;margin-bottom:6px;font-size:18px}
+.story-strip{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin-top:24px}
+.story-step{position:relative;border:1px solid rgba(96,165,250,.24);background:rgba(96,165,250,.08);border-radius:16px;padding:18px;min-height:136px}
+.story-step b{display:block;color:#fff;margin-bottom:8px}
+.story-step span{display:inline-flex;align-items:center;justify-content:center;width:28px;height:28px;border-radius:999px;background:rgba(34,211,238,.18);color:#a5f3fc;font-weight:900;margin-bottom:12px}
+.phone-demo{background:#050713;border:1px solid rgba(255,255,255,.14);border-radius:26px;padding:18px;margin-top:24px;max-width:760px}
+.message-bubble{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.1);border-radius:18px 18px 18px 6px;padding:16px;color:#eef6ff;font-size:clamp(18px,1.6vw,24px)}
+.suggestions{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}
+.suggestion{border:1px solid rgba(34,211,238,.38);background:rgba(34,211,238,.1);border-radius:999px;padding:8px 12px;color:#dffaff;font-weight:900}
+.scenario-demo{display:grid;grid-template-columns:330px minmax(0,1fr);gap:18px;margin-top:24px;align-items:start}
+.scenario-tabs{display:grid;gap:10px}
+.scenario-btn{border:1px solid rgba(255,255,255,.14);background:rgba(255,255,255,.055);color:#eaf2ff;border-radius:14px;padding:14px;text-align:left;cursor:pointer;font-weight:800}
+.scenario-btn:hover,.scenario-btn:focus-visible{outline:2px solid rgba(34,211,238,.5)}
+.scenario-btn.active{background:rgba(34,211,238,.14);border-color:rgba(34,211,238,.68);color:#e0faff}
+.scenario-output{border:1px solid rgba(34,211,238,.28);background:linear-gradient(135deg,rgba(34,211,238,.12),rgba(167,139,250,.08));border-radius:18px;padding:22px;min-height:250px}
+.scenario-output h3{font-size:24px;color:#fff}
+.scenario-output .draft{font-family:var(--mono);background:#050713;border:1px solid rgba(255,255,255,.12);border-radius:14px;padding:16px;margin:14px 0;color:#dbeafe;font-size:18px;line-height:1.45}
+.scenario-panel{display:none}
+.scenario-panel.show{display:block}
+.source-link{display:inline-flex;align-items:center;gap:8px;margin-top:12px;color:#c4b5fd;font-size:15px;font-weight:800}
+.sort-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-top:22px}
+.sort-card{border:1px solid rgba(255,255,255,.14);background:rgba(255,255,255,.055);border-radius:15px;padding:16px}
+.sort-card b{display:block;color:#fff;margin-bottom:8px}
 .reveal-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-top:22px}
 .reveal-btn{border:1px solid rgba(34,211,238,.35);background:rgba(34,211,238,.1);border-radius:14px;color:#e0faff;padding:16px;min-height:74px;font:800 16px/1.35 var(--font);cursor:pointer;text-align:left;transition:transform .18s ease,border-color .18s ease,background .18s ease}
 .reveal-btn:hover,.reveal-btn:focus-visible{transform:translateY(-2px);border-color:rgba(34,211,238,.75);outline:none}
@@ -111,7 +133,7 @@ body.notes-on .teacher-note{display:block}
 @media(max-width:760px){
   .slide{justify-content:flex-start;padding:76px 22px 230px}
   .grid,.grid.three{grid-template-columns:1fr}
-  .context-grid,.think-box{grid-template-columns:1fr}
+  .context-grid,.think-box,.story-strip,.scenario-demo,.sort-grid{grid-template-columns:1fr}
   .reveal-grid{grid-template-columns:1fr}
   .prob-row{grid-template-columns:88px minmax(0,1fr) 48px;font-size:14px}
   .hud{height:auto;min-height:58px;align-items:flex-start;flex-wrap:wrap;padding:9px 12px}
@@ -159,50 +181,66 @@ body.notes-on .teacher-note{display:block}
     </div>
   </section>
 
-  <section class="slide" id="concepts" data-part="Concepts" data-title="What is an LLM?">
+  <section class="slide" id="concepts" data-part="Concepts" data-title="Running example">
+    <div class="inner">
+      <div class="kicker">One task for every concept</div>
+      <h2>We will teach LLMs through one real task.</h2>
+      <p class="lede">A student needs to email a professor: "I missed class because I was sick. Can you help me write a respectful email and know what I should verify?"</p>
+      <div class="story-strip">
+        <div class="story-step"><span>1</span><b>Draft</b><p>AI helps turn a rough thought into clear language.</p></div>
+        <div class="story-step"><span>2</span><b>Context</b><p>The answer changes when we add the syllabus or class policy.</p></div>
+        <div class="story-step"><span>3</span><b>Check</b><p>Claims about rules, dates, or people need evidence.</p></div>
+        <div class="story-step"><span>4</span><b>Act</b><p>Sending the email is an external action, so the human approves.</p></div>
+      </div>
+      <div class="teacher-note">This slide is the spine. Keep returning to this email task whenever a concept starts to feel abstract.</div>
+    </div>
+  </section>
+
+  <section class="slide" data-part="Concepts" data-title="What is an LLM?">
     <div class="inner">
       <div class="kicker">Concept 1</div>
-      <h2>What is an LLM?</h2>
+      <h2>An LLM is powerful autocomplete that can act like a useful assistant.</h2>
       <div class="plain-definition">A <em>large language model</em> is a computer model trained on large amounts of text and code so it can use context to predict useful next pieces of text.</div>
-      <div class="think-box">
-        <div class="think-card"><b>Large</b><p>It has many learned parameters and was trained on massive examples.</p></div>
-        <div class="think-card"><b>Language</b><p>It works with text-like symbols: words, word pieces, punctuation, code, and numbers.</p></div>
-        <div class="think-card"><b>Model</b><p>It is not a person or database. It is a learned pattern system.</p></div>
-        <div class="think-card"><b>Useful output</b><p>It can explain, draft, translate, summarize, code, and plan, but still needs checking.</p></div>
+      <div class="phone-demo" aria-label="Phone autocomplete example">
+        <div class="message-bubble">Dear Professor Lee, I missed class because...</div>
+        <div class="suggestions">
+          <span class="suggestion">I was sick</span>
+          <span class="suggestion">of an appointment</span>
+          <span class="suggestion">my bus was late</span>
+        </div>
       </div>
-      <div class="teacher-note">This slide should be read plainly. Students need the definition before the analogy.</div>
+      <p class="muted">Phone autocomplete suggests a few words. An LLM can keep going into paragraphs, explanations, code, and plans because it learned richer patterns from far more examples.</p>
     </div>
   </section>
 
   <section class="slide" data-part="Concepts" data-title="The basic loop">
     <div class="inner">
       <div class="kicker">Concept map</div>
-      <h2>The basic LLM loop</h2>
-      <p class="lede">The model reads the current context, estimates likely next tokens, chooses one, adds it to the answer, and repeats.</p>
+      <h2>The answer grows one small piece at a time.</h2>
+      <p class="lede">For the email task, the model reads the current context, estimates likely next tokens, adds one, then repeats until the draft is complete.</p>
       <div class="flow-loop">
-        <div class="loop-step">context</div><div class="arrow">-></div>
+        <div class="loop-step">rough request</div><div class="arrow">-></div>
         <div class="loop-step">model</div><div class="arrow">-></div>
-        <div class="loop-step">next-token choices</div><div class="arrow">-></div>
-        <div class="loop-step">one token added</div><div class="arrow">-></div>
+        <div class="loop-step">likely next token</div><div class="arrow">-></div>
+        <div class="loop-step">longer draft</div><div class="arrow">-></div>
         <div class="loop-step">repeat</div>
       </div>
-      <p class="muted">That repeated loop can produce a sentence, an explanation, code, or a plan.</p>
+      <p class="muted">This is a simplified teaching model, but it gives us the right intuition for why output streams onto the screen.</p>
     </div>
   </section>
 
   <section class="slide" data-part="Concepts" data-title="What is a token?">
     <div class="inner">
       <div class="kicker">Concept 2</div>
-      <h2>What is a token?</h2>
+      <h2>The model does not see words exactly the way you do.</h2>
       <div class="concept-card">
         <strong>A token is a chunk of text the model can process.</strong>
-        <p>It may be a whole word, part of a word, punctuation, a space pattern, a number, or a code fragment.</p>
+        <p>It may be a whole word, part of a word, punctuation, a space pattern, a number, or a code fragment. Different tokenizers can split the same text differently.</p>
       </div>
-      <div class="token-demo" aria-label="Tokenization example">
-        <span class="token-source">unbelievable -></span>
-        <span class="token-chip">un</span>
-        <span class="token-chip">believ</span>
-        <span class="token-chip">able</span>
+      <div class="token-demo" aria-label="Email tokenization example">
+        <span class="token-source">Professor Lee -></span>
+        <span class="token-chip">Professor</span>
+        <span class="token-chip"> Lee</span>
       </div>
       <div class="token-demo" aria-label="Code tokenization example">
         <span class="token-source">user_id -></span>
@@ -210,75 +248,109 @@ body.notes-on .teacher-note{display:block}
         <span class="token-chip">_</span>
         <span class="token-chip">id</span>
       </div>
-      <p class="muted">This is why exact spelling, counting letters, and formatting can be surprisingly tricky.</p>
+      <p class="muted">This is why exact spelling, letter counting, and formatting are separate skills from fluent writing.</p>
     </div>
   </section>
 
   <section class="slide challenge" data-part="Concepts" data-title="Token reveal">
     <div class="inner">
       <div class="kicker">Interactive check - 4 minutes</div>
-      <h2>Click to reveal possible token chunks.</h2>
-      <p class="lede">Real tokenizers use exact vocabularies, so the split can vary by model. The point here is the mental model: the model sees chunks, not full human meaning all at once.</p>
+      <h2>Click to reveal what token chunks explain.</h2>
+      <p class="lede">Do not memorize these exact splits. Real tokenizers vary. Use this to understand why models can be fluent and still struggle with exact character-level tasks.</p>
       <div class="reveal-grid">
         <button class="reveal-btn" data-reveal="reveal-token-1" aria-controls="reveal-token-1" aria-expanded="false">unbelievable</button>
         <button class="reveal-btn" data-reveal="reveal-token-2" aria-controls="reveal-token-2" aria-expanded="false">user_id</button>
         <button class="reveal-btn" data-reveal="reveal-token-3" aria-controls="reveal-token-3" aria-expanded="false">strawberry</button>
       </div>
-      <div class="reveal-output" id="reveal-token-1"><strong>One possible split:</strong> un / believ / able. A long word may become several familiar pieces.</div>
-      <div class="reveal-output" id="reveal-token-2"><strong>One possible split:</strong> user / _ / id. Code and punctuation can be separate chunks.</div>
-      <div class="reveal-output" id="reveal-token-3"><strong>Why counting can fail:</strong> the model may reason from chunks like straw / berry instead of directly counting every letter.</div>
-      <p class="muted">Pair prompt: how does chunking explain why an LLM can write fluent text but still stumble on exact spelling or counting?</p>
+      <div class="reveal-output" id="reveal-token-1"><strong>Long words may be pieces:</strong> a model may process a word through familiar chunks rather than one human-visible word.</div>
+      <div class="reveal-output" id="reveal-token-2"><strong>Code has structure:</strong> punctuation and naming patterns can matter, so <code>user_id</code> and <code>userid</code> may not feel identical to the model.</div>
+      <div class="reveal-output" id="reveal-token-3"><strong>Counting can fail:</strong> if the model reasons from chunks instead of directly inspecting every character, exact letter counts can be unreliable.</div>
+      <p class="muted">Pair prompt: why can the same model write a good email but miscount letters in a word?</p>
     </div>
   </section>
 
   <section class="slide" data-part="Concepts" data-title="What is context?">
     <div class="inner">
       <div class="kicker">Concept 3</div>
-      <h2>What is context?</h2>
+      <h2>Context is the model's open-book page.</h2>
       <div class="concept-card">
         <strong>Context is the information the model can see right now.</strong>
-        <p>It includes your prompt, recent conversation, pasted files, tool results, and system instructions. If something is outside the context, the model cannot directly use it.</p>
+        <p>For our email, context may include the student's rough message, the professor's name, the class policy, and the email tone we want.</p>
       </div>
       <div class="context-window">
         <h3>Inside the context window</h3>
         <div class="context-grid">
-          <div class="context-item">Your question: "Explain this bug."</div>
-          <div class="context-item">The error message you pasted.</div>
-          <div class="context-item">The relevant function.</div>
-          <div class="context-item out">A file you did not provide.</div>
+          <div class="context-item">Student: "I was sick Monday."</div>
+          <div class="context-item">Professor: Dr. Lee, CS 101.</div>
+          <div class="context-item">Tone: respectful and brief.</div>
+          <div class="context-item out">Attendance policy not provided.</div>
         </div>
       </div>
+      <p class="muted">If the policy is outside the context, the model should not pretend it knows the rule.</p>
+    </div>
+  </section>
+
+  <section class="slide challenge" data-part="Concepts" data-title="Context changes output">
+    <div class="inner">
+      <div class="kicker">Interactive demo - 7 minutes</div>
+      <h2>Same prompt. Different context. Different answer.</h2>
+      <p class="lede">Click a context card and watch what the assistant should say next.</p>
+      <div class="scenario-demo">
+        <div class="scenario-tabs">
+          <button class="scenario-btn active" data-scenario="scenario-none" aria-controls="scenario-none" aria-expanded="true">No syllabus provided</button>
+          <button class="scenario-btn" data-scenario="scenario-policy" aria-controls="scenario-policy" aria-expanded="false">Policy pasted in</button>
+          <button class="scenario-btn" data-scenario="scenario-risk" aria-controls="scenario-risk" aria-expanded="false">Student asks AI to send it</button>
+        </div>
+        <div class="scenario-output" aria-live="polite">
+          <div class="scenario-panel show" id="scenario-none">
+            <h3>No outside rule is visible.</h3>
+            <div class="draft">"I can help draft the email, but I don't know your class attendance policy. Check the syllabus before adding any claim about make-up work."</div>
+            <p>Good answer: drafts language and names what must be verified.</p>
+          </div>
+          <div class="scenario-panel" id="scenario-policy">
+            <h3>The model can use the pasted policy.</h3>
+            <div class="draft">"Because your syllabus says make-up requests must be sent within 48 hours, mention the date and ask whether any work can be completed."</div>
+            <p>Good answer: uses provided evidence and stays within it.</p>
+          </div>
+          <div class="scenario-panel" id="scenario-risk">
+            <h3>Now it becomes an action.</h3>
+            <div class="draft">"I can prepare the email draft, but you should review and approve it before anything is sent."</div>
+            <p>Good answer: separates drafting from sending.</p>
+          </div>
+        </div>
+      </div>
+      <p class="muted">Lesson: better context changes the next likely answer. Risky actions need approval.</p>
     </div>
   </section>
 
   <section class="slide" data-part="Concepts" data-title="Next-token prediction">
     <div class="inner">
       <div class="kicker">Concept 4</div>
-      <h2>What is next-token prediction?</h2>
-      <p class="lede">At each step, the model scores possible next tokens. The answer grows one token at a time.</p>
-      <div class="formula">Prompt: "The student opened GitHub and created a..."</div>
+      <h2>Prediction is useful, but it is not truth.</h2>
+      <p class="lede">At each step, the model scores possible next tokens. The answer grows one token at a time, guided by context.</p>
+      <div class="formula">Prompt: "Dear Professor Lee, I missed class because I was..."</div>
       <div class="prob-bars" aria-label="Example next-token probabilities">
-        <div class="prob-row"><span>repo</span><div class="prob-track"><div class="prob-fill" style="--w:72%"></div></div><span>72%</span></div>
-        <div class="prob-row"><span>branch</span><div class="prob-track"><div class="prob-fill" style="--w:18%"></div></div><span>18%</span></div>
-        <div class="prob-row"><span>pizza</span><div class="prob-track"><div class="prob-fill" style="--w:3%"></div></div><span>3%</span></div>
+        <div class="prob-row"><span>sick</span><div class="prob-track"><div class="prob-fill" style="--w:64%"></div></div><span>64%</span></div>
+        <div class="prob-row"><span>traveling</span><div class="prob-track"><div class="prob-fill" style="--w:16%"></div></div><span>16%</span></div>
+        <div class="prob-row"><span>excited</span><div class="prob-track"><div class="prob-fill" style="--w:5%"></div></div><span>5%</span></div>
       </div>
-      <p class="muted">These numbers are illustrative. The key idea is ranking likely continuations, not looking up guaranteed truth.</p>
+      <p class="muted">These numbers are illustrative. The key idea is ranking plausible continuations, not looking up guaranteed truth.</p>
     </div>
   </section>
 
   <section class="slide challenge" data-part="Concepts" data-title="Prediction game">
     <div class="inner">
       <div class="kicker">Opening challenge - 6 minutes</div>
-      <h2>Now predict the next word.</h2>
+      <h2>Now predict the next word in the email.</h2>
       <p>Work with a partner. For each phrase, write three possible next words and circle the one you think is most likely.</p>
       <div class="grid">
-        <div class="card"><h3>Phrase A</h3><p><code>The best way to learn AI is...</code></p></div>
-        <div class="card"><h3>Phrase B</h3><p><code>When a model is unsure, it should...</code></p></div>
-        <div class="card"><h3>Phrase C</h3><p><code>The code failed because...</code></p></div>
-        <div class="card"><h3>Question</h3><p>What did you use: facts, grammar, memory, or pattern guessing?</p></div>
+        <div class="card"><h3>Phrase A</h3><p><code>Dear Professor Lee, I missed...</code></p></div>
+        <div class="card"><h3>Phrase B</h3><p><code>I checked the syllabus, and it says...</code></p></div>
+        <div class="card"><h3>Phrase C</h3><p><code>Before sending, I should...</code></p></div>
+        <div class="card"><h3>Question</h3><p>Which phrase needs outside evidence before we trust it?</p></div>
       </div>
-      <p class="muted">Deliverable: one sentence beginning, "Prediction is useful because..."</p>
-      <div class="teacher-note">Students now have definitions, so this activity checks whether prediction/context are starting to make sense.</div>
+      <p class="muted">Deliverable: one sentence beginning, "Prediction is useful, but..."</p>
+      <div class="teacher-note">The target idea is not cynicism. Students should see generation as useful and verification as a separate responsibility.</div>
     </div>
   </section>
 
@@ -480,6 +552,22 @@ body.notes-on .teacher-note{display:block}
     </div>
   </section>
 
+  <section class="slide optional" data-part="Hour 2" data-title="MicroGPT bridge">
+    <div class="inner">
+      <div class="kicker">Optional teacher bridge</div>
+      <h2>A tiny GPT makes the same pieces visible.</h2>
+      <p class="lede">Karpathy's MicroGPT article is useful because it shows the whole GPT idea in a tiny setting: documents, tokenizer, model, training loop, and inference loop.</p>
+      <div class="story-strip">
+        <div class="story-step"><span>1</span><b>Documents</b><p>Small training examples stand in for the huge text stream used by real systems.</p></div>
+        <div class="story-step"><span>2</span><b>Tokenizer</b><p>Text becomes discrete symbols the model can process.</p></div>
+        <div class="story-step"><span>3</span><b>Training</b><p>The model adjusts numbers so its predictions improve.</p></div>
+        <div class="story-step"><span>4</span><b>Inference</b><p>The trained model generates new text one token at a time.</p></div>
+      </div>
+      <p class="muted">We are not reading the code in Week 1. Use it as proof that the big system has understandable parts.</p>
+      <a class="source-link" href="https://karpathy.github.io/2026/02/12/microgpt/" target="_blank" rel="noopener noreferrer">Karpathy MicroGPT reference</a>
+    </div>
+  </section>
+
   <section class="slide" data-part="Hour 2" data-title="Base vs assistant">
     <div class="inner">
       <div class="kicker">Two model roles</div>
@@ -619,6 +707,21 @@ body.notes-on .teacher-note{display:block}
     </div>
   </section>
 
+  <section class="slide challenge" data-part="Hour 3" data-title="Classify the system">
+    <div class="inner">
+      <div class="kicker">Concept check - 8 minutes</div>
+      <h2>Is it an LLM, chatbot, tool call, or agent?</h2>
+      <p class="lede">Use the email task. Match each system behavior to the right concept.</p>
+      <div class="sort-grid">
+        <div class="sort-card"><b>LLM</b><p>Generates the next pieces of the email from the prompt and context.</p></div>
+        <div class="sort-card"><b>Chatbot</b><p>Wraps the model in a conversation interface so the student can ask and revise.</p></div>
+        <div class="sort-card"><b>Tool call</b><p>Uses a tool to look up the syllabus or calendar instead of guessing the rule.</p></div>
+        <div class="sort-card"><b>Agent</b><p>Loops through draft, check, revise, and asks before sending.</p></div>
+      </div>
+      <p class="muted">Deliverable: one real app you use, labeled with which parts are model, interface, tools, and human approval.</p>
+    </div>
+  </section>
+
   <section class="slide challenge" data-part="Hour 3" data-title="Paper agent loop">
     <div class="inner">
       <div class="kicker">Challenge 5 - 18 minutes</div>
@@ -722,6 +825,7 @@ body.notes-on .teacher-note{display:block}
       <div class="grid">
         <div class="card"><h3>Transformers</h3><p><a href="https://www.youtube.com/watch?v=wjZofJX0v4M" target="_blank" rel="noopener noreferrer">3Blue1Brown transformer explanation</a></p></div>
         <div class="card"><h3>Facts in LLMs</h3><p><a href="https://www.youtube.com/watch?v=9-Jl0dxWQs8" target="_blank" rel="noopener noreferrer">3Blue1Brown: how LLMs store facts</a></p></div>
+        <div class="card"><h3>MicroGPT</h3><p><a href="https://karpathy.github.io/2026/02/12/microgpt/" target="_blank" rel="noopener noreferrer">Karpathy: tiny GPT code walkthrough</a></p></div>
         <div class="card"><h3>Legacy deep dive</h3><p><a href="llm-background.html">Additional LLM background videos</a></p></div>
         <div class="card"><h3>Homework PDF</h3><p><a href="session-materials/llm-foundations-homework.pdf">Printable homework sheet</a></p></div>
       </div>
@@ -824,6 +928,20 @@ document.querySelectorAll('.reveal-btn').forEach(button => {
     button.classList.add('active');
     button.setAttribute('aria-expanded', 'true');
     const target = document.getElementById(button.dataset.reveal);
+    if (target) target.classList.add('show');
+  });
+});
+document.querySelectorAll('.scenario-btn').forEach(button => {
+  button.addEventListener('click', () => {
+    const group = button.closest('.slide');
+    group.querySelectorAll('.scenario-btn').forEach(item => {
+      item.classList.remove('active');
+      item.setAttribute('aria-expanded', 'false');
+    });
+    group.querySelectorAll('.scenario-panel').forEach(item => item.classList.remove('show'));
+    button.classList.add('active');
+    button.setAttribute('aria-expanded', 'true');
+    const target = document.getElementById(button.dataset.scenario);
     if (target) target.classList.add('show');
   });
 });
