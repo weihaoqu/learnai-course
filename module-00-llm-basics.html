@@ -86,6 +86,22 @@ li{margin:8px 0}
 .scenario-panel{display:none}
 .scenario-panel.show{display:block}
 .source-link{display:inline-flex;align-items:center;gap:8px;margin-top:12px;color:#c4b5fd;font-size:15px;font-weight:800}
+.email-lab{display:grid;grid-template-columns:360px minmax(0,1fr);gap:18px;margin-top:24px;align-items:start}
+.email-controls,.email-output{border:1px solid rgba(255,255,255,.13);background:rgba(255,255,255,.055);border-radius:18px;padding:18px}
+.email-controls h3,.email-output h3{font-size:22px;color:#fff}
+.chip-set{display:grid;gap:8px;margin:14px 0 18px}
+.chip-set label{color:#dbeafe;font-size:13px;font-weight:900;letter-spacing:.08em;text-transform:uppercase}
+.chip-row{display:flex;gap:8px;flex-wrap:wrap}
+.email-chip{border:1px solid rgba(255,255,255,.16);background:rgba(255,255,255,.06);color:#eaf2ff;border-radius:999px;padding:9px 12px;font-weight:900;cursor:pointer;font-size:14px}
+.email-chip:hover,.email-chip:focus-visible{outline:2px solid rgba(34,211,238,.55)}
+.email-chip.active{border-color:rgba(52,211,153,.8);background:rgba(52,211,153,.16);color:#dcfce7}
+.email-generated{font-family:var(--mono);background:#050713;border:1px solid rgba(255,255,255,.12);border-radius:14px;padding:15px;color:#dbeafe;font-size:15px;line-height:1.5;white-space:pre-wrap;margin-top:10px}
+.email-columns{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:12px}
+.email-mini{border:1px solid rgba(255,255,255,.12);border-radius:14px;padding:14px;background:rgba(255,255,255,.045)}
+.email-mini h4{color:#fff;margin-bottom:8px;font-size:16px}
+.email-mini ul{margin:0;padding-left:18px}
+.email-mini li{font-size:15px;color:#cdd7ea;margin:5px 0}
+.privacy-note{border:1px solid rgba(245,158,11,.34);background:rgba(245,158,11,.1);border-radius:14px;padding:13px;color:#fdecc8;font-size:15px;margin-top:14px}
 .sort-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-top:22px}
 .sort-card{border:1px solid rgba(255,255,255,.14);background:rgba(255,255,255,.055);border-radius:15px;padding:16px}
 .sort-card b{display:block;color:#fff;margin-bottom:8px}
@@ -133,7 +149,7 @@ body.notes-on .teacher-note{display:block}
 @media(max-width:760px){
   .slide{justify-content:flex-start;padding:76px 22px 230px}
   .grid,.grid.three{grid-template-columns:1fr}
-  .context-grid,.think-box,.story-strip,.scenario-demo,.sort-grid{grid-template-columns:1fr}
+  .context-grid,.think-box,.story-strip,.scenario-demo,.email-lab,.email-columns,.sort-grid{grid-template-columns:1fr}
   .reveal-grid{grid-template-columns:1fr}
   .prob-row{grid-template-columns:88px minmax(0,1fr) 48px;font-size:14px}
   .hud{height:auto;min-height:58px;align-items:flex-start;flex-wrap:wrap;padding:9px 12px}
@@ -163,7 +179,7 @@ body.notes-on .teacher-note{display:block}
       <div class="grid three">
         <div class="card"><span class="tag">3 hours</span><p>Half teaching and demo, half challenges and checks.</p></div>
         <div class="card"><span class="tag">No prerequisite</span><p>We start from autocomplete and build toward agent loops.</p></div>
-        <div class="card"><span class="tag">Concept-first</span><p>Definitions, animated examples, and quick checks come before the short video reinforcement.</p></div>
+        <div class="card"><span class="tag">Try first</span><p>A small email task comes before the definitions, so the concepts explain something students just experienced.</p></div>
       </div>
       <div class="teacher-note">Pacing: 5 minutes. Set the norm: students should interrupt with questions and expect to do short activities throughout.</div>
     </div>
@@ -193,6 +209,65 @@ body.notes-on .teacher-note{display:block}
         <div class="story-step"><span>4</span><b>Act</b><p>Sending the email is an external action, so the human approves.</p></div>
       </div>
       <div class="teacher-note">This slide is the spine. Keep returning to this email task whenever a concept starts to feel abstract.</div>
+    </div>
+  </section>
+
+  <section class="slide challenge" data-part="Concepts" data-title="Build the email context">
+    <div class="inner">
+      <div class="kicker">Try the task first - 10 minutes</div>
+      <h2>Build the email context.</h2>
+      <p class="lede">Choose the situation pieces. Watch how the rough prompt, draft, verification list, and approval note change.</p>
+      <div class="email-lab" id="emailLab">
+        <div class="email-controls">
+          <h3>Choose context chips</h3>
+          <div class="chip-set" aria-label="Reason options">
+            <label>Reason</label>
+            <div class="chip-row">
+              <button class="email-chip active" data-email-key="reason" data-email-value="sick" aria-pressed="true">Sick</button>
+              <button class="email-chip" data-email-key="reason" data-email-value="appointment" aria-pressed="false">Appointment</button>
+              <button class="email-chip" data-email-key="reason" data-email-value="family" aria-pressed="false">Family emergency</button>
+              <button class="email-chip" data-email-key="reason" data-email-value="private" aria-pressed="false">Prefer not to share</button>
+            </div>
+          </div>
+          <div class="chip-set" aria-label="Context options">
+            <label>Context</label>
+            <div class="chip-row">
+              <button class="email-chip active" data-email-key="context" data-email-value="professor" data-email-multi="true" aria-pressed="true">Professor name</button>
+              <button class="email-chip" data-email-key="context" data-email-value="policy" data-email-multi="true" aria-pressed="false">Syllabus policy</button>
+              <button class="email-chip" data-email-key="context" data-email-value="assignment" data-email-multi="true" aria-pressed="false">Assignment due</button>
+              <button class="email-chip active" data-email-key="context" data-email-value="noPolicy" data-email-multi="true" aria-pressed="true">No policy provided</button>
+            </div>
+          </div>
+          <div class="chip-set" aria-label="Tone options">
+            <label>Tone</label>
+            <div class="chip-row">
+              <button class="email-chip active" data-email-key="tone" data-email-value="respectful" aria-pressed="true">Respectful</button>
+              <button class="email-chip" data-email-key="tone" data-email-value="short" aria-pressed="false">Short</button>
+              <button class="email-chip" data-email-key="tone" data-email-value="apologetic" aria-pressed="false">Apologetic</button>
+              <button class="email-chip" data-email-key="tone" data-email-value="nextStep" aria-pressed="false">Ask next step</button>
+            </div>
+          </div>
+          <div class="privacy-note">Try your own version on paper or in a local note. Do not type private medical, family, or personal details into this page.</div>
+        </div>
+        <div class="email-output" aria-live="polite">
+          <h3>What the AI could produce</h3>
+          <p class="muted">Rough prompt</p>
+          <div class="email-generated" id="emailPrompt"></div>
+          <p class="muted" style="margin-top:12px">Draft email</p>
+          <div class="email-generated" id="emailDraft"></div>
+          <div class="email-columns">
+            <div class="email-mini">
+              <h4>Needs verification</h4>
+              <ul id="emailVerify"></ul>
+            </div>
+            <div class="email-mini">
+              <h4>Before sending</h4>
+              <ul id="emailApproval"></ul>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="teacher-note">Ask students what changed when they added policy or assignment context. Then name the ideas: context changes prediction; verification is separate from drafting; sending needs human approval.</div>
     </div>
   </section>
 
@@ -919,6 +994,119 @@ document.querySelectorAll('.choice').forEach(choice => {
     if (feedback) feedback.classList.add('show');
   });
 });
+const emailState = {
+  reason: 'sick',
+  tone: 'respectful',
+  context: new Set(['professor', 'noPolicy'])
+};
+const reasonText = {
+  sick: {plain:'I was sick', note:'Keep the health detail general unless the professor or policy requires documentation.'},
+  appointment: {plain:'I had an appointment', note:'Check whether the syllabus asks for advance notice or documentation.'},
+  family: {plain:'I had a family emergency', note:'Do not include private family details. A general sentence is enough.'},
+  private: {plain:'I missed class for a personal reason', note:'You can ask for next steps without sharing private details.'}
+};
+const toneText = {
+  respectful: {opening:"I hope you're doing well.", close:'Thank you for your understanding.'},
+  short: {opening:'I am writing about the class I missed.', close:'Thank you.'},
+  apologetic: {opening:"I'm sorry I missed class.", close:'I appreciate your time and help.'},
+  nextStep: {opening:'I am writing to ask what I should do next.', close:'Please let me know the best next step.'}
+};
+function syncEmailChip(button, active) {
+  button.classList.toggle('active', active);
+  button.setAttribute('aria-pressed', active ? 'true' : 'false');
+}
+function renderList(id, items) {
+  const list = document.getElementById(id);
+  if (!list) return;
+  list.textContent = '';
+  items.forEach(item => {
+    const li = document.createElement('li');
+    li.textContent = item;
+    list.appendChild(li);
+  });
+}
+function renderEmailLab() {
+  const lab = document.getElementById('emailLab');
+  if (!lab) return;
+  const has = value => emailState.context.has(value);
+  const professor = has('professor') ? 'Professor Lee' : 'Professor';
+  const reason = reasonText[emailState.reason] || reasonText.sick;
+  const tone = toneText[emailState.tone] || toneText.respectful;
+  const contextBits = [];
+  if (has('professor')) contextBits.push('The professor is Professor Lee.');
+  if (has('policy')) contextBits.push('The syllabus says missed-class requests should be sent within 48 hours.');
+  if (has('assignment')) contextBits.push('There is an assignment due this week.');
+  if (has('noPolicy')) contextBits.push('No attendance policy has been provided.');
+  const prompt = [
+    'Help me write a respectful email to my professor.',
+    `Situation: ${reason.plain}.`,
+    `Tone: ${emailState.tone}.`,
+    `Context: ${contextBits.join(' ')}`
+  ].join('\n');
+  const policySentence = has('policy')
+    ? 'I saw in the syllabus that missed-class requests should be sent within 48 hours, so I wanted to contact you promptly.'
+    : 'I am not sure what the class policy says, so I will check the syllabus and follow the correct process.';
+  const assignmentSentence = has('assignment')
+    ? 'If there is a way to make up the missed work or stay on track with the assignment due this week, please let me know.'
+    : 'Could you please let me know what I should review or complete next?';
+  const draft = [
+    `Subject: Missed class and next steps`,
+    '',
+    `Dear ${professor},`,
+    '',
+    `${tone.opening} I missed class because ${reason.plain}. ${policySentence}`,
+    '',
+    assignmentSentence,
+    '',
+    tone.close,
+    '',
+    'Best,',
+    '[Your name]'
+  ].join('\n');
+  const verify = [
+    has('policy') ? 'Confirm the pasted policy is accurate.' : 'Check the syllabus or course page before making a policy claim.',
+    has('assignment') ? 'Confirm the assignment deadline and exact title.' : 'Ask what work you missed instead of inventing assignments.',
+    has('professor') ? 'Verify the professor name and email address.' : 'Add the correct professor name before sending.',
+    reason.note
+  ];
+  const approval = [
+    'Read the draft yourself before sending.',
+    'Remove private details that are not needed.',
+    'Make sure the email is truthful and respectful.',
+    'You, not the AI, decide whether to send it.'
+  ];
+  document.getElementById('emailPrompt').textContent = prompt;
+  document.getElementById('emailDraft').textContent = draft;
+  renderList('emailVerify', verify);
+  renderList('emailApproval', approval);
+}
+document.querySelectorAll('.email-chip').forEach(button => {
+  button.addEventListener('click', () => {
+    const key = button.dataset.emailKey;
+    const value = button.dataset.emailValue;
+    if (button.dataset.emailMulti === 'true') {
+      if (value === 'policy') emailState.context.delete('noPolicy');
+      if (value === 'noPolicy') emailState.context.delete('policy');
+      if (emailState.context.has(value)) {
+        emailState.context.delete(value);
+      } else {
+        emailState.context.add(value);
+      }
+      if (!emailState.context.has('policy') && !emailState.context.has('noPolicy')) {
+        emailState.context.add('noPolicy');
+      }
+      document.querySelectorAll('.email-chip[data-email-key="context"]').forEach(item => {
+        syncEmailChip(item, emailState.context.has(item.dataset.emailValue));
+      });
+    } else {
+      emailState[key] = value;
+      document.querySelectorAll(`.email-chip[data-email-key="${key}"]`).forEach(item => {
+        syncEmailChip(item, item.dataset.emailValue === value);
+      });
+    }
+    renderEmailLab();
+  });
+});
 document.querySelectorAll('.reveal-btn').forEach(button => {
   button.addEventListener('click', () => {
     const group = button.closest('.slide');
@@ -949,6 +1137,7 @@ if (location.hash) {
   const target = document.getElementById(location.hash.slice(1));
   if (target) current = slides.indexOf(target);
 }
+renderEmailLab();
 show(current);
 </script>
 </body>
