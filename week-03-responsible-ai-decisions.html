@@ -91,6 +91,13 @@ body.notes-on .teacher-note{display:block}
 .choice.red{border-color:rgba(255,102,120,.35)}
 .choice.correct{border-color:rgba(66,211,146,.9);background:rgba(66,211,146,.16)}
 .choice.wrong{border-color:rgba(255,102,120,.9);background:rgba(255,102,120,.14)}
+.calibration-layout{display:grid;grid-template-columns:minmax(0,1fr) 390px;gap:18px;margin-top:22px;align-items:stretch}
+.calibration-options{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin-top:14px}
+.calibration-btn{border:1px solid var(--line);background:rgba(255,255,255,.055);color:#f8fafc;border-radius:13px;padding:12px;text-align:left;cursor:pointer;min-height:82px}
+.calibration-btn strong{display:block;color:#fff;margin-bottom:4px}
+.calibration-btn:hover,.calibration-btn:focus{outline:2px solid rgba(244,185,66,.65)}
+.calibration-btn.correct{border-color:rgba(66,211,146,.9);background:rgba(66,211,146,.16)}
+.calibration-btn.wrong{border-color:rgba(255,102,120,.9);background:rgba(255,102,120,.14)}
 .feedback{display:none;margin-top:16px;padding:14px 16px;border-radius:12px;background:rgba(255,255,255,.07);color:#f8fafc;font-size:17px}
 .feedback.show{display:block}
 .bank{display:grid;gap:10px}
@@ -125,7 +132,7 @@ body.notes-on .teacher-note{display:block}
   .deck{height:auto;min-height:100vh}
   .slide{position:relative;display:none;min-height:100vh;justify-content:flex-start;padding:78px 22px 220px;overflow:visible}
   .slide.active{display:flex}
-  .grid,.grid.three,.grid.four,.traffic,.decision-frame,.scenario-layout,.choice-row,.meter-box,.builder{grid-template-columns:1fr}
+  .grid,.grid.three,.grid.four,.traffic,.decision-frame,.scenario-layout,.choice-row,.meter-box,.builder,.calibration-layout,.calibration-options{grid-template-columns:1fr}
   .table{grid-template-columns:1fr}
   .cell,.cell:nth-child(3n){border-right:none}
   .hud{height:auto;min-height:58px;align-items:flex-start;flex-wrap:wrap;padding:9px 12px}
@@ -317,6 +324,66 @@ body.notes-on .teacher-note{display:block}
     </div>
   </section>
 
+  <section class="slide lab" id="claim-calibration" data-part="Part 3" data-title="Claim calibration">
+    <div class="inner">
+      <div class="timebox">Micro-lab</div>
+      <h2>Claim calibration: say how you know.</h2>
+      <p class="lede">When an AI gives an answer, identify what kind of claim each sentence is making and what would verify it. Accuracy beats approval.</p>
+      <div class="grid three">
+        <div class="card"><h3>Label the basis</h3><p>Observed, sourced, computed, inferred, framed, or unknown/guess.</p></div>
+        <div class="card"><h3>Do not pretend certainty</h3><p>If the basis is weak, say what is missing before using the claim.</p></div>
+        <div class="card"><h3>Separate frames from reality</h3><p>Framed means true only inside a model, role-play, assumption, or hypothetical.</p></div>
+      </div>
+      <div class="calibration-layout">
+        <div class="scenario-card">
+          <div class="scenario-title" id="calibrationTitle">Claim 1 of 5</div>
+          <p class="lede" id="calibrationText">This answer probably follows the assignment policy because it sounds responsible.</p>
+          <div class="calibration-options" aria-label="Claim basis labels">
+            <button class="calibration-btn" data-calibration="Observed"><strong>Observed</strong><span>You directly inspected it.</span></button>
+            <button class="calibration-btn" data-calibration="Sourced"><strong>Sourced</strong><span>A reliable source supports it.</span></button>
+            <button class="calibration-btn" data-calibration="Computed"><strong>Computed</strong><span>You calculated it.</span></button>
+            <button class="calibration-btn" data-calibration="Inferred"><strong>Inferred</strong><span>You reasoned from evidence.</span></button>
+            <button class="calibration-btn" data-calibration="Framed"><strong>Framed</strong><span>True only inside assumptions.</span></button>
+            <button class="calibration-btn" data-calibration="Unknown/Guess"><strong>Unknown/Guess</strong><span>No basis yet.</span></button>
+          </div>
+          <div class="feedback" id="calibrationFeedback"></div>
+          <button class="btn" id="nextCalibration" style="margin-top:14px">Next claim</button>
+        </div>
+        <div class="card">
+          <h3>Calibration rewrite</h3>
+          <div class="form">
+            <label>Original AI claim
+              <textarea id="calClaim" placeholder="Paste or paraphrase one AI claim."></textarea>
+            </label>
+            <label>Best label
+              <select id="calLabel">
+                <option>Observed</option>
+                <option>Sourced</option>
+                <option>Computed</option>
+                <option>Inferred</option>
+                <option>Framed</option>
+                <option>Unknown/Guess</option>
+              </select>
+            </label>
+            <label>Confidence
+              <select id="calConfidence">
+                <option>High after checking</option>
+                <option>Medium with caveats</option>
+                <option>Low until verified</option>
+                <option>Unknown</option>
+              </select>
+            </label>
+            <label>What to check next
+              <textarea id="calCheck" placeholder="Source to open, data to inspect, calculation to repeat, policy to ask about."></textarea>
+            </label>
+          </div>
+          <div class="ticket" id="calibrationRewrite" style="min-height:180px;margin-top:14px"></div>
+        </div>
+      </div>
+      <div class="teacher-note">Pacing: 6 minutes. Use this instead of 2-3 scenario cases if time is tight. Keep it about verification behavior, not about making students combative.</div>
+    </div>
+  </section>
+
   <section class="slide note" data-part="Part 3" data-title="Copyright">
     <div class="inner">
       <div class="timebox">44-50 min</div>
@@ -473,6 +540,10 @@ body.notes-on .teacher-note{display:block}
         <div class="card">
           <h3>Responsible AI Use Plan</h3>
           <p>Submit the Decision Card from today's exit activity as a one-page plan. Include intended AI use, data boundary, verification, disclosure, review, and one risk/mitigation.</p>
+        </div>
+        <div class="card">
+          <h3>Claim calibration revision</h3>
+          <p>Take one AI answer you used this week. Rewrite three claims with basis labels and one next verification step for each claim.</p>
         </div>
         <div class="card">
           <h3>Completion note</h3>
@@ -691,10 +762,98 @@ document.getElementById('nextScenario').addEventListener('click', () => {
 });
 showScenario();
 
-const discFields = ['discTool','discPurpose','discReview'];
 function value(id, fallback) {
   return document.getElementById(id).value.trim() || fallback;
 }
+
+const calibrationCases = [
+  {
+    title: 'Claim 1 of 5',
+    text: 'This answer probably follows the assignment policy because it sounds responsible.',
+    answer: 'Unknown/Guess',
+    feedback: 'Unknown/Guess. Tone is not evidence. Check the actual assignment policy or ask the instructor.'
+  },
+  {
+    title: 'Claim 2 of 5',
+    text: 'After opening the Cornell academic-integrity page, you confirm it warns instructors not to treat AI detectors as definitive proof.',
+    answer: 'Sourced',
+    feedback: 'Sourced. The label depends on opening the source and confirming it supports the claim.'
+  },
+  {
+    title: 'Claim 3 of 5',
+    text: 'If 6 of 10 scenario answers were correct, the score is 60%.',
+    answer: 'Computed',
+    feedback: 'Computed. You can repeat the calculation and show the formula.'
+  },
+  {
+    title: 'Claim 4 of 5',
+    text: 'In this role-play, the admissions committee values essays more than test scores.',
+    answer: 'Framed',
+    feedback: 'Framed. It may be true inside the role-play assumptions, but it is not a real-world admissions claim.'
+  },
+  {
+    title: 'Claim 5 of 5',
+    text: 'Because the prompt included a classmate draft, privacy and authorship risks are likely.',
+    answer: 'Inferred',
+    feedback: 'Inferred. The risk follows from facts you inspected, but you should still check policy and permission.'
+  }
+];
+let calibrationIndex = 0;
+function showCalibration() {
+  const item = calibrationCases[calibrationIndex];
+  document.getElementById('calibrationTitle').textContent = item.title;
+  document.getElementById('calibrationText').textContent = item.text;
+  document.getElementById('calibrationFeedback').classList.remove('show');
+  document.getElementById('calibrationFeedback').textContent = '';
+  document.querySelectorAll('[data-calibration]').forEach(button => {
+    button.classList.remove('correct','wrong');
+    button.setAttribute('aria-pressed', 'false');
+  });
+}
+document.querySelectorAll('[data-calibration]').forEach(button => {
+  button.setAttribute('aria-pressed', 'false');
+  button.addEventListener('click', () => {
+    const item = calibrationCases[calibrationIndex];
+    document.querySelectorAll('[data-calibration]').forEach(option => {
+      option.classList.remove('correct','wrong');
+      option.setAttribute('aria-pressed', 'false');
+      if (option.dataset.calibration === item.answer) option.classList.add('correct');
+    });
+    if (button.dataset.calibration !== item.answer) button.classList.add('wrong');
+    button.setAttribute('aria-pressed', 'true');
+    const feedback = document.getElementById('calibrationFeedback');
+    feedback.textContent = item.feedback;
+    feedback.classList.add('show');
+  });
+});
+document.getElementById('nextCalibration').addEventListener('click', () => {
+  calibrationIndex = (calibrationIndex + 1) % calibrationCases.length;
+  showCalibration();
+});
+showCalibration();
+
+const calibrationFields = ['calClaim','calLabel','calConfidence','calCheck'];
+function updateCalibrationRewrite() {
+  document.getElementById('calibrationRewrite').textContent =
+`Claim calibration rewrite
+
+Original claim:
+${value('calClaim','[AI claim]')}
+
+Basis label:
+${value('calLabel','[basis label]')}
+
+Confidence:
+${value('calConfidence','[confidence]')}
+
+Next check:
+${value('calCheck','[what to verify before using this claim]')}`;
+}
+calibrationFields.forEach(id => document.getElementById(id).addEventListener('input', updateCalibrationRewrite));
+calibrationFields.forEach(id => document.getElementById(id).addEventListener('change', updateCalibrationRewrite));
+updateCalibrationRewrite();
+
+const discFields = ['discTool','discPurpose','discReview'];
 function updateDisclosure() {
   const text =
 `AI-use disclosure draft

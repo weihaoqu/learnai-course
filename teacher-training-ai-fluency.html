@@ -225,6 +225,17 @@ p,li{font-size:17px;color:var(--muted)}
 - I can name one risk or responsibility issue.</div>
           <button class="copy-btn" data-copy="scriptPeer">Copy script</button>
         </div>
+        <div class="card copyable">
+          <h3>Claim calibration protocol</h3>
+          <p>Use when an AI answer sounds polished, agreeable, or overconfident.</p>
+          <div class="script" id="scriptCalibration">Ask:
+1. Which claims are observed, sourced, computed, inferred, framed, or unknown?
+2. What would verify the weakest claim?
+3. Where is the answer pleasing us instead of challenging us?
+4. What uncertainty should appear in the first sentence?
+5. What should the student check before using this?</div>
+          <button class="copy-btn" data-copy="scriptCalibration">Copy script</button>
+        </div>
       </div>
     </section>
 
@@ -258,11 +269,25 @@ p,li{font-size:17px;color:var(--muted)}
           <a href="https://weihaoqu.github.io/learnAIDoc/wiki/claude-code-context-claudemd-practices/" target="_blank" rel="noopener noreferrer">Open wiki post</a>
         </div>
         <div class="resource">
+          <span class="pill">Project memory</span>
+          <h3>Graphify</h3>
+          <p>Use as an optional Week 2 instructor demo for queryable project memory. Keep demos on public or synthetic folders and verify graph claims against source files.</p>
+          <a href="https://github.com/Graphify-Labs/graphify" target="_blank" rel="noopener noreferrer">Open GitHub repo</a>
+        </div>
+        <div class="resource">
           <span class="pill">Skill design</span>
           <h3>Matt Pocock Skills + grill-me</h3>
           <p>Use as examples of turning engineering habits into reusable agent procedures, especially requirements interviews.</p>
           <a href="https://weihaoqu.github.io/learnAIDoc/wiki/matt-pocock-skills-real-engineers/" target="_blank" rel="noopener noreferrer">Open Matt skills</a>
           <br><a href="https://weihaoqu.github.io/learnAIDoc/wiki/grill-me-skill/" target="_blank" rel="noopener noreferrer">Open grill-me</a>
+          <br><a href="https://www.skills.sh/mattpocock/skills/grill-with-docs" target="_blank" rel="noopener noreferrer">Open grill-with-docs</a>
+          <br><a href="https://www.skills.sh/vercel-labs/skills/find-skills" target="_blank" rel="noopener noreferrer">Open find-skills</a>
+        </div>
+        <div class="resource">
+          <span class="pill">Architecture critique</span>
+          <h3>improve-codebase-architecture</h3>
+          <p>Use as an optional instructor-facing prompt pattern for Week 13 or final-project triage. Keep the student task scoped to evidence, minimum sufficient fixes, and human review.</p>
+          <a href="https://www.skills.sh/mattpocock/skills/improve-codebase-architecture" target="_blank" rel="noopener noreferrer">Open Skills.sh page</a>
         </div>
         <div class="resource">
           <span class="pill">Review discipline</span>
@@ -281,15 +306,43 @@ p,li{font-size:17px;color:var(--muted)}
           <h3>Slides, video, and self-contained HTML</h3>
           <p>Use for instructor demos and optional student extension work, not required Week 6 setup.</p>
           <a href="https://weihaoqu.github.io/learnAIDoc/wiki/ai-slide-generation-tools/" target="_blank" rel="noopener noreferrer">Open slide tools</a>
+          <br><a href="https://clawhub.ai/wuhaoyupku/html-slide-mender" target="_blank" rel="noopener noreferrer">Open optional HTML Mender</a>
+          <br><a href="https://github.com/crazyykhllc-bit/CyberPPT" target="_blank" rel="noopener noreferrer">Open optional CyberPPT</a>
           <br><a href="https://weihaoqu.github.io/learnAIDoc/wiki/teaching-videos-manim-remotion/" target="_blank" rel="noopener noreferrer">Open Manim + Remotion</a>
           <br><a href="https://weihaoqu.github.io/learnAIDoc/wiki/video-use-agent-video-editing/" target="_blank" rel="noopener noreferrer">Open video-use</a>
           <br><a href="https://weihaoqu.github.io/learnAIDoc/wiki/html-anything-ai-generator/" target="_blank" rel="noopener noreferrer">Open html-anything</a>
+        </div>
+        <div class="resource">
+          <span class="pill">PDF evidence</span>
+          <h3>OpenDataLoader-PDF</h3>
+          <p>Use as an optional Week 11 instructor demo for converting public PDFs into Markdown or JSON with layout evidence. Do not process student, private, paywalled, or sensitive PDFs; verify extracted claims against the original pages.</p>
+          <a href="https://github.com/opendataloader-project/opendataloader-pdf" target="_blank" rel="noopener noreferrer">Open GitHub repo</a>
+          <br><a href="https://opendataloader.org/" target="_blank" rel="noopener noreferrer">Open project site</a>
+        </div>
+        <div class="resource">
+          <span class="pill">Video evidence</span>
+          <h3>claude-video /watch</h3>
+          <p>Use as an instructor-only demo of transcript-plus-frame analysis. It can reduce title-only guessing, but setup depends on video download, frame extraction, transcription, ffmpeg or yt-dlp, and platform permissions.</p>
+          <a href="https://github.com/bradautomates/claude-video" target="_blank" rel="noopener noreferrer">Open GitHub repo</a>
+          <br><a href="https://claudemarketplaces.com/skills/bradautomates/claude-video/watch" target="_blank" rel="noopener noreferrer">Open marketplace summary</a>
         </div>
         <div class="resource">
           <span class="pill">Research tools</span>
           <h3>Awesome Auto Research Tools</h3>
           <p>Use as an instructor map for tool-scouting and research-agent evaluation. Keep student assignments source-verification focused.</p>
           <a href="https://weihaoqu.github.io/learnAIDoc/wiki/awesome-auto-research-tools/" target="_blank" rel="noopener noreferrer">Open wiki post</a>
+        </div>
+        <div class="resource">
+          <span class="pill">Instructor experiment</span>
+          <h3>notebooklm-py</h3>
+          <p>Use only as a teacher workflow experiment for source-grounded synthesis and artifact generation. It is unofficial, depends on account/auth behavior, and should not become student homework without privacy and reliability review.</p>
+          <a href="https://github.com/teng-lin/notebooklm-py" target="_blank" rel="noopener noreferrer">Open GitHub repo</a>
+        </div>
+        <div class="resource">
+          <span class="pill">Design critique</span>
+          <h3>Impeccable</h3>
+          <p>Use as an optional Week 8 and Week 14 design critique aid for detecting generic AI frontend patterns. It supports human critique; it does not replace audience judgment.</p>
+          <a href="https://github.com/pbakaus/impeccable" target="_blank" rel="noopener noreferrer">Open GitHub repo</a>
         </div>
         <div class="resource">
           <span class="pill">Wiki index</span>
@@ -306,10 +359,15 @@ p,li{font-size:17px;color:var(--muted)}
       <div class="grid">
         <div class="card"><h3>Prompt is too broad</h3><p>Intervention: ask for target user, output format, constraints, and one success criterion.</p></div>
         <div class="card"><h3>AI output sounds plausible</h3><p>Intervention: require source checks, comparison, or a small test before acceptance.</p></div>
+        <div class="card"><h3>AI flatters the student</h3><p>Intervention: ask for the strongest counterargument, missing evidence, and a confidence label. Accuracy beats approval.</p></div>
+        <div class="card"><h3>One neat pattern explains everything</h3><p>Intervention: make students mark claims as observed, sourced, computed, inferred, framed, or unknown. Framed claims stay inside the hypothetical.</p></div>
         <div class="card"><h3>Student copies the example</h3><p>Intervention: make them change user, context, and success criteria before building.</p></div>
         <div class="card"><h3>Project scope explodes</h3><p>Intervention: reduce to one screen, one interaction, one output, and no backend.</p></div>
         <div class="card"><h3>Private data enters the prompt</h3><p>Intervention: replace with fictional or generalized data and document the Diligence choice.</p></div>
         <div class="card"><h3>Student hides AI use</h3><p>Intervention: grade AI-use disclosure as normal professional documentation, not confession.</p></div>
+      </div>
+      <div class="notice">
+        <p><strong>Calibration rule for instructors:</strong> be evidence-based and willing to disagree politely. When a material fact is unknown, say so before offering possibilities. Do not translate role-play, analogy, or symbolic frames into real-world claims without naming the frame and the limits.</p>
       </div>
     </section>
 

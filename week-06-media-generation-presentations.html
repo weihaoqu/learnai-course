@@ -363,6 +363,27 @@ body.notes-on .teacher-note{display:block}
     </div>
   </section>
 
+  <section class="slide source" id="html-slide-repair" data-part="Part 3" data-title="HTML slide repair">
+    <div class="inner">
+      <div class="timebox">Optional demo</div>
+      <h2>Optional: repair HTML slides before export.</h2>
+      <p class="lede">Many AI-generated slide decks are really HTML. That is portable and inspectable, but it can be awkward when you only need to fix text, image placement, crop, spacing, or slide layout.</p>
+      <div class="pipeline">
+        <div class="node">Save HTML</div><div class="arrow">-&gt;</div>
+        <div class="node">Repair visually</div><div class="arrow">-&gt;</div>
+        <div class="node">Check readability</div><div class="arrow">-&gt;</div>
+        <div class="node">Save clean copy</div>
+      </div>
+      <div class="grid three">
+        <div class="card"><h3>Use case</h3><p>A generated deck looks close, but one title wraps badly, an image is cropped wrong, or a card needs to move.</p></div>
+        <div class="card"><h3>Boundary</h3><p>Optional external tool. Do not install or use it with private, student, school, client, credential, or secret content unless the instructor approves the tool and data handling.</p></div>
+        <div class="card"><h3>Human review</h3><p>After visual repair, re-check slide order, mobile readability, alt text, disclosure, source notes, and whether the deck still says what you mean.</p></div>
+      </div>
+      <a class="link-btn" href="https://clawhub.ai/wuhaoyupku/html-slide-mender" target="_blank" rel="noopener noreferrer">Optional example: ClawHub HTML Mender</a>
+      <div class="teacher-note">Use this only as a short demo if students ask why AI-made slide decks are HTML. Do not turn Week 6 into a tool-install lab.</div>
+    </div>
+  </section>
+
   <section class="slide note" data-part="Part 3" data-title="Disclosure">
     <div class="inner">
       <div class="timebox">52-55 min</div>
@@ -454,10 +475,13 @@ body.notes-on .teacher-note{display:block}
       </div>
       <div style="margin-top:18px">
         <a class="link-btn" href="https://weihaoqu.github.io/learnAIDoc/wiki/ai-slide-generation-tools/" target="_blank" rel="noopener noreferrer">Optional AI slide tools map</a>
+        <a class="link-btn" href="https://clawhub.ai/wuhaoyupku/html-slide-mender" target="_blank" rel="noopener noreferrer">Optional HTML slide repair</a>
+        <a class="link-btn" href="https://github.com/crazyykhllc-bit/CyberPPT" target="_blank" rel="noopener noreferrer">Optional CyberPPT workflow</a>
         <a class="link-btn" href="https://weihaoqu.github.io/learnAIDoc/wiki/teaching-videos-manim-remotion/" target="_blank" rel="noopener noreferrer">Optional Manim + Remotion explainers</a>
         <a class="link-btn" href="https://weihaoqu.github.io/learnAIDoc/wiki/video-use-agent-video-editing/" target="_blank" rel="noopener noreferrer">Optional transcript-first video editing</a>
+        <a class="link-btn" href="https://github.com/bradautomates/claude-video" target="_blank" rel="noopener noreferrer">Optional /watch video analysis</a>
       </div>
-      <p class="muted" style="margin-top:14px">These are extension resources and instructor demos. They are not required for Week 6 because video workflows need extra setup such as rendering, transcription, or ffmpeg.</p>
+      <p class="muted" style="margin-top:14px">These are extension resources and instructor demos. They are not required for Week 6 because slide-repair skills, PPT-generation workflows, video-analysis tools, and video workflows need extra setup such as tool installation, source-document preparation, downloads, frame extraction, transcription, rendering, or ffmpeg. Use only non-sensitive source materials and videos approved for class and permitted by license or platform terms.</p>
       <p style="margin-top:18px"><a href="index.html">Back to CS-215 course hub</a></p>
     </div>
   </section>

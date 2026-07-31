@@ -7,6 +7,616 @@ entries; nobody edits prior entries. Managed by
 
 <!-- newest entry below -->
 
+## 2026-07-31 15:48:10 EDT — Codex
+
+- **Branch:** `slide-redesign-2026-05`
+- **HEAD:** `af685ae` — Organize CS-215 course into weekly modules
+- **Upstream:** origin/slide-redesign-2026-05 — ahead 0, behind 0
+
+### Summary
+
+Installed Q-requested Taste Skill and completed Q-approved optional resource additions for OpenDataLoader-PDF and CyberPPT.
+
+Current branch/HEAD:
+- Branch: slide-redesign-2026-05
+- HEAD: af685ae — Organize CS-215 course into weekly modules
+- Upstream is even with origin/slide-redesign-2026-05. Course edits are local only, not committed or pushed.
+
+Taste Skill install:
+- Source verified: https://github.com/Leonxlnx/taste-skill, default skill folder skills/taste-skill, metadata name design-taste-frontend.
+- Installed for Codex: /Users/oreo/.codex/skills/design-taste-frontend/SKILL.md
+- Installed for Claude Code: /Users/oreo/.claude/skills/design-taste-frontend/SKILL.md
+- Installed only the default taste-skill/design-taste-frontend, not the other variants such as gpt-taste or image-to-code.
+- Q should restart Codex and Claude Code sessions to pick up the newly installed skill.
+
+Latest course resource additions:
+- index.html: Week 6 hub resource includes Optional: CyberPPT workflow; Week 11 hub resource includes Instructor Demo: PDF extraction evidence.
+- week-06-media-generation-presentations.html: homework resource links include Optional CyberPPT workflow; the Week 6 extension note now mentions PPT-generation workflows, source-document preparation, non-sensitive source materials, and license/platform boundaries.
+- week-11-knowledge-career-evidence.html: homework includes Optional PDF extraction; resource links include OpenDataLoader-PDF as an instructor demo; safety note now covers extraction/critique tools, class-safe excerpts, paywalled PDFs, and verifying against the original page.
+- teacher-training-ai-fluency.html: media resource card includes CyberPPT link; added OpenDataLoader-PDF teacher resource card with public-PDF-only, no student/private/paywalled/sensitive PDFs, and original-page verification boundary.
+
+Verification completed:
+- git diff --check passed for index.html, week-06, week-11, and teacher-training.
+- Inline JS parse passed for index.html, teacher-training-ai-fluency.html, week-06-media-generation-presentations.html, and week-11-knowledge-career-evidence.html.
+- Concrete local href/src checks passed for the same files after excluding index.html JavaScript template placeholders.
+- Section counts: week-06 now has 13/13 slide sections; week-11 has 14/14 slide sections; teacher training has 10 sections.
+- External URL checks returned HTTP 200 for https://github.com/opendataloader-project/opendataloader-pdf, https://opendataloader.org/, and https://github.com/crazyykhllc-bit/CyberPPT.
+- Bounded Codex review for the OpenDataLoader/CyberPPT wording returned: No blockers found.
+- No Playwright/browser automation used.
+
+Open status:
+- Worktree remains dirty with cumulative local course-content edits and progress.md checkpoint entries. Nothing committed or pushed.
+
+### Working tree (`git status --short`)
+
+```text
+ M index.html
+ M progress.md
+ M teacher-training-ai-fluency.html
+ M week-02-agent-foundations.html
+ M week-03-responsible-ai-decisions.html
+ M week-06-media-generation-presentations.html
+ M week-08-web-basics-design.html
+ M week-11-knowledge-career-evidence.html
+ M week-13-security-review-lab.html
+ M week-14-final-showcase.html
+?? CLAUDE.md
+?? docs/superpowers/audit-2026-05-21-deck-review.md
+?? image/
+?? sos-talk-may12.html
+?? ui.txt
+```
+
+### Unstaged diff (`git diff --stat`)
+
+```text
+ index.html                                  |  12 +-
+ progress.md                                 | 500 ++++++++++++++++++++++++++++
+ teacher-training-ai-fluency.html            |  58 ++++
+ week-02-agent-foundations.html              |  17 +
+ week-03-responsible-ai-decisions.html       | 163 ++++++++-
+ week-06-media-generation-presentations.html |  26 +-
+ week-08-web-basics-design.html              |   6 +-
+ week-11-knowledge-career-evidence.html      |  29 ++
+ week-13-security-review-lab.html            |   2 +
+ week-14-final-showcase.html                 |   3 +
+ 10 files changed, 805 insertions(+), 11 deletions(-)
+```
+
+### Staged diff (`git diff --cached --stat`)
+
+_none_
+
+### Latest commit (`git show --stat --oneline HEAD`)
+
+```text
+af685ae Organize CS-215 course into weekly modules
+ course-case-bank.html                              |  298 +++
+ docs/week-03-14-material-candidates.md             |  743 +++++
+ index.html                                         |  410 ++-
+ module-00-llm-basics.html                          |   27 +
+ progress.md                                        | 2827 ++++++++++++++++++++
+ .../week-05-synthetic-admin-dataset.csv            |    9 +
+ teacher-training-ai-fluency.html                   |  366 +++
+ week-02-agent-foundations.html                     |  817 ++++++
+ week-02-foundation-readiness-check.html            |  611 +++++
+ week-03-responsible-ai-decisions.html              |  778 ++++++
+ week-04-writing-word-documents.html                |  701 +++++
+ week-05-data-excel-workflows.html                  |  827 ++++++
+ week-06-media-generation-presentations.html        |  696 +++++
+ week-07-midterm-studio.html                        |  725 +++++
+ week-08-web-basics-design.html                     |  596 +++++
+ week-09-interactivity-intelligence.html            |  529 ++++
+ week-10-complete-static-deployment.html            |  549 ++++
+ week-11-knowledge-career-evidence.html             |  623 +++++
+ week-12-advanced-prompting.html                    |  493 ++++
+ week-13-security-review-lab.html                   |  679 +++++
+ week-14-final-showcase.html                        |  622 +++++
+ 21 files changed, 13807 insertions(+), 119 deletions(-)
+```
+
+---
+
+## 2026-07-31 15:36:34 EDT — Codex
+
+- **Branch:** `slide-redesign-2026-05`
+- **HEAD:** `af685ae` — Organize CS-215 course into weekly modules
+- **Upstream:** origin/slide-redesign-2026-05 — ahead 0, behind 0
+
+### Summary
+
+Added Q-approved skill resource placements for find-skills, grill-with-docs, and improve-codebase-architecture.
+
+Current branch/HEAD:
+- Branch: slide-redesign-2026-05
+- HEAD: af685ae — Organize CS-215 course into weekly modules
+- Upstream is even with origin/slide-redesign-2026-05. These edits are local only, not committed or pushed.
+
+Files touched in this milestone:
+- index.html: Week 2 hub now includes Instructor Demo: find-skills; Week 11 includes Instructor-guided: document critique; Week 13 includes Optional: architecture review skill.
+- week-02-agent-foundations.html: homework optional background now links find-skills as instructor demo source only for skill discovery, not required installation.
+- week-11-knowledge-career-evidence.html: homework links grill-with-docs as instructor-guided document critique and adds a public/class-safe-only warning: no personal records, resumes, private drafts, unpublished files, account exports, or sensitive documents.
+- week-13-security-review-lab.html: homework links improve-codebase-architecture as optional architecture review skill and warns that students should still prefer the smallest fix addressing documented risk.
+- teacher-training-ai-fluency.html: teacher resources include grill-with-docs, find-skills, and improve-codebase-architecture as instructor-facing prompt/workflow references.
+
+Verification completed:
+- git diff --check passed for the touched HTML files.
+- Inline JS parse passed for index.html, teacher-training-ai-fluency.html, week-02, week-03, week-06, week-08, week-11, week-13, and week-14.
+- Concrete local href/src checks passed for the same HTML set after excluding JavaScript template placeholders in index.html.
+- External URL checks returned HTTP 200 for:
+  - https://www.skills.sh/vercel-labs/skills/find-skills
+  - https://www.skills.sh/mattpocock/skills/grill-with-docs
+  - https://www.skills.sh/mattpocock/skills/improve-codebase-architecture
+- Bounded Codex review initially flagged Week 11 privacy/data handling risk for grill-with-docs; I fixed the label/warning and reran a delta review. Delta review returned: No blockers found.
+- No Playwright/browser automation used.
+
+Open/new item:
+- Q sent two new screenshots after this work started: OpenDataLoader-PDF/PDF-to-Markdown and CyberPPT/PPT skill. No edits have been made for those yet. Recommended next step is to verify the actual repos/sources before adding: likely OpenDataLoader-PDF as instructor-only Week 11 or Week 4 document/source extraction, and CyberPPT as optional Week 6/teacher-training presentation workflow.
+
+### Working tree (`git status --short`)
+
+```text
+ M index.html
+ M progress.md
+ M teacher-training-ai-fluency.html
+ M week-02-agent-foundations.html
+ M week-03-responsible-ai-decisions.html
+ M week-06-media-generation-presentations.html
+ M week-08-web-basics-design.html
+ M week-11-knowledge-career-evidence.html
+ M week-13-security-review-lab.html
+ M week-14-final-showcase.html
+?? CLAUDE.md
+?? docs/superpowers/audit-2026-05-21-deck-review.md
+?? image/
+?? sos-talk-may12.html
+?? ui.txt
+```
+
+### Unstaged diff (`git diff --stat`)
+
+```text
+ index.html                                  |  12 +-
+ progress.md                                 | 394 ++++++++++++++++++++++++++++
+ teacher-training-ai-fluency.html            |  50 ++++
+ week-02-agent-foundations.html              |  17 ++
+ week-03-responsible-ai-decisions.html       | 163 +++++++++++-
+ week-06-media-generation-presentations.html |  25 +-
+ week-08-web-basics-design.html              |   6 +-
+ week-11-knowledge-career-evidence.html      |  27 ++
+ week-13-security-review-lab.html            |   2 +
+ week-14-final-showcase.html                 |   3 +
+ 10 files changed, 688 insertions(+), 11 deletions(-)
+```
+
+### Staged diff (`git diff --cached --stat`)
+
+_none_
+
+### Latest commit (`git show --stat --oneline HEAD`)
+
+```text
+af685ae Organize CS-215 course into weekly modules
+ course-case-bank.html                              |  298 +++
+ docs/week-03-14-material-candidates.md             |  743 +++++
+ index.html                                         |  410 ++-
+ module-00-llm-basics.html                          |   27 +
+ progress.md                                        | 2827 ++++++++++++++++++++
+ .../week-05-synthetic-admin-dataset.csv            |    9 +
+ teacher-training-ai-fluency.html                   |  366 +++
+ week-02-agent-foundations.html                     |  817 ++++++
+ week-02-foundation-readiness-check.html            |  611 +++++
+ week-03-responsible-ai-decisions.html              |  778 ++++++
+ week-04-writing-word-documents.html                |  701 +++++
+ week-05-data-excel-workflows.html                  |  827 ++++++
+ week-06-media-generation-presentations.html        |  696 +++++
+ week-07-midterm-studio.html                        |  725 +++++
+ week-08-web-basics-design.html                     |  596 +++++
+ week-09-interactivity-intelligence.html            |  529 ++++
+ week-10-complete-static-deployment.html            |  549 ++++
+ week-11-knowledge-career-evidence.html             |  623 +++++
+ week-12-advanced-prompting.html                    |  493 ++++
+ week-13-security-review-lab.html                   |  679 +++++
+ week-14-final-showcase.html                        |  622 +++++
+ 21 files changed, 13807 insertions(+), 119 deletions(-)
+```
+
+---
+
+## 2026-07-31 14:22:29 EDT — Codex
+
+- **Branch:** `slide-redesign-2026-05`
+- **HEAD:** `af685ae` — Organize CS-215 course into weekly modules
+- **Upstream:** origin/slide-redesign-2026-05 — ahead 0, behind 0
+
+### Summary
+
+Added Q-approved resource placement for Graphify, notebooklm-py, and Impeccable, after earlier post-af685ae additions for claim calibration, HTML slide repair, and optional /watch video evidence.
+
+Current branch/HEAD:
+- Branch: slide-redesign-2026-05
+- HEAD: af685ae — Organize CS-215 course into weekly modules
+- Upstream is even with origin/slide-redesign-2026-05. These latest edits are local only, not committed or pushed.
+
+Current local course-content changes since af685ae now include:
+- index.html: Week 2 hub includes Instructor Demo: Graphify synthetic only; Week 6 still includes optional HTML slide repair and /watch video analysis from earlier Q-approved work; Week 8 includes optional Impeccable design critique; Week 11 includes optional video evidence workflow from earlier; Week 14 includes optional final design critique.
+- week-02-agent-foundations.html: added optional Project Memory slide for Graphify as instructor demo only, with public/synthetic-folder boundary and source-verification framing; homework optional background now includes instructor-demo-only Graphify.
+- week-03-responsible-ai-decisions.html: claim-calibration mini-lab and homework revision remain from earlier.
+- week-06-media-generation-presentations.html: optional HTML slide repair and /watch video analysis remain from earlier, with non-required setup and license/platform boundaries.
+- week-08-web-basics-design.html: Impeccable added as optional design critique/checklist support; copy says design tools are critique aids, not design authority.
+- week-11-knowledge-career-evidence.html: optional video evidence slide/homework remains from earlier; notebooklm-py was deliberately NOT added to student-facing Week 11 after review risk.
+- week-14-final-showcase.html: Impeccable added as optional design polish/design critique support; added note that design-polish tools are checklist aids and final judgment stays human.
+- teacher-training-ai-fluency.html: added Graphify resource card, notebooklm-py instructor experiment card, and Impeccable design critique card. notebooklm-py is explicitly not student homework without privacy/reliability review.
+
+Verification completed after the Graphify/notebooklm-py/Impeccable edits:
+- git diff --check passed for changed HTML files.
+- Inline JS parse passed for index.html, week-02, week-08, week-11, week-14, and teacher-training.
+- Section counts: week-02 22/22 slides; week-08 10/10 slides; week-11 14/14 slides; week-14 11/11 slides; teacher training 10 sections.
+- Local href/src and anchor check passed for changed files.
+- No non-ASCII characters in selected diff.
+- External URL checks returned HTTP 200 for https://github.com/Graphify-Labs/graphify, https://github.com/teng-lin/notebooklm-py, and https://github.com/pbakaus/impeccable.
+- Bounded focused Codex review found no blockers. It noted Graphify hub label should expose the synthetic/public-folder boundary; I changed the label to Instructor Demo: Graphify synthetic only and reran index diff checks.
+- No Playwright/browser automation used.
+
+Open status / next step:
+- Worktree remains dirty with all post-af685ae local course-content edits plus progress.md checkpoint entries.
+- Intentional untracked files remain: CLAUDE.md, docs/superpowers/audit-2026-05-21-deck-review.md, image/, sos-talk-may12.html, ui.txt.
+- Q then sent a screenshot of a weekly Codex skill ranking: ai-video-generation, ai-image-generation, ai-avatar-video, twitter-automation, remotion-render, find-skills, grill-me, grill-with-docs, grilling, improve-codebase-architecture. Need respond with placement recommendation; no edits have been made for that screenshot yet.
+
+### Working tree (`git status --short`)
+
+```text
+ M index.html
+ M progress.md
+ M teacher-training-ai-fluency.html
+ M week-02-agent-foundations.html
+ M week-03-responsible-ai-decisions.html
+ M week-06-media-generation-presentations.html
+ M week-08-web-basics-design.html
+ M week-11-knowledge-career-evidence.html
+ M week-14-final-showcase.html
+?? CLAUDE.md
+?? docs/superpowers/audit-2026-05-21-deck-review.md
+?? image/
+?? sos-talk-may12.html
+?? ui.txt
+```
+
+### Unstaged diff (`git diff --stat`)
+
+```text
+ index.html                                  |  10 +-
+ progress.md                                 | 286 ++++++++++++++++++++++++++++
+ teacher-training-ai-fluency.html            |  42 ++++
+ week-02-agent-foundations.html              |  16 ++
+ week-03-responsible-ai-decisions.html       | 163 +++++++++++++++-
+ week-06-media-generation-presentations.html |  25 ++-
+ week-08-web-basics-design.html              |   6 +-
+ week-11-knowledge-career-evidence.html      |  25 +++
+ week-14-final-showcase.html                 |   3 +
+ 9 files changed, 566 insertions(+), 10 deletions(-)
+```
+
+### Staged diff (`git diff --cached --stat`)
+
+_none_
+
+### Latest commit (`git show --stat --oneline HEAD`)
+
+```text
+af685ae Organize CS-215 course into weekly modules
+ course-case-bank.html                              |  298 +++
+ docs/week-03-14-material-candidates.md             |  743 +++++
+ index.html                                         |  410 ++-
+ module-00-llm-basics.html                          |   27 +
+ progress.md                                        | 2827 ++++++++++++++++++++
+ .../week-05-synthetic-admin-dataset.csv            |    9 +
+ teacher-training-ai-fluency.html                   |  366 +++
+ week-02-agent-foundations.html                     |  817 ++++++
+ week-02-foundation-readiness-check.html            |  611 +++++
+ week-03-responsible-ai-decisions.html              |  778 ++++++
+ week-04-writing-word-documents.html                |  701 +++++
+ week-05-data-excel-workflows.html                  |  827 ++++++
+ week-06-media-generation-presentations.html        |  696 +++++
+ week-07-midterm-studio.html                        |  725 +++++
+ week-08-web-basics-design.html                     |  596 +++++
+ week-09-interactivity-intelligence.html            |  529 ++++
+ week-10-complete-static-deployment.html            |  549 ++++
+ week-11-knowledge-career-evidence.html             |  623 +++++
+ week-12-advanced-prompting.html                    |  493 ++++
+ week-13-security-review-lab.html                   |  679 +++++
+ week-14-final-showcase.html                        |  622 +++++
+ 21 files changed, 13807 insertions(+), 119 deletions(-)
+```
+
+---
+
+## 2026-07-31 14:08:51 EDT — Codex
+
+- **Branch:** `slide-redesign-2026-05`
+- **HEAD:** `af685ae` — Organize CS-215 course into weekly modules
+- **Upstream:** origin/slide-redesign-2026-05 — ahead 0, behind 0
+
+### Summary
+
+Added optional claude-video /watch placement after Q approved using the video-analysis tool as a course resource.
+
+Current branch/HEAD:
+- Branch: slide-redesign-2026-05
+- HEAD: af685ae — Organize CS-215 course into weekly modules
+- Upstream is even with origin/slide-redesign-2026-05. These latest edits are local only, not committed or pushed.
+
+Current local course-content changes since af685ae:
+- index.html: Week 6 resources include Optional: HTML Slide Repair and Optional: /watch video analysis; Week 11 resources include Optional: video evidence workflow.
+- week-03-responsible-ai-decisions.html: claim-calibration mini-lab, homework revision task, and supporting JS/CSS remain from the earlier Kai-Fu Lee prompt-calibration request.
+- week-06-media-generation-presentations.html: optional HTML slide repair demo remains, and homework now links optional /watch video analysis with clear non-required setup and license/platform-permission boundaries.
+- week-11-knowledge-career-evidence.html: added optional Video Evidence slide after Citation and Disclosure. It teaches transcript + screen/frame + timestamp evidence, permission boundaries, and manual verification. Homework now has optional video-evidence guidance.
+- teacher-training-ai-fluency.html: added claim calibration protocol, optional HTML Mender, and instructor-only claude-video /watch resource with setup/platform caveats.
+
+Verification completed:
+- git diff --check passed for changed HTML files.
+- Inline JS parse passed for index.html, week-06, week-11, and teacher-training.
+- Section counts: week-06 has 13 sections/13 slide sections; week-11 has 14 sections/14 slide sections; teacher-training has 10 sections.
+- Local href/src and anchor check passed for changed files.
+- No non-ASCII characters in selected diff.
+- External URL checks returned HTTP 200 for https://github.com/bradautomates/claude-video and https://claudemarketplaces.com/skills/bradautomates/claude-video/watch.
+- Bounded Codex review flagged one medium wording issue: public videos could sound automatically permitted. Fixed to require license/platform-term permission or instructor-approved sources. Delta review returned no blockers.
+- No Playwright/browser automation used.
+
+Open status / next step:
+- Worktree remains dirty with the course-content edits plus progress.md checkpoint entries.
+- Intentional untracked files remain: CLAUDE.md, docs/superpowers/audit-2026-05-21-deck-review.md, image/, sos-talk-may12.html, ui.txt.
+- Next likely step: Q can review locally, then decide whether to commit these post-af685ae additions, or continue discussing the next course resource/week.
+
+### Working tree (`git status --short`)
+
+```text
+ M index.html
+ M progress.md
+ M teacher-training-ai-fluency.html
+ M week-03-responsible-ai-decisions.html
+ M week-06-media-generation-presentations.html
+ M week-11-knowledge-career-evidence.html
+?? CLAUDE.md
+?? docs/superpowers/audit-2026-05-21-deck-review.md
+?? image/
+?? sos-talk-may12.html
+?? ui.txt
+```
+
+### Unstaged diff (`git diff --stat`)
+
+```text
+ index.html                                  |   4 +-
+ progress.md                                 | 187 ++++++++++++++++++++++++++++
+ teacher-training-ai-fluency.html            |  24 ++++
+ week-03-responsible-ai-decisions.html       | 163 +++++++++++++++++++++++-
+ week-06-media-generation-presentations.html |  25 +++-
+ week-11-knowledge-career-evidence.html      |  25 ++++
+ 6 files changed, 423 insertions(+), 5 deletions(-)
+```
+
+### Staged diff (`git diff --cached --stat`)
+
+_none_
+
+### Latest commit (`git show --stat --oneline HEAD`)
+
+```text
+af685ae Organize CS-215 course into weekly modules
+ course-case-bank.html                              |  298 +++
+ docs/week-03-14-material-candidates.md             |  743 +++++
+ index.html                                         |  410 ++-
+ module-00-llm-basics.html                          |   27 +
+ progress.md                                        | 2827 ++++++++++++++++++++
+ .../week-05-synthetic-admin-dataset.csv            |    9 +
+ teacher-training-ai-fluency.html                   |  366 +++
+ week-02-agent-foundations.html                     |  817 ++++++
+ week-02-foundation-readiness-check.html            |  611 +++++
+ week-03-responsible-ai-decisions.html              |  778 ++++++
+ week-04-writing-word-documents.html                |  701 +++++
+ week-05-data-excel-workflows.html                  |  827 ++++++
+ week-06-media-generation-presentations.html        |  696 +++++
+ week-07-midterm-studio.html                        |  725 +++++
+ week-08-web-basics-design.html                     |  596 +++++
+ week-09-interactivity-intelligence.html            |  529 ++++
+ week-10-complete-static-deployment.html            |  549 ++++
+ week-11-knowledge-career-evidence.html             |  623 +++++
+ week-12-advanced-prompting.html                    |  493 ++++
+ week-13-security-review-lab.html                   |  679 +++++
+ week-14-final-showcase.html                        |  622 +++++
+ 21 files changed, 13807 insertions(+), 119 deletions(-)
+```
+
+---
+
+## 2026-07-31 12:35:08 EDT — Codex
+
+- **Branch:** `slide-redesign-2026-05`
+- **HEAD:** `af685ae` — Organize CS-215 course into weekly modules
+- **Upstream:** origin/slide-redesign-2026-05 — ahead 0, behind 0
+
+### Summary
+
+Added Q-requested calibration and HTML slide repair materials after the pushed CS-215 module commit.
+
+What changed locally after commit af685ae:
+- week-03-responsible-ai-decisions.html: added a Claim Calibration mini-lab after Evidence, with basis labels (Observed, Sourced, Computed, Inferred, Framed, Unknown/Guess), a five-claim interactive classification activity, and a calibration rewrite builder. Added homework asking students to revise three AI claims with labels and verification steps.
+- week-06-media-generation-presentations.html: added an optional HTML slide repair demo slide after Presentation Integration. It frames ClawHub HTML Mender as one optional external example for local/saved HTML slide repair, not a required tool install. It includes privacy/security boundary language and a homework optional link.
+- index.html: added Optional: HTML Slide Repair to Week 6 orbit resources.
+- teacher-training-ai-fluency.html: added a copyable claim calibration protocol, added optional HTML Mender to instructor media resources, and expanded failure patterns with AI flattery / neat-pattern warnings and frame-vs-reality calibration guidance.
+
+External verification:
+- Web search found ClawHub HTML Mender at https://clawhub.ai/wuhaoyupku/html-slide-mender, described as a visual editor for local/saved HTML files including HTML-based PPT/deck pages and AI-generated slide HTML.
+- curl check for https://clawhub.ai/wuhaoyupku/html-slide-mender returned HTTP 200.
+
+Verification:
+- git diff --check passed for index.html, week-03, week-06, and teacher-training.
+- Inline JS parse passed for index.html, week-03, week-06, and teacher-training.
+- Section balance passed: week-03 15/15 sections, 15 slides; week-06 13/13 sections, 13 slides; teacher training 10/10 sections.
+- Local href/src and anchor check passed for changed files.
+- New diff has no non-ASCII matches. Existing index.html still has a pre-existing em dash in a CSS comment.
+- Bounded Codex final review found no blockers. It flagged an ambiguous Cornell sourced example; I revised the wording to say the page was opened/confirmed first. Delta review found no blockers.
+- No Playwright/browser automation used.
+
+Git state:
+- These edits are not committed or pushed yet.
+- progress.md already had a post-push checkpoint modification; this checkpoint adds another local progress.md update.
+- Intentional untracked files remain: CLAUDE.md, docs/superpowers/audit-2026-05-21-deck-review.md, image/, sos-talk-may12.html, ui.txt.
+
+### Working tree (`git status --short`)
+
+```text
+ M index.html
+ M progress.md
+ M teacher-training-ai-fluency.html
+ M week-03-responsible-ai-decisions.html
+ M week-06-media-generation-presentations.html
+?? CLAUDE.md
+?? docs/superpowers/audit-2026-05-21-deck-review.md
+?? image/
+?? sos-talk-may12.html
+?? ui.txt
+```
+
+### Unstaged diff (`git diff --stat`)
+
+```text
+ index.html                                  |   2 +-
+ progress.md                                 |  93 ++++++++++++++++
+ teacher-training-ai-fluency.html            |  17 +++
+ week-03-responsible-ai-decisions.html       | 163 +++++++++++++++++++++++++++-
+ week-06-media-generation-presentations.html |  24 +++-
+ 5 files changed, 295 insertions(+), 4 deletions(-)
+```
+
+### Staged diff (`git diff --cached --stat`)
+
+_none_
+
+### Latest commit (`git show --stat --oneline HEAD`)
+
+```text
+af685ae Organize CS-215 course into weekly modules
+ course-case-bank.html                              |  298 +++
+ docs/week-03-14-material-candidates.md             |  743 +++++
+ index.html                                         |  410 ++-
+ module-00-llm-basics.html                          |   27 +
+ progress.md                                        | 2827 ++++++++++++++++++++
+ .../week-05-synthetic-admin-dataset.csv            |    9 +
+ teacher-training-ai-fluency.html                   |  366 +++
+ week-02-agent-foundations.html                     |  817 ++++++
+ week-02-foundation-readiness-check.html            |  611 +++++
+ week-03-responsible-ai-decisions.html              |  778 ++++++
+ week-04-writing-word-documents.html                |  701 +++++
+ week-05-data-excel-workflows.html                  |  827 ++++++
+ week-06-media-generation-presentations.html        |  696 +++++
+ week-07-midterm-studio.html                        |  725 +++++
+ week-08-web-basics-design.html                     |  596 +++++
+ week-09-interactivity-intelligence.html            |  529 ++++
+ week-10-complete-static-deployment.html            |  549 ++++
+ week-11-knowledge-career-evidence.html             |  623 +++++
+ week-12-advanced-prompting.html                    |  493 ++++
+ week-13-security-review-lab.html                   |  679 +++++
+ week-14-final-showcase.html                        |  622 +++++
+ 21 files changed, 13807 insertions(+), 119 deletions(-)
+```
+
+---
+
+## 2026-07-31 11:58:23 EDT — Codex
+
+- **Branch:** `slide-redesign-2026-05`
+- **HEAD:** `af685ae` — Organize CS-215 course into weekly modules
+- **Upstream:** origin/slide-redesign-2026-05 — ahead 0, behind 0
+
+### Summary
+
+Committed and pushed the CS-215 14-week course reorganization.
+
+Commit:
+- af685ae — Organize CS-215 course into weekly modules
+
+Push:
+- Pushed slide-redesign-2026-05 to origin: 3ec9516..af685ae
+
+Committed files:
+- index.html hub reorganization and Week 2-14 links/resources
+- module-00-llm-basics.html Week 1 future-work hook
+- course-case-bank.html
+- teacher-training-ai-fluency.html
+- docs/week-03-14-material-candidates.md
+- session-materials/week-05-synthetic-admin-dataset.csv
+- week-02-agent-foundations.html through week-14-final-showcase.html
+- progress.md checkpoint history through the pre-push Week 14 checkpoint
+
+Verification before commit:
+- git diff --cached --check passed after trimming Markdown trailing whitespace.
+- Inline JS parse passed for all staged HTML files.
+- Local href/src and same/cross-file anchor check passed for all staged HTML files.
+- Consent/assent diff guard in index.html found no matches.
+- Public-file local path scan excluding progress.md found no matches.
+- Tight secret-pattern scan found no matches.
+- progress.md staged diff was 2827 insertions, 0 deletions.
+- Bounded Codex commit-plan and pre-commit reviews found no blockers.
+
+Intentional untracked exclusions remain local:
+- CLAUDE.md
+- docs/superpowers/audit-2026-05-21-deck-review.md
+- image/
+- sos-talk-may12.html
+- ui.txt
+
+No Playwright/browser automation used.
+
+### Working tree (`git status --short`)
+
+```text
+?? CLAUDE.md
+?? docs/superpowers/audit-2026-05-21-deck-review.md
+?? image/
+?? sos-talk-may12.html
+?? ui.txt
+```
+
+### Unstaged diff (`git diff --stat`)
+
+_none_
+
+### Staged diff (`git diff --cached --stat`)
+
+_none_
+
+### Latest commit (`git show --stat --oneline HEAD`)
+
+```text
+af685ae Organize CS-215 course into weekly modules
+ course-case-bank.html                              |  298 +++
+ docs/week-03-14-material-candidates.md             |  743 +++++
+ index.html                                         |  410 ++-
+ module-00-llm-basics.html                          |   27 +
+ progress.md                                        | 2827 ++++++++++++++++++++
+ .../week-05-synthetic-admin-dataset.csv            |    9 +
+ teacher-training-ai-fluency.html                   |  366 +++
+ week-02-agent-foundations.html                     |  817 ++++++
+ week-02-foundation-readiness-check.html            |  611 +++++
+ week-03-responsible-ai-decisions.html              |  778 ++++++
+ week-04-writing-word-documents.html                |  701 +++++
+ week-05-data-excel-workflows.html                  |  827 ++++++
+ week-06-media-generation-presentations.html        |  696 +++++
+ week-07-midterm-studio.html                        |  725 +++++
+ week-08-web-basics-design.html                     |  596 +++++
+ week-09-interactivity-intelligence.html            |  529 ++++
+ week-10-complete-static-deployment.html            |  549 ++++
+ week-11-knowledge-career-evidence.html             |  623 +++++
+ week-12-advanced-prompting.html                    |  493 ++++
+ week-13-security-review-lab.html                   |  679 +++++
+ week-14-final-showcase.html                        |  622 +++++
+ 21 files changed, 13807 insertions(+), 119 deletions(-)
+```
+
+---
+
 ## 2026-07-31 09:17:28 EDT — Codex
 
 - **Branch:** `slide-redesign-2026-05`
