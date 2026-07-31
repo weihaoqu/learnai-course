@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Week 9: Adding Interactivity and Simple Intelligence</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#071013;--panel:#102025;--panel2:#142a30;--text:#eefafa;--muted:#9ab5b6;
+  --cyan:#22d3ee;--green:#34d399;--gold:#fbbf24;--orange:#fb923c;--red:#f87171;--blue:#60a5fa;
+  --line:rgba(255,255,255,.14);--line2:rgba(255,255,255,.24);--shadow:0 22px 70px rgba(0,0,0,.35);
+  --font:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+}
+html,body{height:100%;background:var(--bg);color:var(--text);font-family:var(--font);overflow:hidden}
+body{background:
+  linear-gradient(135deg,rgba(34,211,238,.09) 0 1px,transparent 1px 46px),
+  linear-gradient(45deg,rgba(251,191,36,.07) 0 1px,transparent 1px 52px),
+  linear-gradient(160deg,#071013,#0a171b 46%,#10151f)}
+button,input,select,textarea{font:inherit}
+button{cursor:pointer}
+.topbar{position:fixed;top:0;left:0;right:0;height:58px;display:flex;align-items:center;gap:18px;padding:0 22px;background:rgba(7,16,19,.88);backdrop-filter:blur(14px);border-bottom:1px solid var(--line);z-index:20}
+.brand{font-weight:900;letter-spacing:.01em}
+.status{margin-left:auto;color:var(--muted);font-size:14px}
+.progress{position:absolute;left:0;right:0;bottom:-1px;height:3px;background:rgba(255,255,255,.08)}
+.bar{height:100%;width:0;background:linear-gradient(90deg,var(--cyan),var(--green),var(--gold));transition:width .25s ease}
+.deck{position:relative;height:100%;padding-top:58px}
+.slide{position:absolute;inset:58px 0 78px 0;display:grid;place-items:center;padding:26px;overflow:auto;visibility:hidden;opacity:0;transform:translateY(10px);transition:opacity .22s ease,transform .22s ease,visibility .22s}
+.slide.active{visibility:visible;opacity:1;transform:translateY(0)}
+.inner{width:min(1180px,100%);margin:auto}
+.kicker{display:inline-flex;align-items:center;gap:8px;color:var(--green);font-weight:900;text-transform:uppercase;letter-spacing:.12em;font-size:13px;margin-bottom:14px}
+h1{font-size:56px;line-height:1.02;max-width:920px;margin-bottom:18px}
+h2{font-size:38px;line-height:1.08;margin-bottom:14px;max-width:960px}
+h3{font-size:18px;margin-bottom:8px}
+p{line-height:1.65}
+.lede{font-size:21px;color:#d7f4f2;max-width:930px;margin-bottom:22px}
+.muted{color:var(--muted)}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;margin-top:22px}
+.grid.three{grid-template-columns:repeat(3,minmax(0,1fr))}
+.card{background:rgba(16,32,37,.86);border:1px solid var(--line);border-radius:12px;padding:18px;box-shadow:0 10px 35px rgba(0,0,0,.18)}
+.card.cyan{border-color:rgba(34,211,238,.35);background:rgba(34,211,238,.08)}
+.card.green{border-color:rgba(52,211,153,.35);background:rgba(52,211,153,.08)}
+.card.gold{border-color:rgba(251,191,36,.35);background:rgba(251,191,36,.08)}
+.card.warn{border-color:rgba(248,113,113,.4);background:rgba(248,113,113,.08)}
+.tag{display:inline-flex;border:1px solid var(--line2);border-radius:999px;padding:4px 9px;color:var(--cyan);font-size:12px;font-weight:900;margin-bottom:10px}
+.timebox{display:inline-flex;border:1px solid rgba(251,191,36,.4);background:rgba(251,191,36,.08);color:#fde68a;border-radius:999px;padding:5px 12px;font-size:13px;font-weight:900;margin-bottom:14px}
+.teacher-note{margin-top:18px;border-left:4px solid var(--gold);background:rgba(251,191,36,.08);padding:12px 14px;color:#fff2c4;border-radius:8px;font-size:14px}
+.flow{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:10px;margin:24px 0}
+.step{border:1px solid var(--line);border-radius:12px;padding:16px;background:rgba(255,255,255,.04);min-height:118px}
+.step strong{display:block;color:var(--cyan);margin-bottom:8px}
+.demo-layout,.builder-layout,.test-layout,.exit-layout{display:grid;grid-template-columns:420px minmax(0,1fr);gap:18px;margin-top:20px}
+.form{display:grid;gap:11px}
+label{display:grid;gap:6px;color:#d8f7f5;font-size:13px;font-weight:900;text-transform:uppercase;letter-spacing:.08em}
+input,select,textarea{width:100%;border:1px solid var(--line);background:#061015;color:var(--text);border-radius:10px;padding:11px 12px;outline:none}
+textarea{resize:vertical;min-height:82px}
+input:focus,select:focus,textarea:focus{border-color:rgba(34,211,238,.85);box-shadow:0 0 0 3px rgba(34,211,238,.15)}
+.btn{border:1px solid var(--line2);border-radius:10px;padding:10px 14px;background:rgba(255,255,255,.07);color:var(--text);font-weight:900}
+.btn:hover,.btn:focus{border-color:rgba(34,211,238,.7);background:rgba(34,211,238,.12);outline:none}
+.btn.primary{background:linear-gradient(135deg,var(--cyan),var(--green));color:#031113;border:none}
+.btn.gold{background:linear-gradient(135deg,var(--gold),var(--orange));color:#160d02;border:none}
+.output,.preview{border:1px solid var(--line);background:#07161a;border-radius:12px;padding:18px;min-height:230px;white-space:pre-wrap;color:#ddfbf8;line-height:1.55}
+.output h3{color:var(--green)}
+.pipeline-buttons{display:flex;flex-wrap:wrap;gap:10px;margin:18px 0}
+.pill-btn{border:1px solid var(--line);border-radius:999px;padding:9px 12px;background:rgba(255,255,255,.05);color:var(--text);font-weight:900}
+.pill-btn.active{background:rgba(34,211,238,.16);border-color:rgba(34,211,238,.75);color:#a5f3fc}
+.rule-table{width:100%;border-collapse:collapse;margin-top:16px;overflow:hidden;border-radius:12px}
+.rule-table th,.rule-table td{border:1px solid var(--line);padding:11px;text-align:left;vertical-align:top}
+.rule-table th{color:#a5f3fc;background:rgba(34,211,238,.08)}
+.checklist{display:grid;gap:10px;margin-top:18px}
+.checkitem{display:flex;align-items:flex-start;gap:10px;border:1px solid var(--line);border-radius:12px;padding:12px;background:rgba(255,255,255,.04)}
+.checkitem input{width:auto;margin-top:3px}
+.test-row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.artifact{background:linear-gradient(135deg,rgba(34,211,238,.12),rgba(251,191,36,.10));border:1px solid rgba(34,211,238,.25)}
+.resource-links{display:flex;flex-wrap:wrap;gap:10px;margin-top:18px}
+.link-btn{display:inline-flex;align-items:center;justify-content:center;border:1px solid var(--line2);border-radius:10px;padding:10px 13px;color:#d9fbff;text-decoration:none;font-weight:900;background:rgba(255,255,255,.06)}
+.link-btn:hover,.link-btn:focus{outline:2px solid rgba(34,211,238,.55);background:rgba(34,211,238,.10)}
+.controls{position:fixed;left:0;right:0;bottom:0;min-height:78px;display:flex;gap:10px;align-items:center;justify-content:center;flex-wrap:wrap;padding:12px 18px;background:rgba(7,16,19,.92);border-top:1px solid var(--line);z-index:20}
+.jump{display:flex;gap:7px;flex-wrap:wrap;justify-content:center}
+.jump button{width:34px;height:34px;border-radius:9px;border:1px solid var(--line);background:rgba(255,255,255,.05);color:var(--muted);font-weight:900}
+.jump button[aria-current="true"]{background:var(--cyan);color:#031113;border-color:transparent}
+.notes{display:none;position:fixed;right:18px;bottom:92px;width:min(420px,calc(100vw - 36px));max-height:55vh;overflow:auto;background:#09161a;border:1px solid var(--line2);border-radius:12px;padding:16px;z-index:30;box-shadow:var(--shadow)}
+.notes.show{display:block}
+@media (max-width:900px){
+  html,body{overflow:auto}
+  .deck{min-height:100%}
+  .slide{position:relative;inset:auto;min-height:calc(100vh - 136px);display:none;padding:22px 16px;margin-top:58px}
+  .slide.active{display:grid}
+  h1{font-size:38px}
+  h2{font-size:30px}
+  .lede{font-size:18px}
+  .grid,.grid.three,.flow,.demo-layout,.builder-layout,.test-layout,.exit-layout{grid-template-columns:1fr}
+  .controls{position:sticky}
+}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{transition:none!important;animation:none!important;scroll-behavior:auto!important}
+}
+</style>
+</head>
+<body>
+<div class="topbar">
+  <div class="brand">Week 9: Interactivity and Simple Intelligence</div>
+  <div class="progress" aria-hidden="true"><div class="bar" id="bar"></div></div>
+  <div class="status" id="status">Slide 1</div>
+</div>
+
+<main class="deck" id="deck">
+  <section class="slide active" data-part="Open" data-title="From brief to behavior" aria-hidden="false">
+    <div class="inner">
+      <div class="kicker">60-minute build studio</div>
+      <h1>Add behavior to your Week 8 app.</h1>
+      <p class="lede">Week 8 produced a one-screen app brief. Week 9 turns that brief into a working interaction: inputs, a button, validation, simple rules, an output card, and test cases.</p>
+      <div class="grid three">
+        <div class="card cyan"><span class="tag">In class</span><p>Use Study Break Picker as the shared demo, then adapt the pattern to each student's app.</p></div>
+        <div class="card green"><span class="tag">Boundary</span><p>Frontend only. No backend, database, login, public posting, API keys, or private student data.</p></div>
+        <div class="card gold"><span class="tag">Artifact</span><p>Week 9 Interactive Feature Brief: feature, rules, validation, output, test cases, and agent prompt.</p></div>
+      </div>
+      <div class="teacher-note">Pacing: 4 minutes. Say explicitly that edit/build actions are allowed only after human approval and verification. Week 9 is not an API-key lesson.</div>
+    </div>
+  </section>
+
+  <section class="slide" data-part="Bridge" data-title="Week 8 to Week 9" inert aria-hidden="true">
+    <div class="inner">
+      <div class="timebox">4-10 min</div>
+      <h2>Your Week 8 brief already contains the Week 9 feature map.</h2>
+      <p class="lede">Do not restart the project. Translate the design brief into code responsibilities.</p>
+      <div class="flow">
+        <div class="step"><strong>User</strong><p>Who uses the app?</p></div>
+        <div class="step"><strong>Inputs</strong><p>What facts does the app need?</p></div>
+        <div class="step"><strong>Event</strong><p>What button or action starts the feature?</p></div>
+        <div class="step"><strong>Rules</strong><p>How does the app choose an output?</p></div>
+        <div class="step"><strong>Output</strong><p>What result can the user judge?</p></div>
+      </div>
+      <div class="card warn"><h3>Privacy guard</h3><p>Use fictional, low-risk, or generic inputs. Do not ask students to enter health details, family information, exact locations, grades, finances, account credentials, or private schedules.</p></div>
+    </div>
+  </section>
+
+  <section class="slide" id="demo" data-part="Demo" data-title="Study Break Picker" inert aria-hidden="true">
+    <div class="inner">
+      <div class="timebox">10-24 min</div>
+      <h2>Demo: Study Break Picker.</h2>
+      <p class="lede">A simple app can feel intelligent without a model API. It reads inputs, checks for missing information, applies rules, and renders a useful output.</p>
+      <div class="demo-layout">
+        <div class="card">
+          <div class="form">
+            <label>Low-risk goal<input id="demoGoal" placeholder="e.g., reset before homework"></label>
+            <label>Available time<select id="demoTime"><option value="">Choose time</option><option value="5">5 minutes</option><option value="10">10 minutes</option><option value="20">20 minutes</option><option value="30">30 minutes</option></select></label>
+            <label>Energy level<select id="demoEnergy"><option value="">Choose energy</option><option value="low">Low</option><option value="medium">Medium</option><option value="high">High</option></select></label>
+            <label>Break style<select id="demoStyle"><option value="">Choose style</option><option value="calm">Calm</option><option value="focus">Focus</option><option value="move">Move</option><option value="creative">Creative</option></select></label>
+            <button class="btn primary" id="demoRun">Suggest a break</button>
+            <button class="btn" id="demoReset">Reset demo</button>
+          </div>
+        </div>
+        <div class="output" id="demoOutput" tabindex="0">Try the demo. Leave one field blank first so students see validation before generation.</div>
+      </div>
+      <div class="teacher-note">Ask students to identify the HTML, CSS, JavaScript event, validation rule, state, and output area in the demo.</div>
+    </div>
+  </section>
+
+  <section class="slide" data-part="Concept" data-title="Interaction pipeline" inert aria-hidden="true">
+    <div class="inner">
+      <div class="timebox">24-32 min</div>
+      <h2>The interaction pipeline has five parts.</h2>
+      <p class="lede">Students do not need to memorize syntax first. They need a mental model they can use when prompting and reviewing an agent.</p>
+      <div class="pipeline-buttons" role="group" aria-label="Interaction pipeline parts">
+        <button class="pill-btn active" data-pipe="input" aria-pressed="true">Input</button>
+        <button class="pill-btn" data-pipe="event" aria-pressed="false">Event</button>
+        <button class="pill-btn" data-pipe="validation" aria-pressed="false">Validation</button>
+        <button class="pill-btn" data-pipe="state" aria-pressed="false">State</button>
+        <button class="pill-btn" data-pipe="output" aria-pressed="false">Output</button>
+      </div>
+      <div class="output" id="pipeReadout" tabindex="0"></div>
+      <div class="teacher-note">Connect this to agent review: when a feature fails, students should say which part of the pipeline failed instead of saying "the app is broken."</div>
+    </div>
+  </section>
+
+  <section class="slide" data-part="Concept" data-title="Simple intelligence" inert aria-hidden="true">
+    <div class="inner">
+      <div class="timebox">32-40 min</div>
+      <h2>Simple intelligence means bounded rules, not hidden magic.</h2>
+      <p class="lede">For Week 9, intelligence can be a decision table, scoring rule, category match, template, checklist, or random choice inside safe boundaries.</p>
+      <table class="rule-table">
+        <thead><tr><th>Input pattern</th><th>Rule</th><th>Output behavior</th></tr></thead>
+        <tbody>
+          <tr><td>5 minutes + low energy</td><td>Keep it short and low effort.</td><td>Breathing reset, desk stretch, or one-song break.</td></tr>
+          <tr><td>20 minutes + high energy</td><td>Allow movement, but keep return easy.</td><td>Walk, quick workout, or room reset with a timer.</td></tr>
+          <tr><td>Blank or vague input</td><td>Ask for the missing field.</td><td>Helpful validation message, not a fake recommendation.</td></tr>
+        </tbody>
+      </table>
+      <div class="grid">
+        <div class="card warn"><h3>Bad rule</h3><p>"If the student seems stressed, tell them what they should do." This guesses private state and overreaches.</p></div>
+        <div class="card green"><h3>Better rule</h3><p>"If energy is low, suggest a low-effort break and remind the user to choose what fits them." This is bounded and reviewable.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="slide" id="agent-lab" data-part="Lab" data-title="Agent build prompt" inert aria-hidden="true">
+    <div class="inner">
+      <div class="timebox">40-50 min</div>
+      <h2>Ask your agent for one adaptive feature.</h2>
+      <p class="lede">Students can use Claude Code or Codex. The important move is to give the agent a small feature contract and then approve or reject its edits after review.</p>
+      <div class="builder-layout">
+        <div class="card">
+          <div class="form">
+            <label>App title<input id="pbTitle" placeholder="e.g., Study Break Picker"></label>
+            <label>Main inputs<textarea id="pbInputs" placeholder="e.g., time, energy, break style"></textarea></label>
+            <label>Main button<input id="pbButton" placeholder="e.g., Suggest a break"></label>
+            <label>Rules<textarea id="pbRules" placeholder="e.g., low energy -> calm option; blank input -> helpful validation"></textarea></label>
+            <label>Output card<textarea id="pbOutput" placeholder="e.g., activity, reason, return-to-work tip"></textarea></label>
+            <label>Boundary<textarea id="pbBoundary" placeholder="Frontend only, no API keys, no private data, no backend, no login"></textarea></label>
+            <button class="btn primary" id="copyBuildPrompt">Copy agent prompt</button>
+          </div>
+        </div>
+        <div class="preview" id="buildPrompt" tabindex="0"></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="slide" id="tests" data-part="Lab" data-title="Test cases" inert aria-hidden="true">
+    <div class="inner">
+      <div class="timebox">50-56 min</div>
+      <h2>Write tests before you trust the feature.</h2>
+      <p class="lede">A feature is not finished when the agent says it is finished. It is finished when the student can run examples and explain the result.</p>
+      <div class="test-layout">
+        <div class="card">
+          <div class="form">
+            <div class="test-row"><label>Test 1 input<textarea id="t1in" placeholder="5 min, low energy, calm"></textarea></label><label>Expected output<textarea id="t1out" placeholder="Short calm break with reason"></textarea></label></div>
+            <div class="test-row"><label>Test 2 input<textarea id="t2in" placeholder="20 min, high energy, move"></textarea></label><label>Expected output<textarea id="t2out" placeholder="Movement break with timer"></textarea></label></div>
+            <div class="test-row"><label>Edge case input<textarea id="t3in" placeholder="blank time field"></textarea></label><label>Expected behavior<textarea id="t3out" placeholder="Validation asks for time"></textarea></label></div>
+            <button class="btn gold" id="copyTests">Copy test plan</button>
+          </div>
+        </div>
+        <div class="preview" id="testPreview" tabindex="0"></div>
+      </div>
+      <div class="teacher-note">Require at least one failed or edge case. This teaches students to verify behavior instead of admiring the first working demo.</div>
+    </div>
+  </section>
+
+  <section class="slide" data-part="Review" data-title="Human approval loop" inert aria-hidden="true">
+    <div class="inner">
+      <div class="timebox">56-60 min</div>
+      <h2>Human review is still the control system.</h2>
+      <p class="lede">An agent may edit code, but students must inspect, test, and approve the result. This connects Week 9 back to the Week 2 agent loop.</p>
+      <div class="grid three">
+        <div class="card cyan"><h3>Observe</h3><p>Run the app. Write what happened, not what you hoped happened.</p></div>
+        <div class="card gold"><h3>Diagnose</h3><p>Name the pipeline part: input, event, validation, state, rule, or output.</p></div>
+        <div class="card green"><h3>Approve</h3><p>Accept edits only after the test cases pass and the boundary is still respected.</p></div>
+      </div>
+      <div class="checklist">
+        <label class="checkitem"><input type="checkbox"><span>No API key or secret appears in frontend code.</span></label>
+        <label class="checkitem"><input type="checkbox"><span>The feature works with three test cases.</span></label>
+        <label class="checkitem"><input type="checkbox"><span>The validation message is helpful and not judgmental.</span></label>
+        <label class="checkitem"><input type="checkbox"><span>The output is advice-light: useful, bounded, and easy to reject.</span></label>
+      </div>
+    </div>
+  </section>
+
+  <section class="slide artifact" id="exit" data-part="Close" data-title="Feature brief" inert aria-hidden="true">
+    <div class="inner">
+      <div class="timebox">Exit artifact</div>
+      <h2>Week 9 Interactive Feature Brief</h2>
+      <p class="lede">Submit the feature you added or plan to add. Week 10 will use this as the starting point for a more complete web project.</p>
+      <div class="exit-layout">
+        <div class="card">
+          <div class="form">
+            <label>App title<input id="exTitle" placeholder="App title"></label>
+            <label>Interactive feature<textarea id="exFeature" placeholder="What did you add?"></textarea></label>
+            <label>Inputs and event<textarea id="exInputEvent" placeholder="What does the user enter and click?"></textarea></label>
+            <label>Rules or template<textarea id="exRules" placeholder="How does the app decide what to show?"></textarea></label>
+            <label>Validation<textarea id="exValidation" placeholder="What happens when input is missing or invalid?"></textarea></label>
+            <label>Test evidence<textarea id="exTests" placeholder="List three test cases and results."></textarea></label>
+            <label>Human review note<textarea id="exReview" placeholder="What AI suggestion did you verify, change, or reject?"></textarea></label>
+            <button class="btn primary" id="copyExit">Copy feature brief</button>
+          </div>
+        </div>
+        <div class="preview" id="exitPreview" tabindex="0"></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="slide" data-part="Homework" data-title="Homework" inert aria-hidden="true">
+    <div class="inner">
+      <div class="kicker">After class</div>
+      <h2>Homework: revise, build, test.</h2>
+      <p class="lede">Use your Week 8 App Design Brief plus the Week 9 feature contract. Build one frontend interaction and submit evidence.</p>
+      <div class="grid">
+        <div class="card"><h3>Required</h3><p>Submit your Week 9 Interactive Feature Brief, three test cases, and a short note explaining one AI edit you accepted, changed, or rejected.</p></div>
+        <div class="card"><h3>Allowed tools</h3><p>Claude Code or Codex. Same task, different agent track. Use human approval before accepting edits.</p></div>
+        <div class="card"><h3>Not allowed yet</h3><p>No API keys in browser code, no backend, no login, no database, no private data, and no public posting requirement.</p></div>
+        <div class="card"><h3>Reference</h3><p>Use MDN for vocabulary and reference around JavaScript events, inputs, and buttons.</p></div>
+      </div>
+      <div class="resource-links">
+        <a class="link-btn" href="https://developer.mozilla.org/en-US/docs/Learn_web_development/Core/Scripting/Events" target="_blank" rel="noopener noreferrer" aria-label="Open MDN introduction to events, opens in a new tab">MDN events reference</a>
+        <a class="link-btn" href="claude-code-course.html">Course web-building resource</a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<nav class="controls" aria-label="Slide controls">
+  <button class="btn" id="notesBtn">Notes</button>
+  <div class="jump" id="jump" role="group" aria-label="Slide jump buttons"></div>
+  <button class="btn" id="prevBtn">Prev</button>
+  <button class="btn primary" id="nextBtn">Next</button>
+</nav>
+
+<aside class="notes" id="notesPanel" aria-live="polite">
+  <h3>Teacher notes</h3>
+  <p id="notesText">Use the slide notes to keep Week 9 as an adaptive feature lab, not a lecture about syntax.</p>
+</aside>
+
+<script>
+const slides = Array.from(document.querySelectorAll('.slide'));
+const statusEl = document.getElementById('status');
+const bar = document.getElementById('bar');
+const jump = document.getElementById('jump');
+const notesPanel = document.getElementById('notesPanel');
+const notesText = document.getElementById('notesText');
+let current = Math.max(0, slides.findIndex(s => s.classList.contains('active')));
+
+slides.forEach((slide, i) => {
+  const btn = document.createElement('button');
+  btn.type = 'button';
+  btn.textContent = String(i + 1);
+  btn.setAttribute('aria-label', `Go to slide ${i + 1}: ${slide.dataset.title}`);
+  btn.addEventListener('click', () => go(i));
+  jump.appendChild(btn);
+});
+
+function go(index){
+  current = Math.max(0, Math.min(slides.length - 1, index));
+  slides.forEach((slide, i) => {
+    const active = i === current;
+    slide.classList.toggle('active', active);
+    slide.toggleAttribute('inert', !active);
+    slide.setAttribute('aria-hidden', active ? 'false' : 'true');
+  });
+  Array.from(jump.children).forEach((btn, i) => btn.setAttribute('aria-current', i === current ? 'true' : 'false'));
+  statusEl.textContent = `Slide ${current + 1} of ${slides.length}`;
+  bar.style.width = `${((current + 1) / slides.length) * 100}%`;
+  const note = slides[current].querySelector('.teacher-note');
+  notesText.textContent = note ? note.textContent : 'No special note for this slide.';
+  const id = slides[current].id;
+  if (id) history.replaceState(null, '', `#${id}`);
+}
+
+document.getElementById('prevBtn').addEventListener('click', () => go(current - 1));
+document.getElementById('nextBtn').addEventListener('click', () => go(current + 1));
+document.getElementById('notesBtn').addEventListener('click', () => notesPanel.classList.toggle('show'));
+document.addEventListener('keydown', e => {
+  if (e.target.closest('input, textarea, select, button, a')) return;
+  if (e.key === 'ArrowRight' || e.key === 'PageDown') go(current + 1);
+  if (e.key === 'ArrowLeft' || e.key === 'PageUp') go(current - 1);
+  if (e.key === 'Home') go(0);
+  if (e.key === 'End') go(slides.length - 1);
+  if (e.key.toLowerCase() === 'n') notesPanel.classList.toggle('show');
+});
+
+function value(id, fallback){
+  const el = document.getElementById(id);
+  return el && el.value.trim() ? el.value.trim() : fallback;
+}
+
+function copyText(text, target){
+  if (navigator.clipboard) {
+    navigator.clipboard.writeText(text).then(() => {
+      if (target) target.textContent = 'Copied.';
+    }).catch(() => fallbackCopy(text, target));
+  } else {
+    fallbackCopy(text, target);
+  }
+}
+
+function fallbackCopy(text, target){
+  const ta = document.createElement('textarea');
+  ta.value = text;
+  document.body.appendChild(ta);
+  ta.select();
+  document.execCommand('copy');
+  ta.remove();
+  if (target) target.textContent = 'Copied.';
+}
+
+function runDemo(){
+  const goal = value('demoGoal', '');
+  const time = document.getElementById('demoTime').value;
+  const energy = document.getElementById('demoEnergy').value;
+  const style = document.getElementById('demoStyle').value;
+  const out = document.getElementById('demoOutput');
+  const missing = [];
+  if (!goal) missing.push('low-risk goal');
+  if (!time) missing.push('available time');
+  if (!energy) missing.push('energy level');
+  if (!style) missing.push('break style');
+  if (missing.length) {
+    out.textContent = `Validation message:\nPlease add: ${missing.join(', ')}.\n\nA good app does not invent recommendations when required input is missing.`;
+    return;
+  }
+  let activity = 'one-song desk reset';
+  let reason = 'It is short enough to finish and return.';
+  if (Number(time) <= 5) {
+    activity = energy === 'high' ? 'five-minute walk loop' : 'two-minute breathing reset';
+    reason = 'The time box is tight, so the break must be easy to stop.';
+  } else if (style === 'move') {
+    activity = energy === 'low' ? 'gentle stretch sequence' : 'walk outside with a timer';
+    reason = 'Movement fits the requested style, but the timer protects the return.';
+  } else if (style === 'creative') {
+    activity = 'draw a tiny sketch or write four lines';
+    reason = 'Creative output gives a reset without turning into a new project.';
+  } else if (style === 'focus') {
+    activity = 'clear the desk and write the next task on paper';
+    reason = 'The break prepares the next work action.';
+  }
+  const title = document.createElement('h3');
+  title.textContent = activity;
+  const why = document.createElement('p');
+  why.textContent = `Why: ${reason}`;
+  const forGoal = document.createElement('p');
+  forGoal.textContent = `For: ${goal}`;
+  const tip = document.createElement('p');
+  tip.textContent = `Return tip: set a ${time}-minute timer and stop when it rings.`;
+  out.replaceChildren(title, why, forGoal, tip);
+}
+
+document.getElementById('demoRun').addEventListener('click', runDemo);
+document.getElementById('demoReset').addEventListener('click', () => {
+  ['demoGoal','demoTime','demoEnergy','demoStyle'].forEach(id => document.getElementById(id).value = '');
+  document.getElementById('demoOutput').textContent = 'Try the demo. Leave one field blank first so students see validation before generation.';
+});
+
+const pipeText = {
+  input: 'Input: read values from form controls. Example: time, energy, and break style.',
+  event: 'Event: listen for a user action. Example: the Suggest a break button is clicked.',
+  validation: 'Validation: check whether required values are missing, unsafe, or outside the scope.',
+  state: 'State: keep the current choices together so the rule can reason about them.',
+  output: 'Output: render a result card the user can inspect, accept, reject, or test.'
+};
+function setPipe(key){
+  document.querySelectorAll('[data-pipe]').forEach(btn => {
+    const active = btn.dataset.pipe === key;
+    btn.classList.toggle('active', active);
+    btn.setAttribute('aria-pressed', active ? 'true' : 'false');
+  });
+  document.getElementById('pipeReadout').textContent = pipeText[key];
+}
+document.querySelectorAll('[data-pipe]').forEach(btn => btn.addEventListener('click', () => setPipe(btn.dataset.pipe)));
+
+function updateBuildPrompt(){
+  const text = `I have a Week 8 one-screen app called ${value('pbTitle','[app title]')}.
+Add one frontend-only interactive feature.
+
+Inputs:
+${value('pbInputs','[input fields]')}
+
+Main event:
+The user clicks "${value('pbButton','[button label]')}".
+
+Rules:
+${value('pbRules','[simple rules, scoring, categories, or templates]')}
+
+Output card:
+${value('pbOutput','[what the app should show]')}
+
+Boundaries:
+${value('pbBoundary','Frontend only. No API keys in browser code, no backend, no database, no login, no private data.')}
+
+Before editing, explain the planned change. After editing, tell me exactly how to test it with three examples.`;
+  document.getElementById('buildPrompt').textContent = text;
+  return text;
+}
+['pbTitle','pbInputs','pbButton','pbRules','pbOutput','pbBoundary'].forEach(id => document.getElementById(id).addEventListener('input', updateBuildPrompt));
+document.getElementById('copyBuildPrompt').addEventListener('click', () => copyText(updateBuildPrompt(), document.getElementById('buildPrompt')));
+
+function updateTests(){
+  const text = `Week 9 Test Plan
+
+Test 1
+Input: ${value('t1in','[normal input]')}
+Expected output: ${value('t1out','[expected output]')}
+
+Test 2
+Input: ${value('t2in','[different valid input]')}
+Expected output: ${value('t2out','[expected output]')}
+
+Edge case
+Input: ${value('t3in','[missing or invalid input]')}
+Expected behavior: ${value('t3out','[validation or safe fallback]')}`;
+  document.getElementById('testPreview').textContent = text;
+  return text;
+}
+['t1in','t1out','t2in','t2out','t3in','t3out'].forEach(id => document.getElementById(id).addEventListener('input', updateTests));
+document.getElementById('copyTests').addEventListener('click', () => copyText(updateTests(), document.getElementById('testPreview')));
+
+function updateExit(){
+  const text = `Week 9 Interactive Feature Brief
+
+App title: ${value('exTitle','[app title]')}
+
+Interactive feature:
+${value('exFeature','[feature]')}
+
+Inputs and event:
+${value('exInputEvent','[inputs and event]')}
+
+Rules or template:
+${value('exRules','[rules or template]')}
+
+Validation:
+${value('exValidation','[validation behavior]')}
+
+Test evidence:
+${value('exTests','[three tests and results]')}
+
+Human review note:
+${value('exReview','[accepted, changed, or rejected AI suggestion]')}`;
+  document.getElementById('exitPreview').textContent = text;
+  return text;
+}
+['exTitle','exFeature','exInputEvent','exRules','exValidation','exTests','exReview'].forEach(id => document.getElementById(id).addEventListener('input', updateExit));
+document.getElementById('copyExit').addEventListener('click', () => copyText(updateExit(), document.getElementById('exitPreview')));
+
+const hashIndex = location.hash ? slides.findIndex(s => `#${s.id}` === location.hash) : -1;
+setPipe('input');
+updateBuildPrompt();
+updateTests();
+updateExit();
+go(hashIndex >= 0 ? hashIndex : current);
+</script>
+</body>
+</html>

@@ -1,0 +1,827 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Week 5 Slides - Data, Excel, and Administrative Workflows</title>
+<link rel="icon" href="data:,">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#07100d;--panel:#101b18;--panel2:#162722;--panel3:#20382f;--line:rgba(255,255,255,.13);
+  --text:#f4fbf8;--muted:#a8bbb4;--faint:#72857d;
+  --blue:#6aa8ff;--cyan:#28d9d2;--green:#49d17d;--lime:#a3e635;--amber:#f7bc48;--rose:#fb7185;--violet:#a78bfa;
+  --sheet:#f8fafc;--sheetline:#d6e0ea;--sheettext:#172033;--font:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  --mono:"SFMono-Regular",Consolas,"Liberation Mono",Menlo,monospace;
+}
+html,body{height:100%;overflow:hidden}
+body{font-family:var(--font);background:
+  radial-gradient(circle at 18% 14%,rgba(73,209,125,.16),transparent 34%),
+  radial-gradient(circle at 82% 18%,rgba(40,217,210,.11),transparent 32%),
+  radial-gradient(circle at 54% 86%,rgba(106,168,255,.11),transparent 36%),
+  linear-gradient(135deg,#07100d,#0d1716 52%,#07121a);color:var(--text)}
+a{color:var(--cyan);text-decoration:none}
+button,textarea,input,select{font:inherit}
+code{font-family:var(--mono);color:#bbf7d0}
+.deck{height:100vh;width:100vw;position:relative}
+.slide{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:82px 7vw 84px;opacity:0;pointer-events:none;transition:opacity .25s ease;overflow:auto}
+.slide.active{opacity:1;pointer-events:auto}
+.inner{width:min(1180px,100%)}
+.kicker{display:inline-flex;align-items:center;gap:10px;color:var(--cyan);font-size:13px;font-weight:900;letter-spacing:.12em;text-transform:uppercase;margin-bottom:18px}
+.kicker::before{content:"";width:34px;height:2px;background:currentColor;border-radius:99px}
+h1{font-size:clamp(42px,6vw,74px);line-height:1.02;letter-spacing:0;margin-bottom:18px}
+h2{font-size:clamp(34px,4.6vw,58px);line-height:1.06;letter-spacing:0;margin-bottom:18px}
+h3{font-size:clamp(22px,2.25vw,30px);line-height:1.18;margin-bottom:12px}
+p,li{font-size:clamp(18px,1.5vw,22px);line-height:1.45;color:var(--muted)}
+ul{padding-left:1.2em;margin:18px 0}
+li{margin:8px 0}
+.lede{font-size:clamp(22px,2.12vw,30px);max-width:980px;color:#eafff6}
+.muted{color:var(--faint);font-size:16px}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px;margin-top:26px}
+.grid.three{grid-template-columns:repeat(3,minmax(0,1fr))}
+.grid.four{grid-template-columns:repeat(4,minmax(0,1fr))}
+.card{background:rgba(16,27,24,.86);border:1px solid var(--line);border-radius:14px;padding:22px;min-height:130px}
+.card h3{font-size:22px;color:#fff}
+.tag{display:inline-flex;border:1px solid rgba(255,255,255,.16);border-radius:999px;padding:7px 11px;color:#e6fff3;font-size:13px;font-weight:900;margin-bottom:12px;background:rgba(255,255,255,.045)}
+.timebox{display:inline-flex;align-items:center;border:1px solid rgba(73,209,125,.38);background:rgba(73,209,125,.10);border-radius:999px;padding:8px 12px;color:#dcfce7;font-size:14px;font-weight:900;margin-bottom:18px}
+.terminal{background:#040806;border:1px solid rgba(148,163,184,.24);border-radius:16px;padding:18px;font-family:var(--mono);color:#dcfce7;font-size:clamp(15px,1.2vw,18px);line-height:1.55;margin-top:20px;white-space:pre-wrap}
+.lab{border-left:6px solid var(--green);background:rgba(73,209,125,.08)}
+.check{border-left:6px solid var(--cyan);background:rgba(40,217,210,.08)}
+.warn{border-left:6px solid var(--rose);background:rgba(251,113,133,.08)}
+.note{border-left:6px solid var(--amber);background:rgba(247,188,72,.10)}
+.source{border-left:6px solid var(--violet);background:rgba(167,139,250,.08)}
+.artifact{background:linear-gradient(135deg,rgba(73,209,125,.13),rgba(40,217,210,.10));border:1px solid rgba(73,209,125,.26)}
+.teacher-note{display:none;margin-top:22px;border:1px dashed rgba(255,255,255,.28);background:rgba(255,255,255,.055);border-radius:14px;padding:16px;color:#e2e8f0;font-size:16px}
+body.notes-on .teacher-note{display:block}
+.hud{position:fixed;top:0;left:0;right:0;height:54px;background:rgba(7,16,13,.9);backdrop-filter:blur(14px);border-bottom:1px solid var(--line);display:flex;align-items:center;gap:14px;padding:0 18px;z-index:5}
+.brand{font-weight:900;color:#fff;white-space:nowrap}
+.progress{height:6px;background:rgba(255,255,255,.08);border-radius:999px;flex:1;overflow:hidden}
+.bar{height:100%;width:0;background:linear-gradient(90deg,var(--green),var(--cyan),var(--blue));transition:width .2s ease}
+.status{color:var(--muted);font-size:13px;white-space:nowrap}
+.controls{position:fixed;left:0;right:0;bottom:0;min-height:62px;background:rgba(7,16,13,.92);backdrop-filter:blur(14px);border-top:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;gap:12px;padding:10px 18px;z-index:5}
+.btn{border:1px solid var(--line);background:rgba(255,255,255,.06);color:#fff;border-radius:11px;padding:9px 13px;cursor:pointer;font-weight:900}
+.btn:hover,.btn:focus{outline:2px solid rgba(73,209,125,.55)}
+.jump{display:flex;gap:8px;flex-wrap:wrap;justify-content:center}
+.jump .btn{font-size:13px;color:var(--muted)}
+.jump .btn.active{color:#06150e;background:var(--green)}
+.link-btn{display:inline-flex;align-items:center;gap:8px;border:1px solid rgba(73,209,125,.45);background:rgba(73,209,125,.12);color:#dcfce7;border-radius:12px;padding:12px 15px;font-weight:900;margin-top:18px;margin-right:8px}
+.sheet-stage{display:grid;grid-template-columns:minmax(0,1fr) 360px;gap:20px;margin-top:24px;align-items:stretch}
+.sheet{background:var(--sheet);color:var(--sheettext);border-radius:16px;box-shadow:0 24px 70px rgba(0,0,0,.28);padding:16px;overflow:auto;min-height:360px}
+.sheet table{width:100%;border-collapse:collapse;font-size:14px}
+.sheet th,.sheet td{border:1px solid var(--sheetline);padding:9px 10px;text-align:left;white-space:nowrap}
+.sheet th{background:#e8f1f8;color:#0f172a;font-weight:900}
+.sheet td{background:#fff;color:#334155}
+.sheet .bad{background:#fee2e2;color:#991b1b;font-weight:800}
+.sheet .warncell{background:#fef3c7;color:#92400e;font-weight:800}
+.sheet .ok{background:#dcfce7;color:#166534;font-weight:800}
+.mini-chart{height:250px;display:grid;grid-template-columns:repeat(5,1fr);align-items:end;gap:14px;border-left:2px solid rgba(255,255,255,.28);border-bottom:2px solid rgba(255,255,255,.28);padding:22px;margin-top:24px}
+.barcol{display:flex;flex-direction:column;justify-content:flex-end;gap:8px;align-items:center;height:100%;color:#e5edf7;font-size:13px;font-weight:900}
+.barshape{width:100%;border-radius:8px 8px 0 0;background:linear-gradient(180deg,var(--green),var(--cyan))}
+.workflow{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-top:28px}
+.node{border:1px solid rgba(255,255,255,.18);background:rgba(255,255,255,.06);border-radius:14px;padding:15px 17px;min-width:118px;text-align:center;color:#eefdf5;font-weight:900}
+.arrow{color:var(--cyan);font-size:24px;font-weight:900}
+.builder{display:grid;grid-template-columns:390px minmax(0,1fr);gap:18px;margin-top:22px}
+.form{display:grid;gap:10px}
+.form label{display:grid;gap:6px;color:#e8f7ee;font-size:13px;font-weight:900;text-transform:uppercase;letter-spacing:.08em}
+.form input,.form textarea,.form select{width:100%;border:1px solid rgba(255,255,255,.15);background:#040806;color:#f8fafc;border-radius:12px;padding:12px 13px;outline:none}
+.form textarea{min-height:74px;resize:vertical}
+.form input:focus,.form textarea:focus,.form select:focus{border-color:rgba(73,209,125,.75);box-shadow:0 0 0 3px rgba(73,209,125,.16)}
+.ticket{border:1px solid rgba(73,209,125,.32);background:rgba(73,209,125,.08);border-radius:16px;padding:18px;white-space:pre-wrap;color:#effff6;font-family:var(--mono);font-size:15px;line-height:1.5;min-height:430px;user-select:text}
+.choice-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin-top:22px}
+.choice,.decision-btn,.triage-btn,.critique-btn{width:100%;text-align:left;color:var(--text);background:rgba(255,255,255,.055);border:1px solid var(--line);border-radius:13px;padding:15px 16px;cursor:pointer;min-height:82px}
+.choice:hover,.choice:focus,.decision-btn:hover,.decision-btn:focus,.triage-btn:hover,.triage-btn:focus,.critique-btn:hover,.critique-btn:focus{outline:2px solid rgba(73,209,125,.65)}
+.choice.correct,.decision-btn.correct,.triage-btn.correct,.critique-btn.correct{border-color:rgba(73,209,125,.9);background:rgba(73,209,125,.16)}
+.choice.wrong,.decision-btn.wrong,.triage-btn.wrong,.critique-btn.wrong{border-color:rgba(251,113,133,.9);background:rgba(251,113,133,.14)}
+.feedback{display:none;margin-top:16px;padding:14px 16px;border-radius:12px;background:rgba(255,255,255,.07);color:#f8fafc;font-size:17px}
+.feedback.show{display:block}
+.pill-row{display:flex;flex-wrap:wrap;gap:10px;margin-top:18px}
+.pill{display:inline-flex;border:1px solid rgba(255,255,255,.16);border-radius:999px;padding:8px 12px;font-size:14px;font-weight:900;color:#eafff6;background:rgba(255,255,255,.055)}
+.decision-layout{display:grid;grid-template-columns:minmax(0,1fr) 360px;gap:18px;margin-top:24px}
+.decision-card{border:1px solid rgba(255,255,255,.16);background:rgba(255,255,255,.055);border-radius:18px;padding:22px;min-height:330px}
+.decision-title{font-size:20px;font-weight:900;color:#fff;margin-bottom:12px}
+.decision-options{display:grid;gap:12px;margin-top:18px}
+.review-grid{display:grid;grid-template-columns:370px minmax(0,1fr);gap:18px;margin-top:24px}
+.checklist{display:grid;gap:10px}
+.review-check{display:flex;gap:12px;align-items:flex-start;border:1px solid rgba(255,255,255,.14);background:rgba(255,255,255,.055);border-radius:13px;padding:14px;color:#e5edf7;cursor:pointer}
+.review-check input{width:20px;height:20px;margin-top:3px;accent-color:var(--green)}
+.review-check.done{border-color:rgba(73,209,125,.55);background:rgba(73,209,125,.10)}
+.review-readout{border:1px solid rgba(255,255,255,.15);background:rgba(255,255,255,.055);border-radius:18px;padding:20px}
+.review-meter{height:16px;border:1px solid rgba(255,255,255,.14);border-radius:999px;overflow:hidden;background:rgba(255,255,255,.07);margin:16px 0}
+.review-fill{height:100%;width:0;background:linear-gradient(90deg,var(--green),var(--cyan),var(--blue));transition:width .2s ease}
+@media(max-width:920px){
+  html,body{overflow:auto}
+  .deck{height:auto;min-height:100vh}
+  .slide{position:relative;display:none;min-height:100vh;justify-content:flex-start;padding:78px 22px 220px;overflow:visible}
+  .slide.active{display:flex}
+  .grid,.grid.three,.grid.four,.sheet-stage,.builder,.choice-grid,.decision-layout,.review-grid{grid-template-columns:1fr}
+  .hud{height:auto;min-height:58px;align-items:flex-start;flex-wrap:wrap;padding:9px 12px}
+  .brand{width:100%}
+  .status{font-size:12px}
+  .controls{display:grid;grid-template-columns:1fr auto;align-items:center;min-height:0}
+  .jump{grid-column:1/-1;order:0}
+  .controls>div:last-child{display:flex;gap:8px;justify-content:flex-end}
+  .btn{padding:8px 10px}
+}
+@media(max-width:600px){
+  .jump{justify-content:flex-start;flex-wrap:nowrap;overflow-x:auto;padding-bottom:2px}
+  .jump .btn{min-width:34px}
+}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{transition-duration:0.01ms!important}}
+</style>
+</head>
+<body>
+<div class="hud">
+  <div class="brand">Week 5: Data, Excel, and Administrative Workflows</div>
+  <div class="progress" aria-hidden="true"><div class="bar" id="bar"></div></div>
+  <div class="status" id="status">Slide 1</div>
+</div>
+
+<main class="deck" id="deck">
+  <section class="slide active" id="start" data-part="Open" data-title="Spreadsheet evidence">
+    <div class="inner">
+      <div class="kicker">60-minute data lab</div>
+      <h1>AI can accelerate spreadsheet work. The spreadsheet remains the evidence.</h1>
+      <p class="lede">Today students use agents for cleaning, formulas, charts, and short admin summaries. The target is not a perfect dashboard. The target is a workbook whose data, changes, and claims can be checked.</p>
+      <div class="grid three">
+        <div class="card"><span class="tag">In class</span><p>Diagnose a messy synthetic table, ask for formula help, critique a chart, and build an evidence packet.</p></div>
+        <div class="card"><span class="tag">Tools</span><p>Copilot in Excel is the main path when available. Claude file analysis is optional when enabled. A sample AI response keeps the lab tool-neutral.</p></div>
+        <div class="card"><span class="tag">Rule</span><p>Keep a raw copy, do not fabricate missing data, verify two rows by hand, and disclose AI assistance.</p></div>
+      </div>
+      <div class="teacher-note">Pacing: 5 minutes. Ask students what an agent can do quickly and what would still be dangerous to trust.</div>
+    </div>
+  </section>
+
+  <section class="slide source" data-part="Open" data-title="Source boundaries">
+    <div class="inner">
+      <div class="kicker">Source boundaries</div>
+      <h2>Tool docs describe capabilities. Class policy controls the data.</h2>
+      <div class="grid">
+        <div class="card">
+          <h3>Use today</h3>
+          <ul>
+            <li>Microsoft describes Copilot in Excel as able to edit worksheets, generate formulas, create charts/PivotTables, and surface insights.</li>
+            <li>Microsoft recommends specific prompts that name columns or ranges, then refining with follow-ups.</li>
+            <li>Claude can support CSV/XLSX analysis and spreadsheet generation when the needed file features are enabled.</li>
+          </ul>
+        </div>
+        <div class="card warn">
+          <h3>Guardrails</h3>
+          <ul>
+            <li>Availability depends on account, subscription, file format, tenant settings, and workbook structure.</li>
+            <li>Use synthetic or approved data only. Do not upload private student, medical, financial, customer, workplace, password, or API-key data.</li>
+            <li>Review, edit, and verify AI-generated content before using it.</li>
+          </ul>
+        </div>
+      </div>
+      <a class="link-btn" href="https://support.microsoft.com/en-us/excel/copilot/get-started-with-copilot-in-excel" target="_blank" rel="noopener noreferrer" aria-label="Copilot in Excel, opens in a new tab">Copilot in Excel</a>
+      <a class="link-btn" href="https://support.microsoft.com/en-us/excel/copilot/data-insights-with-copilot-in-excel" target="_blank" rel="noopener noreferrer" aria-label="Data insights, opens in a new tab">Data insights</a>
+      <a class="link-btn" href="https://support.microsoft.com/en-us/excel/copilot/copilot-in-excel-tips" target="_blank" rel="noopener noreferrer" aria-label="Excel prompt tips, opens in a new tab">Excel prompt tips</a>
+      <a class="link-btn" href="https://support.claude.com/en/articles/12111783-create-and-edit-files-with-claude" target="_blank" rel="noopener noreferrer" aria-label="Claude file creation, opens in a new tab">Claude file creation</a>
+      <a class="link-btn" href="https://support.claude.com/en/articles/8241126-upload-files-to-claude" target="_blank" rel="noopener noreferrer" aria-label="Claude uploads, opens in a new tab">Claude uploads</a>
+      <a class="link-btn" href="https://weihaoqu.github.io/learnAIDoc/wiki/claude-for-word-office-integration/" target="_blank" rel="noopener noreferrer" aria-label="Q Office wiki, opens in a new tab">Q Office wiki</a>
+    </div>
+  </section>
+
+  <section class="slide check" data-part="Part 1" data-title="Evidence hierarchy">
+    <div class="inner">
+      <div class="timebox">5-12 min</div>
+      <h2>Every spreadsheet claim has a path back to raw data.</h2>
+      <p class="lede">The safest habit is simple: duplicate the workbook or keep a <code>Raw</code> tab unchanged before AI edits anything.</p>
+      <div class="workflow">
+        <div class="node">Raw tab</div><div class="arrow">-&gt;</div>
+        <div class="node">Clean tab</div><div class="arrow">-&gt;</div>
+        <div class="node">Formulas</div><div class="arrow">-&gt;</div>
+        <div class="node">Chart</div><div class="arrow">-&gt;</div>
+        <div class="node">Memo</div>
+      </div>
+      <div class="grid three">
+        <div class="card"><h3>Raw</h3><p>Original synthetic data or approved source excerpt. Never overwrite it during the lab.</p></div>
+        <div class="card"><h3>Transform</h3><p>Cleaning, formulas, filters, PivotTables, and charts must be traceable.</p></div>
+        <div class="card"><h3>Claim</h3><p>A memo bullet is only as strong as the chart, formula, and row-level evidence behind it.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="slide lab" id="safety" data-part="Part 1" data-title="Data safety gate">
+    <div class="inner">
+      <div class="timebox">12-18 min</div>
+      <h2>Data safety gate: allowed, ask first, or not allowed?</h2>
+      <p class="lede">Click the best decision for each case. The policy habit comes before the prompt.</p>
+      <div class="decision-layout">
+        <div class="decision-card">
+          <div class="decision-title" id="safetyTitle">Case 1 of 6</div>
+          <p class="lede" id="safetyText">A synthetic event budget with invented names and invented costs.</p>
+          <div class="decision-options">
+            <button class="decision-btn" data-safety="allowed">Usually allowed</button>
+            <button class="decision-btn" data-safety="ask">Ask first</button>
+            <button class="decision-btn" data-safety="blocked">Not allowed</button>
+          </div>
+          <div class="feedback" id="safetyFeedback"></div>
+          <button class="btn" id="nextSafety" style="margin-top:14px">Next case</button>
+        </div>
+        <div class="card warn">
+          <h3>Do not fabricate data</h3>
+          <ul>
+            <li>Missing values should be flagged, excluded, estimated with clear labeling, or sent back for a human decision.</li>
+            <li>Do not let AI invent attendance, grades, costs, survey answers, identities, or sources.</li>
+            <li>If a value is estimated, the label must say estimated.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="slide lab" id="prompt" data-part="Part 1" data-title="Data prompt builder">
+    <div class="inner">
+      <div class="timebox">18-26 min</div>
+      <h2>Build a data prompt that names the evidence.</h2>
+      <p class="lede">Good spreadsheet prompts name the table, the columns, the desired output, and the verification request.</p>
+      <div class="builder">
+        <div class="form">
+          <label>Goal
+            <input id="promptGoal" placeholder="e.g., clean the event budget table and suggest formulas">
+          </label>
+          <label>Table or range
+            <input id="promptRange" placeholder="e.g., Sheet Raw, columns A:H, rows 1:18">
+          </label>
+          <label>Column names
+            <textarea id="promptColumns" placeholder="Event, Date, Category, Expected, Attended, Cost, Sponsor, Notes"></textarea>
+          </label>
+          <label>Desired output
+            <textarea id="promptOutput" placeholder="cleaning issues, formulas, chart recommendation, 3-bullet memo"></textarea>
+          </label>
+          <label>Constraints
+            <textarea id="promptConstraints" placeholder="Do not invent missing data. Keep Raw unchanged. Explain formulas."></textarea>
+          </label>
+          <label>Verification request
+            <textarea id="promptVerify" placeholder="Tell me which two rows I should manually verify and what could be wrong."></textarea>
+          </label>
+        </div>
+        <div>
+          <div class="ticket" id="promptTicket"></div>
+          <button class="btn" id="copyPrompt" style="margin-top:12px">Copy data prompt</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="slide lab" id="triage" data-part="Part 2" data-title="Messy table triage">
+    <div class="inner">
+      <div class="timebox">26-34 min</div>
+      <h2>Lab 1: diagnose the table before cleaning it.</h2>
+      <div class="sheet-stage">
+        <div class="sheet" aria-label="Synthetic event planning table">
+          <table>
+            <thead><tr><th>Event</th><th>Date</th><th>Category</th><th>Expected</th><th>Attended</th><th>Cost</th><th>Sponsor</th></tr></thead>
+            <tbody>
+              <tr><td>Robotics Night</td><td>3/5</td><td>STEM</td><td>30</td><td>28</td><td>$240</td><td>Tech Club</td></tr>
+              <tr><td>Art Jam</td><td>Mar 7</td><td class="warncell">arts</td><td>24</td><td>25</td><td>$180</td><td>Arts Club</td></tr>
+              <tr><td>Career Panel</td><td>3/12</td><td>Career</td><td>40</td><td class="bad"></td><td>$90</td><td>MY-CC</td></tr>
+              <tr><td>Food Drive</td><td>3/12</td><td>Service</td><td>18</td><td>18</td><td class="bad">free</td><td>MY-CC</td></tr>
+              <tr><td>Robotics Night</td><td>3/5</td><td>STEM</td><td>30</td><td>28</td><td>$240</td><td>Tech Club</td></tr>
+              <tr><td>Debate Prep</td><td>3/19</td><td>Academic</td><td>20</td><td class="warncell">85</td><td>$60</td><td>Speech</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="card">
+          <h3>Pick the issue type</h3>
+          <p id="triageItem" class="lede">Blank attended value for Career Panel</p>
+          <div class="decision-options">
+            <button class="triage-btn" data-triage="missing">Missing value</button>
+            <button class="triage-btn" data-triage="category">Inconsistent category</button>
+            <button class="triage-btn" data-triage="duplicate">Duplicate row</button>
+            <button class="triage-btn" data-triage="type">Wrong data type</button>
+            <button class="triage-btn" data-triage="outlier">Outlier</button>
+          </div>
+          <div class="feedback" id="triageFeedback"></div>
+          <button class="btn" id="nextTriage" style="margin-top:14px">Next issue</button>
+        </div>
+      </div>
+      <div class="teacher-note">Make this partly instructor-led. Do not let triage consume the formula and chart time.</div>
+    </div>
+  </section>
+
+  <section class="slide lab" id="formula" data-part="Part 2" data-title="Formula checker">
+    <div class="inner">
+      <div class="timebox">34-42 min</div>
+      <h2>Lab 2: formula help still needs row-level verification.</h2>
+      <p class="lede">AI can propose formulas. Students must explain them and check at least two rows manually.</p>
+      <div class="decision-layout">
+        <div class="decision-card">
+          <div class="decision-title" id="formulaTitle">Formula 1 of 5</div>
+          <p class="lede" id="formulaText">AI suggests <code>=F2/E2</code> for cost per attendee.</p>
+          <div class="decision-options">
+            <button class="decision-btn" data-formula="accept">Accept</button>
+            <button class="decision-btn" data-formula="revise">Revise</button>
+            <button class="decision-btn" data-formula="reject">Reject</button>
+          </div>
+          <div class="feedback" id="formulaFeedback"></div>
+          <button class="btn" id="nextFormula" style="margin-top:14px">Next formula</button>
+        </div>
+        <div class="card">
+          <h3>Formula verification habit</h3>
+          <ul>
+            <li>Read the formula in plain English.</li>
+            <li>Check two rows by hand.</li>
+            <li>Check missing values and zero denominators.</li>
+            <li>Confirm units: dollars, people, dates, percentages.</li>
+            <li>Do not hide errors without explaining them.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="slide lab" id="chart" data-part="Part 2" data-title="Chart critique">
+    <div class="inner">
+      <div class="timebox">42-50 min</div>
+      <h2>Lab 3: a chart is a claim, not decoration.</h2>
+      <p class="lede">AI suggests: "STEM events are the most efficient because they have the lowest cost." What should we challenge?</p>
+      <div class="grid">
+        <div class="card">
+          <div class="mini-chart" aria-label="Illustrative chart with unequal categories">
+            <div class="barcol"><div class="barshape" style="height:78%"></div><span>STEM</span></div>
+            <div class="barcol"><div class="barshape" style="height:56%"></div><span>arts</span></div>
+            <div class="barcol"><div class="barshape" style="height:34%"></div><span>Career</span></div>
+            <div class="barcol"><div class="barshape" style="height:22%"></div><span>Service</span></div>
+            <div class="barcol"><div class="barshape" style="height:92%"></div><span>STEM</span></div>
+          </div>
+          <div class="terminal">AI chart title: "Best Event Categories by Cost"\nAxis label: Count\nClaim: STEM is most efficient.</div>
+        </div>
+        <div class="card">
+          <h3>Choose the valid critiques</h3>
+          <div class="decision-options">
+            <button class="critique-btn" data-critique="true">The chart uses count, not cost per attendee.</button>
+            <button class="critique-btn" data-critique="true">Category labels are inconsistent, so grouping may be wrong.</button>
+            <button class="critique-btn" data-critique="true">Duplicate Robotics Night may distort the chart.</button>
+            <button class="critique-btn" data-critique="false">The chart must be wrong because AI made it.</button>
+          </div>
+          <div class="feedback" id="chartFeedback">Valid critiques focus on data, units, grouping, duplicates, and whether the chart supports the claim.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="slide check" id="workflow" data-part="Part 3" data-title="Workflow board">
+    <div class="inner">
+      <div class="timebox">50-55 min</div>
+      <h2>Lab 4: design a repeatable admin workflow.</h2>
+      <p class="lede">Students can use agents, but the workflow must keep human preview, approval, and verification visible.</p>
+      <div class="review-grid">
+        <div class="checklist">
+          <label class="review-check"><input type="checkbox" data-workflow><span>Duplicate workbook or keep a Raw tab unchanged.</span></label>
+          <label class="review-check"><input type="checkbox" data-workflow><span>Ask AI to identify cleaning issues without changing data yet.</span></label>
+          <label class="review-check"><input type="checkbox" data-workflow><span>Approve cleaning rules, then create Clean tab.</span></label>
+          <label class="review-check"><input type="checkbox" data-workflow><span>Add formulas and verify two rows by hand.</span></label>
+          <label class="review-check"><input type="checkbox" data-workflow><span>Create chart/PivotTable and critique whether it supports the claim.</span></label>
+          <label class="review-check"><input type="checkbox" data-workflow><span>Write 3-bullet memo with prompt log and disclosure.</span></label>
+        </div>
+        <div class="review-readout">
+          <h3 id="workflowTitle">0 of 6 workflow steps complete</h3>
+          <div class="review-meter" aria-hidden="true"><div class="review-fill" id="workflowFill"></div></div>
+          <p id="workflowText">Start by protecting the raw data. Agent edits are easier to trust when rollback is obvious.</p>
+          <div class="terminal">Safe edit loop: ask -> preview -> approve -> verify -> document.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="slide artifact" id="packet" data-part="Artifact" data-title="Evidence packet">
+    <div class="inner">
+      <div class="kicker">Exit artifact</div>
+      <h2>Build the AI-assisted data evidence packet.</h2>
+      <p class="lede">Homework grades the evidence of judgment, not just whether the table looks clean.</p>
+      <div class="builder">
+        <div class="form">
+          <label>Dataset note
+            <textarea id="packetDataset" placeholder="Synthetic dataset, approved anonymized dataset, or public source excerpt."></textarea>
+          </label>
+          <label>Prompt log
+            <textarea id="packetPrompt" placeholder="Paste the main prompt or summarize the prompt sequence."></textarea>
+          </label>
+          <label>Changes made
+            <textarea id="packetChanges" placeholder="Cleaning, formulas, chart/PivotTable, memo."></textarea>
+          </label>
+          <label>Formula checks
+            <textarea id="packetFormulas" placeholder="Which formulas did you check by hand for two rows?"></textarea>
+          </label>
+          <label>Chart critique
+            <textarea id="packetChart" placeholder="What could mislead a reader? Units, axis, grouping, missing values, outliers?"></textarea>
+          </label>
+          <label>Rejected suggestion and disclosure
+            <textarea id="packetDisclosure" placeholder="What AI suggestion did you reject and why? How will you disclose AI help?"></textarea>
+          </label>
+        </div>
+        <div>
+          <div class="ticket" id="packetText"></div>
+          <button class="btn" id="copyPacket" style="margin-top:12px">Copy evidence packet</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="slide note" id="rubric" data-part="Homework" data-title="Rubric">
+    <div class="inner">
+      <div class="kicker">Homework rubric</div>
+      <h2>What counts for the Week 5 homework?</h2>
+      <div class="grid three">
+        <div class="card"><h3>Prompt quality</h3><p>Goal, table/range, columns, output, constraints, and verification request are clear.</p></div>
+        <div class="card"><h3>Formula verification</h3><p>Two formulas are explained and two rows are checked by hand.</p></div>
+        <div class="card"><h3>Chart critique</h3><p>The chart or PivotTable is checked for units, labels, grouping, and supported claims.</p></div>
+        <div class="card"><h3>Privacy decision</h3><p>The data is synthetic, approved, or public with source. Sensitive data is not uploaded.</p></div>
+        <div class="card"><h3>Evidence packet</h3><p>Raw copy, prompt log, before/after evidence, changes, checks, and disclosure are included.</p></div>
+        <div class="card"><h3>Rejected suggestion</h3><p>One AI suggestion is rejected with a reason tied to data, formula, chart, privacy, or claim quality.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="slide source" id="homework" data-part="Homework" data-title="Homework">
+    <div class="inner">
+      <div class="kicker">Homework</div>
+      <h2>Due before Week 6.</h2>
+      <div class="grid">
+        <div class="card">
+          <h3>Use synthetic data</h3>
+          <p>Use the <a href="session-materials/week-05-synthetic-admin-dataset.csv">supplied synthetic admin dataset</a>, or create a synthetic dataset Q approves. Keep a Raw tab unchanged or duplicate the workbook before AI edits.</p>
+        </div>
+        <div class="card">
+          <h3>Create the output</h3>
+          <p>Produce a cleaned table, two formulas, one chart or PivotTable, and a 3-bullet insight memo.</p>
+        </div>
+        <div class="card">
+          <h3>Use available tools</h3>
+          <p>Use Copilot in Excel if available. Otherwise use Claude with CSV/XLSX if file features are enabled. If neither works, use the sample issues, formula suggestions, and chart claim built into this deck and critique them manually.</p>
+        </div>
+        <div class="card">
+          <h3>Submit evidence</h3>
+          <p>Submit prompt log, before/after evidence, two-row formula verification, chart critique, privacy decision, disclosure, and one rejected AI suggestion with rationale.</p>
+        </div>
+      </div>
+      <p style="margin-top:18px"><a href="index.html">Back to CS-215 course hub</a></p>
+    </div>
+  </section>
+</main>
+
+<nav class="controls" aria-label="Slide controls">
+  <button class="btn" id="notesBtn">Notes</button>
+  <div class="jump" id="jump"></div>
+  <div>
+    <button class="btn" id="prevBtn">Prev</button>
+    <button class="btn" id="nextBtn">Next</button>
+  </div>
+</nav>
+
+<script>
+const slides = Array.from(document.querySelectorAll('.slide'));
+const bar = document.getElementById('bar');
+const statusEl = document.getElementById('status');
+const jump = document.getElementById('jump');
+const prevBtn = document.getElementById('prevBtn');
+const nextBtn = document.getElementById('nextBtn');
+let current = 0;
+
+document.querySelectorAll('.feedback').forEach(item => item.setAttribute('aria-live', 'polite'));
+
+slides.forEach((slide, idx) => {
+  const btn = document.createElement('button');
+  btn.className = 'btn';
+  btn.textContent = String(idx + 1);
+  btn.setAttribute('aria-label', `Go to slide ${idx + 1}: ${slide.dataset.title || ''}`);
+  btn.addEventListener('click', () => go(idx));
+  jump.appendChild(btn);
+  if (!slide.id) slide.id = `slide-${idx + 1}`;
+});
+
+function go(idx) {
+  current = Math.max(0, Math.min(slides.length - 1, idx));
+  slides.forEach((slide, i) => slide.classList.toggle('active', i === current));
+  Array.from(jump.children).forEach((btn, i) => {
+    const active = i === current;
+    btn.classList.toggle('active', active);
+    if (active) {
+      btn.setAttribute('aria-current', 'step');
+    } else {
+      btn.removeAttribute('aria-current');
+    }
+  });
+  bar.style.width = `${((current + 1) / slides.length) * 100}%`;
+  statusEl.textContent = `Slide ${current + 1} of ${slides.length}: ${slides[current].dataset.title}`;
+  prevBtn.disabled = current === 0;
+  nextBtn.disabled = current === slides.length - 1;
+  history.replaceState(null, '', `#${slides[current].id}`);
+}
+
+prevBtn.addEventListener('click', () => go(current - 1));
+nextBtn.addEventListener('click', () => go(current + 1));
+document.getElementById('notesBtn').addEventListener('click', () => {
+  document.body.classList.toggle('notes-on');
+});
+document.addEventListener('keydown', event => {
+  if (event.target.matches('input, textarea, select, button, a')) return;
+  if (event.key === 'ArrowRight' || event.key === ' ') { event.preventDefault(); go(current + 1); }
+  if (event.key === 'ArrowLeft') { event.preventDefault(); go(current - 1); }
+  if (event.key === 'Home') { event.preventDefault(); go(0); }
+  if (event.key === 'End') { event.preventDefault(); go(slides.length - 1); }
+  if (event.key.toLowerCase() === 'n') document.body.classList.toggle('notes-on');
+});
+
+function value(id, fallback) {
+  return document.getElementById(id).value.trim() || fallback;
+}
+
+const safetyCases = [
+  {
+    title: 'Case 1 of 6',
+    text: 'A synthetic event budget with invented names and invented costs.',
+    answer: 'allowed',
+    feedback: 'Usually allowed if class policy permits it. Synthetic data is the safest practice dataset.'
+  },
+  {
+    title: 'Case 2 of 6',
+    text: 'A survey where names were removed, but grade level, club, and rare comments remain.',
+    answer: 'ask',
+    feedback: 'Ask first. Indirect identifiers can still point to a person in a small class or club.'
+  },
+  {
+    title: 'Case 3 of 6',
+    text: 'A real gradebook with student names and missing assignment scores.',
+    answer: 'blocked',
+    feedback: 'Not allowed for this course workflow. It is private student data.'
+  },
+  {
+    title: 'Case 4 of 6',
+    text: 'A public city open-data CSV with a source URL and no personal records.',
+    answer: 'allowed',
+    feedback: 'Usually allowed if the license/source is appropriate and students cite where it came from.'
+  },
+  {
+    title: 'Case 5 of 6',
+    text: 'A customer list from a part-time job with emails and order totals.',
+    answer: 'blocked',
+    feedback: 'Not allowed. This is workplace/customer data and likely confidential.'
+  },
+  {
+    title: 'Case 6 of 6',
+    text: 'A club attendance sheet with real names, but the student promises not to share it.',
+    answer: 'ask',
+    feedback: 'Ask first and usually replace it with synthetic or properly approved anonymized data.'
+  }
+];
+let safetyIndex = 0;
+const safetyTitle = document.getElementById('safetyTitle');
+const safetyText = document.getElementById('safetyText');
+const safetyFeedback = document.getElementById('safetyFeedback');
+function showSafety() {
+  const item = safetyCases[safetyIndex];
+  safetyTitle.textContent = item.title;
+  safetyText.textContent = item.text;
+  safetyFeedback.classList.remove('show');
+  safetyFeedback.textContent = '';
+  document.querySelectorAll('[data-safety]').forEach(button => {
+    button.classList.remove('correct','wrong');
+    button.setAttribute('aria-pressed', 'false');
+  });
+}
+document.querySelectorAll('[data-safety]').forEach(button => {
+  button.setAttribute('aria-pressed', 'false');
+  button.addEventListener('click', () => {
+    const item = safetyCases[safetyIndex];
+    document.querySelectorAll('[data-safety]').forEach(choice => {
+      choice.classList.remove('correct','wrong');
+      choice.setAttribute('aria-pressed', 'false');
+      if (choice.dataset.safety === item.answer) choice.classList.add('correct');
+    });
+    if (button.dataset.safety !== item.answer) button.classList.add('wrong');
+    button.setAttribute('aria-pressed', 'true');
+    safetyFeedback.textContent = item.feedback;
+    safetyFeedback.classList.add('show');
+  });
+});
+document.getElementById('nextSafety').addEventListener('click', () => {
+  safetyIndex = (safetyIndex + 1) % safetyCases.length;
+  showSafety();
+});
+showSafety();
+
+const promptFields = ['promptGoal','promptRange','promptColumns','promptOutput','promptConstraints','promptVerify'];
+function updatePrompt() {
+  document.getElementById('promptTicket').textContent =
+`AI-assisted spreadsheet prompt
+
+Goal: ${value('promptGoal','[what you want help doing]')}
+Table or range: ${value('promptRange','[sheet, table name, or cell range]')}
+Columns: ${value('promptColumns','[column names and meanings]')}
+Desired output: ${value('promptOutput','[cleaning plan, formulas, chart, PivotTable, memo]')}
+Constraints: ${value('promptConstraints','[do not invent missing data, keep Raw unchanged, explain changes]')}
+Verification request: ${value('promptVerify','[what should I manually check before accepting this?]')}
+
+Instruction:
+Review the table using the evidence above. First identify issues without changing data. Then suggest formulas, a chart or PivotTable, and a 3-bullet memo. Do not fabricate missing values. Label any estimates. Explain formulas and list verification risks.`;
+}
+promptFields.forEach(id => document.getElementById(id).addEventListener('input', updatePrompt));
+promptFields.forEach(id => document.getElementById(id).addEventListener('change', updatePrompt));
+updatePrompt();
+
+const triageCases = [
+  {text:'Blank attended value for Career Panel', answer:'missing', feedback:'Missing value. Do not invent the attendance. Flag it, ask for the real value, or exclude it with a note.'},
+  {text:'Category appears as STEM in one row and arts in lowercase in another', answer:'category', feedback:'Inconsistent category. Standardize categories before summaries or PivotTables.'},
+  {text:'Robotics Night appears twice with the same date and values', answer:'duplicate', feedback:'Duplicate row. Check whether it is a real repeat event or accidental duplicate before deleting.'},
+  {text:'Cost is entered as the word "free" instead of a numeric value', answer:'type', feedback:'Wrong data type. Decide whether this should be 0, blank, or a note before formulas run.'},
+  {text:'Debate Prep expected 20 people but attended value is 85', answer:'outlier', feedback:'Outlier. It may be a typo, a real surge, or a copied value. Ask before changing it.'}
+];
+let triageIndex = 0;
+const triageItem = document.getElementById('triageItem');
+const triageFeedback = document.getElementById('triageFeedback');
+function showTriage() {
+  const item = triageCases[triageIndex];
+  triageItem.textContent = item.text;
+  triageFeedback.classList.remove('show');
+  triageFeedback.textContent = '';
+  document.querySelectorAll('[data-triage]').forEach(button => {
+    button.classList.remove('correct','wrong');
+    button.setAttribute('aria-pressed', 'false');
+  });
+}
+document.querySelectorAll('[data-triage]').forEach(button => {
+  button.setAttribute('aria-pressed', 'false');
+  button.addEventListener('click', () => {
+    const item = triageCases[triageIndex];
+    document.querySelectorAll('[data-triage]').forEach(choice => {
+      choice.classList.remove('correct','wrong');
+      choice.setAttribute('aria-pressed', 'false');
+      if (choice.dataset.triage === item.answer) choice.classList.add('correct');
+    });
+    if (button.dataset.triage !== item.answer) button.classList.add('wrong');
+    button.setAttribute('aria-pressed', 'true');
+    triageFeedback.textContent = item.feedback;
+    triageFeedback.classList.add('show');
+  });
+});
+document.getElementById('nextTriage').addEventListener('click', () => {
+  triageIndex = (triageIndex + 1) % triageCases.length;
+  showTriage();
+});
+showTriage();
+
+const formulaCases = [
+  {
+    title: 'Formula 1 of 5',
+    text: 'AI suggests =F2/E2 for cost per attendee.',
+    answer: 'accept',
+    feedback: 'Accept if F is cost and E is attended. Verify units and handle blank or zero attendance rows.'
+  },
+  {
+    title: 'Formula 2 of 5',
+    text: 'AI suggests =AVERAGE(E2:E7), even though one attended value is blank.',
+    answer: 'revise',
+    feedback: 'Revise. The formula may ignore blanks, but the memo must say one value is missing or exclude the row intentionally.'
+  },
+  {
+    title: 'Formula 3 of 5',
+    text: 'AI suggests replacing the blank attendance value with the expected attendance value.',
+    answer: 'reject',
+    feedback: 'Reject. That fabricates data unless a human confirms it should be estimated and labeled.'
+  },
+  {
+    title: 'Formula 4 of 5',
+    text: 'AI suggests =COUNTIF(C:C,\"STEM\") to count STEM events.',
+    answer: 'revise',
+    feedback: 'Revise. Use a bounded range and clean categories first, or duplicates/inconsistent categories may mislead.'
+  },
+  {
+    title: 'Formula 5 of 5',
+    text: 'AI explains =IFERROR(F2/E2,\"Check attendance\") in plain English.',
+    answer: 'accept',
+    feedback: 'Accept if the explanation matches the formula and students still check rows manually.'
+  }
+];
+let formulaIndex = 0;
+const formulaTitle = document.getElementById('formulaTitle');
+const formulaText = document.getElementById('formulaText');
+const formulaFeedback = document.getElementById('formulaFeedback');
+function showFormula() {
+  const item = formulaCases[formulaIndex];
+  formulaTitle.textContent = item.title;
+  formulaText.textContent = item.text;
+  formulaFeedback.classList.remove('show');
+  formulaFeedback.textContent = '';
+  document.querySelectorAll('[data-formula]').forEach(button => {
+    button.classList.remove('correct','wrong');
+    button.setAttribute('aria-pressed', 'false');
+  });
+}
+document.querySelectorAll('[data-formula]').forEach(button => {
+  button.setAttribute('aria-pressed', 'false');
+  button.addEventListener('click', () => {
+    const item = formulaCases[formulaIndex];
+    document.querySelectorAll('[data-formula]').forEach(choice => {
+      choice.classList.remove('correct','wrong');
+      choice.setAttribute('aria-pressed', 'false');
+      if (choice.dataset.formula === item.answer) choice.classList.add('correct');
+    });
+    if (button.dataset.formula !== item.answer) button.classList.add('wrong');
+    button.setAttribute('aria-pressed', 'true');
+    formulaFeedback.textContent = item.feedback;
+    formulaFeedback.classList.add('show');
+  });
+});
+document.getElementById('nextFormula').addEventListener('click', () => {
+  formulaIndex = (formulaIndex + 1) % formulaCases.length;
+  showFormula();
+});
+showFormula();
+
+const critiqueButtons = Array.from(document.querySelectorAll('[data-critique]'));
+const chartFeedback = document.getElementById('chartFeedback');
+function updateChartFeedback() {
+  const selected = critiqueButtons.filter(button => button.getAttribute('aria-pressed') === 'true');
+  const valid = selected.filter(button => button.dataset.critique === 'true').length;
+  const invalid = selected.length - valid;
+  if (!selected.length) {
+    chartFeedback.textContent = 'Valid critiques focus on data, units, grouping, duplicates, and whether the chart supports the claim.';
+  } else {
+    chartFeedback.textContent = `${valid} valid critique${valid === 1 ? '' : 's'} selected. ${invalid ? 'The unsupported critique should be rejected: the issue is not that AI made the chart, but whether the data and claim match.' : 'Now explain how each selected issue could mislead a reader.'}`;
+  }
+  chartFeedback.classList.add('show');
+}
+critiqueButtons.forEach(button => {
+  button.setAttribute('aria-pressed', 'false');
+  button.addEventListener('click', () => {
+    const correct = button.dataset.critique === 'true';
+    button.classList.toggle(correct ? 'correct' : 'wrong');
+    button.setAttribute('aria-pressed', String(button.classList.contains('correct') || button.classList.contains('wrong')));
+    updateChartFeedback();
+  });
+});
+
+const workflowChecks = Array.from(document.querySelectorAll('[data-workflow]'));
+function updateWorkflow() {
+  const done = workflowChecks.filter(item => item.checked).length;
+  document.getElementById('workflowFill').style.width = `${(done / workflowChecks.length) * 100}%`;
+  document.getElementById('workflowTitle').textContent = `${done} of ${workflowChecks.length} workflow steps complete`;
+  const text = done === workflowChecks.length
+    ? 'Ready for homework: the workflow preserves raw data, human approval, verification, and disclosure.'
+    : done >= 4
+      ? 'Close. Finish chart critique, memo, and evidence before submission.'
+      : 'Start by protecting the raw data and previewing AI changes before accepting them.';
+  document.getElementById('workflowText').textContent = text;
+  workflowChecks.forEach(item => item.closest('.review-check').classList.toggle('done', item.checked));
+}
+workflowChecks.forEach(item => item.addEventListener('change', updateWorkflow));
+updateWorkflow();
+
+const packetFields = ['packetDataset','packetPrompt','packetChanges','packetFormulas','packetChart','packetDisclosure'];
+function updatePacket() {
+  document.getElementById('packetText').textContent =
+`AI-assisted data evidence packet
+
+Dataset note:
+${value('packetDataset','[synthetic, approved anonymized, or public source note]')}
+
+Prompt log:
+${value('packetPrompt','[main prompt or prompt sequence]')}
+
+Changes made:
+${value('packetChanges','[cleaning, formulas, chart or PivotTable, memo]')}
+
+Formula checks:
+${value('packetFormulas','[two formulas explained and two rows checked by hand]')}
+
+Chart critique:
+${value('packetChart','[units, axis labels, grouping, missing data, outliers, supported claim]')}
+
+Rejected AI suggestion and disclosure:
+${value('packetDisclosure','[what you rejected, why, and how you disclose AI assistance]')}
+
+Review standard:
+I kept raw data unchanged, avoided sensitive/private data, did not fabricate missing values, checked formulas manually, critiqued the chart claim, and remain responsible for the final workbook and memo.`;
+}
+packetFields.forEach(id => document.getElementById(id).addEventListener('input', updatePacket));
+packetFields.forEach(id => document.getElementById(id).addEventListener('change', updatePacket));
+updatePacket();
+
+async function copyText(text, button) {
+  try {
+    await navigator.clipboard.writeText(text);
+    const original = button.textContent;
+    button.textContent = 'Copied';
+    setTimeout(() => { button.textContent = original; }, 1200);
+  } catch {
+    button.textContent = 'Select and copy manually';
+  }
+}
+document.getElementById('copyPrompt').addEventListener('click', event => {
+  copyText(document.getElementById('promptTicket').textContent, event.currentTarget);
+});
+document.getElementById('copyPacket').addEventListener('click', event => {
+  copyText(document.getElementById('packetText').textContent, event.currentTarget);
+});
+
+if (location.hash) {
+  const target = document.getElementById(location.hash.slice(1));
+  if (target) current = slides.indexOf(target);
+}
+go(current);
+</script>
+</body>
+</html>

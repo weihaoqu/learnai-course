@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>AI Engineering Academy - Learn to Build with AI Agents</title>
+<title>CS-215 AI Literacy - 14-Week Course Hub</title>
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{
@@ -75,6 +75,11 @@ body{font-family:var(--font);background:var(--bg);color:var(--text);line-height:
 .orbit-detail .detail-stats{display:flex;gap:20px;font-size:13px;color:var(--muted);margin-bottom:16px}
 .orbit-detail .detail-btn{display:inline-flex;align-items:center;gap:8px;padding:10px 28px;border-radius:var(--radius-sm);font-size:15px;font-weight:600;text-decoration:none;border:none;cursor:pointer;color:#fff;transition:all 0.2s}
 .orbit-detail .detail-btn:hover{transform:scale(1.03)}
+.orbit-detail .detail-btn.planned{background:var(--surface2)!important;color:var(--muted);cursor:default}
+.orbit-detail .detail-btn.planned:hover{transform:none}
+.orbit-detail .detail-resources{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+.orbit-detail .detail-resource{display:inline-flex;border:1px solid rgba(255,255,255,0.1);border-radius:999px;padding:5px 10px;font-size:12px;color:var(--cyan-light);background:rgba(255,255,255,0.04);text-decoration:none}
+.orbit-detail .detail-resource:hover,.orbit-detail .detail-resource:focus{outline:2px solid rgba(6,182,212,0.45);background:rgba(6,182,212,0.08)}
 
 /* Hero stats bar */
 .hero-stats-bar{position:absolute;bottom:100px;left:50%;transform:translateX(-50%);display:flex;gap:40px;z-index:10}
@@ -126,6 +131,7 @@ body{font-family:var(--font);background:var(--bg);color:var(--text);line-height:
 .lp-body p{font-size:13px;color:var(--muted);margin-bottom:8px}
 .lp-body a{font-size:13px;font-weight:600;text-decoration:none;transition:color 0.2s}
 .lp-body a:hover{text-decoration:underline}
+.lp-body .planned{display:inline-flex;font-size:12px;font-weight:700;color:var(--muted);border:1px solid var(--border);border-radius:999px;padding:3px 9px;background:var(--surface2)}
 
 /* ===== RESPONSIVE ===== */
 @media(max-width:600px){
@@ -277,15 +283,15 @@ body{font-family:var(--font);background:var(--bg);color:var(--text);line-height:
   <div class="orbit-stage" id="orbitStage">
     <div class="orbit-ring orbit-ring-1"></div>
     <div class="orbit-ring orbit-ring-2"></div>
-    <div class="center-orb"><img src="logo.png" alt="AI Engineering Academy" style="width:108px;height:108px;border-radius:50%;object-fit:cover"></div>
-    <div class="center-label"><h1>AI Engineering Academy</h1><p>Foundation modules &middot; 4-course sequence &middot; Zero prerequisites</p></div>
+    <div class="center-orb"><img src="logo.png" alt="CS-215 AI Literacy" style="width:108px;height:108px;border-radius:50%;object-fit:cover"></div>
+    <div class="center-label"><h1>CS-215 AI Literacy</h1><p>14-week syllabus path &middot; Weekly labs &middot; Final web app</p></div>
     <!-- Nodes injected by JS -->
   </div>
 
   <div class="hero-stats-bar">
-    <div class="stat"><div class="stat-num">2</div><div class="stat-label">Foundations</div></div>
-    <div class="stat"><div class="stat-num">4</div><div class="stat-label">Courses</div></div>
-    <div class="stat"><div class="stat-num">90+</div><div class="stat-label">Exercises</div></div>
+    <div class="stat"><div class="stat-num">14</div><div class="stat-label">Weeks</div></div>
+    <div class="stat"><div class="stat-num">6</div><div class="stat-label">Assignments</div></div>
+    <div class="stat"><div class="stat-num">1</div><div class="stat-label">Final Project</div></div>
   </div>
 </section>
 
@@ -333,6 +339,17 @@ body{font-family:var(--font);background:var(--bg);color:var(--text);line-height:
       <div><strong style="font-size:15px">Post-Test &amp; Survey</strong><p style="font-size:13px;color:var(--muted);margin:2px 0 0">After the session, complete a post-test and short survey about your experience.</p></div>
     </div>
     <p style="text-align:center;color:var(--muted);font-size:13px;margin-top:16px">Total time: approximately 60&ndash;90 minutes</p>
+  </div>
+</div>
+
+<!-- ASSESSMENT LINKS -->
+<div class="post-test" style="margin-top:32px">
+  <div style="font-size:40px;margin-bottom:12px">&#128202;</div>
+  <h3>Research Assessment Links</h3>
+  <p>Use these before and after the learning sequence to measure growth.</p>
+  <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap">
+    <a href="https://weihaoqu.github.io/learnai-assessment-hs/?type=pre" target="_blank" rel="noopener noreferrer" class="post-btn" style="background:var(--gold);color:#111827">Take Pre-Test &#8594;</a>
+    <a href="https://weihaoqu.github.io/learnai-assessment-hs/?type=post" target="_blank" rel="noopener noreferrer" class="post-btn">Take Post-Test &#8594;</a>
   </div>
 </div>
 
@@ -400,97 +417,165 @@ body{font-family:var(--font);background:var(--bg);color:var(--text);line-height:
 <!-- RECOMMENDED LEARNING PATH -->
 <div class="learning-path">
   <div class="section-header">
-    <h2>Recommended Learning Path</h2>
-    <p>Follow this order for the best experience</p>
-  </div>
-
-  <div class="lp-step">
-    <div class="lp-num" style="color:var(--gold);border-color:rgba(251,191,36,0.3)"><svg><use href="#ico-test"></use></svg></div>
-    <div class="lp-body">
-      <h4>Step 1: Pre-Test</h4>
-      <p>Take the 5-minute assessment to measure your starting point. No wrong answers.</p>
-      <a href="https://weihaoqu.github.io/learnai-assessment-hs/?type=pre" target="_blank" rel="noopener noreferrer" style="color:var(--gold)">Take Pre-Test &#8594;</a>
-    </div>
+    <h2>CS-215 14-Week Course Path</h2>
+    <p>Follow the syllabus topic order. Completed weeks link to teaching decks; planned weeks show the next build targets.</p>
   </div>
 
   <div class="lp-step">
     <div class="lp-num" style="color:var(--cyan);border-color:rgba(6,182,212,0.3)"><svg><use href="#ico-spark"></use></svg></div>
     <div class="lp-body">
-      <h4>Step 2: Week 1 / Module 0 - What Is an LLM?</h4>
-      <p>The first instructional class: students try a small email task, then use that real-world example to understand tokens, context, prediction, verification, tools, and agents.</p>
-      <a href="module-00-llm-basics.html" style="color:var(--cyan-light)">Open Module 0 Slides &#8594;</a>
+      <h4>Week 1: Introduction to AI-Assisted Creation</h4>
+      <p>Natural-language building, AI types, digital workspace setup, current tools, and realistic expectations for AI assistance.</p>
+      <a href="module-00-llm-basics.html" style="color:var(--cyan-light)">Open LLM Foundations &#8594;</a>
+      <span style="color:var(--muted);font-size:13px"> &middot; </span>
+      <a href="module-01-github-agents.html" style="color:var(--green-light)">Open GitHub + Agents &#8594;</a>
+      <span style="color:var(--muted);font-size:13px"> &middot; </span>
+      <a href="course-case-bank.html#week-1" style="color:var(--gold)">Case Hooks &#8594;</a>
     </div>
   </div>
 
   <div class="lp-step">
-    <div class="lp-num" style="color:var(--green);border-color:rgba(16,185,129,0.3)"><svg><use href="#ico-terminal"></use></svg></div>
+    <div class="lp-num" style="color:var(--green);border-color:rgba(16,185,129,0.3)"><svg><use href="#ico-spark"></use></svg></div>
     <div class="lp-body">
-      <h4>Step 3: Week 2 / Module 0B - Inside an LLM</h4>
-      <p>Open the transformer box with concrete examples: embeddings, attention, context-sensitive meaning, facts in model weights, and verification.</p>
-      <a href="module-00b-transformer-deep-dive.html" style="color:var(--green-light)">Open Module 0B Slides &#8594;</a>
+      <h4>Week 2: Agent Foundations and Human Review</h4>
+      <p>What happens after you press Enter: agent loop, context, tools, skills, MCP, plugins, permissions, GitHub review, and safe setup.</p>
+      <a href="week-02-agent-foundations.html" style="color:var(--green-light)">Open Week 2 Slides &#8594;</a>
+      <span style="color:var(--muted);font-size:13px"> &middot; </span>
+      <a href="week-02-foundation-readiness-check.html" style="color:var(--gold)">Readiness Challenge &#8594;</a>
+      <span style="color:var(--muted);font-size:13px"> &middot; </span>
+      <a href="module-00b-transformer-deep-dive.html" style="color:var(--cyan-light)">Inside an LLM Resource &#8594;</a>
+      <span style="color:var(--muted);font-size:13px"> &middot; </span>
+      <a href="llm-background.html" style="color:var(--cyan-light)">Background Videos &#8594;</a>
+      <span style="color:var(--muted);font-size:13px"> &middot; </span>
+      <a href="course-case-bank.html#weeks-2-3" style="color:var(--gold)">Agent Mindset Cases &#8594;</a>
     </div>
   </div>
 
   <div class="lp-step">
-    <div class="lp-num" style="color:var(--green);border-color:rgba(16,185,129,0.3)"><svg><use href="#ico-terminal"></use></svg></div>
+    <div class="lp-num" style="color:var(--purple);border-color:rgba(124,58,237,0.3)"><svg><use href="#ico-compass"></use></svg></div>
     <div class="lp-body">
-      <h4>Step 4: Module 1 - GitHub + Agents</h4>
-      <p>Learn GitHub as project memory, then practice the first safe agent workflow: task, plan, diff, review, and approval.</p>
-      <a href="module-01-github-agents.html" style="color:var(--green-light)">Open Module 1 Slides &#8594;</a>
+      <h4>Week 3: Ethics, Privacy, Copyright, Bias, and Plagiarism</h4>
+      <p>Data privacy, copyright issues, bias, academic integrity, dangerous outputs, and principles for responsible AI use.</p>
+      <a href="week-03-responsible-ai-decisions.html" style="color:var(--purple-light)">Open Week 3 Slides &#8594;</a>
+      <span style="color:var(--muted);font-size:13px"> &middot; </span>
+      <a href="ai-life-skills.html" style="color:var(--green-light)">Open Safety + Critical Thinking Resource &#8594;</a>
+      <span style="color:var(--muted);font-size:13px"> &middot; </span>
+      <a href="course-case-bank.html#weeks-2-3" style="color:var(--gold)">Limits Cases &#8594;</a>
     </div>
   </div>
 
   <div class="lp-step">
     <div class="lp-num" style="color:var(--blue);border-color:rgba(59,130,246,0.3)"><svg><use href="#ico-terminal"></use></svg></div>
     <div class="lp-body">
-      <h4>Step 5: Course 1 - Claude Code Fundamentals</h4>
-      <p>Continue into practical AI collaboration, terminal basics, web apps, and Claude Code workflows.</p>
-      <a href="claude-code-course.html" style="color:var(--blue-light)">Start Course 1 &#8594;</a>
+      <h4>Week 4: AI for Professional Writing and Word Documents</h4>
+      <p>Drafting, polishing, replying to professional emails, and using AI as a writing assistant while preserving human judgment.</p>
+      <a href="week-04-writing-word-documents.html" style="color:var(--blue-light)">Open Week 4 Slides &#8594;</a>
+      <span style="color:var(--muted);font-size:13px"> &middot; </span>
+      <a href="module-00-llm-basics.html#concepts" style="color:var(--cyan-light)">Reuse Email Context Lab &#8594;</a>
+    </div>
+  </div>
+
+  <div class="lp-step">
+    <div class="lp-num" style="color:var(--blue);border-color:rgba(59,130,246,0.3)"><svg><use href="#ico-terminal"></use></svg></div>
+    <div class="lp-body">
+      <h4>Week 5: AI for Data, Excel, and Administrative Workflows</h4>
+      <p>Data collection, processing, formulas, simple analysis, graphical display, and office productivity workflows.</p>
+      <a href="week-05-data-excel-workflows.html" style="color:var(--blue-light)">Open Week 5 Slides &#8594;</a>
+    </div>
+  </div>
+
+  <div class="lp-step">
+    <div class="lp-num" style="color:var(--purple);border-color:rgba(124,58,237,0.3)"><svg><use href="#ico-spark"></use></svg></div>
+    <div class="lp-body">
+      <h4>Week 6: AI-Powered Media Generation</h4>
+      <p>ChatGPT image workflow for visual briefs, prompt iteration, critique, accessibility, disclosure, and presentation-ready asset packets.</p>
+      <a href="week-06-media-generation-presentations.html" style="color:var(--purple-light)">Open Week 6 Slides &#8594;</a>
+      <span style="color:var(--muted);font-size:13px"> &middot; </span>
+      <a href="ai-life-skills.html" style="color:var(--green-light)">Open Creative AI Resource &#8594;</a>
+    </div>
+  </div>
+
+  <div class="lp-step">
+    <div class="lp-num" style="color:var(--gold);border-color:rgba(251,191,36,0.3)"><svg><use href="#ico-test"></use></svg></div>
+    <div class="lp-body">
+      <h4>Week 7: Midterm Studio</h4>
+      <p>Studio assessment of Weeks 1-6: foundation check, project seed, safe agent delegation, evidence review, and a midterm packet.</p>
+      <a href="week-07-midterm-studio.html" style="color:var(--gold)">Open Week 7 Midterm &#8594;</a>
+    </div>
+  </div>
+
+  <div class="lp-step">
+    <div class="lp-num" style="color:var(--cyan);border-color:rgba(6,182,212,0.3)"><svg><use href="#ico-terminal"></use></svg></div>
+    <div class="lp-body">
+      <h4>Week 8: Web Basics and Design</h4>
+      <p>Use the AI app-building video as inspiration, then design a small one-screen app concept with a wireframe and first build prompt.</p>
+      <a href="week-08-web-basics-design.html" style="color:var(--cyan-light)">Open Week 8 Slides &#8594;</a>
+      <span style="color:var(--muted);font-size:13px"> &middot; </span>
+      <a href="https://www.youtube.com/watch?v=ff3j4olCUig" target="_blank" rel="noopener noreferrer" aria-label="Andrew Ng Week 8 homework video, opens in a new tab" style="color:var(--blue-light)">Andrew Ng Homework Video &#8594;</a>
+    </div>
+  </div>
+
+  <div class="lp-step">
+    <div class="lp-num" style="color:var(--green);border-color:rgba(16,185,129,0.3)"><svg><use href="#ico-terminal"></use></svg></div>
+    <div class="lp-body">
+      <h4>Week 9: Adding Interactivity and Intelligence</h4>
+      <p>Turn the Week 8 app brief into a working frontend interaction with inputs, validation, simple rules, an output card, and test cases.</p>
+      <a href="week-09-interactivity-intelligence.html" style="color:var(--green-light)">Open Week 9 Slides &#8594;</a>
+      <span style="color:var(--muted);font-size:13px"> &middot; </span>
+      <a href="claude-code-course.html" style="color:var(--blue-light)">Web Building Resource &#8594;</a>
     </div>
   </div>
 
   <div class="lp-step">
     <div class="lp-num" style="color:var(--purple);border-color:rgba(124,58,237,0.3)"><svg><use href="#ico-orbit"></use></svg></div>
     <div class="lp-body">
-      <h4>Step 6: Course 2 - Agentic Engineering Quest</h4>
-      <p>Go deeper into agent design: harnesses, workflows, specs, tools, memory, safety, multi-agent teams, and control planes.</p>
-      <a href="agentic-engineering-quest.html" style="color:var(--purple-light)">Start Course 2 &#8594;</a>
+      <h4>Week 10: Building a Complete Web Project</h4>
+      <p>Complete the Week 8-9 app as a safe static prototype, then deploy or submit a deployment-ready fallback with smoke-test evidence.</p>
+      <a href="week-10-complete-static-deployment.html" style="color:var(--purple-light)">Open Week 10 Slides &#8594;</a>
+      <span style="color:var(--muted);font-size:13px"> &middot; </span>
+      <a href="claude-code-course.html" style="color:var(--blue-light)">Project-Building Resource &#8594;</a>
     </div>
   </div>
 
   <div class="lp-step">
     <div class="lp-num" style="color:var(--cyan);border-color:rgba(6,182,212,0.3)"><svg><use href="#ico-spark"></use></svg></div>
     <div class="lp-body">
-      <h4>Step 7: Course 3 - AI Skills Lab</h4>
-      <p>Practice prompt frameworks, learning techniques, and cross-model review. 11 modules, 3 tracks.</p>
-      <a href="skills-lab.html" style="color:var(--cyan-light)">Start Skills Lab &#8594;</a>
+      <h4>Week 11: Knowledge Acquisition and Career Evidence</h4>
+      <p>Verify one project-related claim, document AI assistance, and turn the deployed app into credible learning and career evidence.</p>
+      <a href="week-11-knowledge-career-evidence.html" style="color:var(--cyan-light)">Open Week 11 Slides &#8594;</a>
+      <span style="color:var(--muted);font-size:13px"> &middot; </span>
+      <a href="ai-life-skills.html" style="color:var(--green-light)">Open Career/Study Resource &#8594;</a>
     </div>
   </div>
 
   <div class="lp-step">
-    <div class="lp-num" style="color:var(--green);border-color:rgba(16,185,129,0.3)"><svg><use href="#ico-compass"></use></svg></div>
+    <div class="lp-num" style="color:var(--purple);border-color:rgba(124,58,237,0.3)"><svg><use href="#ico-spark"></use></svg></div>
     <div class="lp-body">
-      <h4>Step 8: Course 4 - AI Life Skills</h4>
-      <p>Master AI-powered study skills, critical thinking, and creative tools. 13 modules, 3 tracks.</p>
-      <a href="ai-life-skills.html" style="color:var(--green-light)">Start Life Skills &#8594;</a>
+      <h4>Week 12: Advanced Prompting Strategies</h4>
+      <p>Zero-shot, few-shot, structured reasoning, critique loops, source-bound prompts, and prompt patterns for problem solving.</p>
+      <a href="week-12-advanced-prompting.html" style="color:var(--purple-light)">Open Week 12 Slides &#8594;</a>
+      <span style="color:var(--muted);font-size:13px"> &middot; </span>
+      <a href="https://www.youtube.com/watch?v=8ib4Qnh2HFE" target="_blank" rel="noopener noreferrer" style="color:var(--cyan-light)">Andrew Ng Homework Video &#8594;</a>
     </div>
   </div>
 
   <div class="lp-step">
     <div class="lp-num" style="color:#f59e0b;border-color:rgba(245,158,11,0.3)"><svg><use href="#ico-test"></use></svg></div>
     <div class="lp-body">
-      <h4>Step 9: Behind the Scenes</h4>
-      <p>See how this academy was built from scratch in one AI-assisted session. Real prompts, real decisions, real lessons.</p>
-      <a href="case-study.html" style="color:#fbbf24">Read Case Study &#8594;</a>
+      <h4>Week 13: AI-Powered Security and Vulnerability Management</h4>
+      <p>Run a practical security review of the final static web app: threat map, static scan, adversarial tests, agent-assisted review, triage, and fix ticket.</p>
+      <a href="week-13-security-review-lab.html" style="color:#fbbf24">Open Week 13 Slides &#8594;</a>
+      <span style="color:var(--muted);font-size:13px"> &middot; </span>
+      <a href="agentic-engineering-quest.html" style="color:var(--purple-light)">Agent Safety Resource &#8594;</a>
     </div>
   </div>
 
   <div class="lp-step">
     <div class="lp-num" style="color:var(--gold);border-color:rgba(251,191,36,0.3)"><svg><use href="#ico-medal"></use></svg></div>
     <div class="lp-body">
-      <h4>Step 10: Post-Test</h4>
-      <p>Retake the assessment and compare your scores to see how much you've grown.</p>
-      <a href="https://weihaoqu.github.io/learnai-assessment-hs/?type=post" target="_blank" rel="noopener noreferrer" style="color:var(--gold)">Take Post-Test &#8594;</a>
+      <h4>Week 14: Final Web App Showcase and AI Collaboration Reflection</h4>
+      <p>Present the final static app or fallback with evidence from Weeks 10, 11, and 13, plus AI-use disclosure, limitation, and next-step reflection.</p>
+      <a href="week-14-final-showcase.html" style="color:var(--gold)">Open Week 14 Slides &#8594;</a>
     </div>
   </div>
 </div>
@@ -498,17 +583,30 @@ body{font-family:var(--font);background:var(--bg);color:var(--text);line-height:
 <!-- BELOW FOLD -->
 <div class="below-fold">
   <div class="section-header">
-    <h2>Why This Academy?</h2>
-    <p>Built by a professor who teaches AI engineering</p>
+    <h2>Why This Course Hub?</h2>
+    <p>Built for CS-215: AI Literacy, with reusable practice resources underneath each week</p>
   </div>
   <div class="feature-grid">
-    <div class="feature"><div class="feature-icon">&#127760;</div><h4>100% Self-Contained</h4><p>Just open the HTML file. No install, no server, no accounts needed.</p></div>
-    <div class="feature"><div class="feature-icon">&#129302;</div><h4>Built for Non-CS Students</h4><p>Analogies first, jargon second. No prior coding needed.</p></div>
-    <div class="feature"><div class="feature-icon">&#127919;</div><h4>Interactive &amp; Gamified</h4><p>Terminal simulators, quizzes, XP, and branching scenarios.</p></div>
-    <div class="feature"><div class="feature-icon">&#128218;</div><h4>Research-Backed</h4><p>Drawn from 161 wiki entries on Claude Code and agent design.</p></div>
-    <div class="feature"><div class="feature-icon">&#128190;</div><h4>Progress Saved Locally</h4><p>XP and capstone work saved in your browser.</p></div>
-    <div class="feature"><div class="feature-icon">&#128640;</div><h4>Beginner to Architect</h4><p>Four courses from "what's a terminal" to multi-agent systems.</p></div>
-    <div class="feature"><div class="feature-icon">&#128250;</div><h4>Slide-First Modules</h4><p>Each foundation module is built as a teaching deck with quizzes, challenges, and homework links.</p></div>
+    <div class="feature"><div class="feature-icon">&#127760;</div><h4>14-Week Syllabus Order</h4><p>The main path now follows the CS-215 teaching plan from AI-assisted creation through final presentations.</p></div>
+    <div class="feature"><div class="feature-icon">&#129302;</div><h4>Built for AI Literacy</h4><p>Concepts, tools, ethics, productivity, media, web apps, research, prompting, and security are separated by week.</p></div>
+    <div class="feature"><div class="feature-icon">&#127919;</div><h4>Interactive Teaching First</h4><p>Weekly modules are designed as teaching decks with labs, quizzes, artifacts, and homework references.</p></div>
+    <div class="feature"><div class="feature-icon">&#128218;</div><h4>Reusable Resource Library</h4><p>The older academy pages remain available as deeper practice resources under the weekly course path.</p></div>
+    <div class="feature"><div class="feature-icon">&#128190;</div><h4>Static and Portable</h4><p>The course remains a static web app: HTML, CSS, and JavaScript students can open and inspect.</p></div>
+    <div class="feature"><div class="feature-icon">&#128250;</div><h4>Homework-Ready</h4><p>External videos, worksheets, and reflection prompts are placed where they support the week, not where they distract.</p></div>
+  </div>
+
+  <!-- REUSABLE RESOURCE LIBRARY -->
+  <div style="margin-top:60px;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:32px">
+    <h3 style="font-size:20px;font-weight:700;margin-bottom:6px">Reusable Practice Resources</h3>
+    <p style="color:var(--muted);font-size:14px;margin-bottom:18px">These pages are no longer the primary navigation structure, but they remain useful for deeper practice and for filling out future weekly modules.</p>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px">
+      <a href="claude-code-course.html" style="color:var(--blue-light);font-weight:600;text-decoration:none;background:var(--surface2);border:1px solid var(--border);border-radius:var(--radius-sm);padding:14px">Claude Code Fundamentals</a>
+      <a href="agentic-engineering-quest.html" style="color:var(--purple-light);font-weight:600;text-decoration:none;background:var(--surface2);border:1px solid var(--border);border-radius:var(--radius-sm);padding:14px">Agentic Engineering Quest</a>
+      <a href="skills-lab.html" style="color:var(--cyan-light);font-weight:600;text-decoration:none;background:var(--surface2);border:1px solid var(--border);border-radius:var(--radius-sm);padding:14px">AI Skills Lab</a>
+      <a href="ai-life-skills.html" style="color:var(--green-light);font-weight:600;text-decoration:none;background:var(--surface2);border:1px solid var(--border);border-radius:var(--radius-sm);padding:14px">AI Life Skills</a>
+      <a href="case-study.html" style="color:#fbbf24;font-weight:600;text-decoration:none;background:var(--surface2);border:1px solid var(--border);border-radius:var(--radius-sm);padding:14px">Build Case Study</a>
+      <a href="llm-background.html" style="color:var(--cyan-light);font-weight:600;text-decoration:none;background:var(--surface2);border:1px solid var(--border);border-radius:var(--radius-sm);padding:14px">LLM Background Videos</a>
+    </div>
   </div>
 
   <!-- ADVANCED COURSE PROMO -->
@@ -543,8 +641,8 @@ body{font-family:var(--font);background:var(--bg);color:var(--text);line-height:
 
   <div class="post-test" style="margin-top:24px">
     <div style="font-size:40px;margin-bottom:12px">&#127942;</div>
-    <h3>Finished All 4 Courses?</h3>
-    <p>Take the post-test to measure your growth.</p>
+    <h3>Finished the Course Path?</h3>
+    <p>Take the post-test to measure growth after the learning sequence.</p>
     <a href="https://weihaoqu.github.io/learnai-assessment-hs/?type=post" target="_blank" rel="noopener noreferrer" class="post-btn">Take Post-Test &#8594;</a>
   </div>
 </div>
@@ -569,61 +667,90 @@ body{font-family:var(--font);background:var(--bg);color:var(--text);line-height:
 <script>
 // ===== COURSE DATA =====
 const courses = [
-  {id:'pre', svgId:'ico-test', iconImg:'icon-pretest.png', label:'Pre-Test', color:'gold', step:1,
-    title:'AI Readiness Pre-Test', sub:'~5 minutes',
-    desc:'Measure your starting point before beginning the courses. Compare with your post-test score after completion.',
-    tags:['Required First','5 min','No wrong answers'],stats:['6 questions'],
-    href:'https://weihaoqu.github.io/learnai-assessment-hs/?type=pre', btnText:'Take Pre-Test', btnColor:'var(--gold)'},
-  {id:'m0', svgId:'ico-spark', label:'Module 0', color:'cyan', step:2,
-    title:'Week 1 / Module 0: What Is an LLM?', sub:'3-hour interactive teaching deck',
-    desc:'The first instructional class: students try a small email task, then use that real-world example to understand tokens, context, prediction, verification, tools, and agents.',
-    tags:['First Class','Email Lab','Quizzes'],stats:['3 hours','Interactive'],
-    href:'module-00-llm-basics.html', btnText:'Open Module 0 Slides', btnColor:'var(--cyan)'},
-  {id:'m0b', svgId:'ico-spark', label:'Module 0B', color:'green', step:3,
-    title:'Week 2 / Module 0B: Inside an LLM', sub:'Transformers + facts',
-    desc:'Use concrete examples to understand embeddings, attention, context-sensitive meaning, facts in model weights, and why verification still matters.',
-    tags:['Transformers','Attention','Facts'],stats:['2 videos','3 hours'],
-    href:'module-00b-transformer-deep-dive.html', btnText:'Open Module 0B Slides', btnColor:'var(--green)'},
-  {id:'m1', svgId:'ico-terminal', label:'Module 1', color:'green', step:4,
-    title:'Module 1: GitHub + Agents', sub:'Teaching slides + first workflow',
-    desc:'Learn GitHub as shared project memory, then practice a safe agent workflow: task, plan, diff, review, and approval.',
-    tags:['GitHub','Agents','Hands-on'],stats:['6 challenges','5 quizzes'],
-    href:'module-01-github-agents.html', btnText:'Open Module 1 Slides', btnColor:'var(--green)'},
-  {id:'c1', svgId:'ico-terminal', iconImg:'icon-terminal.png', label:'Course 1', color:'blue', step:5,
-    title:'Course 1: Claude Code Fundamentals', sub:'13 modules &middot; ~2 hours',
-    desc:'Continue from the foundation modules into terminal basics, web apps, and Claude Code as an AI coding partner.',
-    tags:['Beginner','13 Modules','No experience needed'],stats:['13 modules','5 capstone tasks'],
-    href:'claude-code-course.html', btnText:'Start Course 1', btnColor:'var(--blue)'},
-  {id:'c2', svgId:'ico-orbit', iconImg:'icon-orbit.png', label:'Course 2', color:'purple', step:6,
-    title:'Course 2: Agentic Engineering Quest', sub:'11 modules &middot; agent labs',
-    desc:'Go beyond chatbots into harness engineering, workflows, specs, tools, memory, safety, multi-agent orchestration, and agent control planes.',
-    tags:['Advanced','Gamified','11 Modules'],stats:['Agent labs','AgentOps Board'],
-    href:'agentic-engineering-quest.html', btnText:'Start Course 2', btnColor:'var(--purple)'},
-  {id:'c3', svgId:'ico-spark', iconImg:'icon-spark.png', label:'Course 3', color:'cyan', step:7,
-    title:'Course 3: AI Skills Lab', sub:'11 modules &middot; 3 tracks',
-    desc:'Master prompt frameworks for better thinking, turn projects into learning opportunities, and catch AI mistakes using cross-model review.',
-    tags:['Skills Practice','3 Tracks','11 Modules'],stats:['3 tracks','Exportable artifacts'],
-    href:'skills-lab.html', btnText:'Start Skills Lab', btnColor:'var(--cyan)'},
-  {id:'c4', svgId:'ico-compass', iconImg:'icon-compass.png', label:'Course 4', color:'green', step:8,
-    title:'Course 4: AI Life Skills', sub:'13 modules &middot; 3 tracks',
-    desc:'Master AI-powered study techniques, learn to verify claims and stay independent, then create games, videos, and stories.',
-    tags:['Essential','3 Tracks','13 Modules'],stats:['Study smarter','Create freely'],
-    href:'ai-life-skills.html', btnText:'Start Life Skills', btnColor:'var(--green)'},
-  {id:'grad', svgId:'ico-graduate', label:'Advanced', color:'cyan', step:'G',
-    title:'Graduate Track: Advanced AI Engineering', sub:'20 phases &middot; 416 lessons &middot; ~320 hours',
-    desc:'A professor-ready graduate CS/SE syllabus based on Rohit Ghumare\'s MIT-licensed AI Engineering from Scratch curriculum, organized into four semesters from foundations to production capstone.',
-    tags:['Graduate','CS/SE','Professor Guide'],stats:['4 semesters','20 phases'],
-    href:'advanced.html', btnText:'View Graduate Track', btnColor:'var(--cyan)'},
-  {id:'case', svgId:'ico-test', iconImg:'icon-casestudy.png', label:'Case Study', color:'orange', step:9,
-    title:'Behind the Scenes: How This Was Built', sub:'Real prompts, real decisions',
-    desc:'See how a professor and AI built the original academy structure from scratch in one session. Includes real prompts, design tradeoffs, mistakes, and lessons learned.',
-    tags:['Case Study','15 Steps','Real Prompts'],stats:['27 real prompts','7 lessons'],
-    href:'case-study.html', btnText:'Read Case Study', btnColor:'#f59e0b'},
-  {id:'post', svgId:'ico-medal', iconImg:'icon-medal.png', label:'Post-Test', color:'gold', step:10,
-    title:'AI Engineering Post-Test', sub:'~5 minutes',
-    desc:'Take the same assessment after completing all courses. Compare your pre and post scores to see how much you\'ve grown.',
-    tags:['After All Courses','5 min','Compare scores'],stats:['Growth report'],
-    href:'https://weihaoqu.github.io/learnai-assessment-hs/?type=post', btnText:'Take Post-Test', btnColor:'var(--gold)'},
+  {id:'w1', svgId:'ico-spark', label:'Week 1', color:'cyan', step:1,
+    title:'Week 1: Introduction to AI-Assisted Creation', sub:'AI landscape + workspace',
+    desc:'Natural-language building, AI types, digital workspace setup, collaboration platforms, AI partners, current tools, and realistic expectations.',
+    tags:['Syllabus Week 1','Workspace','AI Landscape'],stats:['Foundation','Available'],
+    href:'module-00-llm-basics.html', btnText:'Open LLM Foundations', btnColor:'var(--cyan)',
+    resources:[{href:'module-01-github-agents.html',label:'GitHub + Agents'},{href:'course-case-bank.html#week-1',label:'Case Hooks'}]},
+  {id:'w2', svgId:'ico-spark', label:'Week 2', color:'green', step:2,
+    title:'Week 2: Agent Foundations and Human Review', sub:'Agent loop + review workflow',
+    desc:'What happens after you press Enter: agent loop, context, tools, skills, MCP, plugins, permissions, GitHub review, and safe setup.',
+    tags:['Syllabus Week 2','Agents','Human Review'],stats:['Available','Setup Proof'],
+    href:'week-02-agent-foundations.html', btnText:'Open Week 2 Slides', btnColor:'var(--green)',
+    resources:[{href:'week-02-foundation-readiness-check.html',label:'Readiness Challenge'},{href:'module-00b-transformer-deep-dive.html',label:'Inside an LLM'},{href:'llm-background.html',label:'Background Videos'},{href:'course-case-bank.html#weeks-2-3',label:'Agent Mindset Cases'},{href:'https://weihaoqu.github.io/learnAIDoc/wiki/ai-agent-book-engineering-practice/',label:'Optional: AI Agent Book'},{href:'https://weihaoqu.github.io/learnAIDoc/wiki/what-is-agentic-engineering/',label:'Optional: Agentic Engineering Primer'},{href:'https://github.com/liaohch3/claude-tap',label:'Instructor Demo Source: claude-tap'}]},
+  {id:'w3', svgId:'ico-compass', label:'Week 3', color:'purple', step:3,
+    title:'Week 3: Ethics, Privacy, Copyright, Bias, and Plagiarism', sub:'Scenario decision studio',
+    desc:'Responsible AI decision practice for privacy, evidence, copyright, bias, plagiarism, disclosure, and human review.',
+    tags:['Syllabus Week 3','Ethics','Decision Practice'],stats:['60 minutes','Interactive'],
+    href:'week-03-responsible-ai-decisions.html', btnText:'Open Week 3 Slides', btnColor:'var(--purple)',
+    resources:[{href:'ai-life-skills.html',label:'Safety Resource'},{href:'course-case-bank.html#weeks-2-3',label:'Limits Case Bank'},{href:'https://teaching.cornell.edu/generative-artificial-intelligence/ai-academic-integrity',label:'Cornell AI Integrity'},{href:'https://www.nist.gov/itl/ai-risk-management-framework',label:'NIST AI RMF'}]},
+  {id:'w4', svgId:'ico-terminal', label:'Week 4', color:'blue', step:4,
+    title:'Week 4: AI for Professional Writing and Word Documents', sub:'Reviewable revision lab',
+    desc:'Professional writing workflow with prompt briefs, Copilot/Claude Word paths, tracked changes or change logs, verification, disclosure, and revision packets.',
+    tags:['Syllabus Week 4','Word','Reviewable Revision'],stats:['60 minutes','Interactive'],
+    href:'week-04-writing-word-documents.html', btnText:'Open Week 4 Slides', btnColor:'var(--blue)',
+    resources:[{href:'module-00-llm-basics.html#concepts',label:'Email Context Lab'},{href:'https://support.microsoft.com/en-us/word/welcome-to-copilot-in-word',label:'Copilot in Word'},{href:'https://support.claude.com/en/articles/14465370-use-claude-for-word',label:'Claude for Word'}]},
+  {id:'w5', svgId:'ico-terminal', label:'Week 5', color:'blue', step:5,
+    title:'Week 5: AI for Data, Excel, and Administrative Workflows', sub:'Spreadsheet evidence lab',
+    desc:'Office-data workflow with synthetic datasets, raw-tab preservation, AI-assisted cleaning, formulas, charts, verification, and evidence packets.',
+    tags:['Syllabus Week 5','Excel','Data Workflows'],stats:['60 minutes','Interactive'],
+    href:'week-05-data-excel-workflows.html', btnText:'Open Week 5 Slides', btnColor:'var(--blue)',
+    resources:[{href:'https://support.microsoft.com/en-us/excel/copilot/get-started-with-copilot-in-excel',label:'Copilot in Excel'},{href:'https://support.microsoft.com/en-us/excel/copilot/copilot-in-excel-tips',label:'Excel Prompt Tips'},{href:'https://support.claude.com/en/articles/12111783-create-and-edit-files-with-claude',label:'Claude File Creation'}]},
+  {id:'w6', svgId:'ico-spark', label:'Week 6', color:'purple', step:6,
+    title:'Week 6: AI-Powered Media Generation', sub:'Presentation asset lab',
+    desc:'ChatGPT image workflow with visual briefs, prompt iteration, critique, accessibility, provenance/disclosure, and project asset packets.',
+    tags:['Syllabus Week 6','Media','Presentation Assets'],stats:['60 minutes','Interactive'],
+    href:'week-06-media-generation-presentations.html', btnText:'Open Week 6 Slides', btnColor:'var(--purple)',
+    resources:[{href:'ai-life-skills.html',label:'Creative AI Resource'},{href:'https://help.openai.com/en/articles/11084440-images-in-chatgpt',label:'Images in ChatGPT'},{href:'https://openai.com/academy/image-generation/',label:'Image Prompting'},{href:'https://weihaoqu.github.io/learnAIDoc/wiki/ai-slide-generation-tools/',label:'Optional: AI Slide Tools'},{href:'https://weihaoqu.github.io/learnAIDoc/wiki/teaching-videos-manim-remotion/',label:'Optional: Manim + Remotion'},{href:'https://weihaoqu.github.io/learnAIDoc/wiki/video-use-agent-video-editing/',label:'Optional: transcript-first video editing'}]},
+  {id:'w7', svgId:'ico-test', label:'Week 7', color:'gold', step:7,
+    title:'Week 7: Midterm Studio', sub:'Skills check + mini project',
+    desc:'Assess Weeks 1-6 with a foundation check, project seed, safe agent delegation plan, evidence checklist, rubric, and generated midterm packet.',
+    tags:['Syllabus Week 7','Midterm','Studio'],stats:['60 minutes','Interactive'],
+    href:'week-07-midterm-studio.html', btnText:'Open Week 7 Midterm', btnColor:'var(--gold)',
+    resources:[{href:'week-02-foundation-readiness-check.html',label:'Weeks 1-2 Readiness'},{href:'course-case-bank.html#weeks-2-3',label:'Agent/Limits Cases'},{href:'docs/week-03-14-material-candidates.md',label:'Material Notes'}]},
+  {id:'w8', svgId:'ico-terminal', label:'Week 8', color:'cyan', step:8,
+    title:'Week 8: Web Basics and Design', sub:'Assignment 4, part 1',
+    desc:'Use the app-building video as an inspiration anchor, then scope a one-screen student app, map HTML/CSS/JS responsibilities, sketch a wireframe, and write a first build prompt.',
+    tags:['Syllabus Week 8','Web Basics','Design Studio'],stats:['1 hour','Interactive'],
+    href:'week-08-web-basics-design.html', btnText:'Open Week 8 Slides', btnColor:'var(--cyan)',
+    resources:[{href:'https://www.youtube.com/watch?v=ff3j4olCUig',label:'Andrew Ng Homework Video'},{href:'https://developer.mozilla.org/en-US/docs/Learn_web_development/Getting_started',label:'MDN Vocabulary Reference'},{href:'claude-code-course.html',label:'Web Building Resource'},{href:'https://weihaoqu.github.io/learnAIDoc/wiki/grill-me-skill/',label:'Optional: grill-me requirements interview'},{href:'https://weihaoqu.github.io/learnAIDoc/wiki/html-anything-ai-generator/',label:'Optional: self-contained HTML examples'}]},
+  {id:'w9', svgId:'ico-terminal', label:'Week 9', color:'green', step:9,
+    title:'Week 9: Adding Interactivity and Intelligence', sub:'Assignment 4, part 2',
+    desc:'Adapt each Week 8 app idea into a working frontend feature: inputs, events, validation, simple rules, output rendering, and test cases, with no API keys or private data.',
+    tags:['Syllabus Week 9','Interactivity','Simple Intelligence'],stats:['1 hour','Interactive'],
+    href:'week-09-interactivity-intelligence.html', btnText:'Open Week 9 Slides', btnColor:'var(--green)',
+    resources:[{href:'claude-code-course.html',label:'Web Building Resource'},{href:'https://developer.mozilla.org/en-US/docs/Learn_web_development/Core/Scripting/Events',label:'MDN Events Reference'}]},
+  {id:'w10', svgId:'ico-orbit', label:'Week 10', color:'purple', step:10,
+    title:'Week 10: Building a Complete Web Project', sub:'Static app + deployment',
+    desc:'Turn the Week 8-9 app into a complete static prototype: architecture, file readiness, optional non-sensitive storage, deployment or fallback, post-deploy smoke test, and project packet.',
+    tags:['Syllabus Week 10','Static Deployment','Project Polish'],stats:['1 hour','Interactive'],
+    href:'week-10-complete-static-deployment.html', btnText:'Open Week 10 Slides', btnColor:'var(--purple)',
+    resources:[{href:'claude-code-course.html',label:'Project-Building Resource'},{href:'https://docs.github.com/en/pages/quickstart',label:'GitHub Pages Quickstart'},{href:'https://developer.mozilla.org/en-US/docs/Web/API/Web_Storage_API',label:'MDN Web Storage API'},{href:'https://pair.withgoogle.com/guidebook-v2/',label:'Google PAIR Guidebook'}]},
+  {id:'w11', svgId:'ico-spark', label:'Week 11', color:'cyan', step:11,
+    title:'Week 11: Knowledge Acquisition and Career Evidence', sub:'Evidence studio',
+    desc:'Use the Week 10 project as evidence: lateral reading, claim-strength labels, source trails, AI-use disclosure, career evidence mapping, and a polished project story.',
+    tags:['Syllabus Week 11','Research','Career Evidence'],stats:['1 hour','Interactive'],
+    href:'week-11-knowledge-career-evidence.html', btnText:'Open Week 11 Slides', btnColor:'var(--cyan)',
+    resources:[{href:'ai-life-skills.html',label:'Study + Career Resource'},{href:'https://cor.inquirygroup.org/curriculum/collections/teaching-lateral-reading/',label:'Digital Inquiry Group: Lateral Reading'},{href:'https://naceweb.org/career-readiness/competencies/career-readiness-defined',label:'NACE Career Readiness'},{href:'https://guides.lib.purdue.edu/c.php?g=1371380&p=10135074',label:'Purdue Citing AI Guide'},{href:'https://anthropic.skilljar.com/ai-fluency-for-students',label:'Optional Anthropic AI Fluency'},{href:'https://weihaoqu.github.io/learnAIDoc/wiki/awesome-auto-research-tools/',label:'Optional: Auto Research Tools Map'}]},
+  {id:'w12', svgId:'ico-spark', label:'Week 12', color:'purple', step:12,
+    title:'Week 12: Advanced Prompting Strategies', sub:'One-hour interactive workshop',
+    desc:'Zero-shot, few-shot, structured reasoning, critique loops, source-bound prompts, and build prompts. Andrew Ng video is the homework reference.',
+    tags:['Syllabus Week 12','Prompting','New Deck'],stats:['1 hour','Interactive'],
+    href:'week-12-advanced-prompting.html', btnText:'Open Week 12 Slides', btnColor:'var(--purple)',
+    resources:[{href:'https://www.youtube.com/watch?v=8ib4Qnh2HFE',label:'Andrew Ng Homework Video'}]},
+  {id:'w13', svgId:'ico-test', label:'Week 13', color:'orange', step:13,
+    title:'Week 13: AI-Powered Security and Vulnerability Management', sub:'Final app review lab',
+    desc:'AI-assisted security review for final static web apps: threat map, static app scan, output handling, secret checks, adversarial tests, triage, and Security Review Packet.',
+    tags:['Syllabus Week 13','Security','Final App Review'],stats:['1 hour','Interactive'],
+    href:'week-13-security-review-lab.html', btnText:'Open Week 13 Slides', btnColor:'#f59e0b',
+    resources:[{href:'agentic-engineering-quest.html',label:'Agent Safety Resource'},{href:'https://genai.owasp.org/llm-top-10/',label:'OWASP GenAI LLM Top 10'},{href:'https://docs.github.com/en/code-security/concepts/secret-security/push-protection',label:'GitHub Push Protection'},{href:'https://developers.openai.com/api/docs/guides/safety-best-practices',label:'OpenAI Safety Best Practices'},{href:'https://weihaoqu.github.io/learnAIDoc/wiki/ponytail-anti-overengineering-skill/',label:'Optional: minimum sufficient fix'},{href:'https://weihaoqu.github.io/learnAIDoc/wiki/openworker-local-first-desktop-agents/',label:'Optional: action-risk case'},{href:'https://genai.owasp.org/resource/owasp-top-10-for-agentic-applications-for-2026/',label:'Optional OWASP Agentic Security'},{href:'https://atlas.mitre.org/',label:'Optional MITRE ATLAS'}]},
+  {id:'w14', svgId:'ico-medal', label:'Week 14', color:'gold', step:14,
+    title:'Week 14: Final Web App Showcase and AI Collaboration Reflection', sub:'Capstone presentation',
+    desc:'Students present the final static app or fallback with Week 10 build evidence, Week 11 source/career evidence, Week 13 security evidence, AI-use disclosure, known limitation, and next step.',
+    tags:['Syllabus Week 14','Presentation','Reflection'],stats:['1 hour','Interactive'],
+    href:'week-14-final-showcase.html', btnText:'Open Week 14 Slides', btnColor:'var(--gold)',
+    resources:[{href:'https://pair.withgoogle.com/guidebook-v2/',label:'Optional Google PAIR Guidebook'},{href:'https://codelabs.developers.google.com/codelabs/pair-guidebook',label:'Optional PAIR Codelab'},{href:'https://naceweb.org/career-readiness/competencies/career-readiness-defined',label:'NACE Career Readiness'},{href:'https://dschool.stanford.edu/tools/how-to-give-feedback',label:'Optional Feedback Protocol'}]},
 ];
 
 // ===== ORBITAL TIMELINE =====
@@ -635,15 +762,39 @@ const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').match
 const coarsePointer = window.matchMedia('(pointer: coarse)').matches;
 let motionEnabled = !reduceMotion && !coarsePointer;
 
+function escapeHtml(value) {
+  return String(value ?? '').replace(/[&<>"']/g, char => ({
+    '&': '&amp;',
+    '<': '&lt;',
+    '>': '&gt;',
+    '"': '&quot;',
+    "'": '&#39;'
+  }[char]));
+}
+
+function safeHref(value) {
+  const href = String(value ?? '').trim();
+  if (/^https?:\/\//.test(href) || /^mailto:/.test(href) || href.startsWith('#')) return href;
+  if (/^[A-Za-z0-9._/-]+(?:\?[A-Za-z0-9._~%=&+/-]*)?(?:#[A-Za-z0-9._-]+)?$/.test(href)) return href;
+  return '#';
+}
+
+function externalLinkAttrs(href, label) {
+  return href.startsWith('http')
+    ? `target="_blank" rel="noopener noreferrer" aria-label="${escapeHtml(`${label}, opens in a new tab`)}"`
+    : '';
+}
+
 // Create nodes
 courses.forEach((c, i) => {
   const btn = document.createElement('button');
   btn.className = 'orbit-node';
   btn.dataset.color = c.color;
   btn.dataset.idx = i;
-  const icon = c.iconImg ? `<img src="${c.iconImg}" alt="${c.label}">` : `<svg aria-hidden="true"><use href="#${c.svgId}"></use></svg>`;
-  btn.innerHTML = `${icon}<span class="node-badge">${c.step}</span><span class="orbit-node-label">${c.label}</span>`;
+  const icon = c.iconImg ? `<img src="${escapeHtml(safeHref(c.iconImg))}" alt="${escapeHtml(c.label)}">` : `<svg aria-hidden="true"><use href="#${escapeHtml(c.svgId)}"></use></svg>`;
+  btn.innerHTML = `${icon}<span class="node-badge">${escapeHtml(c.step)}</span><span class="orbit-node-label">${escapeHtml(c.label)}</span>`;
   btn.setAttribute('aria-label', c.title);
+  btn.setAttribute('aria-pressed', 'false');
   btn.addEventListener('click', () => selectNode(i));
   stage.appendChild(btn);
 });
@@ -665,17 +816,38 @@ function selectNode(idx) {
   const c = courses[idx];
   activeId = idx;
   autoRotate = false;
-  stage.querySelectorAll('.orbit-node').forEach((n, i) => n.classList.toggle('active', i === idx));
+  stage.querySelectorAll('.orbit-node').forEach((n, i) => {
+    const active = i === idx;
+    n.classList.toggle('active', active);
+    n.setAttribute('aria-pressed', String(active));
+    if (active) {
+      n.setAttribute('aria-current', 'true');
+    } else {
+      n.removeAttribute('aria-current');
+    }
+  });
 
-  const isExternal = c.href.startsWith('http');
+  const href = c.href ? safeHref(c.href) : '';
+  const isExternal = href.startsWith('http');
+  const primaryButton = c.href
+    ? `<a href="${escapeHtml(href)}" ${isExternal ? externalLinkAttrs(href, c.btnText) : ''} class="detail-btn" style="background:${escapeHtml(c.btnColor)}">${escapeHtml(c.btnText)} &#8594;</a>`
+    : `<span class="detail-btn planned" aria-disabled="true" style="background:${escapeHtml(c.btnColor)}">${escapeHtml(c.btnText)}</span>`;
+  const resourceLinks = c.resources
+    ? `<div class="detail-resources">${c.resources.map(resource => {
+        if (!resource.href) return `<span class="detail-resource" aria-disabled="true">${escapeHtml(resource.label)}</span>`;
+        const resourceHref = safeHref(resource.href);
+        return `<a class="detail-resource" href="${escapeHtml(resourceHref)}" ${externalLinkAttrs(resourceHref, resource.label)}>${escapeHtml(resource.label)}</a>`;
+      }).join('')}</div>`
+    : '';
   detailEl.innerHTML = `
     <button class="detail-close" onclick="closeDetail()" aria-label="Close">&times;</button>
-    <h3>${c.title}</h3>
-    <p class="detail-sub">${c.sub}</p>
-    <p class="detail-desc">${c.desc}</p>
-    <div class="detail-tags">${c.tags.map(t => `<span class="detail-tag">${t}</span>`).join('')}</div>
-    <div class="detail-stats">${c.stats.map(s => `<span>${s}</span>`).join('')}</div>
-    <a href="${c.href}" ${isExternal ? 'target="_blank" rel="noopener noreferrer"' : ''} class="detail-btn" style="background:${c.btnColor}">${c.btnText} &#8594;</a>
+    <h3>${escapeHtml(c.title)}</h3>
+    <p class="detail-sub">${escapeHtml(c.sub)}</p>
+    <p class="detail-desc">${escapeHtml(c.desc)}</p>
+    <div class="detail-tags">${c.tags.map(t => `<span class="detail-tag">${escapeHtml(t)}</span>`).join('')}</div>
+    <div class="detail-stats">${c.stats.map(s => `<span>${escapeHtml(s)}</span>`).join('')}</div>
+    ${primaryButton}
+    ${resourceLinks}
   `;
   detailEl.classList.add('show');
   setTimeout(() => detailEl.scrollIntoView({ behavior: 'smooth', block: 'nearest' }), 100);

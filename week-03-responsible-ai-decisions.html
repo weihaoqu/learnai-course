@@ -1,0 +1,778 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Week 3 Slides - Responsible AI Decisions</title>
+<link rel="icon" href="data:,">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#090a0d;--panel:#12151b;--panel2:#171c24;--panel3:#202735;--line:rgba(255,255,255,.13);
+  --text:#f8fafc;--muted:#a8b3c2;--faint:#717d8c;
+  --green:#42d392;--amber:#f4b942;--red:#ff6678;--blue:#5aa7ff;--teal:#2dd4bf;--violet:#b89cff;
+  --ink:#05070a;--font:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  --mono:"SFMono-Regular",Consolas,"Liberation Mono",Menlo,monospace;
+}
+html,body{height:100%;overflow:hidden}
+body{font-family:var(--font);background:
+  radial-gradient(circle at 15% 12%,rgba(66,211,146,.15),transparent 32%),
+  radial-gradient(circle at 86% 16%,rgba(255,102,120,.11),transparent 30%),
+  radial-gradient(circle at 54% 88%,rgba(244,185,66,.12),transparent 34%),
+  linear-gradient(135deg,#090a0d,#111720 52%,#090a0d);color:var(--text)}
+a{color:var(--blue);text-decoration:none}
+button,textarea,input,select{font:inherit}
+code{font-family:var(--mono);color:#bfdbfe}
+.deck{height:100vh;width:100vw;position:relative}
+.slide{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:82px 7vw 84px;opacity:0;pointer-events:none;transition:opacity .25s ease;overflow:auto}
+.slide.active{opacity:1;pointer-events:auto}
+.inner{width:min(1180px,100%)}
+.kicker{display:inline-flex;align-items:center;gap:10px;color:var(--amber);font-size:13px;font-weight:900;letter-spacing:.12em;text-transform:uppercase;margin-bottom:18px}
+.kicker::before{content:"";width:34px;height:2px;background:currentColor;border-radius:99px}
+h1{font-size:clamp(42px,6vw,74px);line-height:1.02;letter-spacing:0;margin-bottom:18px}
+h2{font-size:clamp(34px,4.6vw,58px);line-height:1.06;letter-spacing:0;margin-bottom:18px}
+h3{font-size:clamp(22px,2.25vw,30px);line-height:1.18;margin-bottom:12px}
+p,li{font-size:clamp(18px,1.5vw,22px);line-height:1.45;color:var(--muted)}
+ul{padding-left:1.2em;margin:18px 0}
+li{margin:8px 0}
+.lede{font-size:clamp(22px,2.1vw,30px);max-width:980px;color:#edf2f7}
+.muted{color:var(--faint);font-size:16px}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px;margin-top:26px}
+.grid.three{grid-template-columns:repeat(3,minmax(0,1fr))}
+.grid.four{grid-template-columns:repeat(4,minmax(0,1fr))}
+.card{background:rgba(18,21,27,.86);border:1px solid var(--line);border-radius:14px;padding:22px;min-height:130px}
+.card h3{font-size:22px;color:#fff}
+.tag{display:inline-flex;border:1px solid rgba(255,255,255,.16);border-radius:999px;padding:7px 11px;color:#fef3c7;font-size:13px;font-weight:900;margin-bottom:12px;background:rgba(255,255,255,.045)}
+.timebox{display:inline-flex;align-items:center;border:1px solid rgba(244,185,66,.36);background:rgba(244,185,66,.1);border-radius:999px;padding:8px 12px;color:#ffefbd;font-size:14px;font-weight:900;margin-bottom:18px}
+.formula{font-family:var(--mono);font-size:clamp(19px,1.8vw,27px);line-height:1.45;background:#05070a;border:1px solid rgba(244,185,66,.28);border-radius:18px;padding:24px;margin-top:26px;color:#fde68a}
+.terminal{background:#05070a;border:1px solid rgba(148,163,184,.24);border-radius:16px;padding:18px;font-family:var(--mono);color:#dbeafe;font-size:clamp(15px,1.2vw,18px);line-height:1.55;margin-top:20px;white-space:pre-wrap}
+.traffic{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;margin-top:26px}
+.signal{position:relative;border:1px solid rgba(255,255,255,.16);background:rgba(255,255,255,.055);border-radius:16px;padding:22px;min-height:190px;overflow:hidden}
+.signal::before{content:"";position:absolute;top:18px;right:18px;width:18px;height:18px;border-radius:999px;background:var(--dot)}
+.signal.green{--dot:var(--green);border-color:rgba(66,211,146,.35)}
+.signal.amber{--dot:var(--amber);border-color:rgba(244,185,66,.35)}
+.signal.red{--dot:var(--red);border-color:rgba(255,102,120,.35)}
+.signal h3{font-size:24px;color:#fff;padding-right:28px}
+.source{border-left:6px solid var(--violet);background:rgba(184,156,255,.08)}
+.lab{border-left:6px solid var(--blue);background:rgba(90,167,255,.08)}
+.check{border-left:6px solid var(--green);background:rgba(66,211,146,.08)}
+.warn{border-left:6px solid var(--red);background:rgba(255,102,120,.08)}
+.note{border-left:6px solid var(--amber);background:rgba(244,185,66,.10)}
+.artifact{background:linear-gradient(135deg,rgba(66,211,146,.12),rgba(244,185,66,.10));border:1px solid rgba(66,211,146,.28)}
+.teacher-note{display:none;margin-top:22px;border:1px dashed rgba(255,255,255,.28);background:rgba(255,255,255,.055);border-radius:14px;padding:16px;color:#e2e8f0;font-size:16px}
+body.notes-on .teacher-note{display:block}
+.hud{position:fixed;top:0;left:0;right:0;height:54px;background:rgba(9,10,13,.9);backdrop-filter:blur(14px);border-bottom:1px solid var(--line);display:flex;align-items:center;gap:14px;padding:0 18px;z-index:5}
+.brand{font-weight:900;color:#fff;white-space:nowrap}
+.progress{height:6px;background:rgba(255,255,255,.08);border-radius:999px;flex:1;overflow:hidden}
+.bar{height:100%;width:0;background:linear-gradient(90deg,var(--green),var(--amber),var(--red));transition:width .2s ease}
+.status{color:var(--muted);font-size:13px;white-space:nowrap}
+.controls{position:fixed;left:0;right:0;bottom:0;min-height:62px;background:rgba(9,10,13,.92);backdrop-filter:blur(14px);border-top:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;gap:12px;padding:10px 18px;z-index:5}
+.btn{border:1px solid var(--line);background:rgba(255,255,255,.06);color:#fff;border-radius:11px;padding:9px 13px;cursor:pointer;font-weight:900}
+.btn:hover,.btn:focus{outline:2px solid rgba(244,185,66,.55)}
+.jump{display:flex;gap:8px;flex-wrap:wrap;justify-content:center}
+.jump .btn{font-size:13px;color:var(--muted)}
+.jump .btn.active{color:#160d02;background:var(--amber)}
+.link-btn{display:inline-flex;align-items:center;gap:8px;border:1px solid rgba(90,167,255,.45);background:rgba(90,167,255,.12);color:#dbeafe;border-radius:12px;padding:12px 15px;font-weight:900;margin-top:18px;margin-right:8px}
+.decision-frame{display:grid;grid-template-columns:330px minmax(0,1fr);gap:18px;margin-top:24px}
+.decision-list{display:grid;gap:9px}
+.step-btn{border:1px solid rgba(255,255,255,.14);background:rgba(255,255,255,.055);color:#f1f5f9;border-radius:13px;padding:13px 14px;text-align:left;cursor:pointer;font-weight:900}
+.step-btn:hover,.step-btn:focus-visible{outline:2px solid rgba(244,185,66,.58)}
+.step-btn.active{background:rgba(244,185,66,.16);border-color:rgba(244,185,66,.76);color:#fff}
+.readout{border:1px solid rgba(244,185,66,.24);background:linear-gradient(135deg,rgba(244,185,66,.10),rgba(90,167,255,.07));border-radius:18px;padding:22px;min-height:310px}
+.readout h3{font-size:25px;color:#fff}
+.scenario-layout{display:grid;grid-template-columns:minmax(0,1fr) 360px;gap:18px;margin-top:24px}
+.scenario-card{border:1px solid rgba(255,255,255,.16);background:rgba(255,255,255,.055);border-radius:18px;padding:22px;min-height:330px}
+.scenario-title{font-size:20px;font-weight:900;color:#fff;margin-bottom:12px}
+.choice-row{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-top:20px}
+.choice{width:100%;text-align:left;color:var(--text);background:rgba(255,255,255,.055);border:1px solid var(--line);border-radius:13px;padding:15px 16px;cursor:pointer;min-height:88px}
+.choice:hover,.choice:focus{outline:2px solid rgba(244,185,66,.65)}
+.choice.green{border-color:rgba(66,211,146,.32)}
+.choice.amber{border-color:rgba(244,185,66,.35)}
+.choice.red{border-color:rgba(255,102,120,.35)}
+.choice.correct{border-color:rgba(66,211,146,.9);background:rgba(66,211,146,.16)}
+.choice.wrong{border-color:rgba(255,102,120,.9);background:rgba(255,102,120,.14)}
+.feedback{display:none;margin-top:16px;padding:14px 16px;border-radius:12px;background:rgba(255,255,255,.07);color:#f8fafc;font-size:17px}
+.feedback.show{display:block}
+.bank{display:grid;gap:10px}
+.bank-item{border:1px solid rgba(255,255,255,.13);background:rgba(255,255,255,.045);border-radius:13px;padding:13px}
+.bank-item strong{display:block;color:#fff;font-size:16px;margin-bottom:5px}
+.pill{display:inline-flex;border-radius:999px;padding:4px 9px;margin-right:6px;font-size:12px;font-weight:900}
+.pill.green{background:rgba(66,211,146,.16);color:#bbf7d0}
+.pill.amber{background:rgba(244,185,66,.16);color:#fde68a}
+.pill.red{background:rgba(255,102,120,.16);color:#fecdd3}
+.meter-box{display:grid;grid-template-columns:360px minmax(0,1fr);gap:18px;margin-top:24px}
+.checklist{display:grid;gap:10px}
+.risk-check{display:flex;gap:12px;align-items:flex-start;border:1px solid rgba(255,255,255,.14);background:rgba(255,255,255,.055);border-radius:13px;padding:14px;color:#e5edf7;cursor:pointer}
+.risk-check input{width:20px;height:20px;margin-top:3px;accent-color:var(--amber)}
+.risk-check.done{border-color:rgba(66,211,146,.55);background:rgba(66,211,146,.10)}
+.risk-readout{border:1px solid rgba(255,255,255,.15);background:rgba(255,255,255,.055);border-radius:18px;padding:20px}
+.risk-meter{height:16px;border:1px solid rgba(255,255,255,.14);border-radius:999px;overflow:hidden;background:rgba(255,255,255,.07);margin:16px 0}
+.risk-fill{height:100%;width:0;background:linear-gradient(90deg,var(--red),var(--amber),var(--green));transition:width .2s ease}
+.builder{display:grid;grid-template-columns:390px minmax(0,1fr);gap:18px;margin-top:22px}
+.form{display:grid;gap:10px}
+.form label{display:grid;gap:6px;color:#e8eef7;font-size:13px;font-weight:900;text-transform:uppercase;letter-spacing:.08em}
+.form input,.form textarea,.form select{width:100%;border:1px solid rgba(255,255,255,.15);background:#05070a;color:#f8fafc;border-radius:12px;padding:12px 13px;outline:none}
+.form textarea{min-height:74px;resize:vertical}
+.form input:focus,.form textarea:focus,.form select:focus{border-color:rgba(244,185,66,.75);box-shadow:0 0 0 3px rgba(244,185,66,.16)}
+.ticket{border:1px solid rgba(66,211,146,.32);background:rgba(66,211,146,.08);border-radius:16px;padding:18px;white-space:pre-wrap;color:#f0fdf4;font-family:var(--mono);font-size:15px;line-height:1.5;min-height:430px;user-select:text}
+.table{display:grid;grid-template-columns:180px minmax(0,1fr) minmax(0,1fr);border:1px solid var(--line);border-radius:16px;overflow:hidden;margin-top:22px}
+.cell{padding:15px;border-bottom:1px solid var(--line);border-right:1px solid var(--line);background:rgba(255,255,255,.045)}
+.cell:nth-child(3n){border-right:none}
+.cell.head{background:rgba(244,185,66,.14);color:#fff;font-weight:900}
+.cell p{font-size:16px}
+@media(max-width:920px){
+  html,body{overflow:auto}
+  .deck{height:auto;min-height:100vh}
+  .slide{position:relative;display:none;min-height:100vh;justify-content:flex-start;padding:78px 22px 220px;overflow:visible}
+  .slide.active{display:flex}
+  .grid,.grid.three,.grid.four,.traffic,.decision-frame,.scenario-layout,.choice-row,.meter-box,.builder{grid-template-columns:1fr}
+  .table{grid-template-columns:1fr}
+  .cell,.cell:nth-child(3n){border-right:none}
+  .hud{height:auto;min-height:58px;align-items:flex-start;flex-wrap:wrap;padding:9px 12px}
+  .brand{width:100%}
+  .status{font-size:12px}
+  .controls{display:grid;grid-template-columns:1fr auto;align-items:center;min-height:0}
+  .jump{grid-column:1/-1;order:0}
+  .controls>div:last-child{display:flex;gap:8px;justify-content:flex-end}
+  .btn{padding:8px 10px}
+}
+@media(max-width:600px){
+  .jump{justify-content:flex-start;flex-wrap:nowrap;overflow-x:auto;padding-bottom:2px}
+  .jump .btn{min-width:34px}
+}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{transition-duration:0.01ms!important}}
+</style>
+</head>
+<body>
+<div class="hud">
+  <div class="brand">Week 3: Responsible AI Decisions</div>
+  <div class="progress" aria-hidden="true"><div class="bar" id="bar"></div></div>
+  <div class="status" id="status">Slide 1</div>
+</div>
+
+<main class="deck" id="deck">
+  <section class="slide active" id="start" data-part="Open" data-title="Decision point">
+    <div class="inner">
+      <div class="kicker">60-minute decision studio</div>
+      <h1>Responsible AI is a decision habit.</h1>
+      <p class="lede">Today we practice what is allowed, what needs permission, and what should not be done. The goal is not to memorize every policy. The goal is to pause before using AI in a way that affects people, data, sources, or authorship.</p>
+      <div class="grid three">
+        <div class="card"><span class="tag">In class</span><p>Classify realistic scenarios as allowed, ask first, or not allowed.</p></div>
+        <div class="card"><span class="tag">Artifact</span><p>Build a Responsible AI Decision Card for a real course task.</p></div>
+        <div class="card"><span class="tag">Homework</span><p>Submit a one-page Responsible AI Use Plan with disclosure and verification steps.</p></div>
+      </div>
+      <div class="teacher-note">Pacing: 4 minutes. Frame this as practical decision-making. Students should feel the difference between productive assistance and misrepresentation or unsafe data use.</div>
+    </div>
+  </section>
+
+  <section class="slide source" data-part="Open" data-title="Source boundaries">
+    <div class="inner">
+      <div class="kicker">Source boundaries</div>
+      <h2>These sources teach judgment. Your course policy still controls.</h2>
+      <div class="grid">
+        <div class="card">
+          <h3>Use today</h3>
+          <ul>
+            <li>NIST AI RMF for risk framing.</li>
+            <li>U.S. Copyright Office AI reports for copyright literacy.</li>
+            <li>Cornell and Vanderbilt for academic-integrity examples.</li>
+            <li>Stanford AI literacy for connecting tools, rhetoric, and ethics.</li>
+          </ul>
+        </div>
+        <div class="card warn">
+          <h3>Do not overclaim</h3>
+          <ul>
+            <li>This is not legal advice.</li>
+            <li>Cornell and Vanderbilt are not universal course rules.</li>
+            <li>AI detectors are not definitive proof by themselves.</li>
+            <li>When policy is unclear, ask before using AI.</li>
+          </ul>
+        </div>
+      </div>
+      <a class="link-btn" href="https://www.nist.gov/itl/ai-risk-management-framework" target="_blank" rel="noopener noreferrer">NIST AI RMF</a>
+      <a class="link-btn" href="https://www.copyright.gov/ai/" target="_blank" rel="noopener noreferrer">Copyright Office AI</a>
+      <a class="link-btn" href="https://teaching.cornell.edu/generative-artificial-intelligence/ai-academic-integrity" target="_blank" rel="noopener noreferrer">Cornell AI integrity</a>
+      <a class="link-btn" href="https://www.vanderbilt.edu/generative-ai/academic-integrity/" target="_blank" rel="noopener noreferrer">Vanderbilt guidance</a>
+      <a class="link-btn" href="https://teachingcommons.stanford.edu/teaching-guides/artificial-intelligence-teaching-guide/understanding-ai-literacy" target="_blank" rel="noopener noreferrer">Stanford AI literacy</a>
+      <div class="teacher-note">Pacing: 4 minutes. Say explicitly that the skipped UNESCO framework is not part of this student module, based on Q's source decisions.</div>
+    </div>
+  </section>
+
+  <section class="slide" id="model" data-part="Part 1" data-title="Decision model">
+    <div class="inner">
+      <div class="timebox">8-15 min</div>
+      <h2>Use five questions before using AI.</h2>
+      <p class="lede">This simplified model is informed by risk-management thinking: map the task, identify who could be affected, measure what needs evidence, then manage the action with review.</p>
+      <div class="decision-frame">
+        <div class="decision-list">
+          <button class="step-btn active" data-step="task">1. What is the task?</button>
+          <button class="step-btn" data-step="people">2. Who is affected?</button>
+          <button class="step-btn" data-step="data">3. What data or source?</button>
+          <button class="step-btn" data-step="risk">4. What could go wrong?</button>
+          <button class="step-btn" data-step="review">5. What review is needed?</button>
+        </div>
+        <div class="readout">
+          <h3 id="stepTitle">What is the task?</h3>
+          <p id="stepText">Name the real job: brainstorm, edit, summarize, generate, rank, decide, cite, code, or submit. Different jobs carry different responsibilities.</p>
+          <div class="terminal" id="stepExample">Example: "Use AI to brainstorm three possible project topics" is different from "Use AI to write my final reflection."</div>
+        </div>
+      </div>
+      <div class="teacher-note">Pacing: 7 minutes. Keep this as a reusable checklist. Students will apply it repeatedly in scenarios.</div>
+    </div>
+  </section>
+
+  <section class="slide" data-part="Part 1" data-title="Traffic light">
+    <div class="inner">
+      <div class="kicker">Decision labels</div>
+      <h2>Classify the action, then explain why.</h2>
+      <div class="traffic">
+        <div class="signal green">
+          <h3>Usually allowed if policy permits</h3>
+          <p>Appropriate support when the student remains responsible, checks the output, and discloses use if required.</p>
+        </div>
+        <div class="signal amber">
+          <h3>Ask first or revise</h3>
+          <p>The idea might be acceptable, but data, source material, tool choice, or assignment rules need clarification.</p>
+        </div>
+        <div class="signal red">
+          <h3>Not allowed</h3>
+          <p>The action misrepresents authorship, exposes private data, invents evidence, or uses AI for an unauthorized decision.</p>
+        </div>
+      </div>
+      <div class="formula">allowed is conditional: policy + permission + disclosure + verification</div>
+    </div>
+  </section>
+
+  <section class="slide lab" id="scenarioLab" data-part="Part 2" data-title="Scenario lab">
+    <div class="inner">
+      <div class="timebox">15-38 min</div>
+      <h2>Scenario lab: allowed, ask first, or not allowed?</h2>
+      <p class="lede">Choose the best label. Then read the feedback and name the rule behind the decision.</p>
+      <div class="scenario-layout">
+        <div class="scenario-card">
+          <div class="scenario-title" id="scenarioTitle">Scenario 1 of 10</div>
+          <p class="lede" id="scenarioText">A student asks AI to brainstorm five possible paper topics, then chooses one and writes the paper themselves.</p>
+          <div class="choice-row">
+            <button class="choice green" data-choice="green"><strong>Usually allowed</strong><br>Policy permits, disclose/review as required.</button>
+            <button class="choice amber" data-choice="amber"><strong>Ask first</strong><br>Needs permission, revision, or safer workflow.</button>
+            <button class="choice red" data-choice="red"><strong>Not allowed</strong><br>Misrepresentation, private data, fake evidence, or high risk.</button>
+          </div>
+          <div class="feedback" id="scenarioFeedback"></div>
+          <button class="btn" id="nextScenario" style="margin-top:14px">Next scenario</button>
+        </div>
+        <div class="card">
+          <h3>Case bank</h3>
+          <div class="bank">
+            <div class="bank-item"><strong>Peer data</strong><span class="pill red">Red</span><p>Pasting a classmate's draft, email, grade sheet, or personal issue without permission.</p></div>
+            <div class="bank-item"><strong>Fake citations</strong><span class="pill red">Red</span><p>Using AI-provided sources before verifying they exist and support the claim.</p></div>
+            <div class="bank-item"><strong>Original editing</strong><span class="pill green">Green</span><span class="pill amber">Yellow</span><p>Grammar help on your own writing, depending on assignment rules.</p></div>
+            <div class="bank-item"><strong>Copyright source uploads</strong><span class="pill amber">Yellow</span><span class="pill red">Red</span><p>Ask before uploading restricted or paid materials to third-party tools.</p></div>
+          </div>
+        </div>
+      </div>
+      <div class="teacher-note">Pacing: 23 minutes. Do 6-8 scenarios live. Leave the rest as quick discussion or homework examples if time is short.</div>
+    </div>
+  </section>
+
+  <section class="slide warn" data-part="Part 2" data-title="Privacy">
+    <div class="inner">
+      <div class="kicker">Privacy default</div>
+      <h2>Do not paste identifiable private or peer data into AI by default.</h2>
+      <div class="grid">
+        <div class="card">
+          <h3>Red examples</h3>
+          <ul>
+            <li>A classmate's draft with their name.</li>
+            <li>A screenshot of grades or feedback.</li>
+            <li>A personal email, medical detail, or family issue.</li>
+            <li>A private document from work or an internship.</li>
+          </ul>
+        </div>
+        <div class="card check">
+          <h3>Safer alternatives</h3>
+          <ul>
+            <li>Use invented or anonymized examples.</li>
+            <li>Ask the instructor which tool is approved.</li>
+            <li>Describe the problem without identifiers.</li>
+            <li>Get permission before using someone else's content.</li>
+          </ul>
+        </div>
+      </div>
+      <div class="formula">private data + no permission + third-party AI = stop</div>
+    </div>
+  </section>
+
+  <section class="slide lab" data-part="Part 3" data-title="Evidence">
+    <div class="inner">
+      <div class="timebox">38-44 min</div>
+      <h2>A confident answer is not evidence.</h2>
+      <p class="lede">AI can be useful for finding leads, comparing claims, and explaining ideas. It cannot replace checking whether sources exist, say what the model claims, and fit the assignment.</p>
+      <div class="table" role="table" aria-label="Evidence decisions">
+        <div class="cell head">AI action</div><div class="cell head">Student action</div><div class="cell head">Decision</div>
+        <div class="cell"><p>Suggest search terms</p></div><div class="cell"><p>Search, read, and cite real sources.</p></div><div class="cell"><p><span class="pill green">Allowed</span></p></div>
+        <div class="cell"><p>Invents a citation</p></div><div class="cell"><p>Do not cite. Verify independently.</p></div><div class="cell"><p><span class="pill red">Not allowed</span></p></div>
+        <div class="cell"><p>Summarizes a source</p></div><div class="cell"><p>Check the original source before relying on it.</p></div><div class="cell"><p><span class="pill amber">Ask/check</span></p></div>
+      </div>
+      <div class="teacher-note">Pacing: 6 minutes. Tie this back to Week 1 hallucination: plausible text can still be unsupported.</div>
+    </div>
+  </section>
+
+  <section class="slide note" data-part="Part 3" data-title="Copyright">
+    <div class="inner">
+      <div class="timebox">44-50 min</div>
+      <h2>Copyright questions are risk questions, not instant yes/no answers.</h2>
+      <p class="lede">For this course, students do not need to decide copyright law. They need to recognize when source material, AI-generated output, attribution, and permission are uncertain.</p>
+      <div class="grid">
+        <div class="card">
+          <h3>Ask two questions</h3>
+          <ul>
+            <li>Am I allowed to use this AI tool for the assignment?</li>
+            <li>Do I have permission or rights for any uploaded source material?</li>
+          </ul>
+        </div>
+        <div class="card warn">
+          <h3>Use caution when</h3>
+          <ul>
+            <li>Uploading books, paid articles, lyrics, images, or private files.</li>
+            <li>Claiming authorship over mostly AI-generated work.</li>
+            <li>Using AI images without disclosure.</li>
+            <li>Reusing recognizable source style or protected content.</li>
+          </ul>
+        </div>
+      </div>
+      <a class="link-btn" href="https://www.copyright.gov/ai/Copyright-and-Artificial-Intelligence-Part-2-Copyrightability-Report.pdf" target="_blank" rel="noopener noreferrer">Copyrightability report</a>
+      <a class="link-btn" href="https://www.copyright.gov/ai/Copyright-and-Artificial-Intelligence-Part-3-Generative-AI-Training-Report-Pre-Publication-Version.pdf" target="_blank" rel="noopener noreferrer">Training report</a>
+    </div>
+  </section>
+
+  <section class="slide warn" data-part="Part 3" data-title="Bias">
+    <div class="inner">
+      <div class="timebox">50-55 min</div>
+      <h2>Do not use AI ranking as a real decision shortcut.</h2>
+      <p class="lede">Ranking classmates, applicants, patients, employees, or scholarship candidates is high-stakes. In this course, use those examples only as fairness critiques with fictional or approved data.</p>
+      <div class="grid three">
+        <div class="card"><h3>Affected people</h3><p>Who could lose opportunity, privacy, credit, or dignity because of the output?</p></div>
+        <div class="card"><h3>Proxy variables</h3><p>Could zip code, school, writing style, name, or activity history stand in for protected or sensitive traits?</p></div>
+        <div class="card"><h3>Review</h3><p>What human review, appeal, or evidence would be required before using the output?</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="slide source" data-part="Part 3" data-title="Disclosure">
+    <div class="inner">
+      <div class="kicker">Academic integrity</div>
+      <h2>Disclose assistance. Do not outsource authorship.</h2>
+      <p class="lede">Cornell and Vanderbilt give useful teaching examples, but your instructor's assignment policy controls. If the policy is unclear, ask before using AI.</p>
+      <div class="grid">
+        <div class="card check"><h3>Usually defensible</h3><p>Brainstorming, outlining, grammar checks, critique, debugging help, or source leads when allowed, checked, and disclosed as required.</p></div>
+        <div class="card warn"><h3>Usually not defensible</h3><p>Submitting AI-written work as your own, using hidden AI help when prohibited, inventing sources, or using someone else's data/content without permission.</p></div>
+      </div>
+      <a class="link-btn" href="https://teaching.cornell.edu/generative-artificial-intelligence/ai-academic-integrity" target="_blank" rel="noopener noreferrer">Cornell guidance</a>
+      <a class="link-btn" href="https://www.vanderbilt.edu/generative-ai/academic-integrity/" target="_blank" rel="noopener noreferrer">Vanderbilt guidance</a>
+    </div>
+  </section>
+
+  <section class="slide lab" id="disclosure" data-part="Part 4" data-title="Disclosure builder">
+    <div class="inner">
+      <div class="timebox">55-60 min</div>
+      <h2>Build a disclosure sentence.</h2>
+      <p class="lede">A useful disclosure says what tool you used, what you used it for, and what you personally verified or changed.</p>
+      <div class="builder">
+        <div class="form">
+          <label>Tool used
+            <input id="discTool" placeholder="e.g., ChatGPT, Claude, Copilot">
+          </label>
+          <label>Purpose
+            <select id="discPurpose">
+              <option>brainstorming ideas</option>
+              <option>grammar and clarity edits</option>
+              <option>debugging help</option>
+              <option>summarizing source leads</option>
+              <option>image generation</option>
+            </select>
+          </label>
+          <label>Human responsibility
+            <textarea id="discReview" placeholder="What did you check, rewrite, cite, or decide yourself?"></textarea>
+          </label>
+        </div>
+        <div>
+          <div class="ticket" id="disclosureText"></div>
+          <button class="btn" id="copyDisclosure" style="margin-top:12px">Copy disclosure</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="slide check" id="risk" data-part="Part 4" data-title="Risk checklist">
+    <div class="inner">
+      <div class="kicker">Before submission</div>
+      <h2>Run the six-check review.</h2>
+      <div class="meter-box">
+        <div class="checklist">
+          <label class="risk-check"><input type="checkbox" data-risk><span>I followed the assignment's AI policy or asked first.</span></label>
+          <label class="risk-check"><input type="checkbox" data-risk><span>I did not paste private, peer, or restricted data into an unapproved tool.</span></label>
+          <label class="risk-check"><input type="checkbox" data-risk><span>I verified sources before citing or relying on claims.</span></label>
+          <label class="risk-check"><input type="checkbox" data-risk><span>I can explain the work in my own words.</span></label>
+          <label class="risk-check"><input type="checkbox" data-risk><span>I disclosed AI help if the course requires it.</span></label>
+          <label class="risk-check"><input type="checkbox" data-risk><span>I named one risk and one mitigation.</span></label>
+        </div>
+        <div class="risk-readout">
+          <h3 id="riskTitle">0 of 6 checks complete</h3>
+          <div class="risk-meter" aria-hidden="true"><div class="risk-fill" id="riskFill"></div></div>
+          <p id="riskText">Start with policy and data boundaries. A useful AI workflow is still your responsibility.</p>
+          <div class="terminal">Rule of thumb: if you would be uncomfortable showing the instructor exactly how AI helped, stop and ask.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="slide artifact" id="card" data-part="Artifact" data-title="Decision Card">
+    <div class="inner">
+      <div class="kicker">Exit artifact</div>
+      <h2>Responsible AI Decision Card</h2>
+      <p class="lede">Use one real upcoming assignment or project. Build the card you will submit as homework.</p>
+      <div class="builder">
+        <div class="form">
+          <label>Assignment or project
+            <input id="cardTask" placeholder="e.g., Week 4 professional email revision">
+          </label>
+          <label>Allowed AI use
+            <textarea id="cardUse" placeholder="What AI help is acceptable for this task?"></textarea>
+          </label>
+          <label>Data boundary
+            <textarea id="cardData" placeholder="What will you not paste, upload, or expose?"></textarea>
+          </label>
+          <label>Verification plan
+            <textarea id="cardVerify" placeholder="What sources, facts, code, or outputs will you check?"></textarea>
+          </label>
+          <label>Disclosure sentence
+            <textarea id="cardDisclosure" placeholder="How will you disclose AI help?"></textarea>
+          </label>
+          <label>Risk and mitigation
+            <textarea id="cardRisk" placeholder="One risk and one step you will take to reduce it."></textarea>
+          </label>
+        </div>
+        <div>
+          <div class="ticket" id="decisionCard"></div>
+          <button class="btn" id="copyCard" style="margin-top:12px">Copy decision card</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="slide source" id="homework" data-part="Homework" data-title="Homework">
+    <div class="inner">
+      <div class="kicker">Homework</div>
+      <h2>Due before Week 4.</h2>
+      <div class="grid">
+        <div class="card">
+          <h3>Required reading</h3>
+          <p>Read the Cornell AI academic integrity page. Write three bullets: one allowed use, one ask-first use, and one not-allowed use for this course.</p>
+          <p><a href="https://teaching.cornell.edu/generative-artificial-intelligence/ai-academic-integrity" target="_blank" rel="noopener noreferrer">Open Cornell reading</a></p>
+        </div>
+        <div class="card">
+          <h3>Responsible AI Use Plan</h3>
+          <p>Submit the Decision Card from today's exit activity as a one-page plan. Include intended AI use, data boundary, verification, disclosure, review, and one risk/mitigation.</p>
+        </div>
+        <div class="card">
+          <h3>Completion note</h3>
+          <p>If AI Fluency Foundations was not already submitted before Week 3, complete it and submit proof or progress plus one applied note.</p>
+          <p><a href="https://anthropic.skilljar.com/ai-fluency-framework-foundations" target="_blank" rel="noopener noreferrer">Open AI Fluency Foundations</a></p>
+        </div>
+        <div class="card">
+          <h3>Optional deeper context</h3>
+          <p>Skim the NIST AI RMF or U.S. Copyright Office AI hub and add one question you still have about responsible AI use.</p>
+        </div>
+      </div>
+      <p style="margin-top:18px"><a href="index.html">Back to CS-215 course hub</a></p>
+    </div>
+  </section>
+</main>
+
+<nav class="controls" aria-label="Slide controls">
+  <button class="btn" id="notesBtn">Notes</button>
+  <div class="jump" id="jump"></div>
+  <div>
+    <button class="btn" id="prevBtn">Prev</button>
+    <button class="btn" id="nextBtn">Next</button>
+  </div>
+</nav>
+
+<script>
+const slides = Array.from(document.querySelectorAll('.slide'));
+const bar = document.getElementById('bar');
+const statusEl = document.getElementById('status');
+const jump = document.getElementById('jump');
+const prevBtn = document.getElementById('prevBtn');
+const nextBtn = document.getElementById('nextBtn');
+let current = 0;
+
+document.querySelectorAll('.feedback').forEach(item => item.setAttribute('aria-live', 'polite'));
+
+slides.forEach((slide, idx) => {
+  const btn = document.createElement('button');
+  btn.className = 'btn';
+  btn.textContent = String(idx + 1);
+  btn.setAttribute('aria-label', `Go to slide ${idx + 1}: ${slide.dataset.title || ''}`);
+  btn.addEventListener('click', () => go(idx));
+  jump.appendChild(btn);
+  if (!slide.id) slide.id = `slide-${idx + 1}`;
+});
+
+function go(idx) {
+  current = Math.max(0, Math.min(slides.length - 1, idx));
+  slides.forEach((slide, i) => slide.classList.toggle('active', i === current));
+  Array.from(jump.children).forEach((btn, i) => {
+    const active = i === current;
+    btn.classList.toggle('active', active);
+    if (active) {
+      btn.setAttribute('aria-current', 'step');
+    } else {
+      btn.removeAttribute('aria-current');
+    }
+  });
+  bar.style.width = `${((current + 1) / slides.length) * 100}%`;
+  statusEl.textContent = `Slide ${current + 1} of ${slides.length}: ${slides[current].dataset.title}`;
+  prevBtn.disabled = current === 0;
+  nextBtn.disabled = current === slides.length - 1;
+  history.replaceState(null, '', `#${slides[current].id}`);
+}
+
+prevBtn.addEventListener('click', () => go(current - 1));
+nextBtn.addEventListener('click', () => go(current + 1));
+document.getElementById('notesBtn').addEventListener('click', () => {
+  document.body.classList.toggle('notes-on');
+});
+document.addEventListener('keydown', event => {
+  if (event.target.matches('input, textarea, select, button, a')) return;
+  if (event.key === 'ArrowRight' || event.key === ' ') { event.preventDefault(); go(current + 1); }
+  if (event.key === 'ArrowLeft') { event.preventDefault(); go(current - 1); }
+  if (event.key === 'Home') { event.preventDefault(); go(0); }
+  if (event.key === 'End') { event.preventDefault(); go(slides.length - 1); }
+  if (event.key.toLowerCase() === 'n') document.body.classList.toggle('notes-on');
+});
+
+const stepData = {
+  task: {
+    title: '1. What is the task?',
+    text: 'Name the real job: brainstorm, edit, summarize, generate, rank, decide, cite, code, or submit. Different jobs carry different responsibilities.',
+    example: 'Brainstorming three project topics is different from writing the final project reflection.'
+  },
+  people: {
+    title: '2. Who is affected?',
+    text: 'Identify people who could lose privacy, credit, opportunity, trust, or dignity because of the output.',
+    example: 'A classmate, a client, an applicant, a patient, or a group represented in the data.'
+  },
+  data: {
+    title: '3. What data or source?',
+    text: 'Check whether the prompt includes private data, peer work, restricted files, paid sources, copyrighted media, or unverified claims.',
+    example: 'Public article: usually safer. Classmate draft with name: stop and ask.'
+  },
+  risk: {
+    title: '4. What could go wrong?',
+    text: 'Look for misrepresentation, hallucinated evidence, privacy exposure, unfair treatment, copyright uncertainty, or over-trust in output.',
+    example: 'The AI gives a clean citation that does not exist.'
+  },
+  review: {
+    title: '5. What review is needed?',
+    text: 'Decide what a human must verify before using or submitting the work.',
+    example: 'Read sources, inspect code, compare policy, disclose help, and ask the instructor if unclear.'
+  }
+};
+document.querySelectorAll('[data-step]').forEach(button => {
+  button.addEventListener('click', () => {
+    document.querySelectorAll('[data-step]').forEach(item => item.classList.remove('active'));
+    button.classList.add('active');
+    const item = stepData[button.dataset.step];
+    document.getElementById('stepTitle').textContent = item.title;
+    document.getElementById('stepText').textContent = item.text;
+    document.getElementById('stepExample').textContent = item.example;
+  });
+});
+
+const scenarios = [
+  {
+    title: 'Scenario 1 of 10',
+    text: 'A student asks AI to brainstorm five possible paper topics, then chooses one and writes the paper themselves.',
+    answer: 'green',
+    feedback: 'Usually allowed when the assignment permits brainstorming. The student still chooses, writes, checks, and discloses if required.'
+  },
+  {
+    title: 'Scenario 2 of 10',
+    text: 'A student asks AI to improve grammar in a paragraph they wrote themselves.',
+    answer: 'amber',
+    feedback: 'Often acceptable, but assignment policy matters. Editing support is different from replacing the student\'s thinking.'
+  },
+  {
+    title: 'Scenario 3 of 10',
+    text: 'A student pastes a classmate\'s draft and asks AI to rewrite it.',
+    answer: 'red',
+    feedback: 'Not allowed by default. It exposes peer work without permission and may misrepresent authorship.'
+  },
+  {
+    title: 'Scenario 4 of 10',
+    text: 'AI gives three citations that look real, and the student includes them without opening the sources.',
+    answer: 'red',
+    feedback: 'Not allowed. Sources must exist, say what the student claims, and be checked before citation.'
+  },
+  {
+    title: 'Scenario 5 of 10',
+    text: 'A student asks AI to compare two public articles and list claims that need verification.',
+    answer: 'green',
+    feedback: 'Usually allowed when the student uses AI as a research assistant and then verifies the original sources.'
+  },
+  {
+    title: 'Scenario 6 of 10',
+    text: 'A student uploads a paid textbook chapter to a third-party AI tool for summarization.',
+    answer: 'amber',
+    feedback: 'Ask first. Copyright, license, and tool data-use rules may restrict uploads. Use institution-approved workflows when available.'
+  },
+  {
+    title: 'Scenario 7 of 10',
+    text: 'A student submits a reflection written almost entirely by AI and does not disclose that assistance.',
+    answer: 'red',
+    feedback: 'Not allowed unless the assignment explicitly asks for that. It misrepresents authorship and learning.'
+  },
+  {
+    title: 'Scenario 8 of 10',
+    text: 'A student generates an image for a presentation using ChatGPT image generation and labels it as AI-generated.',
+    answer: 'green',
+    feedback: 'Usually acceptable when the tool is allowed, source uploads are permitted, and AI generation is disclosed.'
+  },
+  {
+    title: 'Scenario 9 of 10',
+    text: 'A group uses AI to rank classmates for a scholarship recommendation.',
+    answer: 'red',
+    feedback: 'Not for real decisions in this course. Use ranking scenarios only as fairness critiques with fictional or approved data.'
+  },
+  {
+    title: 'Scenario 10 of 10',
+    text: 'A student asks AI for code, then submits it without understanding what it does.',
+    answer: 'amber',
+    feedback: 'Ask policy first and review deeply. In this course, AI code help must be explainable, checked, and free of exposed secrets.'
+  }
+];
+let scenarioIndex = 0;
+const scenarioTitle = document.getElementById('scenarioTitle');
+const scenarioText = document.getElementById('scenarioText');
+const scenarioFeedback = document.getElementById('scenarioFeedback');
+function showScenario() {
+  const item = scenarios[scenarioIndex];
+  scenarioTitle.textContent = item.title;
+  scenarioText.textContent = item.text;
+  scenarioFeedback.classList.remove('show');
+  scenarioFeedback.textContent = '';
+  document.querySelectorAll('[data-choice]').forEach(button => {
+    button.classList.remove('correct','wrong');
+    button.setAttribute('aria-pressed', 'false');
+  });
+}
+document.querySelectorAll('[data-choice]').forEach(button => {
+  button.setAttribute('aria-pressed', 'false');
+  button.addEventListener('click', () => {
+    const item = scenarios[scenarioIndex];
+    document.querySelectorAll('[data-choice]').forEach(choice => {
+      choice.classList.remove('correct','wrong');
+      choice.setAttribute('aria-pressed', 'false');
+    });
+    const correct = button.dataset.choice === item.answer;
+    document.querySelectorAll('[data-choice]').forEach(choice => {
+      if (choice.dataset.choice === item.answer) choice.classList.add('correct');
+    });
+    if (!correct) button.classList.add('wrong');
+    button.setAttribute('aria-pressed', 'true');
+    scenarioFeedback.textContent = item.feedback;
+    scenarioFeedback.classList.add('show');
+  });
+});
+document.getElementById('nextScenario').addEventListener('click', () => {
+  scenarioIndex = (scenarioIndex + 1) % scenarios.length;
+  showScenario();
+});
+showScenario();
+
+const discFields = ['discTool','discPurpose','discReview'];
+function value(id, fallback) {
+  return document.getElementById(id).value.trim() || fallback;
+}
+function updateDisclosure() {
+  const text =
+`AI-use disclosure draft
+
+I used ${value('discTool','[AI tool]')} for ${value('discPurpose','[purpose]')}. I remained responsible for the final work by ${value('discReview','[checking sources, revising language, testing code, or making final decisions myself]')}.`;
+  document.getElementById('disclosureText').textContent = text;
+}
+discFields.forEach(id => document.getElementById(id).addEventListener('input', updateDisclosure));
+discFields.forEach(id => document.getElementById(id).addEventListener('change', updateDisclosure));
+updateDisclosure();
+
+const riskChecks = Array.from(document.querySelectorAll('[data-risk]'));
+function updateRisk() {
+  const done = riskChecks.filter(item => item.checked).length;
+  document.getElementById('riskFill').style.width = `${(done / riskChecks.length) * 100}%`;
+  document.getElementById('riskTitle').textContent = `${done} of ${riskChecks.length} checks complete`;
+  const text = done === riskChecks.length
+    ? 'Ready to submit if the assignment policy allows this AI use.'
+    : done >= 4
+      ? 'Close. Finish the remaining review steps before submitting.'
+      : 'Start with policy, data boundaries, and source verification.';
+  document.getElementById('riskText').textContent = text;
+  riskChecks.forEach(item => item.closest('.risk-check').classList.toggle('done', item.checked));
+}
+riskChecks.forEach(item => item.addEventListener('change', updateRisk));
+updateRisk();
+
+const cardFields = ['cardTask','cardUse','cardData','cardVerify','cardDisclosure','cardRisk'];
+function updateCard() {
+  document.getElementById('decisionCard').textContent =
+`Responsible AI Decision Card
+
+Assignment/project: ${value('cardTask','[name the assignment or project]')}
+
+Allowed AI use:
+${value('cardUse','[what AI help is acceptable]')}
+
+Data boundary:
+${value('cardData','[what you will not paste, upload, or expose]')}
+
+Verification plan:
+${value('cardVerify','[what sources, facts, code, or outputs you will check]')}
+
+Disclosure sentence:
+${value('cardDisclosure','[how you will disclose AI help]')}
+
+Risk and mitigation:
+${value('cardRisk','[one risk and one mitigation]')}
+
+Human review:
+I remain responsible for the final submission and will ask the instructor if policy is unclear.`;
+}
+cardFields.forEach(id => document.getElementById(id).addEventListener('input', updateCard));
+cardFields.forEach(id => document.getElementById(id).addEventListener('change', updateCard));
+updateCard();
+
+async function copyText(text, button) {
+  try {
+    await navigator.clipboard.writeText(text);
+    const original = button.textContent;
+    button.textContent = 'Copied';
+    setTimeout(() => { button.textContent = original; }, 1200);
+  } catch {
+    button.textContent = 'Select and copy manually';
+  }
+}
+document.getElementById('copyDisclosure').addEventListener('click', event => {
+  copyText(document.getElementById('disclosureText').textContent, event.currentTarget);
+});
+document.getElementById('copyCard').addEventListener('click', event => {
+  copyText(document.getElementById('decisionCard').textContent, event.currentTarget);
+});
+
+if (location.hash) {
+  const target = document.getElementById(location.hash.slice(1));
+  if (target) current = slides.indexOf(target);
+}
+go(current);
+</script>
+</body>
+</html>

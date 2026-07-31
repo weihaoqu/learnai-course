@@ -1,0 +1,679 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Week 13: AI-Assisted Security Review for Final Web Apps</title>
+<link rel="icon" href="data:,">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#090b12;--panel:#121722;--panel2:#182131;--text:#f5f7fb;--muted:#a8b3c5;
+  --blue:#60a5fa;--cyan:#22d3ee;--green:#34d399;--gold:#fbbf24;--orange:#fb923c;--red:#fb7185;
+  --line:rgba(255,255,255,.14);--line2:rgba(255,255,255,.24);--shadow:0 24px 72px rgba(0,0,0,.38);
+  --font:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  --mono:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+}
+html,body{height:100%;background:var(--bg);color:var(--text);font-family:var(--font);overflow:hidden}
+body{background:
+  linear-gradient(135deg,rgba(251,146,60,.10) 0 1px,transparent 1px 42px),
+  linear-gradient(45deg,rgba(96,165,250,.07) 0 1px,transparent 1px 52px),
+  linear-gradient(160deg,#090b12,#111827 48%,#16131f)}
+button,input,select,textarea{font:inherit}
+button{cursor:pointer}
+a{color:#bfdbfe;text-decoration:none}
+a:hover,a:focus{text-decoration:underline}
+code{font-family:var(--mono);color:#bfdbfe}
+.topbar{position:fixed;top:0;left:0;right:0;height:58px;display:flex;align-items:center;gap:18px;padding:0 22px;background:rgba(9,11,18,.91);backdrop-filter:blur(14px);border-bottom:1px solid var(--line);z-index:20}
+.brand{font-weight:900;letter-spacing:.01em;white-space:nowrap}
+.status{margin-left:auto;color:var(--muted);font-size:14px}
+.progress{position:absolute;left:0;right:0;bottom:-1px;height:3px;background:rgba(255,255,255,.08)}
+.bar{height:100%;width:0;background:linear-gradient(90deg,var(--orange),var(--gold),var(--green));transition:width .25s ease}
+.deck{position:relative;height:100%;padding-top:58px}
+.slide{position:absolute;inset:58px 0 78px 0;display:grid;place-items:center;padding:26px;overflow:auto;visibility:hidden;opacity:0;transform:translateY(10px);transition:opacity .22s ease,transform .22s ease,visibility .22s}
+.slide.active{visibility:visible;opacity:1;transform:translateY(0)}
+.inner{width:min(1180px,100%);margin:auto}
+.kicker{display:inline-flex;align-items:center;gap:8px;color:var(--orange);font-weight:900;text-transform:uppercase;letter-spacing:.12em;font-size:13px;margin-bottom:14px}
+h1{font-size:56px;line-height:1.02;max-width:1000px;margin-bottom:18px;letter-spacing:0}
+h2{font-size:38px;line-height:1.08;margin-bottom:14px;max-width:1000px;letter-spacing:0}
+h3{font-size:18px;margin-bottom:8px}
+p,li{line-height:1.6}
+ul{padding-left:1.2em;margin:14px 0}
+li{margin:7px 0;color:#dbeafe}
+.lede{font-size:21px;color:#e8eefb;max-width:980px;margin-bottom:22px}
+.muted{color:var(--muted)}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;margin-top:22px}
+.grid.three{grid-template-columns:repeat(3,minmax(0,1fr))}
+.grid.four{grid-template-columns:repeat(4,minmax(0,1fr))}
+.card{background:rgba(18,23,34,.88);border:1px solid var(--line);border-radius:10px;padding:18px;box-shadow:0 10px 35px rgba(0,0,0,.18)}
+.card.blue{border-color:rgba(96,165,250,.35);background:rgba(96,165,250,.08)}
+.card.green{border-color:rgba(52,211,153,.35);background:rgba(52,211,153,.08)}
+.card.gold{border-color:rgba(251,191,36,.35);background:rgba(251,191,36,.08)}
+.card.warn{border-color:rgba(251,113,133,.4);background:rgba(251,113,133,.08)}
+.artifact{background:linear-gradient(135deg,rgba(251,146,60,.12),rgba(52,211,153,.10));border:1px solid rgba(251,146,60,.25)}
+.tag{display:inline-flex;border:1px solid var(--line2);border-radius:999px;padding:4px 9px;color:#fed7aa;font-size:12px;font-weight:900;margin-bottom:10px}
+.timebox{display:inline-flex;border:1px solid rgba(251,191,36,.4);background:rgba(251,191,36,.08);color:#fde68a;border-radius:999px;padding:5px 12px;font-size:13px;font-weight:900;margin-bottom:14px}
+.teacher-note{margin-top:18px;border-left:4px solid var(--gold);background:rgba(251,191,36,.08);padding:12px 14px;color:#fff2c4;border-radius:8px;font-size:14px}
+.flow{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:10px;margin:24px 0}
+.step{border:1px solid var(--line);border-radius:10px;padding:15px;background:rgba(255,255,255,.04);min-height:116px}
+.step strong{display:block;color:#fed7aa;margin-bottom:8px}
+.split,.builder-layout,.exit-layout{display:grid;grid-template-columns:420px minmax(0,1fr);gap:18px;margin-top:20px}
+.form{display:grid;gap:11px}
+label{display:grid;gap:6px;color:#dbeafe;font-size:13px;font-weight:900;text-transform:uppercase;letter-spacing:.08em}
+input,select,textarea{width:100%;border:1px solid var(--line);background:#070a11;color:var(--text);border-radius:10px;padding:11px 12px;outline:none}
+textarea{resize:vertical;min-height:82px}
+input:focus,select:focus,textarea:focus{border-color:rgba(251,146,60,.85);box-shadow:0 0 0 3px rgba(251,146,60,.16)}
+.btn{border:1px solid var(--line2);border-radius:10px;padding:10px 14px;background:rgba(255,255,255,.07);color:var(--text);font-weight:900}
+.btn:hover,.btn:focus{border-color:rgba(251,146,60,.7);background:rgba(251,146,60,.12);outline:none}
+.btn.primary{background:linear-gradient(135deg,var(--orange),var(--gold));color:#160d02;border:none}
+.btn.green{background:linear-gradient(135deg,var(--green),var(--cyan));color:#041015;border:none}
+.btn.blue{background:linear-gradient(135deg,var(--blue),var(--cyan));color:#06101f;border:none}
+.output,.preview{border:1px solid var(--line);background:#080d17;border-radius:10px;padding:18px;min-height:230px;white-space:pre-wrap;color:#e8f1ff;line-height:1.55}
+.codebox{font-family:var(--mono);font-size:13px;border:1px solid var(--line);background:#050914;border-radius:10px;padding:14px;white-space:pre-wrap;color:#c4ddff;line-height:1.55}
+.map-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin-top:20px}
+.map-card{border:1px solid var(--line);border-radius:10px;background:rgba(255,255,255,.04);padding:16px;min-height:150px}
+.map-card span{display:inline-grid;place-items:center;width:30px;height:30px;border-radius:999px;background:rgba(251,146,60,.16);color:#fed7aa;font-weight:900;margin-bottom:12px}
+.risk-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin-top:20px}
+.risk-card{border:1px solid var(--line);border-radius:10px;padding:16px;background:rgba(255,255,255,.04);min-height:180px}
+.risk-card strong{display:block;color:#fed7aa;margin-bottom:8px}
+.choice-grid{display:grid;gap:10px;margin-top:16px}
+.choice{width:100%;text-align:left}
+.choice.correct{border-color:rgba(52,211,153,.85);background:rgba(52,211,153,.16)}
+.choice.wrong{border-color:rgba(251,113,133,.85);background:rgba(251,113,133,.14)}
+.feedback{display:none;margin-top:14px;padding:14px;border-radius:10px;background:rgba(255,255,255,.07);color:#dbeafe;line-height:1.55}
+.feedback.show{display:block}
+.checklist{display:grid;gap:10px;margin-top:18px}
+.checkitem{display:flex;align-items:flex-start;gap:10px;border:1px solid var(--line);border-radius:10px;padding:12px;background:rgba(255,255,255,.04)}
+.checkitem input{width:auto;margin-top:3px}
+.meter{height:12px;border-radius:999px;background:rgba(255,255,255,.08);overflow:hidden;margin-top:16px}
+.meter-fill{height:100%;width:0;background:linear-gradient(90deg,var(--red),var(--gold),var(--green));transition:width .2s ease}
+.triage{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-top:20px}
+.triage .card{min-height:150px}
+.mini-table{border:1px solid var(--line);border-radius:10px;overflow:hidden;margin-top:18px}
+.row{display:grid;grid-template-columns:190px minmax(0,1fr);border-bottom:1px solid var(--line)}
+.row:last-child{border-bottom:none}
+.cell{padding:12px 14px;background:rgba(255,255,255,.035)}
+.row .cell:first-child{font-weight:900;color:#fed7aa;background:rgba(251,146,60,.08)}
+.resource-links{display:flex;flex-wrap:wrap;gap:10px;margin-top:18px}
+.link-btn{display:inline-flex;align-items:center;justify-content:center;border:1px solid var(--line2);border-radius:10px;padding:10px 13px;color:#e0f2fe;text-decoration:none;font-weight:900;background:rgba(255,255,255,.06)}
+.link-btn:hover,.link-btn:focus{outline:2px solid rgba(251,146,60,.55);background:rgba(251,146,60,.10);text-decoration:none}
+.controls{position:fixed;left:0;right:0;bottom:0;min-height:78px;display:flex;gap:10px;align-items:center;justify-content:center;flex-wrap:wrap;padding:12px 18px;background:rgba(9,11,18,.93);border-top:1px solid var(--line);z-index:20}
+.jump{display:flex;gap:7px;flex-wrap:wrap;justify-content:center}
+.jump button{width:34px;height:34px;border-radius:9px;border:1px solid var(--line);background:rgba(255,255,255,.05);color:var(--muted);font-weight:900}
+.jump button[aria-current="true"]{background:var(--orange);color:#160d02;border-color:transparent}
+.notes{display:none;position:fixed;right:18px;bottom:92px;width:min(440px,calc(100vw - 36px));max-height:55vh;overflow:auto;background:#080d17;border:1px solid var(--line2);border-radius:10px;padding:16px;z-index:30;box-shadow:var(--shadow)}
+.notes.show{display:block}
+@media (max-width:980px){
+  html,body{overflow:auto}
+  .deck{min-height:100%}
+  .topbar{height:auto;min-height:58px;align-items:flex-start;flex-wrap:wrap;padding:10px 14px}
+  .brand{width:100%;white-space:normal}
+  .status{margin-left:0}
+  .slide{position:relative;inset:auto;min-height:calc(100vh - 136px);display:none;padding:22px 16px;margin-top:58px}
+  .slide.active{display:grid}
+  h1{font-size:38px}
+  h2{font-size:30px}
+  .lede{font-size:18px}
+  .grid,.grid.three,.grid.four,.flow,.split,.builder-layout,.exit-layout,.map-grid,.risk-grid,.triage{grid-template-columns:1fr}
+  .row{grid-template-columns:1fr}
+  .controls{position:sticky}
+}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{transition:none!important;animation:none!important;scroll-behavior:auto!important}
+}
+</style>
+</head>
+<body>
+<div class="topbar">
+  <div class="brand">Week 13: AI-Assisted Security Review for Final Web Apps</div>
+  <div class="progress" aria-hidden="true"><div class="bar" id="bar"></div></div>
+  <div class="status" id="status">Slide 1</div>
+</div>
+
+<main class="deck" id="deck">
+  <section class="slide active" data-part="Open" data-title="Review lab" aria-hidden="false">
+    <div class="inner">
+      <div class="kicker">60-minute final-app review lab</div>
+      <h1>Before showcase, inspect what could go wrong.</h1>
+      <p class="lede">Week 13 is a practical review of the final static web app and the AI-agent workflow used to build it. Students leave with evidence of security review, not a vague promise that the app is safe.</p>
+      <div class="grid three">
+        <div class="card blue"><span class="tag">In class</span><p>Scan the app, run adversarial tests, ask an agent for review help, and triage findings.</p></div>
+        <div class="card green"><span class="tag">Outcome</span><p>A Week 13 Security Review Packet for the Week 14 presentation.</p></div>
+        <div class="card gold"><span class="tag">Boundary</span><p>Student review only. No real attacks, no credentials, no private data, no auto-push, and no professional security guarantee.</p></div>
+      </div>
+      <div class="teacher-note">Pacing: 4 minutes. Keep this anchored to their own Week 10-11 project artifacts.</div>
+    </div>
+  </section>
+
+  <section class="slide" data-part="Source" data-title="Security sources" inert aria-hidden="true">
+    <div class="inner">
+      <div class="timebox">4-8 min</div>
+      <h2>Use expert sources as a checklist, not as vocabulary homework.</h2>
+      <p class="lede">For a one-hour class, we adapt only the risks students can see in their own projects.</p>
+      <div class="grid">
+        <div class="card">
+          <h3>Core sources</h3>
+          <ul>
+            <li>OWASP GenAI LLM Top 10: selected student-app risks.</li>
+            <li>GitHub Push Protection: secret leaks should be blocked before reaching repo history.</li>
+            <li>OpenAI Safety Best Practices: adversarial testing, human review, constrained inputs, and limitations.</li>
+          </ul>
+        </div>
+        <div class="card warn">
+          <h3>Do not overclaim</h3>
+          <ul>
+            <li>This class is not professional penetration testing.</li>
+            <li>Optional advanced sources are instructor reference only.</li>
+            <li>An AI review is a second set of eyes, not a verdict.</li>
+          </ul>
+        </div>
+      </div>
+      <div class="resource-links">
+        <a class="link-btn" href="https://genai.owasp.org/llm-top-10/" target="_blank" rel="noopener noreferrer">OWASP GenAI LLM Top 10</a>
+        <a class="link-btn" href="https://docs.github.com/en/code-security/concepts/secret-security/push-protection" target="_blank" rel="noopener noreferrer">GitHub Push Protection</a>
+        <a class="link-btn" href="https://developers.openai.com/api/docs/guides/safety-best-practices" target="_blank" rel="noopener noreferrer">OpenAI Safety Best Practices</a>
+      </div>
+      <div class="teacher-note">Pacing: 4 minutes. Do not try to teach all OWASP risks; use the source as authority for why these categories matter.</div>
+    </div>
+  </section>
+
+  <section class="slide" data-part="Map" data-title="Review path" inert aria-hidden="true">
+    <div class="inner">
+      <div class="timebox">8-12 min</div>
+      <h2>The review path has six checkpoints.</h2>
+      <p class="lede">A manageable review turns security from anxiety into a repeatable habit.</p>
+      <div class="flow">
+        <div class="step"><strong>Map</strong><p>Name assets, entry points, boundaries, and actions.</p></div>
+        <div class="step"><strong>Scan</strong><p>Check static files, inputs, outputs, links, data, and repo content.</p></div>
+        <div class="step"><strong>Test</strong><p>Run two adversarial tests safely.</p></div>
+        <div class="step"><strong>Ask AI</strong><p>Use an agent for review suggestions, not automatic fixes.</p></div>
+        <div class="step"><strong>Triage</strong><p>Fix, document limitation, or ask instructor.</p></div>
+        <div class="step"><strong>Packet</strong><p>Submit evidence before Week 14.</p></div>
+      </div>
+      <div class="card warn"><h3>Review is evidence</h3><p>The final presentation should say what was checked, what was fixed, and what limitation remains.</p></div>
+    </div>
+  </section>
+
+  <section class="slide" id="threat-map" data-part="Part 1" data-title="Threat mini-map" inert aria-hidden="true">
+    <div class="inner">
+      <div class="timebox">12-18 min</div>
+      <h2>Threat modeling starts with a small map.</h2>
+      <p class="lede">For static apps, the important question is usually not "can hackers break the server?" It is "what is public, trusted, or action-taking?"</p>
+      <div class="map-grid">
+        <div class="map-card"><span>1</span><h3>Assets</h3><p>App files, sample data, project story, repo, deployed link, sources, prompts.</p></div>
+        <div class="map-card"><span>2</span><h3>Entry points</h3><p>Inputs, buttons, links, URL parameters, localStorage, pasted text, agent prompts.</p></div>
+        <div class="map-card"><span>3</span><h3>Trust boundaries</h3><p>Public browser, local files, GitHub, AI tool, user text, external sites.</p></div>
+        <div class="map-card"><span>4</span><h3>Actions</h3><p>Render output, save data, deploy, push, delete, install, share, claim.</p></div>
+      </div>
+      <div class="teacher-note">Ask students to point to one asset and one entry point in their own app.</div>
+    </div>
+  </section>
+
+  <section class="slide" id="action-risk" data-part="Part 1" data-title="Action-risk tiers" inert aria-hidden="true">
+    <div class="inner">
+      <div class="timebox">Optional case</div>
+      <h2>Classify agent actions before allowing them.</h2>
+      <p class="lede">Desktop and local-first agents are useful because they can act across files, apps, and connectors. That also means students need action-risk tiers before they trust an agent workflow.</p>
+      <div class="grid four">
+        <div class="card green"><span class="tag">Read-only</span><p>List files, inspect code, summarize a document, explain a screenshot.</p></div>
+        <div class="card blue"><span class="tag">Reversible write</span><p>Edit a local draft, create a copy, change a prototype file with diff review.</p></div>
+        <div class="card gold"><span class="tag">Irreversible write</span><p>Delete files, overwrite data, migrate repo history, rotate credentials.</p></div>
+        <div class="card warn"><span class="tag">External send</span><p>Push, deploy, email, post, invite, spend, or connect a real account.</p></div>
+      </div>
+      <div class="resource-links">
+        <a class="link-btn" href="https://weihaoqu.github.io/learnAIDoc/wiki/openworker-local-first-desktop-agents/" target="_blank" rel="noopener noreferrer">Optional OpenWorker action-risk case</a>
+      </div>
+      <div class="teacher-note">Use OpenWorker as a product-design and safety case only. Do not ask students to install it, connect accounts, or run desktop automations.</div>
+    </div>
+  </section>
+
+  <section class="slide" id="four-risks" data-part="Part 2" data-title="Four risks" inert aria-hidden="true">
+    <div class="inner">
+      <div class="timebox">18-26 min</div>
+      <h2>Use four risks students can inspect today.</h2>
+      <p class="lede">These are simplified from expert AI security guidance and adapted to student static web apps.</p>
+      <div class="risk-grid">
+        <div class="risk-card"><strong>Prompt injection</strong><p>Untrusted text tries to redirect an AI agent or app behavior.</p></div>
+        <div class="risk-card"><strong>Sensitive disclosure</strong><p>Secrets, tokens, personal data, private prompts, hidden answers, or repo files leak.</p></div>
+        <div class="risk-card"><strong>Improper output handling</strong><p>User text or generated text is rendered, linked, or presented without validation or caveats.</p></div>
+        <div class="risk-card"><strong>Excessive agency</strong><p>An agent can push, deploy, delete, install, spend, invite, or expose data without approval.</p></div>
+      </div>
+      <div class="choice-grid">
+        <button class="btn choice" data-risk="secret">A student accidentally puts an API key in a public JavaScript file.</button>
+        <button class="btn choice" data-risk="output">The app uses user text as HTML output without escaping it.</button>
+        <button class="btn choice" data-risk="agency">An agent deploys the project without showing the diff or asking first.</button>
+      </div>
+      <div class="feedback" id="riskFeedback"></div>
+    </div>
+  </section>
+
+  <section class="slide" id="static-scan" data-part="Part 3" data-title="Static app scan" inert aria-hidden="true">
+    <div class="inner">
+      <div class="timebox">26-36 min</div>
+      <h2>Run the static app security scan.</h2>
+      <p class="lede">Click only the checks that are true for the current app. Unchecked items become review tasks.</p>
+      <div class="split">
+        <div class="card">
+          <div class="checklist" id="scanChecks">
+            <label class="checkitem"><input type="checkbox" data-scan><span>No API keys, tokens, credentials, hidden answer keys, or private prompts appear in public files.</span></label>
+            <label class="checkitem"><input type="checkbox" data-scan><span>No real names, emails, grades, health details, IDs, or private student data appear.</span></label>
+            <label class="checkitem"><input type="checkbox" data-scan><span>localStorage stores only harmless prototype state, not sensitive information.</span></label>
+            <label class="checkitem"><input type="checkbox" data-scan><span>Inputs have blank, long, and unusual-character handling.</span></label>
+            <label class="checkitem"><input type="checkbox" data-scan><span>User-entered text is not inserted as raw HTML.</span></label>
+            <label class="checkitem"><input type="checkbox" data-scan><span>External links are intentional, recognizable, and open safely.</span></label>
+            <label class="checkitem"><input type="checkbox" data-scan><span>The app does not overclaim medical, legal, financial, grading, or safety advice.</span></label>
+            <label class="checkitem"><input type="checkbox" data-scan><span>The Week 14 presentation will name at least one known limitation.</span></label>
+          </div>
+        </div>
+        <div>
+          <div class="output" id="scanOutput" tabindex="0"></div>
+          <div class="meter" aria-hidden="true"><div class="meter-fill" id="scanMeter"></div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="slide" id="output-handling" data-part="Part 3" data-title="Output handling" inert aria-hidden="true">
+    <div class="inner">
+      <div class="timebox">36-41 min</div>
+      <h2>Improper output handling is concrete.</h2>
+      <p class="lede">Students do not need to become security engineers. They do need to know where output becomes public or trusted.</p>
+      <div class="grid">
+        <div class="card">
+          <h3>Inspect these patterns</h3>
+          <ul>
+            <li>Use of <code>innerHTML</code> with user-entered text.</li>
+            <li>Markdown or rich-text rendering from untrusted input.</li>
+            <li>URL parameters displayed on the page.</li>
+            <li>Generated text presented as fact without source or limitation.</li>
+            <li>Links created from user input.</li>
+          </ul>
+        </div>
+        <div class="card green">
+          <h3>Safer student move</h3>
+          <ul>
+            <li>Use plain text rendering for user input.</li>
+            <li>Validate or constrain inputs.</li>
+            <li>Label generated output as draft or suggestion.</li>
+            <li>Keep source-backed claims separate from generated text.</li>
+          </ul>
+        </div>
+      </div>
+      <div class="codebox">Review question for your app:
+Where does user input become visible output?
+Is it plain text, a link, HTML, saved state, or a claim?</div>
+    </div>
+  </section>
+
+  <section class="slide" id="secrets" data-part="Part 4" data-title="Secrets and repo history" inert aria-hidden="true">
+    <div class="inner">
+      <div class="timebox">41-46 min</div>
+      <h2>Secrets should never enter public files or repo history.</h2>
+      <p class="lede">GitHub push protection is a practical example: the best time to catch a secret is before it reaches the repository.</p>
+      <div class="mini-table">
+        <div class="row"><div class="cell">Never publish</div><div class="cell">API keys, service tokens, passwords, private prompts, hidden answer keys, student data, private repo content.</div></div>
+        <div class="row"><div class="cell">Never paste into AI</div><div class="cell"><code>.env</code> files, tokens, credentials, private student data, hidden answer keys, or sensitive internal files.</div></div>
+        <div class="row"><div class="cell">If found</div><div class="cell">Stop sharing, remove it, revoke or rotate the real secret, document the fix, and ask instructor before redeploying.</div></div>
+      </div>
+      <div class="resource-links">
+        <a class="link-btn" href="https://docs.github.com/en/code-security/concepts/secret-security/push-protection" target="_blank" rel="noopener noreferrer">GitHub Push Protection</a>
+      </div>
+      <div class="teacher-note">Use only fake secret examples. Do not display a real key format from a real account.</div>
+    </div>
+  </section>
+
+  <section class="slide" id="agent-review" data-part="Part 5" data-title="Agent review prompt" inert aria-hidden="true">
+    <div class="inner">
+      <div class="timebox">46-51 min</div>
+      <h2>Ask the agent for review help, not authority.</h2>
+      <p class="lede">The agent can generate a checklist and suspicious findings. The human still decides what is real, what to fix, and what to present.</p>
+      <div class="builder-layout">
+        <div class="card">
+          <div class="form">
+            <label>Project summary<textarea id="arSummary" placeholder="Static app purpose, main inputs, and main outputs."></textarea></label>
+            <label>Files or areas to inspect<textarea id="arFiles" placeholder="e.g., index.html, app.js, localStorage use, links, generated output"></textarea></label>
+            <label>Allowed scope<select id="arScope"><option>Review only, no edits</option><option>Plan first, wait for approval before edits</option><option>Small fix after human approval</option></select></label>
+            <label>Known concern<textarea id="arConcern" placeholder="e.g., user text displayed on page, unclear limitations, possible secret in sample data"></textarea></label>
+            <button class="btn primary" id="copyAgentPrompt">Copy review prompt</button>
+          </div>
+        </div>
+        <div class="preview" id="agentPromptPreview" tabindex="0"></div>
+      </div>
+      <div class="teacher-note">Reinforce: do not paste secrets or sensitive data into the agent. Use file paths and descriptions when necessary.</div>
+    </div>
+  </section>
+
+  <section class="slide" id="adversarial-tests" data-part="Part 6" data-title="Adversarial tests" inert aria-hidden="true">
+    <div class="inner">
+      <div class="timebox">51-56 min</div>
+      <h2>Run safe adversarial tests against your own app.</h2>
+      <p class="lede">These are simulated UI tests for student-owned projects. Do not test real services, classmates' accounts, or external systems.</p>
+      <div class="builder-layout">
+        <div class="card">
+          <div class="form">
+            <label>Test type<select id="rtType"><option>Blank input</option><option>Very long input</option><option>Weird characters</option><option>HTML-like text</option><option>Instruction-injection text</option><option>Private-data bait</option><option>Misleading-source text</option></select></label>
+            <label>Test input<textarea id="rtInput" placeholder="Describe the exact safe test input. Escape HTML-like examples."></textarea></label>
+            <label>Expected behavior<textarea id="rtExpected" placeholder="What should the app do?"></textarea></label>
+            <label>Observed behavior<textarea id="rtObserved" placeholder="What happened?"></textarea></label>
+            <label>Result<select id="rtResult"><option>Pass</option><option>Needs fix</option><option>Document as limitation</option><option>Ask instructor</option></select></label>
+            <button class="btn blue" id="copyTest">Copy adversarial test</button>
+          </div>
+        </div>
+        <div class="preview" id="testPreview" tabindex="0"></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="slide" id="triage" data-part="Part 7" data-title="Triage" inert aria-hidden="true">
+    <div class="inner">
+      <div class="timebox">56-58 min</div>
+      <h2>Every finding needs a decision.</h2>
+      <p class="lede">Do not let the security review become an endless cleanup session. Triage each issue before Week 14.</p>
+      <div class="triage">
+        <div class="card green"><span class="tag">Fix before Week 14</span><p>Small, clear, testable issue that affects public sharing or user trust.</p></div>
+        <div class="card gold"><span class="tag">Document limitation</span><p>Real limitation that is acceptable for a static prototype if explained honestly.</p></div>
+        <div class="card warn"><span class="tag">Ask instructor</span><p>Secret, private data, high-stakes advice, unsafe tool action, or confusing risk.</p></div>
+      </div>
+      <div class="card" style="margin-top:16px">
+        <h3>Minimum sufficient fix</h3>
+        <p>Prefer the smallest change that removes or clearly bounds the risk. Do not let an AI agent turn a one-line validation fix into a new framework, backend, account system, or unrelated redesign.</p>
+        <p><a href="https://weihaoqu.github.io/learnAIDoc/wiki/ponytail-anti-overengineering-skill/" target="_blank" rel="noopener noreferrer">Optional Ponytail anti-overengineering note</a></p>
+      </div>
+      <div class="builder-layout">
+        <div class="card">
+          <div class="form">
+            <label>Risk found<textarea id="fxRisk" placeholder="What is the issue?"></textarea></label>
+            <label>Evidence<textarea id="fxEvidence" placeholder="Where did you see it? Link, file, screenshot, test result, or code area."></textarea></label>
+            <label>Triage decision<select id="fxDecision"><option>Fix before Week 14</option><option>Document as limitation</option><option>Ask instructor</option><option>Stop sharing until fixed</option></select></label>
+            <label>Fix or next action<textarea id="fxAction" placeholder="What will change, or what question will you ask?"></textarea></label>
+            <label>Test after action<textarea id="fxTest" placeholder="How will you know the issue is resolved or bounded?"></textarea></label>
+            <button class="btn green" id="copyFixTicket">Copy fix ticket</button>
+          </div>
+        </div>
+        <div class="preview" id="fixPreview" tabindex="0"></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="slide artifact" id="packet" data-part="Close" data-title="Security packet" inert aria-hidden="true">
+    <div class="inner">
+      <div class="timebox">Final artifact</div>
+      <h2>Week 13 Security Review Packet</h2>
+      <p class="lede">Submit inspectable evidence that the final app was reviewed before presentation.</p>
+      <div class="exit-layout">
+        <div class="card">
+          <div class="form">
+            <label>Project link or fallback path<input id="pkProject" placeholder="Week 10 link or local file path"></label>
+            <label>Asset map<textarea id="pkAssets" placeholder="Assets, entry points, trust boundaries, actions."></textarea></label>
+            <label>Static app checklist summary<textarea id="pkChecklist" placeholder="What passed? What needs attention?"></textarea></label>
+            <label>Two adversarial tests<textarea id="pkTests" placeholder="Paste or summarize two test records."></textarea></label>
+            <label>Fix ticket<textarea id="pkFix" placeholder="Risk, evidence, decision, fix, test."></textarea></label>
+            <label>No-secrets statement<textarea id="pkSecrets" placeholder="State how you checked for secrets/private data."></textarea></label>
+            <label>Known limitation for presentation<textarea id="pkLimit" placeholder="One limitation you will say clearly in Week 14."></textarea></label>
+            <button class="btn primary" id="copyPacket">Copy security packet</button>
+          </div>
+        </div>
+        <div class="preview" id="packetPreview" tabindex="0"></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="slide" id="homework" data-part="Homework" data-title="Homework" inert aria-hidden="true">
+    <div class="inner">
+      <div class="kicker">After class</div>
+      <h2>Homework: finish the review before Week 14.</h2>
+      <p class="lede">The goal is not to claim the app is perfectly secure. The goal is to show what was checked, what was fixed, and what limitation remains.</p>
+      <div class="grid">
+        <div class="card"><h3>Required</h3><p>Submit the Week 13 Security Review Packet with asset map, checklist, two tests, one fix ticket, no-secrets statement, and one presentation limitation.</p></div>
+        <div class="card"><h3>Required tests</h3><p>Run at least two safe adversarial tests and record expected vs observed behavior.</p></div>
+        <div class="card warn"><h3>If a secret is found</h3><p>Stop sharing, remove it, revoke or rotate if real, document the fix, and ask instructor before redeploying.</p></div>
+        <div class="card"><h3>Optional reading</h3><p>The links below are optional references. OWASP LLM Top 10 and GitHub Push Protection are the most student-friendly; Ponytail and OpenWorker are short course cases; OWASP Agentic Security and MITRE ATLAS are advanced references.</p></div>
+      </div>
+      <div class="resource-links">
+        <a class="link-btn" href="https://genai.owasp.org/llm-top-10/" target="_blank" rel="noopener noreferrer">Optional OWASP LLM Top 10</a>
+        <a class="link-btn" href="https://docs.github.com/en/code-security/concepts/secret-security/push-protection" target="_blank" rel="noopener noreferrer">Optional GitHub Push Protection</a>
+        <a class="link-btn" href="https://weihaoqu.github.io/learnAIDoc/wiki/ponytail-anti-overengineering-skill/" target="_blank" rel="noopener noreferrer">Optional minimum sufficient fix</a>
+        <a class="link-btn" href="https://weihaoqu.github.io/learnAIDoc/wiki/openworker-local-first-desktop-agents/" target="_blank" rel="noopener noreferrer">Optional action-risk case</a>
+        <a class="link-btn" href="https://genai.owasp.org/resource/owasp-top-10-for-agentic-applications-for-2026/" target="_blank" rel="noopener noreferrer">Optional Agentic Security Reference</a>
+        <a class="link-btn" href="https://atlas.mitre.org/" target="_blank" rel="noopener noreferrer">Optional MITRE ATLAS</a>
+        <a class="link-btn" href="index.html">Back to Course Hub</a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<nav class="controls" aria-label="Slide controls">
+  <button class="btn" id="notesBtn">Notes</button>
+  <div class="jump" id="jump" role="group" aria-label="Slide jump buttons"></div>
+  <button class="btn" id="prevBtn">Prev</button>
+  <button class="btn primary" id="nextBtn">Next</button>
+</nav>
+
+<aside class="notes" id="notesPanel" aria-live="polite">
+  <h3>Teacher notes</h3>
+  <p id="notesText">Keep Week 13 practical: review, test, triage, packet.</p>
+</aside>
+
+<script>
+const slides = Array.from(document.querySelectorAll('.slide'));
+const statusEl = document.getElementById('status');
+const bar = document.getElementById('bar');
+const jump = document.getElementById('jump');
+const notesPanel = document.getElementById('notesPanel');
+const notesText = document.getElementById('notesText');
+let current = Math.max(0, slides.findIndex(s => s.classList.contains('active')));
+
+slides.forEach((slide, i) => {
+  const btn = document.createElement('button');
+  btn.type = 'button';
+  btn.textContent = String(i + 1);
+  btn.setAttribute('aria-label', `Go to slide ${i + 1}: ${slide.dataset.title}`);
+  btn.addEventListener('click', () => go(i));
+  jump.appendChild(btn);
+});
+
+function go(index){
+  current = Math.max(0, Math.min(slides.length - 1, index));
+  slides.forEach((slide, i) => {
+    const active = i === current;
+    slide.classList.toggle('active', active);
+    slide.toggleAttribute('inert', !active);
+    slide.setAttribute('aria-hidden', active ? 'false' : 'true');
+  });
+  Array.from(jump.children).forEach((btn, i) => btn.setAttribute('aria-current', i === current ? 'true' : 'false'));
+  statusEl.textContent = `Slide ${current + 1} of ${slides.length}`;
+  bar.style.width = `${((current + 1) / slides.length) * 100}%`;
+  const note = slides[current].querySelector('.teacher-note');
+  notesText.textContent = note ? note.textContent : 'No special note for this slide.';
+  const id = slides[current].id;
+  if (id) history.replaceState(null, '', `#${id}`);
+}
+
+document.getElementById('prevBtn').addEventListener('click', () => go(current - 1));
+document.getElementById('nextBtn').addEventListener('click', () => go(current + 1));
+document.getElementById('notesBtn').addEventListener('click', () => notesPanel.classList.toggle('show'));
+document.addEventListener('keydown', e => {
+  if (e.target.closest('input, textarea, select, button, a')) return;
+  if (e.key === 'ArrowRight' || e.key === 'PageDown') go(current + 1);
+  if (e.key === 'ArrowLeft' || e.key === 'PageUp') go(current - 1);
+  if (e.key === 'Home') go(0);
+  if (e.key === 'End') go(slides.length - 1);
+  if (e.key.toLowerCase() === 'n') notesPanel.classList.toggle('show');
+});
+
+function value(id, fallback){
+  const el = document.getElementById(id);
+  return el && el.value.trim() ? el.value.trim() : fallback;
+}
+
+function copyText(text, target){
+  if (navigator.clipboard) {
+    navigator.clipboard.writeText(text).then(() => {
+      if (target) target.textContent = 'Copied.';
+    }).catch(() => fallbackCopy(text, target));
+  } else {
+    fallbackCopy(text, target);
+  }
+}
+
+function fallbackCopy(text, target){
+  const ta = document.createElement('textarea');
+  ta.value = text;
+  document.body.appendChild(ta);
+  ta.select();
+  document.execCommand('copy');
+  ta.remove();
+  if (target) target.textContent = 'Copied.';
+}
+
+const riskResponses = {
+  secret: 'Sensitive information disclosure. The fix is not just deleting the line; if the key was real, revoke or rotate it and ask before redeploying.',
+  output: 'Improper output handling. User text should not be treated as trusted HTML or source-backed fact.',
+  agency: 'Excessive agency. Deploy, push, delete, install, spend, invite, or expose-secret actions need human approval.'
+};
+document.querySelectorAll('[data-risk]').forEach(button => {
+  button.addEventListener('click', () => {
+    document.querySelectorAll('[data-risk]').forEach(item => item.classList.remove('correct','wrong'));
+    button.classList.add('correct');
+    const feedback = document.getElementById('riskFeedback');
+    feedback.textContent = riskResponses[button.dataset.risk];
+    feedback.classList.add('show');
+  });
+});
+
+function updateScan(){
+  const checks = Array.from(document.querySelectorAll('[data-scan]'));
+  const count = checks.filter(c => c.checked).length;
+  const pct = Math.round((count / checks.length) * 100);
+  document.getElementById('scanMeter').style.width = `${pct}%`;
+  const msg = count === checks.length
+    ? 'Scan complete. Run adversarial tests and write the packet before Week 14.'
+    : `Static scan: ${count} of ${checks.length}. Turn unchecked items into fix tickets, limitations, or instructor questions.`;
+  document.getElementById('scanOutput').textContent = msg;
+}
+document.querySelectorAll('[data-scan]').forEach(ch => ch.addEventListener('change', updateScan));
+
+function updateAgentPrompt(){
+  const text = `Please review my static web app for Week 13 security and presentation readiness.
+
+Project summary:
+${value('arSummary','[static app purpose, main inputs, and main outputs]')}
+
+Files or areas to inspect:
+${value('arFiles','[files or areas to inspect]')}
+
+Allowed scope:
+${value('arScope','[review scope]')}
+
+Known concern:
+${value('arConcern','[known concern]')}
+
+Rules:
+1. Do not ask me to paste secrets, .env files, tokens, private student data, hidden answer keys, or private repo content.
+2. Do not push, deploy, install packages, delete files, add a backend, add an API key, or make networked AI features.
+3. First produce a review checklist and suspected issues.
+4. For each issue, give risk, evidence, suggested fix, test, and whether I should ask the instructor.
+5. If you propose edits, show the plan and wait for human approval.`;
+  document.getElementById('agentPromptPreview').textContent = text;
+  return text;
+}
+['arSummary','arFiles','arScope','arConcern'].forEach(id => {
+  document.getElementById(id).addEventListener('input', updateAgentPrompt);
+  document.getElementById(id).addEventListener('change', updateAgentPrompt);
+});
+document.getElementById('copyAgentPrompt').addEventListener('click', () => copyText(updateAgentPrompt(), document.getElementById('agentPromptPreview')));
+
+function updateTest(){
+  const text = `Week 13 Adversarial Test
+
+Test type:
+${value('rtType','[test type]')}
+
+Test input:
+${value('rtInput','[safe test input]')}
+
+Expected behavior:
+${value('rtExpected','[expected behavior]')}
+
+Observed behavior:
+${value('rtObserved','[observed behavior]')}
+
+Result:
+${value('rtResult','[pass / needs fix / limitation / ask instructor]')}`;
+  document.getElementById('testPreview').textContent = text;
+  return text;
+}
+['rtType','rtInput','rtExpected','rtObserved','rtResult'].forEach(id => {
+  document.getElementById(id).addEventListener('input', updateTest);
+  document.getElementById(id).addEventListener('change', updateTest);
+});
+document.getElementById('copyTest').addEventListener('click', () => copyText(updateTest(), document.getElementById('testPreview')));
+
+function updateFix(){
+  const text = `Week 13 Security Fix Ticket
+
+Risk found:
+${value('fxRisk','[issue]')}
+
+Evidence:
+${value('fxEvidence','[where seen]')}
+
+Triage decision:
+${value('fxDecision','[fix / limitation / ask / stop sharing]')}
+
+Fix or next action:
+${value('fxAction','[specific fix or question]')}
+
+Test after action:
+${value('fxTest','[how to verify]')}
+
+Human approval:
+No push, deploy, deletion, install, or secret-handling action happens without human approval.`;
+  document.getElementById('fixPreview').textContent = text;
+  return text;
+}
+['fxRisk','fxEvidence','fxDecision','fxAction','fxTest'].forEach(id => {
+  document.getElementById(id).addEventListener('input', updateFix);
+  document.getElementById(id).addEventListener('change', updateFix);
+});
+document.getElementById('copyFixTicket').addEventListener('click', () => copyText(updateFix(), document.getElementById('fixPreview')));
+
+function updatePacket(){
+  const text = `Week 13 Security Review Packet
+
+Project link or fallback path:
+${value('pkProject','[Week 10 link or local file path]')}
+
+Asset map:
+${value('pkAssets','[assets, entry points, trust boundaries, actions]')}
+
+Static app checklist summary:
+${value('pkChecklist','[what passed and what needs attention]')}
+
+Two adversarial tests:
+${value('pkTests','[two test records]')}
+
+Fix ticket:
+${value('pkFix','[risk, evidence, decision, fix, test]')}
+
+No-secrets statement:
+${value('pkSecrets','[how you checked for secrets/private data]')}
+
+Known limitation for presentation:
+${value('pkLimit','[one limitation you will say clearly]')}`;
+  document.getElementById('packetPreview').textContent = text;
+  return text;
+}
+['pkProject','pkAssets','pkChecklist','pkTests','pkFix','pkSecrets','pkLimit'].forEach(id => document.getElementById(id).addEventListener('input', updatePacket));
+document.getElementById('copyPacket').addEventListener('click', () => copyText(updatePacket(), document.getElementById('packetPreview')));
+
+const hashIndex = location.hash ? slides.findIndex(s => `#${s.id}` === location.hash) : -1;
+updateScan();
+updateAgentPrompt();
+updateTest();
+updateFix();
+updatePacket();
+go(hashIndex >= 0 ? hashIndex : current);
+</script>
+</body>
+</html>

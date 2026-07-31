@@ -1,0 +1,725 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Week 7 Midterm Studio - CS-215 AI Literacy</title>
+<link rel="icon" href="data:,">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#090b12;--panel:#111827;--panel2:#172033;--line:rgba(255,255,255,.13);
+  --text:#f8fafc;--muted:#b4bdcc;--faint:#788395;
+  --gold:#f7c85a;--cyan:#55d6f4;--green:#58d68d;--rose:#fb7185;--violet:#b89cff;--blue:#7aa7ff;
+  --paper:#f8fafc;--ink:#172033;--font:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  --mono:"SFMono-Regular",Consolas,"Liberation Mono",Menlo,monospace;
+}
+html{scroll-behavior:smooth}
+body{font-family:var(--font);background:
+  repeating-linear-gradient(90deg,rgba(247,200,90,.055) 0 1px,transparent 1px 52px),
+  repeating-linear-gradient(0deg,rgba(85,214,244,.04) 0 1px,transparent 1px 52px),
+  linear-gradient(135deg,#090b12,#101827 52%,#0b1119);color:var(--text);line-height:1.45;min-height:100vh}
+a{color:var(--cyan);text-decoration:none}
+button,input,textarea,select{font:inherit}
+button{cursor:pointer}
+code{font-family:var(--mono);color:#bfdbfe}
+.topbar{position:sticky;top:0;z-index:8;background:rgba(9,11,18,.9);backdrop-filter:blur(16px);border-bottom:1px solid var(--line)}
+.topbar-inner{width:min(1180px,calc(100% - 36px));margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:18px;min-height:62px}
+.brand{font-weight:950;color:#fff;white-space:nowrap}
+.nav{display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end}
+.nav a{font-size:13px;color:var(--muted);border:1px solid var(--line);background:rgba(255,255,255,.045);border-radius:999px;padding:7px 10px}
+.nav a:hover,.nav a:focus,.btn:hover,.btn:focus,.choice:hover,.choice:focus,.project-btn:hover,.project-btn:focus,.pill-btn:hover,.pill-btn:focus{outline:2px solid rgba(85,214,244,.55)}
+.shell{width:min(1180px,calc(100% - 36px));margin:0 auto;padding:38px 0 120px}
+.hero{display:grid;grid-template-columns:minmax(0,1.05fr) 360px;gap:22px;align-items:stretch;padding:32px 0 20px}
+.kicker{display:inline-flex;align-items:center;gap:10px;color:var(--gold);font-size:13px;font-weight:950;letter-spacing:.12em;text-transform:uppercase;margin-bottom:16px}
+.kicker::before{content:"";width:34px;height:2px;background:currentColor;border-radius:99px}
+h1{font-size:70px;line-height:1.02;letter-spacing:0;margin-bottom:18px}
+h2{font-size:46px;line-height:1.08;letter-spacing:0;margin-bottom:12px}
+h3{font-size:25px;line-height:1.18;margin-bottom:10px;color:#fff}
+p,li{font-size:19px;color:var(--muted)}
+ul{padding-left:1.2em;margin:12px 0}
+li{margin:6px 0}
+.lede{font-size:26px;color:#edf7ff;max-width:900px}
+.muted{color:var(--faint);font-size:15px}
+.panel{background:rgba(17,24,39,.84);border:1px solid var(--line);border-radius:14px;padding:20px}
+.docket{display:grid;gap:12px;background:linear-gradient(135deg,rgba(247,200,90,.13),rgba(85,214,244,.08));border:1px solid rgba(247,200,90,.28)}
+.docket-row{display:grid;grid-template-columns:100px minmax(0,1fr);gap:12px;border-top:1px solid rgba(255,255,255,.12);padding-top:12px}
+.docket-row:first-child{border-top:none;padding-top:0}
+.docket strong{color:#fff}
+.docket span{font-size:15px;color:var(--muted)}
+.meta{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin-top:22px}
+.meta-card{background:rgba(255,255,255,.045);border:1px solid var(--line);border-radius:12px;padding:15px;min-height:96px}
+.meta-card strong{display:block;color:#fff;font-size:24px;margin-bottom:4px}
+.meta-card span{font-size:14px;color:var(--muted)}
+.callout{border-left:6px solid var(--gold);background:rgba(247,200,90,.1);border-radius:14px;padding:17px;margin-top:18px}
+.section{scroll-margin-top:80px;margin-top:26px;background:rgba(17,24,39,.78);border:1px solid var(--line);border-radius:18px;padding:24px}
+.section-head{display:flex;align-items:flex-start;justify-content:space-between;gap:18px;margin-bottom:18px}
+.badge{display:inline-flex;white-space:nowrap;border:1px solid rgba(85,214,244,.36);background:rgba(85,214,244,.1);color:#dcfaff;border-radius:999px;padding:8px 12px;font-size:14px;font-weight:950}
+.skills{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:10px;margin-top:18px}
+.skill{min-height:132px;border:1px solid rgba(255,255,255,.13);background:rgba(255,255,255,.045);border-radius:13px;padding:14px}
+.skill span{display:inline-flex;width:30px;height:30px;align-items:center;justify-content:center;border-radius:50%;background:rgba(247,200,90,.14);color:#ffe9a8;font-weight:950;margin-bottom:10px}
+.skill h3{font-size:18px;margin-bottom:6px}
+.skill p{font-size:14px}
+.question{border-top:1px solid rgba(255,255,255,.1);padding:18px 0}
+.question:first-of-type{border-top:none}
+.prompt{font-weight:850;color:#fff;margin-bottom:10px}
+.choices{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.choice{width:100%;min-height:78px;text-align:left;border:1px solid var(--line);background:rgba(255,255,255,.055);color:var(--text);border-radius:12px;padding:13px 14px}
+.choice.selected.correct,.pill-btn.correct{border-color:rgba(88,214,141,.9);background:rgba(88,214,141,.15)}
+.choice.selected.wrong,.pill-btn.wrong{border-color:rgba(251,113,133,.9);background:rgba(251,113,133,.15)}
+.feedback{display:none;margin-top:11px;background:rgba(255,255,255,.07);border-radius:12px;padding:12px 14px;color:#eef6ff;font-size:16px}
+.feedback.show{display:block}
+.studio-grid{display:grid;grid-template-columns:minmax(0,1fr) 410px;gap:18px;align-items:start}
+.project-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-top:16px}
+.project-btn{min-height:164px;text-align:left;border:1px solid var(--line);background:rgba(255,255,255,.05);color:var(--text);border-radius:13px;padding:16px}
+.project-btn[aria-pressed="true"]{border-color:rgba(247,200,90,.8);background:rgba(247,200,90,.12)}
+.project-btn h3{font-size:20px;margin-bottom:8px}
+.project-btn p{font-size:15px}
+.form{display:grid;gap:12px}
+.form label{display:grid;gap:6px;color:#e8f2ff;font-size:13px;font-weight:950;text-transform:uppercase;letter-spacing:.08em}
+.form input,.form textarea,.form select{width:100%;border:1px solid rgba(255,255,255,.15);background:#070b14;color:#f8fafc;border-radius:12px;padding:12px 13px;outline:none}
+.form textarea{min-height:84px;resize:vertical}
+.form input:focus,.form textarea:focus,.form select:focus{border-color:rgba(85,214,244,.75);box-shadow:0 0 0 3px rgba(85,214,244,.15)}
+.pill-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-top:12px}
+.pill-btn{text-align:left;border:1px solid var(--line);background:rgba(255,255,255,.055);color:var(--text);border-radius:12px;padding:12px;min-height:72px}
+.transcript{font-family:var(--mono);font-size:14px;line-height:1.55;white-space:pre-wrap;background:#070b14;border:1px solid rgba(255,255,255,.14);border-radius:14px;padding:16px;color:#d8eaff;margin-top:14px}
+.evidence-grid{display:grid;grid-template-columns:1.04fr .96fr;gap:18px;align-items:start}
+.checklist{display:grid;gap:10px;margin-top:12px}
+.review-check{display:flex;gap:11px;align-items:flex-start;border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.045);border-radius:12px;padding:13px;color:#ecf4ff}
+.review-check input{width:20px;height:20px;margin-top:3px;accent-color:var(--cyan)}
+.review-check.done{border-color:rgba(88,214,141,.65);background:rgba(88,214,141,.12)}
+.review-check.warn{border-color:rgba(251,113,133,.85);background:rgba(251,113,133,.13)}
+.rubric{display:grid;gap:10px}
+.rubric-row{display:grid;grid-template-columns:minmax(0,1fr) 120px;gap:12px;align-items:center;border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.045);border-radius:12px;padding:13px}
+.rubric-row strong{display:block;color:#fff}
+.rubric-row span{font-size:14px;color:var(--muted)}
+.rubric-output{font-family:var(--mono);font-size:18px;font-weight:950;color:#ffe9a8;text-align:right}
+.ticket-wrap{position:sticky;top:82px}
+.ticket{font-family:var(--mono);font-size:14px;line-height:1.5;color:#fff8e8;background:rgba(247,200,90,.09);border:1px solid rgba(247,200,90,.34);border-radius:15px;padding:16px;min-height:540px;white-space:pre-wrap;user-select:text}
+.actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:12px}
+.btn{border:1px solid var(--line);background:rgba(255,255,255,.075);color:#fff;border-radius:11px;padding:10px 13px;font-weight:950}
+.btn.primary{background:var(--gold);color:#16110a;border-color:rgba(247,200,90,.9)}
+.scorebox{position:fixed;left:0;right:0;bottom:0;z-index:9;background:rgba(9,11,18,.94);backdrop-filter:blur(16px);border-top:1px solid var(--line);padding:11px 0}
+.score-inner{width:min(1180px,calc(100% - 36px));margin:0 auto;display:grid;grid-template-columns:minmax(0,1fr) auto;gap:14px;align-items:center}
+.bar{height:12px;border:1px solid rgba(255,255,255,.13);background:rgba(255,255,255,.06);border-radius:999px;overflow:hidden}
+.fill{height:100%;width:0;background:linear-gradient(90deg,var(--rose),var(--gold),var(--green));transition:width .2s ease}
+.score-text{font-family:var(--mono);font-size:14px;color:#edf7ff}
+.print-note{display:none}
+@media(max-width:980px){
+  .topbar-inner{align-items:flex-start;flex-direction:column;padding:10px 0}
+  .nav{justify-content:flex-start}
+  .hero,.studio-grid,.evidence-grid{grid-template-columns:1fr}
+  .ticket-wrap{position:static}
+  .skills{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .project-grid,.meta{grid-template-columns:repeat(2,minmax(0,1fr))}
+  h1{font-size:48px}
+  h2{font-size:36px}
+  .lede{font-size:22px}
+}
+@media(max-width:640px){
+  .shell,.topbar-inner,.score-inner{width:min(100% - 28px,1180px)}
+  .skills,.project-grid,.meta,.choices,.pill-grid,.rubric-row{grid-template-columns:1fr}
+  .section{padding:18px}
+  .section-head{display:block}
+  h1{font-size:38px}
+  h2{font-size:30px}
+  h3{font-size:22px}
+  p,li{font-size:16px}
+  .lede{font-size:19px}
+  .score-inner{grid-template-columns:1fr}
+}
+@media print{
+  body{background:#fff;color:#111}
+  .topbar,.scorebox,.nav,.actions{display:none}
+  .shell{width:auto;padding:0}
+  .section,.panel,.meta-card,.skill,.project-btn,.rubric-row,.review-check{break-inside:avoid;background:#fff;border:1px solid #999;color:#111}
+  .ticket,.transcript,input,textarea,select{background:#fff;color:#111;border-color:#999}
+  p,li,.muted,.project-btn p,.rubric-row span{color:#222}
+  .print-note{display:block;color:#111;margin-top:10px}
+}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{transition-duration:0.01ms!important}}
+</style>
+</head>
+<body>
+<header class="topbar">
+  <div class="topbar-inner">
+    <div class="brand">Week 7: Midterm Studio</div>
+    <nav class="nav" aria-label="Midterm sections">
+      <a href="#skills">Skills</a>
+      <a href="#check">Check</a>
+      <a href="#choice">Choice</a>
+      <a href="#brief">Brief</a>
+      <a href="#agent">Agent</a>
+      <a href="#evidence">Evidence</a>
+      <a href="#packet">Packet</a>
+    </nav>
+  </div>
+</header>
+
+<main class="shell">
+  <section class="hero" id="top">
+    <div>
+      <div class="kicker">60-minute midterm studio</div>
+      <h1>Show the work behind the AI output.</h1>
+      <p class="lede">The midterm is not a new-topic lecture and not a web-design test. It checks whether you can delegate to AI, set boundaries, verify claims, protect data, and explain your own judgment before Week 8 app building begins.</p>
+      <div class="meta">
+        <div class="meta-card"><strong>20%</strong><span>Midterm project weight</span></div>
+        <div class="meta-card"><strong>100 pts</strong><span>Rubric total</span></div>
+        <div class="meta-card"><strong>1 packet</strong><span>Submission artifact</span></div>
+        <div class="meta-card"><strong>70</strong><span>Readiness threshold</span></div>
+      </div>
+      <div class="callout">
+        <p><strong style="color:#fff">Completion rule:</strong> submit the generated packet with either a live agent run or the transcript-analysis fallback. If total readiness is below 70, or if agent delegation or verification/review is below 12 of 20, complete remediation before Week 8.</p>
+      </div>
+      <p class="print-note">Printed copy: students should circle selected answers and attach written responses where the page has text boxes.</p>
+    </div>
+    <aside class="panel docket" aria-label="Midterm docket">
+      <div class="docket-row"><strong>Purpose</strong><span>Assess Weeks 1-6 and prepare a project direction for Week 8.</span></div>
+      <div class="docket-row"><strong>Allowed</strong><span>Briefs, prompts, reports, spreadsheet plans, presentation assets, prototype descriptions.</span></div>
+      <div class="docket-row"><strong>Not yet</strong><span>No HTML/CSS/design knowledge required. Web build starts next week.</span></div>
+      <div class="docket-row"><strong>Evidence</strong><span>Prompt or transcript, output summary, verification action, rejected suggestion, human revision.</span></div>
+    </aside>
+  </section>
+
+  <section class="section" id="skills">
+    <div class="section-head">
+      <div>
+        <div class="kicker">Skills map</div>
+        <h2>What the midterm measures</h2>
+        <p>Each block maps to work already covered in Weeks 1-6.</p>
+      </div>
+      <div class="badge">Weeks 1-6 only</div>
+    </div>
+    <div class="skills">
+      <div class="skill"><span>1</span><h3>LLM limits</h3><p>Useful text is not authority. Claims need sources.</p></div>
+      <div class="skill"><span>2</span><h3>Agent loop</h3><p>Goal, context, tools, actions, and human review.</p></div>
+      <div class="skill"><span>3</span><h3>Ethics</h3><p>Privacy, copyright, bias, plagiarism, and disclosure.</p></div>
+      <div class="skill"><span>4</span><h3>Writing</h3><p>AI can draft; humans own purpose, tone, and revision.</p></div>
+      <div class="skill"><span>5</span><h3>Data</h3><p>Keep raw data, verify formulas, label uncertainty.</p></div>
+      <div class="skill"><span>6</span><h3>Media</h3><p>Images must support communication and include alt text.</p></div>
+    </div>
+  </section>
+
+  <section class="section" id="check">
+    <div class="section-head">
+      <div>
+        <div class="kicker">Part 1</div>
+        <h2>Foundation check</h2>
+        <p>Choose the safest answer. This score is a readiness signal, not a trick exam.</p>
+      </div>
+      <div class="badge">20 pts</div>
+    </div>
+    <div class="question" data-question data-points="4">
+      <p class="prompt">A model gives a confident answer about a current scholarship deadline. What should you do before using it?</p>
+      <div class="choices">
+        <button class="choice" data-correct="false">Trust it because the wording is polished.</button>
+        <button class="choice" data-correct="true">Verify the deadline against the official source and cite that source.</button>
+        <button class="choice" data-correct="false">Ask the model to sound more certain.</button>
+        <button class="choice" data-correct="false">Use it if another chatbot gives a similar answer.</button>
+      </div>
+      <div class="feedback">Decision-relevant facts need source verification.</div>
+    </div>
+    <div class="question" data-question data-points="4">
+      <p class="prompt">You ask an agent to improve a document. Which instruction keeps the first step safest?</p>
+      <div class="choices">
+        <button class="choice" data-correct="false">Rewrite everything and save the file immediately.</button>
+        <button class="choice" data-correct="true">Inspect the document, make a plan, and ask before editing.</button>
+        <button class="choice" data-correct="false">Delete sections that seem repetitive.</button>
+        <button class="choice" data-correct="false">Change all files until the folder is cleaner.</button>
+      </div>
+      <div class="feedback">Agent delegation starts with scope, context, and permission boundaries.</div>
+    </div>
+    <div class="question" data-question data-points="4">
+      <p class="prompt">A classmate wants to paste private survey responses into a chatbot. What is the best first response?</p>
+      <div class="choices">
+        <button class="choice" data-correct="false">Paste the data if names are removed from the first row.</button>
+        <button class="choice" data-correct="true">Use synthetic or approved data unless consent, policy, and privacy rules allow the upload.</button>
+        <button class="choice" data-correct="false">Paste it only during class.</button>
+        <button class="choice" data-correct="false">Ask the chatbot to keep it secret.</button>
+      </div>
+      <div class="feedback">Privacy is decided before upload, not after the model receives the data.</div>
+    </div>
+    <div class="question" data-question data-points="4">
+      <p class="prompt">An AI-generated chart looks clean, but the totals seem surprising. What should happen before presentation?</p>
+      <div class="choices">
+        <button class="choice" data-correct="true">Check the raw data, formula, labels, and chart interpretation.</button>
+        <button class="choice" data-correct="false">Use the chart because visual polish means the math is done.</button>
+        <button class="choice" data-correct="false">Hide the raw data tab so the slide is simpler.</button>
+        <button class="choice" data-correct="false">Ask AI to make the chart more colorful.</button>
+      </div>
+      <div class="feedback">Data and media outputs need verification before they become evidence.</div>
+    </div>
+    <div class="question" data-question data-points="4">
+      <p class="prompt">Which statement best protects academic integrity in an AI-assisted submission?</p>
+      <div class="choices">
+        <button class="choice" data-correct="false">The agent wrote it, so I do not need to explain my role.</button>
+        <button class="choice" data-correct="false">I changed a few words, so disclosure is unnecessary.</button>
+        <button class="choice" data-correct="true">I disclose AI use and identify the decisions, revisions, and checks that are mine.</button>
+        <button class="choice" data-correct="false">If the output is correct, authorship does not matter.</button>
+      </div>
+      <div class="feedback">The submission must show human judgment, not just final output.</div>
+    </div>
+  </section>
+
+  <section class="section" id="choice">
+    <div class="section-head">
+      <div>
+        <div class="kicker">Part 2</div>
+        <h2>Choose a midterm direction</h2>
+        <p>These are project seeds, not full web apps. Week 8 will turn the strongest seed into a designed build.</p>
+      </div>
+      <div class="badge">No HTML required</div>
+    </div>
+    <div class="project-grid">
+      <button class="project-btn" data-project="Office helper: a writing, email, or document workflow that improves communication." aria-pressed="false"><h3>Office helper</h3><p>Draft, revise, or organize a professional writing task with evidence of human revision.</p></button>
+      <button class="project-btn" data-project="Data tracker: a spreadsheet or admin workflow with raw data, formulas, chart, and verification." aria-pressed="false"><h3>Data tracker</h3><p>Plan a clean data workflow using safe or synthetic data.</p></button>
+      <button class="project-btn" data-project="Presentation asset: an image or slide asset with prompt, critique, alt text, and disclosure." aria-pressed="false"><h3>Media asset</h3><p>Create or analyze a visual that supports a specific communication goal.</p></button>
+      <button class="project-btn" data-project="Myth/fact-check report: an AI claim tested against sources with clear uncertainty labels." aria-pressed="false"><h3>Fact-check report</h3><p>Catch unsupported claims and produce a source-bound explanation.</p></button>
+      <button class="project-btn" data-project="Study buddy: a tutoring prompt or plan that asks questions instead of giving direct answers." aria-pressed="false"><h3>Study buddy</h3><p>Design an AI learning helper with guardrails and a review loop.</p></button>
+      <button class="project-btn" data-project="Portfolio seed: a future project concept, audience, content outline, and first safe agent prompt." aria-pressed="false"><h3>Portfolio seed</h3><p>Prepare a Week 8 build idea without needing design or code yet.</p></button>
+    </div>
+  </section>
+
+  <section class="section" id="brief">
+    <div class="section-head">
+      <div>
+        <div class="kicker">Part 3</div>
+        <h2>Build the midterm brief</h2>
+        <p>The brief turns a vague idea into a scoped task an agent can help with.</p>
+      </div>
+      <div class="badge">20 pts</div>
+    </div>
+    <div class="studio-grid">
+      <div class="form">
+        <label>Problem or need
+          <textarea id="problem" placeholder="What real communication, data, writing, media, or learning problem are you addressing?"></textarea>
+        </label>
+        <label>Audience
+          <input id="audience" placeholder="Who will use or read the result?">
+        </label>
+        <label>Inputs and allowed data
+          <textarea id="inputs" placeholder="What materials can the agent use? Say if data is synthetic, public, or instructor-approved."></textarea>
+        </label>
+        <label>Expected output format
+          <select id="outputFormat">
+            <option>Brief or project plan</option>
+            <option>Prompt and response packet</option>
+            <option>Report or memo</option>
+            <option>Spreadsheet plan or chart explanation</option>
+            <option>Presentation asset plan</option>
+            <option>Prototype description for Week 8</option>
+          </select>
+        </label>
+        <label>Source, privacy, copyright, or accessibility constraint
+          <textarea id="constraints" placeholder="Example: verify dates from official sources; no private data; no logos; include alt text."></textarea>
+        </label>
+        <label>What part is your own judgment?
+          <textarea id="humanJudgment" placeholder="Name the decision, revision, or critique that comes from you, not the agent."></textarea>
+        </label>
+      </div>
+      <aside class="panel">
+        <h3>Brief standard</h3>
+        <ul>
+          <li>Specific problem and audience.</li>
+          <li>Allowed inputs and disallowed data.</li>
+          <li>Clear output type, not a vague "make something."</li>
+          <li>One verification action before submission.</li>
+          <li>One statement of human judgment.</li>
+        </ul>
+      </aside>
+    </div>
+  </section>
+
+  <section class="section" id="agent">
+    <div class="section-head">
+      <div>
+        <div class="kicker">Part 4</div>
+        <h2>Live agent run or transcript fallback</h2>
+        <p>Use Claude Code/Codex if available. If setup or access fails, analyze the sample transcript with the same rigor.</p>
+      </div>
+      <div class="badge">20 pts</div>
+    </div>
+    <div class="studio-grid">
+      <div>
+        <div class="form">
+          <label>Path
+            <select id="agentPath">
+              <option>Live agent run</option>
+              <option>Transcript fallback</option>
+            </select>
+          </label>
+          <label>Exact prompt or transcript excerpt
+            <textarea id="agentPrompt" placeholder="Paste the exact prompt you ran, or summarize the transcript line you analyzed.">Inspect the context first. Do not edit files or submit final work yet. Make a plan, identify risks, and list the evidence I should verify before accepting your output.</textarea>
+          </label>
+          <label>Agent output summary
+            <textarea id="outputSummary" placeholder="What did the agent produce or propose?"></textarea>
+          </label>
+        </div>
+        <div class="pill-grid" aria-label="Agent permission planner">
+          <button class="pill-btn" data-safe="true" aria-pressed="false">Allowed: inspect context before acting.</button>
+          <button class="pill-btn" data-safe="true" aria-pressed="false">Allowed: draft a plan or checklist.</button>
+          <button class="pill-btn" data-safe="true" aria-pressed="false">Allowed: ask before editing or external actions.</button>
+          <button class="pill-btn" data-safe="false" aria-pressed="false">Risky: upload private data or credentials.</button>
+          <button class="pill-btn" data-safe="false" aria-pressed="false">Risky: edit, delete, or deploy without approval.</button>
+          <button class="pill-btn" data-safe="false" aria-pressed="false">Risky: present generated claims as evidence without sources.</button>
+        </div>
+        <div class="feedback show" id="permissionFeedback">Select the permissions you would allow or reject before trusting the agent run.</div>
+      </div>
+      <aside class="panel">
+        <h3>Fallback transcript</h3>
+        <div class="transcript">Student: Help me create a local tutoring tracker. You can edit the project if needed.
+
+Agent: I will first inspect the folder and make a plan before editing. I may need approval before changing files.
+
+Agent: Proposed output: spreadsheet fields for student name, session date, topic, confidence rating, next action, and notes.
+
+Agent: Risk: student names are private. Use fake names or approved data.
+
+Agent: I can also add a claim that tutoring improves grades by 40%.
+
+Reviewer task: identify what was good, what was risky, what evidence is missing, and what human revision you would make.</div>
+      </aside>
+    </div>
+  </section>
+
+  <section class="section" id="evidence">
+    <div class="section-head">
+      <div>
+        <div class="kicker">Part 5</div>
+        <h2>Evidence, review, and rubric</h2>
+        <p>A polished artifact cannot pass if delegation or verification is weak.</p>
+      </div>
+      <div class="badge">40 pts</div>
+    </div>
+    <div class="evidence-grid">
+      <div>
+        <h3>Evidence checklist</h3>
+        <div class="checklist">
+          <label class="review-check" data-check data-risk="false"><input type="checkbox"><span>Exact prompt or transcript excerpt is included.</span></label>
+          <label class="review-check" data-check data-risk="false"><input type="checkbox"><span>Agent output or transcript summary is included.</span></label>
+          <label class="review-check" data-check data-risk="false"><input type="checkbox"><span>At least one verification action is named.</span></label>
+          <label class="review-check" data-check data-risk="false"><input type="checkbox"><span>One rejected or changed AI suggestion is named.</span></label>
+          <label class="review-check" data-check data-risk="false"><input type="checkbox"><span>Privacy, copyright, accessibility, or disclosure check is included.</span></label>
+          <label class="review-check" data-check data-risk="false"><input type="checkbox"><span>Academic-integrity statement names the student's own judgment.</span></label>
+          <label class="review-check" data-check data-risk="true"><input type="checkbox"><span>Red flag: accepts agent output only because it looks polished.</span></label>
+        </div>
+        <div class="form" style="margin-top:14px">
+          <label>Verification action
+            <textarea id="verification" placeholder="Example: checked deadline on official page, reviewed raw data, inspected diff, tested chart formula."></textarea>
+          </label>
+          <label>Rejected or changed AI suggestion
+            <textarea id="revision" placeholder="What did you reject, revise, or ask the agent to change? Why?"></textarea>
+          </label>
+          <label>Next Week 8 project question
+            <textarea id="week8Question" placeholder="What do you need to decide before turning this seed into a web/app design next week?"></textarea>
+          </label>
+        </div>
+      </div>
+      <div class="rubric">
+        <div class="rubric-row"><div><strong>Foundations</strong><span>LLM limits, context, tools, ethics, data/media reliability.</span></div><output class="rubric-output" id="foundationRubric">0/20</output></div>
+        <div class="rubric-row"><div><strong>Project framing</strong><span>Problem, audience, inputs, output, constraints.</span></div><select data-rubric="Project framing"><option value="0">0</option><option value="10">10</option><option value="12">12</option><option value="15">15</option><option value="20">20</option></select></div>
+        <div class="rubric-row"><div><strong>Agent delegation</strong><span>Safe prompt, permissions, inspect-before-act behavior.</span></div><select data-rubric="Agent delegation"><option value="0">0</option><option value="10">10</option><option value="12">12</option><option value="15">15</option><option value="20">20</option></select></div>
+        <div class="rubric-row"><div><strong>Verification/review</strong><span>Sources, output checks, privacy/copyright/accessibility/disclosure.</span></div><select data-rubric="Verification/review"><option value="0">0</option><option value="10">10</option><option value="12">12</option><option value="15">15</option><option value="20">20</option></select></div>
+        <div class="rubric-row"><div><strong>Reflection/next step</strong><span>Revision, failure mode, Week 8 question.</span></div><select data-rubric="Reflection/next step"><option value="0">0</option><option value="10">10</option><option value="12">12</option><option value="15">15</option><option value="20">20</option></select></div>
+        <div class="callout">
+          <p><strong style="color:#fff">Minimum competency:</strong> total score should be 70 or higher, and agent delegation plus verification/review should each be at least 12 of 20.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="packet">
+    <div class="section-head">
+      <div>
+        <div class="kicker">Submission packet</div>
+        <h2>Copy the midterm packet</h2>
+        <p>The packet updates as you work. It is the object students submit.</p>
+      </div>
+      <div class="badge">Exit ticket</div>
+    </div>
+    <div class="studio-grid">
+      <div class="ticket" id="packetText" tabindex="0"></div>
+      <aside class="panel">
+        <h3>Before submitting</h3>
+        <ul>
+          <li>Do not include private data or credentials.</li>
+          <li>Keep the exact prompt or transcript excerpt.</li>
+          <li>Name one verification action.</li>
+          <li>Name one human revision decision.</li>
+          <li>Disclose AI use and explain your role.</li>
+        </ul>
+        <div class="actions">
+          <button class="btn primary" id="copyPacket">Copy packet</button>
+          <button class="btn" id="printPage">Print / save PDF</button>
+          <a class="btn" href="index.html">Back to hub</a>
+        </div>
+      </aside>
+    </div>
+  </section>
+</main>
+
+<footer class="scorebox" aria-label="Midterm readiness score">
+  <div class="score-inner">
+    <div>
+      <div class="bar" aria-hidden="true"><div class="fill" id="scoreFill"></div></div>
+      <div class="score-text" id="scoreText">Readiness score: 0 / 100. Complete the checks and rubric.</div>
+    </div>
+    <button class="btn" id="resetBtn">Reset</button>
+  </div>
+</footer>
+
+<script>
+const choiceQuestions = Array.from(document.querySelectorAll('[data-question]'));
+const projectButtons = Array.from(document.querySelectorAll('[data-project]'));
+const permissionButtons = Array.from(document.querySelectorAll('[data-safe]'));
+const reviewChecks = Array.from(document.querySelectorAll('[data-check] input'));
+const rubricSelects = Array.from(document.querySelectorAll('[data-rubric]'));
+const packetFields = ['problem','audience','inputs','outputFormat','constraints','humanJudgment','agentPath','agentPrompt','outputSummary','verification','revision','week8Question'];
+const scoreFill = document.getElementById('scoreFill');
+const scoreText = document.getElementById('scoreText');
+let selectedProject = '[choose one project seed]';
+
+document.querySelectorAll('.feedback').forEach(item => item.setAttribute('aria-live', 'polite'));
+
+function value(id, fallback) {
+  return document.getElementById(id).value.trim() || fallback;
+}
+
+function foundationScore() {
+  const score = choiceQuestions.reduce((sum, question) => {
+    const selected = question.querySelector('.choice.selected');
+    return sum + (selected && selected.dataset.correct === 'true' ? Number(question.dataset.points || 0) : 0);
+  }, 0);
+  document.getElementById('foundationRubric').textContent = `${score}/20`;
+  return score;
+}
+
+function rubricScore(label) {
+  const select = rubricSelects.find(item => item.dataset.rubric === label);
+  return select ? Number(select.value || 0) : 0;
+}
+
+function totalScore() {
+  return foundationScore() + rubricSelects.reduce((sum, select) => sum + Number(select.value || 0), 0);
+}
+
+function updateScore() {
+  const total = totalScore();
+  const agent = rubricScore('Agent delegation');
+  const review = rubricScore('Verification/review');
+  const ready = total >= 70 && agent >= 12 && review >= 12;
+  scoreFill.style.width = `${total}%`;
+  const signal = ready ? 'Ready for Week 8' : total >= 70 ? 'Minimum skill gap' : 'Remediation needed';
+  scoreText.textContent = `Readiness score: ${total} / 100. Foundation check: ${foundationScore()} / 20. ${signal}.`;
+}
+
+function selectedPermissions(kind) {
+  return permissionButtons
+    .filter(button => button.getAttribute('aria-pressed') === 'true' && button.dataset.safe === kind)
+    .map(button => `- ${button.textContent.trim()}`)
+    .join('\n') || '- [none selected]';
+}
+
+function selectedEvidence() {
+  return reviewChecks
+    .filter(box => box.checked && box.closest('[data-check]').dataset.risk === 'false')
+    .map(box => `- ${box.closest('[data-check]').innerText.trim()}`)
+    .join('\n') || '- [evidence checks not selected yet]';
+}
+
+function redFlags() {
+  return reviewChecks
+    .filter(box => box.checked && box.closest('[data-check]').dataset.risk === 'true')
+    .map(box => `- ${box.closest('[data-check]').innerText.trim()}`)
+    .join('\n');
+}
+
+function rubricSummary() {
+  return [`- Foundations: ${foundationScore()}/20`].concat(rubricSelects
+    .map(select => `- ${select.dataset.rubric}: ${select.value}/20`)
+  ).join('\n');
+}
+
+function updatePacket() {
+  updateScore();
+  const total = totalScore();
+  const agent = rubricScore('Agent delegation');
+  const review = rubricScore('Verification/review');
+  const status = total >= 70 && agent >= 12 && review >= 12
+    ? 'Ready for Week 8'
+    : 'Remediation required before Week 8';
+  const red = redFlags();
+  document.getElementById('packetText').textContent =
+`Week 7 Midterm Studio Packet
+
+Readiness status:
+${status}
+
+Scores:
+- Foundation check: ${foundationScore()}/20
+${rubricSummary()}
+- Total rubric score: ${total}/100
+- Minimum rule: total >= 70, agent delegation >= 12, verification/review >= 12
+
+Project seed:
+${selectedProject}
+
+Problem or need:
+${value('problem','[specific problem or need]')}
+
+Audience:
+${value('audience','[intended audience]')}
+
+Inputs and allowed data:
+${value('inputs','[materials, synthetic/public/approved data, source limits]')}
+
+Expected output:
+${value('outputFormat','[output type]')}
+
+Constraints:
+${value('constraints','[source, privacy, copyright, accessibility, disclosure constraints]')}
+
+Human judgment / academic integrity:
+${value('humanJudgment','[what decision, critique, or revision is mine rather than the agent output]')}
+
+Agent path:
+${value('agentPath','[live run or transcript fallback]')}
+
+Exact prompt or transcript excerpt:
+${value('agentPrompt','[exact prompt or transcript excerpt]')}
+
+Agent output summary:
+${value('outputSummary','[what the agent produced or proposed]')}
+
+Allowed actions selected:
+${selectedPermissions('true')}
+
+Rejected risky actions selected:
+${selectedPermissions('false')}
+
+Evidence included:
+${selectedEvidence()}
+${red ? `\nReview warning:\n${red}` : ''}
+
+Verification action:
+${value('verification','[source check, raw-data check, diff/output check, formula test, or media/accessibility check]')}
+
+Rejected or changed AI suggestion:
+${value('revision','[what I rejected or revised, and why]')}
+
+Week 8 project question:
+${value('week8Question','[what I need to decide before app/web design begins]')}
+
+Disclosure:
+I used AI as an assistant. I am responsible for the final choices, verification, privacy/copyright/accessibility checks, and the human judgment described above.`;
+}
+
+choiceQuestions.forEach(question => {
+  question.querySelectorAll('.choice').forEach(choice => {
+    choice.setAttribute('aria-pressed', 'false');
+    choice.addEventListener('click', () => {
+      question.querySelectorAll('.choice').forEach(item => {
+        item.classList.remove('selected','correct','wrong');
+        item.setAttribute('aria-pressed', 'false');
+      });
+      choice.classList.add('selected', choice.dataset.correct === 'true' ? 'correct' : 'wrong');
+      choice.setAttribute('aria-pressed', 'true');
+      const feedback = question.querySelector('.feedback');
+      if (feedback) {
+        if (!feedback.dataset.base) feedback.dataset.base = feedback.textContent;
+        feedback.textContent = `${choice.dataset.correct === 'true' ? 'Correct' : 'Try again'}: ${feedback.dataset.base}`;
+        feedback.classList.add('show');
+      }
+      updatePacket();
+    });
+  });
+});
+
+projectButtons.forEach(button => {
+  button.addEventListener('click', () => {
+    projectButtons.forEach(item => item.setAttribute('aria-pressed', 'false'));
+    button.setAttribute('aria-pressed', 'true');
+    selectedProject = button.dataset.project;
+    updatePacket();
+  });
+});
+
+permissionButtons.forEach(button => {
+  button.addEventListener('click', () => {
+    const selected = button.getAttribute('aria-pressed') === 'true';
+    button.setAttribute('aria-pressed', String(!selected));
+    button.classList.toggle(button.dataset.safe === 'true' ? 'correct' : 'wrong', !selected);
+    const safeCount = permissionButtons.filter(item => item.dataset.safe === 'true' && item.getAttribute('aria-pressed') === 'true').length;
+    const riskyCount = permissionButtons.filter(item => item.dataset.safe === 'false' && item.getAttribute('aria-pressed') === 'true').length;
+    document.getElementById('permissionFeedback').textContent =
+      `${safeCount} allowed action${safeCount === 1 ? '' : 's'} and ${riskyCount} rejected risky action${riskyCount === 1 ? '' : 's'} selected.`;
+    updatePacket();
+  });
+});
+
+reviewChecks.forEach(box => {
+  box.addEventListener('change', () => {
+    const row = box.closest('[data-check]');
+    const risky = row.dataset.risk === 'true';
+    row.classList.toggle('done', box.checked && !risky);
+    row.classList.toggle('warn', box.checked && risky);
+    updatePacket();
+  });
+});
+
+packetFields.forEach(id => {
+  document.getElementById(id).addEventListener('input', updatePacket);
+  document.getElementById(id).addEventListener('change', updatePacket);
+});
+rubricSelects.forEach(select => select.addEventListener('change', updatePacket));
+
+function selectElementText(element) {
+  const range = document.createRange();
+  range.selectNodeContents(element);
+  const selection = window.getSelection();
+  selection.removeAllRanges();
+  selection.addRange(range);
+  element.focus();
+}
+
+async function copyPacket() {
+  const packet = document.getElementById('packetText');
+  const button = document.getElementById('copyPacket');
+  try {
+    await navigator.clipboard.writeText(packet.textContent);
+    const original = button.textContent;
+    button.textContent = 'Copied';
+    setTimeout(() => { button.textContent = original; }, 1200);
+  } catch {
+    selectElementText(packet);
+    const original = button.textContent;
+    button.textContent = 'Text selected';
+    setTimeout(() => { button.textContent = original; }, 1600);
+  }
+}
+
+document.getElementById('copyPacket').addEventListener('click', copyPacket);
+document.getElementById('printPage').addEventListener('click', () => window.print());
+document.getElementById('resetBtn').addEventListener('click', () => {
+  document.querySelectorAll('.choice').forEach(choice => {
+    choice.classList.remove('selected','correct','wrong');
+    choice.setAttribute('aria-pressed', 'false');
+  });
+  projectButtons.forEach(button => button.setAttribute('aria-pressed', 'false'));
+  permissionButtons.forEach(button => {
+    button.classList.remove('correct','wrong');
+    button.setAttribute('aria-pressed', 'false');
+  });
+  reviewChecks.forEach(box => {
+    box.checked = false;
+    box.closest('[data-check]').classList.remove('done','warn');
+  });
+  rubricSelects.forEach(select => { select.value = '0'; });
+  selectedProject = '[choose one project seed]';
+  updatePacket();
+});
+
+updatePacket();
+</script>
+</body>
+</html>

@@ -1,0 +1,596 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Week 8 Slides - Web Basics and Design</title>
+<link rel="icon" href="data:,">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#071013;--panel:#0f1c22;--panel2:#14262e;--panel3:#182f36;--line:rgba(255,255,255,.12);
+  --text:#f4fbfb;--muted:#a9babe;--faint:#72888d;
+  --cyan:#22d3ee;--teal:#2dd4bf;--green:#34d399;--amber:#f59e0b;--rose:#fb7185;--blue:#60a5fa;
+  --ink:#061015;--font:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  --mono:"SFMono-Regular",Consolas,"Liberation Mono",Menlo,monospace;
+}
+html,body{height:100%;overflow:hidden}
+body{font-family:var(--font);background:
+  repeating-linear-gradient(135deg,rgba(45,212,191,.052) 0 1px,transparent 1px 48px),
+  repeating-linear-gradient(45deg,rgba(245,158,11,.038) 0 1px,transparent 1px 64px),
+  linear-gradient(135deg,#071013,#0a171c 50%,#071015);color:var(--text)}
+a{color:var(--cyan);text-decoration:none}
+button,textarea,input,select{font:inherit}
+code{font-family:var(--mono);color:#bae6fd}
+.deck{height:100vh;width:100%;position:relative}
+.slide{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:82px 84px 84px;opacity:0;visibility:hidden;pointer-events:none;transition:opacity .25s ease;overflow:auto}
+.slide.active{opacity:1;visibility:visible;pointer-events:auto}
+.inner{width:min(1180px,100%)}
+.kicker{display:inline-flex;align-items:center;gap:10px;color:var(--teal);font-size:13px;font-weight:900;letter-spacing:.12em;text-transform:uppercase;margin-bottom:18px}
+.kicker::before{content:"";width:34px;height:2px;background:currentColor;border-radius:99px}
+h1{font-size:72px;line-height:1.02;letter-spacing:0;margin-bottom:18px}
+h2{font-size:54px;line-height:1.06;letter-spacing:0;margin-bottom:18px}
+h3{font-size:29px;line-height:1.18;margin-bottom:12px}
+p,li{font-size:21px;line-height:1.45;color:var(--muted)}
+ul{padding-left:1.2em;margin:18px 0}
+li{margin:8px 0}
+.lede{font-size:28px;max-width:950px;color:#def7f4}
+.muted{color:var(--faint);font-size:16px}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px;margin-top:26px}
+.grid.three{grid-template-columns:repeat(3,minmax(0,1fr))}
+.grid.four{grid-template-columns:repeat(4,minmax(0,1fr))}
+.card{background:rgba(15,28,34,.82);border:1px solid var(--line);border-radius:14px;padding:22px;min-height:138px}
+.card h3{font-size:22px;color:#fff}
+.tag{display:inline-flex;border:1px solid rgba(255,255,255,.16);border-radius:999px;padding:7px 11px;color:#ccfbf1;font-size:13px;font-weight:900;margin-bottom:12px;background:rgba(255,255,255,.045)}
+.timebox{display:inline-flex;align-items:center;border:1px solid rgba(45,212,191,.34);background:rgba(45,212,191,.1);border-radius:999px;padding:8px 12px;color:#ccfbf1;font-size:14px;font-weight:900;margin-bottom:18px}
+.flow{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-top:30px}
+.node{border:1px solid rgba(255,255,255,.18);background:rgba(255,255,255,.06);border-radius:14px;padding:16px 18px;min-width:132px;text-align:center;color:#edfdfb;font-weight:900}
+.arrow{color:var(--amber);font-size:24px;font-weight:900}
+.note{border-left:6px solid var(--amber);background:rgba(245,158,11,.1)}
+.lab{border-left:6px solid var(--teal);background:rgba(45,212,191,.08)}
+.check{border-left:6px solid var(--green);background:rgba(52,211,153,.08)}
+.warn{border-left:6px solid var(--rose);background:rgba(251,113,133,.08)}
+.artifact{background:linear-gradient(135deg,rgba(45,212,191,.12),rgba(96,165,250,.10));border:1px solid rgba(45,212,191,.26)}
+.teacher-note{display:none;margin-top:22px;border:1px dashed rgba(255,255,255,.28);background:rgba(255,255,255,.055);border-radius:14px;padding:16px;color:#d7eef0;font-size:16px}
+body.notes-on .teacher-note{display:block}
+.hud{position:fixed;top:0;left:0;right:0;height:54px;background:rgba(7,16,19,.9);backdrop-filter:blur(14px);border-bottom:1px solid var(--line);display:flex;align-items:center;gap:14px;padding:0 18px;z-index:5}
+.brand{font-weight:900;color:#fff;white-space:nowrap}
+.progress{height:6px;background:rgba(255,255,255,.08);border-radius:999px;flex:1;overflow:hidden}
+.bar{height:100%;width:0;background:linear-gradient(90deg,var(--teal),var(--blue),var(--amber));transition:width .2s ease}
+.status{color:var(--muted);font-size:13px;white-space:nowrap}
+.controls{position:fixed;left:0;right:0;bottom:0;min-height:62px;background:rgba(7,16,19,.92);backdrop-filter:blur(14px);border-top:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;gap:12px;padding:10px 18px;z-index:5}
+.btn{border:1px solid var(--line);background:rgba(255,255,255,.06);color:#fff;border-radius:11px;padding:9px 13px;cursor:pointer;font-weight:900}
+.btn:hover,.btn:focus{outline:2px solid rgba(45,212,191,.55)}
+.jump{display:flex;gap:8px;flex-wrap:wrap;justify-content:center}
+.jump .btn{font-size:13px;color:var(--muted)}
+.jump .btn.active{color:#052022;background:var(--teal)}
+.link-btn{display:inline-flex;align-items:center;gap:8px;border:1px solid rgba(45,212,191,.45);background:rgba(45,212,191,.12);color:#dffff9;border-radius:12px;padding:12px 15px;font-weight:900;margin-top:18px}
+.resource-links{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}
+.boundary-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin-top:24px}
+.boundary{border:1px solid rgba(255,255,255,.14);background:rgba(255,255,255,.055);color:var(--text);border-radius:14px;padding:16px;text-align:left;cursor:pointer;min-height:116px}
+.boundary:hover,.boundary:focus-visible{outline:2px solid rgba(45,212,191,.55)}
+.boundary.done{border-color:rgba(52,211,153,.85);background:rgba(52,211,153,.14)}
+.boundary strong{display:block;font-size:18px;margin-bottom:8px;color:#fff}
+.meter{height:12px;border:1px solid rgba(255,255,255,.13);border-radius:999px;overflow:hidden;background:rgba(255,255,255,.07);margin-top:18px}
+.meter-fill{height:100%;width:0;background:linear-gradient(90deg,var(--teal),var(--green));transition:width .2s ease}
+.idea-board{display:grid;grid-template-columns:1.05fr .95fr;gap:18px;margin-top:22px}
+.idea-inputs{display:grid;gap:12px}
+.idea-row{display:grid;grid-template-columns:minmax(0,1fr) 104px 104px 104px;gap:10px;align-items:center}
+.idea-row input,.contract-form input,.contract-form textarea,.exit-form input,.exit-form textarea{width:100%;border:1px solid rgba(255,255,255,.15);background:#061015;color:#eefafa;border-radius:12px;padding:12px 13px;outline:none}
+.idea-row input:focus,.contract-form input:focus,.contract-form textarea:focus,.exit-form input:focus,.exit-form textarea:focus{border-color:rgba(45,212,191,.75);box-shadow:0 0 0 3px rgba(45,212,191,.16)}
+.idea-row select{width:100%;border:1px solid rgba(255,255,255,.15);background:#061015;color:#eefafa;border-radius:12px;padding:11px}
+.score-card{border:1px solid rgba(45,212,191,.26);background:rgba(45,212,191,.09);border-radius:16px;padding:18px;min-height:250px}
+.score-card h3{color:#dffff9}
+.winner{font-family:var(--mono);border:1px solid rgba(255,255,255,.12);background:rgba(0,0,0,.22);border-radius:12px;padding:14px;white-space:pre-wrap;color:#ddfffb;margin-top:12px}
+.anatomy{display:grid;grid-template-columns:1.1fr .9fr;gap:22px;margin-top:24px;align-items:stretch}
+.mock-app{position:relative;border:1px solid rgba(255,255,255,.18);border-radius:22px;background:#e8faf7;color:#092025;padding:22px;min-height:420px;box-shadow:0 22px 60px rgba(0,0,0,.25)}
+.mock-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:18px}
+.mock-title{font-size:24px;font-weight:900;color:#073134}
+.mock-pill{border-radius:999px;background:#c7f5ee;color:#064e3b;padding:8px 10px;font-size:12px;font-weight:900}
+.mock-field{border:2px solid #9bdad0;background:#fff;border-radius:12px;padding:13px;margin:10px 0;color:#315257}
+.mock-output{border:2px dashed #38bdf8;border-radius:16px;background:#f8ffff;margin-top:18px;padding:18px;min-height:96px}
+.mock-button{display:inline-flex;margin-top:14px;border:none;border-radius:12px;background:#0f766e;color:white;padding:12px 16px;font-weight:900}
+.hotspot{position:absolute;border:2px solid rgba(15,118,110,.85);background:rgba(45,212,191,.16);border-radius:12px;cursor:pointer}
+.hotspot:hover,.hotspot:focus-visible{outline:3px solid rgba(245,158,11,.7)}
+.hotspot.active{border-color:#f59e0b;background:rgba(245,158,11,.20)}
+.hotspot.html{left:18px;top:18px;width:70%;height:74px}
+.hotspot.css{right:16px;top:16px;width:126px;height:44px}
+.hotspot.js{left:20px;bottom:20px;width:186px;height:54px}
+.hotspot.output{right:20px;bottom:20px;width:52%;height:120px}
+.anatomy-readout{border:1px solid rgba(255,255,255,.14);background:rgba(255,255,255,.055);border-radius:18px;padding:20px}
+.anatomy-readout h3{color:#fff}
+.contract-layout{display:grid;grid-template-columns:390px minmax(0,1fr);gap:18px;margin-top:22px}
+.contract-form{display:grid;gap:10px}
+.contract-form label,.exit-form label{display:grid;gap:6px;color:#d8f5f3;font-size:13px;font-weight:900;text-transform:uppercase;letter-spacing:.08em}
+.contract-form textarea{min-height:72px;resize:vertical}
+.prompt-preview{font-family:var(--mono);border:1px solid rgba(45,212,191,.28);background:#061015;border-radius:16px;padding:18px;white-space:pre-wrap;color:#dcfce7;font-size:16px;line-height:1.5;min-height:380px}
+.critique-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin-top:22px}
+.critique{display:flex;gap:12px;align-items:flex-start;border:1px solid rgba(255,255,255,.14);background:rgba(255,255,255,.055);border-radius:14px;padding:15px;color:#dff7f5;cursor:pointer}
+.critique input{width:20px;height:20px;margin-top:2px;accent-color:var(--teal)}
+.critique.done{background:rgba(52,211,153,.12);border-color:rgba(52,211,153,.5)}
+.exit-layout{display:grid;grid-template-columns:380px minmax(0,1fr);gap:18px;margin-top:22px}
+.exit-form{display:grid;gap:10px}
+.exit-form textarea{min-height:80px;resize:vertical}
+.ticket{border:1px solid rgba(245,158,11,.32);background:rgba(245,158,11,.09);border-radius:16px;padding:18px;white-space:pre-wrap;color:#fff7ed;font-family:var(--mono);font-size:15px;line-height:1.5;min-height:410px;user-select:text}
+@media(max-width:920px){
+  html,body{overflow:auto}
+  .deck{height:auto;min-height:100vh}
+  .slide{position:relative;display:none;min-height:100vh;justify-content:flex-start;padding:78px 22px 220px;overflow:visible}
+  .slide.active{display:flex}
+  h1{font-size:48px}
+  h2{font-size:38px}
+  h3{font-size:24px}
+  p,li{font-size:18px}
+  .lede{font-size:22px}
+  .grid,.grid.three,.grid.four,.boundary-grid,.idea-board,.anatomy,.contract-layout,.critique-grid,.exit-layout{grid-template-columns:1fr}
+  .idea-row{grid-template-columns:1fr}
+  .mock-app{min-height:380px}
+  .hud{height:auto;min-height:58px;align-items:flex-start;flex-wrap:wrap;padding:9px 12px}
+  .brand{width:100%}
+  .status{font-size:12px}
+  .controls{display:grid;grid-template-columns:1fr auto;align-items:center;min-height:0}
+  .jump{grid-column:1/-1;order:0}
+  .controls>div:last-child{display:flex;gap:8px;justify-content:flex-end}
+  .btn{padding:8px 10px}
+}
+@media(max-width:600px){
+  h1{font-size:38px}
+  h2{font-size:32px}
+  h3{font-size:22px}
+  p,li{font-size:16px}
+  .lede{font-size:20px}
+  .jump{justify-content:flex-start;flex-wrap:nowrap;overflow-x:auto;padding-bottom:2px}
+  .jump .btn{min-width:34px}
+}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{transition-duration:0.01ms!important}}
+</style>
+</head>
+<body>
+<div class="hud">
+  <div class="brand">Week 8: Web Basics and Design</div>
+  <div class="progress" aria-hidden="true"><div class="bar" id="bar"></div></div>
+  <div class="status" id="status">Slide 1</div>
+</div>
+
+<main class="deck" id="deck">
+  <section class="slide active" data-part="Open" data-title="Idea to app">
+    <div class="inner">
+      <div class="kicker">60-minute idea studio</div>
+      <h1>From idea to buildable web app</h1>
+      <p class="lede">Today we use the DeepLearningAI app-building video as inspiration, then design our own small apps. You do not need to have watched it before class, and we will not copy its example. The goal is a scoped idea, a one-screen wireframe, and a strong first build prompt.</p>
+      <div class="grid three">
+        <div class="card"><span class="tag">In class</span><p>Discuss the build flow and turn your own idea into a web-app specification.</p></div>
+        <div class="card"><span class="tag">Artifact</span><p>Week 8 App Design Brief: title, target user, wireframe, prompt contract, success criteria, and one risk.</p></div>
+        <div class="card"><span class="tag">Homework</span><p>Watch the full Andrew Ng / DeepLearningAI video offline and connect its flow to your app.</p></div>
+      </div>
+      <a class="link-btn" href="https://www.youtube.com/watch?v=ff3j4olCUig" target="_blank" rel="noopener noreferrer" aria-label="Homework video Build Your Own App In Just 30 Minutes, opens in a new tab">Homework video: Build Your Own App In Just 30 Minutes</a>
+      <div class="teacher-note">Pacing: 4 minutes. Attribute the video as inspiration. Keep class time active: students design their own app instead of watching the full video.</div>
+    </div>
+  </section>
+
+  <section class="slide" data-part="Open" data-title="The build flow">
+    <div class="inner">
+      <div class="kicker">What the video models</div>
+      <h2>A beginner build flow has seven moves.</h2>
+      <p class="lede">We will study the flow, not imitate the specific app.</p>
+      <div class="flow">
+        <div class="node">Idea</div><div class="arrow">-&gt;</div>
+        <div class="node">Prompt</div><div class="arrow">-&gt;</div>
+        <div class="node">First app</div><div class="arrow">-&gt;</div>
+        <div class="node">Customize</div><div class="arrow">-&gt;</div>
+        <div class="node">Test</div><div class="arrow">-&gt;</div>
+        <div class="node">Fix</div><div class="arrow">-&gt;</div>
+        <div class="node">Transfer</div>
+      </div>
+      <div class="grid three">
+        <div class="card lab"><h3>Design lens</h3><p>What does the user see, type, press, and receive?</p></div>
+        <div class="card check"><h3>AI lens</h3><p>What does the prompt need to specify so the AI can build the right first version?</p></div>
+        <div class="card note"><h3>Week 8 boundary</h3><p>We design the app brief. Week 9 deepens interactivity. Week 10 turns it into a complete project.</p></div>
+      </div>
+      <div class="teacher-note">Pacing: 5 minutes. Ask students which move is easiest to skip. Usually they under-specify the user, interaction, and success criteria.</div>
+    </div>
+  </section>
+
+  <section class="slide lab" id="scope" data-part="Part 1" data-title="Buildable boundary">
+    <div class="inner">
+      <div class="timebox">6-14 min</div>
+      <h2>What makes an idea buildable this week?</h2>
+      <p class="lede">Click each boundary as your idea satisfies it. If the meter is low, the idea is probably too big for a first app.</p>
+      <div class="boundary-grid">
+        <button class="boundary" data-boundary><strong>One screen</strong><span>The app can be understood without navigation or multiple pages.</span></button>
+        <button class="boundary" data-boundary><strong>One audience</strong><span>You can name the exact type of person using it.</span></button>
+        <button class="boundary" data-boundary><strong>1-3 inputs</strong><span>The user enters only the few details needed.</span></button>
+        <button class="boundary" data-boundary><strong>One output</strong><span>The app produces one clear result, recommendation, message, or plan.</span></button>
+        <button class="boundary" data-boundary><strong>One interaction</strong><span>One main button or action creates the result.</span></button>
+        <button class="boundary" data-boundary><strong>No risky features</strong><span>No backend, database, login, payment, private data, medical/legal/financial advice, public posting, or full multi-page site.</span></button>
+      </div>
+      <div class="meter" aria-hidden="true"><div class="meter-fill" id="scopeMeter"></div></div>
+      <p class="muted" id="scopeStatus">0 of 6 boundaries checked.</p>
+    </div>
+  </section>
+
+  <section class="slide" id="ideas" data-part="Part 1" data-title="Idea sprint">
+    <div class="inner">
+      <div class="timebox">14-25 min</div>
+      <h2>Generate three ideas. Choose one.</h2>
+      <p class="lede">Score each idea from 1-5 for usefulness, feasibility, and personal interest. You can reuse your Week 7 project seed. The best Week 8 idea is small enough to build and meaningful enough to care about.</p>
+      <div class="idea-board">
+        <div class="card">
+          <div class="idea-inputs">
+            <div class="idea-row">
+              <input id="idea1" placeholder="Idea 1: e.g., study break picker">
+              <select id="u1"><option>Use 1</option><option>Use 2</option><option>Use 3</option><option>Use 4</option><option>Use 5</option></select>
+              <select id="f1"><option>Feas 1</option><option>Feas 2</option><option>Feas 3</option><option>Feas 4</option><option>Feas 5</option></select>
+              <select id="i1"><option>Care 1</option><option>Care 2</option><option>Care 3</option><option>Care 4</option><option>Care 5</option></select>
+            </div>
+            <div class="idea-row">
+              <input id="idea2" placeholder="Idea 2">
+              <select id="u2"><option>Use 1</option><option>Use 2</option><option>Use 3</option><option>Use 4</option><option>Use 5</option></select>
+              <select id="f2"><option>Feas 1</option><option>Feas 2</option><option>Feas 3</option><option>Feas 4</option><option>Feas 5</option></select>
+              <select id="i2"><option>Care 1</option><option>Care 2</option><option>Care 3</option><option>Care 4</option><option>Care 5</option></select>
+            </div>
+            <div class="idea-row">
+              <input id="idea3" placeholder="Idea 3">
+              <select id="u3"><option>Use 1</option><option>Use 2</option><option>Use 3</option><option>Use 4</option><option>Use 5</option></select>
+              <select id="f3"><option>Feas 1</option><option>Feas 2</option><option>Feas 3</option><option>Feas 4</option><option>Feas 5</option></select>
+              <select id="i3"><option>Care 1</option><option>Care 2</option><option>Care 3</option><option>Care 4</option><option>Care 5</option></select>
+            </div>
+          </div>
+          <button class="btn" id="scoreIdeas" style="margin-top:14px">Score ideas</button>
+        </div>
+        <div class="score-card">
+          <h3>Recommended pick</h3>
+          <p>Favor the idea with strong usefulness and feasibility. A slightly less exciting but buildable idea usually teaches more in Week 8.</p>
+          <div class="winner" id="winner">Enter ideas and click "Score ideas."</div>
+        </div>
+      </div>
+      <div class="teacher-note">Pacing: 11 minutes. Encourage everyday tools: planner, recommender, generator, checklist, reflection helper, simple game, or form assistant.</div>
+    </div>
+  </section>
+
+  <section class="slide note" id="requirements-interview" data-part="Part 1" data-title="Requirements interview">
+    <div class="inner">
+      <div class="timebox">Optional 4-min design check</div>
+      <h2>Before building, let the agent interview you.</h2>
+      <p class="lede">A good agent should slow down when the idea is underspecified. Requirements questions prevent vague prompts from turning into overbuilt apps.</p>
+      <div class="grid">
+        <div class="card"><h3>Use the interview for</h3><p>Target user, real problem, must-have output, constraints, examples, and what should not be built yet.</p></div>
+        <div class="card"><h3>Stop condition</h3><p>When the agent can restate the one-screen app, main interaction, data boundary, and success test, move to the prompt contract.</p></div>
+        <div class="card"><h3>Student rule</h3><p>Answer with classroom-safe details. Do not paste private data, account information, or real sensitive user stories.</p></div>
+        <div class="card"><h3>Why it matters</h3><p>The app brief becomes stronger because the student makes design decisions before the agent writes code.</p></div>
+      </div>
+      <div class="resource-links">
+        <a class="link-btn" href="https://weihaoqu.github.io/learnAIDoc/wiki/grill-me-skill/" target="_blank" rel="noopener noreferrer">Optional grill-me requirements interview</a>
+        <a class="link-btn" href="https://weihaoqu.github.io/learnAIDoc/wiki/html-anything-ai-generator/" target="_blank" rel="noopener noreferrer">Optional self-contained HTML examples</a>
+      </div>
+      <div class="teacher-note">This should sharpen the Week 8 brief, not become a long consulting session. Use it when students are stuck or vague.</div>
+    </div>
+  </section>
+
+  <section class="slide" id="anatomy" data-part="Part 2" data-title="Web anatomy">
+    <div class="inner">
+      <div class="timebox">25-35 min</div>
+      <h2>Map your idea into web parts.</h2>
+      <p class="lede">A web app is easier to prompt when you can name what belongs to content, design, behavior, and output.</p>
+      <div class="anatomy">
+        <div class="mock-app" aria-label="One-screen app mockup">
+          <div class="mock-top">
+            <div class="mock-title">Campus Helper</div>
+            <div class="mock-pill">friendly tone</div>
+          </div>
+          <div class="mock-field">Input: What do you need help deciding?</div>
+          <div class="mock-field">Input: How much time do you have?</div>
+          <button class="mock-button">Generate suggestion</button>
+          <div class="mock-output">Output area: the app shows a useful result here.</div>
+          <button class="hotspot html active" data-anatomy="html" aria-label="HTML hotspot"></button>
+          <button class="hotspot css" data-anatomy="css" aria-label="CSS hotspot"></button>
+          <button class="hotspot js" data-anatomy="js" aria-label="JavaScript hotspot"></button>
+          <button class="hotspot output" data-anatomy="output" aria-label="Output hotspot"></button>
+        </div>
+        <div class="anatomy-readout">
+          <h3 id="anatomyTitle">HTML: structure and content</h3>
+          <p id="anatomyText">Names the visible pieces: heading, instructions, input fields, button, and output area.</p>
+          <div class="teacher-note">Ask students to say one HTML, CSS, and JS requirement for their own idea.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="slide lab" id="contract" data-part="Part 3" data-title="Prompt contract">
+    <div class="inner">
+      <div class="timebox">35-48 min</div>
+      <h2>Write the first build prompt.</h2>
+      <p class="lede">A prompt contract turns an idea into instructions an AI builder can act on.</p>
+      <div class="contract-layout">
+        <div class="contract-form">
+          <label>User<input id="pcUser" placeholder="e.g., first-year college students"></label>
+          <label>Purpose<input id="pcPurpose" placeholder="e.g., choose a study break activity"></label>
+          <label>Inputs<textarea id="pcInputs" placeholder="e.g., available time, mood, energy level"></textarea></label>
+          <label>Interaction<input id="pcInteraction" placeholder="e.g., click a button to generate an idea"></label>
+          <label>Output<textarea id="pcOutput" placeholder="e.g., one recommendation with a short reason"></textarea></label>
+          <label>Visual tone<input id="pcTone" placeholder="e.g., calm, modern, campus-friendly"></label>
+          <label>Constraints<textarea id="pcConstraints" placeholder="e.g., one screen, no backend/database, no login, no payment, no private data, no medical/legal/financial advice, no public posting"></textarea></label>
+          <label>Success criteria<textarea id="pcSuccess" placeholder="e.g., user can understand the app in 10 seconds"></textarea></label>
+        </div>
+        <div>
+          <div class="prompt-preview" id="promptPreview" tabindex="0"></div>
+          <button class="btn" id="copyPrompt" style="margin-top:12px">Copy prompt</button>
+        </div>
+      </div>
+      <div class="teacher-note">Pacing: 13 minutes. Keep this at specification level. Do not turn the session into a JavaScript syntax lesson.</div>
+    </div>
+  </section>
+
+  <section class="slide check" id="critique" data-part="Part 4" data-title="Peer critique">
+    <div class="inner">
+      <div class="timebox">48-56 min</div>
+      <h2>Partner check: would this generate the app you mean?</h2>
+      <p class="lede">Trade prompts with a partner. Check the prompt as a design document, not as a grade.</p>
+      <div class="critique-grid">
+        <label class="critique"><input type="checkbox"><span>The target user is specific.</span></label>
+        <label class="critique"><input type="checkbox"><span>The app fits on one screen.</span></label>
+        <label class="critique"><input type="checkbox"><span>The inputs and output are clear.</span></label>
+        <label class="critique"><input type="checkbox"><span>The visual tone is concrete enough to build.</span></label>
+        <label class="critique"><input type="checkbox"><span>The prompt says what not to include.</span></label>
+        <label class="critique"><input type="checkbox"><span>There is one way to tell whether the first version works.</span></label>
+      </div>
+      <p class="muted" id="critiqueStatus" style="margin-top:16px">0 of 6 checks complete.</p>
+    </div>
+  </section>
+
+  <section class="slide artifact" id="ticket" data-part="Close" data-title="Exit ticket">
+    <div class="inner">
+      <div class="timebox">56-60 min</div>
+      <h2>Week 8 App Design Brief</h2>
+      <p class="lede">Submit the smallest useful version of your app idea. Week 9 will use this brief to add interactivity and intelligence.</p>
+      <div class="exit-layout">
+        <div class="exit-form">
+          <label>App title<input id="exTitle" placeholder="e.g., Study Break Picker"></label>
+          <label>Target user<input id="exUser" placeholder="Who is it for?"></label>
+          <label>Core interaction<input id="exInteraction" placeholder="What does the user do?"></label>
+          <label>Wireframe description<textarea id="exWireframe" placeholder="Describe the one-screen layout from top to bottom."></textarea></label>
+          <label>First build prompt<textarea id="exPrompt" placeholder="Paste or summarize your prompt contract."></textarea></label>
+          <label>Success criteria<textarea id="exSuccess" placeholder="How will you know the first version works?"></textarea></label>
+          <label>One risk or unknown<textarea id="exRisk" placeholder="What might fail, confuse users, or be too ambitious?"></textarea></label>
+        </div>
+        <div>
+          <div class="ticket" id="ticketPreview" tabindex="0"></div>
+          <button class="btn" id="copyTicket" style="margin-top:12px">Copy exit ticket</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="slide" data-part="Homework" data-title="Offline video guide">
+    <div class="inner">
+      <div class="kicker">Homework guide</div>
+      <h2>Watch the full video offline.</h2>
+      <p class="lede">As you watch, connect the build flow to your own app idea. The video is inspiration and homework, not a prerequisite for today's class.</p>
+      <div class="grid">
+        <div class="card"><h3>Watch for decisions</h3><p>What gets specified before the first version? What gets changed after seeing the first version?</p></div>
+        <div class="card"><h3>Watch for testing</h3><p>Where does the app fail or need adjustment? How is the problem described back to AI?</p></div>
+        <div class="card"><h3>Watch for transfer</h3><p>How does the same flow move from one example app to another app idea?</p></div>
+        <div class="card"><h3>Apply it</h3><p>What one change would make your prompt clearer before Week 9?</p></div>
+      </div>
+      <div class="resource-links">
+        <a class="link-btn" href="https://www.youtube.com/watch?v=ff3j4olCUig" target="_blank" rel="noopener noreferrer" aria-label="Open homework video Build Your Own App In Just 30 Minutes, opens in a new tab">Open homework video</a>
+        <a class="link-btn" href="https://developer.mozilla.org/en-US/docs/Learn_web_development/Getting_started" target="_blank" rel="noopener noreferrer" aria-label="Open MDN getting started web development reference, opens in a new tab">Optional MDN vocabulary reference</a>
+        <a class="link-btn" href="https://weihaoqu.github.io/learnAIDoc/wiki/grill-me-skill/" target="_blank" rel="noopener noreferrer">Optional requirements interview</a>
+        <a class="link-btn" href="https://weihaoqu.github.io/learnAIDoc/wiki/html-anything-ai-generator/" target="_blank" rel="noopener noreferrer">Optional HTML deliverable examples</a>
+      </div>
+      <p class="muted" style="margin-top:14px">Use MDN only as a vocabulary reference for HTML, CSS, JavaScript, files, and browsers. Do not assign the full MDN path for Week 8.</p>
+      <div class="teacher-note">Optional assignment: ask students to submit a 150-word reflection or annotated prompt revision before Week 9.</div>
+    </div>
+  </section>
+</main>
+
+<nav class="controls" aria-label="Slide controls">
+  <button class="btn" id="notesBtn">Notes</button>
+  <div class="jump" id="jump" role="group" aria-label="Slide jump buttons"></div>
+  <div>
+    <button class="btn" id="prevBtn">Prev</button>
+    <button class="btn" id="nextBtn">Next</button>
+  </div>
+</nav>
+
+<script>
+const slides = Array.from(document.querySelectorAll('.slide'));
+const bar = document.getElementById('bar');
+const statusEl = document.getElementById('status');
+const jump = document.getElementById('jump');
+const prevBtn = document.getElementById('prevBtn');
+const nextBtn = document.getElementById('nextBtn');
+let current = 0;
+
+slides.forEach((slide, idx) => {
+  const btn = document.createElement('button');
+  btn.className = 'btn';
+  btn.textContent = String(idx + 1);
+  btn.setAttribute('aria-label', `Go to slide ${idx + 1}: ${slide.dataset.title || ''}`);
+  btn.addEventListener('click', () => go(idx));
+  jump.appendChild(btn);
+  if (!slide.id) slide.id = `slide-${idx + 1}`;
+});
+
+function go(idx) {
+  current = Math.max(0, Math.min(slides.length - 1, idx));
+  slides.forEach((slide, i) => {
+    const active = i === current;
+    slide.classList.toggle('active', active);
+    slide.toggleAttribute('inert', !active);
+    slide.setAttribute('aria-hidden', String(!active));
+  });
+  Array.from(jump.children).forEach((btn, i) => {
+    const active = i === current;
+    btn.classList.toggle('active', active);
+    if (active) {
+      btn.setAttribute('aria-current', 'step');
+    } else {
+      btn.removeAttribute('aria-current');
+    }
+  });
+  bar.style.width = `${((current + 1) / slides.length) * 100}%`;
+  statusEl.textContent = `Slide ${current + 1} of ${slides.length}: ${slides[current].dataset.title}`;
+  prevBtn.disabled = current === 0;
+  nextBtn.disabled = current === slides.length - 1;
+  history.replaceState(null, '', `#${slides[current].id}`);
+}
+
+prevBtn.addEventListener('click', () => go(current - 1));
+nextBtn.addEventListener('click', () => go(current + 1));
+document.getElementById('notesBtn').addEventListener('click', () => {
+  document.body.classList.toggle('notes-on');
+});
+document.addEventListener('keydown', event => {
+  if (event.target.matches('input, textarea, select, button, a')) return;
+  if (event.key === 'ArrowRight' || event.key === ' ') { event.preventDefault(); go(current + 1); }
+  if (event.key === 'ArrowLeft') { event.preventDefault(); go(current - 1); }
+  if (event.key === 'Home') { event.preventDefault(); go(0); }
+  if (event.key === 'End') { event.preventDefault(); go(slides.length - 1); }
+  if (event.key.toLowerCase() === 'n') document.body.classList.toggle('notes-on');
+});
+
+const boundaries = Array.from(document.querySelectorAll('[data-boundary]'));
+const scopeMeter = document.getElementById('scopeMeter');
+const scopeStatus = document.getElementById('scopeStatus');
+function updateScope() {
+  const count = boundaries.filter(btn => btn.classList.contains('done')).length;
+  scopeMeter.style.width = `${(count / boundaries.length) * 100}%`;
+  scopeStatus.textContent = `${count} of ${boundaries.length} boundaries checked.`;
+}
+boundaries.forEach(btn => btn.addEventListener('click', () => {
+  btn.classList.toggle('done');
+  updateScope();
+}));
+
+function selectValue(id) {
+  const select = document.getElementById(id);
+  return select.selectedIndex + 1;
+}
+document.getElementById('scoreIdeas').addEventListener('click', () => {
+  const ideas = [1, 2, 3].map(n => ({
+    n,
+    text: document.getElementById(`idea${n}`).value.trim() || `Idea ${n}`,
+    score: selectValue(`u${n}`) + selectValue(`f${n}`) + selectValue(`i${n}`)
+  }));
+  ideas.sort((a, b) => b.score - a.score);
+  const top = ideas[0];
+  document.getElementById('winner').textContent =
+    `Pick: ${top.text}\nScore: ${top.score}/15\n\nNext move: shrink it to one screen, one user, one output, and one main interaction.`;
+});
+
+const anatomyData = {
+  html: {
+    title: 'HTML: structure and content',
+    text: 'Names the visible pieces: heading, instructions, input fields, button, and output area.'
+  },
+  css: {
+    title: 'CSS: visual design',
+    text: 'Defines the feeling: spacing, colors, button style, card layout, readability, and hierarchy.'
+  },
+  js: {
+    title: 'JavaScript: behavior',
+    text: 'Describes what happens after the user acts: click the button, read inputs, produce an output.'
+  },
+  output: {
+    title: 'Output: the useful result',
+    text: 'The app must create a result the user can judge: a plan, message, recommendation, checklist, or simple game state.'
+  }
+};
+document.querySelectorAll('[data-anatomy]').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('[data-anatomy]').forEach(h => h.classList.remove('active'));
+    btn.classList.add('active');
+    const data = anatomyData[btn.dataset.anatomy];
+    document.getElementById('anatomyTitle').textContent = data.title;
+    document.getElementById('anatomyText').textContent = data.text;
+  });
+});
+
+const promptFields = ['pcUser','pcPurpose','pcInputs','pcInteraction','pcOutput','pcTone','pcConstraints','pcSuccess'];
+const promptPreview = document.getElementById('promptPreview');
+function value(id, fallback) {
+  return document.getElementById(id).value.trim() || fallback;
+}
+function updatePrompt() {
+  promptPreview.textContent =
+`Build a one-screen web app for ${value('pcUser','[user]')}.
+The app helps them ${value('pcPurpose','[purpose]')}.
+It should include these inputs: ${value('pcInputs','[inputs]')}.
+When the user ${value('pcInteraction','[interaction]')}, it should show ${value('pcOutput','[output]')}.
+The design should feel ${value('pcTone','[visual tone]')}.
+Do not include ${value('pcConstraints','[constraints]')}.
+Success means ${value('pcSuccess','[success criteria]')}.`;
+}
+promptFields.forEach(id => document.getElementById(id).addEventListener('input', updatePrompt));
+updatePrompt();
+
+function selectElementText(element) {
+  const range = document.createRange();
+  range.selectNodeContents(element);
+  const selection = window.getSelection();
+  selection.removeAllRanges();
+  selection.addRange(range);
+}
+
+async function copyText(element, button) {
+  const text = element.textContent;
+  try {
+    await navigator.clipboard.writeText(text);
+    const original = button.textContent;
+    button.textContent = 'Copied';
+    setTimeout(() => { button.textContent = original; }, 1200);
+  } catch {
+    selectElementText(element);
+    const original = button.textContent;
+    button.textContent = 'Text selected';
+    setTimeout(() => { button.textContent = original; }, 1600);
+  }
+}
+document.getElementById('copyPrompt').addEventListener('click', event => copyText(promptPreview, event.currentTarget));
+
+const critiqueBoxes = Array.from(document.querySelectorAll('.critique input'));
+const critiqueStatus = document.getElementById('critiqueStatus');
+function updateCritique() {
+  let count = 0;
+  critiqueBoxes.forEach(box => {
+    box.closest('.critique').classList.toggle('done', box.checked);
+    if (box.checked) count += 1;
+  });
+  critiqueStatus.textContent = `${count} of ${critiqueBoxes.length} checks complete.`;
+}
+critiqueBoxes.forEach(box => box.addEventListener('change', updateCritique));
+
+const exitFields = ['exTitle','exUser','exInteraction','exWireframe','exPrompt','exSuccess','exRisk'];
+const ticketPreview = document.getElementById('ticketPreview');
+function updateTicket() {
+  ticketPreview.textContent =
+`Week 8 App Design Brief
+
+App title: ${value('exTitle','[app title]')}
+Target user: ${value('exUser','[target user]')}
+Core interaction: ${value('exInteraction','[core interaction]')}
+
+Wireframe:
+${value('exWireframe','[one-screen layout from top to bottom]')}
+
+First build prompt:
+${value('exPrompt','[first build prompt]')}
+
+Success criteria:
+${value('exSuccess','[how you will know the first version works]')}
+
+Risk or unknown:
+${value('exRisk','[one risk or unknown]')}`;
+}
+exitFields.forEach(id => document.getElementById(id).addEventListener('input', updateTicket));
+document.getElementById('copyTicket').addEventListener('click', event => copyText(ticketPreview, event.currentTarget));
+updateTicket();
+if (location.hash) {
+  const target = document.getElementById(location.hash.slice(1));
+  if (target) current = slides.indexOf(target);
+}
+go(current);
+</script>
+</body>
+</html>

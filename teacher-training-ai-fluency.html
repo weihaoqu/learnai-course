@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex,nofollow">
+<title>Instructor Guide - Teaching AI Fluency</title>
+<link rel="icon" href="data:,">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --paper:#f6f1e6;--paper2:#ebe2d0;--ink:#1f2526;--muted:#5e6969;--rule:#cbbda4;
+  --chalk:#173f3a;--chalk2:#225d55;--teal:#0f766e;--blue:#315c8c;--amber:#a95f12;--rose:#9f363f;
+  --card:#fffaf0;--shadow:0 18px 50px rgba(31,37,38,.12);
+  --font:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  --serif:Georgia,"Times New Roman",serif;
+  --mono:"SFMono-Regular",Consolas,"Liberation Mono",Menlo,monospace;
+}
+html{scroll-behavior:smooth}
+body{font-family:var(--font);background:
+  linear-gradient(90deg,rgba(23,63,58,.035) 1px,transparent 1px),
+  linear-gradient(180deg,rgba(23,63,58,.035) 1px,transparent 1px),
+  var(--paper);background-size:32px 32px;color:var(--ink);line-height:1.55}
+a{color:var(--teal);text-decoration:none}
+a:hover{text-decoration:underline}
+button{font:inherit}
+.wrap{display:grid;grid-template-columns:280px minmax(0,1fr);min-height:100vh}
+.rail{position:sticky;top:0;height:100vh;padding:28px 22px;background:var(--chalk);color:#effaf4;border-right:8px solid #d0b36d;overflow:auto}
+.rail h1{font-family:var(--serif);font-size:28px;line-height:1.05;margin-bottom:12px}
+.rail p{color:#c8ded9;font-size:14px;margin-bottom:18px}
+.nav{display:grid;gap:8px;margin-top:22px}
+.nav a{display:block;color:#f6fff9;border:1px solid rgba(255,255,255,.14);border-radius:12px;padding:10px 11px;font-size:14px;font-weight:800;background:rgba(255,255,255,.055)}
+.nav a:hover{background:rgba(255,255,255,.12);text-decoration:none}
+.small{font-size:12px;color:#b7ccc7}
+.main{padding:44px min(5vw,64px) 76px}
+.hero{max-width:1180px;margin:0 auto 28px;border:1px solid var(--rule);background:linear-gradient(135deg,#fffaf0,#efe5d0);box-shadow:var(--shadow);border-radius:18px;padding:34px;position:relative;overflow:hidden}
+.hero::after{content:"4D";position:absolute;right:24px;bottom:-28px;font-family:var(--serif);font-size:138px;line-height:1;color:rgba(23,63,58,.08);font-weight:900}
+.kicker{display:inline-flex;gap:10px;align-items:center;color:var(--amber);font-size:12px;font-weight:900;letter-spacing:.12em;text-transform:uppercase;margin-bottom:14px}
+.kicker::before{content:"";width:34px;height:2px;background:currentColor}
+h2{font-family:var(--serif);font-size:clamp(34px,4vw,58px);line-height:1.04;margin-bottom:14px;color:#1c2a29}
+h3{font-size:24px;line-height:1.2;margin-bottom:10px;color:#1f3432}
+h4{font-size:17px;line-height:1.25;margin-bottom:8px;color:#213331}
+p,li{font-size:17px;color:var(--muted)}
+.lede{font-size:clamp(19px,1.7vw,25px);color:#334341;max-width:860px}
+.notice{border:1px solid rgba(159,54,63,.25);background:#fff2ec;border-left:7px solid var(--rose);border-radius:14px;padding:16px 18px;margin-top:22px;max-width:860px}
+.notice strong{color:#7f1d1d}
+.section{max-width:1180px;margin:24px auto;border:1px solid var(--rule);background:rgba(255,250,240,.88);border-radius:18px;padding:30px;box-shadow:0 10px 34px rgba(31,37,38,.08)}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;margin-top:20px}
+.grid.three{grid-template-columns:repeat(3,minmax(0,1fr))}
+.card{border:1px solid rgba(31,37,38,.12);background:#fffdf7;border-radius:14px;padding:18px}
+.card strong{color:#203734}
+.pill{display:inline-flex;align-items:center;border:1px solid rgba(15,118,110,.26);background:rgba(15,118,110,.08);color:var(--chalk);border-radius:999px;padding:6px 10px;font-size:12px;font-weight:900;margin-bottom:10px}
+.four-d{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;margin-top:22px}
+.d-card{border:1px solid rgba(23,63,58,.18);background:#fdf7eb;border-radius:15px;padding:18px;position:relative;min-height:190px}
+.d-card .letter{font-family:var(--serif);font-size:54px;line-height:1;color:rgba(15,118,110,.32);font-weight:900;margin-bottom:8px}
+.map{display:grid;gap:12px;margin-top:18px}
+.map-row{display:grid;grid-template-columns:130px 1fr 1fr;gap:12px;align-items:stretch}
+.map-row>div{border:1px solid rgba(31,37,38,.12);background:#fffdf7;border-radius:12px;padding:13px}
+.map-row .week{font-weight:900;color:var(--chalk);background:#f4ead7}
+.script{font-family:var(--mono);white-space:pre-wrap;background:#14221f;color:#e7f8ef;border-radius:14px;padding:18px;margin-top:14px;font-size:14px;line-height:1.55;overflow:auto}
+.rubric{display:grid;gap:10px;margin-top:16px}
+.rubric-row{display:grid;grid-template-columns:170px repeat(3,minmax(0,1fr));gap:10px}
+.rubric-row>div{border:1px solid rgba(31,37,38,.12);background:#fffdf7;border-radius:12px;padding:12px;font-size:14px;color:#3c4a49}
+.rubric-row.header>div{background:var(--chalk);color:#f7fffb;font-weight:900}
+.copyable{position:relative}
+.copy-btn{border:1px solid rgba(15,118,110,.3);background:rgba(15,118,110,.1);color:var(--chalk);border-radius:10px;padding:8px 10px;font-weight:900;cursor:pointer;margin-top:10px}
+.copy-btn:hover,.copy-btn:focus{outline:3px solid rgba(15,118,110,.25)}
+.checklist{display:grid;gap:10px;margin-top:16px}
+.checkitem{display:flex;gap:11px;align-items:flex-start;border:1px solid rgba(31,37,38,.12);background:#fffdf7;border-radius:12px;padding:13px}
+.checkitem input{width:20px;height:20px;margin-top:3px;accent-color:var(--teal)}
+.checkitem.done{background:rgba(15,118,110,.08);border-color:rgba(15,118,110,.28)}
+.tagline{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+.tag{border:1px solid rgba(31,37,38,.14);border-radius:999px;padding:5px 9px;color:#52605f;background:#fffdf8;font-size:12px;font-weight:800}
+.resource-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin-top:16px}
+.resource{border:1px solid rgba(31,37,38,.12);background:#fffdf7;border-radius:14px;padding:16px}
+.resource a{font-weight:900}
+.footer-note{max-width:1180px;margin:28px auto 0;color:#6c7776;font-size:13px}
+@media(max-width:980px){
+  .wrap{display:block}
+  .rail{position:relative;height:auto;border-right:none;border-bottom:6px solid #d0b36d}
+  .main{padding:24px 18px 50px}
+  .grid,.grid.three,.four-d,.resource-list{grid-template-columns:1fr}
+  .map-row,.rubric-row{grid-template-columns:1fr}
+  .hero,.section{padding:22px}
+}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*::before,*::after{transition-duration:.01ms!important}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <aside class="rail">
+    <h1>Instructor AI Fluency Guide</h1>
+    <p>Unlisted faculty chapter for teaching CS-215 AI Literacy and training other instructors.</p>
+    <p class="small">Direct URL only. Not linked from the student course path.</p>
+    <nav class="nav" aria-label="Instructor guide sections">
+      <a href="#orientation">Orientation</a>
+      <a href="#framework">4D Teaching Frame</a>
+      <a href="#sources">Source Mapping</a>
+      <a href="#weeks">Week Facilitation</a>
+      <a href="#assignments">Assignments</a>
+      <a href="#scripts">Classroom Scripts</a>
+      <a href="#agent-resources">Agent Resources</a>
+      <a href="#patterns">Failure Patterns</a>
+      <a href="#adapt">Adaptation</a>
+      <a href="#launch">Launch Checklist</a>
+    </nav>
+  </aside>
+
+  <main class="main">
+    <section class="hero" id="orientation">
+      <div class="kicker">Faculty-only field manual</div>
+      <h2>Teach AI literacy as guided human-AI collaboration.</h2>
+      <p class="lede">This chapter helps instructors run the course, explain the 4D framework, design assignments, and assess students' process. It is not part of the student 14-week path.</p>
+      <div class="notice">
+        <p><strong>Access note:</strong> this page is unlisted and marked <code>noindex,nofollow</code>, but it is not private. In a static web app, anyone with the URL, repository access, or deployed file access can still find it.</p>
+      </div>
+      <div class="tagline">
+        <span class="tag">Outcome artifact</span>
+        <span class="tag">Process log</span>
+        <span class="tag">Reflection</span>
+        <span class="tag">AI-use disclosure</span>
+      </div>
+    </section>
+
+    <section class="section" id="framework">
+      <div class="kicker">Shared teaching language</div>
+      <h2>The 4D framework becomes the course spine.</h2>
+      <p>Use the same four terms in slides, critiques, homework, rubrics, and final presentations. Repetition matters: students should hear the words often enough that they become a design habit.</p>
+      <div class="four-d">
+        <div class="d-card"><div class="letter">D</div><h3>Delegation</h3><p>What should AI do, what should the student do, and why is that division appropriate?</p></div>
+        <div class="d-card"><div class="letter">D</div><h3>Description</h3><p>What goal, context, constraints, examples, and output format does the student provide?</p></div>
+        <div class="d-card"><div class="letter">D</div><h3>Discernment</h3><p>How does the student inspect, test, compare, and revise AI output?</p></div>
+        <div class="d-card"><div class="letter">D</div><h3>Diligence</h3><p>What privacy, integrity, citation, safety, and disclosure responsibilities does the student handle?</p></div>
+      </div>
+    </section>
+
+    <section class="section" id="sources">
+      <div class="kicker">Resource map</div>
+      <h2>Separate student requirements from instructor preparation.</h2>
+      <p>The learner-facing courses support student homework. The educator-facing courses support instructor design, rubrics, and facilitation.</p>
+      <div class="resource-list">
+        <div class="resource">
+          <span class="pill">Required for students</span>
+          <h3>AI Fluency: Framework &amp; Foundations</h3>
+          <p>Use in Weeks 1-3 to establish Delegation, Description, Discernment, and Diligence before applied work begins.</p>
+          <a href="https://anthropic.skilljar.com/ai-fluency-framework-foundations" target="_blank" rel="noopener noreferrer">Open Skilljar course</a>
+        </div>
+        <div class="resource">
+          <span class="pill">Required for students</span>
+          <h3>AI Fluency for Students</h3>
+          <p>Use in Week 11 for AI as a learning partner, career planning, human-in-the-loop responsibility, and personal AI policy.</p>
+          <a href="https://anthropic.skilljar.com/ai-fluency-for-students" target="_blank" rel="noopener noreferrer">Open Skilljar course</a>
+        </div>
+        <div class="resource">
+          <span class="pill">Instructor design</span>
+          <h3>AI Fluency for Educators</h3>
+          <p>Use for course design, learning materials, authentic assessments, and policies around privacy, accuracy, and transparency.</p>
+          <a href="https://anthropic.skilljar.com/ai-fluency-for-educators" target="_blank" rel="noopener noreferrer">Open Skilljar course</a>
+        </div>
+        <div class="resource">
+          <span class="pill">Instructor playbook</span>
+          <h3>Teaching AI Fluency</h3>
+          <p>Use to design instructor-led activities, peer critique, reflection prompts, and process-based assessment.</p>
+          <a href="https://anthropic.skilljar.com/teaching-ai-fluency" target="_blank" rel="noopener noreferrer">Open Skilljar course</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="weeks">
+      <div class="kicker">Facilitation map</div>
+      <h2>Where 4D shows up across the 14 weeks.</h2>
+      <div class="map">
+        <div class="map-row"><div class="week">Weeks 1-3</div><div>Introduce AI fluency and complete Framework &amp; Foundations.</div><div>Make students use 4D language in short reflections and risk audits.</div></div>
+        <div class="map-row"><div class="week">Weeks 4-6</div><div>Apply AI to writing, data, workflows, and media.</div><div>Require Description and Discernment checks: prompt clarity, output review, citation/verification.</div></div>
+        <div class="map-row"><div class="week">Week 7</div><div>Midterm studio.</div><div>Ask students to explain one good delegation choice and one output they rejected or revised.</div></div>
+        <div class="map-row"><div class="week">Weeks 8-10</div><div>Build web app concept, interactivity, and complete project.</div><div>Use the 4D process log as the project lab notebook.</div></div>
+        <div class="map-row"><div class="week">Week 11</div><div>Complete AI Fluency for Students.</div><div>Connect learning partner, career planning, and personal AI collaboration policy.</div></div>
+        <div class="map-row"><div class="week">Week 12</div><div>Advanced prompting.</div><div>Use Description-Discernment loops to improve prompts and evaluate outputs.</div></div>
+        <div class="map-row"><div class="week">Week 13</div><div>Security and vulnerability management.</div><div>Emphasize Diligence: private data, unsafe code, model overconfidence, and review habits.</div></div>
+        <div class="map-row"><div class="week">Week 14</div><div>Final presentation.</div><div>Require project demo plus AI-use disclosure, selected process logs, and personal policy reflection.</div></div>
+      </div>
+    </section>
+
+    <section class="section" id="assignments">
+      <div class="kicker">Assessment design</div>
+      <h2>Grade the collaboration, not only the final product.</h2>
+      <div class="grid three">
+        <div class="card"><h3>Outcome</h3><p>The visible artifact: document, media piece, app prototype, project, presentation, or career plan.</p></div>
+        <div class="card"><h3>Process</h3><p>The 4D evidence: prompts, decisions, tests, revisions, rejected outputs, and safety checks.</p></div>
+        <div class="card"><h3>Reflection</h3><p>The student's explanation of what AI helped with, what they changed, and what they remain responsible for.</p></div>
+      </div>
+
+      <h3 style="margin-top:26px">Compact 4D rubric</h3>
+      <div class="rubric">
+        <div class="rubric-row header"><div>Dimension</div><div>Developing</div><div>Proficient</div><div>Strong</div></div>
+        <div class="rubric-row"><div>Delegation</div><div>Uses AI because it is available.</div><div>Explains why AI is suitable for part of the task.</div><div>Separates AI work from human judgment with clear rationale.</div></div>
+        <div class="rubric-row"><div>Description</div><div>Prompt is vague or missing constraints.</div><div>Prompt includes goal, context, and output expectations.</div><div>Prompt gives task structure, constraints, examples, and success criteria.</div></div>
+        <div class="rubric-row"><div>Discernment</div><div>Accepts output with little inspection.</div><div>Checks output against task requirements.</div><div>Tests, compares, revises, and documents what changed.</div></div>
+        <div class="rubric-row"><div>Diligence</div><div>Does not address privacy, integrity, or citation.</div><div>Identifies relevant responsibility issues.</div><div>Handles disclosure, data boundaries, citations, and safety risks explicitly.</div></div>
+      </div>
+    </section>
+
+    <section class="section" id="scripts">
+      <div class="kicker">Classroom scripts</div>
+      <h2>Reusable prompts for instructor-led activities.</h2>
+      <div class="grid">
+        <div class="card copyable">
+          <h3>Prompt repair discussion</h3>
+          <p>Use when students write broad prompts that produce generic output.</p>
+          <div class="script" id="scriptPrompt">Ask:
+1. What did you want AI to do?
+2. What did you assume AI already knew?
+3. What constraint would prevent the wrong output?
+4. What would count as a successful answer?</div>
+          <button class="copy-btn" data-copy="scriptPrompt">Copy script</button>
+        </div>
+        <div class="card copyable">
+          <h3>Peer critique protocol</h3>
+          <p>Use before students submit app prompts, writing drafts, media designs, or final project work.</p>
+          <div class="script" id="scriptPeer">Partner check:
+- I can name the target user.
+- I can see what AI was asked to do.
+- I can identify one missing constraint.
+- I can explain how the output should be tested.
+- I can name one risk or responsibility issue.</div>
+          <button class="copy-btn" data-copy="scriptPeer">Copy script</button>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="agent-resources">
+      <div class="kicker">Instructor agent-engineering resources</div>
+      <h2>Use these for faculty preparation, not required CS-215 homework.</h2>
+      <p>These wiki posts help instructors understand the agent ecosystem, skill design, research tooling, media pipelines, and classroom workflow choices. Promote only short excerpts into student modules when they support a specific week's task.</p>
+      <div class="resource-list">
+        <div class="resource">
+          <span class="pill">Agent foundations</span>
+          <h3>AI Agent Book</h3>
+          <p>Use the model + context + tools formula as a simple Week 2 mental model.</p>
+          <a href="https://weihaoqu.github.io/learnAIDoc/wiki/ai-agent-book-engineering-practice/" target="_blank" rel="noopener noreferrer">Open wiki post</a>
+        </div>
+        <div class="resource">
+          <span class="pill">Instructor benchmark</span>
+          <h3>CMU 11-768 AI Agents</h3>
+          <p>Use as a graduate-level benchmark for scaffolds, evaluation, safety, interaction, and final projects.</p>
+          <a href="https://weihaoqu.github.io/learnAIDoc/wiki/cmu-11-768-ai-agents-course/" target="_blank" rel="noopener noreferrer">Open wiki post</a>
+        </div>
+        <div class="resource">
+          <span class="pill">Agent diagnosis</span>
+          <h3>What Is Agentic Engineering?</h3>
+          <p>Use the layer-diagnosis frame when students ask whether a failure came from the model, context, tool, or runtime.</p>
+          <a href="https://weihaoqu.github.io/learnAIDoc/wiki/what-is-agentic-engineering/" target="_blank" rel="noopener noreferrer">Open wiki post</a>
+        </div>
+        <div class="resource">
+          <span class="pill">Context practice</span>
+          <h3>Claude Code Context / CLAUDE.md Practices</h3>
+          <p>Use for teacher and TA workflows around instructions, project memory, context bloat, and reviewable agent setup.</p>
+          <a href="https://weihaoqu.github.io/learnAIDoc/wiki/claude-code-context-claudemd-practices/" target="_blank" rel="noopener noreferrer">Open wiki post</a>
+        </div>
+        <div class="resource">
+          <span class="pill">Skill design</span>
+          <h3>Matt Pocock Skills + grill-me</h3>
+          <p>Use as examples of turning engineering habits into reusable agent procedures, especially requirements interviews.</p>
+          <a href="https://weihaoqu.github.io/learnAIDoc/wiki/matt-pocock-skills-real-engineers/" target="_blank" rel="noopener noreferrer">Open Matt skills</a>
+          <br><a href="https://weihaoqu.github.io/learnAIDoc/wiki/grill-me-skill/" target="_blank" rel="noopener noreferrer">Open grill-me</a>
+        </div>
+        <div class="resource">
+          <span class="pill">Review discipline</span>
+          <h3>Ponytail</h3>
+          <p>Use in Week 13 as the minimum-sufficient-fix principle for agent-generated changes.</p>
+          <a href="https://weihaoqu.github.io/learnAIDoc/wiki/ponytail-anti-overengineering-skill/" target="_blank" rel="noopener noreferrer">Open wiki post</a>
+        </div>
+        <div class="resource">
+          <span class="pill">Action safety</span>
+          <h3>OpenWorker</h3>
+          <p>Use as a local-first desktop-agent case for read-only, reversible write, irreversible write, and external-send action tiers.</p>
+          <a href="https://weihaoqu.github.io/learnAIDoc/wiki/openworker-local-first-desktop-agents/" target="_blank" rel="noopener noreferrer">Open wiki post</a>
+        </div>
+        <div class="resource">
+          <span class="pill">Media teaching</span>
+          <h3>Slides, video, and self-contained HTML</h3>
+          <p>Use for instructor demos and optional student extension work, not required Week 6 setup.</p>
+          <a href="https://weihaoqu.github.io/learnAIDoc/wiki/ai-slide-generation-tools/" target="_blank" rel="noopener noreferrer">Open slide tools</a>
+          <br><a href="https://weihaoqu.github.io/learnAIDoc/wiki/teaching-videos-manim-remotion/" target="_blank" rel="noopener noreferrer">Open Manim + Remotion</a>
+          <br><a href="https://weihaoqu.github.io/learnAIDoc/wiki/video-use-agent-video-editing/" target="_blank" rel="noopener noreferrer">Open video-use</a>
+          <br><a href="https://weihaoqu.github.io/learnAIDoc/wiki/html-anything-ai-generator/" target="_blank" rel="noopener noreferrer">Open html-anything</a>
+        </div>
+        <div class="resource">
+          <span class="pill">Research tools</span>
+          <h3>Awesome Auto Research Tools</h3>
+          <p>Use as an instructor map for tool-scouting and research-agent evaluation. Keep student assignments source-verification focused.</p>
+          <a href="https://weihaoqu.github.io/learnAIDoc/wiki/awesome-auto-research-tools/" target="_blank" rel="noopener noreferrer">Open wiki post</a>
+        </div>
+        <div class="resource">
+          <span class="pill">Wiki index</span>
+          <h3>LearnAI Wiki Index</h3>
+          <p>Use as the faculty map when looking for candidate cases, tools, or readings by category.</p>
+          <a href="https://weihaoqu.github.io/learnAIDoc/wiki-index.html" target="_blank" rel="noopener noreferrer">Open wiki index</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="patterns">
+      <div class="kicker">Instructor interventions</div>
+      <h2>Common student failure patterns.</h2>
+      <div class="grid">
+        <div class="card"><h3>Prompt is too broad</h3><p>Intervention: ask for target user, output format, constraints, and one success criterion.</p></div>
+        <div class="card"><h3>AI output sounds plausible</h3><p>Intervention: require source checks, comparison, or a small test before acceptance.</p></div>
+        <div class="card"><h3>Student copies the example</h3><p>Intervention: make them change user, context, and success criteria before building.</p></div>
+        <div class="card"><h3>Project scope explodes</h3><p>Intervention: reduce to one screen, one interaction, one output, and no backend.</p></div>
+        <div class="card"><h3>Private data enters the prompt</h3><p>Intervention: replace with fictional or generalized data and document the Diligence choice.</p></div>
+        <div class="card"><h3>Student hides AI use</h3><p>Intervention: grade AI-use disclosure as normal professional documentation, not confession.</p></div>
+      </div>
+    </section>
+
+    <section class="section" id="adapt">
+      <div class="kicker">Adaptation guide</div>
+      <h2>For instructors outside CS.</h2>
+      <p>The course can be adapted if instructors keep the 4D spine and replace the final web app with a discipline-appropriate artifact.</p>
+      <div class="grid three">
+        <div class="card"><span class="pill">Business</span><p>Replace the web app with a workflow, dashboard mockup, client brief, or operations playbook.</p></div>
+        <div class="card"><span class="pill">Humanities</span><p>Replace the web app with an annotated source analysis, writing portfolio, or public-facing exhibit.</p></div>
+        <div class="card"><span class="pill">Health / Social sciences</span><p>Use fictional data and focus on risk communication, citation, consent, and human review.</p></div>
+      </div>
+    </section>
+
+    <section class="section" id="launch">
+      <div class="kicker">Before semester launch</div>
+      <h2>Instructor checklist.</h2>
+      <div class="checklist">
+        <label class="checkitem"><input type="checkbox"><span>Verify student access to the required AI Fluency courses and create a fallback if account access changes.</span></label>
+        <label class="checkitem"><input type="checkbox"><span>Decide how students submit completion evidence: screenshot plus applied reflection is the default.</span></label>
+        <label class="checkitem"><input type="checkbox"><span>Publish the 4D process log template with the first assignment.</span></label>
+        <label class="checkitem"><input type="checkbox"><span>Align each major assignment with outcome, process, reflection, and AI-use disclosure.</span></label>
+        <label class="checkitem"><input type="checkbox"><span>Prepare examples of acceptable and unacceptable AI collaboration for academic integrity discussions.</span></label>
+        <label class="checkitem"><input type="checkbox"><span>Confirm that student-facing pages do not link to this instructor guide.</span></label>
+      </div>
+    </section>
+
+    <p class="footer-note">This page is an instructor resource for CS-215 AI Literacy. It uses course-original guidance and links to Anthropic AI Fluency resources for further study.</p>
+  </main>
+</div>
+
+<script>
+document.querySelectorAll('[data-copy]').forEach(button => {
+  button.addEventListener('click', async () => {
+    const target = document.getElementById(button.dataset.copy);
+    try {
+      await navigator.clipboard.writeText(target.textContent.trim());
+      const original = button.textContent;
+      button.textContent = 'Copied';
+      setTimeout(() => { button.textContent = original; }, 1200);
+    } catch {
+      button.textContent = 'Select text manually';
+    }
+  });
+});
+
+document.querySelectorAll('.checkitem input').forEach(input => {
+  input.addEventListener('change', () => {
+    input.closest('.checkitem').classList.toggle('done', input.checked);
+  });
+});
+</script>
+</body>
+</html>

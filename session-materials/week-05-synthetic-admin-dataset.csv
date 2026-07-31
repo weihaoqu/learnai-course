@@ -1,0 +1,9 @@
+Event,Date,Category,Expected,Attended,Cost,Sponsor,Notes
+Robotics Night,2026-03-05,STEM,30,28,240,Tech Club,Arduino demo supplies
+Art Jam,2026-03-07,arts,24,25,180,Arts Club,Paint and snacks
+Career Panel,2026-03-12,Career,40,,90,MY-CC,Attendance missing
+Food Drive,2026-03-12,Service,18,18,free,MY-CC,Donated supplies
+Robotics Night,2026-03-05,STEM,30,28,240,Tech Club,Possible duplicate row
+Debate Prep,2026-03-19,Academic,20,85,60,Speech,Attendance may be typo
+AI Poster Studio,2026-03-21,STEM,22,19,110,MY-CC,Generated poster examples
+Parent Info Night,2026-03-25,Outreach,35,31,75,MY-CC,Need summary memo

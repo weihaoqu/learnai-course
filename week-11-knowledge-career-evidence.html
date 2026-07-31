@@ -1,0 +1,623 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Week 11: Knowledge Acquisition and Career Evidence Studio</title>
+<link rel="icon" href="data:,">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#080b18;--panel:#111827;--panel2:#172033;--text:#eef4ff;--muted:#a3adc2;
+  --blue:#60a5fa;--purple:#a78bfa;--green:#34d399;--gold:#fbbf24;--red:#f87171;--cyan:#22d3ee;
+  --line:rgba(255,255,255,.14);--line2:rgba(255,255,255,.24);--shadow:0 24px 72px rgba(0,0,0,.38);
+  --font:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  --mono:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+}
+html,body{height:100%;background:var(--bg);color:var(--text);font-family:var(--font);overflow:hidden}
+body{background:
+  linear-gradient(135deg,rgba(96,165,250,.09) 0 1px,transparent 1px 44px),
+  linear-gradient(45deg,rgba(52,211,153,.07) 0 1px,transparent 1px 52px),
+  linear-gradient(160deg,#080b18,#0d1424 48%,#111927)}
+button,input,select,textarea{font:inherit}
+button{cursor:pointer}
+a{color:#bfdbfe;text-decoration:none}
+a:hover,a:focus{text-decoration:underline}
+code{font-family:var(--mono);color:#bfdbfe}
+.topbar{position:fixed;top:0;left:0;right:0;height:58px;display:flex;align-items:center;gap:18px;padding:0 22px;background:rgba(8,11,24,.91);backdrop-filter:blur(14px);border-bottom:1px solid var(--line);z-index:20}
+.brand{font-weight:900;letter-spacing:.01em;white-space:nowrap}
+.status{margin-left:auto;color:var(--muted);font-size:14px}
+.progress{position:absolute;left:0;right:0;bottom:-1px;height:3px;background:rgba(255,255,255,.08)}
+.bar{height:100%;width:0;background:linear-gradient(90deg,var(--cyan),var(--blue),var(--green));transition:width .25s ease}
+.deck{position:relative;height:100%;padding-top:58px}
+.slide{position:absolute;inset:58px 0 78px 0;display:grid;place-items:center;padding:26px;overflow:auto;visibility:hidden;opacity:0;transform:translateY(10px);transition:opacity .22s ease,transform .22s ease,visibility .22s}
+.slide.active{visibility:visible;opacity:1;transform:translateY(0)}
+.inner{width:min(1180px,100%);margin:auto}
+.kicker{display:inline-flex;align-items:center;gap:8px;color:var(--green);font-weight:900;text-transform:uppercase;letter-spacing:.12em;font-size:13px;margin-bottom:14px}
+h1{font-size:56px;line-height:1.02;max-width:1000px;margin-bottom:18px;letter-spacing:0}
+h2{font-size:38px;line-height:1.08;margin-bottom:14px;max-width:1000px;letter-spacing:0}
+h3{font-size:18px;margin-bottom:8px}
+p,li{line-height:1.6}
+ul{padding-left:1.2em;margin:14px 0}
+li{margin:7px 0;color:#dbeafe}
+.lede{font-size:21px;color:#dce9ff;max-width:960px;margin-bottom:22px}
+.muted{color:var(--muted)}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;margin-top:22px}
+.grid.three{grid-template-columns:repeat(3,minmax(0,1fr))}
+.grid.four{grid-template-columns:repeat(4,minmax(0,1fr))}
+.card{background:rgba(17,24,39,.88);border:1px solid var(--line);border-radius:10px;padding:18px;box-shadow:0 10px 35px rgba(0,0,0,.18)}
+.card.blue{border-color:rgba(96,165,250,.35);background:rgba(96,165,250,.08)}
+.card.green{border-color:rgba(52,211,153,.35);background:rgba(52,211,153,.08)}
+.card.gold{border-color:rgba(251,191,36,.35);background:rgba(251,191,36,.08)}
+.card.warn{border-color:rgba(248,113,113,.4);background:rgba(248,113,113,.08)}
+.artifact{background:linear-gradient(135deg,rgba(96,165,250,.12),rgba(52,211,153,.10));border:1px solid rgba(96,165,250,.25)}
+.tag{display:inline-flex;border:1px solid var(--line2);border-radius:999px;padding:4px 9px;color:#bfdbfe;font-size:12px;font-weight:900;margin-bottom:10px}
+.timebox{display:inline-flex;border:1px solid rgba(251,191,36,.4);background:rgba(251,191,36,.08);color:#fde68a;border-radius:999px;padding:5px 12px;font-size:13px;font-weight:900;margin-bottom:14px}
+.teacher-note{margin-top:18px;border-left:4px solid var(--gold);background:rgba(251,191,36,.08);padding:12px 14px;color:#fff2c4;border-radius:8px;font-size:14px}
+.flow{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:10px;margin:24px 0}
+.step{border:1px solid var(--line);border-radius:10px;padding:15px;background:rgba(255,255,255,.04);min-height:116px}
+.step strong{display:block;color:#bfdbfe;margin-bottom:8px}
+.arrow{display:grid;place-items:center;color:var(--cyan);font-weight:900;font-size:22px}
+.split,.builder-layout,.exit-layout{display:grid;grid-template-columns:420px minmax(0,1fr);gap:18px;margin-top:20px}
+.form{display:grid;gap:11px}
+label{display:grid;gap:6px;color:#dbeafe;font-size:13px;font-weight:900;text-transform:uppercase;letter-spacing:.08em}
+input,select,textarea{width:100%;border:1px solid var(--line);background:#070c17;color:var(--text);border-radius:10px;padding:11px 12px;outline:none}
+textarea{resize:vertical;min-height:82px}
+input:focus,select:focus,textarea:focus{border-color:rgba(96,165,250,.85);box-shadow:0 0 0 3px rgba(96,165,250,.16)}
+.btn{border:1px solid var(--line2);border-radius:10px;padding:10px 14px;background:rgba(255,255,255,.07);color:var(--text);font-weight:900}
+.btn:hover,.btn:focus{border-color:rgba(96,165,250,.7);background:rgba(96,165,250,.12);outline:none}
+.btn.primary{background:linear-gradient(135deg,var(--blue),var(--cyan));color:#041015;border:none}
+.btn.green{background:linear-gradient(135deg,var(--green),var(--cyan));color:#041015;border:none}
+.btn.gold{background:linear-gradient(135deg,var(--gold),#fb923c);color:#160d02;border:none}
+.output,.preview{border:1px solid var(--line);background:#080f1d;border-radius:10px;padding:18px;min-height:230px;white-space:pre-wrap;color:#e8f1ff;line-height:1.55}
+.output h3{color:#bbf7d0}
+.source-steps{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin-top:20px}
+.source-step{border:1px solid var(--line);border-radius:10px;background:rgba(255,255,255,.04);padding:16px;min-height:150px}
+.source-step span{display:inline-grid;place-items:center;width:30px;height:30px;border-radius:999px;background:rgba(34,211,238,.14);color:#a5f3fc;font-weight:900;margin-bottom:12px}
+.scenario-buttons{display:grid;gap:10px;margin-top:18px}
+.scenario-buttons button{text-align:left}
+.choice.correct,.scenario-buttons .correct{border-color:rgba(52,211,153,.85);background:rgba(52,211,153,.16)}
+.choice.wrong,.scenario-buttons .wrong{border-color:rgba(248,113,113,.85);background:rgba(248,113,113,.14)}
+.feedback{display:none;margin-top:14px;padding:14px;border-radius:10px;background:rgba(255,255,255,.07);color:#dbeafe;line-height:1.55}
+.feedback.show{display:block}
+.label-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin-top:18px}
+.label-card{border:1px solid var(--line);border-radius:10px;padding:14px;background:rgba(255,255,255,.04);min-height:128px}
+.label-card strong{display:block;color:#bfdbfe;margin-bottom:8px}
+.checklist{display:grid;gap:10px;margin-top:18px}
+.checkitem{display:flex;align-items:flex-start;gap:10px;border:1px solid var(--line);border-radius:10px;padding:12px;background:rgba(255,255,255,.04)}
+.checkitem input{width:auto;margin-top:3px}
+.meter{height:12px;border-radius:999px;background:rgba(255,255,255,.08);overflow:hidden;margin-top:16px}
+.meter-fill{height:100%;width:0;background:linear-gradient(90deg,var(--red),var(--gold),var(--green));transition:width .2s ease}
+.mini-table{border:1px solid var(--line);border-radius:10px;overflow:hidden;margin-top:18px}
+.row{display:grid;grid-template-columns:180px minmax(0,1fr);border-bottom:1px solid var(--line)}
+.row:last-child{border-bottom:none}
+.cell{padding:12px 14px;background:rgba(255,255,255,.035)}
+.row .cell:first-child{font-weight:900;color:#bfdbfe;background:rgba(96,165,250,.08)}
+.resource-links{display:flex;flex-wrap:wrap;gap:10px;margin-top:18px}
+.link-btn{display:inline-flex;align-items:center;justify-content:center;border:1px solid var(--line2);border-radius:10px;padding:10px 13px;color:#e0f2fe;text-decoration:none;font-weight:900;background:rgba(255,255,255,.06)}
+.link-btn:hover,.link-btn:focus{outline:2px solid rgba(96,165,250,.55);background:rgba(96,165,250,.10);text-decoration:none}
+.controls{position:fixed;left:0;right:0;bottom:0;min-height:78px;display:flex;gap:10px;align-items:center;justify-content:center;flex-wrap:wrap;padding:12px 18px;background:rgba(8,11,24,.93);border-top:1px solid var(--line);z-index:20}
+.jump{display:flex;gap:7px;flex-wrap:wrap;justify-content:center}
+.jump button{width:34px;height:34px;border-radius:9px;border:1px solid var(--line);background:rgba(255,255,255,.05);color:var(--muted);font-weight:900}
+.jump button[aria-current="true"]{background:var(--cyan);color:#041015;border-color:transparent}
+.notes{display:none;position:fixed;right:18px;bottom:92px;width:min(440px,calc(100vw - 36px));max-height:55vh;overflow:auto;background:#080f1d;border:1px solid var(--line2);border-radius:10px;padding:16px;z-index:30;box-shadow:var(--shadow)}
+.notes.show{display:block}
+@media (max-width:980px){
+  html,body{overflow:auto}
+  .deck{min-height:100%}
+  .topbar{height:auto;min-height:58px;align-items:flex-start;flex-wrap:wrap;padding:10px 14px}
+  .brand{width:100%;white-space:normal}
+  .status{margin-left:0}
+  .slide{position:relative;inset:auto;min-height:calc(100vh - 136px);display:none;padding:22px 16px;margin-top:58px}
+  .slide.active{display:grid}
+  h1{font-size:38px}
+  h2{font-size:30px}
+  .lede{font-size:18px}
+  .grid,.grid.three,.grid.four,.flow,.split,.builder-layout,.exit-layout,.source-steps,.label-grid{grid-template-columns:1fr}
+  .row{grid-template-columns:1fr}
+  .controls{position:sticky}
+}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{transition:none!important;animation:none!important;scroll-behavior:auto!important}
+}
+</style>
+</head>
+<body>
+<div class="topbar">
+  <div class="brand">Week 11: Knowledge Acquisition and Career Evidence Studio</div>
+  <div class="progress" aria-hidden="true"><div class="bar" id="bar"></div></div>
+  <div class="status" id="status">Slide 1</div>
+</div>
+
+<main class="deck" id="deck">
+  <section class="slide active" data-part="Open" data-title="Evidence studio" aria-hidden="false">
+    <div class="inner">
+      <div class="kicker">60-minute studio</div>
+      <h1>Turn AI-assisted work into credible evidence.</h1>
+      <p class="lede">Week 10 gave students a deployed or deployment-ready project. Week 11 teaches them to verify one claim, document AI use, and explain their human decisions in a career-ready way.</p>
+      <div class="grid three">
+        <div class="card blue"><span class="tag">In class</span><p>Practice lateral reading, claim labeling, AI-use disclosure, and project-story writing.</p></div>
+        <div class="card green"><span class="tag">Outcome</span><p>A Week 11 Evidence and Career Packet connected to the student's project.</p></div>
+        <div class="card gold"><span class="tag">Boundary</span><p>No personal job applications, private resumes, sensitive identity details, or unchecked AI claims.</p></div>
+      </div>
+      <div class="teacher-note">Pacing: 4 minutes. Frame the week as evidence literacy, not generic resume polish.</div>
+    </div>
+  </section>
+
+  <section class="slide" data-part="Map" data-title="Studio path" inert aria-hidden="true">
+    <div class="inner">
+      <div class="timebox">4-8 min</div>
+      <h2>The studio path has five moves.</h2>
+      <p class="lede">Students move from a public artifact to a verified claim and a career explanation.</p>
+      <div class="flow">
+        <div class="step"><strong>Project artifact</strong><p>Start with the Week 10 app link or fallback file.</p></div>
+        <div class="step"><strong>AI research</strong><p>Use AI to propose questions, not final authority.</p></div>
+        <div class="step"><strong>Lateral reading</strong><p>Check source, author, organization, and independent support.</p></div>
+        <div class="step"><strong>Evidence map</strong><p>Connect action, artifact, skill, and reflection.</p></div>
+        <div class="step"><strong>Project story</strong><p>Explain human judgment, not just tool output.</p></div>
+      </div>
+      <div class="card warn"><h3>The main mistake</h3><p>Students may treat fluent AI text as proof. This week separates useful AI help from verified evidence.</p></div>
+    </div>
+  </section>
+
+  <section class="slide" id="ai-starting-point" data-part="Part 1" data-title="AI as starting point" inert aria-hidden="true">
+    <div class="inner">
+      <div class="timebox">8-13 min</div>
+      <h2>AI research is a starting point, not the source of truth.</h2>
+      <p class="lede">Students can use Claude Code, Codex, ChatGPT, Claude, Gemini, or another assistant to organize questions. They still need source trails for factual claims.</p>
+      <div class="grid">
+        <div class="card green">
+          <h3>Good AI jobs</h3>
+          <ul>
+            <li>Suggest search terms and source types.</li>
+            <li>Summarize pasted source text.</li>
+            <li>Compare claims when sources are provided.</li>
+            <li>Draft a disclosure statement.</li>
+          </ul>
+        </div>
+        <div class="card warn">
+          <h3>Not allowed as proof</h3>
+          <ul>
+            <li>AI-generated citations that were not checked.</li>
+            <li>Confident claims with no source trail.</li>
+            <li>Invented project outcomes or user impact.</li>
+            <li>Private personal details used in class artifacts.</li>
+          </ul>
+        </div>
+      </div>
+      <div class="teacher-note">Ask students to name one fact about their project that AI can help investigate but cannot decide alone.</div>
+    </div>
+  </section>
+
+  <section class="slide" id="lateral-reading" data-part="Part 2" data-title="Lateral reading" inert aria-hidden="true">
+    <div class="inner">
+      <div class="timebox">13-23 min</div>
+      <h2>Lateral reading means leaving the page.</h2>
+      <p class="lede">Before students trust a source, they investigate who is behind it and compare it against independent evidence.</p>
+      <div class="source-steps">
+        <div class="source-step"><span>1</span><h3>Leave</h3><p>Open new tabs instead of staying inside the original page.</p></div>
+        <div class="source-step"><span>2</span><h3>Investigate</h3><p>Check the author, organization, purpose, date, and expertise.</p></div>
+        <div class="source-step"><span>3</span><h3>Compare</h3><p>Find at least one independent source that supports, complicates, or contradicts the claim.</p></div>
+        <div class="source-step"><span>4</span><h3>Return</h3><p>Decide what can safely be claimed and what remains uncertain.</p></div>
+      </div>
+      <div class="resource-links">
+        <a class="link-btn" href="https://cor.inquirygroup.org/curriculum/collections/teaching-lateral-reading/" target="_blank" rel="noopener noreferrer">Digital Inquiry Group: Lateral Reading</a>
+      </div>
+      <div class="teacher-note">Use this as a live demo with a non-sensitive topic. The key move is opening outside sources before judging the original page.</div>
+    </div>
+  </section>
+
+  <section class="slide" id="claim-types" data-part="Part 2" data-title="Claim types" inert aria-hidden="true">
+    <div class="inner">
+      <div class="timebox">23-30 min</div>
+      <h2>Choose claim types students can actually verify.</h2>
+      <p class="lede">A career story is stronger when it names evidence honestly instead of overstating impact.</p>
+      <div class="label-grid">
+        <div class="label-card"><strong>Domain claim</strong><p>Background about the topic or field the app addresses.</p></div>
+        <div class="label-card"><strong>User need claim</strong><p>A claim about what a user group needs, prefers, or struggles with.</p></div>
+        <div class="label-card"><strong>Capability claim</strong><p>What the app, AI model, or web technology can and cannot do.</p></div>
+        <div class="label-card"><strong>Observed project claim</strong><p>Something students directly tested in their own static app.</p></div>
+      </div>
+      <div class="scenario-buttons" id="claimButtons">
+        <button class="btn choice" data-claim="observed">My deployed app shows an error message when the input is blank.</button>
+        <button class="btn choice" data-claim="supported">NACE identifies communication as a career readiness competency.</button>
+        <button class="btn choice" data-claim="uncertain">My app will improve every student's study habits.</button>
+      </div>
+      <div class="feedback" id="claimFeedback"></div>
+      <div class="teacher-note">Keep the examples modest. Directly observed claims are often the most defensible student evidence.</div>
+    </div>
+  </section>
+
+  <section class="slide" id="research-log" data-part="Part 3" data-title="Research log" inert aria-hidden="true">
+    <div class="inner">
+      <div class="timebox">30-40 min</div>
+      <h2>Build a research log for one project claim.</h2>
+      <p class="lede">The log makes the student's source trail visible and separates claim strength from writing style.</p>
+      <div class="builder-layout">
+        <div class="card">
+          <div class="form">
+            <label>Project claim<textarea id="rlClaim" placeholder="e.g., Students often need quick feedback while practicing vocabulary."></textarea></label>
+            <label>AI helped by<textarea id="rlAi" placeholder="e.g., suggested search terms and summarized pasted source text"></textarea></label>
+            <label>Primary source<input id="rlSource" placeholder="Title, organization, URL, or citation"></label>
+            <label>Independent check<input id="rlCheck" placeholder="Second source, official page, or direct app test"></label>
+            <label>Claim strength<select id="rlStrength"><option>directly observed</option><option>supported by source</option><option>inferred</option><option>uncertain / not verified</option></select></label>
+            <label>What I can safely say<textarea id="rlSafe" placeholder="Write the careful version of the claim."></textarea></label>
+            <button class="btn primary" id="copyResearchLog">Copy research log</button>
+          </div>
+        </div>
+        <div class="preview" id="researchPreview" tabindex="0"></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="slide" id="citation-disclosure" data-part="Part 3" data-title="Citation and disclosure" inert aria-hidden="true">
+    <div class="inner">
+      <div class="timebox">40-46 min</div>
+      <h2>Citation and AI disclosure are different jobs.</h2>
+      <p class="lede">Cite source material. Disclose AI assistance. Do not cite unchecked AI output as factual authority.</p>
+      <div class="mini-table">
+        <div class="row"><div class="cell">Citation</div><div class="cell">Used when a claim, fact, quote, dataset, framework, or source idea comes from a human-authored or institutional source.</div></div>
+        <div class="row"><div class="cell">AI disclosure</div><div class="cell">Used when AI helped brainstorm, summarize pasted text, draft, revise, code, debug, roleplay, or organize the work.</div></div>
+        <div class="row"><div class="cell">Not enough</div><div class="cell">"AI said it" is not a source trail for a factual claim.</div></div>
+      </div>
+      <div class="grid">
+        <div class="card green"><h3>Good disclosure</h3><p>I used an AI assistant to generate search terms, summarize pasted sources, and revise my project story. I checked factual claims against listed sources and changed unsupported language.</p></div>
+        <div class="card warn"><h3>Weak disclosure</h3><p>I used AI for everything, and it gave me the facts.</p></div>
+      </div>
+      <div class="resource-links">
+        <a class="link-btn" href="https://guides.lib.purdue.edu/c.php?g=1371380&p=10135074" target="_blank" rel="noopener noreferrer">Purdue Libraries: Citing AI</a>
+      </div>
+      <div class="teacher-note">Keep the rule simple: sources support facts; disclosure describes process.</div>
+    </div>
+  </section>
+
+  <section class="slide" id="career-map" data-part="Part 4" data-title="Career evidence map" inert aria-hidden="true">
+    <div class="inner">
+      <div class="timebox">46-54 min</div>
+      <h2>Map the project to a career-ready skill.</h2>
+      <p class="lede">Students should show what they did, where the evidence is, what skill it demonstrates, and what judgment they used.</p>
+      <div class="builder-layout">
+        <div class="card">
+          <div class="form">
+            <label>Project action<textarea id="cmAction" placeholder="e.g., I added blank-input validation and a reset button."></textarea></label>
+            <label>Artifact / evidence<textarea id="cmArtifact" placeholder="e.g., Week 10 deployed link, screenshot, smoke-test note, code diff"></textarea></label>
+            <label>Skill demonstrated<select id="cmSkill"><option>Communication</option><option>Critical Thinking</option><option>Technology</option><option>Career and Self-Development</option><option>Teamwork</option><option>Leadership</option><option>Professionalism</option><option>Equity and Inclusion</option></select></label>
+            <label>One-sentence reflection<textarea id="cmReflection" placeholder="What human decision made the artifact better?"></textarea></label>
+            <button class="btn green" id="copyCareerMap">Copy evidence map</button>
+          </div>
+        </div>
+        <div class="preview" id="careerPreview" tabindex="0"></div>
+      </div>
+      <div class="resource-links">
+        <a class="link-btn" href="https://naceweb.org/career-readiness/competencies/career-readiness-defined" target="_blank" rel="noopener noreferrer">NACE Career Readiness Competencies</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="slide" id="project-story" data-part="Part 4" data-title="Project story" inert aria-hidden="true">
+    <div class="inner">
+      <div class="timebox">54-58 min</div>
+      <h2>Write a project story that does not overclaim.</h2>
+      <p class="lede">The story should connect purpose, action, evidence, and human review in one paragraph.</p>
+      <div class="builder-layout">
+        <div class="card">
+          <div class="form">
+            <label>Project purpose<input id="psPurpose" placeholder="e.g., help students choose a focused study task"></label>
+            <label>What I built<textarea id="psBuilt" placeholder="e.g., a static web app with input validation, simple rules, and output states"></textarea></label>
+            <label>Evidence I can show<textarea id="psEvidence" placeholder="e.g., deployed link, smoke tests, research log, source trail"></textarea></label>
+            <label>Human decision<textarea id="psDecision" placeholder="e.g., rejected an unsupported AI claim and kept the app boundary narrow"></textarea></label>
+            <button class="btn gold" id="copyProjectStory">Copy project story</button>
+          </div>
+        </div>
+        <div class="preview" id="storyPreview" tabindex="0"></div>
+      </div>
+      <div class="teacher-note">This is not a final resume. It is a classroom-safe project story students can later adapt.</div>
+    </div>
+  </section>
+
+  <section class="slide" id="roleplay" data-part="Part 5" data-title="Interview roleplay" inert aria-hidden="true">
+    <div class="inner">
+      <div class="timebox">Optional extension</div>
+      <h2>Use roleplay to practice explaining judgment.</h2>
+      <p class="lede">The agent can ask interview-style questions, but students should use fictional or classroom-safe details.</p>
+      <div class="split">
+        <div class="card">
+          <h3>Safe roleplay prompt</h3>
+          <div class="output">Act as a friendly interviewer for a student project showcase. Ask me five questions about my static web app, my evidence trail, and my human review decisions. Do not ask for private personal information. After each answer, give one specific improvement suggestion.</div>
+        </div>
+        <div class="card warn">
+          <h3>Privacy boundary</h3>
+          <ul>
+            <li>No home addresses, phone numbers, school IDs, health, immigration, financial, or family details.</li>
+            <li>No real job applications during class unless the teacher explicitly approves the context.</li>
+            <li>Students may use a fictional role, company, or audience.</li>
+          </ul>
+        </div>
+      </div>
+      <div class="teacher-note">This can become a pair activity if accounts or agents are unavailable.</div>
+    </div>
+  </section>
+
+  <section class="slide" id="privacy-check" data-part="Part 5" data-title="Privacy check" inert aria-hidden="true">
+    <div class="inner">
+      <div class="timebox">Before submission</div>
+      <h2>Check the packet before it leaves the classroom.</h2>
+      <p class="lede">Students can make strong evidence claims without exposing personal details.</p>
+      <div class="split">
+        <div class="card">
+          <div class="checklist" id="privacyChecks">
+            <label class="checkitem"><input type="checkbox" data-privacy><span>The project story uses classroom-safe details.</span></label>
+            <label class="checkitem"><input type="checkbox" data-privacy><span>No personal address, phone number, school ID, or private account information appears.</span></label>
+            <label class="checkitem"><input type="checkbox" data-privacy><span>No health, immigration, family, financial, or disciplinary details appear.</span></label>
+            <label class="checkitem"><input type="checkbox" data-privacy><span>AI assistance is disclosed accurately.</span></label>
+            <label class="checkitem"><input type="checkbox" data-privacy><span>Every factual claim is directly observed, sourced, or clearly labeled uncertain.</span></label>
+          </div>
+        </div>
+        <div>
+          <div class="output" id="privacyOutput" tabindex="0"></div>
+          <div class="meter" aria-hidden="true"><div class="meter-fill" id="privacyMeter"></div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="slide artifact" id="packet" data-part="Close" data-title="Exit packet" inert aria-hidden="true">
+    <div class="inner">
+      <div class="timebox">Final artifact</div>
+      <h2>Week 11 Evidence and Career Packet</h2>
+      <p class="lede">Submit one polished project story paragraph plus one verified claim with a source trail.</p>
+      <div class="exit-layout">
+        <div class="card">
+          <div class="form">
+            <label>Project link or fallback path<input id="pkProject" placeholder="Week 10 link or local file path"></label>
+            <label>Verified claim<textarea id="pkClaim" placeholder="One claim related to your project."></textarea></label>
+            <label>Source trail<textarea id="pkTrail" placeholder="Primary source, independent check, and claim-strength label."></textarea></label>
+            <label>Career evidence<textarea id="pkCareer" placeholder="Action, artifact, skill, reflection."></textarea></label>
+            <label>AI-use disclosure<textarea id="pkDisclosure" placeholder="How AI helped and what you checked."></textarea></label>
+            <label>Project story paragraph<textarea id="pkStory" placeholder="One polished paragraph."></textarea></label>
+            <button class="btn primary" id="copyPacket">Copy Week 11 packet</button>
+          </div>
+        </div>
+        <div class="preview" id="packetPreview" tabindex="0"></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="slide" id="homework" data-part="Homework" data-title="Homework" inert aria-hidden="true">
+    <div class="inner">
+      <div class="kicker">After class</div>
+      <h2>Homework: finish the evidence packet.</h2>
+      <p class="lede">Students finish the source trail and bring one question about how to explain their project without overstating what AI did.</p>
+      <div class="grid">
+        <div class="card"><h3>Required</h3><p>Submit the Week 11 Evidence and Career Packet with one verified claim, source trail, project story, and AI-use disclosure.</p></div>
+        <div class="card"><h3>Required source move</h3><p>Apply lateral reading to one project-related source: investigate the author or organization, compare with one independent source, and record the claim-strength label.</p></div>
+        <div class="card"><h3>Optional enrichment</h3><p>Complete the external Digital Inquiry Group activity or Anthropic AI Fluency for Students if account access is smooth.</p></div>
+        <div class="card warn"><h3>Do not submit</h3><p>Private resumes, real job applications, sensitive personal details, or claims copied from AI without verification.</p></div>
+      </div>
+      <div class="resource-links">
+        <a class="link-btn" href="https://cor.inquirygroup.org/curriculum/collections/teaching-lateral-reading/" target="_blank" rel="noopener noreferrer">Optional Digital Inquiry Group Activity</a>
+        <a class="link-btn" href="https://anthropic.skilljar.com/ai-fluency-for-students" target="_blank" rel="noopener noreferrer">Optional Anthropic AI Fluency</a>
+        <a class="link-btn" href="https://weihaoqu.github.io/learnAIDoc/wiki/awesome-auto-research-tools/" target="_blank" rel="noopener noreferrer">Optional auto-research tools map</a>
+        <a class="link-btn" href="index.html">Back to Course Hub</a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<nav class="controls" aria-label="Slide controls">
+  <button class="btn" id="notesBtn">Notes</button>
+  <div class="jump" id="jump" role="group" aria-label="Slide jump buttons"></div>
+  <button class="btn" id="prevBtn">Prev</button>
+  <button class="btn primary" id="nextBtn">Next</button>
+</nav>
+
+<aside class="notes" id="notesPanel" aria-live="polite">
+  <h3>Teacher notes</h3>
+  <p id="notesText">Keep Week 11 focused on evidence, not generic job-search advice.</p>
+</aside>
+
+<script>
+const slides = Array.from(document.querySelectorAll('.slide'));
+const statusEl = document.getElementById('status');
+const bar = document.getElementById('bar');
+const jump = document.getElementById('jump');
+const notesPanel = document.getElementById('notesPanel');
+const notesText = document.getElementById('notesText');
+let current = Math.max(0, slides.findIndex(s => s.classList.contains('active')));
+
+slides.forEach((slide, i) => {
+  const btn = document.createElement('button');
+  btn.type = 'button';
+  btn.textContent = String(i + 1);
+  btn.setAttribute('aria-label', `Go to slide ${i + 1}: ${slide.dataset.title}`);
+  btn.addEventListener('click', () => go(i));
+  jump.appendChild(btn);
+});
+
+function go(index){
+  current = Math.max(0, Math.min(slides.length - 1, index));
+  slides.forEach((slide, i) => {
+    const active = i === current;
+    slide.classList.toggle('active', active);
+    slide.toggleAttribute('inert', !active);
+    slide.setAttribute('aria-hidden', active ? 'false' : 'true');
+  });
+  Array.from(jump.children).forEach((btn, i) => btn.setAttribute('aria-current', i === current ? 'true' : 'false'));
+  statusEl.textContent = `Slide ${current + 1} of ${slides.length}`;
+  bar.style.width = `${((current + 1) / slides.length) * 100}%`;
+  const note = slides[current].querySelector('.teacher-note');
+  notesText.textContent = note ? note.textContent : 'No special note for this slide.';
+  const id = slides[current].id;
+  if (id) history.replaceState(null, '', `#${id}`);
+}
+
+document.getElementById('prevBtn').addEventListener('click', () => go(current - 1));
+document.getElementById('nextBtn').addEventListener('click', () => go(current + 1));
+document.getElementById('notesBtn').addEventListener('click', () => notesPanel.classList.toggle('show'));
+document.addEventListener('keydown', e => {
+  if (e.target.closest('input, textarea, select, button, a')) return;
+  if (e.key === 'ArrowRight' || e.key === 'PageDown') go(current + 1);
+  if (e.key === 'ArrowLeft' || e.key === 'PageUp') go(current - 1);
+  if (e.key === 'Home') go(0);
+  if (e.key === 'End') go(slides.length - 1);
+  if (e.key.toLowerCase() === 'n') notesPanel.classList.toggle('show');
+});
+
+function value(id, fallback){
+  const el = document.getElementById(id);
+  return el && el.value.trim() ? el.value.trim() : fallback;
+}
+
+function copyText(text, target){
+  if (navigator.clipboard) {
+    navigator.clipboard.writeText(text).then(() => {
+      if (target) target.textContent = 'Copied.';
+    }).catch(() => fallbackCopy(text, target));
+  } else {
+    fallbackCopy(text, target);
+  }
+}
+
+function fallbackCopy(text, target){
+  const ta = document.createElement('textarea');
+  ta.value = text;
+  document.body.appendChild(ta);
+  ta.select();
+  document.execCommand('copy');
+  ta.remove();
+  if (target) target.textContent = 'Copied.';
+}
+
+const claimResponses = {
+  observed: {
+    correct: true,
+    text: 'Directly observed. This is strong evidence if the student tested the app and can point to the result.'
+  },
+  supported: {
+    correct: true,
+    text: 'Supported by source. Cite the NACE page and avoid stretching the claim beyond what the source says.'
+  },
+  uncertain: {
+    correct: false,
+    text: 'Too broad and not verified. A safer claim might be: "My app is designed to support one study-planning step."'
+  }
+};
+document.querySelectorAll('[data-claim]').forEach(button => {
+  button.addEventListener('click', () => {
+    document.querySelectorAll('[data-claim]').forEach(item => item.classList.remove('correct','wrong'));
+    const result = claimResponses[button.dataset.claim];
+    button.classList.add(result.correct ? 'correct' : 'wrong');
+    const feedback = document.getElementById('claimFeedback');
+    feedback.textContent = result.text;
+    feedback.classList.add('show');
+  });
+});
+
+function updateResearchLog(){
+  const text = `Week 11 Research Log
+
+Project claim:
+${value('rlClaim','[one project-related claim]')}
+
+AI helped by:
+${value('rlAi','[search terms, source summary, draft language, comparison support]')}
+
+Primary source:
+${value('rlSource','[source title, organization, URL, or citation]')}
+
+Independent check:
+${value('rlCheck','[second source, official source, or direct app test]')}
+
+Claim strength:
+${value('rlStrength','[directly observed / supported / inferred / uncertain]')}
+
+What I can safely say:
+${value('rlSafe','[careful claim that does not overstate the evidence]')}`;
+  document.getElementById('researchPreview').textContent = text;
+  return text;
+}
+['rlClaim','rlAi','rlSource','rlCheck','rlStrength','rlSafe'].forEach(id => {
+  document.getElementById(id).addEventListener('input', updateResearchLog);
+  document.getElementById(id).addEventListener('change', updateResearchLog);
+});
+document.getElementById('copyResearchLog').addEventListener('click', () => copyText(updateResearchLog(), document.getElementById('researchPreview')));
+
+function updateCareerMap(){
+  const text = `Career Evidence Map
+
+Project action:
+${value('cmAction','[specific action you took]')}
+
+Artifact / evidence:
+${value('cmArtifact','[deployed link, screenshot, smoke test, code diff, research log]')}
+
+Skill demonstrated:
+${value('cmSkill','[career readiness skill]')}
+
+One-sentence reflection:
+${value('cmReflection','[what human decision made the artifact better]')}`;
+  document.getElementById('careerPreview').textContent = text;
+  return text;
+}
+['cmAction','cmArtifact','cmSkill','cmReflection'].forEach(id => {
+  document.getElementById(id).addEventListener('input', updateCareerMap);
+  document.getElementById(id).addEventListener('change', updateCareerMap);
+});
+document.getElementById('copyCareerMap').addEventListener('click', () => copyText(updateCareerMap(), document.getElementById('careerPreview')));
+
+function updateStory(){
+  const text = `I built ${value('psBuilt','[what you built]')} to ${value('psPurpose','[project purpose]')}. My evidence includes ${value('psEvidence','[evidence you can show]')}. One important human decision was that I ${value('psDecision','[human review decision]')}. This matters because the project shows not only AI assistance, but also my ability to define a narrow problem, test the result, and avoid overstating unsupported claims.`;
+  document.getElementById('storyPreview').textContent = text;
+  return text;
+}
+['psPurpose','psBuilt','psEvidence','psDecision'].forEach(id => document.getElementById(id).addEventListener('input', updateStory));
+document.getElementById('copyProjectStory').addEventListener('click', () => copyText(updateStory(), document.getElementById('storyPreview')));
+
+function updatePrivacy(){
+  const checks = Array.from(document.querySelectorAll('[data-privacy]'));
+  const count = checks.filter(c => c.checked).length;
+  const pct = Math.round((count / checks.length) * 100);
+  document.getElementById('privacyMeter').style.width = `${pct}%`;
+  const msg = count === checks.length
+    ? 'Ready to submit. The packet is classroom-safe and claim strength is labeled.'
+    : `Privacy/evidence check: ${count} of ${checks.length}. Resolve unchecked items before submission.`;
+  document.getElementById('privacyOutput').textContent = msg;
+}
+document.querySelectorAll('[data-privacy]').forEach(ch => ch.addEventListener('change', updatePrivacy));
+
+function updatePacket(){
+  const text = `Week 11 Evidence and Career Packet
+
+Project link or fallback path:
+${value('pkProject','[Week 10 link or local file path]')}
+
+Verified claim:
+${value('pkClaim','[one project-related claim]')}
+
+Source trail:
+${value('pkTrail','[primary source, independent check, and claim-strength label]')}
+
+Career evidence:
+${value('pkCareer','[action, artifact, skill, reflection]')}
+
+AI-use disclosure:
+${value('pkDisclosure','[how AI helped and what you checked]')}
+
+Project story paragraph:
+${value('pkStory','[one polished paragraph]')}`;
+  document.getElementById('packetPreview').textContent = text;
+  return text;
+}
+['pkProject','pkClaim','pkTrail','pkCareer','pkDisclosure','pkStory'].forEach(id => document.getElementById(id).addEventListener('input', updatePacket));
+document.getElementById('copyPacket').addEventListener('click', () => copyText(updatePacket(), document.getElementById('packetPreview')));
+
+const hashIndex = location.hash ? slides.findIndex(s => `#${s.id}` === location.hash) : -1;
+updateResearchLog();
+updateCareerMap();
+updateStory();
+updatePrivacy();
+updatePacket();
+go(hashIndex >= 0 ? hashIndex : current);
+</script>
+</body>
+</html>

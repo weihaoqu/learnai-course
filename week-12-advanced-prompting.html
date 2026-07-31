@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Week 12 Slides - Advanced Prompting Strategies</title>
+<link rel="icon" href="data:,">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#070817;--panel:#101426;--panel2:#171d34;--line:rgba(255,255,255,.1);
+  --text:#f5f7fb;--muted:#a5adc2;--faint:#707a96;
+  --cyan:#22d3ee;--blue:#60a5fa;--violet:#a78bfa;--green:#34d399;--amber:#f59e0b;--rose:#fb7185;
+  --font:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  --mono:"SFMono-Regular",Consolas,"Liberation Mono",Menlo,monospace;
+}
+html,body{height:100%;overflow:hidden}
+body{font-family:var(--font);background:
+  radial-gradient(circle at 18% 14%,rgba(167,139,250,.16),transparent 34%),
+  radial-gradient(circle at 82% 18%,rgba(34,211,238,.13),transparent 32%),
+  linear-gradient(135deg,#070817,#0d1126 52%,#080b17);color:var(--text)}
+a{color:var(--cyan);text-decoration:none}
+button,textarea,input{font:inherit}
+code{font-family:var(--mono);color:#bfdbfe}
+.deck{height:100vh;width:100vw;position:relative}
+.slide{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:82px 7vw 84px;opacity:0;pointer-events:none;transition:opacity .25s ease;overflow:auto}
+.slide.active{opacity:1;pointer-events:auto}
+.inner{width:min(1180px,100%)}
+.kicker{display:inline-flex;align-items:center;gap:10px;color:var(--violet);font-size:13px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;margin-bottom:18px}
+.kicker::before{content:"";width:34px;height:2px;background:currentColor;border-radius:99px}
+h1{font-size:clamp(42px,6vw,76px);line-height:1.02;letter-spacing:0;margin-bottom:18px}
+h2{font-size:clamp(34px,4.6vw,58px);line-height:1.06;letter-spacing:0;margin-bottom:18px}
+h3{font-size:clamp(23px,2.4vw,32px);line-height:1.18;margin-bottom:14px}
+p,li{font-size:clamp(18px,1.55vw,23px);line-height:1.45;color:var(--muted)}
+ul{padding-left:1.2em;margin:18px 0}
+li{margin:8px 0}
+.lede{font-size:clamp(22px,2.2vw,31px);max-width:940px;color:#dce5f7}
+.muted{color:var(--faint);font-size:16px}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px;margin-top:28px}
+.grid.three{grid-template-columns:repeat(3,minmax(0,1fr))}
+.grid.four{grid-template-columns:repeat(4,minmax(0,1fr))}
+.card{background:rgba(16,20,38,.82);border:1px solid var(--line);border-radius:16px;padding:22px}
+.card h3{font-size:22px}
+.tag{display:inline-flex;border:1px solid rgba(255,255,255,.14);border-radius:999px;padding:7px 11px;color:#ede9fe;font-size:13px;font-weight:800;margin-bottom:12px;background:rgba(255,255,255,.04)}
+.formula{font-family:var(--mono);font-size:clamp(20px,1.9vw,28px);line-height:1.45;background:#050713;border:1px solid rgba(167,139,250,.28);border-radius:18px;padding:24px;margin-top:26px;color:#ddd6fe}
+.terminal{background:#030712;border:1px solid rgba(148,163,184,.24);border-radius:16px;padding:18px;font-family:var(--mono);color:#d1d5db;font-size:clamp(15px,1.25vw,18px);line-height:1.55;margin-top:20px;white-space:pre-wrap}
+.diagram{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-top:28px}
+.node{border:1px solid rgba(255,255,255,.18);background:rgba(255,255,255,.06);border-radius:14px;padding:16px 18px;min-width:130px;text-align:center;color:#edf2ff;font-weight:800}
+.arrow{color:var(--violet);font-size:28px;font-weight:900}
+.challenge{border-left:6px solid var(--amber);background:rgba(245,158,11,.1)}
+.quiz{border-left:6px solid var(--green);background:rgba(52,211,153,.08)}
+.optional{border-left:6px solid var(--violet);background:rgba(167,139,250,.08)}
+.danger{border-left:6px solid var(--rose);background:rgba(251,113,133,.08)}
+.artifact{background:linear-gradient(135deg,rgba(167,139,250,.12),rgba(34,211,238,.12));border:1px solid rgba(167,139,250,.26)}
+.choices{display:grid;gap:12px;margin-top:22px}
+.choice,.lab-btn{width:100%;text-align:left;color:var(--text);background:rgba(255,255,255,.055);border:1px solid var(--line);border-radius:13px;padding:15px 16px;cursor:pointer}
+.choice:hover,.choice:focus,.lab-btn:hover,.lab-btn:focus{outline:2px solid rgba(167,139,250,.65)}
+.choice.correct,.lab-btn.correct{border-color:rgba(52,211,153,.9);background:rgba(52,211,153,.16)}
+.choice.wrong,.lab-btn.wrong{border-color:rgba(251,113,133,.9);background:rgba(251,113,133,.14)}
+.feedback{display:none;margin-top:16px;padding:14px 16px;border-radius:12px;background:rgba(255,255,255,.07);color:#dbeafe;font-size:17px}
+.feedback.show{display:block}
+.teacher-note{display:none;margin-top:24px;border:1px dashed rgba(255,255,255,.28);background:rgba(255,255,255,.055);border-radius:14px;padding:16px;color:#d7dded;font-size:16px}
+body.notes-on .teacher-note{display:block}
+.contract{display:grid;grid-template-columns:300px minmax(0,1fr);gap:18px;margin-top:24px}
+.contract-fields{display:grid;gap:10px}
+.field-btn{border:1px solid rgba(255,255,255,.14);background:rgba(255,255,255,.055);color:#eaf2ff;border-radius:14px;padding:14px;text-align:left;cursor:pointer;font-weight:800}
+.field-btn:hover,.field-btn:focus-visible{outline:2px solid rgba(167,139,250,.6)}
+.field-btn.active{background:rgba(167,139,250,.16);border-color:rgba(167,139,250,.72);color:#f5f3ff}
+.contract-output{border:1px solid rgba(167,139,250,.28);background:linear-gradient(135deg,rgba(167,139,250,.12),rgba(34,211,238,.08));border-radius:18px;padding:22px;min-height:250px}
+.contract-output h3{font-size:24px;color:#fff}
+.contract-output .draft{font-family:var(--mono);background:#050713;border:1px solid rgba(255,255,255,.12);border-radius:14px;padding:16px;margin:14px 0;color:#dbeafe;font-size:16px;line-height:1.45;white-space:pre-wrap}
+.repair-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:24px}
+.repair-box{border:1px solid rgba(255,255,255,.13);background:rgba(255,255,255,.055);border-radius:18px;padding:18px}
+.repair-box textarea{width:100%;min-height:150px;resize:vertical;border:1px solid rgba(255,255,255,.14);border-radius:12px;background:#050713;color:#e5e7eb;padding:14px;font-family:var(--mono);line-height:1.45}
+.repair-score{display:grid;gap:8px;margin-top:12px}
+.score-row{display:grid;grid-template-columns:120px minmax(0,1fr) 48px;align-items:center;gap:10px;font-family:var(--mono);font-size:14px;color:#dbeafe}
+.track{height:12px;border-radius:999px;background:rgba(255,255,255,.08);overflow:hidden;border:1px solid rgba(255,255,255,.1)}
+.fill{height:100%;width:var(--w);background:linear-gradient(90deg,var(--violet),var(--cyan));border-radius:999px}
+.hud{position:fixed;top:0;left:0;right:0;height:54px;background:rgba(7,8,23,.88);backdrop-filter:blur(14px);border-bottom:1px solid var(--line);display:flex;align-items:center;gap:14px;padding:0 18px;z-index:5}
+.brand{font-weight:900;color:#fff;white-space:nowrap}
+.progress{height:6px;background:rgba(255,255,255,.08);border-radius:999px;flex:1;overflow:hidden}
+.bar{height:100%;width:0;background:linear-gradient(90deg,var(--violet),var(--cyan));transition:width .2s ease}
+.status{color:var(--muted);font-size:13px;white-space:nowrap}
+.controls{position:fixed;left:0;right:0;bottom:0;min-height:62px;background:rgba(7,8,23,.9);backdrop-filter:blur(14px);border-top:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;gap:12px;padding:10px 18px;z-index:5}
+.btn{border:1px solid var(--line);background:rgba(255,255,255,.06);color:#fff;border-radius:11px;padding:9px 13px;cursor:pointer;font-weight:800}
+.btn:hover,.btn:focus{outline:2px solid rgba(167,139,250,.5)}
+.jump{display:flex;gap:8px;flex-wrap:wrap;justify-content:center}
+.jump .btn{font-size:13px;color:var(--muted)}
+.jump .btn.active{color:#120b1f;background:var(--violet)}
+@media(max-width:860px){
+  .slide{justify-content:flex-start;padding:76px 22px 230px}
+  .grid,.grid.three,.grid.four,.contract,.repair-grid{grid-template-columns:1fr}
+  .hud{height:auto;min-height:58px;align-items:flex-start;flex-wrap:wrap;padding:9px 12px}
+  .brand{width:100%}
+  .status{font-size:12px}
+  .controls{display:grid;grid-template-columns:1fr auto;align-items:center;min-height:0}
+  .jump{grid-column:1/-1;order:0}
+  .controls>div:last-child{display:flex;gap:8px;justify-content:flex-end}
+  .btn{padding:8px 10px}
+}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{transition-duration:0.01ms!important}}
+</style>
+</head>
+<body>
+<div class="hud">
+  <div class="brand">Week 12: Advanced Prompting Strategies</div>
+  <div class="progress" aria-hidden="true"><div class="bar" id="bar"></div></div>
+  <div class="status" id="status">Slide 1</div>
+</div>
+
+<main class="deck" id="deck">
+  <section class="slide active" id="start" data-part="Open" data-title="Week 12">
+    <div class="inner">
+      <div class="kicker">One-hour workshop</div>
+      <h1>Advanced Prompting Strategies</h1>
+      <p class="lede">Today, a prompt becomes a task design. Students practice choosing the right strategy, writing a prompt contract, repairing vague prompts, and deciding when AI output needs verification.</p>
+      <div class="grid three">
+        <div class="card"><span class="tag">In class</span><p>Interactive practice, not a video recap.</p></div>
+        <div class="card"><span class="tag">Homework</span><p>Andrew Ng's full AI prompting course becomes the deeper reference.</p></div>
+        <div class="card"><span class="tag">Artifact</span><p>Students leave with an Advanced Prompting Card.</p></div>
+      </div>
+      <div class="teacher-note">Pacing: 3 minutes. Frame this as the bridge from everyday AI use to deliberate, reviewable AI workflows.</div>
+    </div>
+  </section>
+
+  <section class="slide" data-part="Open" data-title="Mental model">
+    <div class="inner">
+      <div class="kicker">Core idea</div>
+      <h2>Prompting is task design.</h2>
+      <p class="lede">A strong prompt does not just sound clever. It gives the AI enough task structure to produce useful output and enough boundaries for a human to review it.</p>
+      <div class="formula">goal + context + constraints + examples + output format + verification</div>
+    </div>
+  </section>
+
+  <section class="slide quiz" data-part="Open" data-title="Weak or strong">
+    <div class="inner">
+      <div class="kicker">Quick check</div>
+      <h2>Which prompt is designed better?</h2>
+      <div class="choices">
+        <button class="choice" data-correct="false">Write something about internships.</button>
+        <button class="choice" data-correct="true">I am a sophomore applying for a campus IT internship. Draft a 180-word cover letter using a professional but natural tone. Ask me for missing details before inventing anything.</button>
+        <button class="choice" data-correct="false">Make my writing good and impressive.</button>
+      </div>
+      <div class="feedback">The better prompt gives role, situation, output size, tone, and a rule against invented details.</div>
+    </div>
+  </section>
+
+  <section class="slide" id="jobs" data-part="Part 1" data-title="Four jobs">
+    <div class="inner">
+      <div class="kicker">Choose the job first</div>
+      <h2>AI prompts usually ask for one of four jobs.</h2>
+      <div class="grid four">
+        <div class="card"><h3>Find</h3><p>Search, retrieve, compare sources, summarize evidence.</p></div>
+        <div class="card"><h3>Think</h3><p>Brainstorm, challenge assumptions, plan, classify, reason visibly.</p></div>
+        <div class="card"><h3>Write</h3><p>Draft, revise, change tone, explain, format.</p></div>
+        <div class="card"><h3>Build</h3><p>Create a page, prototype, workflow, script, table, or artifact.</p></div>
+      </div>
+      <div class="teacher-note">Ask students what goes wrong when they mix all four jobs into one vague request.</div>
+    </div>
+  </section>
+
+  <section class="slide challenge" id="router" data-part="Part 1" data-title="Prompt router">
+    <div class="inner">
+      <div class="kicker">Lab 1 - 10 minutes</div>
+      <h2>Route the prompt to the right strategy.</h2>
+      <p class="lede" id="routerScenario">Scenario: You need three reliable sources on whether AI tutoring improves learning outcomes.</p>
+      <div class="grid">
+        <button class="lab-btn" data-router="find">Find: search and cite sources</button>
+        <button class="lab-btn" data-router="think">Think: brainstorm possibilities</button>
+        <button class="lab-btn" data-router="write">Write: polish a draft</button>
+        <button class="lab-btn" data-router="build">Build: create an app or artifact</button>
+      </div>
+      <div class="feedback" id="routerFeedback"></div>
+      <div class="teacher-note">Use this to separate task intent before students write a single word of the prompt.</div>
+    </div>
+  </section>
+
+  <section class="slide" id="contract" data-part="Part 2" data-title="Prompt contract">
+    <div class="inner">
+      <div class="kicker">Prompt contract</div>
+      <h2>A strong prompt is a contract.</h2>
+      <p class="lede">Each field reduces ambiguity. Click each field to see what it adds to the prompt.</p>
+      <div class="contract">
+        <div class="contract-fields">
+          <button class="field-btn active" data-field="goal">Goal</button>
+          <button class="field-btn" data-field="context">Context</button>
+          <button class="field-btn" data-field="constraints">Constraints</button>
+          <button class="field-btn" data-field="examples">Examples</button>
+          <button class="field-btn" data-field="format">Output format</button>
+          <button class="field-btn" data-field="checks">Verification checks</button>
+        </div>
+        <div class="contract-output">
+          <h3 id="contractTitle">Goal</h3>
+          <p id="contractWhy">Tell the model what success means.</p>
+          <div class="draft" id="contractDraft">Goal: Help me prepare for an interview for a campus IT internship.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="slide quiz" data-part="Part 2" data-title="Strategy check">
+    <div class="inner">
+      <div class="kicker">Quick check</div>
+      <h2>When do few-shot examples help most?</h2>
+      <div class="choices">
+        <button class="choice" data-correct="false">When the answer is a simple fact.</button>
+        <button class="choice" data-correct="true">When the output must follow a specific style, structure, or format.</button>
+        <button class="choice" data-correct="false">When you want the AI to guess missing private information.</button>
+      </div>
+      <div class="feedback">Few-shot prompting is useful when examples teach the pattern you want repeated.</div>
+    </div>
+  </section>
+
+  <section class="slide challenge" id="repair" data-part="Part 3" data-title="Prompt repair">
+    <div class="inner">
+      <div class="kicker">Lab 2 - 12 minutes</div>
+      <h2>Repair a vague prompt.</h2>
+      <p class="lede">Start with a weak prompt. Add a goal, context, output format, constraints, and verification rule.</p>
+      <div class="repair-grid">
+        <div class="repair-box">
+          <h3>Weak prompt</h3>
+          <div class="terminal">Help me with my research paper.</div>
+          <p class="muted">What is missing?</p>
+          <div class="repair-score" aria-label="Weak prompt score">
+            <div class="score-row"><span>Goal</span><div class="track"><div class="fill" style="--w:25%"></div></div><span>25</span></div>
+            <div class="score-row"><span>Context</span><div class="track"><div class="fill" style="--w:10%"></div></div><span>10</span></div>
+            <div class="score-row"><span>Format</span><div class="track"><div class="fill" style="--w:0%"></div></div><span>0</span></div>
+            <div class="score-row"><span>Checks</span><div class="track"><div class="fill" style="--w:0%"></div></div><span>0</span></div>
+          </div>
+        </div>
+        <div class="repair-box">
+          <h3>Your repaired version</h3>
+          <textarea id="repairText" aria-label="Repaired prompt">I am writing a 5-page research paper on AI tutoring in college courses. Help me create a source-based outline with 4 sections, possible evidence for each section, and 3 questions I should verify using library sources. Do not invent citations.</textarea>
+          <button class="btn" id="scoreRepair" style="margin-top:12px">Score Prompt</button>
+          <div class="feedback show" id="repairFeedback">This repaired version already includes topic, task, output structure, and a no-invented-citations rule.</div>
+        </div>
+      </div>
+      <div class="teacher-note">Students can do this in pairs. The goal is not one perfect prompt; the goal is to name the missing fields.</div>
+    </div>
+  </section>
+
+  <section class="slide" data-part="Part 3" data-title="Structured reasoning">
+    <div class="inner">
+      <div class="kicker">Reasoning safely</div>
+      <h2>Ask for visible structure, not hidden thoughts.</h2>
+      <p class="lede">For hard tasks, ask the AI to show assumptions, steps, checks, or a plan. Do not treat hidden chain-of-thought as something students need to extract.</p>
+      <div class="grid">
+        <div class="card"><h3>Better</h3><p>List assumptions, propose a plan, show key checks, then give the answer.</p></div>
+        <div class="card"><h3>Riskier</h3><p>Demand private hidden reasoning and assume that a long explanation means the answer is correct.</p></div>
+      </div>
+      <div class="formula">visible steps + checks + sources when needed</div>
+    </div>
+  </section>
+
+  <section class="slide danger" id="trust" data-part="Part 4" data-title="Trust boundary">
+    <div class="inner">
+      <div class="kicker">Lab 3 - 10 minutes</div>
+      <h2>Where is the trust boundary?</h2>
+      <p class="lede" id="trustScenario">Scenario: AI says, "This scholarship deadline is next Friday."</p>
+      <div class="grid three">
+        <button class="lab-btn" data-trust="draft">Use as draft</button>
+        <button class="lab-btn" data-trust="source">Check a source</button>
+        <button class="lab-btn" data-trust="approval">Human approval first</button>
+      </div>
+      <div class="feedback" id="trustFeedback"></div>
+      <div class="teacher-note">Tie this back to Week 2/3 safety and Week 11 research. Prompting skill includes knowing when prompting is not enough.</div>
+    </div>
+  </section>
+
+  <section class="slide quiz" data-part="Part 4" data-title="Verification check">
+    <div class="inner">
+      <div class="kicker">Quick check</div>
+      <h2>Which prompt is source-bound?</h2>
+      <div class="choices">
+        <button class="choice" data-correct="false">Tell me everything about this topic from memory.</button>
+        <button class="choice" data-correct="true">Use only the pasted article below. If the article does not say something, write "not stated in source."</button>
+        <button class="choice" data-correct="false">Give me a confident answer and make it sound scholarly.</button>
+      </div>
+      <div class="feedback">Source-bound prompting protects research tasks from fluent unsupported claims.</div>
+    </div>
+  </section>
+
+  <section class="slide artifact" id="artifact" data-part="Close" data-title="Student artifact">
+    <div class="inner">
+      <div class="kicker">Submit</div>
+      <h2>Advanced Prompting Card</h2>
+      <p>Submit one reusable prompt pattern with:</p>
+      <ul>
+        <li>The weak prompt you started with.</li>
+        <li>The improved prompt.</li>
+        <li>The strategy: zero-shot, few-shot, structured plan, critique loop, source-bound, or build prompt.</li>
+        <li>The context and output format you supplied.</li>
+        <li>One failure mode and one verification step.</li>
+      </ul>
+      <p class="muted">This card becomes a tool for the final web app project and presentation.</p>
+    </div>
+  </section>
+
+  <section class="slide optional" id="homework" data-part="Homework" data-title="Andrew Ng video">
+    <div class="inner">
+      <div class="kicker">Homework</div>
+      <h2>Watch Andrew Ng's full prompting course.</h2>
+      <p class="lede">Use the video as a course-long reference. Your job is to connect the examples back to today's prompt contract.</p>
+      <div class="grid">
+        <div class="card">
+          <h3>Required video</h3>
+          <p><a href="https://www.youtube.com/watch?v=8ib4Qnh2HFE" target="_blank" rel="noopener noreferrer">Full AI Prompting Course with Andrew Ng</a></p>
+          <p class="muted">DeepLearningAI. Use it for finding information, writing, multimodal prompting, and building examples.</p>
+        </div>
+        <div class="card">
+          <h3>Homework response</h3>
+          <p>Bring one new prompting pattern, one example that needs sources, and one example where the human must make the final decision.</p>
+        </div>
+      </div>
+      <p style="margin-top:18px"><a href="index.html">Back to CS-215 course hub</a></p>
+    </div>
+  </section>
+</main>
+
+<nav class="controls" aria-label="Slide controls">
+  <button class="btn" id="prevBtn">Back</button>
+  <div class="jump" aria-label="Jump to section">
+    <button class="btn" data-jump="start">Start</button>
+    <button class="btn" data-jump="jobs">Jobs</button>
+    <button class="btn" data-jump="router">Router</button>
+    <button class="btn" data-jump="contract">Contract</button>
+    <button class="btn" data-jump="repair">Repair</button>
+    <button class="btn" data-jump="trust">Trust</button>
+    <button class="btn" data-jump="artifact">Artifact</button>
+    <button class="btn" data-jump="homework">Homework</button>
+  </div>
+  <div>
+    <button class="btn" id="notesBtn">Notes</button>
+    <button class="btn" id="nextBtn">Next</button>
+  </div>
+</nav>
+
+<script>
+const slides = Array.from(document.querySelectorAll('.slide'));
+const statusEl = document.getElementById('status');
+const barEl = document.getElementById('bar');
+const prevBtn = document.getElementById('prevBtn');
+const nextBtn = document.getElementById('nextBtn');
+const notesBtn = document.getElementById('notesBtn');
+let current = 0;
+slides.forEach((slide, index) => {
+  if (!slide.id) slide.id = `slide-${index + 1}`;
+});
+
+function activeJump(){
+  let selected = null;
+  document.querySelectorAll('[data-jump]').forEach(btn => {
+    const target = document.getElementById(btn.dataset.jump);
+    const index = slides.indexOf(target);
+    if (index >= 0 && index <= current) selected = btn;
+    btn.classList.remove('active');
+  });
+  if (selected) selected.classList.add('active');
+}
+
+function show(index){
+  current = Math.max(0, Math.min(slides.length - 1, index));
+  slides.forEach((slide, i) => slide.classList.toggle('active', i === current));
+  const slide = slides[current];
+  const part = slide.dataset.part || 'Week 12';
+  const title = slide.dataset.title || '';
+  statusEl.textContent = `${part} - ${current + 1}/${slides.length}${title ? ' - ' + title : ''}`;
+  barEl.style.width = `${((current + 1) / slides.length) * 100}%`;
+  activeJump();
+  history.replaceState(null, '', `#${slide.id || 'slide-' + (current + 1)}`);
+}
+
+prevBtn.addEventListener('click', () => show(current - 1));
+nextBtn.addEventListener('click', () => show(current + 1));
+notesBtn.addEventListener('click', () => document.body.classList.toggle('notes-on'));
+document.querySelectorAll('[data-jump]').forEach(btn => {
+  btn.addEventListener('click', () => show(slides.indexOf(document.getElementById(btn.dataset.jump))));
+});
+document.addEventListener('keydown', event => {
+  if (event.target.closest('button,a,input,textarea')) return;
+  if (['ArrowRight','PageDown',' '].includes(event.key)) { event.preventDefault(); show(current + 1); }
+  if (['ArrowLeft','PageUp'].includes(event.key)) { event.preventDefault(); show(current - 1); }
+  if (event.key === 'Home') { event.preventDefault(); show(0); }
+  if (event.key === 'End') { event.preventDefault(); show(slides.length - 1); }
+  if (event.key.toLowerCase() === 'n') document.body.classList.toggle('notes-on');
+});
+
+document.querySelectorAll('.choice').forEach(choice => {
+  choice.addEventListener('click', () => {
+    const group = choice.closest('.slide');
+    group.querySelectorAll('.choice').forEach(item => item.classList.remove('correct','wrong'));
+    choice.classList.add(choice.dataset.correct === 'true' ? 'correct' : 'wrong');
+    const feedback = group.querySelector('.feedback');
+    if (feedback) feedback.classList.add('show');
+  });
+});
+
+const routerAnswers = {
+  find: 'Correct. This task needs current, source-backed information. A strong prompt should ask for sources, comparison, and uncertainty.',
+  think: 'Thinking helps after sources are found, but this scenario first needs reliable retrieval.',
+  write: 'Writing comes later. First the student needs evidence.',
+  build: 'Building is the wrong job here. There is no artifact to implement yet.'
+};
+document.querySelectorAll('[data-router]').forEach(button => {
+  button.addEventListener('click', () => {
+    document.querySelectorAll('[data-router]').forEach(item => item.classList.remove('correct','wrong'));
+    const isCorrect = button.dataset.router === 'find';
+    button.classList.add(isCorrect ? 'correct' : 'wrong');
+    const feedback = document.getElementById('routerFeedback');
+    feedback.textContent = routerAnswers[button.dataset.router];
+    feedback.classList.add('show');
+  });
+});
+
+const contractFields = {
+  goal: {
+    title: 'Goal',
+    why: 'Tell the model what success means.',
+    draft: 'Goal: Help me prepare for an interview for a campus IT internship.'
+  },
+  context: {
+    title: 'Context',
+    why: 'Give the model the background it should use.',
+    draft: 'Context: I am a sophomore with help-desk experience, one Python class, and volunteer tutoring experience.'
+  },
+  constraints: {
+    title: 'Constraints',
+    why: 'Set boundaries so the output does not drift.',
+    draft: 'Constraints: Do not invent job history. Ask for missing details. Keep language natural and specific.'
+  },
+  examples: {
+    title: 'Examples',
+    why: 'Use examples when the output needs a pattern.',
+    draft: 'Example style: short bullet answers, one concrete story per answer, no generic buzzwords.'
+  },
+  format: {
+    title: 'Output format',
+    why: 'Make the answer easy to inspect and use.',
+    draft: 'Output format: Make a table with Interview Question, Strong Answer Outline, Evidence I Need, and Follow-up Practice.'
+  },
+  checks: {
+    title: 'Verification checks',
+    why: 'Separate fluent output from trustworthy output.',
+    draft: 'Checks: Mark any claim that depends on the employer, job posting, or my personal history as \"verify before using.\"'
+  }
+};
+document.querySelectorAll('[data-field]').forEach(button => {
+  button.addEventListener('click', () => {
+    document.querySelectorAll('[data-field]').forEach(item => item.classList.remove('active'));
+    button.classList.add('active');
+    const field = contractFields[button.dataset.field];
+    document.getElementById('contractTitle').textContent = field.title;
+    document.getElementById('contractWhy').textContent = field.why;
+    document.getElementById('contractDraft').textContent = field.draft;
+  });
+});
+
+document.getElementById('scoreRepair').addEventListener('click', () => {
+  const text = document.getElementById('repairText').value.toLowerCase();
+  let score = 0;
+  if (text.includes('research') || text.includes('paper') || text.includes('goal')) score += 25;
+  if (text.includes('college') || text.includes('course') || text.includes('topic')) score += 25;
+  if (text.includes('outline') || text.includes('table') || text.includes('sections')) score += 25;
+  if (text.includes('source') || text.includes('verify') || text.includes('citation') || text.includes('invent')) score += 25;
+  const feedback = document.getElementById('repairFeedback');
+  feedback.textContent = `Prompt contract score: ${score}/100. Look for goal, context, output format, and verification rule.`;
+  feedback.classList.add('show');
+});
+
+const trustAnswers = {
+  draft: 'Not enough. A deadline is a decision-relevant fact, not just draft language.',
+  source: 'Correct. Check the official scholarship page or office announcement before acting.',
+  approval: 'Human approval matters before submitting, but first verify the source.'
+};
+document.querySelectorAll('[data-trust]').forEach(button => {
+  button.addEventListener('click', () => {
+    document.querySelectorAll('[data-trust]').forEach(item => item.classList.remove('correct','wrong'));
+    const isCorrect = button.dataset.trust === 'source';
+    button.classList.add(isCorrect ? 'correct' : 'wrong');
+    const feedback = document.getElementById('trustFeedback');
+    feedback.textContent = trustAnswers[button.dataset.trust];
+    feedback.classList.add('show');
+  });
+});
+
+if (location.hash) {
+  const target = document.getElementById(location.hash.slice(1));
+  if (target) current = slides.indexOf(target);
+}
+show(current);
+</script>
+</body>
+</html>

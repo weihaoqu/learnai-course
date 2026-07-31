@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CS-215 Course Case Bank</title>
+<link rel="icon" href="data:,">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#08081a;--surface:#111128;--surface2:#1a1a3e;--text:#eeeef5;--muted:#8f96b3;
+  --blue:#3b82f6;--blue-light:#93c5fd;--purple:#7c3aed;--purple-light:#c4b5fd;
+  --cyan:#06b6d4;--cyan-light:#67e8f9;--green:#10b981;--green-light:#6ee7b7;
+  --gold:#fbbf24;--orange:#f59e0b;--rose:#fb7185;--border:rgba(255,255,255,0.08);
+  --radius:14px;--radius-sm:9px;--font:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+}
+html{scroll-behavior:smooth}
+body{font-family:var(--font);background:
+  radial-gradient(circle at 16% 10%,rgba(6,182,212,.14),transparent 30%),
+  radial-gradient(circle at 84% 18%,rgba(124,58,237,.12),transparent 34%),
+  linear-gradient(135deg,#08081a,#0f1029 52%,#080b18);color:var(--text);line-height:1.6}
+a{color:var(--cyan-light);text-decoration:none}
+a:hover{text-decoration:underline}
+.topbar{position:sticky;top:0;z-index:10;background:rgba(8,8,26,.9);backdrop-filter:blur(14px);border-bottom:1px solid var(--border);padding:12px 24px;display:flex;align-items:center;gap:16px;overflow-x:auto;white-space:nowrap}
+.topbar strong{color:#fff}
+.topbar a{color:var(--muted);font-size:14px}
+.topbar a:first-of-type{margin-left:auto}
+.hero{max-width:1100px;margin:0 auto;padding:74px 24px 38px}
+.kicker{display:inline-flex;align-items:center;gap:10px;color:var(--cyan-light);font-size:13px;font-weight:900;letter-spacing:.12em;text-transform:uppercase;margin-bottom:16px}
+.kicker::before{content:"";width:32px;height:2px;background:currentColor;border-radius:99px}
+h1{font-size:clamp(38px,6vw,70px);line-height:1.04;letter-spacing:0;margin-bottom:18px}
+h2{font-size:clamp(28px,3.6vw,44px);line-height:1.1;margin:44px 0 14px}
+h3{font-size:21px;line-height:1.2;margin-bottom:9px;color:#fff}
+p{color:var(--muted);font-size:17px}
+.lede{font-size:clamp(20px,2vw,26px);max-width:900px;color:#d9e3f8}
+.notice{margin-top:24px;border:1px solid rgba(251,191,36,.24);background:rgba(251,191,36,.08);border-radius:var(--radius);padding:16px 18px;color:#fdecc8}
+.container{max-width:1100px;margin:0 auto;padding:0 24px 70px}
+.nav-chips{display:flex;flex-wrap:wrap;gap:10px;margin:24px 0 8px}
+.chip{display:inline-flex;border:1px solid var(--border);background:rgba(255,255,255,.055);border-radius:999px;padding:8px 12px;color:#dfe7ff;font-weight:800;font-size:14px}
+.section-note{margin-bottom:20px;max-width:850px}
+.case-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;margin-top:18px}
+.case-card{background:rgba(17,17,40,.86);border:1px solid var(--border);border-radius:var(--radius);padding:20px;min-height:230px;display:flex;flex-direction:column;gap:10px}
+.case-card.primary{border-color:rgba(6,182,212,.35);background:linear-gradient(135deg,rgba(6,182,212,.12),rgba(17,17,40,.9))}
+.case-card.warning{border-color:rgba(251,191,36,.32);background:linear-gradient(135deg,rgba(251,191,36,.09),rgba(17,17,40,.9))}
+.case-card.advanced{border-color:rgba(167,139,250,.32);background:linear-gradient(135deg,rgba(167,139,250,.1),rgba(17,17,40,.9))}
+.label-row{display:flex;flex-wrap:wrap;gap:7px}
+.label{display:inline-flex;border:1px solid rgba(255,255,255,.12);border-radius:999px;padding:4px 8px;font-size:11px;font-weight:900;color:#dbeafe;background:rgba(255,255,255,.05)}
+.label.required{color:#dcfce7;border-color:rgba(16,185,129,.35);background:rgba(16,185,129,.1)}
+.label.hook{color:#cffafe;border-color:rgba(6,182,212,.35);background:rgba(6,182,212,.1)}
+.label.teacher{color:#fde68a;border-color:rgba(251,191,36,.35);background:rgba(251,191,36,.1)}
+.case-card p{font-size:15px}
+.case-card .use{color:#dce6ff;flex:1}
+.case-card a.read{display:inline-flex;align-self:flex-start;margin-top:auto;border:1px solid rgba(6,182,212,.35);border-radius:var(--radius-sm);padding:8px 11px;color:#dff9ff;font-weight:800;font-size:14px;background:rgba(6,182,212,.09)}
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:18px}
+.mini-panel{background:rgba(255,255,255,.05);border:1px solid var(--border);border-radius:var(--radius);padding:18px}
+.mini-panel ul{margin:12px 0 0 20px;color:var(--muted)}
+.mini-panel li{margin:6px 0}
+.footer{text-align:center;color:var(--muted);border-top:1px solid var(--border);padding:32px 24px;margin-top:20px}
+@media(max-width:900px){.case-grid,.two-col{grid-template-columns:1fr}.topbar a:first-of-type{margin-left:0}}
+</style>
+</head>
+<body>
+<nav class="topbar" aria-label="Course navigation">
+  <strong>CS-215 Case Bank</strong>
+  <a href="index.html">Course Hub</a>
+  <a href="module-00-llm-basics.html#future-work">Week 1 Hook</a>
+  <a href="week-03-responsible-ai-decisions.html">Week 3 Decisions</a>
+</nav>
+
+<header class="hero">
+  <div class="kicker">Supporting material</div>
+  <h1>Course Case Bank</h1>
+  <p class="lede">These wiki posts give the course concrete stories: why AI literacy matters, what human judgment still controls, and how students can turn agent-assisted work into evidence.</p>
+  <div class="notice">Use these as hooks, discussion cases, or optional readings. The summaries here are course placements, not fresh verification of every external claim inside the original posts.</div>
+  <div class="nav-chips" aria-label="Jump to case groups">
+    <a class="chip" href="#week-1">Week 1 Hooks</a>
+    <a class="chip" href="#weeks-2-3">Weeks 2-3</a>
+    <a class="chip" href="#building">Building Apps</a>
+    <a class="chip" href="#career">Career</a>
+    <a class="chip" href="#prompting">Prompting</a>
+    <a class="chip" href="#teacher">Teacher Training</a>
+    <a class="chip" href="#advanced">Advanced</a>
+  </div>
+</header>
+
+<main class="container">
+  <section id="week-1">
+    <h2>Week 1 Hooks: What AI Means For Students</h2>
+    <p class="section-note">Use these for a short opening discussion, not a full reading assignment. The goal is to show students that AI literacy is about problem definition, collaboration, verification, and shipping useful work.</p>
+    <div class="case-grid">
+      <article class="case-card primary">
+        <div class="label-row"><span class="label hook">Week 1 hook</span><span class="label">Revisit Week 11</span></div>
+        <h3>Forward Deployed Engineer</h3>
+        <p class="use">AI changes many technical workflows. The valuable person understands the problem, talks to stakeholders, uses agents, verifies outputs, and owns a working system.</p>
+        <a class="read" href="https://weihaoqu.github.io/learnAIDoc/wiki/forward-deployed-engineer-ai/" target="_blank" rel="noopener noreferrer" aria-label="Read Forward Deployed Engineer post, opens in a new tab">Read post</a>
+      </article>
+      <article class="case-card primary">
+        <div class="label-row"><span class="label hook">Week 1 hook</span><span class="label">Week 8/10 reuse</span></div>
+        <h3>Problem Definition Wins</h3>
+        <p class="use">A domain expert with a clear problem can outperform faster coders. Students should learn to specify the right thing before asking an agent to build.</p>
+        <a class="read" href="https://weihaoqu.github.io/learnAIDoc/wiki/lawyer-won-hackathon-problem-definition/" target="_blank" rel="noopener noreferrer" aria-label="Read Problem Definition post, opens in a new tab">Read post</a>
+      </article>
+      <article class="case-card primary">
+        <div class="label-row"><span class="label hook">Weeks 1-3</span><span class="label required">Reflection</span></div>
+        <h3>AI Fluency Index</h3>
+        <p class="use">Fluent users manage AI rather than delegate blindly: they iterate, ask for missing context, critique polished output, and keep responsibility for the work.</p>
+        <a class="read" href="https://weihaoqu.github.io/learnAIDoc/wiki/ai-fluency-index/" target="_blank" rel="noopener noreferrer" aria-label="Read AI Fluency Index post, opens in a new tab">Read post</a>
+      </article>
+    </div>
+  </section>
+
+  <section id="weeks-2-3">
+    <h2>Weeks 2-3: Agent Mindset, Limits, and Responsibility</h2>
+    <p class="section-note">Use these to connect agent setup, human review, and responsible use. Keep provocative claims instructor-framed unless sources are reverified before class.</p>
+    <div class="case-grid">
+      <article class="case-card">
+        <div class="label-row"><span class="label">Week 2 framing</span></div>
+        <h3>End of Coding</h3>
+        <p class="use">Useful for macro-action thinking: students direct agents through goals, context, tools, branches, and review rather than only typing code by hand.</p>
+        <a class="read" href="https://weihaoqu.github.io/learnAIDoc/wiki/karpathy-end-of-coding/" target="_blank" rel="noopener noreferrer" aria-label="Read End of Coding post, opens in a new tab">Read post</a>
+      </article>
+      <article class="case-card">
+        <div class="label-row"><span class="label">Week 2/8/10</span></div>
+        <h3>Frustration Shifts Upward</h3>
+        <p class="use">AI reduces syntax friction but makes specification, architecture, diagnosis, and review more important. This supports the whole agent-based course design.</p>
+        <a class="read" href="https://weihaoqu.github.io/learnAIDoc/wiki/frustration-shifts-upward-ai-coding/" target="_blank" rel="noopener noreferrer" aria-label="Read Frustration Shifts Upward post, opens in a new tab">Read post</a>
+      </article>
+      <article class="case-card warning">
+        <div class="label-row"><span class="label required">Week 3 reflection</span></div>
+        <h3>AI Brain Fry</h3>
+        <p class="use">Student-facing case for cognitive load, tool switching, verification fatigue, and why a small deliberate AI stack can beat more tools.</p>
+        <a class="read" href="https://weihaoqu.github.io/learnAIDoc/wiki/ai-brain-fry-cognitive-fatigue/" target="_blank" rel="noopener noreferrer" aria-label="Read AI Brain Fry post, opens in a new tab">Read post</a>
+      </article>
+    </div>
+  </section>
+
+  <section id="building">
+    <h2>Weeks 8-10: Building With Agents</h2>
+    <div class="case-grid">
+      <article class="case-card primary">
+        <div class="label-row"><span class="label required">Week 8/10</span></div>
+        <h3>Problem Definition Wins</h3>
+        <p class="use">Return to this as a full app-building case: before students prompt an agent, they must define audience, workflow, constraints, and success criteria.</p>
+        <a class="read" href="https://weihaoqu.github.io/learnAIDoc/wiki/lawyer-won-hackathon-problem-definition/" target="_blank" rel="noopener noreferrer" aria-label="Read Problem Definition post, opens in a new tab">Read post</a>
+      </article>
+      <article class="case-card">
+        <div class="label-row"><span class="label required">Week 10</span></div>
+        <h3>Frustration Shifts Upward</h3>
+        <p class="use">Use when students hit app complexity. The issue is often not "how do I code it?" but "did I choose the right structure?"</p>
+        <a class="read" href="https://weihaoqu.github.io/learnAIDoc/wiki/frustration-shifts-upward-ai-coding/" target="_blank" rel="noopener noreferrer" aria-label="Read Frustration Shifts Upward post, opens in a new tab">Read post</a>
+      </article>
+    </div>
+  </section>
+
+  <section id="career">
+    <h2>Week 11 and Week 14: Career, Learning, and Portfolio</h2>
+    <div class="case-grid">
+      <article class="case-card primary">
+        <div class="label-row"><span class="label required">Week 11</span></div>
+        <h3>Career-Ops</h3>
+        <p class="use">Agent workflow for evaluating postings, tailoring materials, tracking applications, and preserving human control. Good homework case: do not auto-submit.</p>
+        <a class="read" href="https://weihaoqu.github.io/learnAIDoc/wiki/career-ops-ai-job-search/" target="_blank" rel="noopener noreferrer" aria-label="Read Career-Ops post, opens in a new tab">Read post</a>
+      </article>
+      <article class="case-card primary">
+        <div class="label-row"><span class="label required">Week 11/14</span></div>
+        <h3>Agent Portfolio Evidence</h3>
+        <p class="use">Students should show prompts, setup, agent instructions, tests, and verification habits, not just polished screenshots of final projects.</p>
+        <a class="read" href="https://weihaoqu.github.io/learnAIDoc/wiki/resume-dead-claude-folder-career/" target="_blank" rel="noopener noreferrer" aria-label="Read Agent Portfolio Evidence post, opens in a new tab">Read post</a>
+      </article>
+      <article class="case-card">
+        <div class="label-row"><span class="label">Week 11 optional</span></div>
+        <h3>Context-Rich Learning</h3>
+        <p class="use">Optional study-skills case: learning works better when AI connects vocabulary or facts to authentic context rather than isolated memorization.</p>
+        <a class="read" href="https://weihaoqu.github.io/learnAIDoc/wiki/mujing-learn-english-movies/" target="_blank" rel="noopener noreferrer" aria-label="Read Context-Rich Learning post, opens in a new tab">Read post</a>
+      </article>
+    </div>
+  </section>
+
+  <section id="prompting">
+    <h2>Week 12: Prompting and Model Behavior</h2>
+    <div class="case-grid">
+      <article class="case-card primary">
+        <div class="label-row"><span class="label required">Week 12</span></div>
+        <h3>Shortest Prompt Lines</h3>
+        <p class="use">Use as compact prompt-review moves after students learn structured prompts: ask for missing context, disagreement, uncertainty, and critique.</p>
+        <a class="read" href="https://weihaoqu.github.io/learnAIDoc/wiki/shortest-prompt-lines-that-work/" target="_blank" rel="noopener noreferrer" aria-label="Read Shortest Prompt Lines post, opens in a new tab">Read post</a>
+      </article>
+      <article class="case-card">
+        <div class="label-row"><span class="label">Week 12 optional</span></div>
+        <h3>Bilingual Prompting</h3>
+        <p class="use">Optional extension for bilingual students and model-behavior discussion. Verify numeric research claims before teaching them as facts.</p>
+        <a class="read" href="https://weihaoqu.github.io/learnAIDoc/wiki/bilingual-prompting-technique/" target="_blank" rel="noopener noreferrer" aria-label="Read Bilingual Prompting post, opens in a new tab">Read post</a>
+      </article>
+    </div>
+  </section>
+
+  <section id="teacher">
+    <h2>Hidden Teacher Training</h2>
+    <p class="section-note">These belong mainly in the hidden teacher-training chapter. They are about educator workflows, feedback, rubrics, and the line between support and outsourcing.</p>
+    <div class="case-grid">
+      <article class="case-card warning">
+        <div class="label-row"><span class="label teacher">Teacher training</span></div>
+        <h3>Teacher Factory</h3>
+        <p class="use">Frames AI as a teacher material-production system: custom activities, rubrics, examples, and differentiated supports.</p>
+        <a class="read" href="https://weihaoqu.github.io/learnAIDoc/wiki/ai-education-teacher-factory/" target="_blank" rel="noopener noreferrer" aria-label="Read Teacher Factory post, opens in a new tab">Read post</a>
+      </article>
+      <article class="case-card warning">
+        <div class="label-row"><span class="label teacher">Teacher training</span></div>
+        <h3>NotebookLM Grading Paradox</h3>
+        <p class="use">Use for instructor-only discussion of rubric-grounded feedback, privacy, academic integrity, and human responsibility in grading.</p>
+        <a class="read" href="https://weihaoqu.github.io/learnAIDoc/wiki/notebooklm-grading-education-paradox/" target="_blank" rel="noopener noreferrer" aria-label="Read NotebookLM Grading Paradox post, opens in a new tab">Read post</a>
+      </article>
+      <article class="case-card warning">
+        <div class="label-row"><span class="label teacher">Rubric input</span></div>
+        <h3>AI Fluency Index</h3>
+        <p class="use">Use as a teacher-facing rubric input: look for iteration, critical review, uncertainty handling, and collaboration settings.</p>
+        <a class="read" href="https://weihaoqu.github.io/learnAIDoc/wiki/ai-fluency-index/" target="_blank" rel="noopener noreferrer" aria-label="Read AI Fluency Index post, opens in a new tab">Read post</a>
+      </article>
+    </div>
+  </section>
+
+  <section id="advanced">
+    <h2>Week 13 and Advanced Enrichment</h2>
+    <p class="section-note">Use teacher-selected excerpts. These are useful for evidence quality and expert verification, but too specialized for required CS-215 reading without simplification.</p>
+    <div class="case-grid">
+      <article class="case-card advanced">
+        <div class="label-row"><span class="label">Week 13 excerpt</span></div>
+        <h3>Mythos Verification Crisis</h3>
+        <p class="use">Evidence-quality case: how should students read model-risk claims, vendor claims, restricted-access claims, and independent evaluations?</p>
+        <a class="read" href="https://weihaoqu.github.io/learnAIDoc/wiki/claude-mythos-verification-crisis/" target="_blank" rel="noopener noreferrer" aria-label="Read Mythos Verification Crisis post, opens in a new tab">Read post</a>
+      </article>
+      <article class="case-card advanced">
+        <div class="label-row"><span class="label">Advanced excerpt</span></div>
+        <h3>Automated Alignment Researchers</h3>
+        <p class="use">Advanced case in evaluation and AI research workflows. Useful for discussing benchmark integrity and scalable oversight.</p>
+        <a class="read" href="https://weihaoqu.github.io/learnAIDoc/wiki/anthropic-automated-alignment-researchers/" target="_blank" rel="noopener noreferrer" aria-label="Read Automated Alignment Researchers post, opens in a new tab">Read post</a>
+      </article>
+      <article class="case-card advanced">
+        <div class="label-row"><span class="label">Discussion only</span></div>
+        <h3>Medical AI Scientist</h3>
+        <p class="use">High-stakes caution case. Use for ethics discussion only, not student emulation or workflow imitation.</p>
+        <a class="read" href="https://weihaoqu.github.io/learnAIDoc/wiki/medical-ai-scientist/" target="_blank" rel="noopener noreferrer" aria-label="Read Medical AI Scientist post, opens in a new tab">Read post</a>
+      </article>
+      <article class="case-card advanced">
+        <div class="label-row"><span class="label">Week 5 optional</span></div>
+        <h3>AI Quant Tools</h3>
+        <p class="use">Optional domain application for finance/time series. Too specialized for required Excel/admin workflow.</p>
+        <a class="read" href="https://weihaoqu.github.io/learnAIDoc/wiki/ai-quantitative-finance-tools/" target="_blank" rel="noopener noreferrer" aria-label="Read AI Quant Tools post, opens in a new tab">Read post</a>
+      </article>
+      <article class="case-card advanced">
+        <div class="label-row"><span class="label">Week 2 optional</span></div>
+        <h3>Subquadratic Attention</h3>
+        <p class="use">Advanced architecture and skepticism example. Keep out of core flow unless students are ready for attention/computation tradeoffs.</p>
+        <a class="read" href="https://weihaoqu.github.io/learnAIDoc/wiki/subq-subquadratic-sparse-attention/" target="_blank" rel="noopener noreferrer" aria-label="Read Subquadratic Attention post, opens in a new tab">Read post</a>
+      </article>
+      <article class="case-card advanced">
+        <div class="label-row"><span class="label">Advanced coding</span></div>
+        <h3>TurboQuant</h3>
+        <p class="use">Case for human expertise in low-level AI-assisted coding. Useful later, but not required for CS-215.</p>
+        <a class="read" href="https://weihaoqu.github.io/learnAIDoc/wiki/turboquant-reverse-engineer-google/" target="_blank" rel="noopener noreferrer" aria-label="Read TurboQuant post, opens in a new tab">Read post</a>
+      </article>
+      <article class="case-card advanced">
+        <div class="label-row"><span class="label">Optional enrichment</span></div>
+        <h3>TensorTonic</h3>
+        <p class="use">For students who want ML fundamentals. Good enrichment, but not central to the agent-app course path.</p>
+        <a class="read" href="https://weihaoqu.github.io/learnAIDoc/wiki/tensortonic-learn-ml-code/" target="_blank" rel="noopener noreferrer" aria-label="Read TensorTonic post, opens in a new tab">Read post</a>
+      </article>
+    </div>
+  </section>
+
+  <section id="how-to-use">
+    <h2>How To Use This Bank</h2>
+    <div class="two-col">
+      <div class="mini-panel">
+        <h3>For student modules</h3>
+        <ul>
+          <li>Use one hook slide, one discussion question, or one short reflection.</li>
+          <li>Promote only Week 11 career and Week 13 verification cases into heavier reading.</li>
+          <li>Keep technical posts as excerpts unless the class has the prerequisites.</li>
+        </ul>
+      </div>
+      <div class="mini-panel">
+        <h3>For teacher prep</h3>
+        <ul>
+          <li>Use teacher-facing posts to design rubrics, examples, feedback workflows, and disclosure rules.</li>
+          <li>Reverify external sources before making numeric claims in class.</li>
+          <li>Favor cases that reinforce human judgment, not tool worship.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="footer">
+  <p>CS-215 AI Literacy Course Case Bank - supporting material for the 14-week course path.</p>
+</footer>
+</body>
+</html>

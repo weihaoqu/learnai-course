@@ -1,0 +1,622 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Week 14: Final Web App Showcase and AI Collaboration Reflection</title>
+<link rel="icon" href="data:,">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#080b14;--panel:#121826;--panel2:#182235;--text:#f5f7fb;--muted:#a8b3c5;
+  --blue:#60a5fa;--cyan:#22d3ee;--green:#34d399;--gold:#fbbf24;--orange:#fb923c;--red:#fb7185;--violet:#a78bfa;
+  --line:rgba(255,255,255,.14);--line2:rgba(255,255,255,.24);--shadow:0 24px 72px rgba(0,0,0,.38);
+  --font:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  --mono:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+}
+html,body{height:100%;background:var(--bg);color:var(--text);font-family:var(--font);overflow:hidden}
+body{background:
+  linear-gradient(135deg,rgba(251,191,36,.10) 0 1px,transparent 1px 42px),
+  linear-gradient(45deg,rgba(34,211,238,.06) 0 1px,transparent 1px 54px),
+  linear-gradient(160deg,#080b14,#111827 48%,#151222)}
+button,input,select,textarea{font:inherit}
+button{cursor:pointer}
+a{color:#bfdbfe;text-decoration:none}
+a:hover,a:focus{text-decoration:underline}
+code{font-family:var(--mono);color:#bfdbfe}
+.topbar{position:fixed;top:0;left:0;right:0;height:58px;display:flex;align-items:center;gap:18px;padding:0 22px;background:rgba(8,11,20,.91);backdrop-filter:blur(14px);border-bottom:1px solid var(--line);z-index:20}
+.brand{font-weight:900;letter-spacing:0;white-space:nowrap}
+.status{margin-left:auto;color:var(--muted);font-size:14px}
+.progress{position:absolute;left:0;right:0;bottom:-1px;height:3px;background:rgba(255,255,255,.08)}
+.bar{height:100%;width:0;background:linear-gradient(90deg,var(--gold),var(--cyan),var(--green));transition:width .25s ease}
+.deck{position:relative;height:100%;padding-top:58px}
+.slide{position:absolute;inset:58px 0 78px 0;display:grid;place-items:center;padding:26px;overflow:auto;visibility:hidden;opacity:0;transform:translateY(10px);transition:opacity .22s ease,transform .22s ease,visibility .22s}
+.slide.active{visibility:visible;opacity:1;transform:translateY(0)}
+.inner{width:min(1180px,100%);margin:auto}
+.kicker{display:inline-flex;align-items:center;gap:8px;color:var(--gold);font-weight:900;text-transform:uppercase;letter-spacing:0;font-size:13px;margin-bottom:14px}
+h1{font-size:56px;line-height:1.02;max-width:1040px;margin-bottom:18px;letter-spacing:0}
+h2{font-size:38px;line-height:1.08;margin-bottom:14px;max-width:1040px;letter-spacing:0}
+h3{font-size:18px;margin-bottom:8px}
+p,li{line-height:1.6}
+ul{padding-left:1.2em;margin:14px 0}
+li{margin:7px 0;color:#dbeafe}
+.lede{font-size:21px;color:#e8eefb;max-width:980px;margin-bottom:22px}
+.muted{color:var(--muted)}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;margin-top:22px}
+.grid.three{grid-template-columns:repeat(3,minmax(0,1fr))}
+.grid.four{grid-template-columns:repeat(4,minmax(0,1fr))}
+.card{background:rgba(18,24,38,.88);border:1px solid var(--line);border-radius:10px;padding:18px;box-shadow:0 10px 35px rgba(0,0,0,.18)}
+.card.blue{border-color:rgba(96,165,250,.35);background:rgba(96,165,250,.08)}
+.card.green{border-color:rgba(52,211,153,.35);background:rgba(52,211,153,.08)}
+.card.gold{border-color:rgba(251,191,36,.35);background:rgba(251,191,36,.08)}
+.card.warn{border-color:rgba(251,113,133,.4);background:rgba(251,113,133,.08)}
+.artifact{background:linear-gradient(135deg,rgba(251,191,36,.12),rgba(34,211,238,.10));border:1px solid rgba(251,191,36,.25)}
+.tag{display:inline-flex;border:1px solid var(--line2);border-radius:999px;padding:4px 9px;color:#fde68a;font-size:12px;font-weight:900;margin-bottom:10px}
+.timebox{display:inline-flex;border:1px solid rgba(251,191,36,.4);background:rgba(251,191,36,.08);color:#fde68a;border-radius:999px;padding:5px 12px;font-size:13px;font-weight:900;margin-bottom:14px}
+.teacher-note{margin-top:18px;border-left:4px solid var(--gold);background:rgba(251,191,36,.08);padding:12px 14px;color:#fff2c4;border-radius:8px;font-size:14px}
+.flow{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:10px;margin:24px 0}
+.step{border:1px solid var(--line);border-radius:10px;padding:15px;background:rgba(255,255,255,.04);min-height:116px}
+.step strong{display:block;color:#fde68a;margin-bottom:8px}
+.split,.builder-layout,.exit-layout{display:grid;grid-template-columns:420px minmax(0,1fr);gap:18px;margin-top:20px}
+.form{display:grid;gap:11px}
+label{display:grid;gap:6px;color:#dbeafe;font-size:13px;font-weight:900;text-transform:uppercase;letter-spacing:0}
+input,select,textarea{width:100%;border:1px solid var(--line);background:#070b14;color:var(--text);border-radius:10px;padding:11px 12px;outline:none}
+textarea{resize:vertical;min-height:82px}
+input:focus,select:focus,textarea:focus{border-color:rgba(251,191,36,.85);box-shadow:0 0 0 3px rgba(251,191,36,.16)}
+.btn{border:1px solid var(--line2);border-radius:10px;padding:10px 14px;background:rgba(255,255,255,.07);color:var(--text);font-weight:900}
+.btn:hover,.btn:focus{border-color:rgba(251,191,36,.7);background:rgba(251,191,36,.12);outline:none}
+.btn.primary{background:linear-gradient(135deg,var(--gold),var(--orange));color:#160d02;border:none}
+.btn.green{background:linear-gradient(135deg,var(--green),var(--cyan));color:#041015;border:none}
+.btn.blue{background:linear-gradient(135deg,var(--blue),var(--cyan));color:#06101f;border:none}
+.output,.preview{border:1px solid var(--line);background:#080e19;border-radius:10px;padding:18px;min-height:230px;white-space:pre-wrap;color:#e8f1ff;line-height:1.55}
+.timer{display:grid;place-items:center;border:1px solid rgba(251,191,36,.32);background:rgba(251,191,36,.08);border-radius:18px;padding:24px;min-height:230px}
+.timer-time{font-family:var(--mono);font-size:58px;font-weight:900;color:#fde68a}
+.timer-mode{color:#dbeafe;font-weight:900;margin-top:8px}
+.mode-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin-top:20px}
+.mode-card{border:1px solid var(--line);border-radius:10px;padding:16px;background:rgba(255,255,255,.04);min-height:170px}
+.mode-card strong{display:block;color:#fde68a;margin-bottom:8px}
+.rubric-grid{display:grid;gap:10px;margin-top:18px}
+.rubric-row{display:grid;grid-template-columns:220px repeat(3,minmax(0,1fr));gap:8px}
+.rubric-cell{border:1px solid var(--line);border-radius:10px;padding:12px;background:rgba(255,255,255,.04);font-size:14px;line-height:1.45}
+.rubric-cell.head{background:rgba(251,191,36,.14);color:#fff;font-weight:900}
+.checklist{display:grid;gap:10px;margin-top:18px}
+.checkitem{display:flex;align-items:flex-start;gap:10px;border:1px solid var(--line);border-radius:10px;padding:12px;background:rgba(255,255,255,.04)}
+.checkitem input{width:auto;margin-top:3px}
+.meter{height:12px;border-radius:999px;background:rgba(255,255,255,.08);overflow:hidden;margin-top:16px}
+.meter-fill{height:100%;width:0;background:linear-gradient(90deg,var(--red),var(--gold),var(--green));transition:width .2s ease}
+.resource-links{display:flex;flex-wrap:wrap;gap:10px;margin-top:18px}
+.link-btn{display:inline-flex;align-items:center;justify-content:center;border:1px solid var(--line2);border-radius:10px;padding:10px 13px;color:#e0f2fe;text-decoration:none;font-weight:900;background:rgba(255,255,255,.06)}
+.link-btn:hover,.link-btn:focus{outline:2px solid rgba(251,191,36,.55);background:rgba(251,191,36,.10);text-decoration:none}
+.controls{position:fixed;left:0;right:0;bottom:0;min-height:78px;display:flex;gap:10px;align-items:center;justify-content:center;flex-wrap:wrap;padding:12px 18px;background:rgba(8,11,20,.93);border-top:1px solid var(--line);z-index:20}
+.jump{display:flex;gap:7px;flex-wrap:wrap;justify-content:center}
+.jump button{width:34px;height:34px;border-radius:9px;border:1px solid var(--line);background:rgba(255,255,255,.05);color:var(--muted);font-weight:900}
+.jump button[aria-current="true"]{background:var(--gold);color:#160d02;border-color:transparent}
+.notes{display:none;position:fixed;right:18px;bottom:92px;width:min(440px,calc(100vw - 36px));max-height:55vh;overflow:auto;background:#080e19;border:1px solid var(--line2);border-radius:10px;padding:16px;z-index:30;box-shadow:var(--shadow)}
+.notes.show{display:block}
+@media (max-width:980px){
+  html,body{overflow:auto}
+  .deck{min-height:100%}
+  .topbar{height:auto;min-height:58px;align-items:flex-start;flex-wrap:wrap;padding:10px 14px}
+  .brand{width:100%;white-space:normal}
+  .status{margin-left:0}
+  .slide{position:relative;inset:auto;min-height:calc(100vh - 136px);display:none;padding:22px 16px;margin-top:58px}
+  .slide.active{display:grid}
+  h1{font-size:38px}
+  h2{font-size:30px}
+  .lede{font-size:18px}
+  .grid,.grid.three,.grid.four,.flow,.split,.builder-layout,.exit-layout,.mode-grid{grid-template-columns:1fr}
+  .rubric-row{grid-template-columns:1fr}
+  .controls{position:sticky}
+}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{transition:none!important;animation:none!important;scroll-behavior:auto!important}
+}
+</style>
+</head>
+<body>
+<div class="topbar">
+  <div class="brand">Week 14: Final Web App Showcase and AI Collaboration Reflection</div>
+  <div class="progress" aria-hidden="true"><div class="bar" id="bar"></div></div>
+  <div class="status" id="status">Slide 1</div>
+</div>
+
+<main class="deck" id="deck">
+  <section class="slide active" id="showcase" data-part="Open" data-title="Showcase" aria-hidden="false">
+    <div class="inner">
+      <div class="kicker">60-minute final showcase</div>
+      <h1>Show the app, the evidence, and the judgment.</h1>
+      <p class="lede">The final presentation is not just a polished demo. Students show the static app, explain how AI helped, identify what they verified, and state what limitations remain.</p>
+      <div class="grid three">
+        <div class="card blue"><span class="tag">In class</span><p>Present or gallery-walk the final app with evidence from Weeks 10, 11, and 13.</p></div>
+        <div class="card green"><span class="tag">Outcome</span><p>A Final Showcase Packet plus peer feedback and final reflection.</p></div>
+        <div class="card gold"><span class="tag">Boundary</span><p>Prototype showcase only. No credentials, private data, hidden answer keys, or unsupported high-stakes claims.</p></div>
+      </div>
+      <div class="teacher-note">Pacing: 3 minutes. Make evidence and judgment as visible as the app interface.</div>
+    </div>
+  </section>
+
+  <section class="slide" id="format" data-part="Open" data-title="Showcase formats" inert aria-hidden="true">
+    <div class="inner">
+      <div class="timebox">3-8 min</div>
+      <h2>Choose the showcase mode by class size.</h2>
+      <p class="lede">The format should protect time for evidence, feedback, and post-test closure.</p>
+      <div class="mode-grid">
+        <div class="mode-card"><strong>Small class</strong><p>4-minute presentation plus 2-minute questions per student or team.</p></div>
+        <div class="mode-card"><strong>Medium class</strong><p>3-minute demos in groups, then rotating peer feedback.</p></div>
+        <div class="mode-card"><strong>Large class</strong><p>Gallery walk: students post links/packets, reviewers rotate with feedback cards.</p></div>
+      </div>
+      <div class="builder-layout">
+        <div class="card">
+          <div class="form">
+            <label>Class size or team count<input id="fmCount" type="number" min="1" value="10"></label>
+            <label>Available showcase minutes<input id="fmMinutes" type="number" min="10" value="45"></label>
+            <label>Mode<select id="fmMode"><option>Small class presentations</option><option>Medium group rotation</option><option>Large gallery walk</option></select></label>
+            <button class="btn primary" id="copyFormat">Copy format plan</button>
+          </div>
+        </div>
+        <div class="preview" id="formatPreview" tabindex="0"></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="slide" id="demo-script" data-part="Part 1" data-title="Demo script" inert aria-hidden="true">
+    <div class="inner">
+      <div class="timebox">8-14 min</div>
+      <h2>Every final demo follows the same evidence arc.</h2>
+      <p class="lede">The app is the center, but the presentation also shows the design process and responsible AI use.</p>
+      <div class="flow">
+        <div class="step"><strong>Problem</strong><p>Target user and need.</p></div>
+        <div class="step"><strong>Demo</strong><p>Final app link or fallback.</p></div>
+        <div class="step"><strong>Design</strong><p>One Week 8-10 decision.</p></div>
+        <div class="step"><strong>Evidence</strong><p>One Week 11 source trail.</p></div>
+        <div class="step"><strong>Safety</strong><p>One Week 13 limitation.</p></div>
+        <div class="step"><strong>Next</strong><p>One realistic improvement.</p></div>
+      </div>
+      <div class="card warn"><h3>Fallback is valid</h3><p>Acceptable fallback formats: local HTML file, zipped static site, screenshot or video walkthrough, or hosted preview without credentials. If the public link contains a secret or private-data issue, do not present it.</p></div>
+    </div>
+  </section>
+
+  <section class="slide" id="rubric" data-part="Part 2" data-title="Final rubric" inert aria-hidden="true">
+    <div class="inner">
+      <div class="timebox">14-22 min</div>
+      <h2>Grade evidence and judgment, not only polish.</h2>
+      <p class="lede">The rubric should reward a working artifact, but also the process evidence that makes AI-assisted work trustworthy.</p>
+      <div class="rubric-grid">
+        <div class="rubric-row"><div class="rubric-cell head">Criteria</div><div class="rubric-cell head">Developing</div><div class="rubric-cell head">Proficient</div><div class="rubric-cell head">Strong</div></div>
+        <div class="rubric-row"><div class="rubric-cell head">Artifact</div><div class="rubric-cell">App or fallback is incomplete or hard to inspect.</div><div class="rubric-cell">App/fallback demonstrates the core interaction.</div><div class="rubric-cell">Demo is prepared, bounded, and easy to follow.</div></div>
+        <div class="rubric-row"><div class="rubric-cell head">User + AI Value</div><div class="rubric-cell">Problem or user is vague.</div><div class="rubric-cell">Explains user need and why AI helped build or shape the app.</div><div class="rubric-cell">Connects user need, AI value, user control, and failure handling.</div></div>
+        <div class="rubric-row"><div class="rubric-cell head">Process Evidence</div><div class="rubric-cell">Shows final screenshots only.</div><div class="rubric-cell">References Week 10 design/build evidence.</div><div class="rubric-cell">Shows prompt, decision, test, and revision evidence.</div></div>
+        <div class="rubric-row"><div class="rubric-cell head">Verification</div><div class="rubric-cell">Claims are unsupported.</div><div class="rubric-cell">Includes one verified source trail from Week 11.</div><div class="rubric-cell">Separates observed, sourced, inferred, and uncertain claims.</div></div>
+        <div class="rubric-row"><div class="rubric-cell head">Safety</div><div class="rubric-cell">Limitations or privacy risks are not addressed.</div><div class="rubric-cell">Includes Week 13 security/privacy evidence.</div><div class="rubric-cell">States prototype boundary and a concrete remaining limitation.</div></div>
+        <div class="rubric-row"><div class="rubric-cell head">Reflection</div><div class="rubric-cell">AI use is hidden or generic.</div><div class="rubric-cell">Discloses AI assistance and human changes.</div><div class="rubric-cell">Explains human responsibility and next improvement clearly.</div></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="slide" id="readiness" data-part="Part 2" data-title="Readiness checklist" inert aria-hidden="true">
+    <div class="inner">
+      <div class="timebox">22-28 min</div>
+      <h2>Check presentation readiness before speaking.</h2>
+      <p class="lede">Click the items that are ready. Any unchecked item becomes a fallback or limitation note.</p>
+      <div class="split">
+        <div class="card">
+          <div class="checklist">
+            <label class="checkitem"><input type="checkbox" data-ready><span>I have a final app link, local HTML file, zipped static site, screenshot, or video walkthrough.</span></label>
+            <label class="checkitem"><input type="checkbox" data-ready><span>I can explain the target user and problem in one sentence.</span></label>
+            <label class="checkitem"><input type="checkbox" data-ready><span>I have one Week 10 design/build/process evidence item.</span></label>
+            <label class="checkitem"><input type="checkbox" data-ready><span>I have one Week 11 verified claim or source trail.</span></label>
+            <label class="checkitem"><input type="checkbox" data-ready><span>I have one Week 13 security, privacy, or limitation note.</span></label>
+            <label class="checkitem"><input type="checkbox" data-ready><span>I can disclose what AI did, what I changed, and how I checked it.</span></label>
+          </div>
+        </div>
+        <div>
+          <div class="output" id="readyOutput" tabindex="0"></div>
+          <div class="meter" aria-hidden="true"><div class="meter-fill" id="readyMeter"></div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="slide" id="timer" data-part="Part 3" data-title="Presentation timer" inert aria-hidden="true">
+    <div class="inner">
+      <div class="timebox">Showcase tool</div>
+      <h2>Use a timer that protects the evidence trail.</h2>
+      <p class="lede">The presentation should not spend all its time on the interface. Keep time for source, safety, and reflection.</p>
+      <div class="builder-layout">
+        <div class="card">
+          <div class="form">
+            <label>Presentation length<select id="tmLength"><option value="240">4 minutes</option><option value="180">3 minutes</option><option value="120">2 minutes</option></select></label>
+            <button class="btn primary" id="startTimer">Start timer</button>
+            <button class="btn" id="pauseTimer">Pause</button>
+            <button class="btn" id="resetTimer">Reset</button>
+          </div>
+        </div>
+        <div class="timer" aria-live="polite">
+          <div class="timer-time" id="timerTime">04:00</div>
+          <div class="timer-mode" id="timerMode">Ready</div>
+        </div>
+      </div>
+      <div class="teacher-note">Suggested split for 4 minutes: 45 seconds problem, 90 seconds demo, 45 seconds evidence, 45 seconds safety/limitation, 15 seconds next step.</div>
+    </div>
+  </section>
+
+  <section class="slide" id="disclosure" data-part="Part 4" data-title="AI-use disclosure" inert aria-hidden="true">
+    <div class="inner">
+      <div class="timebox">Reflection builder</div>
+      <h2>AI-use disclosure includes verification responsibility.</h2>
+      <p class="lede">Disclosure is not a confession. It is professional documentation of collaboration, review, and accountability.</p>
+      <div class="builder-layout">
+        <div class="card">
+          <div class="form">
+            <label>AI helped with<textarea id="dcHelp" placeholder="Ideas, prompt repair, code draft, debugging, wording, testing, visual design..."></textarea></label>
+            <label>I changed or rejected<textarea id="dcChanged" placeholder="What did you edit, reject, simplify, or verify?"></textarea></label>
+            <label>How I checked it<textarea id="dcChecked" placeholder="Tests, source trail, security review, peer feedback, manual inspection..."></textarea></label>
+            <label>Human responsibility<textarea id="dcHuman" placeholder="What remains your decision or responsibility?"></textarea></label>
+            <button class="btn green" id="copyDisclosure">Copy disclosure</button>
+          </div>
+        </div>
+        <div class="preview" id="disclosurePreview" tabindex="0"></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="slide" id="feedback" data-part="Part 5" data-title="Peer feedback" inert aria-hidden="true">
+    <div class="inner">
+      <div class="timebox">Peer review</div>
+      <h2>Feedback should improve the next experiment.</h2>
+      <p class="lede">Keep comments specific, constructive, and tied to visible evidence.</p>
+      <div class="builder-layout">
+        <div class="card">
+          <div class="form">
+            <label>Project reviewed<input id="fbProject" placeholder="App title or team"></label>
+            <label>What works<textarea id="fbWorks" placeholder="What is clear, useful, or well-supported?"></textarea></label>
+            <label>What is unclear or risky<textarea id="fbRisk" placeholder="What needs explanation, evidence, or a limitation note?"></textarea></label>
+            <label>Next experiment<textarea id="fbNext" placeholder="What small next test or improvement would help?"></textarea></label>
+            <button class="btn blue" id="copyFeedback">Copy feedback card</button>
+          </div>
+        </div>
+        <div class="preview" id="feedbackPreview" tabindex="0"></div>
+      </div>
+      <div class="resource-links">
+        <a class="link-btn" href="https://dschool.stanford.edu/tools/how-to-give-feedback" target="_blank" rel="noopener noreferrer">Optional feedback method</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="slide" id="career-reflection" data-part="Part 6" data-title="Career reflection" inert aria-hidden="true">
+    <div class="inner">
+      <div class="timebox">Portfolio angle</div>
+      <h2>Translate the project into a career-ready skill.</h2>
+      <p class="lede">A final project is also evidence of communication, technology use, critical thinking, professionalism, and self-development.</p>
+      <div class="builder-layout">
+        <div class="card">
+          <div class="form">
+            <label>Skill demonstrated<select id="crSkill"><option>Communication</option><option>Technology</option><option>Critical Thinking</option><option>Professionalism</option><option>Career and Self-Development</option></select></label>
+            <label>Project evidence<textarea id="crEvidence" placeholder="What artifact, test, source trail, or decision proves it?"></textarea></label>
+            <label>Reflection sentence<textarea id="crReflect" placeholder="What did this project teach you about building with AI in your field?"></textarea></label>
+            <button class="btn green" id="copyCareer">Copy career reflection</button>
+          </div>
+        </div>
+        <div class="preview" id="careerPreview" tabindex="0"></div>
+      </div>
+      <div class="resource-links">
+        <a class="link-btn" href="https://naceweb.org/career-readiness/competencies/career-readiness-defined" target="_blank" rel="noopener noreferrer">NACE Career Readiness</a>
+        <a class="link-btn" href="https://pair.withgoogle.com/guidebook-v2/" target="_blank" rel="noopener noreferrer">Optional Google PAIR Guidebook</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="slide artifact" id="packet" data-part="Close" data-title="Final packet" inert aria-hidden="true">
+    <div class="inner">
+      <div class="timebox">Final artifact</div>
+      <h2>Final Showcase Packet</h2>
+      <p class="lede">Submit the final link or fallback plus the evidence needed to understand the project responsibly.</p>
+      <div class="exit-layout">
+        <div class="card">
+          <div class="form">
+            <label>Final app link or fallback<input id="pkLink" placeholder="URL, local file path, zip, screenshot/video path"></label>
+            <label>One-sentence app purpose<textarea id="pkPurpose" placeholder="This app helps [user] do [task] by [interaction]."></textarea></label>
+            <label>Demo script<textarea id="pkDemo" placeholder="Problem, demo, design decision, evidence, safety note, next step."></textarea></label>
+            <label>Week 10 evidence<textarea id="pkW10" placeholder="Project packet, smoke test, deployment/fallback evidence, human review note."></textarea></label>
+            <label>Week 11 evidence<textarea id="pkW11" placeholder="Verified claim, source trail, career evidence."></textarea></label>
+            <label>Week 13 evidence<textarea id="pkW13" placeholder="Security review packet, no-secrets statement, adversarial tests, limitation."></textarea></label>
+            <label>AI-use disclosure<textarea id="pkDisclosure" placeholder="What AI did, what you changed/rejected, how you checked it, human responsibility."></textarea></label>
+            <label>Known limitation and next step<textarea id="pkNext" placeholder="One limitation and one realistic next improvement."></textarea></label>
+            <button class="btn primary" id="copyPacket">Copy final packet</button>
+          </div>
+        </div>
+        <div class="preview" id="packetPreview" tabindex="0"></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="slide" id="post-test" data-part="Close" data-title="Course close" inert aria-hidden="true">
+    <div class="inner">
+      <div class="kicker">Course close</div>
+      <h2>Finish with reflection and the post-test if active.</h2>
+      <p class="lede">If the research assessment workflow is active for this section, students complete the post-test after the final showcase. If it is inactive, use the same time for final reflection.</p>
+      <div class="grid">
+        <div class="card"><h3>Active research workflow</h3><p>Use the course hub post-test link. Students should complete it after presentations, following the instructor's timing instructions.</p></div>
+        <div class="card"><h3>Inactive research workflow</h3><p>Do not invent a post-test requirement. Ask students to submit a final reflection instead.</p></div>
+        <div class="card gold"><h3>Final reflection prompt</h3><p>What can you now build with AI that you could not build before, and what responsibility do you still carry as the human?</p></div>
+        <div class="card warn"><h3>Final boundary</h3><p>A final project is a prototype and learning artifact, not proof of production readiness, security, or real-world effectiveness.</p></div>
+      </div>
+      <div class="resource-links">
+        <a class="link-btn" href="https://pair.withgoogle.com/guidebook-v2/" target="_blank" rel="noopener noreferrer">Optional Google PAIR Guidebook</a>
+        <a class="link-btn" href="https://codelabs.developers.google.com/codelabs/pair-guidebook" target="_blank" rel="noopener noreferrer">Optional PAIR Codelab</a>
+        <a class="link-btn" href="index.html">Back to Course Hub</a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<nav class="controls" aria-label="Slide controls">
+  <button class="btn" id="notesBtn">Notes</button>
+  <div class="jump" id="jump" role="group" aria-label="Slide jump buttons"></div>
+  <button class="btn" id="prevBtn">Prev</button>
+  <button class="btn primary" id="nextBtn">Next</button>
+</nav>
+
+<aside class="notes" id="notesPanel" aria-live="polite">
+  <h3>Teacher notes</h3>
+  <p id="notesText">Keep Week 14 centered on the app plus evidence trail.</p>
+</aside>
+
+<script>
+const slides = Array.from(document.querySelectorAll('.slide'));
+const statusEl = document.getElementById('status');
+const bar = document.getElementById('bar');
+const jump = document.getElementById('jump');
+const notesPanel = document.getElementById('notesPanel');
+const notesText = document.getElementById('notesText');
+let current = Math.max(0, slides.findIndex(s => s.classList.contains('active')));
+
+slides.forEach((slide, i) => {
+  const btn = document.createElement('button');
+  btn.type = 'button';
+  btn.textContent = String(i + 1);
+  btn.setAttribute('aria-label', `Go to slide ${i + 1}: ${slide.dataset.title}`);
+  btn.addEventListener('click', () => go(i));
+  jump.appendChild(btn);
+});
+
+function go(index){
+  current = Math.max(0, Math.min(slides.length - 1, index));
+  slides.forEach((slide, i) => {
+    const active = i === current;
+    slide.classList.toggle('active', active);
+    slide.toggleAttribute('inert', !active);
+    slide.setAttribute('aria-hidden', active ? 'false' : 'true');
+  });
+  Array.from(jump.children).forEach((btn, i) => btn.setAttribute('aria-current', i === current ? 'true' : 'false'));
+  statusEl.textContent = `Slide ${current + 1} of ${slides.length}`;
+  bar.style.width = `${((current + 1) / slides.length) * 100}%`;
+  const note = slides[current].querySelector('.teacher-note');
+  notesText.textContent = note ? note.textContent : 'No special note for this slide.';
+  const id = slides[current].id;
+  if (id) history.replaceState(null, '', `#${id}`);
+}
+
+document.getElementById('prevBtn').addEventListener('click', () => go(current - 1));
+document.getElementById('nextBtn').addEventListener('click', () => go(current + 1));
+document.getElementById('notesBtn').addEventListener('click', () => notesPanel.classList.toggle('show'));
+document.addEventListener('keydown', e => {
+  if (e.target.closest('input, textarea, select, button, a')) return;
+  if (e.key === 'ArrowRight' || e.key === 'PageDown') go(current + 1);
+  if (e.key === 'ArrowLeft' || e.key === 'PageUp') go(current - 1);
+  if (e.key === 'Home') go(0);
+  if (e.key === 'End') go(slides.length - 1);
+  if (e.key.toLowerCase() === 'n') notesPanel.classList.toggle('show');
+});
+
+function value(id, fallback){
+  const el = document.getElementById(id);
+  return el && el.value.trim() ? el.value.trim() : fallback;
+}
+
+function copyText(text, target){
+  if (navigator.clipboard) {
+    navigator.clipboard.writeText(text).then(() => {
+      if (target) target.textContent = 'Copied.';
+    }).catch(() => fallbackCopy(text, target));
+  } else {
+    fallbackCopy(text, target);
+  }
+}
+
+function fallbackCopy(text, target){
+  const ta = document.createElement('textarea');
+  ta.value = text;
+  document.body.appendChild(ta);
+  ta.select();
+  document.execCommand('copy');
+  ta.remove();
+  if (target) target.textContent = 'Copied.';
+}
+
+function updateFormat(){
+  const count = Number(value('fmCount','10'));
+  const minutes = Number(value('fmMinutes','45'));
+  const mode = value('fmMode','Small class presentations');
+  const per = count > 0 ? Math.floor((minutes / count) * 10) / 10 : 0;
+  const text = `Week 14 Showcase Format
+
+Mode:
+${mode}
+
+Class size or team count:
+${count}
+
+Available showcase minutes:
+${minutes}
+
+Approximate minutes per student/team:
+${per}
+
+Instructor note:
+If the time per project is under 5 minutes, use gallery walk or group rotation instead of full-class presentations.`;
+  document.getElementById('formatPreview').textContent = text;
+  return text;
+}
+['fmCount','fmMinutes','fmMode'].forEach(id => {
+  document.getElementById(id).addEventListener('input', updateFormat);
+  document.getElementById(id).addEventListener('change', updateFormat);
+});
+document.getElementById('copyFormat').addEventListener('click', () => copyText(updateFormat(), document.getElementById('formatPreview')));
+
+function updateReady(){
+  const checks = Array.from(document.querySelectorAll('[data-ready]'));
+  const count = checks.filter(c => c.checked).length;
+  const pct = Math.round((count / checks.length) * 100);
+  document.getElementById('readyMeter').style.width = `${pct}%`;
+  const msg = count === checks.length
+    ? 'Ready to present. Keep the demo bounded and evidence-based.'
+    : `Presentation readiness: ${count} of ${checks.length}. Use unchecked items as fallback or limitation notes.`;
+  document.getElementById('readyOutput').textContent = msg;
+}
+document.querySelectorAll('[data-ready]').forEach(ch => ch.addEventListener('change', updateReady));
+
+let timerRemaining = 240;
+let timerTotal = 240;
+let timerId = null;
+function renderTimer(mode){
+  const min = String(Math.floor(timerRemaining / 60)).padStart(2, '0');
+  const sec = String(timerRemaining % 60).padStart(2, '0');
+  document.getElementById('timerTime').textContent = `${min}:${sec}`;
+  const pct = timerTotal ? timerRemaining / timerTotal : 0;
+  const label = mode || (timerRemaining === 0 ? 'Time' : pct < 0.25 ? 'Close strongly' : 'Running');
+  document.getElementById('timerMode').textContent = label;
+}
+function setTimerFromSelect(){
+  timerTotal = Number(document.getElementById('tmLength').value);
+  timerRemaining = timerTotal;
+  renderTimer('Ready');
+}
+document.getElementById('tmLength').addEventListener('change', setTimerFromSelect);
+document.getElementById('startTimer').addEventListener('click', () => {
+  if (timerId) return;
+  timerId = setInterval(() => {
+    timerRemaining = Math.max(0, timerRemaining - 1);
+    renderTimer();
+    if (timerRemaining === 0) {
+      clearInterval(timerId);
+      timerId = null;
+    }
+  }, 1000);
+});
+document.getElementById('pauseTimer').addEventListener('click', () => {
+  clearInterval(timerId);
+  timerId = null;
+  document.getElementById('timerMode').textContent = 'Paused';
+});
+document.getElementById('resetTimer').addEventListener('click', () => {
+  clearInterval(timerId);
+  timerId = null;
+  setTimerFromSelect();
+  document.getElementById('timerMode').textContent = 'Ready';
+});
+
+function updateDisclosure(){
+  const text = `AI-Use Disclosure
+
+AI helped with:
+${value('dcHelp','[what AI helped with]')}
+
+I changed or rejected:
+${value('dcChanged','[what I changed, rejected, simplified, or verified]')}
+
+How I checked it:
+${value('dcChecked','[tests, source trail, security review, peer feedback, manual inspection]')}
+
+Human responsibility:
+${value('dcHuman','[what remains my decision or responsibility]')}`;
+  document.getElementById('disclosurePreview').textContent = text;
+  return text;
+}
+['dcHelp','dcChanged','dcChecked','dcHuman'].forEach(id => document.getElementById(id).addEventListener('input', updateDisclosure));
+document.getElementById('copyDisclosure').addEventListener('click', () => copyText(updateDisclosure(), document.getElementById('disclosurePreview')));
+
+function updateFeedback(){
+  const text = `Week 14 Peer Feedback
+
+Project reviewed:
+${value('fbProject','[project title or team]')}
+
+What works:
+${value('fbWorks','[specific strength tied to the demo or evidence]')}
+
+What is unclear or risky:
+${value('fbRisk','[question, risk, missing evidence, or limitation]')}
+
+Next experiment:
+${value('fbNext','[small next test or improvement]')}`;
+  document.getElementById('feedbackPreview').textContent = text;
+  return text;
+}
+['fbProject','fbWorks','fbRisk','fbNext'].forEach(id => document.getElementById(id).addEventListener('input', updateFeedback));
+document.getElementById('copyFeedback').addEventListener('click', () => copyText(updateFeedback(), document.getElementById('feedbackPreview')));
+
+function updateCareer(){
+  const text = `Career-Ready Reflection
+
+Skill demonstrated:
+${value('crSkill','[skill]')}
+
+Project evidence:
+${value('crEvidence','[artifact, test, source trail, or decision]')}
+
+Reflection sentence:
+${value('crReflect','[what this project taught me about building with AI in my field]')}`;
+  document.getElementById('careerPreview').textContent = text;
+  return text;
+}
+['crSkill','crEvidence','crReflect'].forEach(id => {
+  document.getElementById(id).addEventListener('input', updateCareer);
+  document.getElementById(id).addEventListener('change', updateCareer);
+});
+document.getElementById('copyCareer').addEventListener('click', () => copyText(updateCareer(), document.getElementById('careerPreview')));
+
+function updatePacket(){
+  const text = `Final Showcase Packet
+
+Final app link or fallback:
+${value('pkLink','[URL, local file path, zip, screenshot/video path]')}
+
+One-sentence app purpose:
+${value('pkPurpose','[app purpose]')}
+
+Demo script:
+${value('pkDemo','[problem, demo, design decision, evidence, safety note, next step]')}
+
+Week 10 evidence:
+${value('pkW10','[project packet, smoke test, deployment/fallback evidence, human review note]')}
+
+Week 11 evidence:
+${value('pkW11','[verified claim, source trail, career evidence]')}
+
+Week 13 evidence:
+${value('pkW13','[security review packet, no-secrets statement, adversarial tests, limitation]')}
+
+AI-use disclosure:
+${value('pkDisclosure','[what AI did, what I changed/rejected, how I checked it, human responsibility]')}
+
+Known limitation and next step:
+${value('pkNext','[one limitation and one realistic next improvement]')}`;
+  document.getElementById('packetPreview').textContent = text;
+  return text;
+}
+['pkLink','pkPurpose','pkDemo','pkW10','pkW11','pkW13','pkDisclosure','pkNext'].forEach(id => document.getElementById(id).addEventListener('input', updatePacket));
+document.getElementById('copyPacket').addEventListener('click', () => copyText(updatePacket(), document.getElementById('packetPreview')));
+
+const hashIndex = location.hash ? slides.findIndex(s => `#${s.id}` === location.hash) : -1;
+updateFormat();
+updateReady();
+setTimerFromSelect();
+updateDisclosure();
+updateFeedback();
+updateCareer();
+updatePacket();
+go(hashIndex >= 0 ? hashIndex : current);
+</script>
+</body>
+</html>
