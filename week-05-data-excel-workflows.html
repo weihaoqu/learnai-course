@@ -125,6 +125,9 @@ body.notes-on .teacher-note{display:block}
 @media(max-width:600px){
   .jump{justify-content:flex-start;flex-wrap:nowrap;overflow-x:auto;padding-bottom:2px}
   .jump .btn{min-width:34px}
+  .reflection-compact h2{font-size:30px;line-height:1.08;margin-bottom:12px}
+  .reflection-compact .lede{font-size:19px;line-height:1.35}
+  .reflection-compact .terminal{font-size:13px;line-height:1.38;padding:14px;margin-top:14px;border-radius:14px}
 }
 @media(prefers-reduced-motion:reduce){*,*::before,*::after{transition-duration:0.01ms!important}}
 </style>
@@ -362,6 +365,27 @@ body.notes-on .teacher-note{display:block}
     </div>
   </section>
 
+  <section class="slide lab reflection-compact" id="reflection-loop" data-part="Part 2" data-title="Reflection loop">
+    <div class="inner">
+      <div class="timebox">Chart revision checkpoint</div>
+      <h2>Reflection turns critique into a better version.</h2>
+      <p class="lede">A reflection loop is useful when the first output can be checked against new evidence: raw rows, formulas, labels, units, or reviewer feedback.</p>
+      <div class="terminal">Reflection loop for charts
+
+First output -> critique with criteria -> revision request -> revised output
+
+Critique criteria:
+- Does the chart match the raw data?
+- Are units, labels, and grouping clear?
+- Does the visual support the claim?
+- What evidence changed your mind?
+
+Revision request:
+Use the critique above. Propose a clearer chart and explain what changed.</div>
+      <div class="teacher-note">Use this as an original LearnAI bridge from chart critique to reflection. Do not use external examples, copied prompts, model names, benchmark claims, diagrams, or lab setup/code.</div>
+    </div>
+  </section>
+
   <section class="slide check" id="workflow" data-part="Part 3" data-title="Workflow board">
     <div class="inner">
       <div class="timebox">50-55 min</div>
@@ -454,7 +478,7 @@ body.notes-on .teacher-note{display:block}
         </div>
         <div class="card">
           <h3>Submit evidence</h3>
-          <p>Submit prompt log, before/after evidence, two-row formula verification, chart critique, privacy decision, disclosure, and one rejected AI suggestion with rationale.</p>
+          <p>Submit prompt log, before/after evidence, two-row formula verification, chart critique, revision request, privacy decision, disclosure, and one rejected AI suggestion with rationale.</p>
         </div>
       </div>
       <p style="margin-top:18px"><a href="index.html">Back to CS-215 course hub</a></p>

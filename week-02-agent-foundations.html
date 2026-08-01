@@ -122,6 +122,10 @@ body.notes-on .teacher-note{display:block}
 @media(max-width:600px){
   .jump{justify-content:flex-start;flex-wrap:nowrap;overflow-x:auto;padding-bottom:2px}
   .jump .btn{min-width:34px}
+  .agentic-compact h2{font-size:30px;line-height:1.08;margin-bottom:12px}
+  .agentic-compact .lede{font-size:19px;line-height:1.35}
+  .agentic-compact .terminal{font-size:13px;line-height:1.38;padding:14px;margin-top:14px;border-radius:14px}
+  .agentic-compact .link-btn{font-size:14px;line-height:1.25;padding:10px 12px;margin-top:14px}
 }
 @media(prefers-reduced-motion:reduce){*,*::before,*::after{transition-duration:0.01ms!important}}
 </style>
@@ -284,6 +288,126 @@ body.notes-on .teacher-note{display:block}
         <div class="trace-output" id="traceOutput"></div>
       </div>
       <div class="teacher-note">Pacing: 7 minutes. This prepares students for their setup proof, where they label the same five blocks.</div>
+    </div>
+  </section>
+
+  <section class="slide lab agentic-compact" id="workflow" data-part="Part 2" data-title="One-shot vs workflow">
+    <div class="inner">
+      <div class="kicker">Enrichment activity</div>
+      <h2>From one-shot to workflow.</h2>
+      <p class="lede">For complex work, the stronger move is a clear sequence with tools, evidence, review points, and revision.</p>
+      <div class="terminal">One-shot -> ask once, accept once
+Workflow -> break the work into visible steps
+
+Goal:
+1. Scope | approve the question | vague goal
+2. Evidence | use approved sources | weak source
+3. Draft | cite support | hallucination
+4. Review | inspect claims | missed risk
+5. Disclose | confirm AI-use note | missing disclosure</div>
+      <a class="link-btn" href="https://www.deeplearning.ai/courses/agentic-ai/" target="_blank" rel="noopener noreferrer">External background link: DeepLearning.AI Agentic AI</a>
+      <div class="teacher-note">Use this as an original LearnAI activity. Link the external course as optional background only; do not reproduce transcript wording, close paraphrases, or distinctive examples. Follow with the control-level slide to show that the workflow designer chooses how much freedom the AI receives.</div>
+    </div>
+  </section>
+
+  <section class="slide lab agentic-compact" id="control-level" data-part="Part 2" data-title="Control level">
+    <div class="inner">
+      <div class="kicker">Control decision</div>
+      <h2>How much control should the AI get?</h2>
+      <p class="lede">Workflow design is a control choice. Decide which steps are fixed by the human, which choices the AI may make, and where approval is required.</p>
+      <div class="terminal">Control-level check
+
+Task: Check whether a class source supports a claim.
+
+Fixed path | human sets sequence | approve claim label
+Choice path | AI chooses within approved sources | approve source choice
+Open path | AI proposes route | approve plan before tools
+
+Rule: more AI choice means more review.</div>
+      <div class="teacher-note">Message: more AI choice increases the review burden. Students are selecting a safe control level for a school task, not building open-ended agents.</div>
+    </div>
+  </section>
+
+  <section class="slide lab agentic-compact" id="workflow-benefits" data-part="Part 2" data-title="Why use a workflow">
+    <div class="inner">
+      <div class="kicker">Workflow value</div>
+      <h2>Why use a workflow?</h2>
+      <p class="lede">A multi-step workflow is useful when it improves the work, separates independent steps, or makes parts easier to replace later.</p>
+      <div class="terminal">Workflow benefit check
+
+Task: Check whether a class source supports a claim.
+
+Better through revision | plan, draft, check, revise
+Faster safe pieces | compare approved sources side by side
+Easier to upgrade | replace the checklist when the assignment changes
+
+Review question:
+Did the workflow fix evidence gaps, not just wording?</div>
+      <div class="teacher-note">Frame this as practical workflow literacy. Do not use benchmark numbers here. For students, the key claim is that structured steps can improve quality, speed up safe independent checks, and make the process easier to inspect.</div>
+    </div>
+  </section>
+
+  <section class="slide lab agentic-compact" id="task-fit" data-part="Part 2" data-title="Task fit">
+    <div class="inner">
+      <div class="kicker">Task fit</div>
+      <h2>Which agent tasks are easier?</h2>
+      <p class="lede">Before building a workflow, judge the task. Clear steps, text inputs, limited tools, and reviewable outputs usually make the work easier to control.</p>
+      <div class="terminal">Task-fit signals
+
+More controlled | clear steps, known text source, limited tools, visible evidence
+Middle ground | AI chooses among approved steps; human checks plan and evidence
+Harder to trust | open path, unknown sources, rich media, or real-world records</div>
+      <div class="teacher-note">Keep this grounded in school-safe examples. The main skill is task decomposition: break work into smaller steps and decide which building block can handle each step.</div>
+    </div>
+  </section>
+
+  <section class="slide lab agentic-compact" id="task-fit-sort" data-part="Part 2" data-title="Task-fit sort">
+    <div class="inner">
+      <div class="kicker">Pair activity</div>
+      <h2>Task-fit sort</h2>
+      <p class="lede">Rank these from easier to harder, then mark the checkpoint that would make each safe enough for class use.</p>
+      <div class="terminal">Easier -> harder
+
+[ ] Club signup form - clear fields
+[ ] Class-notes response - known source
+[ ] Open web question - unknown sources
+
+For each step ask:
+Who handles it: LLM, tool, or human?
+What evidence proves it worked?
+Where should review happen?</div>
+      <div class="teacher-note">Prompt students to add one more school-safe task from their own workflow, then explain why it belongs at that control level.</div>
+    </div>
+  </section>
+
+  <section class="slide lab agentic-compact" id="agentic-patterns" data-part="Part 2" data-title="Pattern map">
+    <div class="inner">
+      <div class="kicker">Pattern map</div>
+      <h2>Four patterns you will keep seeing.</h2>
+      <p class="lede">Agentic workflows reuse the same building blocks in different shapes. Name the pattern, then decide what evidence a human should review.</p>
+      <div class="terminal">Review loop | draft -> check -> revise with evidence
+Tool call | use an approved function or source when memory is not enough
+Plan first | choose steps before acting
+Role split | give separate jobs to researcher, checker, or editor
+
+Rule: more autonomy requires tighter limits, logs, and review.</div>
+      <div class="teacher-note">Keep this as a bridge to later weeks. Do not copy external course diagrams, setup instructions, package lists, or named examples. Use school-safe task labels and connect back to visible evidence.</div>
+    </div>
+  </section>
+
+  <section class="slide quiz agentic-compact" id="agentic-quiz" data-part="Part 2" data-title="Quiz warmup">
+    <div class="inner">
+      <div class="kicker">Quiz warmup</div>
+      <h2>Which pattern is this?</h2>
+      <p class="lede">An AI drafts an answer, checks the draft against evidence, revises the weak parts, and explains what changed.</p>
+      <div class="choice-grid">
+        <button class="choice" data-correct="false">Direct generation</button>
+        <button class="choice" data-correct="true">Review loop</button>
+        <button class="choice" data-correct="false">Open-ended automation</button>
+        <button class="choice" data-correct="false">Replacing human review</button>
+      </div>
+      <div class="feedback">This is a review loop: the output is inspected, revised, and made easier for a person to evaluate.</div>
+      <div class="teacher-note">This adapts the quiz idea into one original formative check. Keep the official external quiz separate from LearnAI assessment content.</div>
     </div>
   </section>
 
@@ -569,6 +693,18 @@ body.notes-on .teacher-note{display:block}
           <p><a href="https://github.com/liaohch3/claude-tap" target="_blank" rel="noopener noreferrer">Instructor demo source only: claude-tap</a> <span class="muted">No student install required.</span></p>
           <p><a href="https://github.com/Graphify-Labs/graphify" target="_blank" rel="noopener noreferrer">Instructor demo source only: Graphify</a> <span class="muted">Use public or synthetic folders only.</span></p>
           <p><a href="https://www.skills.sh/vercel-labs/skills/find-skills" target="_blank" rel="noopener noreferrer">Instructor demo source only: find-skills</a> <span class="muted">Use to show skill discovery, not required installation.</span></p>
+        </div>
+        <div class="card">
+          <h3>Optional agentic workflow activity</h3>
+          <p>Redesign one one-shot prompt as a supervised workflow. Label the AI role, tool or source, human checkpoint, risk, and control level for each step.</p>
+          <p><a href="#workflow">Open workflow activity</a></p>
+          <p><a href="#control-level">Open control-level check</a></p>
+          <p><a href="#workflow-benefits">Open workflow benefits check</a></p>
+          <p><a href="#task-fit-sort">Open task-fit sort</a></p>
+          <p><a href="#agentic-patterns">Open pattern map</a></p>
+          <p><a href="#agentic-quiz">Open quiz warmup</a></p>
+          <p><a href="https://www.deeplearning.ai/courses/agentic-ai/" target="_blank" rel="noopener noreferrer">External background link: DeepLearning.AI Agentic AI</a></p>
+          <p><a href="https://github.com/https-deeplearning-ai/agentic-ai-public" target="_blank" rel="noopener noreferrer">External repo reference only: DeepLearning.AI agentic-ai-public (license not confirmed)</a></p>
         </div>
         <div class="card">
           <h3>Optional deep dive</h3>
