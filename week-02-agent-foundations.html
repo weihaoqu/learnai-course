@@ -45,7 +45,7 @@ li{margin:8px 0}
 .tag{display:inline-flex;border:1px solid rgba(255,255,255,.16);border-radius:999px;padding:7px 11px;color:#e1f7ff;font-size:13px;font-weight:900;margin-bottom:12px;background:rgba(255,255,255,.045)}
 .timebox{display:inline-flex;align-items:center;border:1px solid rgba(56,213,255,.34);background:rgba(56,213,255,.09);border-radius:999px;padding:8px 12px;color:#dbf7ff;font-size:14px;font-weight:900;margin-bottom:18px}
 .formula{font-family:var(--mono);font-size:clamp(20px,1.9vw,28px);line-height:1.45;background:#04070d;border:1px solid rgba(56,213,255,.28);border-radius:18px;padding:24px;margin-top:26px;color:#d7f4ff}
-.terminal{background:#03060b;border:1px solid rgba(148,163,184,.24);border-radius:16px;padding:18px;font-family:var(--mono);color:#dbe8ef;font-size:clamp(15px,1.22vw,18px);line-height:1.55;margin-top:20px;white-space:pre-wrap}
+.terminal{background:#03060b;border:1px solid rgba(148,163,184,.24);border-radius:16px;padding:18px;font-family:var(--mono);color:#dbe8ef;font-size:clamp(15px,1.22vw,18px);line-height:1.55;margin-top:20px;white-space:pre-wrap;overflow-wrap:anywhere;word-break:break-word}
 .flow{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-top:28px}
 .node{border:1px solid rgba(255,255,255,.18);background:rgba(255,255,255,.06);border-radius:14px;padding:15px 17px;min-width:120px;text-align:center;color:#eef9ff;font-weight:900}
 .arrow{color:var(--amber);font-size:25px;font-weight:900}
@@ -92,6 +92,12 @@ body.notes-on .teacher-note{display:block}
 .choice.wrong,.scenario-btn.wrong{border-color:rgba(255,107,134,.9);background:rgba(255,107,134,.14)}
 .feedback{display:none;margin-top:16px;padding:14px 16px;border-radius:12px;background:rgba(255,255,255,.07);color:#e6f4ff;font-size:17px}
 .feedback.show{display:block}
+.quiz-bank .card{min-height:0}
+.quiz-bank summary{cursor:pointer;color:#fff;font-size:19px;font-weight:900;line-height:1.25;list-style:none}
+.quiz-bank summary::-webkit-details-marker{display:none}
+.quiz-bank summary::after{content:"Show answer";display:inline-flex;margin-left:10px;color:var(--cyan);font-size:12px;text-transform:uppercase;letter-spacing:.08em}
+.quiz-bank details[open] summary::after{content:"Hide answer"}
+.quiz-bank p{font-size:17px;margin-top:12px}
 .trace{display:grid;grid-template-columns:300px minmax(0,1fr);gap:18px;margin-top:22px}
 .trace-controls{display:grid;gap:10px}
 .trace-output{font-family:var(--mono);border:1px solid rgba(72,213,151,.28);background:#04070d;border-radius:16px;padding:18px;white-space:pre-wrap;color:#d8ffe9;font-size:16px;line-height:1.5;min-height:356px}
@@ -110,6 +116,7 @@ body.notes-on .teacher-note{display:block}
   .deck{height:auto;min-height:100vh}
   .slide{position:relative;display:none;min-height:100vh;justify-content:flex-start;padding:78px 22px 220px;overflow:visible}
   .slide.active{display:flex}
+  .inner{min-width:0}
   .grid,.grid.three,.grid.four,.loop-stage,.loop-map,.component-board,.choice-grid,.trace,.observability-grid,.setup-grid{grid-template-columns:1fr}
   .hud{height:auto;min-height:58px;align-items:flex-start;flex-wrap:wrap;padding:9px 12px}
   .brand{width:100%}
@@ -411,6 +418,73 @@ Rule: more autonomy requires tighter limits, logs, and review.</div>
     </div>
   </section>
 
+  <section class="slide lab agentic-compact" id="tool-request-loop" data-part="Part 2" data-title="Tool request loop">
+    <div class="inner">
+      <div class="kicker">Tool use</div>
+      <h2>A tool call is a request, not magic.</h2>
+      <p class="lede">The AI can ask for an approved function when memory is not enough. The app runs the function, returns the result, and a human checks whether the action was appropriate.</p>
+      <div class="terminal">Tool request loop
+
+Student request
+  -> AI decides: answer directly or request a tool?
+  -> App runs the approved function
+  -> Tool result returns to the conversation
+  -> AI drafts an answer or next step
+  -> Human reviews the tool, result, and action
+
+Rule: the AI requests; the system executes; the human remains responsible.</div>
+      <div class="teacher-note">Emphasize the technical boundary: the model selects from available tool descriptions, but the surrounding software performs the actual call and records the result.</div>
+    </div>
+  </section>
+
+  <section class="slide lab agentic-compact" id="sandbox-email-assistant" data-part="Part 2" data-title="Sandbox email assistant">
+    <div class="inner">
+      <div class="kicker">Sandbox lab</div>
+      <h2>Build the email assistant with a fictional inbox.</h2>
+      <p class="lede">This is a good tool-use task only when the inbox is fake and every outgoing or destructive action is turned into a review item first.</p>
+      <div class="terminal">Fictional inbox tools
+
+search_messages(query) -> returns matching message IDs
+summarize_thread(message_ids) -> summarizes selected messages
+draft_reply(message_id, goal) -> creates a draft only
+suggest_label(message_id, label) -> proposes a label
+create_review_ticket(action, reason) -> asks a human to approve
+
+Blocked in this course:
+send_email, delete_email, access_real_inbox
+
+Class rule: draft first, approve before action.</div>
+      <div class="teacher-note">Use local fictional JSON/CSV messages. Do not ask students to connect Gmail, Outlook, school accounts, private inboxes, or OAuth flows.</div>
+    </div>
+  </section>
+
+  <section class="slide quiz agentic-compact" id="tool-use-quiz" data-part="Part 2" data-title="Tool-use quiz">
+    <div class="inner">
+      <div class="kicker">Tool quiz</div>
+      <h2>Tool-use quick check.</h2>
+      <p class="lede">Open each card after answering. These are original LearnAI checks for tool choice, sandboxing, MCP, and tool descriptions.</p>
+      <div class="grid quiz-bank">
+        <details class="card">
+          <summary>1. What makes tool use different from a fixed function call?</summary>
+          <p>With tool use, the AI chooses whether a relevant approved tool is needed. With a fixed call, the developer has already decided the sequence.</p>
+        </details>
+        <details class="card">
+          <summary>2. Why use a sandbox for AI-generated code?</summary>
+          <p>A sandbox limits damage if generated code is wrong, unsafe, or too broad. It helps protect files, accounts, and private data.</p>
+        </details>
+        <details class="card">
+          <summary>3. What problem does MCP help reduce?</summary>
+          <p>MCP standardizes how apps connect to tools and data sources, reducing repeated one-off connector work.</p>
+        </details>
+        <details class="card">
+          <summary>4. What must a tool description make clear?</summary>
+          <p>It should explain the tool's purpose, required inputs, expected result, limits, and when a human approval step is required.</p>
+        </details>
+      </div>
+      <div class="teacher-note">This is a formative discussion quiz, not a graded assessment. It adapts the concepts into original wording and avoids external answer choices.</div>
+    </div>
+  </section>
+
   <section class="slide source" id="observability" data-part="Part 2" data-title="Agent observability">
     <div class="inner">
       <div class="kicker">Instructor demo</div>
@@ -550,6 +624,26 @@ Rule: more autonomy requires tighter limits, logs, and review.</div>
     </div>
   </section>
 
+  <section class="slide source agentic-compact" id="mcp-connector-check" data-part="Part 4" data-title="MCP connector check">
+    <div class="inner">
+      <div class="kicker">Connector standard</div>
+      <h2>MCP reduces connector work, not review work.</h2>
+      <p class="lede">A shared protocol can make tools and resources easier to connect, but it does not make every action safe by default.</p>
+      <div class="terminal">MCP mental model
+
+Client: the AI app students can see
+Server: the connector that exposes data or actions
+Resource: data the client can read
+Tool: action the client can request
+Review: permissions, logs, limits, and approval
+
+Question before using any connector:
+What can it read, what can it change, and who approves?</div>
+      <a class="link-btn" href="https://www.anthropic.com/news/model-context-protocol" target="_blank" rel="noopener noreferrer">Read Anthropic MCP announcement</a>
+      <div class="teacher-note">Anchor this to the official docs and announcement. Keep student-facing work conceptual unless an instructor provides a pre-approved demo environment.</div>
+    </div>
+  </section>
+
   <section class="slide" data-part="Part 4" data-title="Plugins">
     <div class="inner">
       <div class="kicker">Packaging layer</div>
@@ -584,6 +678,29 @@ Rule: more autonomy requires tighter limits, logs, and review.</div>
       </div>
       <div class="feedback" id="scenarioFeedback"></div>
       <button class="btn" id="nextScenario" style="margin-top:14px">Next scenario</button>
+    </div>
+  </section>
+
+  <section class="slide warn agentic-compact" id="code-execution-safety" data-part="Part 5" data-title="Code execution safety">
+    <div class="inner">
+      <div class="kicker">Code execution</div>
+      <h2>Code execution is powerful because it can change things.</h2>
+      <p class="lede">Letting an AI write code can solve many small calculation and checking tasks, but arbitrary code must never run against real files or accounts without safeguards.</p>
+      <div class="terminal">Classroom-safe code execution
+
+Good uses:
+safe calculation, CSV row check, chart validation, simple format check
+
+Required safeguards:
+sandboxed environment
+fictional or approved data
+read-only starter files
+backup or disposable workspace
+human review of output and errors
+
+Blocked:
+real inboxes, secrets, destructive file commands, private records</div>
+      <div class="teacher-note">If demonstrating code execution, use a prebuilt sandbox or simulated output. Do not ask students to execute AI-generated code on personal devices without an explicit approved setup.</div>
     </div>
   </section>
 
