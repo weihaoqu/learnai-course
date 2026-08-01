@@ -398,7 +398,7 @@ Plan first | choose steps before acting
 Role split | give separate jobs to researcher, checker, or editor
 
 Rule: more autonomy requires tighter limits, logs, and review.</div>
-      <div class="teacher-note">Keep this as a bridge to later weeks. Do not copy external course diagrams, setup instructions, package lists, or named examples. Use school-safe task labels and connect back to visible evidence.</div>
+      <div class="teacher-note">Keep this as a bridge to later weeks. Role split becomes multi-agent work when each role has its own prompt, tools, and review responsibility. Do not copy external course diagrams, setup instructions, package lists, or named examples. Use school-safe task labels and connect back to visible evidence.</div>
     </div>
   </section>
 
@@ -424,6 +424,53 @@ Possible AI plan:
 Human checkpoint:
 approve the plan, data source, and allowed tools first.</div>
       <div class="teacher-note">This is the student-safe version of the planning pattern. The key idea is not a retail example; it is that the agent proposes the sequence, while the class reviews the route and limits.</div>
+    </div>
+  </section>
+
+  <section class="slide lab agentic-compact" id="multi-agent-role-split" data-part="Part 2" data-title="Role split">
+    <div class="inner">
+      <div class="kicker">Multi-agent</div>
+      <h2>Use multiple agents when the roles differ.</h2>
+      <p class="lede">More agents are not automatically better. Split work only when the job has different skills, tools, or review standards.</p>
+      <div class="terminal">Class event report
+
+Goal:
+Summarize a fictional signup table.
+
+Roles:
+data finder -> approved rows and counts
+checker -> verifies totals and missing evidence
+writer -> teacher-ready summary
+
+Why split?
+Different prompts, tools, and review checks.
+
+Checkpoint:
+human approves the report and disclosure.</div>
+      <div class="teacher-note">Keep this as role decomposition, not agent hype. If one prompt can do the task clearly and safely, one agent is enough.</div>
+    </div>
+  </section>
+
+  <section class="slide lab agentic-compact" id="agent-communication-patterns" data-part="Part 2" data-title="Communication patterns">
+    <div class="inner">
+      <div class="kicker">Team shape</div>
+      <h2>Pick the communication pattern.</h2>
+      <p class="lede">The team shape controls how easy the system is to understand, debug, and review.</p>
+      <div class="terminal">Common team shapes
+
+Linear: finder -> checker -> writer
+
+Manager-led: coordinator assigns and reviews
+
+Hierarchy: specialists call smaller specialists
+
+All-to-all: flexible, hard to predict
+
+Student rule:
+start linear or manager-led.
+use hierarchy only with clear logs.
+avoid all-to-all for high-stakes work.</div>
+      <div class="teacher-note">This simplifies the communication-pattern section into classroom design guidance. For this course, linear and manager-led are the practical defaults.</div>
     </div>
   </section>
 
