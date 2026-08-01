@@ -439,6 +439,57 @@ Use these check results. Fix only evidence-backed issues and explain what change
     </div>
   </section>
 
+  <section class="slide lab reflection-compact" id="error-log" data-part="Part 2" data-title="Error log">
+    <div class="inner">
+      <div class="timebox">Practical tip</div>
+      <h2>Find the repeated error before building a big eval.</h2>
+      <p class="lede">After a first prototype, inspect a small batch of spreadsheet tasks and record what actually went wrong.</p>
+      <div class="terminal">Classroom error log
+
+Try 5-10 synthetic spreadsheet tasks.
+
+For each task, record:
+- task
+- output accepted or rejected
+- exact evidence checked
+- error type
+- next eval to try
+
+Useful error types:
+date mixup, missing row, wrong formula range, chart claim too broad, privacy or disclosure gap
+
+Build the eval around an error that appears more than once.</div>
+      <div class="teacher-note">This keeps evals practical for students. They should not try to evaluate everything at once; they should choose one repeated failure and track whether it improves.</div>
+    </div>
+  </section>
+
+  <section class="slide lab reflection-compact" id="eval-shapes" data-part="Part 2" data-title="Four eval shapes">
+    <div class="inner">
+      <div class="timebox">Eval choices</div>
+      <h2>Match the eval to the failure.</h2>
+      <p class="lede">Use exact checks where possible and rubrics where judgment matters.</p>
+      <div class="terminal">Four eval shapes
+
+Expected answer check:
+known row answers
+
+Same-rule check:
+length, rows, columns, privacy terms
+
+Evidence-point rubric:
+required observations
+
+Chart-quality rubric:
+title, labels, units, supported claim
+
+Decision rule:
+Exact count -> spreadsheet check.
+Many valid explanations -> rubric.
+Expand when score and review disagree.</div>
+      <div class="teacher-note">Use spreadsheet examples from this course rather than external invoice, marketing, or research-agent examples. The goal is transfer, not copying another course's cases.</div>
+    </div>
+  </section>
+
   <section class="slide lab reflection-compact" id="reflection-check-quiz" data-part="Part 2" data-title="Reflection check quiz">
     <div class="inner">
       <div class="timebox">Formative check</div>
@@ -515,6 +566,9 @@ Use these check results. Fix only evidence-backed issues and explain what change
           <label>Reflection scorecard
             <textarea id="packetReflection" placeholder="Score first output vs revised output. Which checks improved, and which did not?"></textarea>
           </label>
+          <label>Most common error and eval used
+            <textarea id="packetEval" placeholder="Which repeated error did you find? What check or rubric did you use to track it?"></textarea>
+          </label>
           <label>Rejected suggestion and disclosure
             <textarea id="packetDisclosure" placeholder="What AI suggestion did you reject and why? How will you disclose AI help?"></textarea>
           </label>
@@ -536,7 +590,7 @@ Use these check results. Fix only evidence-backed issues and explain what change
         <div class="card"><h3>Formula verification</h3><p>Two formulas are explained and two rows are checked by hand.</p></div>
         <div class="card"><h3>Chart critique</h3><p>The chart or PivotTable is checked for units, labels, grouping, and supported claims.</p></div>
         <div class="card"><h3>Privacy decision</h3><p>The data is synthetic, approved, or public with source. Sensitive data is not uploaded.</p></div>
-        <div class="card"><h3>Evidence packet</h3><p>Raw copy, prompt log, before/after evidence, reflection scorecard, changes, checks, and disclosure are included.</p></div>
+        <div class="card"><h3>Evidence packet</h3><p>Raw copy, prompt log, before/after evidence, reflection scorecard, repeated-error eval, changes, checks, and disclosure are included.</p></div>
         <div class="card"><h3>Rejected suggestion</h3><p>One AI suggestion is rejected with a reason tied to data, formula, chart, privacy, or claim quality.</p></div>
       </div>
     </div>
@@ -877,7 +931,7 @@ function updateWorkflow() {
 workflowChecks.forEach(item => item.addEventListener('change', updateWorkflow));
 updateWorkflow();
 
-const packetFields = ['packetDataset','packetPrompt','packetChanges','packetFormulas','packetChart','packetReflection','packetDisclosure'];
+const packetFields = ['packetDataset','packetPrompt','packetChanges','packetFormulas','packetChart','packetReflection','packetEval','packetDisclosure'];
 function updatePacket() {
   document.getElementById('packetText').textContent =
 `AI-assisted data evidence packet
@@ -900,11 +954,14 @@ ${value('packetChart','[units, axis labels, grouping, missing data, outliers, su
 Reflection scorecard:
 ${value('packetReflection','[first output vs revised output: raw rows, formulas, labels, chart type, disclosure]')}
 
+Most common error and eval used:
+${value('packetEval','[error mode, examples checked, eval rule or rubric, result]')}
+
 Rejected AI suggestion and disclosure:
 ${value('packetDisclosure','[what you rejected, why, and how you disclose AI assistance]')}
 
 Review standard:
-I kept raw data unchanged, avoided sensitive/private data, did not fabricate missing values, checked formulas manually, critiqued the chart claim, compared the revision against evidence, and remain responsible for the final workbook and memo.`;
+I kept raw data unchanged, avoided sensitive/private data, did not fabricate missing values, checked formulas manually, critiqued the chart claim, identified a repeated error mode, compared the revision against evidence, and remain responsible for the final workbook and memo.`;
 }
 packetFields.forEach(id => document.getElementById(id).addEventListener('input', updatePacket));
 packetFields.forEach(id => document.getElementById(id).addEventListener('change', updatePacket));
