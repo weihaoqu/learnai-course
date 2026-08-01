@@ -402,6 +402,31 @@ Rule: more autonomy requires tighter limits, logs, and review.</div>
     </div>
   </section>
 
+  <section class="slide lab agentic-compact" id="planning-pattern" data-part="Part 2" data-title="Planning pattern">
+    <div class="inner">
+      <div class="kicker">Planning</div>
+      <h2>Planning lets the agent choose the route.</h2>
+      <p class="lede">When the path is not fixed, ask for a plan from approved tools, then review it before the agent acts.</p>
+      <div class="terminal">Fictional club records task
+
+Goal:
+Update an event signup summary.
+
+Approved tools:
+read_table, filter_rows, draft_message, create_review_ticket
+
+Possible AI plan:
+1. Find rows for the selected event.
+2. Count confirmed and waitlist students.
+3. Draft a short summary for the teacher.
+4. Create a review ticket before anything is sent.
+
+Human checkpoint:
+approve the plan, data source, and allowed tools first.</div>
+      <div class="teacher-note">This is the student-safe version of the planning pattern. The key idea is not a retail example; it is that the agent proposes the sequence, while the class reviews the route and limits.</div>
+    </div>
+  </section>
+
   <section class="slide quiz agentic-compact" id="agentic-quiz" data-part="Part 2" data-title="Quiz warmup">
     <div class="inner">
       <div class="kicker">Quiz warmup</div>
@@ -434,6 +459,31 @@ Student request
 
 Rule: the AI requests; the system executes; the human remains responsible.</div>
       <div class="teacher-note">Emphasize the technical boundary: the model selects from available tool descriptions, but the surrounding software performs the actual call and records the result.</div>
+    </div>
+  </section>
+
+  <section class="slide lab agentic-compact" id="inspectable-plans" data-part="Part 2" data-title="Inspectable plans">
+    <div class="inner">
+      <div class="kicker">Plan format</div>
+      <h2>Make the plan inspectable.</h2>
+      <p class="lede">A plan is safer when students can read each step, expected output, and review check before execution.</p>
+      <div class="terminal">Readable plan fields
+
+Step:
+what the agent intends to do
+
+Tool or source:
+which approved function, file, or class-safe source it will use
+
+Expected output:
+what evidence should appear after the step
+
+Review check:
+how a human will decide whether the step worked
+
+Class rule:
+structured plans are easier to parse, log, and challenge.</div>
+      <div class="teacher-note">Mention that real systems may store plans in JSON or another structured format, but students should first learn the review shape: step, tool or source, expected output, and check.</div>
     </div>
   </section>
 

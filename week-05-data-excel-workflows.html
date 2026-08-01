@@ -625,6 +625,32 @@ Do not speed up the workflow by removing raw data, formula checks, chart critiqu
     </div>
   </section>
 
+  <section class="slide warn reflection-compact" id="code-as-plan" data-part="Part 2" data-title="Code as plan">
+    <div class="inner">
+      <div class="timebox">Optional demo</div>
+      <h2>Code can express a plan.</h2>
+      <p class="lede">For spreadsheet questions, code can combine many small steps without inventing a separate tool for every formula.</p>
+      <div class="terminal">Question:
+Which month had the most approved hours?
+
+Plan in code:
+1. Load synthetic CSV.
+2. Parse dates.
+3. Keep approved rows.
+4. Group by month.
+5. Sum hours.
+6. Print month and evidence rows.
+
+Safety boundary:
+sandbox or disposable workspace
+read-only copy
+review code before run
+review output and errors after run
+no private records</div>
+      <div class="teacher-note">Use this as an instructor-led concept slide or simulated demo. Do not ask students to run AI-generated code on personal files. The transferable idea is that code can represent a multi-step plan, but execution needs a safe environment and review.</div>
+    </div>
+  </section>
+
   <section class="slide check" id="workflow" data-part="Part 3" data-title="Workflow board">
     <div class="inner">
       <div class="timebox">50-55 min</div>
