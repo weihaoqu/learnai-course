@@ -138,6 +138,13 @@ body.notes-on .teacher-note{display:block}
   .reflection-compact .quiz-card{padding:16px;min-height:0}
   .reflection-compact .quiz-card summary{font-size:17px}
   .reflection-compact .quiz-card p{font-size:15px}
+  .development-quiz h2{font-size:28px}
+  .development-quiz .lede{font-size:17px;line-height:1.28}
+  .development-quiz .grid{gap:8px;margin-top:14px}
+  .development-quiz .quiz-card{padding:11px 12px;border-radius:12px}
+  .development-quiz .quiz-card summary{font-size:15px;line-height:1.14}
+  .development-quiz .quiz-card summary::after{font-size:10px;margin-left:6px;letter-spacing:.06em}
+  .development-quiz .quiz-card p{font-size:13px;line-height:1.32;margin-top:8px}
 }
 @media(prefers-reduced-motion:reduce){*,*::before,*::after{transition-duration:0.01ms!important}}
 </style>
@@ -580,6 +587,41 @@ cleaning plan, formula check, chart revision, memo draft
 
 Do not speed up the workflow by removing raw data, formula checks, chart critique, or disclosure.</div>
       <div class="teacher-note">Keep this as a practical production habit. Students do not need provider pricing or model benchmarks; they need the principle that quality comes before speed and cost optimization.</div>
+    </div>
+  </section>
+
+  <section class="slide lab reflection-compact development-quiz" id="development-process-quiz" data-part="Part 2" data-title="Development quiz">
+    <div class="inner">
+      <div class="timebox">Formative check</div>
+      <h2>Development process quick check.</h2>
+      <p class="lede">Answer first, then open the card. Keep each answer tied to the spreadsheet evidence workflow.</p>
+      <div class="grid">
+        <details class="card quiz-card">
+          <summary>1. Quick prototype first?</summary>
+          <p>It exposes real spreadsheet failures, so the next improvement targets the step that actually needs help.</p>
+        </details>
+        <details class="card quiz-card">
+          <summary>2. Trace analysis finds what?</summary>
+          <p>It shows where the weak output begins: prompt, cleaning plan, formula check, chart, or memo.</p>
+        </details>
+        <details class="card quiz-card">
+          <summary>3. When use component eval?</summary>
+          <p>Use one when the same weak step repeats and you need a focused signal for tuning that step.</p>
+        </details>
+        <details class="card quiz-card">
+          <summary>4. Component vs. end-to-end?</summary>
+          <p>A component eval checks one step. An end-to-end eval checks the final workbook, chart, and memo.</p>
+        </details>
+        <details class="card quiz-card">
+          <summary>5. Latency work targets?</summary>
+          <p>After quality is acceptable, time the steps and start with the slowest meaningful bottleneck.</p>
+        </details>
+        <details class="card quiz-card">
+          <summary>6. Strong builders alternate?</summary>
+          <p>They alternate building changes with analysis of outputs, traces, errors, and eval results.</p>
+        </details>
+      </div>
+      <div class="teacher-note">This is an original LearnAI formative check. It adapts development-process ideas to spreadsheet and admin workflows, without using external quiz wording or non-spreadsheet examples.</div>
     </div>
   </section>
 
