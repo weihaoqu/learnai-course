@@ -486,6 +486,29 @@ Count the marks, then fix the step with repeated failures.</div>
     </div>
   </section>
 
+  <section class="slide lab reflection-compact" id="component-evals" data-part="Part 2" data-title="Component evals">
+    <div class="inner">
+      <div class="timebox">Component evals</div>
+      <h2>Test the weak component directly.</h2>
+      <p class="lede">After trace analysis, test the step you plan to improve.</p>
+      <div class="terminal">Component-level eval
+
+Use the same input. Compare one step.
+
+Cleaning -> expected keep, fix, or flag decisions
+
+Formula -> expected row result
+
+Chart -> title, labels, units, supported claim
+
+Memo -> required evidence points
+
+Tune with the component eval.
+Run the full workflow again before calling the system better.</div>
+      <div class="teacher-note">This is the spreadsheet version of component-level evals. It gives students a cleaner signal while they improve one step, but it does not replace the final end-to-end evidence packet.</div>
+    </div>
+  </section>
+
   <section class="slide lab reflection-compact" id="eval-shapes" data-part="Part 2" data-title="Four eval shapes">
     <div class="inner">
       <div class="timebox">Eval choices</div>
@@ -540,6 +563,26 @@ Expand when score and review disagree.</div>
     </div>
   </section>
 
+  <section class="slide lab reflection-compact" id="quality-before-cost" data-part="Part 2" data-title="Quality before cost">
+    <div class="inner">
+      <div class="timebox">Optimization order</div>
+      <h2>Quality first. Then time and cost.</h2>
+      <p class="lede">A faster workflow is not better if it removes the checks that make the spreadsheet trustworthy.</p>
+      <div class="terminal">Optimization order
+
+1. Output can be checked.
+2. Repeated failures are measured.
+3. Weak component improves.
+4. Then time each step or count tool calls.
+
+Spreadsheet timing log:
+cleaning plan, formula check, chart revision, memo draft
+
+Do not speed up the workflow by removing raw data, formula checks, chart critique, or disclosure.</div>
+      <div class="teacher-note">Keep this as a practical production habit. Students do not need provider pricing or model benchmarks; they need the principle that quality comes before speed and cost optimization.</div>
+    </div>
+  </section>
+
   <section class="slide check" id="workflow" data-part="Part 3" data-title="Workflow board">
     <div class="inner">
       <div class="timebox">50-55 min</div>
@@ -589,8 +632,8 @@ Expand when score and review disagree.</div>
           <label>Reflection scorecard
             <textarea id="packetReflection" placeholder="Score first output vs revised output. Which checks improved, and which did not?"></textarea>
           </label>
-          <label>Repeated error, weak step, and eval used
-            <textarea id="packetEval" placeholder="Which error repeated? Which workflow step caused it? What check or rubric tracked it?"></textarea>
+          <label>Repeated error, weak step, and component eval used
+            <textarea id="packetEval" placeholder="Which error repeated? Which workflow step caused it? What component check or rubric tracked it?"></textarea>
           </label>
           <label>Rejected suggestion and disclosure
             <textarea id="packetDisclosure" placeholder="What AI suggestion did you reject and why? How will you disclose AI help?"></textarea>
@@ -613,7 +656,7 @@ Expand when score and review disagree.</div>
         <div class="card"><h3>Formula verification</h3><p>Two formulas are explained and two rows are checked by hand.</p></div>
         <div class="card"><h3>Chart critique</h3><p>The chart or PivotTable is checked for units, labels, grouping, and supported claims.</p></div>
         <div class="card"><h3>Privacy decision</h3><p>The data is synthetic, approved, or public with source. Sensitive data is not uploaded.</p></div>
-        <div class="card"><h3>Evidence packet</h3><p>Raw copy, prompt log, before/after evidence, reflection scorecard, repeated-error eval, changes, checks, and disclosure are included.</p></div>
+        <div class="card"><h3>Evidence packet</h3><p>Raw copy, prompt log, before/after evidence, reflection scorecard, component eval, changes, checks, and disclosure are included.</p></div>
         <div class="card"><h3>Rejected suggestion</h3><p>One AI suggestion is rejected with a reason tied to data, formula, chart, privacy, or claim quality.</p></div>
       </div>
     </div>
@@ -977,14 +1020,14 @@ ${value('packetChart','[units, axis labels, grouping, missing data, outliers, su
 Reflection scorecard:
 ${value('packetReflection','[first output vs revised output: raw rows, formulas, labels, chart type, disclosure]')}
 
-Repeated error, weak step, and eval used:
-${value('packetEval','[error mode, weak step, examples checked, eval rule or rubric, result]')}
+Repeated error, weak step, and component eval used:
+${value('packetEval','[error mode, weak step, examples checked, component check or rubric, result]')}
 
 Rejected AI suggestion and disclosure:
 ${value('packetDisclosure','[what you rejected, why, and how you disclose AI assistance]')}
 
 Review standard:
-I kept raw data unchanged, avoided sensitive/private data, did not fabricate missing values, checked formulas manually, critiqued the chart claim, identified a repeated error mode and weak step, compared the revision against evidence, and remain responsible for the final workbook and memo.`;
+I kept raw data unchanged, avoided sensitive/private data, did not fabricate missing values, checked formulas manually, critiqued the chart claim, identified a repeated error mode and weak step, used a component eval, compared the revision against evidence, and remain responsible for the final workbook and memo.`;
 }
 packetFields.forEach(id => document.getElementById(id).addEventListener('input', updatePacket));
 packetFields.forEach(id => document.getElementById(id).addEventListener('change', updatePacket));
