@@ -463,6 +463,29 @@ Build the eval around an error that appears more than once.</div>
     </div>
   </section>
 
+  <section class="slide lab reflection-compact" id="trace-analysis" data-part="Part 2" data-title="Trace analysis">
+    <div class="inner">
+      <div class="timebox">Error analysis</div>
+      <h2>Inspect the trace before fixing.</h2>
+      <p class="lede">Do not guess which prompt or tool to tune. Read the weak run step by step.</p>
+      <div class="terminal">Trace = intermediate outputs
+
+Spreadsheet workflow trace:
+prompt -> cleaning plan -> cleaned rows -> formulas -> chart -> memo
+
+Mark the weak step:
+[ ] unclear prompt or missing constraints
+[ ] cleaning missed rows, duplicates, or categories
+[ ] formula range or blank handling failed
+[ ] chart claim was not supported
+[ ] memo overstated the evidence
+
+Only blame a step if a human with the same input could have done better.
+Count the marks, then fix the step with repeated failures.</div>
+      <div class="teacher-note">Use this as the spreadsheet version of trace reading. The point is not to blame every downstream step; students should identify the first step whose output was weaker than a careful human review.</div>
+    </div>
+  </section>
+
   <section class="slide lab reflection-compact" id="eval-shapes" data-part="Part 2" data-title="Four eval shapes">
     <div class="inner">
       <div class="timebox">Eval choices</div>
@@ -566,8 +589,8 @@ Expand when score and review disagree.</div>
           <label>Reflection scorecard
             <textarea id="packetReflection" placeholder="Score first output vs revised output. Which checks improved, and which did not?"></textarea>
           </label>
-          <label>Most common error and eval used
-            <textarea id="packetEval" placeholder="Which repeated error did you find? What check or rubric did you use to track it?"></textarea>
+          <label>Repeated error, weak step, and eval used
+            <textarea id="packetEval" placeholder="Which error repeated? Which workflow step caused it? What check or rubric tracked it?"></textarea>
           </label>
           <label>Rejected suggestion and disclosure
             <textarea id="packetDisclosure" placeholder="What AI suggestion did you reject and why? How will you disclose AI help?"></textarea>
@@ -954,14 +977,14 @@ ${value('packetChart','[units, axis labels, grouping, missing data, outliers, su
 Reflection scorecard:
 ${value('packetReflection','[first output vs revised output: raw rows, formulas, labels, chart type, disclosure]')}
 
-Most common error and eval used:
-${value('packetEval','[error mode, examples checked, eval rule or rubric, result]')}
+Repeated error, weak step, and eval used:
+${value('packetEval','[error mode, weak step, examples checked, eval rule or rubric, result]')}
 
 Rejected AI suggestion and disclosure:
 ${value('packetDisclosure','[what you rejected, why, and how you disclose AI assistance]')}
 
 Review standard:
-I kept raw data unchanged, avoided sensitive/private data, did not fabricate missing values, checked formulas manually, critiqued the chart claim, identified a repeated error mode, compared the revision against evidence, and remain responsible for the final workbook and memo.`;
+I kept raw data unchanged, avoided sensitive/private data, did not fabricate missing values, checked formulas manually, critiqued the chart claim, identified a repeated error mode and weak step, compared the revision against evidence, and remain responsible for the final workbook and memo.`;
 }
 packetFields.forEach(id => document.getElementById(id).addEventListener('input', updatePacket));
 packetFields.forEach(id => document.getElementById(id).addEventListener('change', updatePacket));
