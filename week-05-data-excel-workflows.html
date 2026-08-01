@@ -42,6 +42,12 @@ li{margin:8px 0}
 .grid.four{grid-template-columns:repeat(4,minmax(0,1fr))}
 .card{background:rgba(16,27,24,.86);border:1px solid var(--line);border-radius:14px;padding:22px;min-height:130px}
 .card h3{font-size:22px;color:#fff}
+.quiz-card{min-height:0}
+.quiz-card summary{cursor:pointer;color:#fff;font-weight:900;font-size:20px;line-height:1.25;list-style:none}
+.quiz-card summary::-webkit-details-marker{display:none}
+.quiz-card summary::after{content:"Show answer";display:inline-flex;margin-left:10px;color:var(--green);font-size:12px;text-transform:uppercase;letter-spacing:.08em}
+.quiz-card[open] summary::after{content:"Hide answer"}
+.quiz-card p{font-size:17px;margin-top:12px}
 .tag{display:inline-flex;border:1px solid rgba(255,255,255,.16);border-radius:999px;padding:7px 11px;color:#e6fff3;font-size:13px;font-weight:900;margin-bottom:12px;background:rgba(255,255,255,.045)}
 .timebox{display:inline-flex;align-items:center;border:1px solid rgba(73,209,125,.38);background:rgba(73,209,125,.10);border-radius:999px;padding:8px 12px;color:#dcfce7;font-size:14px;font-weight:900;margin-bottom:18px}
 .terminal{background:#040806;border:1px solid rgba(148,163,184,.24);border-radius:16px;padding:18px;font-family:var(--mono);color:#dcfce7;font-size:clamp(15px,1.2vw,18px);line-height:1.55;margin-top:20px;white-space:pre-wrap}
@@ -109,7 +115,7 @@ body.notes-on .teacher-note{display:block}
 .review-meter{height:16px;border:1px solid rgba(255,255,255,.14);border-radius:999px;overflow:hidden;background:rgba(255,255,255,.07);margin:16px 0}
 .review-fill{height:100%;width:0;background:linear-gradient(90deg,var(--green),var(--cyan),var(--blue));transition:width .2s ease}
 @media(max-width:920px){
-  html,body{overflow:auto}
+  html,body{height:auto;min-height:100%;overflow:auto}
   .deck{height:auto;min-height:100vh}
   .slide{position:relative;display:none;min-height:100vh;justify-content:flex-start;padding:78px 22px 220px;overflow:visible}
   .slide.active{display:flex}
@@ -128,6 +134,10 @@ body.notes-on .teacher-note{display:block}
   .reflection-compact h2{font-size:30px;line-height:1.08;margin-bottom:12px}
   .reflection-compact .lede{font-size:19px;line-height:1.35}
   .reflection-compact .terminal{font-size:13px;line-height:1.38;padding:14px;margin-top:14px;border-radius:14px}
+  .reflection-compact .grid{gap:12px;margin-top:18px}
+  .reflection-compact .quiz-card{padding:16px;min-height:0}
+  .reflection-compact .quiz-card summary{font-size:17px}
+  .reflection-compact .quiz-card p{font-size:15px}
 }
 @media(prefers-reduced-motion:reduce){*,*::before,*::after{transition-duration:0.01ms!important}}
 </style>
@@ -386,6 +396,76 @@ Use the critique above. Propose a clearer chart and explain what changed.</div>
     </div>
   </section>
 
+  <section class="slide lab reflection-compact" id="reflection-evals" data-part="Part 2" data-title="Reflection evals">
+    <div class="inner">
+      <div class="timebox">Reflection check</div>
+      <h2>Measure the revision, not the vibe.</h2>
+      <p class="lede">Reflection adds a step, so keep it only when the revised output is easier to verify or clearly more accurate.</p>
+      <div class="terminal">Reflection eval
+
+Same source file, same task, two outputs:
+A = first chart
+B = revised chart after critique
+
+Score each 0/1:
+[ ] raw rows match
+[ ] formula spot check passes
+[ ] labels and units are clear
+[ ] chart type supports the claim
+[ ] disclosure is complete
+
+Keep reflection if B improves enough to justify the extra time.</div>
+      <div class="teacher-note">Use this as a classroom-safe eval pattern. Students are not proving a universal AI claim; they are testing whether one extra review step helped on their own spreadsheet task.</div>
+    </div>
+  </section>
+
+  <section class="slide lab reflection-compact" id="external-feedback" data-part="Part 2" data-title="External feedback">
+    <div class="inner">
+      <div class="timebox">Fresh evidence</div>
+      <h2>Reflection works better with check results.</h2>
+      <p class="lede">A critique is stronger when it receives facts from outside the draft, not just the draft again.</p>
+      <div class="terminal">Fresh evidence for reflection
+
+Row-count check -> missing or extra rows
+Formula check -> wrong total or copied formula
+Chart label check -> missing units or unclear grouping
+Source check -> citation gap
+Privacy check -> disclosure or upload risk
+Length check -> memo too long
+
+Revision request:
+Use these check results. Fix only evidence-backed issues and explain what changed.</div>
+      <div class="teacher-note">Connect this to tools students can actually use: spreadsheet filters, row counts, hand formula checks, source notes, privacy rules, and assignment length limits.</div>
+    </div>
+  </section>
+
+  <section class="slide lab reflection-compact" id="reflection-check-quiz" data-part="Part 2" data-title="Reflection check quiz">
+    <div class="inner">
+      <div class="timebox">Formative check</div>
+      <h2>Reflection quick check.</h2>
+      <p class="lede">Answer each question before opening the card. Keep the examples tied to the same spreadsheet evidence packet.</p>
+      <div class="grid">
+        <details class="card quiz-card">
+          <summary>1. What does reflection do after a first chart draft?</summary>
+          <p>It checks the draft against criteria, uses evidence to critique weak parts, and asks for a revised version.</p>
+        </details>
+        <details class="card quiz-card">
+          <summary>2. Why bring in formula checks or row counts?</summary>
+          <p>They add fresh evidence that the draft cannot discover by rereading itself, such as a wrong total or missing row.</p>
+        </details>
+        <details class="card quiz-card">
+          <summary>3. How should chart quality be scored?</summary>
+          <p>Use clear yes/no criteria, then compare the first and revised outputs against the same scorecard.</p>
+        </details>
+        <details class="card quiz-card">
+          <summary>4. When should reflection be removed?</summary>
+          <p>Remove it when the scorecard does not improve enough to justify the extra time and extra review step.</p>
+        </details>
+      </div>
+      <div class="teacher-note">This is an original LearnAI formative check. Do not reproduce external quiz wording, answer choices, or non-spreadsheet examples.</div>
+    </div>
+  </section>
+
   <section class="slide check" id="workflow" data-part="Part 3" data-title="Workflow board">
     <div class="inner">
       <div class="timebox">50-55 min</div>
@@ -432,6 +512,9 @@ Use the critique above. Propose a clearer chart and explain what changed.</div>
           <label>Chart critique
             <textarea id="packetChart" placeholder="What could mislead a reader? Units, axis, grouping, missing values, outliers?"></textarea>
           </label>
+          <label>Reflection scorecard
+            <textarea id="packetReflection" placeholder="Score first output vs revised output. Which checks improved, and which did not?"></textarea>
+          </label>
           <label>Rejected suggestion and disclosure
             <textarea id="packetDisclosure" placeholder="What AI suggestion did you reject and why? How will you disclose AI help?"></textarea>
           </label>
@@ -453,7 +536,7 @@ Use the critique above. Propose a clearer chart and explain what changed.</div>
         <div class="card"><h3>Formula verification</h3><p>Two formulas are explained and two rows are checked by hand.</p></div>
         <div class="card"><h3>Chart critique</h3><p>The chart or PivotTable is checked for units, labels, grouping, and supported claims.</p></div>
         <div class="card"><h3>Privacy decision</h3><p>The data is synthetic, approved, or public with source. Sensitive data is not uploaded.</p></div>
-        <div class="card"><h3>Evidence packet</h3><p>Raw copy, prompt log, before/after evidence, changes, checks, and disclosure are included.</p></div>
+        <div class="card"><h3>Evidence packet</h3><p>Raw copy, prompt log, before/after evidence, reflection scorecard, changes, checks, and disclosure are included.</p></div>
         <div class="card"><h3>Rejected suggestion</h3><p>One AI suggestion is rejected with a reason tied to data, formula, chart, privacy, or claim quality.</p></div>
       </div>
     </div>
@@ -478,7 +561,7 @@ Use the critique above. Propose a clearer chart and explain what changed.</div>
         </div>
         <div class="card">
           <h3>Submit evidence</h3>
-          <p>Submit prompt log, before/after evidence, two-row formula verification, chart critique, revision request, privacy decision, disclosure, and one rejected AI suggestion with rationale.</p>
+          <p>Submit prompt log, before/after evidence, two-row formula verification, chart critique, reflection scorecard, revision request, privacy decision, disclosure, and one rejected AI suggestion with rationale.</p>
         </div>
       </div>
       <p style="margin-top:18px"><a href="index.html">Back to CS-215 course hub</a></p>
@@ -794,7 +877,7 @@ function updateWorkflow() {
 workflowChecks.forEach(item => item.addEventListener('change', updateWorkflow));
 updateWorkflow();
 
-const packetFields = ['packetDataset','packetPrompt','packetChanges','packetFormulas','packetChart','packetDisclosure'];
+const packetFields = ['packetDataset','packetPrompt','packetChanges','packetFormulas','packetChart','packetReflection','packetDisclosure'];
 function updatePacket() {
   document.getElementById('packetText').textContent =
 `AI-assisted data evidence packet
@@ -814,11 +897,14 @@ ${value('packetFormulas','[two formulas explained and two rows checked by hand]'
 Chart critique:
 ${value('packetChart','[units, axis labels, grouping, missing data, outliers, supported claim]')}
 
+Reflection scorecard:
+${value('packetReflection','[first output vs revised output: raw rows, formulas, labels, chart type, disclosure]')}
+
 Rejected AI suggestion and disclosure:
 ${value('packetDisclosure','[what you rejected, why, and how you disclose AI assistance]')}
 
 Review standard:
-I kept raw data unchanged, avoided sensitive/private data, did not fabricate missing values, checked formulas manually, critiqued the chart claim, and remain responsible for the final workbook and memo.`;
+I kept raw data unchanged, avoided sensitive/private data, did not fabricate missing values, checked formulas manually, critiqued the chart claim, compared the revision against evidence, and remain responsible for the final workbook and memo.`;
 }
 packetFields.forEach(id => document.getElementById(id).addEventListener('input', updatePacket));
 packetFields.forEach(id => document.getElementById(id).addEventListener('change', updatePacket));
