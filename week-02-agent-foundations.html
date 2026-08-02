@@ -98,6 +98,9 @@ body.notes-on .teacher-note{display:block}
 .quiz-bank summary::after{content:"Show answer";display:inline-flex;margin-left:10px;color:var(--cyan);font-size:12px;text-transform:uppercase;letter-spacing:.08em}
 .quiz-bank details[open] summary::after{content:"Hide answer"}
 .quiz-bank p{font-size:17px;margin-top:12px}
+.planning-quiz-compact .grid{gap:12px}
+.planning-quiz-compact .card{padding:15px 18px;min-height:0}
+.planning-quiz-compact .quiz-bank summary{font-size:17px}
 .trace{display:grid;grid-template-columns:300px minmax(0,1fr);gap:18px;margin-top:22px}
 .trace-controls{display:grid;gap:10px}
 .trace-output{font-family:var(--mono);border:1px solid rgba(72,213,151,.28);background:#04070d;border-radius:16px;padding:18px;white-space:pre-wrap;color:#d8ffe9;font-size:16px;line-height:1.5;min-height:356px}
@@ -133,6 +136,13 @@ body.notes-on .teacher-note{display:block}
   .agentic-compact .lede{font-size:19px;line-height:1.35}
   .agentic-compact .terminal{font-size:13px;line-height:1.38;padding:14px;margin-top:14px;border-radius:14px}
   .agentic-compact .link-btn{font-size:14px;line-height:1.25;padding:10px 12px;margin-top:14px}
+  .planning-quiz-compact h2{font-size:29px}
+  .planning-quiz-compact .lede{font-size:18px;line-height:1.28}
+  .planning-quiz-compact .grid{gap:8px;margin-top:14px}
+  .planning-quiz-compact .card{padding:12px 13px;border-radius:12px}
+  .planning-quiz-compact .quiz-bank summary{font-size:16px;line-height:1.1}
+  .planning-quiz-compact .quiz-bank summary::after{font-size:10px;margin-left:6px;letter-spacing:.05em}
+  .planning-quiz-compact .quiz-bank p{font-size:13px;line-height:1.28;margin-top:8px}
 }
 @media(prefers-reduced-motion:reduce){*,*::before,*::after{transition-duration:0.01ms!important}}
 </style>
@@ -471,6 +481,41 @@ start linear or manager-led.
 use hierarchy only with clear logs.
 avoid all-to-all for high-stakes work.</div>
       <div class="teacher-note">This simplifies the communication-pattern section into classroom design guidance. For this course, linear and manager-led are the practical defaults.</div>
+    </div>
+  </section>
+
+  <section class="slide quiz agentic-compact planning-quiz-compact" id="planning-multiagent-quiz" data-part="Part 2" data-title="Planning quiz">
+    <div class="inner">
+      <div class="kicker">Planning quiz</div>
+      <h2>Planning and multi-agent quick check.</h2>
+      <p class="lede">Answer first, then open the card. Each answer should name the control point a human can inspect.</p>
+      <div class="grid quiz-bank">
+        <details class="card">
+          <summary>1. Planning vs. fixed workflow?</summary>
+          <p>Planning lets the AI propose the steps for the specific request. A fixed workflow follows the same developer-chosen route every time.</p>
+        </details>
+        <details class="card">
+          <summary>2. Why code as a plan?</summary>
+          <p>Code can combine many library functions for a data task, so the developer does not need to prebuild a separate tool for every possible question. Generated code still needs review and a sandbox.</p>
+        </details>
+        <details class="card">
+          <summary>3. Plan vs. tool access?</summary>
+          <p>Tool access means the AI can request approved functions. Planning adds an ordered route: which steps to take, which tools to use, and what evidence should come back.</p>
+        </details>
+        <details class="card">
+          <summary>4. When split roles?</summary>
+          <p>Use multiple agents when the work naturally has different jobs, such as finding evidence, checking it, and writing the final summary.</p>
+        </details>
+        <details class="card">
+          <summary>5. Easiest team shape?</summary>
+          <p>Linear and manager-led patterns are usually easiest for students to trace. All-to-all communication is flexible, but harder to predict and review.</p>
+        </details>
+        <details class="card">
+          <summary>6. Main tradeoff?</summary>
+          <p>Planning and multi-agent designs cover more varied tasks, but they reduce predictability. More flexibility needs clearer logs, limits, and human checkpoints.</p>
+        </details>
+      </div>
+      <div class="teacher-note">This adapts the external Module 5 ideas into original LearnAI formative checks. Keep external graded quiz wording and answer choices separate from this course artifact.</div>
     </div>
   </section>
 
@@ -916,6 +961,7 @@ real inboxes, secrets, destructive file commands, private records</div>
           <p><a href="#workflow-benefits">Open workflow benefits check</a></p>
           <p><a href="#task-fit-sort">Open task-fit sort</a></p>
           <p><a href="#agentic-patterns">Open pattern map</a></p>
+          <p><a href="#planning-multiagent-quiz">Open planning and multi-agent quiz</a></p>
           <p><a href="#agentic-quiz">Open quiz warmup</a></p>
           <p><a href="https://www.deeplearning.ai/courses/agentic-ai/" target="_blank" rel="noopener noreferrer">External background link: DeepLearning.AI Agentic AI</a></p>
           <p><a href="https://github.com/https-deeplearning-ai/agentic-ai-public" target="_blank" rel="noopener noreferrer">External repo reference only: DeepLearning.AI agentic-ai-public (license not confirmed)</a></p>
