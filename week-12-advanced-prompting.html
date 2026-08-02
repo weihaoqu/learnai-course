@@ -59,6 +59,16 @@ li{margin:8px 0}
 .choice.wrong,.lab-btn.wrong{border-color:rgba(251,113,133,.9);background:rgba(251,113,133,.14)}
 .feedback{display:none;margin-top:16px;padding:14px 16px;border-radius:12px;background:rgba(255,255,255,.07);color:#dbeafe;font-size:17px}
 .feedback.show{display:block}
+.rag-card .tag{color:#cffafe;border-color:rgba(34,211,238,.24)}
+.rag-loop-compact .grid{gap:12px}
+.rag-loop-compact .card{min-height:0}
+.retrieval-check .grid{gap:12px}
+.retrieval-check .card{padding:16px;min-height:0}
+.reveal-card summary{cursor:pointer;color:#fff;font-size:18px;font-weight:900;line-height:1.22;list-style:none}
+.reveal-card summary::-webkit-details-marker{display:none}
+.reveal-card summary::after{content:"Show answer";display:inline-flex;margin-left:10px;color:var(--green);font-size:11px;text-transform:uppercase;letter-spacing:.08em}
+.reveal-card[open] summary::after{content:"Hide answer"}
+.reveal-card p{font-size:16px;margin-top:10px}
 .teacher-note{display:none;margin-top:24px;border:1px dashed rgba(255,255,255,.28);background:rgba(255,255,255,.055);border-radius:14px;padding:16px;color:#d7dded;font-size:16px}
 body.notes-on .teacher-note{display:block}
 .contract{display:grid;grid-template-columns:300px minmax(0,1fr);gap:18px;margin-top:24px}
@@ -97,6 +107,20 @@ body.notes-on .teacher-note{display:block}
   .jump{grid-column:1/-1;order:0}
   .controls>div:last-child{display:flex;gap:8px;justify-content:flex-end}
   .btn{padding:8px 10px}
+  .rag-loop-compact h2{font-size:30px}
+  .rag-loop-compact .lede{font-size:18px;line-height:1.28}
+  .rag-loop-compact .formula{font-size:14px;line-height:1.35;padding:12px;margin-top:14px;border-radius:12px}
+  .rag-loop-compact .grid.three{grid-template-columns:repeat(3,minmax(0,1fr));gap:6px;margin-top:12px}
+  .rag-loop-compact .card{padding:9px;border-radius:11px}
+  .rag-loop-compact .tag{font-size:10px;padding:4px 6px;margin-bottom:6px}
+  .rag-loop-compact .card p{font-size:11px;line-height:1.25}
+  .retrieval-check h2{font-size:29px}
+  .retrieval-check .lede{font-size:18px;line-height:1.28}
+  .retrieval-check .grid{gap:8px;margin-top:14px}
+  .retrieval-check .card{padding:12px 13px;border-radius:12px}
+  .reveal-card summary{font-size:15px;line-height:1.12}
+  .reveal-card summary::after{font-size:10px;margin-left:6px;letter-spacing:.05em}
+  .reveal-card p{font-size:13px;line-height:1.28;margin-top:8px}
 }
 @media(prefers-reduced-motion:reduce){*,*::before,*::after{transition-duration:0.01ms!important}}
 </style>
@@ -156,6 +180,21 @@ body.notes-on .teacher-note{display:block}
         <div class="card"><h3>Build</h3><p>Create a page, prototype, workflow, script, table, or artifact.</p></div>
       </div>
       <div class="teacher-note">Ask students what goes wrong when they mix all four jobs into one vague request.</div>
+    </div>
+  </section>
+
+  <section class="slide optional rag-loop-compact" id="rag-retrieval-loop" data-part="Part 1" data-title="RAG loop">
+    <div class="inner">
+      <div class="kicker">Find with sources</div>
+      <h2>RAG turns finding into a reviewable loop.</h2>
+      <p class="lede">RAG gives the AI selected source passages before it answers. Inspect retrieved passages, not just final prose.</p>
+      <div class="formula">query -> rewrite -> retrieve source chunks -> rank and check -> source-bound answer</div>
+      <div class="grid three">
+        <div class="card rag-card"><span class="tag">Retrieve</span><p>Start from class-approved docs, not memory.</p></div>
+        <div class="card rag-card"><span class="tag">Rewrite</span><p>Turn one question into sharper searches.</p></div>
+        <div class="card rag-card"><span class="tag">Review</span><p>Check passages before trusting the answer.</p></div>
+      </div>
+      <div class="teacher-note">This is a conceptual RAG slide for prompting literacy. Do not introduce vector database setup, API keys, package installs, private document uploads, or live web search in this static course.</div>
     </div>
   </section>
 
@@ -267,6 +306,37 @@ body.notes-on .teacher-note{display:block}
     </div>
   </section>
 
+  <section class="slide quiz retrieval-check" id="retrieval-quality-quiz" data-part="Part 4" data-title="Retrieval check">
+    <div class="inner">
+      <div class="kicker">Quick check</div>
+      <h2>Retrieval quality quick check.</h2>
+      <p class="lede">Answer first, then open the card. The goal is to judge the source pack, not only the AI's final wording.</p>
+      <div class="grid">
+        <details class="card reveal-card">
+          <summary>1. Similar topic enough?</summary>
+          <p>No. A source can discuss the same topic but still lack the fact, quote, date, or example needed to answer the question.</p>
+        </details>
+        <details class="card reveal-card">
+          <summary>2. Why chunk documents?</summary>
+          <p>Chunks make long documents searchable in smaller pieces. The chunk still needs enough context to preserve meaning.</p>
+        </details>
+        <details class="card reveal-card">
+          <summary>3. What does query expansion do?</summary>
+          <p>It rewrites one question into several useful searches, including searches that look for the likely shape of an answer.</p>
+        </details>
+        <details class="card reveal-card">
+          <summary>4. Why rerank results?</summary>
+          <p>Reranking gives retrieved passages another relevance check before they become context for the answer.</p>
+        </details>
+        <details class="card reveal-card">
+          <summary>5. What should humans inspect?</summary>
+          <p>Inspect the query, retrieved passages, missing sources, and answer limits before accepting a source-bound response.</p>
+        </details>
+      </div>
+      <div class="teacher-note">These are original LearnAI checks adapted from the RAG concepts. Keep the examples class-approved and avoid reproducing external notebook steps or course wording.</div>
+    </div>
+  </section>
+
   <section class="slide quiz" data-part="Part 4" data-title="Verification check">
     <div class="inner">
       <div class="kicker">Quick check</div>
@@ -310,6 +380,8 @@ body.notes-on .teacher-note{display:block}
         <div class="card">
           <h3>Homework response</h3>
           <p>Bring one new prompting pattern, one example that needs sources, and one example where the human must make the final decision.</p>
+          <p><a href="#rag-retrieval-loop">Review RAG loop</a></p>
+          <p><a href="#retrieval-quality-quiz">Open retrieval quality check</a></p>
         </div>
       </div>
       <p style="margin-top:18px"><a href="index.html">Back to CS-215 course hub</a></p>
