@@ -198,6 +198,21 @@ body.notes-on .teacher-note{display:block}
     </div>
   </section>
 
+  <section class="slide optional rag-loop-compact" id="retrieval-pitfalls" data-part="Part 1" data-title="Retrieval pitfalls">
+    <div class="inner">
+      <div class="kicker">Retrieval pitfalls</div>
+      <h2>Nearest is not always useful.</h2>
+      <p class="lede">A retriever can return passages that sound related but do not answer the question. Those passages can distract the AI.</p>
+      <div class="grid three">
+        <div class="card rag-card"><span class="tag">Related</span><p>Same topic, wrong fact.</p></div>
+        <div class="card rag-card"><span class="tag">Missing</span><p>No source actually answers.</p></div>
+        <div class="card rag-card"><span class="tag">Distracting</span><p>Extra text pulls the answer away.</p></div>
+      </div>
+      <div class="formula">good retrieval = relevant passages + few distractors + clear limits</div>
+      <div class="teacher-note">Use this as a conceptual warning: vector similarity is a helpful signal, not a guarantee that the returned chunk contains the answer.</div>
+    </div>
+  </section>
+
   <section class="slide challenge" id="router" data-part="Part 1" data-title="Prompt router">
     <div class="inner">
       <div class="kicker">Lab 1 - 10 minutes</div>
@@ -306,6 +321,21 @@ body.notes-on .teacher-note{display:block}
     </div>
   </section>
 
+  <section class="slide optional rag-loop-compact" id="query-expansion" data-part="Part 4" data-title="Query expansion">
+    <div class="inner">
+      <div class="kicker">Query expansion</div>
+      <h2>One question can become several searches.</h2>
+      <p class="lede">For complex questions, rewrite the query from a few angles before retrieval. You are trying to find answer-bearing passages.</p>
+      <div class="formula">original question -> related searches -> likely answer shape -> dedupe and review</div>
+      <div class="grid three">
+        <div class="card rag-card"><span class="tag">Rephrase</span><p>Use simpler related questions.</p></div>
+        <div class="card rag-card"><span class="tag">Broaden</span><p>Search nearby causes or evidence.</p></div>
+        <div class="card rag-card"><span class="tag">Hypothesize</span><p>Look for text shaped like an answer.</p></div>
+      </div>
+      <div class="teacher-note">Keep this at the prompting-literacy level. Do not ask students to wire an LLM into retrieval infrastructure in this static lesson.</div>
+    </div>
+  </section>
+
   <section class="slide quiz retrieval-check" id="retrieval-quality-quiz" data-part="Part 4" data-title="Retrieval check">
     <div class="inner">
       <div class="kicker">Quick check</div>
@@ -313,16 +343,16 @@ body.notes-on .teacher-note{display:block}
       <p class="lede">Answer first, then open the card. The goal is to judge the source pack, not only the AI's final wording.</p>
       <div class="grid">
         <details class="card reveal-card">
-          <summary>1. Similar topic enough?</summary>
-          <p>No. A source can discuss the same topic but still lack the fact, quote, date, or example needed to answer the question.</p>
+          <summary>1. What is a distractor?</summary>
+          <p>A retrieved passage that seems related but does not help answer the question. It can pull the AI toward a weaker answer.</p>
         </details>
         <details class="card reveal-card">
           <summary>2. Why chunk documents?</summary>
           <p>Chunks make long documents searchable in smaller pieces. The chunk still needs enough context to preserve meaning.</p>
         </details>
         <details class="card reveal-card">
-          <summary>3. What does query expansion do?</summary>
-          <p>It rewrites one question into several useful searches, including searches that look for the likely shape of an answer.</p>
+          <summary>3. Why expand one query?</summary>
+          <p>A single wording may land near only part of the source set. Rewrites can search for related evidence and answer-shaped passages.</p>
         </details>
         <details class="card reveal-card">
           <summary>4. Why rerank results?</summary>
