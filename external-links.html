@@ -1,0 +1,1444 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex,nofollow">
+<title>External Links Library</title>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#070914;--surface:#111524;--surface2:#171d2e;--surface3:#20283c;
+  --text:#f2f5fb;--muted:#99a6bd;--quiet:#68758c;--border:rgba(255,255,255,0.09);
+  --cyan:#5eead4;--blue:#60a5fa;--yellow:#f8d66d;--rose:#fb7185;--green:#86efac;
+  --shadow:0 22px 80px rgba(0,0,0,0.38);--radius:8px;--font:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+}
+html{scroll-behavior:smooth}
+body{min-height:100vh;overflow-x:hidden;background:
+  linear-gradient(135deg,rgba(94,234,212,0.08),transparent 28%),
+  radial-gradient(circle at 86% 8%,rgba(248,214,109,0.11),transparent 24%),
+  linear-gradient(180deg,#080a16 0%,#070914 72%);color:var(--text);font-family:var(--font);line-height:1.55;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+a{color:inherit}
+button,input{font:inherit}
+:focus-visible{outline:2px solid var(--cyan);outline-offset:3px}
+.shell{width:min(1180px,calc(100% - 32px));margin:0 auto;padding:28px 0 72px}
+.topbar{display:flex;justify-content:space-between;align-items:center;gap:16px;margin-bottom:42px}
+.back{display:inline-flex;align-items:center;gap:8px;color:var(--muted);text-decoration:none;font-size:14px}
+.back:hover{color:var(--text)}
+.stamp{color:var(--quiet);font-size:12px;text-align:right}
+.hero{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(280px,0.55fr);gap:28px;align-items:end;margin-bottom:26px}
+.eyebrow{color:var(--cyan);font-size:12px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;margin-bottom:10px}
+h1{font-size:clamp(38px,7vw,78px);line-height:.92;letter-spacing:0;font-weight:900;text-wrap:balance;max-width:920px}
+.intro{max-width:720px;margin-top:18px;color:var(--muted);font-size:16px}
+.stats{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.stat{background:rgba(255,255,255,0.045);border:1px solid var(--border);border-radius:var(--radius);padding:18px}
+.stat strong{display:block;font-size:30px;line-height:1;font-variant-numeric:tabular-nums}
+.stat span{display:block;margin-top:6px;color:var(--muted);font-size:12px;text-transform:uppercase;letter-spacing:.08em}
+.controls{position:sticky;top:0;z-index:20;margin:0 0 22px;padding:12px;background:rgba(7,9,20,0.88);border:1px solid var(--border);border-radius:var(--radius);backdrop-filter:blur(16px);box-shadow:var(--shadow)}
+.searchrow{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:10px;margin-bottom:10px}
+.search{width:100%;border:1px solid var(--border);border-radius:6px;background:#0d1220;color:var(--text);padding:13px 14px}
+.search::placeholder{color:var(--quiet)}
+.count{display:flex;align-items:center;justify-content:center;min-width:112px;border:1px solid var(--border);border-radius:6px;color:var(--muted);background:rgba(255,255,255,0.035);font-variant-numeric:tabular-nums}
+.filters{display:flex;gap:8px;flex-wrap:wrap}
+.filter{border:1px solid var(--border);background:rgba(255,255,255,0.035);color:var(--muted);border-radius:999px;padding:7px 11px;cursor:pointer}
+.filter:hover,.filter.active{color:var(--text);border-color:rgba(94,234,212,0.55);background:rgba(94,234,212,0.10)}
+.note{display:grid;grid-template-columns:18px minmax(0,1fr);gap:10px;color:var(--muted);font-size:13px;background:rgba(248,214,109,0.08);border:1px solid rgba(248,214,109,0.2);border-radius:var(--radius);padding:13px 14px;margin-bottom:24px}
+.grid{display:grid;gap:12px}
+.row{display:grid;grid-template-columns:132px minmax(0,1fr) auto;gap:16px;align-items:center;padding:16px;background:linear-gradient(180deg,rgba(255,255,255,0.045),rgba(255,255,255,0.024)),var(--surface);border:1px solid var(--border);border-radius:var(--radius);box-shadow:0 12px 34px rgba(0,0,0,0.15)}
+.kind{display:flex;align-items:center;gap:9px;color:var(--muted);font-size:12px;font-weight:800;text-transform:uppercase;letter-spacing:.08em}
+.dot{width:10px;height:10px;border-radius:50%;background:var(--blue);box-shadow:0 0 0 4px rgba(96,165,250,0.12)}
+.row[data-kind="video"] .dot{background:var(--rose);box-shadow:0 0 0 4px rgba(251,113,133,0.12)}
+.row[data-kind="course"] .dot{background:var(--cyan);box-shadow:0 0 0 4px rgba(94,234,212,0.12)}
+.row[data-kind="repo"] .dot{background:var(--yellow);box-shadow:0 0 0 4px rgba(248,214,109,0.12)}
+.row[data-kind="docs"] .dot{background:var(--green);box-shadow:0 0 0 4px rgba(134,239,172,0.12)}
+.title{display:block;font-size:16px;font-weight:800;text-decoration:none;color:var(--text);line-height:1.25;overflow-wrap:anywhere}
+.title:hover{text-decoration:underline;text-decoration-color:var(--cyan);text-underline-offset:4px}
+.url{margin-top:6px;color:var(--quiet);font-size:12px;overflow-wrap:anywhere}
+.sources{display:flex;gap:6px;flex-wrap:wrap;margin-top:10px}
+.source{font-size:11px;color:#cbd5e1;background:rgba(255,255,255,0.055);border:1px solid var(--border);border-radius:999px;padding:3px 8px;text-decoration:none}
+.source:hover{border-color:rgba(94,234,212,0.5);color:#fff}
+.open{white-space:nowrap;text-decoration:none;border:1px solid rgba(94,234,212,0.34);border-radius:6px;color:var(--cyan);padding:8px 10px;background:rgba(94,234,212,0.08);font-weight:800;font-size:13px}
+.open:hover{background:rgba(94,234,212,0.14)}
+.empty{display:none;text-align:center;color:var(--muted);border:1px dashed var(--border);border-radius:var(--radius);padding:36px}
+.meta{margin-top:34px;border-top:1px solid var(--border);padding-top:18px;color:var(--quiet);font-size:12px}
+@media(max-width:760px){
+  .shell{width:min(100% - 22px,1180px);padding-top:18px}
+  .topbar{align-items:flex-start}
+  .stamp{display:none}
+  h1{font-size:31px;line-height:1.04;max-width:340px;overflow-wrap:anywhere}
+  .hero,.controls,.note,.grid,.row,.intro,.url,.source{min-width:0;max-width:100%}
+  .hero{grid-template-columns:1fr}
+  .stats{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .searchrow{grid-template-columns:1fr}
+  .count{min-height:42px}
+  .row{grid-template-columns:1fr;gap:10px}
+  .open{width:max-content}
+}
+</style>
+</head>
+<body>
+<main class="shell">
+  <nav class="topbar" aria-label="Page">
+    <a class="back" href="index.html">← Back to course hub</a>
+    <p class="stamp">Personal link index<br>Tracked pages + links.txt</p>
+  </nav>
+
+  <header class="hero">
+    <div>
+      <p class="eyebrow">External Links Library</p>
+      <h1>All outside resources in one searchable shelf.</h1>
+      <p class="intro">A private working index for Q: videos, GitHub repositories, AI tooling docs, course references, and personal queue links gathered from the tracked LearnAI pages.</p>
+    </div>
+    <section class="stats" aria-label="Link totals">
+      <div class="stat"><strong id="totalCount">0</strong><span>Total links</span></div>
+      <div class="stat"><strong id="videoCount">0</strong><span>Videos</span></div>
+      <div class="stat"><strong id="repoCount">0</strong><span>Repos</span></div>
+      <div class="stat"><strong id="personalCount">0</strong><span>From links.txt</span></div>
+    </section>
+  </header>
+
+  <section class="controls" aria-label="Search and filters">
+    <div class="searchrow">
+      <input id="search" class="search" type="search" aria-label="Search external links" placeholder="Search titles, URLs, hosts, or source files..." autocomplete="off">
+      <div id="visibleCount" class="count" aria-live="polite">0 links</div>
+    </div>
+    <div class="filters" role="group" aria-label="Filter links">
+      <button class="filter active" data-filter="all" type="button" aria-pressed="true">All</button>
+      <button class="filter" data-filter="video" type="button" aria-pressed="false">Videos</button>
+      <button class="filter" data-filter="personal" type="button" aria-pressed="false">links.txt</button>
+      <button class="filter" data-filter="course" type="button" aria-pressed="false">Courses + Wiki</button>
+      <button class="filter" data-filter="repo" type="button" aria-pressed="false">Repos</button>
+      <button class="filter" data-filter="docs" type="button" aria-pressed="false">Docs + APIs</button>
+      <button class="filter" data-filter="reference" type="button" aria-pressed="false">References</button>
+    </div>
+  </section>
+
+  <aside class="note">
+    <span aria-hidden="true">i</span>
+    <p>Inventory scope: tracked root <code>*.html</code>, tracked <code>session-materials/*.html</code>, and tracked <code>links.txt</code>. Excluded: localhost, data URIs, mailto/tel/javascript links, Google font URLs, and untracked draft pages. Privacy note: <code>noindex</code> is not access control; keep this page unlinked or out of public deploys if the queue should stay private.</p>
+  </aside>
+
+  <section id="list" class="grid" aria-label="External links"></section>
+  <p id="empty" class="empty">No matching links.</p>
+
+  <footer class="meta">
+    <p>Refresh recipe: rescan tracked HTML files and <code>links.txt</code>, normalize YouTube embeds and short links to watch URLs, then update the embedded <code>links</code> array in this file.</p>
+  </footer>
+</main>
+
+<script>
+const links = [
+  {
+    "t": "Andrew Ng Homework Video →",
+    "u": "https://www.youtube.com/watch?v=8ib4Qnh2HFE",
+    "k": "video",
+    "s": [
+      "index.html",
+      "week-12-advanced-prompting.html"
+    ]
+  },
+  {
+    "t": "Andrew Ng Homework Video →",
+    "u": "https://www.youtube.com/watch?v=ff3j4olCUig",
+    "k": "video",
+    "s": [
+      "index.html",
+      "week-08-web-basics-design.html"
+    ]
+  },
+  {
+    "t": "Claude Code for Beginners — Build Your First App with AI",
+    "u": "https://www.youtube.com/watch?v=s-Mc26Ytz10",
+    "k": "video",
+    "s": [
+      "claude-code-course.html"
+    ]
+  },
+  {
+    "t": "Deep Dive into LLMs like ChatGPT",
+    "u": "https://www.youtube.com/watch?v=7xTGNNLPyMI",
+    "k": "video",
+    "s": [
+      "module-00-llm-basics.html",
+      "session-materials/llm-foundations-homework.html"
+    ]
+  },
+  {
+    "t": "Douyin video: Anthropic official says harsh prompting can degrade AI responses",
+    "u": "https://v.douyin.com/kZKUPasveCQ/",
+    "k": "video",
+    "s": [
+      "links.txt"
+    ]
+  },
+  {
+    "t": "Google's AI Course for Beginners",
+    "u": "https://www.youtube.com/watch?v=Yq0QkCxoTHM",
+    "k": "video",
+    "s": [
+      "index.html"
+    ]
+  },
+  {
+    "t": "How Claude Code Works",
+    "u": "https://www.youtube.com/watch?v=6bs5b4FltCU",
+    "k": "video",
+    "s": [
+      "index.html"
+    ]
+  },
+  {
+    "t": "3Blue1Brown: How might LLMs store facts",
+    "u": "https://www.youtube.com/watch?v=wjZofJX0v4M",
+    "k": "video",
+    "s": [
+      "module-00-llm-basics.html",
+      "module-00b-transformer-deep-dive.html",
+      "session-materials/transformer-deep-dive-homework.html"
+    ]
+  },
+  {
+    "t": "3Blue1Brown: But how do AI images and videos actually work?",
+    "u": "https://www.youtube.com/watch?v=iv-5mZ_9CPY",
+    "k": "video",
+    "s": [
+      "week-06-media-generation-presentations.html"
+    ]
+  },
+  {
+    "t": "How to Turn ChatGPT Prompt Into a Complete Visual Workflow",
+    "u": "https://www.youtube.com/watch?v=AW-Z277VN7Y",
+    "k": "video",
+    "s": [
+      "claude-code-course.html",
+      "links.txt"
+    ]
+  },
+  {
+    "t": "How To Use AI in 2026: AI Tools Explained for Beginners",
+    "u": "https://www.youtube.com/watch?v=MRDlEtoqSd0",
+    "k": "video",
+    "s": [
+      "claude-code-course.html",
+      "links.txt"
+    ]
+  },
+  {
+    "t": "3Blue1Brown: How transformer LLMs actually learn",
+    "u": "https://www.youtube.com/watch?v=eMlx5fFNoYc",
+    "k": "video",
+    "s": [
+      "module-00b-transformer-deep-dive.html"
+    ]
+  },
+  {
+    "t": "Installing Claude Code",
+    "u": "https://www.youtube.com/watch?v=0kILa02vKuI",
+    "k": "video",
+    "s": [
+      "index.html"
+    ]
+  },
+  {
+    "t": "3Blue1Brown: Large Language Models explained briefly",
+    "u": "https://www.youtube.com/watch?v=LPZh9BOjkQs",
+    "k": "video",
+    "s": [
+      "ai-life-skills.html",
+      "llm-background.html",
+      "module-00-llm-basics.html",
+      "session-materials/llm-foundations-homework.html"
+    ]
+  },
+  {
+    "t": "My complete AI animation workflow",
+    "u": "https://www.youtube.com/watch?v=a0U62XeQqig",
+    "k": "video",
+    "s": [
+      "ai-life-skills.html",
+      "links.txt"
+    ]
+  },
+  {
+    "t": "Open optional video",
+    "u": "https://www.youtube.com/watch?v=6wdvSH61xGw",
+    "k": "video",
+    "s": [
+      "week-02-agent-foundations.html"
+    ]
+  },
+  {
+    "t": "Self-Attention Explained: How Transformers Actually Work",
+    "u": "https://www.youtube.com/watch?v=vkhPtpUiLd8",
+    "k": "video",
+    "s": [
+      "links.txt",
+      "llm-background.html"
+    ]
+  },
+  {
+    "t": "Stanford AI Systems Course Summary - From LLM to Agentic Workflow",
+    "u": "https://www.youtube.com/watch?v=eKW9ITaltWw",
+    "k": "video",
+    "s": [
+      "links.txt",
+      "llm-background.html"
+    ]
+  },
+  {
+    "t": "Teachable Machine - AI Education Activity for High School",
+    "u": "https://www.youtube.com/watch?v=SUonhsR9KCA",
+    "k": "video",
+    "s": [
+      "llm-background.html"
+    ]
+  },
+  {
+    "t": "The $5 Million Reading Game Behind Every AI - Pretraining",
+    "u": "https://www.youtube.com/watch?v=oIIkVBEr6ww",
+    "k": "video",
+    "s": [
+      "links.txt",
+      "llm-background.html"
+    ]
+  },
+  {
+    "t": "3Blue1Brown: Transformers, the tech behind LLMs",
+    "u": "https://www.youtube.com/watch?v=9-Jl0dxWQs8",
+    "k": "video",
+    "s": [
+      "module-00-llm-basics.html",
+      "module-00b-transformer-deep-dive.html",
+      "session-materials/transformer-deep-dive-homework.html"
+    ]
+  },
+  {
+    "t": "Watch the full Claude 101 playlist →",
+    "u": "https://youtube.com/playlist?list=PLmWCw1CzcFilebjK89WLb5cAvM8K0cLB3",
+    "k": "video",
+    "s": [
+      "index.html"
+    ]
+  },
+  {
+    "t": "Why Senior Devs Use AI Differently",
+    "u": "https://www.youtube.com/watch?v=24-6yY4hW_w",
+    "k": "video",
+    "s": [
+      "ai-life-skills.html"
+    ]
+  },
+  {
+    "t": "Your first Claude Code prompt",
+    "u": "https://www.youtube.com/watch?v=gbetp6D7J_Q",
+    "k": "video",
+    "s": [
+      "index.html"
+    ]
+  },
+  {
+    "t": "YouTube video: 4gciWspBVHw",
+    "u": "https://www.youtube.com/watch?v=4gciWspBVHw",
+    "k": "video",
+    "s": [
+      "links.txt"
+    ]
+  },
+  {
+    "t": "YouTube video: FC6kgljNc1M",
+    "u": "https://www.youtube.com/watch?v=FC6kgljNc1M",
+    "k": "video",
+    "s": [
+      "links.txt"
+    ]
+  },
+  {
+    "t": "YouTube video: SHAI7pG3qI8",
+    "u": "https://www.youtube.com/watch?v=SHAI7pG3qI8",
+    "k": "video",
+    "s": [
+      "links.txt"
+    ]
+  },
+  {
+    "t": "YouTube video: ZkGzEMDeJos",
+    "u": "https://www.youtube.com/watch?v=ZkGzEMDeJos",
+    "k": "video",
+    "s": [
+      "links.txt"
+    ]
+  },
+  {
+    "t": "DeepLearning.AI Agentic AI course",
+    "u": "https://www.deeplearning.ai/courses/agentic-ai/",
+    "k": "course",
+    "s": [
+      "index.html",
+      "week-02-agent-foundations.html"
+    ]
+  },
+  {
+    "t": "DeepLearning.AI agentic AI public repo",
+    "u": "https://github.com/https-deeplearning-ai/agentic-ai-public",
+    "k": "repo",
+    "s": [
+      "index.html",
+      "week-02-agent-foundations.html"
+    ]
+  },
+  {
+    "t": "Easy-Vibe by Datawhale",
+    "u": "https://github.com/datawhalechina/easy-vibe",
+    "k": "repo",
+    "s": [
+      "claude-code-course.html"
+    ]
+  },
+  {
+    "t": "GitHub",
+    "u": "https://github.com/",
+    "k": "repo",
+    "s": [
+      "claude-code-course.html"
+    ]
+  },
+  {
+    "t": "Meridian Company OS",
+    "u": "https://github.com/codejunkie99/meridian-company-os",
+    "k": "repo",
+    "s": [
+      "agentic-engineering-quest.html"
+    ]
+  },
+  {
+    "t": "Open claude-tap",
+    "u": "https://github.com/liaohch3/claude-tap",
+    "k": "repo",
+    "s": [
+      "index.html",
+      "week-02-agent-foundations.html"
+    ]
+  },
+  {
+    "t": "Open GitHub repo",
+    "u": "https://github.com/bradautomates/claude-video",
+    "k": "repo",
+    "s": [
+      "index.html",
+      "teacher-training-ai-fluency.html",
+      "week-06-media-generation-presentations.html",
+      "week-11-knowledge-career-evidence.html"
+    ]
+  },
+  {
+    "t": "Open GitHub repo",
+    "u": "https://github.com/Graphify-Labs/graphify",
+    "k": "repo",
+    "s": [
+      "index.html",
+      "teacher-training-ai-fluency.html",
+      "week-02-agent-foundations.html"
+    ]
+  },
+  {
+    "t": "Open GitHub repo",
+    "u": "https://github.com/opendataloader-project/opendataloader-pdf",
+    "k": "repo",
+    "s": [
+      "index.html",
+      "teacher-training-ai-fluency.html",
+      "week-11-knowledge-career-evidence.html"
+    ]
+  },
+  {
+    "t": "Open GitHub repo",
+    "u": "https://github.com/pbakaus/impeccable",
+    "k": "repo",
+    "s": [
+      "index.html",
+      "teacher-training-ai-fluency.html",
+      "week-08-web-basics-design.html",
+      "week-14-final-showcase.html"
+    ]
+  },
+  {
+    "t": "Open GitHub repo",
+    "u": "https://github.com/teng-lin/notebooklm-py",
+    "k": "repo",
+    "s": [
+      "teacher-training-ai-fluency.html"
+    ]
+  },
+  {
+    "t": "Open optional CyberPPT",
+    "u": "https://github.com/crazyykhllc-bit/CyberPPT",
+    "k": "repo",
+    "s": [
+      "index.html",
+      "teacher-training-ai-fluency.html",
+      "week-06-media-generation-presentations.html"
+    ]
+  },
+  {
+    "t": "View Source Curriculum",
+    "u": "https://github.com/ghumare64/AI-Engineering-From-Scratch",
+    "k": "repo",
+    "s": [
+      "advanced.html"
+    ]
+  },
+  {
+    "t": "Anthropic's data policy",
+    "u": "https://docs.anthropic.com/en/docs/claude-code/security",
+    "k": "docs",
+    "s": [
+      "claude-code-course.html"
+    ]
+  },
+  {
+    "t": "Claude Code plugin docs",
+    "u": "https://code.claude.com/docs/en/plugins",
+    "k": "docs",
+    "s": [
+      "week-02-agent-foundations.html"
+    ]
+  },
+  {
+    "t": "Claude Code quickstart",
+    "u": "https://docs.anthropic.com/en/docs/claude-code/quickstart",
+    "k": "docs",
+    "s": [
+      "week-02-agent-foundations.html"
+    ]
+  },
+  {
+    "t": "Codex CLI docs",
+    "u": "https://developers.openai.com/codex/cli",
+    "k": "docs",
+    "s": [
+      "week-02-agent-foundations.html"
+    ]
+  },
+  {
+    "t": "GitHub Pages quickstart",
+    "u": "https://docs.github.com/en/pages/quickstart",
+    "k": "docs",
+    "s": [
+      "index.html",
+      "week-10-complete-static-deployment.html"
+    ]
+  },
+  {
+    "t": "GitHub Push Protection",
+    "u": "https://docs.github.com/en/code-security/concepts/secret-security/push-protection",
+    "k": "docs",
+    "s": [
+      "index.html",
+      "week-13-security-review-lab.html"
+    ]
+  },
+  {
+    "t": "MDN events reference",
+    "u": "https://developer.mozilla.org/en-US/docs/Learn_web_development/Core/Scripting/Events",
+    "k": "docs",
+    "s": [
+      "index.html",
+      "week-09-interactivity-intelligence.html"
+    ]
+  },
+  {
+    "t": "MDN localStorage",
+    "u": "https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage",
+    "k": "docs",
+    "s": [
+      "week-10-complete-static-deployment.html"
+    ]
+  },
+  {
+    "t": "MDN Web Storage API",
+    "u": "https://developer.mozilla.org/en-US/docs/Web/API/Web_Storage_API",
+    "k": "docs",
+    "s": [
+      "index.html",
+      "week-10-complete-static-deployment.html"
+    ]
+  },
+  {
+    "t": "OpenAI Safety Best Practices",
+    "u": "https://developers.openai.com/api/docs/guides/safety-best-practices",
+    "k": "docs",
+    "s": [
+      "index.html",
+      "week-13-security-review-lab.html"
+    ]
+  },
+  {
+    "t": "OpenAI skills and plugins docs",
+    "u": "https://developers.openai.com/codex/skills-and-plugins",
+    "k": "docs",
+    "s": [
+      "week-02-agent-foundations.html"
+    ]
+  },
+  {
+    "t": "Optional MDN vocabulary reference",
+    "u": "https://developer.mozilla.org/en-US/docs/Learn_web_development/Getting_started",
+    "k": "docs",
+    "s": [
+      "index.html",
+      "week-08-web-basics-design.html"
+    ]
+  },
+  {
+    "t": "Optional PAIR Codelab",
+    "u": "https://codelabs.developers.google.com/codelabs/pair-guidebook",
+    "k": "docs",
+    "s": [
+      "index.html",
+      "week-14-final-showcase.html"
+    ]
+  },
+  {
+    "t": "Read IBM: Agent skills and MCP servers",
+    "u": "https://developer.ibm.com/articles/agent-skills-mcp-servers/",
+    "k": "docs",
+    "s": [
+      "week-02-agent-foundations.html"
+    ]
+  },
+  {
+    "t": "Read MCP introduction",
+    "u": "https://modelcontextprotocol.io/docs/getting-started/intro",
+    "k": "docs",
+    "s": [
+      "week-02-agent-foundations.html"
+    ]
+  },
+  {
+    "t": "C2PA + SynthID",
+    "u": "https://help.openai.com/en/articles/8912793-c2pa-and-synthid-in-openai-generated-images",
+    "k": "reference",
+    "s": [
+      "week-06-media-generation-presentations.html"
+    ]
+  },
+  {
+    "t": "Claude file creation",
+    "u": "https://support.claude.com/en/articles/12111783-create-and-edit-files-with-claude",
+    "k": "reference",
+    "s": [
+      "index.html",
+      "week-05-data-excel-workflows.html"
+    ]
+  },
+  {
+    "t": "Claude for Word",
+    "u": "https://support.claude.com/en/articles/14465370-use-claude-for-word",
+    "k": "reference",
+    "s": [
+      "index.html",
+      "week-04-writing-word-documents.html"
+    ]
+  },
+  {
+    "t": "Claude uploads",
+    "u": "https://support.claude.com/en/articles/8241126-upload-files-to-claude",
+    "k": "reference",
+    "s": [
+      "week-05-data-excel-workflows.html"
+    ]
+  },
+  {
+    "t": "claude.ai",
+    "u": "https://claude.ai/",
+    "k": "reference",
+    "s": [
+      "index.html"
+    ]
+  },
+  {
+    "t": "Claude install shell script - use intentionally",
+    "u": "https://claude.ai/install.sh",
+    "k": "reference",
+    "s": [
+      "claude-code-course.html"
+    ]
+  },
+  {
+    "t": "Copilot in Excel",
+    "u": "https://support.microsoft.com/en-us/excel/copilot/get-started-with-copilot-in-excel",
+    "k": "reference",
+    "s": [
+      "index.html",
+      "week-05-data-excel-workflows.html"
+    ]
+  },
+  {
+    "t": "Copilot in Word",
+    "u": "https://support.microsoft.com/en-us/word/welcome-to-copilot-in-word",
+    "k": "reference",
+    "s": [
+      "index.html",
+      "week-04-writing-word-documents.html"
+    ]
+  },
+  {
+    "t": "Copilot prompt guide",
+    "u": "https://support.microsoft.com/en-us/microsoft-365-copilot/get-started-writing-prompts-in-microsoft-365-copilot",
+    "k": "reference",
+    "s": [
+      "week-04-writing-word-documents.html"
+    ]
+  },
+  {
+    "t": "Copyright Office AI",
+    "u": "https://www.copyright.gov/ai/",
+    "k": "reference",
+    "s": [
+      "week-03-responsible-ai-decisions.html"
+    ]
+  },
+  {
+    "t": "Copyrightability report",
+    "u": "https://www.copyright.gov/ai/Copyright-and-Artificial-Intelligence-Part-2-Copyrightability-Report.pdf",
+    "k": "reference",
+    "s": [
+      "week-03-responsible-ai-decisions.html"
+    ]
+  },
+  {
+    "t": "Cornell AI integrity",
+    "u": "https://teaching.cornell.edu/generative-artificial-intelligence/ai-academic-integrity",
+    "k": "reference",
+    "s": [
+      "index.html",
+      "week-03-responsible-ai-decisions.html"
+    ]
+  },
+  {
+    "t": "Data insights",
+    "u": "https://support.microsoft.com/en-us/excel/copilot/data-insights-with-copilot-in-excel",
+    "k": "reference",
+    "s": [
+      "week-05-data-excel-workflows.html"
+    ]
+  },
+  {
+    "t": "Digital Inquiry Group: Lateral Reading",
+    "u": "https://cor.inquirygroup.org/curriculum/collections/teaching-lateral-reading/",
+    "k": "reference",
+    "s": [
+      "index.html",
+      "week-11-knowledge-career-evidence.html"
+    ]
+  },
+  {
+    "t": "Excel prompt tips",
+    "u": "https://support.microsoft.com/en-us/excel/copilot/copilot-in-excel-tips",
+    "k": "reference",
+    "s": [
+      "index.html",
+      "week-05-data-excel-workflows.html"
+    ]
+  },
+  {
+    "t": "Google PAIR Guidebook",
+    "u": "https://pair.withgoogle.com/guidebook-v2/",
+    "k": "reference",
+    "s": [
+      "index.html",
+      "week-10-complete-static-deployment.html",
+      "week-14-final-showcase.html"
+    ]
+  },
+  {
+    "t": "Image generation academy",
+    "u": "https://openai.com/academy/image-generation/",
+    "k": "reference",
+    "s": [
+      "index.html",
+      "week-06-media-generation-presentations.html"
+    ]
+  },
+  {
+    "t": "Image inputs FAQ",
+    "u": "https://help.openai.com/articles/8400551-chatgpt-image-inputs-faq",
+    "k": "reference",
+    "s": [
+      "week-06-media-generation-presentations.html"
+    ]
+  },
+  {
+    "t": "Images in ChatGPT",
+    "u": "https://help.openai.com/en/articles/11084440-images-in-chatgpt",
+    "k": "reference",
+    "s": [
+      "index.html",
+      "week-06-media-generation-presentations.html"
+    ]
+  },
+  {
+    "t": "Karpathy MicroGPT reference",
+    "u": "https://karpathy.github.io/2026/02/12/microgpt/",
+    "k": "reference",
+    "s": [
+      "module-00-llm-basics.html",
+      "session-materials/llm-foundations-homework.html"
+    ]
+  },
+  {
+    "t": "LearnAI post-test",
+    "u": "https://weihaoqu.github.io/learnai-assessment-hs/?type=post",
+    "k": "reference",
+    "s": [
+      "index.html"
+    ]
+  },
+  {
+    "t": "LearnAI pre-test",
+    "u": "https://weihaoqu.github.io/learnai-assessment-hs/?type=pre",
+    "k": "reference",
+    "s": [
+      "index.html"
+    ]
+  },
+  {
+    "t": "LearnAI wiki",
+    "u": "https://weihaoqu.github.io/learnAIDoc/",
+    "k": "reference",
+    "s": [
+      "index.html"
+    ]
+  },
+  {
+    "t": "LearnAI wiki index",
+    "u": "https://weihaoqu.github.io/learnAIDoc/wiki-index.html",
+    "k": "reference",
+    "s": [
+      "teacher-training-ai-fluency.html"
+    ]
+  },
+  {
+    "t": "LearnAI wiki draft: Editing AI-Sounding Writing (pending publish)",
+    "u": "https://weihaoqu.github.io/learnAIDoc/wiki/removing-ai-taste-skill-list/",
+    "k": "reference",
+    "s": [
+      "week-04-writing-word-documents.html",
+      "/Users/oreo/Dropbox/learnAIDoc/_wiki/removing-ai-taste-skill-list.md"
+    ]
+  },
+  {
+    "t": "NACE Career Readiness Competencies",
+    "u": "https://naceweb.org/career-readiness/competencies/career-readiness-defined",
+    "k": "reference",
+    "s": [
+      "index.html",
+      "week-11-knowledge-career-evidence.html",
+      "week-14-final-showcase.html"
+    ]
+  },
+  {
+    "t": "NIST AI RMF",
+    "u": "https://www.nist.gov/itl/ai-risk-management-framework",
+    "k": "reference",
+    "s": [
+      "index.html",
+      "week-03-responsible-ai-decisions.html"
+    ]
+  },
+  {
+    "t": "nodejs.org",
+    "u": "https://nodejs.org/",
+    "k": "reference",
+    "s": [
+      "index.html"
+    ]
+  },
+  {
+    "t": "Open CCUnpacked",
+    "u": "https://ccunpacked.dev/",
+    "k": "reference",
+    "s": [
+      "week-02-agent-foundations.html"
+    ]
+  },
+  {
+    "t": "Open course wiki note",
+    "u": "https://weihaoqu.github.io/learnAIDoc/wiki/ccunpacked-claude-code-internals/",
+    "k": "reference",
+    "s": [
+      "week-02-agent-foundations.html"
+    ]
+  },
+  {
+    "t": "Open find-skills",
+    "u": "https://www.skills.sh/vercel-labs/skills/find-skills",
+    "k": "reference",
+    "s": [
+      "index.html",
+      "teacher-training-ai-fluency.html",
+      "week-02-agent-foundations.html"
+    ]
+  },
+  {
+    "t": "Open grill-me",
+    "u": "https://weihaoqu.github.io/learnAIDoc/wiki/grill-me-skill/",
+    "k": "reference",
+    "s": [
+      "index.html",
+      "teacher-training-ai-fluency.html",
+      "week-08-web-basics-design.html"
+    ]
+  },
+  {
+    "t": "Open grill-with-docs",
+    "u": "https://www.skills.sh/mattpocock/skills/grill-with-docs",
+    "k": "reference",
+    "s": [
+      "index.html",
+      "teacher-training-ai-fluency.html",
+      "week-11-knowledge-career-evidence.html"
+    ]
+  },
+  {
+    "t": "Open html-anything",
+    "u": "https://weihaoqu.github.io/learnAIDoc/wiki/html-anything-ai-generator/",
+    "k": "reference",
+    "s": [
+      "index.html",
+      "teacher-training-ai-fluency.html",
+      "week-08-web-basics-design.html"
+    ]
+  },
+  {
+    "t": "Open Manim + Remotion",
+    "u": "https://weihaoqu.github.io/learnAIDoc/wiki/teaching-videos-manim-remotion/",
+    "k": "reference",
+    "s": [
+      "index.html",
+      "teacher-training-ai-fluency.html",
+      "week-06-media-generation-presentations.html"
+    ]
+  },
+  {
+    "t": "Open marketplace summary",
+    "u": "https://claudemarketplaces.com/skills/bradautomates/claude-video/watch",
+    "k": "reference",
+    "s": [
+      "teacher-training-ai-fluency.html",
+      "week-11-knowledge-career-evidence.html"
+    ]
+  },
+  {
+    "t": "Open Matt skills",
+    "u": "https://weihaoqu.github.io/learnAIDoc/wiki/matt-pocock-skills-real-engineers/",
+    "k": "reference",
+    "s": [
+      "teacher-training-ai-fluency.html"
+    ]
+  },
+  {
+    "t": "Open optional HTML Mender",
+    "u": "https://clawhub.ai/wuhaoyupku/html-slide-mender",
+    "k": "reference",
+    "s": [
+      "index.html",
+      "teacher-training-ai-fluency.html",
+      "week-06-media-generation-presentations.html"
+    ]
+  },
+  {
+    "t": "Open project site",
+    "u": "https://opendataloader.org/",
+    "k": "reference",
+    "s": [
+      "teacher-training-ai-fluency.html"
+    ]
+  },
+  {
+    "t": "Open Skilljar course",
+    "u": "https://anthropic.skilljar.com/ai-fluency-for-educators",
+    "k": "reference",
+    "s": [
+      "teacher-training-ai-fluency.html"
+    ]
+  },
+  {
+    "t": "Open Skilljar course",
+    "u": "https://anthropic.skilljar.com/ai-fluency-for-students",
+    "k": "reference",
+    "s": [
+      "index.html",
+      "teacher-training-ai-fluency.html",
+      "week-11-knowledge-career-evidence.html"
+    ]
+  },
+  {
+    "t": "Open Skilljar course",
+    "u": "https://anthropic.skilljar.com/ai-fluency-framework-foundations",
+    "k": "reference",
+    "s": [
+      "teacher-training-ai-fluency.html",
+      "week-02-agent-foundations.html",
+      "week-03-responsible-ai-decisions.html"
+    ]
+  },
+  {
+    "t": "Open Skilljar course",
+    "u": "https://anthropic.skilljar.com/teaching-ai-fluency",
+    "k": "reference",
+    "s": [
+      "teacher-training-ai-fluency.html"
+    ]
+  },
+  {
+    "t": "Open Skills.sh page",
+    "u": "https://www.skills.sh/mattpocock/skills/improve-codebase-architecture",
+    "k": "reference",
+    "s": [
+      "index.html",
+      "teacher-training-ai-fluency.html",
+      "week-13-security-review-lab.html"
+    ]
+  },
+  {
+    "t": "Open slide tools",
+    "u": "https://weihaoqu.github.io/learnAIDoc/wiki/ai-slide-generation-tools/",
+    "k": "reference",
+    "s": [
+      "index.html",
+      "teacher-training-ai-fluency.html",
+      "week-06-media-generation-presentations.html"
+    ]
+  },
+  {
+    "t": "Open video-use",
+    "u": "https://weihaoqu.github.io/learnAIDoc/wiki/video-use-agent-video-editing/",
+    "k": "reference",
+    "s": [
+      "index.html",
+      "teacher-training-ai-fluency.html",
+      "week-06-media-generation-presentations.html"
+    ]
+  },
+  {
+    "t": "Open wiki post",
+    "u": "https://weihaoqu.github.io/learnAIDoc/wiki/ai-agent-book-engineering-practice/",
+    "k": "reference",
+    "s": [
+      "index.html",
+      "teacher-training-ai-fluency.html",
+      "week-02-agent-foundations.html"
+    ]
+  },
+  {
+    "t": "Open wiki post",
+    "u": "https://weihaoqu.github.io/learnAIDoc/wiki/awesome-auto-research-tools/",
+    "k": "reference",
+    "s": [
+      "index.html",
+      "teacher-training-ai-fluency.html",
+      "week-11-knowledge-career-evidence.html"
+    ]
+  },
+  {
+    "t": "Open wiki post",
+    "u": "https://weihaoqu.github.io/learnAIDoc/wiki/claude-code-context-claudemd-practices/",
+    "k": "reference",
+    "s": [
+      "teacher-training-ai-fluency.html"
+    ]
+  },
+  {
+    "t": "Open wiki post",
+    "u": "https://weihaoqu.github.io/learnAIDoc/wiki/cmu-11-768-ai-agents-course/",
+    "k": "reference",
+    "s": [
+      "teacher-training-ai-fluency.html"
+    ]
+  },
+  {
+    "t": "Open wiki post",
+    "u": "https://weihaoqu.github.io/learnAIDoc/wiki/openworker-local-first-desktop-agents/",
+    "k": "reference",
+    "s": [
+      "index.html",
+      "teacher-training-ai-fluency.html",
+      "week-13-security-review-lab.html"
+    ]
+  },
+  {
+    "t": "Open wiki post",
+    "u": "https://weihaoqu.github.io/learnAIDoc/wiki/ponytail-anti-overengineering-skill/",
+    "k": "reference",
+    "s": [
+      "index.html",
+      "teacher-training-ai-fluency.html",
+      "week-13-security-review-lab.html"
+    ]
+  },
+  {
+    "t": "Open wiki post",
+    "u": "https://weihaoqu.github.io/learnAIDoc/wiki/what-is-agentic-engineering/",
+    "k": "reference",
+    "s": [
+      "index.html",
+      "teacher-training-ai-fluency.html",
+      "week-02-agent-foundations.html"
+    ]
+  },
+  {
+    "t": "Optional Agentic Security Reference",
+    "u": "https://genai.owasp.org/resource/owasp-top-10-for-agentic-applications-for-2026/",
+    "k": "reference",
+    "s": [
+      "index.html",
+      "week-13-security-review-lab.html"
+    ]
+  },
+  {
+    "t": "Optional feedback method",
+    "u": "https://dschool.stanford.edu/tools/how-to-give-feedback",
+    "k": "reference",
+    "s": [
+      "index.html",
+      "week-14-final-showcase.html"
+    ]
+  },
+  {
+    "t": "Optional MITRE ATLAS",
+    "u": "https://atlas.mitre.org/",
+    "k": "reference",
+    "s": [
+      "index.html",
+      "week-13-security-review-lab.html"
+    ]
+  },
+  {
+    "t": "OWASP GenAI LLM Top 10",
+    "u": "https://genai.owasp.org/llm-top-10/",
+    "k": "reference",
+    "s": [
+      "index.html",
+      "week-13-security-review-lab.html"
+    ]
+  },
+  {
+    "t": "Purdue AI citation guide",
+    "u": "https://guides.lib.purdue.edu/c.php?g=1371380&p=10135074",
+    "k": "reference",
+    "s": [
+      "index.html",
+      "week-04-writing-word-documents.html",
+      "week-11-knowledge-career-evidence.html"
+    ]
+  },
+  {
+    "t": "Q Office wiki",
+    "u": "https://weihaoqu.github.io/learnAIDoc/wiki/claude-for-word-office-integration/",
+    "k": "reference",
+    "s": [
+      "week-05-data-excel-workflows.html"
+    ]
+  },
+  {
+    "t": "Read Anthropic MCP announcement",
+    "u": "https://www.anthropic.com/news/model-context-protocol",
+    "k": "reference",
+    "s": [
+      "week-02-agent-foundations.html"
+    ]
+  },
+  {
+    "t": "Stanford AI literacy",
+    "u": "https://teachingcommons.stanford.edu/teaching-guides/artificial-intelligence-teaching-guide/understanding-ai-literacy",
+    "k": "reference",
+    "s": [
+      "week-03-responsible-ai-decisions.html"
+    ]
+  },
+  {
+    "t": "Training report",
+    "u": "https://www.copyright.gov/ai/Copyright-and-Artificial-Intelligence-Part-3-Generative-AI-Training-Report-Pre-Publication-Version.pdf",
+    "k": "reference",
+    "s": [
+      "week-03-responsible-ai-decisions.html"
+    ]
+  },
+  {
+    "t": "Usage policies",
+    "u": "https://openai.com/policies/usage-policies/",
+    "k": "reference",
+    "s": [
+      "week-06-media-generation-presentations.html"
+    ]
+  },
+  {
+    "t": "Vanderbilt guidance",
+    "u": "https://www.vanderbilt.edu/generative-ai/academic-integrity/",
+    "k": "reference",
+    "s": [
+      "week-03-responsible-ai-decisions.html"
+    ]
+  },
+  {
+    "t": "weihaoqu.github.io: ai brain fry cognitive fatigue",
+    "u": "https://weihaoqu.github.io/learnAIDoc/wiki/ai-brain-fry-cognitive-fatigue/",
+    "k": "reference",
+    "s": [
+      "course-case-bank.html"
+    ]
+  },
+  {
+    "t": "weihaoqu.github.io: ai education teacher factory",
+    "u": "https://weihaoqu.github.io/learnAIDoc/wiki/ai-education-teacher-factory/",
+    "k": "reference",
+    "s": [
+      "course-case-bank.html"
+    ]
+  },
+  {
+    "t": "weihaoqu.github.io: ai fluency index",
+    "u": "https://weihaoqu.github.io/learnAIDoc/wiki/ai-fluency-index/",
+    "k": "reference",
+    "s": [
+      "course-case-bank.html"
+    ]
+  },
+  {
+    "t": "weihaoqu.github.io: ai quantitative finance tools",
+    "u": "https://weihaoqu.github.io/learnAIDoc/wiki/ai-quantitative-finance-tools/",
+    "k": "reference",
+    "s": [
+      "course-case-bank.html"
+    ]
+  },
+  {
+    "t": "weihaoqu.github.io: anthropic automated alignment researchers",
+    "u": "https://weihaoqu.github.io/learnAIDoc/wiki/anthropic-automated-alignment-researchers/",
+    "k": "reference",
+    "s": [
+      "course-case-bank.html"
+    ]
+  },
+  {
+    "t": "weihaoqu.github.io: bilingual prompting technique",
+    "u": "https://weihaoqu.github.io/learnAIDoc/wiki/bilingual-prompting-technique/",
+    "k": "reference",
+    "s": [
+      "course-case-bank.html"
+    ]
+  },
+  {
+    "t": "weihaoqu.github.io: career ops ai job search",
+    "u": "https://weihaoqu.github.io/learnAIDoc/wiki/career-ops-ai-job-search/",
+    "k": "reference",
+    "s": [
+      "course-case-bank.html"
+    ]
+  },
+  {
+    "t": "weihaoqu.github.io: claude mythos verification crisis",
+    "u": "https://weihaoqu.github.io/learnAIDoc/wiki/claude-mythos-verification-crisis/",
+    "k": "reference",
+    "s": [
+      "course-case-bank.html"
+    ]
+  },
+  {
+    "t": "weihaoqu.github.io: forward deployed engineer ai",
+    "u": "https://weihaoqu.github.io/learnAIDoc/wiki/forward-deployed-engineer-ai/",
+    "k": "reference",
+    "s": [
+      "course-case-bank.html"
+    ]
+  },
+  {
+    "t": "weihaoqu.github.io: frustration shifts upward ai coding",
+    "u": "https://weihaoqu.github.io/learnAIDoc/wiki/frustration-shifts-upward-ai-coding/",
+    "k": "reference",
+    "s": [
+      "course-case-bank.html"
+    ]
+  },
+  {
+    "t": "weihaoqu.github.io: karpathy end of coding",
+    "u": "https://weihaoqu.github.io/learnAIDoc/wiki/karpathy-end-of-coding/",
+    "k": "reference",
+    "s": [
+      "course-case-bank.html"
+    ]
+  },
+  {
+    "t": "weihaoqu.github.io: lawyer won hackathon problem definition",
+    "u": "https://weihaoqu.github.io/learnAIDoc/wiki/lawyer-won-hackathon-problem-definition/",
+    "k": "reference",
+    "s": [
+      "course-case-bank.html"
+    ]
+  },
+  {
+    "t": "weihaoqu.github.io: medical ai scientist",
+    "u": "https://weihaoqu.github.io/learnAIDoc/wiki/medical-ai-scientist/",
+    "k": "reference",
+    "s": [
+      "course-case-bank.html"
+    ]
+  },
+  {
+    "t": "weihaoqu.github.io: mujing learn english movies",
+    "u": "https://weihaoqu.github.io/learnAIDoc/wiki/mujing-learn-english-movies/",
+    "k": "reference",
+    "s": [
+      "course-case-bank.html"
+    ]
+  },
+  {
+    "t": "weihaoqu.github.io: notebooklm grading education paradox",
+    "u": "https://weihaoqu.github.io/learnAIDoc/wiki/notebooklm-grading-education-paradox/",
+    "k": "reference",
+    "s": [
+      "course-case-bank.html"
+    ]
+  },
+  {
+    "t": "weihaoqu.github.io: resume dead claude folder career",
+    "u": "https://weihaoqu.github.io/learnAIDoc/wiki/resume-dead-claude-folder-career/",
+    "k": "reference",
+    "s": [
+      "course-case-bank.html"
+    ]
+  },
+  {
+    "t": "weihaoqu.github.io: shortest prompt lines that work",
+    "u": "https://weihaoqu.github.io/learnAIDoc/wiki/shortest-prompt-lines-that-work/",
+    "k": "reference",
+    "s": [
+      "course-case-bank.html"
+    ]
+  },
+  {
+    "t": "weihaoqu.github.io: subq subquadratic sparse attention",
+    "u": "https://weihaoqu.github.io/learnAIDoc/wiki/subq-subquadratic-sparse-attention/",
+    "k": "reference",
+    "s": [
+      "course-case-bank.html"
+    ]
+  },
+  {
+    "t": "weihaoqu.github.io: tensortonic learn ml code",
+    "u": "https://weihaoqu.github.io/learnAIDoc/wiki/tensortonic-learn-ml-code/",
+    "k": "reference",
+    "s": [
+      "course-case-bank.html"
+    ]
+  },
+  {
+    "t": "weihaoqu.github.io: turboquant reverse engineer google",
+    "u": "https://weihaoqu.github.io/learnAIDoc/wiki/turboquant-reverse-engineer-google/",
+    "k": "reference",
+    "s": [
+      "course-case-bank.html"
+    ]
+  }
+];
+const labels = {video:"Video",course:"Course",repo:"Repo",docs:"Docs",reference:"Reference"};
+const list = document.getElementById("list");
+const empty = document.getElementById("empty");
+const search = document.getElementById("search");
+const visibleCount = document.getElementById("visibleCount");
+let activeFilter = "all";
+
+function hostFor(url){
+  try{return new URL(url).hostname.replace(/^www\./,"");}
+  catch{return url;}
+}
+function displayUrlFor(url){
+  try{
+    const parsed = new URL(url);
+    return parsed.hostname.replace(/^www\./,"") + parsed.pathname + (parsed.search || "");
+  }catch{
+    return url;
+  }
+}
+function isPersonal(item){return item.s.includes("links.txt");}
+function sourceHref(source){return source;}
+function matches(item, query){
+  const haystack = [item.t,item.u,hostFor(item.u),item.k,...item.s].join(" ").toLowerCase();
+  return haystack.includes(query);
+}
+function render(){
+  const q = search.value.trim().toLowerCase();
+  const filtered = links.filter(item => {
+    const filterMatch = activeFilter === "all" || item.k === activeFilter || (activeFilter === "personal" && isPersonal(item));
+    return filterMatch && matches(item,q);
+  });
+  list.textContent = "";
+  filtered.forEach(item => {
+    const row = document.createElement("article");
+    row.className = "row";
+    row.dataset.kind = item.k;
+
+    const kind = document.createElement("div");
+    kind.className = "kind";
+    const dot = document.createElement("span");
+    dot.className = "dot";
+    dot.setAttribute("aria-hidden","true");
+    kind.append(dot, document.createTextNode(isPersonal(item) ? labels[item.k] + " + queue" : labels[item.k]));
+
+    const main = document.createElement("div");
+    const title = document.createElement("a");
+    title.className = "title";
+    title.href = item.u;
+    title.target = "_blank";
+    title.rel = "noopener noreferrer";
+    title.textContent = item.t;
+    const url = document.createElement("div");
+    url.className = "url";
+    url.textContent = displayUrlFor(item.u);
+    const sources = document.createElement("div");
+    sources.className = "sources";
+    item.s.forEach(src => {
+      const pill = document.createElement("a");
+      pill.className = "source";
+      pill.href = sourceHref(src);
+      pill.textContent = src;
+      sources.appendChild(pill);
+    });
+    main.append(title,url,sources);
+
+    const open = document.createElement("a");
+    open.className = "open";
+    open.href = item.u;
+    open.target = "_blank";
+    open.rel = "noopener noreferrer";
+    open.setAttribute("aria-label", "Open " + item.t);
+    open.textContent = "Open";
+
+    row.append(kind,main,open);
+    list.appendChild(row);
+  });
+  visibleCount.textContent = `${filtered.length} / ${links.length}`;
+  empty.style.display = filtered.length ? "none" : "block";
+}
+
+document.getElementById("totalCount").textContent = links.length;
+document.getElementById("videoCount").textContent = links.filter(item => item.k === "video").length;
+document.getElementById("repoCount").textContent = links.filter(item => item.k === "repo").length;
+document.getElementById("personalCount").textContent = links.filter(isPersonal).length;
+document.querySelectorAll(".filter").forEach(button => {
+  button.addEventListener("click", () => {
+    document.querySelectorAll(".filter").forEach(item => {
+      const isActive = item === button;
+      item.classList.toggle("active", isActive);
+      item.setAttribute("aria-pressed", String(isActive));
+    });
+    activeFilter = button.dataset.filter;
+    render();
+  });
+});
+search.addEventListener("input",render);
+render();
+</script>
+</body>
+</html>

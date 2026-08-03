@@ -201,6 +201,28 @@ body.notes-on .teacher-note{display:block}
     </div>
   </section>
 
+  <section class="slide source" id="prompt-steering" data-part="Part 1" data-title="Prompt steering">
+    <div class="inner">
+      <div class="timebox">Concept bridge</div>
+      <h2>How a prompt steers an image.</h2>
+      <p class="lede">A media model does not paste pictures from memory. A useful mental model is: text becomes direction, then the image is refined step by step.</p>
+      <div class="pipeline">
+        <div class="node">Prompt</div><div class="arrow">-&gt;</div>
+        <div class="node">Text meaning</div><div class="arrow">-&gt;</div>
+        <div class="node">Denoise</div><div class="arrow">-&gt;</div>
+        <div class="node">Guidance</div><div class="arrow">-&gt;</div>
+        <div class="node">Final image</div>
+      </div>
+      <div class="grid three">
+        <div class="card"><h3>CLIP idea</h3><p>Text and images can be compared in a shared meaning space, so prompts can point generation toward the intended concept.</p></div>
+        <div class="card"><h3>Diffusion idea</h3><p>The model starts from noise and repeatedly predicts cleaner, more likely image structure.</p></div>
+        <div class="card"><h3>Guidance idea</h3><p>Prompts can change the denoising direction. Positive wording emphasizes wanted features; tools with negative prompts can steer away from unwanted features.</p></div>
+      </div>
+      <div class="teacher-note">Pacing: 3 minutes. Keep this conceptual. Do not teach DDPM or DDIM math in the core 60-minute lab; the goal is to make prompt repair and negative prompts less mysterious.</div>
+      <a class="link-btn" href="https://www.youtube.com/watch?v=iv-5mZ_9CPY" target="_blank" rel="noopener noreferrer" aria-label="3Blue1Brown guest video on AI images and videos, opens in a new tab">Optional 3Blue1Brown: how AI images/videos work</a>
+    </div>
+  </section>
+
   <section class="slide check" data-part="Part 1" data-title="Asset pipeline">
     <div class="inner">
       <div class="timebox">5-12 min</div>
@@ -480,6 +502,7 @@ body.notes-on .teacher-note{display:block}
         <a class="link-btn" href="https://weihaoqu.github.io/learnAIDoc/wiki/teaching-videos-manim-remotion/" target="_blank" rel="noopener noreferrer">Optional Manim + Remotion explainers</a>
         <a class="link-btn" href="https://weihaoqu.github.io/learnAIDoc/wiki/video-use-agent-video-editing/" target="_blank" rel="noopener noreferrer">Optional transcript-first video editing</a>
         <a class="link-btn" href="https://github.com/bradautomates/claude-video" target="_blank" rel="noopener noreferrer">Optional /watch video analysis</a>
+        <a class="link-btn" href="https://www.youtube.com/watch?v=iv-5mZ_9CPY" target="_blank" rel="noopener noreferrer">Optional 3Blue1Brown: how AI images/videos work</a>
       </div>
       <p class="muted" style="margin-top:14px">These are extension resources and instructor demos. They are not required for Week 6 because slide-repair skills, PPT-generation workflows, video-analysis tools, and video workflows need extra setup such as tool installation, source-document preparation, downloads, frame extraction, transcription, rendering, or ffmpeg. Use only non-sensitive source materials and videos approved for class and permitted by license or platform terms.</p>
       <p style="margin-top:18px"><a href="index.html">Back to CS-215 course hub</a></p>
