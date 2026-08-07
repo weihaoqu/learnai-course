@@ -74,6 +74,8 @@ input:focus,select:focus,textarea:focus{border-color:rgba(34,211,238,.85);box-sh
 .resource-links{display:flex;flex-wrap:wrap;gap:10px;margin-top:18px}
 .link-btn{display:inline-flex;align-items:center;justify-content:center;border:1px solid var(--line2);border-radius:10px;padding:10px 13px;color:#d9fbff;text-decoration:none;font-weight:900;background:rgba(255,255,255,.06)}
 .link-btn:hover,.link-btn:focus{outline:2px solid rgba(34,211,238,.55);background:rgba(34,211,238,.10)}
+.source-note{margin-top:14px;color:#b9d1d2;font-size:14px;line-height:1.45}
+.source-note a{color:#d9fbff;font-weight:900}
 .controls{position:fixed;left:0;right:0;bottom:0;min-height:78px;display:flex;gap:10px;align-items:center;justify-content:center;flex-wrap:wrap;padding:12px 18px;background:rgba(7,16,19,.92);border-top:1px solid var(--line);z-index:20}
 .jump{display:flex;gap:7px;flex-wrap:wrap;justify-content:center}
 .jump button{width:34px;height:34px;border-radius:9px;border:1px solid var(--line);background:rgba(255,255,255,.05);color:var(--muted);font-weight:900}
@@ -139,6 +141,7 @@ input:focus,select:focus,textarea:focus{border-color:rgba(34,211,238,.85);box-sh
         <h3>Scope reminder</h3>
         <p>The SEO analyzer is a case-study pattern for testing and follow-up prompts. In this course, students polish static prototypes unless a backend is explicitly approved.</p>
       </div>
+      <p class="source-note">Source concepts: <a href="https://learn.deeplearning.ai/courses/build-with-andrew/lesson/puvdb0/customize-your-app" target="_blank" rel="noopener noreferrer">DeepLearning.AI app-customization lesson</a> and <a href="https://www.deeplearning.ai/courses/vibe-coding-101-with-replit" target="_blank" rel="noopener noreferrer">DeepLearning.AI / Replit Vibe Coding 101</a>. Prompts are rewritten for local LearnAI classroom use.</p>
       <div class="teacher-note">This slide borrows the Andrew Ng app-customization idea: precise feature requests, test the result, and describe observed failure instead of saying "it is broken."</div>
     </div>
   </section>
@@ -156,6 +159,7 @@ input:focus,select:focus,textarea:focus{border-color:rgba(34,211,238,.85);box-sh
         <div class="card warn"><h3>Explain before accepting</h3><p>Do not accept code you cannot explain at least partly in your own words.</p></div>
         <div class="card green"><h3>Agent vs assistant</h3><p>Use a fuller agent pass for structural changes. Use a quick assistant/edit pass for small fixes. Start a new chat when context gets noisy.</p></div>
       </div>
+      <p class="source-note">Source concept: DeepLearning.AI / Replit, <a href="https://www.deeplearning.ai/courses/vibe-coding-101-with-replit" target="_blank" rel="noopener noreferrer">Vibe Coding 101 with Replit</a>. Referenced for a static-site-first workflow with human approval checkpoints.</p>
       <div class="teacher-note">Inspired by DeepLearning.AI / Replit's Vibe Coding 101. Replit is optional and cloud/account-based; this course remains static-site-first and tool-agnostic.</div>
     </div>
   </section>
@@ -281,6 +285,7 @@ input:focus,select:focus,textarea:focus{border-color:rgba(34,211,238,.85);box-sh
         <h3>Advanced case-study pattern: parks ranker</h3>
         <p>If a complex app has data, voting, rankings, and persistence, debug one link at a time: verify the provided data count and source, then the vote event, then the ranking update, then persistence. This is optional advanced analysis, not required database work.</p>
       </div>
+      <p class="source-note">Source concept: DeepLearning.AI / Replit national-parks voting app lesson, referenced as an optional debugging pattern rather than a required database project.</p>
       <div class="teacher-note">Require at least one failed or edge case. This teaches students to verify behavior instead of admiring the first working demo.</div>
     </div>
   </section>
@@ -305,7 +310,7 @@ input:focus,select:focus,textarea:focus{border-color:rgba(34,211,238,.85);box-sh
       </div>
       <div class="card gold" style="margin-top:16px;min-height:0">
         <h3>Ask for an architecture explanation</h3>
-        <p>Prompt the assistant: "Help me understand how this project works." If your project has folders like <code>client</code>, <code>server</code>, or <code>shared</code>, ask what each folder does. Before accepting more changes, explain one key file, framework, or code path in your own words.</p>
+        <p>Prompt the assistant: "Help me understand how this project works." If your project has folders like <code>client</code>, <code>server</code>, or <code>shared</code>, ask what each folder does. Before accepting more changes, explain one key file, framework, folder, function, or event flow in your own words, plus what evidence proved the change worked.</p>
       </div>
     </div>
   </section>
@@ -325,7 +330,7 @@ input:focus,select:focus,textarea:focus{border-color:rgba(34,211,238,.85);box-sh
             <label>Validation<textarea id="exValidation" placeholder="What happens when input is missing or invalid?"></textarea></label>
             <label>Test evidence<textarea id="exTests" placeholder="List three test cases and results."></textarea></label>
             <label>Bug report or edge-case note<textarea id="exBug" placeholder="If something failed, describe expected vs actual behavior. If nothing failed, describe one edge case that passed."></textarea></label>
-            <label>Code understanding note<textarea id="exUnderstand" placeholder="Name one generated HTML, CSS, or JavaScript section you can explain."></textarea></label>
+            <label>Code understanding note<textarea id="exUnderstand" placeholder="Name one folder, function, event flow, or generated code section you can explain."></textarea></label>
             <label>Human review note<textarea id="exReview" placeholder="What AI suggestion did you verify, change, or reject?"></textarea></label>
             <button class="btn primary" id="copyExit">Copy feature brief</button>
           </div>
@@ -574,7 +579,7 @@ Bug report or edge-case note:
 ${value('exBug','[expected vs actual behavior, or one edge case that passed]')}
 
 Code understanding note:
-${value('exUnderstand','[one generated HTML, CSS, or JavaScript section you can explain]')}
+${value('exUnderstand','[one folder, function, event flow, or generated code section you can explain]')}
 
 Human review note:
 ${value('exReview','[accepted, changed, or rejected AI suggestion]')}`;

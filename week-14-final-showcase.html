@@ -87,26 +87,45 @@ input:focus,select:focus,textarea:focus{border-color:rgba(251,191,36,.85);box-sh
 .resource-links{display:flex;flex-wrap:wrap;gap:10px;margin-top:18px}
 .link-btn{display:inline-flex;align-items:center;justify-content:center;border:1px solid var(--line2);border-radius:10px;padding:10px 13px;color:#e0f2fe;text-decoration:none;font-weight:900;background:rgba(255,255,255,.06)}
 .link-btn:hover,.link-btn:focus{outline:2px solid rgba(251,191,36,.55);background:rgba(251,191,36,.10);text-decoration:none}
+.source-note{margin-top:14px;color:#c6cfdf;font-size:14px;line-height:1.45}
+.source-note a{color:#e0f2fe;font-weight:900}
 .controls{position:fixed;left:0;right:0;bottom:0;min-height:78px;display:flex;gap:10px;align-items:center;justify-content:center;flex-wrap:wrap;padding:12px 18px;background:rgba(8,11,20,.93);border-top:1px solid var(--line);z-index:20}
 .jump{display:flex;gap:7px;flex-wrap:wrap;justify-content:center}
 .jump button{width:34px;height:34px;border-radius:9px;border:1px solid var(--line);background:rgba(255,255,255,.05);color:var(--muted);font-weight:900}
 .jump button[aria-current="true"]{background:var(--gold);color:#160d02;border-color:transparent}
 .notes{display:none;position:fixed;right:18px;bottom:92px;width:min(440px,calc(100vw - 36px));max-height:55vh;overflow:auto;background:#080e19;border:1px solid var(--line2);border-radius:10px;padding:16px;z-index:30;box-shadow:var(--shadow)}
 .notes.show{display:block}
+.compact-check .card{padding:15px}
+.compact-check ul{margin:8px 0}
+.compact-check li{margin:5px 0;line-height:1.45}
 @media (max-width:980px){
-  html,body{overflow:auto}
-  .deck{min-height:100%}
-  .topbar{height:auto;min-height:58px;align-items:flex-start;flex-wrap:wrap;padding:10px 14px}
-  .brand{width:100%;white-space:normal}
+  html,body{max-width:100vw;overflow:auto;overflow-x:hidden}
+  .deck{min-height:100%;width:100%;max-width:100vw}
+  .topbar{height:auto;min-height:58px;align-items:flex-start;flex-wrap:wrap;padding:10px 14px;max-width:100vw;overflow:hidden}
+  .brand{width:100%;min-width:0;white-space:normal;overflow-wrap:anywhere}
   .status{margin-left:0}
-  .slide{position:relative;inset:auto;min-height:calc(100vh - 136px);display:none;padding:22px 16px;margin-top:58px}
+  .slide{position:relative;inset:auto;width:100%;max-width:100vw;min-height:calc(100vh - 136px);display:none;padding:22px 16px;margin-top:58px;scroll-margin-top:104px;overflow-x:hidden}
   .slide.active{display:grid}
+  .inner{width:100%;max-width:calc(100vw - 32px);min-width:0}
   h1{font-size:38px}
   h2{font-size:30px}
   .lede{font-size:18px}
-  .grid,.grid.three,.grid.four,.flow,.split,.builder-layout,.exit-layout,.mode-grid{grid-template-columns:1fr}
+  h1,h2,h3,p,li,.card,.link-btn,.source-note{overflow-wrap:anywhere}
+  .grid,.grid.three,.grid.four,.flow,.split,.builder-layout,.exit-layout,.mode-grid{width:100%;min-width:0;grid-template-columns:1fr}
+  .card,.step,.mode-card,.checkitem,.output,.preview,.timer,.rubric-cell{max-width:100%;min-width:0}
+  .resource-links{min-width:0}
+  .link-btn{max-width:100%;white-space:normal;text-align:center}
   .rubric-row{grid-template-columns:1fr}
-  .controls{position:sticky}
+  .controls{position:relative;left:auto;right:auto;bottom:auto}
+  .compact-check{padding-top:12px;padding-bottom:12px}
+  .compact-check .timebox{margin-bottom:8px}
+  .compact-check h2{font-size:26px;margin-bottom:8px}
+  .compact-check .lede{font-size:16px;line-height:1.42;margin-bottom:12px}
+  .compact-check .card{padding:12px}
+  .compact-check ul{margin:4px 0}
+  .compact-check li{font-size:15px;line-height:1.34;margin:4px 0}
+  .compact-check .source-note{font-size:12px;line-height:1.35;margin-top:8px}
+  .compact-check .teacher-note{font-size:12px;line-height:1.35;margin-top:8px;padding:8px 10px}
 }
 @media (prefers-reduced-motion:reduce){
   *,*::before,*::after{transition:none!important;animation:none!important;scroll-behavior:auto!important}
@@ -281,6 +300,60 @@ input:focus,select:focus,textarea:focus{border-color:rgba(251,191,36,.85);box-sh
         <a class="link-btn" href="https://dschool.stanford.edu/tools/how-to-give-feedback" target="_blank" rel="noopener noreferrer">Optional feedback method</a>
         <a class="link-btn" href="https://github.com/pbakaus/impeccable" target="_blank" rel="noopener noreferrer">Optional Impeccable design critique</a>
       </div>
+    </div>
+  </section>
+
+  <section class="slide" id="workflow-value" data-part="Part 6" data-title="Workflow value" inert aria-hidden="true">
+    <div class="inner">
+      <div class="timebox">Final reflection lens</div>
+      <h2>Explain what task your app changes.</h2>
+      <p class="lede">A final app is stronger when students can name the user task, the kind of help it provides, and the human judgment that remains.</p>
+      <div class="grid">
+        <div class="card green">
+          <h3>Three reflection questions</h3>
+          <ul>
+            <li>Which user or customer task does your app help?</li>
+            <li>Does it augment a person, automate a narrow task, or only prototype an idea?</li>
+            <li>What part should remain under human control because of privacy, fairness, safety, or accountability?</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>Use careful language</h3>
+          <ul>
+            <li><strong>Augment:</strong> AI or code helps the user work faster, clearer, or more consistently.</li>
+            <li><strong>Automate:</strong> the app handles a bounded low-risk step after testing.</li>
+            <li><strong>Prototype:</strong> the app demonstrates a possible workflow, not production readiness.</li>
+          </ul>
+        </div>
+        <div class="card warn">
+          <h3>Macro caution</h3>
+          <p>Studies about task, workload, GDP, or industry exposure are background scenarios, not personal career predictions. Exposure to AI is not the same as replacement, and estimates should be stated as uncertain.</p>
+        </div>
+        <div class="card gold">
+          <h3>One sentence frame</h3>
+          <p>My app helps <code>[user]</code> with <code>[task]</code> by <code>[interaction]</code>, but <code>[human judgment]</code> still remains the user's responsibility.</p>
+        </div>
+      </div>
+      <p class="source-note">Source concepts: DeepLearning.AI, <a href="https://www.deeplearning.ai/courses/generative-ai-for-everyone/" target="_blank" rel="noopener noreferrer">Generative AI for Everyone</a>; Eloundou et al., <a href="https://arxiv.org/abs/2303.10130" target="_blank" rel="noopener noreferrer">GPTs are GPTs</a>; McKinsey, <a href="https://www.mckinsey.com/capabilities/mckinsey-digital/our-insights/the-economic-potential-of-generative-ai-the-next-productivity-frontier" target="_blank" rel="noopener noreferrer">The economic potential of generative AI</a>; and Goldman Sachs, <a href="https://www.goldmansachs.com/insights/articles/generative-ai-could-raise-global-gdp-by-7-percent" target="_blank" rel="noopener noreferrer">Generative AI could raise global GDP by 7%</a>. Rewritten with uncertainty caveats.</p>
+      <div class="teacher-note">Keep this reflective. Students should not make claims about job loss, wage impact, GDP impact, or industry forecasts unless they have a source trail and uncertainty language. The strongest final demos name both the AI-shaped workflow and the human-control boundary.</div>
+    </div>
+  </section>
+
+  <section class="slide compact-check" id="responsible-ai-check" data-part="Part 6" data-title="Responsible AI check" inert aria-hidden="true">
+    <div class="inner">
+      <div class="timebox">Final check</div>
+      <h2>Final responsible AI check.</h2>
+      <p class="lede">Use these prompts as a quick oral check or exit ticket before students submit the final packet.</p>
+      <div class="card">
+        <ul>
+          <li><strong>Tasks, not whole roles:</strong> AI can automate or augment tasks; jobs can still change or disappear.</li>
+          <li><strong>Responsible project review:</strong> ask affected students, brainstorm harms, include relevant stakeholders, and do not rely on one engineer alone.</li>
+          <li><strong>RLHF boundary:</strong> RLHF can align model behavior with human preferences and reduce harmful output, but it does not solve every AI risk.</li>
+          <li><strong>AGI, lightly:</strong> AGI means broad intellectual capability across tasks, not perfect prediction of stock markets, weather, or every future event.</li>
+        </ul>
+      </div>
+      <p class="source-note">Source concepts: DeepLearning.AI, <a href="https://www.deeplearning.ai/courses/generative-ai-for-everyone/" target="_blank" rel="noopener noreferrer">Generative AI for Everyone</a>. Rewritten as a classroom discussion check.</p>
+      <div class="teacher-note">Use this as a quick oral check or exit ticket, not a scored certification quiz. Keep AGI as a definition check; do not turn this slide into an extinction-risk debate.</div>
     </div>
   </section>
 

@@ -66,6 +66,8 @@ body.notes-on .teacher-note{display:block}
 .jump .btn.active{color:#052022;background:var(--teal)}
 .link-btn{display:inline-flex;align-items:center;gap:8px;border:1px solid rgba(45,212,191,.45);background:rgba(45,212,191,.12);color:#dffff9;border-radius:12px;padding:12px 15px;font-weight:900;margin-top:18px}
 .resource-links{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}
+.source-note{margin-top:14px;color:#c8dede;font-size:14px;line-height:1.45}
+.source-note a{color:#dffff9;font-weight:900}
 .boundary-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin-top:24px}
 .boundary{border:1px solid rgba(255,255,255,.14);background:rgba(255,255,255,.055);color:var(--text);border-radius:14px;padding:16px;text-align:left;cursor:pointer;min-height:116px}
 .boundary:hover,.boundary:focus-visible{outline:2px solid rgba(45,212,191,.55)}
@@ -166,13 +168,14 @@ body.notes-on .teacher-note{display:block}
     <div class="inner">
       <div class="kicker">60-minute idea studio</div>
       <h1>From idea to buildable web app</h1>
-      <p class="lede">Today we use the DeepLearningAI app-building video as inspiration, then design our own small apps. You do not need to have watched it before class, and we will not copy its example. The goal is a scoped idea, a one-screen wireframe, and a strong first build prompt.</p>
+      <p class="lede">Today we use the DeepLearning.AI app-building video as inspiration, then design our own small apps. You do not need to have watched it before class, and we will not copy its example. The goal is a scoped idea, a one-screen wireframe, and a strong first build prompt.</p>
       <div class="grid three">
         <div class="card"><span class="tag">In class</span><p>Discuss the build flow and turn your own idea into a web-app specification.</p></div>
         <div class="card"><span class="tag">Artifact</span><p>Week 8 App Design Brief: title, target user, wireframe, prompt contract, success criteria, one risk, and one code-understanding note.</p></div>
-        <div class="card"><span class="tag">Homework</span><p>Watch the full Andrew Ng / DeepLearningAI video offline and connect its flow to your app.</p></div>
+        <div class="card"><span class="tag">Homework</span><p>Watch the full Andrew Ng / DeepLearning.AI video offline and connect its flow to your app.</p></div>
       </div>
       <a class="link-btn" href="https://www.youtube.com/watch?v=ff3j4olCUig" target="_blank" rel="noopener noreferrer" aria-label="Homework video Build Your Own App In Just 30 Minutes, opens in a new tab">Homework video: Build Your Own App In Just 30 Minutes</a>
+      <p class="source-note">Source: DeepLearning.AI / Andrew Ng app-building lesson, referenced for classroom discussion. LearnAI activities and examples are rewritten for local classroom use unless explicitly linked.</p>
       <div class="teacher-note">Pacing: 4 minutes. Attribute the video as inspiration. Keep class time active: students design their own app instead of watching the full video.</div>
     </div>
   </section>
@@ -290,6 +293,7 @@ body.notes-on .teacher-note{display:block}
         <div class="card"><span class="tag">Vocabulary</span><h3>Words that steer the agent</h3><p>Use domain terms such as SEO tags, meta tags, HTML head, title, description, social preview, responsive layout, and edge case.</p></div>
         <div class="card warn"><span class="tag">Boundary</span><h3>Static-course version</h3><p>Students can plan the workflow or analyze sample HTML. They should not build a live URL fetcher unless the instructor explicitly changes the project scope.</p></div>
       </div>
+      <p class="source-note">Source concept: DeepLearning.AI / Replit, <a href="https://www.deeplearning.ai/courses/vibe-coding-101-with-replit" target="_blank" rel="noopener noreferrer">Vibe Coding 101 with Replit</a>. Referenced for a static planning exercise, not a required backend build.</p>
       <div class="teacher-note">This adapts the Replit SEO analyzer lesson into a planning exercise: define the problem, sketch the interface, name the data, and list blocked-page or invalid-URL failures before asking an agent to build.</div>
     </div>
   </section>

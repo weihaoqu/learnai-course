@@ -64,6 +64,7 @@ input:focus,select:focus,textarea:focus{border-color:rgba(96,165,250,.85);box-sh
 .checklist{display:grid;gap:10px;margin-top:18px}
 .checkitem{display:flex;align-items:flex-start;gap:10px;border:1px solid var(--line);border-radius:12px;padding:12px;background:rgba(255,255,255,.04)}
 .checkitem input{width:auto;margin-top:3px}
+.formula{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:18px;line-height:1.45;background:#050914;border:1px solid rgba(96,165,250,.28);border-radius:12px;padding:12px 14px;margin-top:16px;color:#bfdbfe}
 .meter{height:12px;border-radius:999px;background:rgba(255,255,255,.08);overflow:hidden;margin-top:16px}
 .meter-fill{height:100%;width:0;background:linear-gradient(90deg,var(--red),var(--gold),var(--green));transition:width .2s ease}
 .deploy-map{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:18px}
@@ -75,6 +76,8 @@ input:focus,select:focus,textarea:focus{border-color:rgba(96,165,250,.85);box-sh
 .resource-links{display:flex;flex-wrap:wrap;gap:10px;margin-top:18px}
 .link-btn{display:inline-flex;align-items:center;justify-content:center;border:1px solid var(--line2);border-radius:10px;padding:10px 13px;color:#e0f2fe;text-decoration:none;font-weight:900;background:rgba(255,255,255,.06)}
 .link-btn:hover,.link-btn:focus{outline:2px solid rgba(96,165,250,.55);background:rgba(96,165,250,.10)}
+.source-note{margin-top:14px;color:#c6cfdf;font-size:14px;line-height:1.45}
+.source-note a{color:#e0f2fe;font-weight:900}
 .controls{position:fixed;left:0;right:0;bottom:0;min-height:78px;display:flex;gap:10px;align-items:center;justify-content:center;flex-wrap:wrap;padding:12px 18px;background:rgba(8,11,24,.93);border-top:1px solid var(--line);z-index:20}
 .jump{display:flex;gap:7px;flex-wrap:wrap;justify-content:center}
 .jump button{width:34px;height:34px;border-radius:9px;border:1px solid var(--line);background:rgba(255,255,255,.05);color:var(--muted);font-weight:900}
@@ -159,15 +162,39 @@ input:focus,select:focus,textarea:focus{border-color:rgba(96,165,250,.85);box-sh
       </div>
       <div class="card gold" style="margin-top:16px;min-height:0">
         <h3>Pre-deploy understanding check</h3>
-          <p>Before deploying an advanced full-stack app, ask: what data is stored, where secrets or environment variables live, what framework or database is used, and whether deployment reuses the same database or creates a new one. Required static projects should have no secrets in frontend code and should publish only HTML, CSS, JavaScript, and safe assets.</p>
+          <p>Before deploying, ask what changed, which files ship, what was tested, where the rollback point is, and which code path you can explain. For advanced full-stack apps, also ask what data is stored, where secrets or environment variables live, what framework or database is used, and whether deployment reuses the same database or creates a new one. Required static projects should have no secrets in frontend code and should publish only HTML, CSS, JavaScript, and safe assets.</p>
       </div>
+      <p class="source-note">Source concept: DeepLearning.AI / Replit, <a href="https://www.deeplearning.ai/courses/vibe-coding-101-with-replit" target="_blank" rel="noopener noreferrer">Vibe Coding 101 with Replit</a>. Referenced within this course's static deployment boundary.</p>
       <div class="teacher-note">This adapts the Replit course's checkpoint habit to our static-project workflow. Git commits, file copies, or platform checkpoints are all acceptable if students can identify the stable version.</div>
+    </div>
+  </section>
+
+  <section class="slide" id="genai-lifecycle" data-part="Map" data-title="GenAI lifecycle" inert aria-hidden="true">
+    <div class="inner">
+      <div class="timebox">14-18 min</div>
+      <h2>Generative AI apps improve through evidence loops.</h2>
+      <p class="lede">A fast prototype is useful because it gives you something to test. It is not proof that the system is ready for real users.</p>
+      <div class="flow">
+        <div class="step"><strong>Scope</strong><p>Name the job, user, boundary, and success criteria.</p></div>
+        <div class="step"><strong>Prototype</strong><p>Build the smallest version that can be tested.</p></div>
+        <div class="step"><strong>Internal test</strong><p>Try normal cases, edge cases, privacy cases, and confusing inputs.</p></div>
+        <div class="step"><strong>Improve</strong><p>Fix the prompt, interface, rules, examples, or source pack.</p></div>
+        <div class="step"><strong>Deploy</strong><p>Share only after checks pass and the boundary is clear.</p></div>
+        <div class="step"><strong>Monitor</strong><p>Record failures as fix tickets or known limitations.</p></div>
+      </div>
+      <div class="card gold" style="margin-top:16px;min-height:0">
+        <h3>Static-course translation</h3>
+        <p>For this class, monitoring means opening the shared link, testing it again, and recording what failed. It does not mean adding live analytics, user tracking, an LLM API, or a backend.</p>
+      </div>
+      <div class="formula">scope -> prototype -> internal test -> improve -> deploy -> monitor -> loop back</div>
+      <p class="source-note">Source concept: DeepLearning.AI, <a href="https://www.deeplearning.ai/courses/generative-ai-for-everyone/" target="_blank" rel="noopener noreferrer">Generative AI for Everyone</a>. Referenced for the static prototype lifecycle used in LearnAI.</p>
+      <div class="teacher-note">Use the restaurant-review or ordering-bot idea only as a verbal example. Do not turn Week 10 into a live customer-service chatbot build.</div>
     </div>
   </section>
 
   <section class="slide" id="architecture" data-part="Part 1" data-title="Static architecture" inert aria-hidden="true">
     <div class="inner">
-      <div class="timebox">14-21 min</div>
+      <div class="timebox">18-24 min</div>
       <h2>Static app architecture is small on purpose.</h2>
       <p class="lede">A complete static project can be a single HTML file, or a small folder of public files. Every file that ships can be read by the browser.</p>
       <div class="deploy-map">
@@ -182,7 +209,7 @@ input:focus,select:focus,textarea:focus{border-color:rgba(96,165,250,.85);box-sh
 
   <section class="slide" id="readiness" data-part="Part 2" data-title="Readiness checker" inert aria-hidden="true">
     <div class="inner">
-      <div class="timebox">21-30 min</div>
+      <div class="timebox">24-32 min</div>
       <h2>Check whether the project is ready to deploy.</h2>
       <p class="lede">Click only the statements that are true for the current app. The goal is to find gaps before the app is public.</p>
       <div class="split">
@@ -206,7 +233,7 @@ input:focus,select:focus,textarea:focus{border-color:rgba(96,165,250,.85);box-sh
 
   <section class="slide" id="storage" data-part="Part 3" data-title="Optional browser storage" inert aria-hidden="true">
     <div class="inner">
-      <div class="timebox">30-37 min</div>
+      <div class="timebox">32-38 min</div>
       <h2>Optional: save non-sensitive state in the browser.</h2>
       <p class="lede">Use Web Storage only for harmless prototype state, such as theme choice, fictional examples, or a draft checklist. It is not secure storage.</p>
       <div class="split">
@@ -231,7 +258,7 @@ localStorage.removeItem("learnai-week10-demo");</div>
 
   <section class="slide" id="deploy" data-part="Part 4" data-title="Deployment plan" inert aria-hidden="true">
     <div class="inner">
-      <div class="timebox">37-45 min</div>
+      <div class="timebox">38-46 min</div>
       <h2>Deployment means making public files available at a link.</h2>
       <p class="lede">For this course, deployment means static hosting. It is a snapshot of the current working app; later changes need another publish step. If account setup blocks deployment, students use the fallback path and still learn the checklist.</p>
       <div class="builder-layout">
@@ -258,7 +285,7 @@ localStorage.removeItem("learnai-week10-demo");</div>
 
   <section class="slide" id="smoke" data-part="Part 5" data-title="Smoke test" inert aria-hidden="true">
     <div class="inner">
-      <div class="timebox">45-52 min</div>
+      <div class="timebox">46-53 min</div>
       <h2>Run the smoke test twice: before and after deployment.</h2>
       <p class="lede">A deployed app is not finished until the public link works and the boundary still holds.</p>
       <div class="smoke-layout">
@@ -279,7 +306,7 @@ localStorage.removeItem("learnai-week10-demo");</div>
 
   <section class="slide" id="agent-prompt" data-part="Part 6" data-title="Agent prompt" inert aria-hidden="true">
     <div class="inner">
-      <div class="timebox">52-56 min</div>
+      <div class="timebox">53-57 min</div>
       <h2>Ask the agent for a complete-project polish pass.</h2>
       <p class="lede">The prompt should ask for completion and deployment readiness, not new features.</p>
       <div class="builder-layout">
@@ -309,6 +336,7 @@ localStorage.removeItem("learnai-week10-demo");</div>
             <label>What is complete<textarea id="exComplete" placeholder="Architecture, interaction, states, reset/export, optional storage"></textarea></label>
             <label>Deployment evidence<textarea id="exDeploy" placeholder="Pre-deploy check and post-deploy smoke test"></textarea></label>
             <label>Privacy and safety note<textarea id="exPrivacy" placeholder="No secrets/private data; static prototype boundary"></textarea></label>
+            <label>Understanding and rollback note<textarea id="exUnderstand" placeholder="Changed files, rollback point, and one code path you can explain"></textarea></label>
             <label>Human review note<textarea id="exReview" placeholder="What AI edit did you accept, change, or reject?"></textarea></label>
             <label>Next improvement<textarea id="exNext" placeholder="One improvement for Week 14 final project"></textarea></label>
             <button class="btn primary" id="copyPacket">Copy project packet</button>
@@ -561,6 +589,9 @@ ${value('exDeploy','[pre-deploy check and post-deploy smoke test]')}
 Privacy and safety note:
 ${value('exPrivacy','[no secrets/private data; static prototype boundary]')}
 
+Understanding and rollback note:
+${value('exUnderstand','[changed files, rollback point, and one code path you can explain]')}
+
 Human review note:
 ${value('exReview','[accepted, changed, or rejected AI suggestion]')}
 
@@ -569,7 +600,7 @@ ${value('exNext','[one improvement for Week 14 final project]')}`;
   document.getElementById('packetPreview').textContent = text;
   return text;
 }
-['exTitle','exLink','exComplete','exDeploy','exPrivacy','exReview','exNext'].forEach(id => document.getElementById(id).addEventListener('input', updatePacket));
+['exTitle','exLink','exComplete','exDeploy','exPrivacy','exUnderstand','exReview','exNext'].forEach(id => document.getElementById(id).addEventListener('input', updatePacket));
 document.getElementById('copyPacket').addEventListener('click', () => copyText(updatePacket(), document.getElementById('packetPreview')));
 
 const hashIndex = location.hash ? slides.findIndex(s => `#${s.id}` === location.hash) : -1;

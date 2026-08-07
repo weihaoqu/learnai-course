@@ -96,6 +96,8 @@ input:focus,select:focus,textarea:focus{border-color:rgba(96,165,250,.85);box-sh
 .resource-links{display:flex;flex-wrap:wrap;gap:10px;margin-top:18px}
 .link-btn{display:inline-flex;align-items:center;justify-content:center;border:1px solid var(--line2);border-radius:10px;padding:10px 13px;color:#e0f2fe;text-decoration:none;font-weight:900;background:rgba(255,255,255,.06)}
 .link-btn:hover,.link-btn:focus{outline:2px solid rgba(96,165,250,.55);background:rgba(96,165,250,.10);text-decoration:none}
+.source-note{margin-top:14px;color:#c6cfdf;font-size:14px;line-height:1.45}
+.source-note a{color:#e0f2fe;font-weight:900}
 .controls{position:fixed;left:0;right:0;bottom:0;min-height:78px;display:flex;gap:10px;align-items:center;justify-content:center;flex-wrap:wrap;padding:12px 18px;background:rgba(8,11,24,.93);border-top:1px solid var(--line);z-index:20}
 .jump{display:flex;gap:7px;flex-wrap:wrap;justify-content:center}
 .jump button{width:34px;height:34px;border-radius:9px;border:1px solid var(--line);background:rgba(255,255,255,.05);color:var(--muted);font-weight:900}
@@ -103,19 +105,33 @@ input:focus,select:focus,textarea:focus{border-color:rgba(96,165,250,.85);box-sh
 .notes{display:none;position:fixed;right:18px;bottom:92px;width:min(440px,calc(100vw - 36px));max-height:55vh;overflow:auto;background:#080f1d;border:1px solid var(--line2);border-radius:10px;padding:16px;z-index:30;box-shadow:var(--shadow)}
 .notes.show{display:block}
 @media (max-width:980px){
-  html,body{overflow:auto}
-  .deck{min-height:100%}
-  .topbar{height:auto;min-height:58px;align-items:flex-start;flex-wrap:wrap;padding:10px 14px}
-  .brand{width:100%;white-space:normal}
+  html,body{max-width:100vw;overflow:auto;overflow-x:hidden}
+  .deck{min-height:100%;width:100%;max-width:100vw}
+  .topbar{height:auto;min-height:58px;align-items:flex-start;flex-wrap:wrap;padding:10px 14px;max-width:100vw;overflow:hidden}
+  .brand{width:100%;min-width:0;white-space:normal;overflow-wrap:anywhere}
   .status{margin-left:0}
-  .slide{position:relative;inset:auto;min-height:calc(100vh - 136px);display:none;padding:22px 16px;margin-top:58px}
+  .slide{position:relative;inset:auto;width:100%;max-width:100vw;min-height:calc(100vh - 136px);display:none;padding:22px 16px;margin-top:58px;scroll-margin-top:104px;overflow-x:hidden}
   .slide.active{display:grid}
+  .inner{width:100%;max-width:calc(100vw - 32px);min-width:0}
   h1{font-size:38px}
   h2{font-size:30px}
   .lede{font-size:18px}
-  .grid,.grid.three,.grid.four,.flow,.split,.builder-layout,.exit-layout,.source-steps,.label-grid{grid-template-columns:1fr}
+  h1,h2,h3,p,li,.card,.link-btn,.source-note{overflow-wrap:anywhere}
+  .grid,.grid.three,.grid.four,.flow,.split,.builder-layout,.exit-layout,.source-steps,.label-grid{width:100%;min-width:0;grid-template-columns:1fr}
+  .card,.step,.source-step,.label-card,.checkitem,.output,.preview{max-width:100%;min-width:0}
+  .resource-links{min-width:0}
+  .link-btn{max-width:100%;white-space:normal;text-align:center}
   .row{grid-template-columns:1fr}
-  .controls{position:sticky}
+  .controls{position:relative;left:auto;right:auto;bottom:auto}
+  #source-mode-choice{padding-top:12px;padding-bottom:12px}
+  #source-mode-choice .timebox{margin-bottom:8px}
+  #source-mode-choice h2{font-size:26px;margin-bottom:8px}
+  #source-mode-choice .lede{font-size:16px;line-height:1.35;margin-bottom:12px}
+  #source-mode-choice .card{padding:12px}
+  #source-mode-choice ul{margin:4px 0}
+  #source-mode-choice li{font-size:14px;line-height:1.3;margin:4px 0}
+  #source-mode-choice .source-note{font-size:12px;line-height:1.3;margin-top:8px}
+  #source-mode-choice .teacher-note{display:none}
 }
 @media (prefers-reduced-motion:reduce){
   *,*::before,*::after{transition:none!important;animation:none!important;scroll-behavior:auto!important}
@@ -186,6 +202,24 @@ input:focus,select:focus,textarea:focus{border-color:rgba(96,165,250,.85);box-sh
         </div>
       </div>
       <div class="teacher-note">Ask students to name one fact about their project that AI can help investigate but cannot decide alone.</div>
+    </div>
+  </section>
+
+  <section class="slide" id="source-mode-choice" data-part="Part 1" data-title="Source mode choice" inert aria-hidden="true">
+    <div class="inner">
+      <div class="timebox">Research mode choice</div>
+      <h2>Choose the right information path.</h2>
+      <p class="lede">Power users do not ask every question the same way. They decide whether the answer can come from general model knowledge, current web sources, or a deeper source comparison.</p>
+      <div class="card">
+        <ul>
+          <li><strong>Pretrained knowledge:</strong> common definitions, stable background, and low-risk summaries.</li>
+          <li><strong>Web search:</strong> current events, local options, dates, prices, ratings, or niche sources.</li>
+          <li><strong>Deep research:</strong> many sources, competing views, pros and cons, or an evidence report.</li>
+          <li><strong>Student rule:</strong> the mode is not proof. Inspect original pages, dates, source type, and claim support.</li>
+        </ul>
+      </div>
+      <p class="source-note">Source concept: instructor-provided transcript on AI search and research modes. Rewritten for classroom use.</p>
+      <div class="teacher-note">Keep this vendor-neutral. If a tool does not have web search or deep research, students can still compare ordinary search results and source-rich prompting.</div>
     </div>
   </section>
 
@@ -294,9 +328,47 @@ input:focus,select:focus,textarea:focus{border-color:rgba(96,165,250,.85);box-sh
     </div>
   </section>
 
+  <section class="slide" id="task-bundle" data-part="Part 4" data-title="Task bundle" inert aria-hidden="true">
+    <div class="inner">
+      <div class="timebox">Career lens - 6 minutes</div>
+      <h2>Jobs are bundles of tasks.</h2>
+      <p class="lede">Do not ask only, "Will AI replace this job?" Ask which tasks AI can help, which tasks need human judgment, and which tasks are outside the project boundary.</p>
+      <div class="grid three">
+        <div class="card green">
+          <h3>Student activity</h3>
+          <ul>
+            <li>Pick one role connected to your project or interests.</li>
+            <li>List 4-6 tasks that role does.</li>
+            <li>Label each task: AI can help, AI should not decide, or not enough evidence.</li>
+            <li>Justify one label using technical feasibility, value, and human risk.</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>Useful labels</h3>
+          <ul>
+            <li><strong>Augment:</strong> AI drafts, summarizes, organizes, or checks while a human decides.</li>
+            <li><strong>Automate narrow task:</strong> low-risk, bounded, tested, and easy to reverse.</li>
+            <li><strong>Do not automate:</strong> private, high-stakes, interpersonal, physical, or poorly defined work.</li>
+          </ul>
+        </div>
+        <div class="card gold">
+          <h3>Career reality check</h3>
+          <p>One task that AI can help with is not the whole job. A role can also include communication, documentation, tool operation, exceptions, and accountability.</p>
+          <p>Use examples like medical imaging as task analysis practice, not as a prediction that a whole profession disappears.</p>
+        </div>
+      </div>
+      <div class="resource-links">
+        <a class="link-btn" href="https://www.onetonline.org/" target="_blank" rel="noopener noreferrer">O*NET task lookup</a>
+        <a class="link-btn" href="https://www.deeplearning.ai/courses/generative-ai-for-everyone/" target="_blank" rel="noopener noreferrer">DeepLearning.AI: Generative AI for Everyone</a>
+      </div>
+      <p class="source-note">Source concepts: DeepLearning.AI, <a href="https://www.deeplearning.ai/courses/generative-ai-for-everyone/" target="_blank" rel="noopener noreferrer">Generative AI for Everyone</a>; O*NET Online; Brynjolfsson, Mitchell, and Rock, <a href="https://www.aeaweb.org/articles?id=10.1257/pandp.20181019" target="_blank" rel="noopener noreferrer">What Can Machines Learn?</a>; and Eloundou et al., <a href="https://arxiv.org/abs/2303.10130" target="_blank" rel="noopener noreferrer">GPTs are GPTs</a>. Rewritten for classroom use.</p>
+      <div class="teacher-note">Macro studies and job-anxiety examples can start the conversation, but do not turn exposure estimates into predictions about a student's future. Use "task exposure" or "workload exposure," not "job replacement." One automatable task is not the whole role.</div>
+    </div>
+  </section>
+
   <section class="slide" id="career-map" data-part="Part 4" data-title="Career evidence map" inert aria-hidden="true">
     <div class="inner">
-      <div class="timebox">46-54 min</div>
+      <div class="timebox">After task lens</div>
       <h2>Map the project to a career-ready skill.</h2>
       <p class="lede">Students should show what they did, where the evidence is, what skill it demonstrates, and what judgment they used.</p>
       <div class="builder-layout">
@@ -319,7 +391,7 @@ input:focus,select:focus,textarea:focus{border-color:rgba(96,165,250,.85);box-sh
 
   <section class="slide" id="project-story" data-part="Part 4" data-title="Project story" inert aria-hidden="true">
     <div class="inner">
-      <div class="timebox">54-58 min</div>
+      <div class="timebox">Final writing move</div>
       <h2>Write a project story that does not overclaim.</h2>
       <p class="lede">The story should connect purpose, action, evidence, and human review in one paragraph.</p>
       <div class="builder-layout">

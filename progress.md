@@ -7,6 +7,966 @@ entries; nobody edits prior entries. Managed by
 
 <!-- newest entry below -->
 
+## 2026-08-07 09:19:56 EDT — Codex
+
+- **Branch:** `slide-redesign-2026-05`
+- **HEAD:** `745947c` — Integrate generative AI course updates
+- **Upstream:** origin/slide-redesign-2026-05 — ahead 0, behind 0
+
+### Summary
+
+Completed Q-approved integration of the newest power-user prompting / source-mode / search-verification transcript into the static slide web app.
+
+Files changed in this milestone:
+- week-11-knowledge-career-evidence.html: added #source-mode-choice after #ai-starting-point and before #lateral-reading. It teaches when to use pretrained/general knowledge, web search, or deeper/source-rich research, with the student rule that mode choice is not proof and original sources still need inspection.
+- week-12-advanced-prompting.html: added #power-user-prompting after the weak/strong prompt quiz and before #jobs. It reframes strong prompting as a workflow: context, assumptions/tradeoffs/checks, neutral/rubric prompts to reduce sycophancy, and outline -> critique -> bullets -> draft for writing.
+- week-12-advanced-prompting.html: added #research-mode-lab after #trust and before #query-expansion. It asks students to compare no-search, web-search, and source-rich/deep-research modes using school-safe topics and explicit verification criteria.
+- week-13-security-review-lab.html: added #search-verification after #output-handling and before #secrets. It reinforces that AI search is useful but not verification: open original pages, check dates/source type/authorship/purpose, confirm exact claim support, and use calibrated language.
+
+Citation/source handling:
+- Each new student-facing slide includes a source note naming the instructor-provided transcript concept and saying it was rewritten for classroom/static workflow use.
+- No new external URL was added by this milestone.
+- The content is kept vendor-neutral, with source-rich prompting as fallback where a tool lacks deep research.
+
+Validation run:
+- git diff --check -- week-11-knowledge-career-evidence.html week-12-advanced-prompting.html week-13-security-review-lab.html passed.
+- Duplicate slide id checks passed for all three files.
+- Structure checks passed: Week 11 order ai-starting-point < source-mode-choice < lateral-reading; Week 12 order power-user-prompting < jobs and trust < research-mode-lab < query-expansion; Week 13 order output-handling < search-verification < secrets.
+- external-links.html parsed successfully with 154 links and 0 malformed entries.
+- Chrome/Playwright render checks passed for desktop and mobile for all four new slides. No horizontal overflow. Week 12 mobile uses internal slide scrolling; bottom checks confirmed source notes clear fixed controls after scrolling.
+- Screenshots inspected:
+  - /tmp/week-11-knowledge-career-evidence-source-mode-choice-final-desktop.png
+  - /tmp/week-11-knowledge-career-evidence-source-mode-choice-final-mobile.png
+  - /tmp/week-12-advanced-prompting-power-user-prompting-final-desktop.png
+  - /tmp/week-12-advanced-prompting-power-user-prompting-mobile-bottom.png
+  - /tmp/week-12-advanced-prompting-research-mode-lab-final-desktop.png
+  - /tmp/week-12-advanced-prompting-research-mode-lab-mobile-bottom.png
+  - /tmp/week-13-security-review-lab-search-verification-final-desktop.png
+  - /tmp/week-13-security-review-lab-search-verification-final-mobile.png
+
+Review gate:
+- Initial raw-HEAD-diff review flagged older uncommitted Week 12 content from prior approved milestones as apparent scope drift; that was review-payload pollution, not a blocker in this milestone.
+- Scoped blocker-only Codex review of the four new snippets returned no blockers.
+
+No commit or push performed. Worktree remains dirty with broader prior course updates; do not revert unrelated changes and do not push without Q's explicit approval after local testing.
+
+### Working tree (`git status --short`)
+
+```text
+ M external-links.html
+ M module-00-llm-basics.html
+ M progress.md
+ M week-02-agent-foundations.html
+ M week-03-responsible-ai-decisions.html
+ M week-08-web-basics-design.html
+ M week-09-interactivity-intelligence.html
+ M week-10-complete-static-deployment.html
+ M week-11-knowledge-career-evidence.html
+ M week-12-advanced-prompting.html
+ M week-13-security-review-lab.html
+ M week-14-final-showcase.html
+?? CLAUDE.md
+?? docs/ai-agent-book-web-app-integration.md
+?? docs/superpowers/audit-2026-05-21-deck-review.md
+?? image/
+?? sos-talk-may12.html
+?? ui.txt
+```
+
+### Unstaged diff (`git diff --stat`)
+
+```text
+ external-links.html                     |  79 +++
+ module-00-llm-basics.html               |   3 +
+ progress.md                             | 848 ++++++++++++++++++++++++++++++++
+ week-02-agent-foundations.html          |  21 +
+ week-03-responsible-ai-decisions.html   |  93 ++--
+ week-08-web-basics-design.html          |   8 +-
+ week-09-interactivity-intelligence.html |  11 +-
+ week-10-complete-static-deployment.html |  47 +-
+ week-11-knowledge-career-evidence.html  |  90 +++-
+ week-12-advanced-prompting.html         | 173 ++++++-
+ week-13-security-review-lab.html        |  50 +-
+ week-14-final-showcase.html             |  87 +++-
+ 12 files changed, 1448 insertions(+), 62 deletions(-)
+```
+
+### Staged diff (`git diff --cached --stat`)
+
+_none_
+
+### Latest commit (`git show --stat --oneline HEAD`)
+
+```text
+745947c Integrate generative AI course updates
+ ai-life-skills.html                         |   19 +-
+ external-links.html                         |   55 +-
+ index.html                                  |   28 +-
+ llm-background.html                         |   20 +-
+ module-00-llm-basics.html                   |   49 +-
+ module-00b-transformer-deep-dive.html       |  181 +-
+ progress.md                                 | 3403 +++++++++++++++++++++++++++
+ week-02-foundation-readiness-check.html     |  146 +-
+ week-03-responsible-ai-decisions.html       |  351 ++-
+ week-04-writing-word-documents.html         |   43 +-
+ week-06-media-generation-presentations.html |    2 +-
+ week-08-web-basics-design.html              |  116 +-
+ week-09-interactivity-intelligence.html     |   86 +-
+ week-10-complete-static-deployment.html     |   47 +-
+ week-12-advanced-prompting.html             |    9 +
+ 15 files changed, 4407 insertions(+), 148 deletions(-)
+```
+
+---
+
+## 2026-08-07 08:55:22 EDT — Codex
+
+- **Branch:** `slide-redesign-2026-05`
+- **HEAD:** `745947c` — Integrate generative AI course updates
+- **Upstream:** origin/slide-redesign-2026-05 — ahead 0, behind 0
+
+### Summary
+
+Completed Q-approved Week 14 adapted society-quiz integration.
+
+Files changed in this milestone:
+- week-14-final-showcase.html: added a new #responsible-ai-check slide after #workflow-value and before #career-reflection. It adapts the useful parts of the Generative AI and society quiz into a short classroom discussion/exit-ticket check: tasks-not-whole-roles, responsible project review with stakeholder feedback/harm brainstorming, RLHF boundary, and a lightweight AGI definition check.
+- week-14-final-showcase.html: added compact-check CSS scoped to that slide so the source note and teacher note fit above mobile controls.
+
+Pedagogical decisions:
+- Did not import the full quiz or course-completion praise item.
+- Kept the AGI item as a definition check only, not a debate about extinction risk.
+- Cited DeepLearning.AI Generative AI for Everyone as source concepts and stated the slide was rewritten as a classroom discussion check.
+
+Validation already run:
+- Plan review gate returned no blockers.
+- git diff --check -- week-14-final-showcase.html passed.
+- Structure check passed: Week 14 now has 13 slides, no duplicate slide IDs, and order is workflow-value < responsible-ai-check < career-reflection.
+- external-links.html parsed with 154 links, 0 malformed entries, and DeepLearning.AI Generative AI for Everyone includes week-14-final-showcase.html.
+- Chrome/Playwright using system Chrome rendered #responsible-ai-check at desktop 1440x900 and mobile 390x844. Active slide correct; body width equals scroll width; slide width equals scroll width; no checked text/card overflow. Mobile note bottom 752.9px, controls top 832px.
+- Visual screenshots inspected: /tmp/week14-responsible-ai-check-final-desktop.png and /tmp/week14-responsible-ai-check-final-mobile.png.
+- Blocker-only Codex content/layout review returned no blockers.
+
+No commit or push performed. Worktree remains dirty with broader prior content/citation edits; do not revert unrelated changes and do not push without Q's explicit approval after local testing.
+
+### Working tree (`git status --short`)
+
+```text
+ M external-links.html
+ M module-00-llm-basics.html
+ M progress.md
+ M week-02-agent-foundations.html
+ M week-03-responsible-ai-decisions.html
+ M week-08-web-basics-design.html
+ M week-09-interactivity-intelligence.html
+ M week-10-complete-static-deployment.html
+ M week-11-knowledge-career-evidence.html
+ M week-12-advanced-prompting.html
+ M week-13-security-review-lab.html
+ M week-14-final-showcase.html
+?? CLAUDE.md
+?? docs/ai-agent-book-web-app-integration.md
+?? docs/superpowers/audit-2026-05-21-deck-review.md
+?? image/
+?? sos-talk-may12.html
+?? ui.txt
+```
+
+### Unstaged diff (`git diff --stat`)
+
+```text
+ external-links.html                     |  79 ++++
+ module-00-llm-basics.html               |   3 +
+ progress.md                             | 749 ++++++++++++++++++++++++++++++++
+ week-02-agent-foundations.html          |  21 +
+ week-03-responsible-ai-decisions.html   |  93 ++--
+ week-08-web-basics-design.html          |   8 +-
+ week-09-interactivity-intelligence.html |  11 +-
+ week-10-complete-static-deployment.html |  47 +-
+ week-11-knowledge-career-evidence.html  |  63 ++-
+ week-12-advanced-prompting.html         | 129 +++++-
+ week-13-security-review-lab.html        |  20 +-
+ week-14-final-showcase.html             |  87 +++-
+ 12 files changed, 1248 insertions(+), 62 deletions(-)
+```
+
+### Staged diff (`git diff --cached --stat`)
+
+_none_
+
+### Latest commit (`git show --stat --oneline HEAD`)
+
+```text
+745947c Integrate generative AI course updates
+ ai-life-skills.html                         |   19 +-
+ external-links.html                         |   55 +-
+ index.html                                  |   28 +-
+ llm-background.html                         |   20 +-
+ module-00-llm-basics.html                   |   49 +-
+ module-00b-transformer-deep-dive.html       |  181 +-
+ progress.md                                 | 3403 +++++++++++++++++++++++++++
+ week-02-foundation-readiness-check.html     |  146 +-
+ week-03-responsible-ai-decisions.html       |  351 ++-
+ week-04-writing-word-documents.html         |   43 +-
+ week-06-media-generation-presentations.html |    2 +-
+ week-08-web-basics-design.html              |  116 +-
+ week-09-interactivity-intelligence.html     |   86 +-
+ week-10-complete-static-deployment.html     |   47 +-
+ week-12-advanced-prompting.html             |    9 +
+ 15 files changed, 4407 insertions(+), 148 deletions(-)
+```
+
+---
+
+## 2026-08-07 08:27:51 EDT — Codex
+
+- **Branch:** `slide-redesign-2026-05`
+- **HEAD:** `745947c` — Integrate generative AI course updates
+- **Upstream:** origin/slide-redesign-2026-05 — ahead 0, behind 0
+
+### Summary
+
+Completed the approved source-tightening pass for labor exposure / macro scenario claims.
+
+Files changed in this milestone:
+- week-11-knowledge-career-evidence.html: tightened the #task-bundle source note to include Eloundou, Manning, Mishkin, and Rock's GPTs are GPTs paper. Updated the teacher note to say task/workload exposure, not job replacement.
+- week-14-final-showcase.html: expanded the macro caution on #workflow-value so task, workload, GDP, and industry exposure estimates are treated as background scenarios, not personal career predictions. Added Goldman Sachs as a cautious macro-scenario source.
+- external-links.html: linked Eloundou et al. to Week 11/Week 14 usage and added the public Goldman Sachs article link for Week 14.
+
+Source check:
+- arXiv paper verified: https://arxiv.org/abs/2303.10130
+- Q's original Goldman GSPublishing URL was inaccessible in browser tooling with 403 Forbidden. Used the accessible public Goldman Sachs article instead: https://www.goldmansachs.com/insights/articles/generative-ai-could-raise-global-gdp-by-7-percent
+- The Goldman source was kept out of student-facing numeric claims; it is only used for uncertainty-aware macro background.
+
+Validation already run:
+- git diff --check -- week-11-knowledge-career-evidence.html week-14-final-showcase.html external-links.html passed.
+- Structural checks passed: Week 11 has 15 slides and required #task-bundle; Week 14 has 12 slides and required #workflow-value; no duplicate slide IDs.
+- external-links.html parsed with 154 links, 0 malformed entries; arXiv includes Week 11; Goldman entry is present for Week 14.
+- Chrome DevTools render checks passed for Week 11 #task-bundle and Week 14 #workflow-value at desktop/mobile widths with no slide-content overflow.
+- Blocker-only Codex diff review returned no blockers.
+
+No commit or push performed. Worktree remains dirty with broader prior content/citation edits; do not revert unrelated changes and do not push without Q's explicit approval after local testing.
+
+### Working tree (`git status --short`)
+
+```text
+ M external-links.html
+ M module-00-llm-basics.html
+ M progress.md
+ M week-02-agent-foundations.html
+ M week-03-responsible-ai-decisions.html
+ M week-08-web-basics-design.html
+ M week-09-interactivity-intelligence.html
+ M week-10-complete-static-deployment.html
+ M week-11-knowledge-career-evidence.html
+ M week-12-advanced-prompting.html
+ M week-13-security-review-lab.html
+ M week-14-final-showcase.html
+?? CLAUDE.md
+?? docs/ai-agent-book-web-app-integration.md
+?? docs/superpowers/audit-2026-05-21-deck-review.md
+?? image/
+?? sos-talk-may12.html
+?? ui.txt
+```
+
+### Unstaged diff (`git diff --stat`)
+
+```text
+ external-links.html                     |  79 ++++
+ module-00-llm-basics.html               |   3 +
+ progress.md                             | 651 ++++++++++++++++++++++++++++++++
+ week-02-agent-foundations.html          |  21 ++
+ week-03-responsible-ai-decisions.html   |  93 +++--
+ week-08-web-basics-design.html          |   8 +-
+ week-09-interactivity-intelligence.html |  11 +-
+ week-10-complete-static-deployment.html |  47 ++-
+ week-11-knowledge-career-evidence.html  |  63 +++-
+ week-12-advanced-prompting.html         | 129 ++++++-
+ week-13-security-review-lab.html        |  20 +-
+ week-14-final-showcase.html             |  57 ++-
+ 12 files changed, 1120 insertions(+), 62 deletions(-)
+```
+
+### Staged diff (`git diff --cached --stat`)
+
+_none_
+
+### Latest commit (`git show --stat --oneline HEAD`)
+
+```text
+745947c Integrate generative AI course updates
+ ai-life-skills.html                         |   19 +-
+ external-links.html                         |   55 +-
+ index.html                                  |   28 +-
+ llm-background.html                         |   20 +-
+ module-00-llm-basics.html                   |   49 +-
+ module-00b-transformer-deep-dive.html       |  181 +-
+ progress.md                                 | 3403 +++++++++++++++++++++++++++
+ week-02-foundation-readiness-check.html     |  146 +-
+ week-03-responsible-ai-decisions.html       |  351 ++-
+ week-04-writing-word-documents.html         |   43 +-
+ week-06-media-generation-presentations.html |    2 +-
+ week-08-web-basics-design.html              |  116 +-
+ week-09-interactivity-intelligence.html     |   86 +-
+ week-10-complete-static-deployment.html     |   47 +-
+ week-12-advanced-prompting.html             |    9 +
+ 15 files changed, 4407 insertions(+), 148 deletions(-)
+```
+
+---
+
+## 2026-08-07 07:53:32 EDT — Codex
+
+- **Branch:** `slide-redesign-2026-05`
+- **HEAD:** `745947c` — Integrate generative AI course updates
+- **Upstream:** origin/slide-redesign-2026-05 — ahead 0, behind 0
+
+### Summary
+
+Completed the approved concerns-about-AI integration from DeepLearning.AI Generative AI for Everyone content.
+
+Files changed in this milestone:
+- week-03-responsible-ai-decisions.html: added #bias-mitigation after the existing Bias slide. It teaches that AI can inherit bias from training data; fine-tuning/RLHF can reduce harmful output; and student workflows still need example testing, affected-person review, high-stakes boundaries, and accountability. Added visible DeepLearning.AI source note and a teacher note that keeps AGI/extinction-risk discussion source-balanced and not a student debate slide.
+- week-11-knowledge-career-evidence.html: extended #task-bundle with a career reality check: one AI-helped task is not the whole job; roles also include communication, documentation, tool operation, exceptions, and accountability. Teacher note now explicitly says exposure is not job loss and one automatable task is not the whole role.
+- week-14-final-showcase.html: updated #workflow-value reflection to ask what should remain under human control because of privacy, fairness, safety, or accountability; teacher note now reinforces the human-control boundary.
+- external-links.html: added week-03-responsible-ai-decisions.html to the existing DeepLearning.AI Generative AI for Everyone source list.
+
+Validation already run:
+- Plan review gate returned no blockers.
+- git diff --check -- week-03-responsible-ai-decisions.html week-11-knowledge-career-evidence.html week-14-final-showcase.html external-links.html passed.
+- Structural checks passed: Week 3 has 22 slides, Week 11 has 15, Week 14 has 12; no duplicate slide IDs; required slide IDs present.
+- external-links.html parsed with 153 links, 0 malformed entries, and DeepLearning.AI Generative AI for Everyone includes Week 3.
+- Chrome DevTools rendered desktop/mobile screenshots for Week 3 #bias-mitigation, Week 11 #task-bundle, Week 14 #workflow-value. New slide bodies had no horizontal overflow. Week 3's only mobile overflow report was the existing horizontal slide-number scroller in the fixed nav, not slide content.
+- Rerendered Week 3 mobile after RLHF wording change: clientWidth/scrollWidth/bodyScrollWidth all 390, activeId bias-mitigation, slide-body overflow empty. Screenshot /tmp/week3-bias-mitigation-mobile-rerender.png.
+- Blocker-only diff review returned no blockers.
+
+No commit or push performed. Worktree remains dirty with broader prior content/citation edits; do not revert unrelated changes and do not push without Q's explicit approval after local testing.
+
+### Working tree (`git status --short`)
+
+```text
+ M external-links.html
+ M module-00-llm-basics.html
+ M progress.md
+ M week-02-agent-foundations.html
+ M week-03-responsible-ai-decisions.html
+ M week-08-web-basics-design.html
+ M week-09-interactivity-intelligence.html
+ M week-10-complete-static-deployment.html
+ M week-11-knowledge-career-evidence.html
+ M week-12-advanced-prompting.html
+ M week-13-security-review-lab.html
+ M week-14-final-showcase.html
+?? CLAUDE.md
+?? docs/ai-agent-book-web-app-integration.md
+?? docs/superpowers/audit-2026-05-21-deck-review.md
+?? image/
+?? sos-talk-may12.html
+?? ui.txt
+```
+
+### Unstaged diff (`git diff --stat`)
+
+```text
+ external-links.html                     |  70 ++++
+ module-00-llm-basics.html               |   3 +
+ progress.md                             | 555 ++++++++++++++++++++++++++++++++
+ week-02-agent-foundations.html          |  21 ++
+ week-03-responsible-ai-decisions.html   |  93 ++++--
+ week-08-web-basics-design.html          |   8 +-
+ week-09-interactivity-intelligence.html |  11 +-
+ week-10-complete-static-deployment.html |  47 ++-
+ week-11-knowledge-career-evidence.html  |  63 +++-
+ week-12-advanced-prompting.html         | 129 +++++++-
+ week-13-security-review-lab.html        |  20 +-
+ week-14-final-showcase.html             |  57 +++-
+ 12 files changed, 1015 insertions(+), 62 deletions(-)
+```
+
+### Staged diff (`git diff --cached --stat`)
+
+_none_
+
+### Latest commit (`git show --stat --oneline HEAD`)
+
+```text
+745947c Integrate generative AI course updates
+ ai-life-skills.html                         |   19 +-
+ external-links.html                         |   55 +-
+ index.html                                  |   28 +-
+ llm-background.html                         |   20 +-
+ module-00-llm-basics.html                   |   49 +-
+ module-00b-transformer-deep-dive.html       |  181 +-
+ progress.md                                 | 3403 +++++++++++++++++++++++++++
+ week-02-foundation-readiness-check.html     |  146 +-
+ week-03-responsible-ai-decisions.html       |  351 ++-
+ week-04-writing-word-documents.html         |   43 +-
+ week-06-media-generation-presentations.html |    2 +-
+ week-08-web-basics-design.html              |  116 +-
+ week-09-interactivity-intelligence.html     |   86 +-
+ week-10-complete-static-deployment.html     |   47 +-
+ week-12-advanced-prompting.html             |    9 +
+ 15 files changed, 4407 insertions(+), 148 deletions(-)
+```
+
+---
+
+## 2026-08-06 23:01:56 EDT — Codex
+
+- **Branch:** `slide-redesign-2026-05`
+- **HEAD:** `745947c` — Integrate generative AI course updates
+- **Upstream:** origin/slide-redesign-2026-05 — ahead 0, behind 0
+
+### Summary
+
+Completed the approved business/task-analysis integration from DeepLearning.AI Generative AI for Everyone Week 3 content.
+
+Files changed in this milestone:
+- week-11-knowledge-career-evidence.html: added a new #task-bundle slide before the career evidence map. The slide asks students to analyze one role as a bundle of tasks, label tasks by AI-help/human-decision/evidence boundaries, and cite DeepLearning.AI, O*NET, and Brynjolfsson/Mitchell/Rock concepts. Also tightened mobile CSS for viewport-bounded slides/cards/links.
+- week-14-final-showcase.html: added a new #workflow-value slide before career reflection. The slide asks students to explain what user task their app changes, whether it augments/automates/prototypes, and what human judgment remains. It cites DeepLearning.AI, Eloundou et al., and McKinsey with uncertainty cautions. Also tightened mobile CSS similarly.
+- external-links.html: includes source entries for DeepLearning.AI Generative AI for Everyone, O*NET, Brynjolfsson/Mitchell/Rock, Eloundou et al., and McKinsey.
+
+Validation already run:
+- git diff --check -- week-11-knowledge-career-evidence.html week-14-final-showcase.html external-links.html passed.
+- Node slide/link checks passed: Week 11 has 15 slides, Week 14 has 12 slides, no duplicate slide IDs; external-links parsed with 153 links, required URLs present, 0 malformed records.
+- Chrome DevTools mobile emulation at 390x844 produced clean metrics for both new slides: clientWidth/scrollWidth/bodyScrollWidth all 390 and no overflowing elements. Screenshots: /tmp/week11-task-bundle-cdp-mobile.png and /tmp/week14-workflow-value-cdp-mobile.png.
+- Blocker-only Codex review returned: No blockers.
+
+Pending content from Q:
+- Q provided a new DeepLearning.AI concerns-about-AI transcript covering bias, RLHF/fine-tuning mitigation, job anxiety/radiology, extinction-risk debate, and AGI. No edits were made for this transcript yet because it needs a separate ethics/career integration proposal and approval.
+- Recommended placement: Week 3 for bias/RLHF and concrete AI risk framing; Week 11 or Week 14 for job anxiety/radiology as a task-bundle reinforcement; avoid speculative extinction-risk debate in student slides except a careful teacher note contrasting concrete current harms with speculative risk claims.
+
+No commit or push performed. Worktree remains dirty with broader prior content/citation edits; do not revert unrelated changes and do not push without Q's explicit approval after local testing.
+
+### Working tree (`git status --short`)
+
+```text
+ M external-links.html
+ M module-00-llm-basics.html
+ M progress.md
+ M week-02-agent-foundations.html
+ M week-03-responsible-ai-decisions.html
+ M week-08-web-basics-design.html
+ M week-09-interactivity-intelligence.html
+ M week-10-complete-static-deployment.html
+ M week-11-knowledge-career-evidence.html
+ M week-12-advanced-prompting.html
+ M week-13-security-review-lab.html
+ M week-14-final-showcase.html
+?? CLAUDE.md
+?? docs/ai-agent-book-web-app-integration.md
+?? docs/superpowers/audit-2026-05-21-deck-review.md
+?? image/
+?? sos-talk-may12.html
+?? ui.txt
+```
+
+### Unstaged diff (`git diff --stat`)
+
+```text
+ external-links.html                     |  69 +++++
+ module-00-llm-basics.html               |   3 +
+ progress.md                             | 459 ++++++++++++++++++++++++++++++++
+ week-02-agent-foundations.html          |  21 ++
+ week-03-responsible-ai-decisions.html   |  66 +++--
+ week-08-web-basics-design.html          |   8 +-
+ week-09-interactivity-intelligence.html |  11 +-
+ week-10-complete-static-deployment.html |  47 +++-
+ week-11-knowledge-career-evidence.html  |  58 +++-
+ week-12-advanced-prompting.html         | 129 ++++++++-
+ week-13-security-review-lab.html        |  20 +-
+ week-14-final-showcase.html             |  57 +++-
+ 12 files changed, 886 insertions(+), 62 deletions(-)
+```
+
+### Staged diff (`git diff --cached --stat`)
+
+_none_
+
+### Latest commit (`git show --stat --oneline HEAD`)
+
+```text
+745947c Integrate generative AI course updates
+ ai-life-skills.html                         |   19 +-
+ external-links.html                         |   55 +-
+ index.html                                  |   28 +-
+ llm-background.html                         |   20 +-
+ module-00-llm-basics.html                   |   49 +-
+ module-00b-transformer-deep-dive.html       |  181 +-
+ progress.md                                 | 3403 +++++++++++++++++++++++++++
+ week-02-foundation-readiness-check.html     |  146 +-
+ week-03-responsible-ai-decisions.html       |  351 ++-
+ week-04-writing-word-documents.html         |   43 +-
+ week-06-media-generation-presentations.html |    2 +-
+ week-08-web-basics-design.html              |  116 +-
+ week-09-interactivity-intelligence.html     |   86 +-
+ week-10-complete-static-deployment.html     |   47 +-
+ week-12-advanced-prompting.html             |    9 +
+ 15 files changed, 4407 insertions(+), 148 deletions(-)
+```
+
+---
+
+## 2026-08-06 22:24:58 EDT — Codex
+
+- **Branch:** `slide-redesign-2026-05`
+- **HEAD:** `745947c` — Integrate generative AI course updates
+- **Upstream:** origin/slide-redesign-2026-05 — ahead 0, behind 0
+
+### Summary
+
+Completed approved Week 12 advanced-tech quiz adaptation and inspected Q's image.
+
+Changes made in this milestone:
+- Added `#beyond-prompting-check` to `week-12-advanced-prompting.html` after model choice and before the RAG loop.
+- The new slide has five original reveal-card checks covering: small-model routing/fine-tuning, private archive/RAG, LLM as reasoning engine, RAG hallucination limits, and current-news knowledge cutoffs.
+- Added a visible DeepLearning.AI citation link on the slide, with rewritten local wording and teacher note keeping the required student path static/no API/no database/no fine-tuning.
+- Tightened mobile CSS for the reveal-card quiz so the phone screenshot does not horizontally crop the slide body.
+
+Validation already run:
+- `git diff --check -- week-12-advanced-prompting.html` passed.
+- Node structure check: 17 slides, no duplicate IDs, 5 reveal cards, DeepLearning.AI source note present.
+- Headless Chrome screenshots rendered for desktop `/tmp/week12-beyond-prompting-check.png` and mobile `/tmp/week12-beyond-prompting-check-mobile.png`; visually inspected.
+- Codex review gate passed for the Week 12 quiz addition.
+
+Image inspected:
+- `/Users/oreo/Dropbox/desktopwork/ai skill to document/july2/IMG_3940.JPG` is a translated screenshot of an Andrei Karpathy post about using voice-mode, messy brain-dump prompting so an LLM can restate and clarify intent.
+- Recommendation: useful as an optional teacher note or micro-activity about "messy context -> assistant restates -> human checks" in Week 12, or possibly Week 8/9 during requirements gathering. Do not cite it as a source in the deck unless Q provides the original post URL or approves screenshot-only use.
+
+Current status:
+- Branch: `slide-redesign-2026-05`.
+- HEAD: `745947c Integrate generative AI course updates`.
+- Worktree remains dirty with broader content-pass edits in multiple HTML files plus untracked docs/image assets. Do not push without Q's explicit approval after local testing.
+
+### Working tree (`git status --short`)
+
+```text
+ M external-links.html
+ M module-00-llm-basics.html
+ M progress.md
+ M week-02-agent-foundations.html
+ M week-03-responsible-ai-decisions.html
+ M week-08-web-basics-design.html
+ M week-09-interactivity-intelligence.html
+ M week-10-complete-static-deployment.html
+ M week-12-advanced-prompting.html
+ M week-13-security-review-lab.html
+?? CLAUDE.md
+?? docs/ai-agent-book-web-app-integration.md
+?? docs/superpowers/audit-2026-05-21-deck-review.md
+?? image/
+?? sos-talk-may12.html
+?? ui.txt
+```
+
+### Unstaged diff (`git diff --stat`)
+
+```text
+ external-links.html                     |  35 +++
+ module-00-llm-basics.html               |   3 +
+ progress.md                             | 363 ++++++++++++++++++++++++++++++++
+ week-02-agent-foundations.html          |  21 ++
+ week-03-responsible-ai-decisions.html   |  66 +++---
+ week-08-web-basics-design.html          |   8 +-
+ week-09-interactivity-intelligence.html |  11 +-
+ week-10-complete-static-deployment.html |  47 ++++-
+ week-12-advanced-prompting.html         | 129 +++++++++++-
+ week-13-security-review-lab.html        |  20 +-
+ 10 files changed, 657 insertions(+), 46 deletions(-)
+```
+
+### Staged diff (`git diff --cached --stat`)
+
+_none_
+
+### Latest commit (`git show --stat --oneline HEAD`)
+
+```text
+745947c Integrate generative AI course updates
+ ai-life-skills.html                         |   19 +-
+ external-links.html                         |   55 +-
+ index.html                                  |   28 +-
+ llm-background.html                         |   20 +-
+ module-00-llm-basics.html                   |   49 +-
+ module-00b-transformer-deep-dive.html       |  181 +-
+ progress.md                                 | 3403 +++++++++++++++++++++++++++
+ week-02-foundation-readiness-check.html     |  146 +-
+ week-03-responsible-ai-decisions.html       |  351 ++-
+ week-04-writing-word-documents.html         |   43 +-
+ week-06-media-generation-presentations.html |    2 +-
+ week-08-web-basics-design.html              |  116 +-
+ week-09-interactivity-intelligence.html     |   86 +-
+ week-10-complete-static-deployment.html     |   47 +-
+ week-12-advanced-prompting.html             |    9 +
+ 15 files changed, 4407 insertions(+), 148 deletions(-)
+```
+
+---
+
+## 2026-08-06 22:15:08 EDT — Codex
+
+- **Branch:** `slide-redesign-2026-05`
+- **HEAD:** `745947c` — Integrate generative AI course updates
+- **Upstream:** origin/slide-redesign-2026-05 — ahead 0, behind 0
+
+### Summary
+
+Completed DeepLearning.AI/source citation pass after Q provided educational-use citation language.
+
+Accomplished:
+- Added visible source-note attribution to Module 0, Week 2, Week 8, Week 9, Week 10, Week 12, and Week 13 where current slides reference DeepLearning.AI / Andrew Ng / Replit / Generative AI for Everyone concepts.
+- Added DeepLearning.AI Generative AI for Everyone to external-links.html with source files: module-00-llm-basics.html, week-10-complete-static-deployment.html, week-12-advanced-prompting.html, week-13-security-review-lab.html.
+- Added Week 8 to the existing DeepLearning.AI / Replit Vibe Coding 101 external-link source list.
+- Added a visible AI Agents in Depth source note to Week 12 RAG safety slide.
+- Tightened attribution wording from broad "adapted/non-commercial" phrasing to safer "referenced" / "rewritten for local classroom use" wording.
+- Fixed missing Week 10 .formula CSS after rendered screenshot showed the formula line cramped.
+
+Validation:
+- git diff --check passed.
+- Inline scripts parsed in 8 touched HTML files.
+- external-links.html parsed: 149 links, no malformed records or missing local HTML refs.
+- Headless Chrome screenshots rendered for Week 8, Week 10 #genai-lifecycle, and Week 12 #improvement-ladder. Chrome timed out after writing screenshots due local updater noise, then sessions were stopped; screenshots were visually inspected. Week 10 formula style was fixed and re-rendered.
+- Final Codex blocker-only review reported no blockers: no missing attribution, permission overclaims, copied quiz wording, broken link structure, or static-course boundary violations in the reviewed diff.
+
+Current status:
+- No commit or push performed.
+- Worktree remains dirty with prior approved curriculum edits plus citation edits.
+- Latest Q message provided a DeepLearning.AI "Advanced technologies: Beyond prompting" quiz. Recommendation: use its concepts only, not verbatim graded wording; fold into Week 12 as an optional original quick check covering fine-tuning for small classifiers, RAG for email/source Q&A, LLM as reasoning engine, RAG reducing hallucination risk, and RAG for current news with supplied sources.
+
+Next:
+- Ask Q for approval before adding the advanced-tech quiz adaptation.
+- If approved, add an original Week 12 optional quiz card/section, cite DeepLearning.AI Generative AI for Everyone, and do not copy external answer choices verbatim.
+
+### Working tree (`git status --short`)
+
+```text
+ M external-links.html
+ M module-00-llm-basics.html
+ M progress.md
+ M week-02-agent-foundations.html
+ M week-03-responsible-ai-decisions.html
+ M week-08-web-basics-design.html
+ M week-09-interactivity-intelligence.html
+ M week-10-complete-static-deployment.html
+ M week-12-advanced-prompting.html
+ M week-13-security-review-lab.html
+?? CLAUDE.md
+?? docs/ai-agent-book-web-app-integration.md
+?? docs/superpowers/audit-2026-05-21-deck-review.md
+?? image/
+?? sos-talk-may12.html
+?? ui.txt
+```
+
+### Unstaged diff (`git diff --stat`)
+
+```text
+ external-links.html                     |  35 +++++
+ module-00-llm-basics.html               |   3 +
+ progress.md                             | 264 ++++++++++++++++++++++++++++++++
+ week-02-agent-foundations.html          |  21 +++
+ week-03-responsible-ai-decisions.html   |  66 ++++----
+ week-08-web-basics-design.html          |   8 +-
+ week-09-interactivity-intelligence.html |  11 +-
+ week-10-complete-static-deployment.html |  47 +++++-
+ week-12-advanced-prompting.html         |  89 ++++++++++-
+ week-13-security-review-lab.html        |  20 ++-
+ 10 files changed, 520 insertions(+), 44 deletions(-)
+```
+
+### Staged diff (`git diff --cached --stat`)
+
+_none_
+
+### Latest commit (`git show --stat --oneline HEAD`)
+
+```text
+745947c Integrate generative AI course updates
+ ai-life-skills.html                         |   19 +-
+ external-links.html                         |   55 +-
+ index.html                                  |   28 +-
+ llm-background.html                         |   20 +-
+ module-00-llm-basics.html                   |   49 +-
+ module-00b-transformer-deep-dive.html       |  181 +-
+ progress.md                                 | 3403 +++++++++++++++++++++++++++
+ week-02-foundation-readiness-check.html     |  146 +-
+ week-03-responsible-ai-decisions.html       |  351 ++-
+ week-04-writing-word-documents.html         |   43 +-
+ week-06-media-generation-presentations.html |    2 +-
+ week-08-web-basics-design.html              |  116 +-
+ week-09-interactivity-intelligence.html     |   86 +-
+ week-10-complete-static-deployment.html     |   47 +-
+ week-12-advanced-prompting.html             |    9 +
+ 15 files changed, 4407 insertions(+), 148 deletions(-)
+```
+
+---
+
+## 2026-08-06 21:54:05 EDT — Codex
+
+- **Branch:** `slide-redesign-2026-05`
+- **HEAD:** `745947c` — Integrate generative AI course updates
+- **Upstream:** origin/slide-redesign-2026-05 — ahead 0, behind 0
+
+### Summary
+
+Integrated Q's approved generative-AI project lifecycle/cost content and the follow-up advanced RAG/fine-tuning/pretraining/model-choice content.
+
+Accomplished:
+- Added week-10-complete-static-deployment.html slide `genai-lifecycle`: scope -> prototype -> internal test -> improve -> deploy -> monitor -> loop back, with static-course boundaries and no live analytics/API/backend requirement.
+- Adjusted nearby Week 10 timing labels after adding the new lifecycle slide.
+- Added week-12-advanced-prompting.html optional slides `improvement-ladder`, `token-budget`, and `model-choice`.
+- Refined Week 12 RAG loop with the "reasoning engine, not knowledge store" framing.
+- Added week-13-security-review-lab.html reminder that deployment is not the end; observed failures become fix tickets, known limitations, or instructor questions.
+- No new external link was added because Q provided transcript text only and no new source URL.
+
+Validation:
+- git diff --check passed.
+- Inline scripts in Week 10, Week 12, and Week 13 parsed with Node new Function().
+- Slide counts after edits: Week 10 = 12, Week 12 = 21, Week 13 = 14.
+- Codex review gate reported no blockers. It specifically found no stale pricing/model-size overclaims and no backend/API/training requirement added to the required path.
+
+Current status:
+- No commit or push performed.
+- Existing uncommitted changes remain from this and prior approved integrations.
+- Worktree still includes unrelated/pre-existing untracked items: CLAUDE.md, docs/superpowers/audit-2026-05-21-deck-review.md, image/, sos-talk-may12.html, ui.txt.
+
+Next:
+- Q can review Week 10/12/13 locally in the browser.
+- If Q approves, commit the accumulated curriculum updates. Do not push unless Q explicitly approves.
+
+### Working tree (`git status --short`)
+
+```text
+ M external-links.html
+ M progress.md
+ M week-02-agent-foundations.html
+ M week-03-responsible-ai-decisions.html
+ M week-09-interactivity-intelligence.html
+ M week-10-complete-static-deployment.html
+ M week-12-advanced-prompting.html
+ M week-13-security-review-lab.html
+?? CLAUDE.md
+?? docs/ai-agent-book-web-app-integration.md
+?? docs/superpowers/audit-2026-05-21-deck-review.md
+?? image/
+?? sos-talk-may12.html
+?? ui.txt
+```
+
+### Unstaged diff (`git diff --stat`)
+
+```text
+ external-links.html                     |  22 +++++
+ progress.md                             | 170 ++++++++++++++++++++++++++++++++
+ week-02-agent-foundations.html          |  18 ++++
+ week-03-responsible-ai-decisions.html   |  66 +++++++------
+ week-09-interactivity-intelligence.html |   6 +-
+ week-10-complete-static-deployment.html |  42 ++++++--
+ week-12-advanced-prompting.html         |  79 +++++++++++++++
+ week-13-security-review-lab.html        |  17 +++-
+ 8 files changed, 379 insertions(+), 41 deletions(-)
+```
+
+### Staged diff (`git diff --cached --stat`)
+
+_none_
+
+### Latest commit (`git show --stat --oneline HEAD`)
+
+```text
+745947c Integrate generative AI course updates
+ ai-life-skills.html                         |   19 +-
+ external-links.html                         |   55 +-
+ index.html                                  |   28 +-
+ llm-background.html                         |   20 +-
+ module-00-llm-basics.html                   |   49 +-
+ module-00b-transformer-deep-dive.html       |  181 +-
+ progress.md                                 | 3403 +++++++++++++++++++++++++++
+ week-02-foundation-readiness-check.html     |  146 +-
+ week-03-responsible-ai-decisions.html       |  351 ++-
+ week-04-writing-word-documents.html         |   43 +-
+ week-06-media-generation-presentations.html |    2 +-
+ week-08-web-basics-design.html              |  116 +-
+ week-09-interactivity-intelligence.html     |   86 +-
+ week-10-complete-static-deployment.html     |   47 +-
+ week-12-advanced-prompting.html             |    9 +
+ 15 files changed, 4407 insertions(+), 148 deletions(-)
+```
+
+---
+
+## 2026-08-06 21:27:54 EDT — Codex
+
+- **Branch:** `slide-redesign-2026-05`
+- **HEAD:** `745947c` — Integrate generative AI course updates
+- **Upstream:** origin/slide-redesign-2026-05 — ahead 0, behind 0
+
+### Summary
+
+Implemented the approved AI Agent Book integrations into the LearnAI week pages.
+
+Accomplished:
+- Added Week 2 Agent brief slide in week-02-agent-foundations.html with goal, sources, constraints, tools, state, and evidence.
+- Strengthened Week 3 in week-03-responsible-ai-decisions.html with a memory-boundary card and a 25th scenario about assistant memory storing a classmate's personal situation; scenario display count is now dynamic and the related calibration arithmetic was corrected to 18/25 = 72%.
+- Reinforced Week 9 in week-09-interactivity-intelligence.html with architecture/code-path explanation and evidence language.
+- Strengthened Week 10 in week-10-complete-static-deployment.html with pre-deploy understanding/rollback checks and a packet field wired into the generated output.
+- Added Week 12 RAG safety slide in week-12-advanced-prompting.html: retrieved text is evidence, not a command.
+- Strengthened Week 13 in week-13-security-review-lab.html with review-evidence guidance and evidence fields wired into agent prompt/security packet output.
+- Updated docs/ai-agent-book-web-app-integration.md backlog statuses to reflect implemented items.
+
+Validation:
+- git diff --check passed.
+- Inline script syntax for edited week pages parsed successfully with Node new Function().
+- New form IDs were checked in markup/template/listener wiring.
+- Codex review gate ran after implementation, found one arithmetic blocker, which was fixed.
+- Final Codex review gate reported no blockers.
+
+Current status:
+- No commit or push performed.
+- Existing modified/untracked files remain in the worktree. Some changes predate this task: external-links.html, progress.md, CLAUDE.md, docs/superpowers/audit-2026-05-21-deck-review.md, image/, sos-talk-may12.html, ui.txt.
+- Current task changed: week-02-agent-foundations.html, week-03-responsible-ai-decisions.html, week-09-interactivity-intelligence.html, week-10-complete-static-deployment.html, week-12-advanced-prompting.html, week-13-security-review-lab.html, docs/ai-agent-book-web-app-integration.md.
+
+Next:
+- Q can review locally by opening the edited week HTML files directly in a browser.
+- If Q approves, commit these changes together with the prior external-links/docs changes. Do not push unless Q explicitly approves.
+
+### Working tree (`git status --short`)
+
+```text
+ M external-links.html
+ M progress.md
+ M week-02-agent-foundations.html
+ M week-03-responsible-ai-decisions.html
+ M week-09-interactivity-intelligence.html
+ M week-10-complete-static-deployment.html
+ M week-12-advanced-prompting.html
+ M week-13-security-review-lab.html
+?? CLAUDE.md
+?? docs/ai-agent-book-web-app-integration.md
+?? docs/superpowers/audit-2026-05-21-deck-review.md
+?? image/
+?? sos-talk-may12.html
+?? ui.txt
+```
+
+### Unstaged diff (`git diff --stat`)
+
+```text
+ external-links.html                     | 22 ++++++++++
+ progress.md                             | 74 +++++++++++++++++++++++++++++++++
+ week-02-agent-foundations.html          | 18 ++++++++
+ week-03-responsible-ai-decisions.html   | 66 ++++++++++++++++-------------
+ week-09-interactivity-intelligence.html |  6 +--
+ week-10-complete-static-deployment.html |  8 +++-
+ week-12-advanced-prompting.html         | 24 +++++++++++
+ week-13-security-review-lab.html        | 13 +++++-
+ 8 files changed, 196 insertions(+), 35 deletions(-)
+```
+
+### Staged diff (`git diff --cached --stat`)
+
+_none_
+
+### Latest commit (`git show --stat --oneline HEAD`)
+
+```text
+745947c Integrate generative AI course updates
+ ai-life-skills.html                         |   19 +-
+ external-links.html                         |   55 +-
+ index.html                                  |   28 +-
+ llm-background.html                         |   20 +-
+ module-00-llm-basics.html                   |   49 +-
+ module-00b-transformer-deep-dive.html       |  181 +-
+ progress.md                                 | 3403 +++++++++++++++++++++++++++
+ week-02-foundation-readiness-check.html     |  146 +-
+ week-03-responsible-ai-decisions.html       |  351 ++-
+ week-04-writing-word-documents.html         |   43 +-
+ week-06-media-generation-presentations.html |    2 +-
+ week-08-web-basics-design.html              |  116 +-
+ week-09-interactivity-intelligence.html     |   86 +-
+ week-10-complete-static-deployment.html     |   47 +-
+ week-12-advanced-prompting.html             |    9 +
+ 15 files changed, 4407 insertions(+), 148 deletions(-)
+```
+
+---
+
+## 2026-08-06 20:49:31 EDT — Codex
+
+- **Branch:** `slide-redesign-2026-05`
+- **HEAD:** `745947c` — Integrate generative AI course updates
+- **Upstream:** origin/slide-redesign-2026-05 — ahead 0, behind 0
+
+### Summary
+
+Reviewed Bojie Li's AI Agent Book for LearnAI course fit and added an integration note plus external links.
+
+Accomplished:
+- Added docs/ai-agent-book-web-app-integration.md with selective recommendations for the static course web app.
+- Added AI Agents in Depth online book and GitHub source to external-links.html near other agentic AI resources.
+- Validation: git diff --check passed; external-links.html links array parsed with Node, 148 total links, 13 repo links, 89 reference links, no duplicate URLs.
+- Codex review gate completed twice. First pass suggested softening overclaims and adding caveats; revisions applied. Final review reported no blockers.
+
+Current status:
+- Branch: slide-redesign-2026-05
+- HEAD: 745947c Integrate generative AI course updates
+- Modified: external-links.html, progress.md after this checkpoint.
+- New untracked task file: docs/ai-agent-book-web-app-integration.md.
+- Pre-existing unrelated untracked files remain untouched: CLAUDE.md, docs/superpowers/audit-2026-05-21-deck-review.md, image/, sos-talk-may12.html, ui.txt.
+
+Next:
+- If Q wants implementation beyond the audit note, likely targets are Week 2 context checklist, Week 3 tool/memory boundaries, Week 12 RAG safety note, and Week 9/10 review-evidence language.
+- Do not push without Q's explicit approval.
+
+### Working tree (`git status --short`)
+
+```text
+ M external-links.html
+?? CLAUDE.md
+?? docs/ai-agent-book-web-app-integration.md
+?? docs/superpowers/audit-2026-05-21-deck-review.md
+?? image/
+?? sos-talk-may12.html
+?? ui.txt
+```
+
+### Unstaged diff (`git diff --stat`)
+
+```text
+ external-links.html | 22 ++++++++++++++++++++++
+ 1 file changed, 22 insertions(+)
+```
+
+### Staged diff (`git diff --cached --stat`)
+
+_none_
+
+### Latest commit (`git show --stat --oneline HEAD`)
+
+```text
+745947c Integrate generative AI course updates
+ ai-life-skills.html                         |   19 +-
+ external-links.html                         |   55 +-
+ index.html                                  |   28 +-
+ llm-background.html                         |   20 +-
+ module-00-llm-basics.html                   |   49 +-
+ module-00b-transformer-deep-dive.html       |  181 +-
+ progress.md                                 | 3403 +++++++++++++++++++++++++++
+ week-02-foundation-readiness-check.html     |  146 +-
+ week-03-responsible-ai-decisions.html       |  351 ++-
+ week-04-writing-word-documents.html         |   43 +-
+ week-06-media-generation-presentations.html |    2 +-
+ week-08-web-basics-design.html              |  116 +-
+ week-09-interactivity-intelligence.html     |   86 +-
+ week-10-complete-static-deployment.html     |   47 +-
+ week-12-advanced-prompting.html             |    9 +
+ 15 files changed, 4407 insertions(+), 148 deletions(-)
+```
+
+---
+
 ## 2026-08-06 20:31:13 EDT — Codex
 
 - **Branch:** `slide-redesign-2026-05`
