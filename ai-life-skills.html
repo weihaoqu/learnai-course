@@ -408,6 +408,11 @@ body{font-family:var(--font);background:var(--bg);color:var(--text);line-height:
     <li><strong>Would my teacher accept this?</strong> — If you can't defend it in class, don't include it.</li>
   </ol>
 
+  <div class="callout callout-warning">
+    <span class="callout-icon">&#128269;</span>
+    <div><strong>Choose the right tool:</strong> For current facts, health, legal, safety, or step-by-step procedures where reliable instructions already exist, start with trusted sources and verify. Use an LLM as a thought partner for brainstorming, drafting, unusual combinations, first-pass explanations, and questions you will still check before acting.</div>
+  </div>
+
   <div class="quiz">
     <h3>AI says: "According to Smith et al. (2024), 78% of high school students use AI daily." What should you do?</h3>
     <button class="quiz-opt" onclick="qz(this,false,'b2fb','Never trust a statistic just because it has a citation attached. AI frequently invents fake citations.')">Include it in your essay — it has a citation so it must be real</button>
@@ -427,23 +432,23 @@ body{font-family:var(--font);background:var(--bg);color:var(--text);line-height:
   <p class="subtitle">Benchmarks, leaderboards, and hype — how to see through the marketing.</p>
 
   <div class="card" style="border-left:3px solid var(--accent)">
-    <p style="font-size:14px;color:var(--muted);margin-bottom:8px">Use this short visual explanation to demystify what LLMs are actually doing before you evaluate claims about them. The point is not to memorize architecture details; it is to understand why confident-sounding output is still generated one token at a time.</p>
+    <p style="font-size:14px;color:var(--muted);margin-bottom:8px">Use this short visual explanation to demystify what LLMs are doing before you evaluate claims about them. The goal is to understand why fluent, confident output is still built from repeated next-token predictions.</p>
 
-    <h2 style="margin-top:0;margin-bottom:12px">&#127916; The Surprisingly Simple Idea Behind Every LLM (14:34)</h2>
+    <h2 style="margin-top:0;margin-bottom:12px">&#127916; Large Language Models Explained Briefly (7:58)</h2>
     <div style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:var(--radius-sm);margin-bottom:16px">
-      <iframe src="https://www.youtube.com/embed/SHAI7pG3qI8" title="The Surprisingly Simple Idea Behind Every LLM" frameborder="0" allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture" allowfullscreen style="position:absolute;top:0;left:0;width:100%;height:100%"></iframe>
+      <iframe src="https://www.youtube.com/embed/LPZh9BOjkQs" title="Large Language Models explained briefly" frameborder="0" allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture" allowfullscreen style="position:absolute;top:0;left:0;width:100%;height:100%"></iframe>
     </div>
 
     <h3 style="margin-top:16px;margin-bottom:8px">Watch For</h3>
     <div class="card-grid">
-      <div class="info-card"><div class="ic">&#128172;</div><h4>Prediction, not truth</h4><p>LLMs choose likely next tokens, which explains why they can sound right while being wrong.</p></div>
-      <div class="info-card"><div class="ic">&#127919;</div><h4>Probabilities</h4><p>Outputs are shaped by probability distributions, not direct access to certainty.</p></div>
-      <div class="info-card"><div class="ic">&#129504;</div><h4>Your judgment matters</h4><p>Understanding the mechanism makes benchmark and marketing claims easier to question.</p></div>
+      <div class="info-card"><div class="ic">&#128172;</div><h4>Script completion</h4><p>A chatbot can be understood as completing a conversation one token at a time.</p></div>
+      <div class="info-card"><div class="ic">&#127919;</div><h4>Probabilities</h4><p>Outputs come from next-token probability scores, not direct access to certainty.</p></div>
+      <div class="info-card"><div class="ic">&#127922;</div><h4>Variation</h4><p>Sampling from those scores helps answers sound natural, but it can change the result each run.</p></div>
     </div>
 
     <div class="callout callout-tip" style="margin-top:16px;margin-bottom:0">
       <span class="callout-icon">&#128218;</span>
-      <div><strong>Want to go deeper?</strong> See how pretraining, self-attention, and data curation work in our <a href="llm-background.html" style="color:var(--accent-light);font-weight:600">How AI Actually Works</a> page &mdash; three videos that build from simple to advanced.</div>
+      <div><strong>Want to go deeper?</strong> See how pretraining, self-attention, and data curation work in our <a href="llm-background.html" style="color:var(--accent-light);font-weight:600">How AI Actually Works</a> page &mdash; a guided path from simple intuition to advanced internals.</div>
     </div>
   </div>
 

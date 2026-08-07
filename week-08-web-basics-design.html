@@ -104,6 +104,15 @@ body.notes-on .teacher-note{display:block}
 .contract-form label,.exit-form label{display:grid;gap:6px;color:#d8f5f3;font-size:13px;font-weight:900;text-transform:uppercase;letter-spacing:.08em}
 .contract-form textarea{min-height:72px;resize:vertical}
 .prompt-preview{font-family:var(--mono);border:1px solid rgba(45,212,191,.28);background:#061015;border-radius:16px;padding:18px;white-space:pre-wrap;color:#dcfce7;font-size:16px;line-height:1.5;min-height:380px}
+.quiz-bank{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin-top:22px}
+.quiz-bank details{border:1px solid rgba(255,255,255,.14);background:rgba(255,255,255,.055);border-radius:14px;padding:16px;min-height:0}
+.quiz-bank summary{cursor:pointer;color:#fff;font-size:18px;font-weight:900;line-height:1.25;list-style:none}
+.quiz-bank summary::-webkit-details-marker{display:none}
+.quiz-bank summary::after{content:"Show answer";display:inline-flex;margin-left:10px;color:var(--cyan);font-size:11px;text-transform:uppercase;letter-spacing:.08em}
+.quiz-bank details[open] summary::after{content:"Hide answer"}
+.quiz-bank ul{margin:12px 0 0;padding-left:1.1em}
+.quiz-bank li{font-size:15px;line-height:1.28;color:var(--muted)}
+.quiz-bank .answer{margin-top:12px;border-left:4px solid var(--green);background:rgba(52,211,153,.1);border-radius:10px;padding:10px 12px;color:#dcfce7;font-size:15px;line-height:1.35}
 .critique-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin-top:22px}
 .critique{display:flex;gap:12px;align-items:flex-start;border:1px solid rgba(255,255,255,.14);background:rgba(255,255,255,.055);border-radius:14px;padding:15px;color:#dff7f5;cursor:pointer}
 .critique input{width:20px;height:20px;margin-top:2px;accent-color:var(--teal)}
@@ -122,7 +131,7 @@ body.notes-on .teacher-note{display:block}
   h3{font-size:24px}
   p,li{font-size:18px}
   .lede{font-size:22px}
-  .grid,.grid.three,.grid.four,.boundary-grid,.idea-board,.anatomy,.contract-layout,.critique-grid,.exit-layout{grid-template-columns:1fr}
+  .grid,.grid.three,.grid.four,.boundary-grid,.idea-board,.anatomy,.contract-layout,.quiz-bank,.critique-grid,.exit-layout{grid-template-columns:1fr}
   .idea-row{grid-template-columns:1fr}
   .mock-app{min-height:380px}
   .hud{height:auto;min-height:58px;align-items:flex-start;flex-wrap:wrap;padding:9px 12px}
@@ -160,7 +169,7 @@ body.notes-on .teacher-note{display:block}
       <p class="lede">Today we use the DeepLearningAI app-building video as inspiration, then design our own small apps. You do not need to have watched it before class, and we will not copy its example. The goal is a scoped idea, a one-screen wireframe, and a strong first build prompt.</p>
       <div class="grid three">
         <div class="card"><span class="tag">In class</span><p>Discuss the build flow and turn your own idea into a web-app specification.</p></div>
-        <div class="card"><span class="tag">Artifact</span><p>Week 8 App Design Brief: title, target user, wireframe, prompt contract, success criteria, and one risk.</p></div>
+        <div class="card"><span class="tag">Artifact</span><p>Week 8 App Design Brief: title, target user, wireframe, prompt contract, success criteria, one risk, and one code-understanding note.</p></div>
         <div class="card"><span class="tag">Homework</span><p>Watch the full Andrew Ng / DeepLearningAI video offline and connect its flow to your app.</p></div>
       </div>
       <a class="link-btn" href="https://www.youtube.com/watch?v=ff3j4olCUig" target="_blank" rel="noopener noreferrer" aria-label="Homework video Build Your Own App In Just 30 Minutes, opens in a new tab">Homework video: Build Your Own App In Just 30 Minutes</a>
@@ -171,7 +180,7 @@ body.notes-on .teacher-note{display:block}
   <section class="slide" data-part="Open" data-title="The build flow">
     <div class="inner">
       <div class="kicker">What the video models</div>
-      <h2>A beginner build flow has seven moves.</h2>
+      <h2>A beginner build flow has eight moves.</h2>
       <p class="lede">We will study the flow, not imitate the specific app.</p>
       <div class="flow">
         <div class="node">Idea</div><div class="arrow">-&gt;</div>
@@ -180,11 +189,13 @@ body.notes-on .teacher-note{display:block}
         <div class="node">Customize</div><div class="arrow">-&gt;</div>
         <div class="node">Test</div><div class="arrow">-&gt;</div>
         <div class="node">Fix</div><div class="arrow">-&gt;</div>
+        <div class="node">Explain one part</div><div class="arrow">-&gt;</div>
         <div class="node">Transfer</div>
       </div>
-      <div class="grid three">
+      <div class="grid four">
         <div class="card lab"><h3>Design lens</h3><p>What does the user see, type, press, and receive?</p></div>
         <div class="card check"><h3>AI lens</h3><p>What does the prompt need to specify so the AI can build the right first version?</p></div>
+        <div class="card warn"><h3>Learning lens</h3><p>"AI built it" does not mean "I understand it." Be ready to explain one piece of the generated code.</p></div>
         <div class="card note"><h3>Week 8 boundary</h3><p>We design the app brief. Week 9 deepens interactivity. Week 10 turns it into a complete project.</p></div>
       </div>
       <div class="teacher-note">Pacing: 5 minutes. Ask students which move is easiest to skip. Usually they under-specify the user, interaction, and success criteria.</div>
@@ -268,6 +279,21 @@ body.notes-on .teacher-note{display:block}
     </div>
   </section>
 
+  <section class="slide note" id="seo-prd-case" data-part="Part 1" data-title="PRD and wireframe case">
+    <div class="inner">
+      <div class="timebox">Optional case study</div>
+      <h2>Case study: plan an SEO analyzer before prompting.</h2>
+      <p class="lede">Use this as PRD and wireframe practice, not as a required backend project. A live tool that fetches arbitrary websites needs proxy handling, scraping limits, and instructor approval.</p>
+      <div class="grid">
+        <div class="card"><span class="tag">PRD</span><h3>What it should do</h3><p>User enters a public website URL. The app reports metadata, search/social preview details, basic load signals, and improvement suggestions.</p></div>
+        <div class="card"><span class="tag">Wireframe</span><h3>First screen</h3><p>URL input, Analyze button, score or status summary, findings list, Google/social preview cards, and a visible error state.</p></div>
+        <div class="card"><span class="tag">Vocabulary</span><h3>Words that steer the agent</h3><p>Use domain terms such as SEO tags, meta tags, HTML head, title, description, social preview, responsive layout, and edge case.</p></div>
+        <div class="card warn"><span class="tag">Boundary</span><h3>Static-course version</h3><p>Students can plan the workflow or analyze sample HTML. They should not build a live URL fetcher unless the instructor explicitly changes the project scope.</p></div>
+      </div>
+      <div class="teacher-note">This adapts the Replit SEO analyzer lesson into a planning exercise: define the problem, sketch the interface, name the data, and list blocked-page or invalid-URL failures before asking an agent to build.</div>
+    </div>
+  </section>
+
   <section class="slide" id="anatomy" data-part="Part 2" data-title="Web anatomy">
     <div class="inner">
       <div class="timebox">25-35 min</div>
@@ -318,13 +344,78 @@ body.notes-on .teacher-note{display:block}
           <button class="btn" id="copyPrompt" style="margin-top:12px">Copy prompt</button>
         </div>
       </div>
+      <div class="card warn" style="margin-top:18px;min-height:0">
+        <h3>Ownership check</h3>
+        <p>If AI generates the app, you still need to understand it. In your submission, explain one part of the HTML, CSS, or JavaScript in your own words.</p>
+      </div>
       <div class="teacher-note">Pacing: 13 minutes. Keep this at specification level. Do not turn the session into a JavaScript syntax lesson.</div>
+    </div>
+  </section>
+
+  <section class="slide check" id="prompting-quiz" data-part="Part 4" data-title="Formative quiz">
+    <div class="inner">
+      <div class="timebox">48-53 min</div>
+      <h2>Formative quiz: prompting apps.</h2>
+      <p class="lede">Reveal each answer after students choose. The pattern is specificity first, then iteration after seeing the result.</p>
+      <div class="quiz-bank">
+        <details>
+          <summary>1. "Make me a birthday card thing" produced a static image. What improves the prompt?</summary>
+          <ul>
+            <li>Ask the chatbot to try harder.</li>
+            <li>Give specifics about collected information and the output.</li>
+            <li>Keep the prompt vague.</li>
+            <li>Use more programming words.</li>
+          </ul>
+          <p class="answer">Answer: Give specifics about the information to collect and what the output should look like.</p>
+        </details>
+        <details>
+          <summary>2. A table tennis game works partly, but difficulty and styling are wrong. Best next step?</summary>
+          <ul>
+            <li>Conclude AI prompting cannot work for games.</li>
+            <li>Start over with an even longer prompt.</li>
+            <li>Ask it to debug itself without details.</li>
+            <li>Use follow-up prompts to add and fix features one at a time.</li>
+          </ul>
+          <p class="answer">Answer: Send follow-up prompts that describe one concrete fix or feature at a time.</p>
+        </details>
+        <details>
+          <summary>3. The basic table tennis game works. How should you add difficulty levels and styling?</summary>
+          <ul>
+            <li>Assume no more features can be added.</li>
+            <li>Only one-at-a-time prompts ever work.</li>
+            <li>Add features with follow-up prompts, or describe all wanted changes in one detailed prompt.</li>
+            <li>Only one long prompt works.</li>
+          </ul>
+          <p class="answer">Answer: Either approach can work. What matters is clear detail and testing the result.</p>
+        </details>
+        <details>
+          <summary>4. How important is the order of prompt building blocks?</summary>
+          <ul>
+            <li>Extremely critical.</li>
+            <li>Not very important; AI can understand different arrangements.</li>
+            <li>It must always follow a strict sequence.</li>
+            <li>It determines processing speed.</li>
+          </ul>
+          <p class="answer">Answer: Not very important. Goal, inputs, output, layout, and features can be arranged in different orders.</p>
+        </details>
+        <details>
+          <summary>5. A to-do app needs checkboxes so users can mark tasks complete. How do you add it?</summary>
+          <ul>
+            <li>Describe the new feature to the chatbot and ask it to add it to the existing app.</li>
+            <li>Build a completely new app from scratch.</li>
+            <li>Assume to-do apps cannot be modified.</li>
+            <li>Learn all JavaScript before asking for the change.</li>
+          </ul>
+          <p class="answer">Answer: Describe the checkbox feature clearly, then test the updated app.</p>
+        </details>
+      </div>
+      <div class="teacher-note">This is a formative LearnAI check, not a copied graded quiz. After the answers, ask one student to explain one generated code section in plain language before moving to peer critique.</div>
     </div>
   </section>
 
   <section class="slide check" id="critique" data-part="Part 4" data-title="Peer critique">
     <div class="inner">
-      <div class="timebox">48-56 min</div>
+      <div class="timebox">53-58 min</div>
       <h2>Partner check: would this generate the app you mean?</h2>
       <p class="lede">Trade prompts with a partner. Check the prompt as a design document, not as a grade.</p>
       <div class="critique-grid">
@@ -334,14 +425,15 @@ body.notes-on .teacher-note{display:block}
         <label class="critique"><input type="checkbox"><span>The visual tone is concrete enough to build.</span></label>
         <label class="critique"><input type="checkbox"><span>The prompt says what not to include.</span></label>
         <label class="critique"><input type="checkbox"><span>There is one way to tell whether the first version works.</span></label>
+        <label class="critique"><input type="checkbox"><span>The builder can explain one generated code section in plain language.</span></label>
       </div>
-      <p class="muted" id="critiqueStatus" style="margin-top:16px">0 of 6 checks complete.</p>
+      <p class="muted" id="critiqueStatus" style="margin-top:16px">0 of 7 checks complete.</p>
     </div>
   </section>
 
   <section class="slide artifact" id="ticket" data-part="Close" data-title="Exit ticket">
     <div class="inner">
-      <div class="timebox">56-60 min</div>
+      <div class="timebox">58-60 min</div>
       <h2>Week 8 App Design Brief</h2>
       <p class="lede">Submit the smallest useful version of your app idea. Week 9 will use this brief to add interactivity and intelligence.</p>
       <div class="exit-layout">
@@ -352,6 +444,7 @@ body.notes-on .teacher-note{display:block}
           <label>Wireframe description<textarea id="exWireframe" placeholder="Describe the one-screen layout from top to bottom."></textarea></label>
           <label>First build prompt<textarea id="exPrompt" placeholder="Paste or summarize your prompt contract."></textarea></label>
           <label>Success criteria<textarea id="exSuccess" placeholder="How will you know the first version works?"></textarea></label>
+          <label>Code understanding note<textarea id="exUnderstand" placeholder="Name one generated HTML, CSS, or JavaScript part you can explain in your own words."></textarea></label>
           <label>One risk or unknown<textarea id="exRisk" placeholder="What might fail, confuse users, or be too ambitious?"></textarea></label>
         </div>
         <div>
@@ -366,7 +459,7 @@ body.notes-on .teacher-note{display:block}
     <div class="inner">
       <div class="kicker">Homework guide</div>
       <h2>Watch the full video offline.</h2>
-      <p class="lede">As you watch, connect the build flow to your own app idea. The video is inspiration and homework, not a prerequisite for today's class.</p>
+      <p class="lede">As you watch, connect the build flow to your own app idea. The video is inspiration and homework, not a prerequisite for today's class. Review the formative quiz before Week 9.</p>
       <div class="grid">
         <div class="card"><h3>Watch for decisions</h3><p>What gets specified before the first version? What gets changed after seeing the first version?</p></div>
         <div class="card"><h3>Watch for testing</h3><p>Where does the app fail or need adjustment? How is the problem described back to AI?</p></div>
@@ -444,7 +537,7 @@ document.getElementById('notesBtn').addEventListener('click', () => {
   document.body.classList.toggle('notes-on');
 });
 document.addEventListener('keydown', event => {
-  if (event.target.matches('input, textarea, select, button, a')) return;
+  if (event.target.matches('input, textarea, select, button, a, summary')) return;
   if (event.key === 'ArrowRight' || event.key === ' ') { event.preventDefault(); go(current + 1); }
   if (event.key === 'ArrowLeft') { event.preventDefault(); go(current - 1); }
   if (event.key === 'Home') { event.preventDefault(); go(0); }
@@ -563,7 +656,7 @@ function updateCritique() {
 }
 critiqueBoxes.forEach(box => box.addEventListener('change', updateCritique));
 
-const exitFields = ['exTitle','exUser','exInteraction','exWireframe','exPrompt','exSuccess','exRisk'];
+const exitFields = ['exTitle','exUser','exInteraction','exWireframe','exPrompt','exSuccess','exUnderstand','exRisk'];
 const ticketPreview = document.getElementById('ticketPreview');
 function updateTicket() {
   ticketPreview.textContent =
@@ -581,6 +674,9 @@ ${value('exPrompt','[first build prompt]')}
 
 Success criteria:
 ${value('exSuccess','[how you will know the first version works]')}
+
+Code understanding note:
+${value('exUnderstand','[one generated HTML, CSS, or JavaScript part you can explain]')}
 
 Risk or unknown:
 ${value('exRisk','[one risk or unknown]')}`;

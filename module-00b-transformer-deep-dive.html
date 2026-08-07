@@ -23,6 +23,7 @@ a{color:var(--cyan);text-decoration:none}
 button{font:inherit}
 .deck{height:100vh;width:100vw;position:relative}
 .slide{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:82px 7vw 84px;opacity:0;pointer-events:none;transition:opacity .25s ease;overflow:auto}
+.slide.tall{justify-content:flex-start}
 .slide.active{opacity:1;pointer-events:auto}
 .inner{width:min(1180px,100%)}
 .kicker{display:inline-flex;align-items:center;gap:10px;color:var(--cyan);font-size:13px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;margin-bottom:18px}
@@ -40,10 +41,24 @@ li{margin:8px 0}
 .card{background:rgba(16,20,38,.82);border:1px solid var(--line);border-radius:16px;padding:22px}
 .card h3{font-size:22px}
 .tag{display:inline-flex;border:1px solid rgba(255,255,255,.14);border-radius:999px;padding:7px 11px;color:#dbeafe;font-size:13px;font-weight:800;margin-bottom:12px;background:rgba(255,255,255,.04)}
+.checkpoint-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin-top:18px}
+.checkpoint{border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.055);border-radius:14px;padding:14px;min-height:116px}
+.checkpoint time{display:inline-flex;font-family:var(--mono);font-size:13px;font-weight:900;color:#a5f3fc;margin-bottom:8px}
+.checkpoint b{display:block;color:#fff;margin-bottom:5px}
+.checkpoint p{font-size:15px;line-height:1.35}
 .formula{font-family:var(--mono);font-size:clamp(20px,1.8vw,28px);line-height:1.45;background:#050713;border:1px solid rgba(96,165,250,.28);border-radius:18px;padding:22px;margin-top:24px;color:#bfdbfe}
 .concept-card{background:linear-gradient(135deg,rgba(34,211,238,.13),rgba(96,165,250,.08));border:1px solid rgba(34,211,238,.28);border-radius:20px;padding:26px;margin:22px 0}
 .concept-card strong{display:block;color:#fff;font-size:clamp(24px,2.4vw,34px);line-height:1.2;margin-bottom:10px}
 .concept-card p{color:#dce5f7}
+.dataflow-chain{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:10px;margin-top:26px}
+.dataflow-step{border:1px solid rgba(34,211,238,.24);background:rgba(34,211,238,.08);border-radius:15px;padding:16px;min-height:132px}
+.dataflow-step span{display:block;font-family:var(--mono);font-size:13px;color:#a5f3fc;margin-bottom:10px;font-weight:900}
+.dataflow-step b{display:block;color:#fff;margin-bottom:8px}
+.dataflow-step p{font-size:16px;line-height:1.35}
+.temperature-scale{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:24px}
+.temp-card{border:1px solid rgba(255,255,255,.14);border-radius:16px;padding:20px;background:rgba(255,255,255,.055)}
+.temp-card b{display:block;color:#fff;margin-bottom:8px}
+.temp-meter{height:10px;border-radius:999px;background:linear-gradient(90deg,var(--blue),var(--amber),var(--rose));margin:14px 0}
 .story-strip{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin-top:24px}
 .story-step{border:1px solid rgba(96,165,250,.24);background:rgba(96,165,250,.08);border-radius:16px;padding:18px;min-height:136px}
 .story-step b{display:block;color:#fff;margin-bottom:8px}
@@ -71,6 +86,8 @@ li{margin:8px 0}
 .arrow{color:var(--cyan);font-size:28px;font-weight:900}
 .video-frame{position:relative;width:100%;max-width:900px;aspect-ratio:16/9;border-radius:16px;overflow:hidden;border:1px solid var(--line);background:#000;margin-top:22px}
 .video-frame iframe{position:absolute;inset:0;width:100%;height:100%}
+#facts-video .video-frame{max-width:760px;margin-top:18px}
+#facts-video .checkpoint{min-height:104px}
 .quiz{border-left:6px solid var(--green);background:rgba(52,211,153,.08)}
 .challenge{border-left:6px solid var(--amber);background:rgba(245,158,11,.1)}
 .optional{border-left:6px solid var(--violet);background:rgba(167,139,250,.08)}
@@ -88,6 +105,17 @@ li{margin:8px 0}
 .fact-result{border:1px solid rgba(34,211,238,.28);background:linear-gradient(135deg,rgba(34,211,238,.12),rgba(167,139,250,.08));border-radius:18px;padding:20px;min-height:230px}
 .fact-result h3{font-size:24px;color:#fff}
 .source-note{border:1px solid rgba(245,158,11,.34);background:rgba(245,158,11,.1);border-radius:14px;padding:13px;color:#fdecc8;font-size:15px;margin-top:14px}
+.mlp-flow{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin-top:26px}
+.mlp-node{position:relative;border:1px solid rgba(167,139,250,.28);background:rgba(167,139,250,.08);border-radius:16px;padding:18px;min-height:178px}
+.mlp-node::after{content:"";position:absolute;top:50%;right:-12px;width:12px;height:2px;background:linear-gradient(90deg,var(--violet),var(--cyan));transform:translateY(-50%)}
+.mlp-node:last-child::after{display:none}
+.mlp-node span{display:inline-flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:999px;background:rgba(34,211,238,.16);color:#a5f3fc;font-family:var(--mono);font-weight:900;margin-bottom:12px}
+.mlp-node b{display:block;color:#fff;margin-bottom:8px}
+.mlp-node p{font-size:16px;line-height:1.35}
+.writeback-rule{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:22px}
+.rule-card{border:1px solid rgba(255,255,255,.14);background:rgba(255,255,255,.055);border-radius:16px;padding:18px}
+.rule-card b{display:block;color:#fff;margin-bottom:8px}
+.rule-card p{font-size:16px}
 .teacher-note{display:none;margin-top:24px;border:1px dashed rgba(255,255,255,.28);background:rgba(255,255,255,.055);border-radius:14px;padding:16px;color:#d7dded;font-size:16px}
 body.notes-on .teacher-note{display:block}
 .hud{position:fixed;top:0;left:0;right:0;height:54px;background:rgba(7,8,23,.88);backdrop-filter:blur(14px);border-bottom:1px solid var(--line);display:flex;align-items:center;gap:14px;padding:0 18px;z-index:5}
@@ -104,9 +132,14 @@ body.notes-on .teacher-note{display:block}
 .artifact{background:linear-gradient(135deg,rgba(34,211,238,.12),rgba(167,139,250,.12));border:1px solid rgba(34,211,238,.26)}
 @keyframes chipIn{from{opacity:0;transform:translateY(8px) scale(.96)}to{opacity:1;transform:translateY(0) scale(1)}}
 @keyframes pulseStep{0%,100%{box-shadow:none;transform:translateY(0)}50%{box-shadow:0 0 22px rgba(52,211,153,.16);transform:translateY(-2px)}}
+@media(max-width:980px){
+  .checkpoint-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .dataflow-chain{grid-template-columns:repeat(3,minmax(0,1fr))}
+}
 @media(max-width:760px){
   .slide{justify-content:flex-start;padding:76px 22px 230px}
-  .grid,.grid.three,.story-strip,.vector-space,.attention-lab,.fact-lab{grid-template-columns:1fr}
+  .grid,.grid.three,.checkpoint-grid,.dataflow-chain,.temperature-scale,.story-strip,.vector-space,.attention-lab,.fact-lab,.mlp-flow,.writeback-rule{grid-template-columns:1fr}
+  .mlp-node::after{display:none}
   .hud{height:auto;min-height:58px;align-items:flex-start;flex-wrap:wrap;padding:9px 12px}
   .brand{width:100%}
   .status{font-size:12px}
@@ -220,19 +253,60 @@ body.notes-on .teacher-note{display:block}
     </div>
   </section>
 
-  <section class="slide" id="transformer-video" data-part="Hour 1" data-title="Transformer video">
+  <section class="slide tall" id="transformer-video" data-part="Hour 1" data-title="Transformer video">
     <div class="inner">
-      <div class="kicker">Video anchor - 18 minutes</div>
+      <div class="kicker">Video anchor - 27 minutes</div>
       <h2>3Blue1Brown: Transformers, the tech behind LLMs</h2>
-      <p>Use this video as visual reinforcement. We are watching for structure: tokens, embeddings, attention, and repeated layers.</p>
+      <p>Use this video as visual reinforcement. We are watching how data moves through a transformer, not trying to memorize every matrix.</p>
       <div class="video-frame">
         <iframe src="https://www.youtube.com/embed/wjZofJX0v4M" title="Transformers, the tech behind LLMs" frameborder="0" allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture" allowfullscreen></iframe>
       </div>
-      <div class="grid three">
-        <div class="card"><span class="tag">Pause 1</span><p>What is one reason a word needs more than its own token?</p></div>
-        <div class="card"><span class="tag">Pause 2</span><p>What does attention help move between words?</p></div>
-        <div class="card"><span class="tag">End check</span><p>What does the transformer keep updating?</p></div>
+      <div class="checkpoint-grid">
+        <div class="checkpoint"><time datetime="PT1M38S">01:38</time><b>Prediction loop</b><p>Next-token scores become generated text when sampled repeatedly.</p></div>
+        <div class="checkpoint"><time datetime="PT3M19S">03:19</time><b>Tokens</b><p>The model receives chunks, not a human page of prose.</p></div>
+        <div class="checkpoint"><time datetime="PT3M37S">03:37</time><b>Embeddings</b><p>Tokens become vectors that can move through computation.</p></div>
+        <div class="checkpoint"><time datetime="PT11M47S">11:47</time><b>Weights vs data</b><p>Weights are learned; the current prompt is the data flowing through them.</p></div>
+        <div class="checkpoint"><time datetime="PT18M25S">18:25</time><b>Accumulated context</b><p>Representations become richer as surrounding context is incorporated.</p></div>
+        <div class="checkpoint"><time datetime="PT20M56S">20:56</time><b>Unembedding</b><p>The final vector is mapped back toward vocabulary scores.</p></div>
+        <div class="checkpoint"><time datetime="PT22M22S">22:22</time><b>Softmax</b><p>Raw scores become a probability distribution over possible next tokens.</p></div>
+        <div class="checkpoint"><time datetime="PT24M09S">24:09</time><b>Temperature</b><p>A setting changes how strongly the system favors the highest-scored tokens.</p></div>
       </div>
+      <div class="teacher-note">This video sets up attention, but it is not the detailed Q/K/V attention chapter. Keep the focus on dataflow and representation.</div>
+    </div>
+  </section>
+
+  <section class="slide" id="transformer-dataflow" data-part="Hour 1" data-title="Transformer dataflow">
+    <div class="inner">
+      <div class="kicker">After the video</div>
+      <h2>The whole move is representation to probability.</h2>
+      <p class="lede">A transformer repeatedly changes numeric representations, then converts the final representation into scores for possible next tokens.</p>
+      <div class="dataflow-chain" aria-label="Transformer dataflow">
+        <div class="dataflow-step"><span>1</span><b>Token id</b><p>A piece of text becomes an index in the model vocabulary.</p></div>
+        <div class="dataflow-step"><span>2</span><b>Embedding</b><p>The index selects an initial vector representation.</p></div>
+        <div class="dataflow-step"><span>3</span><b>Attention</b><p>Vectors exchange useful context with other vectors.</p></div>
+        <div class="dataflow-step"><span>4</span><b>MLP block</b><p>Each vector is transformed by learned pattern detectors.</p></div>
+        <div class="dataflow-step"><span>5</span><b>Logits</b><p>The final vector becomes raw scores for vocabulary tokens.</p></div>
+        <div class="dataflow-step"><span>6</span><b>Softmax</b><p>Scores become probabilities, then one token is selected.</p></div>
+      </div>
+      <div class="formula">token -> vector -> updated vector -> logits -> probabilities -> next token</div>
+    </div>
+  </section>
+
+  <section class="slide quiz" data-part="Hour 1" data-title="Temperature check">
+    <div class="inner">
+      <div class="kicker">Quick check</div>
+      <h2>What does temperature change?</h2>
+      <p class="lede">Temperature changes how much the sampling process explores lower-scored tokens from the model's score distribution.</p>
+      <div class="temperature-scale">
+        <div class="temp-card"><b>Lower temperature</b><p>More predictable. The highest-scored token dominates more often.</p><div class="temp-meter" style="filter:saturate(.55)"></div></div>
+        <div class="temp-card"><b>Higher temperature</b><p>More variety. Lower-scored tokens get more chance, which can help creativity or create nonsense.</p><div class="temp-meter"></div></div>
+      </div>
+      <div class="choices">
+        <button class="choice" data-correct="false">Temperature changes the facts stored in the model weights.</button>
+        <button class="choice" data-correct="true">Temperature changes how strongly generation favors the highest-scored next tokens.</button>
+        <button class="choice" data-correct="false">Temperature lets the model search the web before answering.</button>
+      </div>
+      <div class="feedback">Temperature affects sampling behavior after the model has already produced scores. It does not verify truth or update the model's learned weights.</div>
     </div>
   </section>
 
@@ -258,11 +332,34 @@ body.notes-on .teacher-note{display:block}
     </div>
   </section>
 
+  <section class="slide tall" id="attention-video" data-part="Hour 2" data-title="Attention video">
+    <div class="inner">
+      <div class="kicker">Video anchor - 26 minutes</div>
+      <h2>3Blue1Brown: Attention in transformers, step-by-step</h2>
+      <p class="lede">This is the deeper attention chapter. Watch for how query, key, and value vectors turn context into an update to each token representation.</p>
+      <div class="video-frame">
+        <iframe src="https://www.youtube.com/embed/eMlx5fFNoYc" title="Attention in transformers, step-by-step" frameborder="0" allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture" allowfullscreen></iframe>
+      </div>
+      <div class="checkpoint-grid">
+        <div class="checkpoint"><time datetime="PT2M0S">02:00</time><b>Ambiguous words</b><p>The same token can need different meanings depending on context.</p></div>
+        <div class="checkpoint"><time datetime="PT4M35S">04:35</time><b>Context routing</b><p>Adjectives like fluffy and blue can update the noun creature.</p></div>
+        <div class="checkpoint"><time datetime="PT6M32S">06:32</time><b>Query</b><p>A token representation asks what kind of information would help.</p></div>
+        <div class="checkpoint"><time datetime="PT7M47S">07:47</time><b>Key</b><p>Other token representations advertise what information they can provide.</p></div>
+        <div class="checkpoint"><time datetime="PT8M27S">08:27</time><b>Dot product</b><p>Query-key alignment becomes an attention score.</p></div>
+        <div class="checkpoint"><time datetime="PT9M52S">09:52</time><b>Softmax</b><p>Raw attention scores become normalized weights.</p></div>
+        <div class="checkpoint"><time datetime="PT12M26S">12:26</time><b>Masking</b><p>Future tokens are blocked during next-token prediction.</p></div>
+        <div class="checkpoint"><time datetime="PT13M47S">13:47</time><b>Value</b><p>Weighted value vectors are added to update representations.</p></div>
+        <div class="checkpoint"><time datetime="PT20M38S">20:38</time><b>Multi-head</b><p>Many attention heads learn different context routes in parallel.</p></div>
+      </div>
+      <div class="teacher-note">Use this after the simpler context demo. The goal is a practical mental model of Q/K/V, not memorizing the parameter counts or matrix shapes.</div>
+    </div>
+  </section>
+
   <section class="slide challenge" data-part="Hour 2" data-title="Attention lab">
     <div class="inner">
       <div class="kicker">Interactive demo - 12 minutes</div>
-      <h2>Click the context that changes the word.</h2>
-      <p class="lede">The ambiguous token starts blurry. Context words pull it toward a meaning.</p>
+      <h2>Click the context that routes meaning.</h2>
+      <p class="lede">The ambiguous token starts blurry. This high-level demo shows how context words can push a representation toward a more useful meaning.</p>
       <div class="attention-lab" id="attentionLab">
         <div class="lab-controls">
           <h3>Choose context</h3>
@@ -271,7 +368,7 @@ body.notes-on .teacher-note{display:block}
             <button class="attn-chip" data-attn="money" aria-pressed="false">loan / account / money</button>
             <button class="attn-chip" data-attn="baseball" aria-pressed="false">pitcher / mound / game</button>
           </div>
-          <div class="source-note">This is a teaching model, not a literal attention heatmap from a real model.</div>
+          <div class="source-note">This is a teaching model inspired by the video&apos;s Q/K/V idea: context words can route information into an ambiguous token. It is not a literal trace from a real model.</div>
         </div>
         <div class="lab-output" aria-live="polite">
           <h3 id="attnTitle">Bank means river edge.</h3>
@@ -365,18 +462,62 @@ body.notes-on .teacher-note{display:block}
     </div>
   </section>
 
-  <section class="slide" id="facts-video" data-part="Hour 3" data-title="Facts video">
+  <section class="slide tall" id="facts-video" data-part="Hour 3" data-title="Facts video">
     <div class="inner">
-      <div class="kicker">Video anchor - 18 minutes</div>
+      <div class="kicker">Video anchor - 23 minutes</div>
       <h2>3Blue1Brown: How might LLMs store facts?</h2>
-      <p>Watch for the distinction between learned internal patterns and verified external evidence.</p>
+      <p>Watch for how the MLP block can be pictured as detecting a learned pattern, applying a nonlinear gate, and writing an update back into the token vector.</p>
       <div class="video-frame">
         <iframe src="https://www.youtube.com/embed/9-Jl0dxWQs8" title="How might LLMs store facts" frameborder="0" allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture" allowfullscreen></iframe>
       </div>
-      <div class="grid three">
-        <div class="card"><span class="tag">Pause 1</span><p>Where might factual associations appear inside a model?</p></div>
-        <div class="card"><span class="tag">Pause 2</span><p>Why is this different from database lookup?</p></div>
-        <div class="card"><span class="tag">End check</span><p>What kinds of facts should still be verified?</p></div>
+      <div class="checkpoint-grid">
+        <div class="checkpoint"><time datetime="PT0S">00:00</time><b>Fact prompt</b><p>The blank after Michael Jordan introduces factual recall as learned association.</p></div>
+        <div class="checkpoint"><time datetime="PT6M11S">06:11</time><b>MLP block</b><p>Each token vector is processed independently, unlike attention.</p></div>
+        <div class="checkpoint"><time datetime="PT7M25S">07:25</time><b>Feature probes</b><p>Matrix rows can be pictured as directions that test for features.</p></div>
+        <div class="checkpoint"><time datetime="PT10M32S">10:32</time><b>Gate</b><p>A nonlinear function lets some signals through and dampens others.</p></div>
+        <div class="checkpoint"><time datetime="PT12M10S">12:10</time><b>Write-back</b><p>The down projection can add a learned update direction to the vector.</p></div>
+        <div class="checkpoint"><time datetime="PT17M52S">17:52</time><b>Superposition</b><p>Real factual associations often look distributed, not one neat neuron per fact.</p></div>
+        <div class="checkpoint"><time datetime="PT21M20S">21:20</time><b>Interpretability</b><p>Sparse autoencoders try to recover human-readable feature directions.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="slide" id="mlp-writeback" data-part="Hour 3" data-title="MLP write-back">
+    <div class="inner">
+      <div class="kicker">Mental model</div>
+      <h2>A fact is not a row in a database.</h2>
+      <p class="lede">The video gives a toy picture: an MLP can detect a pattern in a token vector and write a useful direction back into that vector.</p>
+      <div class="mlp-flow" aria-label="MLP toy model from token vector to write-back update">
+        <div class="mlp-node">
+          <span>1</span>
+          <b>Token vector</b>
+          <p>The current vector carries many features from earlier layers.</p>
+        </div>
+        <div class="mlp-node">
+          <span>2</span>
+          <b>Feature detector</b>
+          <p>A learned projection tests whether a pattern is present.</p>
+        </div>
+        <div class="mlp-node">
+          <span>3</span>
+          <b>Nonlinear gate</b>
+          <p>A nonlinear function lets some signals through and dampens others.</p>
+        </div>
+        <div class="mlp-node">
+          <span>4</span>
+          <b>Write-back update</b>
+          <p>A second projection adds a learned direction to the representation.</p>
+        </div>
+      </div>
+      <div class="writeback-rule">
+        <div class="rule-card">
+          <b>Good intuition</b>
+          <p>MLPs can act like learned feature detectors and updaters inside the transformer.</p>
+        </div>
+        <div class="rule-card">
+          <b>Important caveat</b>
+          <p>In real models, factual associations often appear distributed across many features and weights, not as one clean neuron per fact.</p>
+        </div>
       </div>
     </div>
   </section>
@@ -385,7 +526,7 @@ body.notes-on .teacher-note{display:block}
     <div class="inner">
       <div class="kicker">Interactive demo - 12 minutes</div>
       <h2>Classify the claim before trusting it.</h2>
-      <p class="lede">Click a claim. Decide whether learned recall is enough, or whether we need a source, tool, or human approval.</p>
+      <p class="lede">Click a claim. Decide whether learned association is enough, or whether the answer needs a source, tool result, or human check.</p>
       <div class="fact-lab">
         <div class="lab-controls">
           <h3>Choose a claim</h3>
@@ -415,7 +556,7 @@ body.notes-on .teacher-note{display:block}
           <div class="fact-panel" id="fact-private">
             <h3>Needs human handling and privacy care.</h3>
             <p><code>The instructor decided yesterday that...</code></p>
-            <p>Private or local decisions must come from provided notes, not from model guessing.</p>
+            <p>Private, local, legal, medical, or safety-sensitive claims must come from approved evidence, not model guessing.</p>
           </div>
         </div>
       </div>

@@ -7,6 +7,3409 @@ entries; nobody edits prior entries. Managed by
 
 <!-- newest entry below -->
 
+## 2026-08-06 20:31:13 EDT — Codex
+
+- **Branch:** `slide-redesign-2026-05`
+- **HEAD:** `5b4170b` — Add Week 6 media prompt steering
+- **Upstream:** origin/slide-redesign-2026-05 — ahead 1, behind 0
+
+### Summary
+
+Ready to commit and push the accumulated tracked course updates on branch slide-redesign-2026-05.
+
+Final pre-commit checks:
+- git diff --check passed across the full tracked diff.
+- Node parsed embedded scripts in every modified HTML file; no duplicate IDs found.
+- Week 2 readiness app validation: nav anchors match sections; 22 question blocks; 44 choice points; 10 trace points; total 54; every question has exactly one correct answer.
+- Commit-gate Codex review found no blockers. It suggested replacing legally muddy "protected style" language.
+- Applied Week 3 wording fix: replaced "protected style" / "copied styles" language with protected source material, restricted likeness, impersonation, and assignment-prohibited imitation wording.
+- Quick URL header check returned HTTP 200 for the DeepLearning.AI Build with Andrew lesson URL and Replit vibe coding course URL. The lesson may still require account access, and the UI labels it accordingly.
+
+Commit scope:
+- Stage tracked modifications only via git add -u.
+- Do not include untracked local files: CLAUDE.md, docs/superpowers/audit-2026-05-21-deck-review.md, image/, sos-talk-may12.html, ui.txt.
+
+No push has happened yet; Q explicitly requested commit and push in the active session.
+
+### Working tree (`git status --short`)
+
+```text
+ M ai-life-skills.html
+ M external-links.html
+ M index.html
+ M llm-background.html
+ M module-00-llm-basics.html
+ M module-00b-transformer-deep-dive.html
+ M progress.md
+ M week-02-foundation-readiness-check.html
+ M week-03-responsible-ai-decisions.html
+ M week-04-writing-word-documents.html
+ M week-06-media-generation-presentations.html
+ M week-08-web-basics-design.html
+ M week-09-interactivity-intelligence.html
+ M week-10-complete-static-deployment.html
+ M week-12-advanced-prompting.html
+?? CLAUDE.md
+?? docs/superpowers/audit-2026-05-21-deck-review.md
+?? image/
+?? sos-talk-may12.html
+?? ui.txt
+```
+
+### Unstaged diff (`git diff --stat`)
+
+```text
+ ai-life-skills.html                         |   19 +-
+ external-links.html                         |   55 +-
+ index.html                                  |   28 +-
+ llm-background.html                         |   20 +-
+ module-00-llm-basics.html                   |   49 +-
+ module-00b-transformer-deep-dive.html       |  181 +-
+ progress.md                                 | 3318 +++++++++++++++++++++++++++
+ week-02-foundation-readiness-check.html     |  146 +-
+ week-03-responsible-ai-decisions.html       |  351 ++-
+ week-04-writing-word-documents.html         |   43 +-
+ week-06-media-generation-presentations.html |    2 +-
+ week-08-web-basics-design.html              |  116 +-
+ week-09-interactivity-intelligence.html     |   86 +-
+ week-10-complete-static-deployment.html     |   47 +-
+ week-12-advanced-prompting.html             |    9 +
+ 15 files changed, 4322 insertions(+), 148 deletions(-)
+```
+
+### Staged diff (`git diff --cached --stat`)
+
+_none_
+
+### Latest commit (`git show --stat --oneline HEAD`)
+
+```text
+5b4170b Add Week 6 media prompt steering
+ external-links.html                         | 1444 +++++++++++++++++++++++++++
+ week-06-media-generation-presentations.html |   23 +
+ 2 files changed, 1467 insertions(+)
+```
+
+---
+
+## 2026-08-06 20:26:54 EDT — Codex
+
+- **Branch:** `slide-redesign-2026-05`
+- **HEAD:** `5b4170b` — Add Week 6 media prompt steering
+- **Upstream:** origin/slide-redesign-2026-05 — ahead 1, behind 0
+
+### Summary
+
+Completed approved light integration from the new Generative AI applications / chatting / limits / prompting / diffusion material.
+
+Changed:
+- module-00-llm-basics.html:
+  - Added a compact Fresh-grad heuristic slide near LLM limits. It frames the analogy as a heuristic, not a claim that models think like people, and points students to context/tools/review when the prompt lacks needed information.
+  - Added a Chatbot automation spectrum slide near chatbot/tool/agent classification: human only, bot drafts, bot triages, bot acts. Added grid.four CSS and mobile fallback for the four-card layout.
+- week-12-advanced-prompting.html:
+  - Added an Iteration rule card and formula to the prompt repair lab: try -> inspect mismatch -> add context/checks -> try again.
+- week-06-media-generation-presentations.html:
+  - Clarified the existing diffusion card: training learns to remove noise from noisy examples; generation starts from noise and refines under prompt guidance.
+- week-02-foundation-readiness-check.html:
+  - Added a newly written GenAI applications check section adapted from Q's quiz concepts, not copied wording.
+  - Covers context-rich product prompts, realistic LLM language tasks, iterative prompting, current-news limitations, and quote verification.
+  - Updated app navigation, visible challenge labels, expected time, score total, and score thresholds: 54 auto-check points; ready at 44/54; review recommended at 35/54.
+
+Verification:
+- Plan review found no blockers; warned to keep quiz wording fresh and scoring counters consistent.
+- Focused final Codex review found no blockers; suggested changing "routes refunds" to "routes refund requests," which was applied.
+- git diff --check passed for the four touched files.
+- Node parsed embedded scripts in all four files; no duplicate IDs.
+- Week 2 readiness validation: nav matches sections, 22 question blocks, 44 choice points, 10 trace points, total 54, and every question has exactly one correct answer.
+
+Notes:
+- No external link was added because Q provided transcript/quiz text but not a new source URL.
+- No commit or push performed.
+
+### Working tree (`git status --short`)
+
+```text
+ M ai-life-skills.html
+ M external-links.html
+ M index.html
+ M llm-background.html
+ M module-00-llm-basics.html
+ M module-00b-transformer-deep-dive.html
+ M progress.md
+ M week-02-foundation-readiness-check.html
+ M week-03-responsible-ai-decisions.html
+ M week-04-writing-word-documents.html
+ M week-06-media-generation-presentations.html
+ M week-08-web-basics-design.html
+ M week-09-interactivity-intelligence.html
+ M week-10-complete-static-deployment.html
+ M week-12-advanced-prompting.html
+?? CLAUDE.md
+?? docs/superpowers/audit-2026-05-21-deck-review.md
+?? image/
+?? sos-talk-may12.html
+?? ui.txt
+```
+
+### Unstaged diff (`git diff --stat`)
+
+```text
+ ai-life-skills.html                         |   19 +-
+ external-links.html                         |   55 +-
+ index.html                                  |   28 +-
+ llm-background.html                         |   20 +-
+ module-00-llm-basics.html                   |   49 +-
+ module-00b-transformer-deep-dive.html       |  181 +-
+ progress.md                                 | 3223 +++++++++++++++++++++++++++
+ week-02-foundation-readiness-check.html     |  146 +-
+ week-03-responsible-ai-decisions.html       |  349 ++-
+ week-04-writing-word-documents.html         |   43 +-
+ week-06-media-generation-presentations.html |    2 +-
+ week-08-web-basics-design.html              |  116 +-
+ week-09-interactivity-intelligence.html     |   86 +-
+ week-10-complete-static-deployment.html     |   47 +-
+ week-12-advanced-prompting.html             |    9 +
+ 15 files changed, 4226 insertions(+), 147 deletions(-)
+```
+
+### Staged diff (`git diff --cached --stat`)
+
+_none_
+
+### Latest commit (`git show --stat --oneline HEAD`)
+
+```text
+5b4170b Add Week 6 media prompt steering
+ external-links.html                         | 1444 +++++++++++++++++++++++++++
+ week-06-media-generation-presentations.html |   23 +
+ 2 files changed, 1467 insertions(+)
+```
+
+---
+
+## 2026-08-06 20:19:49 EDT — Codex
+
+- **Branch:** `slide-redesign-2026-05`
+- **HEAD:** `5b4170b` — Add Week 6 media prompt steering
+- **Upstream:** origin/slide-redesign-2026-05 — ahead 1, behind 0
+
+### Summary
+
+Completed approved GenAI quiz integration for Week 2 readiness check.
+
+Changed:
+- week-02-foundation-readiness-check.html now includes a new "GenAI foundations check" section with five original 2-point scenario questions covering chatbot trust, general-purpose technology, software-based LLM workflows, generative AI definition, and next-token prediction.
+- Auto-check score language increased from 34 to 44 points; readiness threshold updated to 36/44 and review threshold to 29/44.
+- Added #genai nav item and renumbered visible challenge labels from Challenge 1-7.
+
+Verification:
+- git diff --check -- week-02-foundation-readiness-check.html passed.
+- Node validation found 17 question blocks, 34 choice points, 10 trace points, total 44, no duplicate IDs, and exactly one correct option per question.
+- rg scan found no active old 28/34, 22/34, 34 auto-check, or 0/34 score text outside historical progress.md entries.
+- Bounded Codex review found no correctness or copyright blocker; it noted only expected threshold percentage drift and possible challenge-number reference risk, which was scanned.
+
+New transcript content checked but not edited yet:
+- Strong candidates: chatbot automation spectrum and safe rollout, fresh-college-grad mental model, LLM limitations, prompting iteration/caveats, optional diffusion intuition.
+- Recommend Q approve a light integration plan before editing: 1 chatbot/human-in-loop card, 1 limitations mental-model card, 1 prompting iteration reinforcement, optional Week 6 diffusion intuition.
+
+No commit or push performed.
+
+### Working tree (`git status --short`)
+
+```text
+ M ai-life-skills.html
+ M external-links.html
+ M index.html
+ M llm-background.html
+ M module-00-llm-basics.html
+ M module-00b-transformer-deep-dive.html
+ M progress.md
+ M week-02-foundation-readiness-check.html
+ M week-03-responsible-ai-decisions.html
+ M week-04-writing-word-documents.html
+ M week-08-web-basics-design.html
+ M week-09-interactivity-intelligence.html
+ M week-10-complete-static-deployment.html
+ M week-12-advanced-prompting.html
+?? CLAUDE.md
+?? docs/superpowers/audit-2026-05-21-deck-review.md
+?? image/
+?? sos-talk-may12.html
+?? ui.txt
+```
+
+### Unstaged diff (`git diff --stat`)
+
+```text
+ ai-life-skills.html                     |   19 +-
+ external-links.html                     |   55 +-
+ index.html                              |   28 +-
+ llm-background.html                     |   20 +-
+ module-00-llm-basics.html               |   15 +
+ module-00b-transformer-deep-dive.html   |  181 +-
+ progress.md                             | 3137 +++++++++++++++++++++++++++++++
+ week-02-foundation-readiness-check.html |   82 +-
+ week-03-responsible-ai-decisions.html   |  349 +++-
+ week-04-writing-word-documents.html     |   43 +-
+ week-08-web-basics-design.html          |  116 +-
+ week-09-interactivity-intelligence.html |   86 +-
+ week-10-complete-static-deployment.html |   47 +-
+ week-12-advanced-prompting.html         |    4 +
+ 14 files changed, 4038 insertions(+), 144 deletions(-)
+```
+
+### Staged diff (`git diff --cached --stat`)
+
+_none_
+
+### Latest commit (`git show --stat --oneline HEAD`)
+
+```text
+5b4170b Add Week 6 media prompt steering
+ external-links.html                         | 1444 +++++++++++++++++++++++++++
+ week-06-media-generation-presentations.html |   23 +
+ 2 files changed, 1467 insertions(+)
+```
+
+---
+
+## 2026-08-06 20:09:06 EDT — Codex
+
+- **Branch:** `slide-redesign-2026-05`
+- **HEAD:** `5b4170b` — Add Week 6 media prompt steering
+- **Upstream:** origin/slide-redesign-2026-05 — ahead 1, behind 0
+
+### Summary
+
+Approved light integration from Andrew Ng's "Generative AI for Everyone" transcript.
+
+Changes made in this milestone:
+- module-00-llm-basics.html: added a new Week 1 vocabulary slide, `genai-jobs`, after the future-work hook and before the running email example. It maps generative AI/LLM text-heavy work into Writing, Reading, and Chatting without adding the transcript's uncited economic-impact statistics.
+  - Anchor: module-00-llm-basics.html:229 (`Generative AI can create, read, and chat.`)
+- ai-life-skills.html: added a source-check caution card inside Track B / Check AI Claims after the verification checklist. It tells students to use trusted sources for current facts, health, legal, safety, and step-by-step procedures, and use LLMs as thought partners for brainstorms/drafts/explanations that still need checking.
+  - Anchor: ai-life-skills.html:413 (`Choose the right tool:`)
+- week-12-advanced-prompting.html: added a small bridge card in the Four Jobs slide connecting Andrew Ng's writing/reading/chatting map to the course's Find/Think/Write/Build prompt router.
+  - Anchor: week-12-advanced-prompting.html:183 (`Connect the maps`)
+
+Verification run:
+- `git diff --check -- module-00-llm-basics.html ai-life-skills.html week-12-advanced-prompting.html` passed.
+- Node parsed embedded scripts in all three touched files.
+- Counts/no duplicate IDs:
+  - module-00-llm-basics.html: scripts=1, slides=51, duplicateIds=0.
+  - ai-life-skills.html: scripts=2, mods=17, duplicateIds=0.
+  - week-12-advanced-prompting.html: scripts=1, slides=17, duplicateIds=0.
+- Required string checks passed, and each new title appears exactly once.
+- Focused Codex review of the new snippets found no blockers.
+
+Notes:
+- No external link was added because Q provided transcript text but no official course URL.
+- No commit or push was performed.
+- ai-life-skills.html already had prior dirty changes before this milestone; preserve them.
+
+### Working tree (`git status --short`)
+
+```text
+ M ai-life-skills.html
+ M external-links.html
+ M index.html
+ M llm-background.html
+ M module-00-llm-basics.html
+ M module-00b-transformer-deep-dive.html
+ M progress.md
+ M week-03-responsible-ai-decisions.html
+ M week-04-writing-word-documents.html
+ M week-08-web-basics-design.html
+ M week-09-interactivity-intelligence.html
+ M week-10-complete-static-deployment.html
+ M week-12-advanced-prompting.html
+?? CLAUDE.md
+?? docs/superpowers/audit-2026-05-21-deck-review.md
+?? image/
+?? sos-talk-may12.html
+?? ui.txt
+```
+
+### Unstaged diff (`git diff --stat`)
+
+```text
+ ai-life-skills.html                     |   19 +-
+ external-links.html                     |   55 +-
+ index.html                              |   28 +-
+ llm-background.html                     |   20 +-
+ module-00-llm-basics.html               |   15 +
+ module-00b-transformer-deep-dive.html   |  181 +-
+ progress.md                             | 3047 +++++++++++++++++++++++++++++++
+ week-03-responsible-ai-decisions.html   |  349 +++-
+ week-04-writing-word-documents.html     |   43 +-
+ week-08-web-basics-design.html          |  116 +-
+ week-09-interactivity-intelligence.html |   86 +-
+ week-10-complete-static-deployment.html |   47 +-
+ week-12-advanced-prompting.html         |    4 +
+ 13 files changed, 3876 insertions(+), 134 deletions(-)
+```
+
+### Staged diff (`git diff --cached --stat`)
+
+_none_
+
+### Latest commit (`git show --stat --oneline HEAD`)
+
+```text
+5b4170b Add Week 6 media prompt steering
+ external-links.html                         | 1444 +++++++++++++++++++++++++++
+ week-06-media-generation-presentations.html |   23 +
+ 2 files changed, 1467 insertions(+)
+```
+
+---
+
+## 2026-08-06 19:58:40 EDT — Codex
+
+- **Branch:** `slide-redesign-2026-05`
+- **HEAD:** `5b4170b` — Add Week 6 media prompt steering
+- **Upstream:** origin/slide-redesign-2026-05 — ahead 1, behind 0
+
+### Summary
+
+Added the approved light Replit understanding checks to Week 9 and Week 10.
+
+Changes:
+- week-09-interactivity-intelligence.html: added an "Ask for an architecture explanation" reminder after the human approval/testing loop. Students ask "Help me understand how this project works," conditionally inspect folders like client/server/shared if present, and explain one key file, framework, or code path in their own words before accepting more changes.
+- week-10-complete-static-deployment.html: added a "Pre-deploy understanding check" for advanced full-stack apps: what data is stored, where secrets/env vars live, what framework/database is used, and whether deployment reuses or creates a database. It explicitly keeps required projects on the static path: no secrets in frontend code; publish only HTML, CSS, JavaScript, and safe assets.
+
+Verification run:
+- git diff --check -- week-09-interactivity-intelligence.html week-10-complete-static-deployment.html
+- Parsed embedded scripts in both files with Node.
+- Confirmed slide counts/no duplicate IDs: Week 9 = 12 slides, Week 10 = 11 slides, duplicateIds = 0.
+- Confirmed required strings are present in both files.
+
+Codex review:
+- Plan review had no blockers; it recommended conditional wording for client/server/shared and gating the deploy questions to advanced backend/database/secrets projects.
+- Final snippet review had no blockers; it recommended tightening Week 10 from "usually publish only" to "should publish only," which was applied.
+
+Status:
+- No commit or push was performed.
+- External links unchanged because this edit used already-discussed transcript content and introduced no new URL.
+
+### Working tree (`git status --short`)
+
+```text
+ M ai-life-skills.html
+ M external-links.html
+ M index.html
+ M llm-background.html
+ M module-00b-transformer-deep-dive.html
+ M progress.md
+ M week-03-responsible-ai-decisions.html
+ M week-04-writing-word-documents.html
+ M week-08-web-basics-design.html
+ M week-09-interactivity-intelligence.html
+ M week-10-complete-static-deployment.html
+?? CLAUDE.md
+?? docs/superpowers/audit-2026-05-21-deck-review.md
+?? image/
+?? sos-talk-may12.html
+?? ui.txt
+```
+
+### Unstaged diff (`git diff --stat`)
+
+```text
+ ai-life-skills.html                     |   14 +-
+ external-links.html                     |   55 +-
+ index.html                              |   28 +-
+ llm-background.html                     |   20 +-
+ module-00b-transformer-deep-dive.html   |  181 +-
+ progress.md                             | 2966 +++++++++++++++++++++++++++++++
+ week-03-responsible-ai-decisions.html   |  349 +++-
+ week-04-writing-word-documents.html     |   43 +-
+ week-08-web-basics-design.html          |  116 +-
+ week-09-interactivity-intelligence.html |   86 +-
+ week-10-complete-static-deployment.html |   47 +-
+ 11 files changed, 3771 insertions(+), 134 deletions(-)
+```
+
+### Staged diff (`git diff --cached --stat`)
+
+_none_
+
+### Latest commit (`git show --stat --oneline HEAD`)
+
+```text
+5b4170b Add Week 6 media prompt steering
+ external-links.html                         | 1444 +++++++++++++++++++++++++++
+ week-06-media-generation-presentations.html |   23 +
+ 2 files changed, 1467 insertions(+)
+```
+
+---
+
+## 2026-08-06 17:05:11 EDT — Codex
+
+- **Branch:** `slide-redesign-2026-05`
+- **HEAD:** `5b4170b` — Add Week 6 media prompt steering
+- **Upstream:** origin/slide-redesign-2026-05 — ahead 1, behind 0
+
+### Summary
+
+Completed Q-approved light integration from the Replit national parks ranking app transcript.
+
+Files intentionally edited in this milestone:
+- week-09-interactivity-intelligence.html
+  - Added `Advanced case-study pattern: parks ranker` card to the Test cases slide.
+  - Teaches debugging one link at a time for complex apps: provided data count/source -> vote event -> ranking update -> persistence.
+  - Explicitly says this is optional advanced analysis, not required database work.
+- week-10-complete-static-deployment.html
+  - Added `Advanced case: persistent rankings` card to the Checkpoint discipline slide.
+  - Teaches rollback after failed database migration/deployment changes and retrying with clearer prompt details: current data source, target schema, data types, migrations, and verification checks.
+  - Explicitly states: persistent storage, Postgres, secrets, scraping, and migrations are outside the required static deployment path and require instructor approval.
+
+External links:
+- No new external link added. Q provided transcript text but no exact lesson URL; existing Replit course-level link remains the source link.
+
+Verification:
+- Plan Codex review found no blockers; requested explicit optional/bounded wording and clear static/developer-scope separation.
+- git diff --check -- week-09-interactivity-intelligence.html week-10-complete-static-deployment.html passed.
+- Node parsed one embedded script tag in each changed file.
+- Slide counts/no duplicate IDs: Week 9 has 12 slides; Week 10 has 11 slides.
+- Required strings present: `Advanced case-study pattern: parks ranker`, `verify the provided data count and source`, `vote event`, `ranking update`, `persistence`, `not required database work`, `Advanced case: persistent rankings`, `roll back to the last working checkpoint`, `current data source`, `target schema`, `data types`, and the static-path instructor-approval sentence.
+- Focused Codex review found no blockers. Applied its minor wording suggestion: changed `verify the data count and source` to `verify the provided data count and source`.
+
+Caveats / next:
+- No commit or push performed.
+- Branch remains `slide-redesign-2026-05`, HEAD `5b4170b`, ahead of origin by 1 from prior commit.
+- Worktree still has many unrelated approved dirty/untracked files; preserve unless Q asks.
+
+### Working tree (`git status --short`)
+
+```text
+ M ai-life-skills.html
+ M external-links.html
+ M index.html
+ M llm-background.html
+ M module-00b-transformer-deep-dive.html
+ M progress.md
+ M week-03-responsible-ai-decisions.html
+ M week-04-writing-word-documents.html
+ M week-08-web-basics-design.html
+ M week-09-interactivity-intelligence.html
+ M week-10-complete-static-deployment.html
+?? CLAUDE.md
+?? docs/superpowers/audit-2026-05-21-deck-review.md
+?? image/
+?? sos-talk-may12.html
+?? ui.txt
+```
+
+### Unstaged diff (`git diff --stat`)
+
+```text
+ ai-life-skills.html                     |   14 +-
+ external-links.html                     |   55 +-
+ index.html                              |   28 +-
+ llm-background.html                     |   20 +-
+ module-00b-transformer-deep-dive.html   |  181 +-
+ progress.md                             | 2877 +++++++++++++++++++++++++++++++
+ week-03-responsible-ai-decisions.html   |  349 +++-
+ week-04-writing-word-documents.html     |   43 +-
+ week-08-web-basics-design.html          |  116 +-
+ week-09-interactivity-intelligence.html |   82 +-
+ week-10-complete-static-deployment.html |   43 +-
+ 11 files changed, 3674 insertions(+), 134 deletions(-)
+```
+
+### Staged diff (`git diff --cached --stat`)
+
+_none_
+
+### Latest commit (`git show --stat --oneline HEAD`)
+
+```text
+5b4170b Add Week 6 media prompt steering
+ external-links.html                         | 1444 +++++++++++++++++++++++++++
+ week-06-media-generation-presentations.html |   23 +
+ 2 files changed, 1467 insertions(+)
+```
+
+---
+
+## 2026-08-06 16:58:19 EDT — Codex
+
+- **Branch:** `slide-redesign-2026-05`
+- **HEAD:** `5b4170b` — Add Week 6 media prompt steering
+- **Upstream:** origin/slide-redesign-2026-05 — ahead 1, behind 0
+
+### Summary
+
+Completed Q-approved follow-on integration from the Replit SEO analyzer polish/deploy lesson.
+
+Files intentionally edited in this milestone:
+- week-09-interactivity-intelligence.html
+  - Updated the visual-polish prompt to include: do not remove existing functionality, keep it static.
+  - Updated relevant-context guidance to explicitly include screenshots for visual bugs and visible error text.
+  - Replaced the generic tool-agnostic card with an `Agent vs assistant` card: use a fuller agent pass for structural changes, a quick assistant/edit pass for small fixes, and start a new chat when context gets noisy.
+  - Preserved the static/frontend-only scope reminder and optional Replit/account caveat.
+- week-10-complete-static-deployment.html
+  - Updated deployment explanation to say deployment is a snapshot of the current working app and later changes require another publish step.
+  - Added `Cloud-platform caveat` card: Replit-style tools may deploy full-stack apps, but access can depend on account/paid plan; required path remains static hosting or fallback packet.
+
+External links:
+- No new external link added. Existing Replit course-level link already covers the source; no exact lesson URL was provided.
+
+Verification:
+- git diff --check -- week-09-interactivity-intelligence.html week-10-complete-static-deployment.html passed.
+- Node parsed one embedded script tag in each changed file.
+- Slide counts/no duplicate IDs: Week 9 has 12 slides; Week 10 has 11 slides.
+- Required strings present: `Do not remove existing functionality`, `screenshots for visual bugs`, `Agent vs assistant`, `Start a new chat when context gets noisy`, `snapshot of the current working app`, `later changes need another publish step`, `Cloud-platform caveat`, `paid plan`, `static hosting or the fallback packet`.
+- Focused Codex snippet review found no blockers.
+- Actual git diff Codex review found no blockers. Non-blocking note: Week 10 checkpoint wording could say "save a copy, platform checkpoint, or commit," but current teacher note already covers Git commits, file copies, and platform checkpoints.
+
+Caveats / next:
+- No commit or push performed.
+- Branch remains `slide-redesign-2026-05`, HEAD `5b4170b`, ahead of origin by 1 from prior commit.
+- Worktree still has many unrelated approved dirty/untracked files; preserve unless Q asks.
+
+### Working tree (`git status --short`)
+
+```text
+ M ai-life-skills.html
+ M external-links.html
+ M index.html
+ M llm-background.html
+ M module-00b-transformer-deep-dive.html
+ M progress.md
+ M week-03-responsible-ai-decisions.html
+ M week-04-writing-word-documents.html
+ M week-08-web-basics-design.html
+ M week-09-interactivity-intelligence.html
+ M week-10-complete-static-deployment.html
+?? CLAUDE.md
+?? docs/superpowers/audit-2026-05-21-deck-review.md
+?? image/
+?? sos-talk-may12.html
+?? ui.txt
+```
+
+### Unstaged diff (`git diff --stat`)
+
+```text
+ ai-life-skills.html                     |   14 +-
+ external-links.html                     |   55 +-
+ index.html                              |   28 +-
+ llm-background.html                     |   20 +-
+ module-00b-transformer-deep-dive.html   |  181 +-
+ progress.md                             | 2788 +++++++++++++++++++++++++++++++
+ week-03-responsible-ai-decisions.html   |  349 +++-
+ week-04-writing-word-documents.html     |   43 +-
+ week-08-web-basics-design.html          |  116 +-
+ week-09-interactivity-intelligence.html |   78 +-
+ week-10-complete-static-deployment.html |   39 +-
+ 11 files changed, 3577 insertions(+), 134 deletions(-)
+```
+
+### Staged diff (`git diff --cached --stat`)
+
+_none_
+
+### Latest commit (`git show --stat --oneline HEAD`)
+
+```text
+5b4170b Add Week 6 media prompt steering
+ external-links.html                         | 1444 +++++++++++++++++++++++++++
+ week-06-media-generation-presentations.html |   23 +
+ 2 files changed, 1467 insertions(+)
+```
+
+---
+
+## 2026-08-06 16:43:21 EDT — Codex
+
+- **Branch:** `slide-redesign-2026-05`
+- **HEAD:** `5b4170b` — Add Week 6 media prompt steering
+- **Upstream:** origin/slide-redesign-2026-05 — ahead 1, behind 0
+
+### Summary
+
+Completed Q-approved SEO analyzer case-study integration based on the Replit lesson transcript.
+
+Files intentionally edited in this milestone:
+- week-08-web-basics-design.html
+  - Added optional slide `seo-prd-case` after `requirements-interview` and before `anatomy`.
+  - Frames the SEO analyzer as PRD/wireframe practice, not a required backend project.
+  - Includes PRD, first-screen wireframe, domain vocabulary, and static-course boundary cards.
+  - Boundary text says students can plan the workflow or analyze sample HTML, but should not build a live URL fetcher unless instructor changes scope.
+- week-09-interactivity-intelligence.html
+  - Added a visual-polish prompt card to the Feature and bug loop slide: responsive/mobile-friendly, fix alignment/padding, center score display, remove `/100`, keep static.
+  - Added scope reminder that the SEO analyzer is only a case-study pattern and students polish static prototypes unless backend is explicitly approved.
+- week-10-complete-static-deployment.html
+  - Added advanced SEO analyzer warning to Checkpoint discipline slide.
+  - Clarifies that a live arbitrary-URL SEO analyzer is backend/proxy work; transfer PRD, plan review, test, and checkpoint workflow, not backend architecture.
+
+External links:
+- No new external link added. Existing DeepLearning.AI/Replit Vibe Coding 101 course-level link already covers this source; no exact lesson URL was provided.
+
+Verification:
+- Plan Codex review: no blockers; requested explicit Week 9 static-scope warning.
+- git diff --check -- week-08-web-basics-design.html week-09-interactivity-intelligence.html week-10-complete-static-deployment.html passed.
+- Node parsed one embedded script tag in each changed file.
+- Required SEO case strings present in Week 8/9/10.
+- Week 8 order verified: requirements-interview -> seo-prd-case -> anatomy.
+- Slide counts/no duplicate IDs: Week 8 12, Week 9 12, Week 10 11.
+- Final focused Codex review found no blockers. Applied its minor wording suggestion: changed `page-preview details` to `search/social preview details`.
+
+Caveats / next:
+- No commit or push performed.
+- Branch remains `slide-redesign-2026-05`, HEAD `5b4170b`, ahead of origin by 1 from prior commit.
+- Worktree still has many unrelated approved dirty/untracked files; preserve them unless Q asks.
+
+### Working tree (`git status --short`)
+
+```text
+ M ai-life-skills.html
+ M external-links.html
+ M index.html
+ M llm-background.html
+ M module-00b-transformer-deep-dive.html
+ M progress.md
+ M week-03-responsible-ai-decisions.html
+ M week-04-writing-word-documents.html
+ M week-08-web-basics-design.html
+ M week-09-interactivity-intelligence.html
+ M week-10-complete-static-deployment.html
+?? CLAUDE.md
+?? docs/superpowers/audit-2026-05-21-deck-review.md
+?? image/
+?? sos-talk-may12.html
+?? ui.txt
+```
+
+### Unstaged diff (`git diff --stat`)
+
+```text
+ ai-life-skills.html                     |   14 +-
+ external-links.html                     |   55 +-
+ index.html                              |   28 +-
+ llm-background.html                     |   20 +-
+ module-00b-transformer-deep-dive.html   |  181 ++-
+ progress.md                             | 2695 +++++++++++++++++++++++++++++++
+ week-03-responsible-ai-decisions.html   |  349 +++-
+ week-04-writing-word-documents.html     |   43 +-
+ week-08-web-basics-design.html          |  116 +-
+ week-09-interactivity-intelligence.html |   78 +-
+ week-10-complete-static-deployment.html |   33 +-
+ 11 files changed, 3479 insertions(+), 133 deletions(-)
+```
+
+### Staged diff (`git diff --cached --stat`)
+
+_none_
+
+### Latest commit (`git show --stat --oneline HEAD`)
+
+```text
+5b4170b Add Week 6 media prompt steering
+ external-links.html                         | 1444 +++++++++++++++++++++++++++
+ week-06-media-generation-presentations.html |   23 +
+ 2 files changed, 1467 insertions(+)
+```
+
+---
+
+## 2026-08-06 16:34:53 EDT — Codex
+
+- **Branch:** `slide-redesign-2026-05`
+- **HEAD:** `5b4170b` — Add Week 6 media prompt steering
+- **Upstream:** origin/slide-redesign-2026-05 — ahead 1, behind 0
+
+### Summary
+
+Completed Q-approved optional DeepLearning.AI / Replit Vibe Coding 101 integration.
+
+Files intentionally edited in this milestone:
+- week-09-interactivity-intelligence.html
+  - Added "Vibe coding discipline" slide after the feature/bug loop.
+  - Framed vibe coding as disciplined agent collaboration: one task at a time, relevant context, test checkpoints, stop when broken, explain before accepting, and tool-agnostic practice.
+  - Added optional Replit vibe coding course link in homework resources.
+  - Adjusted early timeboxes to fit the new bridge slide.
+- week-10-complete-static-deployment.html
+  - Added "Checkpoint discipline" slide near the build-path section.
+  - Emphasized make one change, test immediately, save/commit a checkpoint, stop if broken, roll back when needed, and explain the diff.
+  - Added optional Replit vibe coding course link and visible note that Replit is optional/cloud-based while this course remains static-site-first and tool-agnostic.
+  - Adjusted several timeboxes to accommodate the checkpoint slide.
+- index.html
+  - Added optional Replit course link to the Week 10 static card and dynamic resources list with account-required caveat.
+- external-links.html
+  - Added one official DeepLearning.AI / Replit Vibe Coding 101 course entry with optional/cloud-account caveat and sources index.html, week-09, week-10.
+
+Verification:
+- curl HEAD for https://www.deeplearning.ai/courses/vibe-coding-101-with-replit returned HTTP 200.
+- git diff --check -- week-09-interactivity-intelligence.html week-10-complete-static-deployment.html external-links.html index.html passed.
+- Node parsed embedded scripts in week-09, week-10, and index successfully.
+- Verified Week 9 has 12 slides and the vibe-coding slide appears after Feature and bug loop and before Week 8 to Week 9.
+- Verified Week 10 has 11 slides and the checkpoint slide appears after Build path and before Static architecture.
+- external-links.html links array parsed: 146 links; exactly one Replit course URL; no duplicate URLs; required source files present.
+- Final focused Codex review found no blockers. Non-blocking note: external-links.html also contains prior ethics/reference additions outside this focused change set; preserve unless Q asks.
+
+Caveats / next:
+- No commit or push performed.
+- Branch remains ahead of origin by 1 from prior commit 5b4170b.
+- Many unrelated dirty/untracked files remain from prior approved work; preserve them unless Q asks.
+
+### Working tree (`git status --short`)
+
+```text
+ M ai-life-skills.html
+ M external-links.html
+ M index.html
+ M llm-background.html
+ M module-00b-transformer-deep-dive.html
+ M progress.md
+ M week-03-responsible-ai-decisions.html
+ M week-04-writing-word-documents.html
+ M week-08-web-basics-design.html
+ M week-09-interactivity-intelligence.html
+ M week-10-complete-static-deployment.html
+?? CLAUDE.md
+?? docs/superpowers/audit-2026-05-21-deck-review.md
+?? image/
+?? sos-talk-may12.html
+?? ui.txt
+```
+
+### Unstaged diff (`git diff --stat`)
+
+```text
+ ai-life-skills.html                     |   14 +-
+ external-links.html                     |   55 +-
+ index.html                              |   28 +-
+ llm-background.html                     |   20 +-
+ module-00b-transformer-deep-dive.html   |  181 ++-
+ progress.md                             | 2602 +++++++++++++++++++++++++++++++
+ week-03-responsible-ai-decisions.html   |  349 ++++-
+ week-04-writing-word-documents.html     |   43 +-
+ week-08-web-basics-design.html          |  101 +-
+ week-09-interactivity-intelligence.html |   73 +-
+ week-10-complete-static-deployment.html |   29 +-
+ 11 files changed, 3362 insertions(+), 133 deletions(-)
+```
+
+### Staged diff (`git diff --cached --stat`)
+
+_none_
+
+### Latest commit (`git show --stat --oneline HEAD`)
+
+```text
+5b4170b Add Week 6 media prompt steering
+ external-links.html                         | 1444 +++++++++++++++++++++++++++
+ week-06-media-generation-presentations.html |   23 +
+ 2 files changed, 1467 insertions(+)
+```
+
+---
+
+## 2026-08-06 16:08:55 EDT — Codex
+
+- **Branch:** `slide-redesign-2026-05`
+- **HEAD:** `5b4170b` — Add Week 6 media prompt steering
+- **Upstream:** origin/slide-redesign-2026-05 — ahead 1, behind 0
+
+### Summary
+
+Completed Q-approved Week 8 formative quiz addition for app prompting.
+
+Files intentionally edited in this milestone:
+- week-08-web-basics-design.html
+  - Added reveal-card CSS for `.quiz-bank` using native details/summary cards.
+  - Added a new "Formative quiz: prompting apps" slide between Prompt contract and Peer critique.
+  - Included five formative checks covering: vague birthday-card prompts, iterative table-tennis fixes, adding features after a basic game works, flexible prompt building-block order, and modifying a to-do app with checkboxes.
+  - Framed the slide as LearnAI formative practice, not an official graded quiz.
+  - Added teacher note reinforcing that students should explain one generated code section in their own words.
+  - Adjusted final timeboxes: quiz 48-53, peer critique 53-58, exit ticket 58-60.
+  - Added homework reminder: review the formative quiz before Week 9.
+  - Updated keyboard handler so global Space/Arrow deck navigation ignores `summary` focus, preserving native quiz answer reveal behavior.
+
+Verification:
+- git diff --check -- week-08-web-basics-design.html passed.
+- Node parsed embedded Week 8 script successfully.
+- Verified Week 8 now has 11 slides, quiz slide appears before peer critique, exactly 5 details cards exist, and summary keyboard guard is present.
+- Final focused Codex review found no blockers. Non-blocking note: pacing is tight, so exit ticket may need to be start-in-class / finish-after-class.
+
+Caveats / next:
+- No commit or push performed.
+- Branch remains ahead of origin by 1 from prior commit 5b4170b.
+- Many unrelated dirty/untracked files remain from prior approved work; preserve them unless Q asks.
+
+### Working tree (`git status --short`)
+
+```text
+ M ai-life-skills.html
+ M external-links.html
+ M index.html
+ M llm-background.html
+ M module-00b-transformer-deep-dive.html
+ M progress.md
+ M week-03-responsible-ai-decisions.html
+ M week-04-writing-word-documents.html
+ M week-08-web-basics-design.html
+ M week-09-interactivity-intelligence.html
+?? CLAUDE.md
+?? docs/superpowers/audit-2026-05-21-deck-review.md
+?? image/
+?? sos-talk-may12.html
+?? ui.txt
+```
+
+### Unstaged diff (`git diff --stat`)
+
+```text
+ ai-life-skills.html                     |   14 +-
+ external-links.html                     |   45 +-
+ index.html                              |   24 +-
+ llm-background.html                     |   20 +-
+ module-00b-transformer-deep-dive.html   |  181 ++-
+ progress.md                             | 2519 +++++++++++++++++++++++++++++++
+ week-03-responsible-ai-decisions.html   |  349 ++++-
+ week-04-writing-word-documents.html     |   43 +-
+ week-08-web-basics-design.html          |  101 +-
+ week-09-interactivity-intelligence.html |   55 +-
+ 10 files changed, 3224 insertions(+), 127 deletions(-)
+```
+
+### Staged diff (`git diff --cached --stat`)
+
+_none_
+
+### Latest commit (`git show --stat --oneline HEAD`)
+
+```text
+5b4170b Add Week 6 media prompt steering
+ external-links.html                         | 1444 +++++++++++++++++++++++++++
+ week-06-media-generation-presentations.html |   23 +
+ 2 files changed, 1467 insertions(+)
+```
+
+---
+
+## 2026-08-06 15:54:05 EDT — Codex
+
+- **Branch:** `slide-redesign-2026-05`
+- **HEAD:** `5b4170b` — Add Week 6 media prompt steering
+- **Upstream:** origin/slide-redesign-2026-05 — ahead 1, behind 0
+
+### Summary
+
+Completed Q-approved Week 9 enhancement using Andrew Ng / DeepLearning.AI app-customization guidance.
+
+Files intentionally edited in this milestone:
+- week-09-interactivity-intelligence.html
+  - Added a "Feature and bug loop" slide: choose one small feature, specify behavior, test it, report expected-vs-actual behavior, and explain one generated code section.
+  - Added an example prompt for an "I'm Feeling Lucky" feature and an example bug report prompt for a broken Generate button.
+  - Updated Week 9 framing, agent-lab prompt, test slide, human-review checklist, exit artifact, and homework to require expected-vs-actual bug notes or a no-bug edge-case fallback.
+  - Added exit fields for "Bug report or edge-case note" and "Code understanding note" and wired them into the JS-generated artifact.
+- index.html
+  - Updated Week 9 static and dynamic course descriptions/resources to mention specific feature prompts, bug/no-bug notes, and the DeepLearning.AI Customize App lesson with account-required caveat.
+- external-links.html
+  - Added the DeepLearning.AI Build with Andrew Customize your app lesson as a Week 9 course resource, title-labeled with "account may be required".
+
+Verification:
+- git diff --check -- week-09-interactivity-intelligence.html external-links.html index.html passed.
+- Week 9 embedded JS parsed with Node; required new strings and input IDs found.
+- index.html contains the account caveat and no-bug edge-case wording.
+- external-links.html links array parsed: 145 links, one Customize App URL, no duplicate URLs.
+- Focused Codex review found no blockers. It flagged that the review excerpt hid the opening brace for the new external link object; checked actual lines 388-395 and the object is valid.
+
+Caveats / next:
+- No commit or push performed.
+- Branch remains ahead of origin by 1 from prior commit 5b4170b.
+- Many unrelated dirty/untracked files remain from prior approved work; preserve them unless Q asks.
+- The DeepLearning.AI lesson URL returned HTTP 200 in automation earlier, but may require a DeepLearning.AI account in a browser; that caveat is visible in index and external-links.
+
+### Working tree (`git status --short`)
+
+```text
+ M ai-life-skills.html
+ M external-links.html
+ M index.html
+ M llm-background.html
+ M module-00b-transformer-deep-dive.html
+ M progress.md
+ M week-03-responsible-ai-decisions.html
+ M week-04-writing-word-documents.html
+ M week-08-web-basics-design.html
+ M week-09-interactivity-intelligence.html
+?? CLAUDE.md
+?? docs/superpowers/audit-2026-05-21-deck-review.md
+?? image/
+?? sos-talk-may12.html
+?? ui.txt
+```
+
+### Unstaged diff (`git diff --stat`)
+
+```text
+ ai-life-skills.html                     |   14 +-
+ external-links.html                     |   45 +-
+ index.html                              |   24 +-
+ llm-background.html                     |   20 +-
+ module-00b-transformer-deep-dive.html   |  181 ++-
+ progress.md                             | 2434 +++++++++++++++++++++++++++++++
+ week-03-responsible-ai-decisions.html   |  349 ++++-
+ week-04-writing-word-documents.html     |   43 +-
+ week-08-web-basics-design.html          |   21 +-
+ week-09-interactivity-intelligence.html |   55 +-
+ 10 files changed, 3064 insertions(+), 122 deletions(-)
+```
+
+### Staged diff (`git diff --cached --stat`)
+
+_none_
+
+### Latest commit (`git show --stat --oneline HEAD`)
+
+```text
+5b4170b Add Week 6 media prompt steering
+ external-links.html                         | 1444 +++++++++++++++++++++++++++
+ week-06-media-generation-presentations.html |   23 +
+ 2 files changed, 1467 insertions(+)
+```
+
+---
+
+## 2026-08-06 13:20:44 EDT — Codex
+
+- **Branch:** `slide-redesign-2026-05`
+- **HEAD:** `5b4170b` — Add Week 6 media prompt steering
+- **Upstream:** origin/slide-redesign-2026-05 — ahead 1, behind 0
+
+### Summary
+
+Completed Q-approved strengthening of Week 3 AI Ethics for agent boundaries and can/cannot scenarios.
+
+Files intentionally edited in this milestone:
+- week-03-responsible-ai-decisions.html
+  - Added early "Agent use rules" slide defining usually OK, review-required, and not-allowed agent uses.
+  - Added "Permission ladder" slide: read-only help, draft/generate, act in the world, high-stakes/unclear.
+  - Reframed opening as an ethics decision studio with a sampled live path and reference bank.
+  - Expanded scenario lab to a 24-item practice bank covering authorship, source verification, privacy, copyrighted uploads, synthetic media, coding/file-changing agents, email/calendar/tool actions, paid-tool access, fairness/ranking, high-stakes health advice, course policy, and disclosure.
+  - Tightened feedback so source leads are not evidence, coding agents are ask/check unless policy permits, media generation avoids impersonation/protected style/restricted uploads, and high-stakes concepts are OK for learning but not real decisions.
+  - Expanded case bank to 8 can/caution/cannot examples.
+  - Added Agent boundary field to the AI Ethics Use Plan and wired it into the generated artifact.
+  - Added Coursera and WEF as supplemental source buttons while keeping NIST/Copyright/Cornell/Vanderbilt/Stanford as core context.
+- external-links.html
+  - Added Coursera AI ethics overview, WEF AI impact principles, and Harvard DCE ethics in AI as supplemental Week 3 links. Harvard is title-labeled as instructor context.
+
+Verification:
+- git diff --check -- week-03-responsible-ai-decisions.html external-links.html passed.
+- Embedded JS parse check passed: 1 script, 21 slides, 24 practice-bank scenarios.
+- Scenario distribution: 6 green, 8 amber, 10 red.
+- external-links.html links array parsed: 143 total links; all three new ethics links present.
+- Stale label scan found no old scenario counts, Decision Card labels, six-check labels, or old "Separate ethics lecture" copy.
+- Coursera and Harvard returned HTTP 200 via curl HEAD. WEF returned HTTP 403 to curl/automation but is retained because it is Q-provided and labeled supplemental; human browser access may differ.
+- Final Codex review found no blockers.
+
+Caveats / next:
+- No commit or push performed.
+- Branch remains ahead of origin by 1 from prior commit 5b4170b.
+- Existing unrelated dirty/untracked files remain and should be preserved unless Q asks.
+- Main instructional caveat: the deck is now stronger but dense. Teach 4-6 cases live and treat the rest as reference/homework practice.
+
+### Working tree (`git status --short`)
+
+```text
+ M ai-life-skills.html
+ M external-links.html
+ M index.html
+ M llm-background.html
+ M module-00b-transformer-deep-dive.html
+ M progress.md
+ M week-03-responsible-ai-decisions.html
+ M week-04-writing-word-documents.html
+?? CLAUDE.md
+?? docs/superpowers/audit-2026-05-21-deck-review.md
+?? image/
+?? sos-talk-may12.html
+?? ui.txt
+```
+
+### Unstaged diff (`git diff --stat`)
+
+```text
+ ai-life-skills.html                   |   14 +-
+ external-links.html                   |   24 +
+ index.html                            |   14 +-
+ llm-background.html                   |   20 +-
+ module-00b-transformer-deep-dive.html |  181 ++-
+ progress.md                           | 2349 +++++++++++++++++++++++++++++++++
+ week-03-responsible-ai-decisions.html |  349 ++++-
+ week-04-writing-word-documents.html   |   43 +-
+ 8 files changed, 2892 insertions(+), 102 deletions(-)
+```
+
+### Staged diff (`git diff --cached --stat`)
+
+_none_
+
+### Latest commit (`git show --stat --oneline HEAD`)
+
+```text
+5b4170b Add Week 6 media prompt steering
+ external-links.html                         | 1444 +++++++++++++++++++++++++++
+ week-06-media-generation-presentations.html |   23 +
+ 2 files changed, 1467 insertions(+)
+```
+
+---
+
+## 2026-08-04 14:47:37 EDT — Codex
+
+- **Branch:** `slide-redesign-2026-05`
+- **HEAD:** `5b4170b` — Add Week 6 media prompt steering
+- **Upstream:** origin/slide-redesign-2026-05 — ahead 1, behind 0
+
+### Summary
+
+Completed Q-approved change to make Week 3 a separate AI ethics lecture.
+
+Files intentionally edited:
+- index.html
+  - Renamed Week 3 hub card/course data to "Week 3: AI Ethics and Responsible Use".
+  - Updated description, tags, subtitle, and button text to present it as a separate ethics lecture.
+- week-03-responsible-ai-decisions.html
+  - Renamed page title/HUD/opening to "AI Ethics and Responsible Use".
+  - Added an early ethics map slide tying topics to concrete actions: use, ask, disclose, verify, or stop.
+  - Added accountability/escalation slide.
+  - Added synthetic media/deception slide.
+  - Added access/equity/dependence/hidden-costs slide.
+  - Expanded scenario lab from 10 to 12 scenarios, adding synthetic voice impersonation and paid-tool access cases.
+  - Expanded risk checklist from 6 to 8 checks and wired dynamic count/threshold.
+  - Converted exit artifact to "AI Ethics Use Plan" with escalation trigger field wired into JS.
+  - Updated homework to submit the AI Ethics Use Plan and an ethics case reflection.
+
+Verification:
+- git diff --check -- index.html week-03-responsible-ai-decisions.html passed.
+- Node parse check passed for deck script; Week 3 has 19 slides and 12 scenarios; stale old-title/count strings absent.
+- Codex plan review approved the approach with recommendation to add accountability/escalation.
+- Codex final diff review found no blockers.
+
+Caveats:
+- No commit or push performed in this milestone.
+- Branch remains ahead of origin by 1 from prior commit 5b4170b.
+- Preexisting dirty/untracked files still exist and should be left alone unless Q asks.
+
+### Working tree (`git status --short`)
+
+```text
+ M ai-life-skills.html
+ M index.html
+ M llm-background.html
+ M module-00b-transformer-deep-dive.html
+ M progress.md
+ M week-03-responsible-ai-decisions.html
+ M week-04-writing-word-documents.html
+?? CLAUDE.md
+?? docs/superpowers/audit-2026-05-21-deck-review.md
+?? image/
+?? sos-talk-may12.html
+?? ui.txt
+```
+
+### Unstaged diff (`git diff --stat`)
+
+```text
+ ai-life-skills.html                   |   14 +-
+ index.html                            |   14 +-
+ llm-background.html                   |   20 +-
+ module-00b-transformer-deep-dive.html |  181 ++-
+ progress.md                           | 2268 +++++++++++++++++++++++++++++++++
+ week-03-responsible-ai-decisions.html |  170 ++-
+ week-04-writing-word-documents.html   |   43 +-
+ 7 files changed, 2622 insertions(+), 88 deletions(-)
+```
+
+### Staged diff (`git diff --cached --stat`)
+
+_none_
+
+### Latest commit (`git show --stat --oneline HEAD`)
+
+```text
+5b4170b Add Week 6 media prompt steering
+ external-links.html                         | 1444 +++++++++++++++++++++++++++
+ week-06-media-generation-presentations.html |   23 +
+ 2 files changed, 1467 insertions(+)
+```
+
+---
+
+## 2026-08-03 13:16:18 EDT — Codex
+
+- **Branch:** `slide-redesign-2026-05`
+- **HEAD:** `5b4170b` — Add Week 6 media prompt steering
+- **Upstream:** origin/slide-redesign-2026-05 — ahead 1, behind 0
+
+### Summary
+
+Post-commit checkpoint after Q requested commit.
+
+Commit created:
+- 5b4170b Add Week 6 media prompt steering
+
+Committed files:
+- week-06-media-generation-presentations.html
+  - Added Week 6 prompt-steering concept bridge slide and optional 3Blue1Brown/Welch Labs AI images/videos link.
+- external-links.html
+  - Added the private/personal searchable external links page to the repository and included the watched media-generation video entry.
+
+Pre-commit verification/review:
+- git diff --cached --check passed.
+- Codex pre-commit review found no blockers.
+- Review caveat: external-links.html contains personal/private-index content and at least one local absolute source path. It is not wired into navigation; do not publicly link/deploy unless Q accepts that content.
+
+No push performed. Branch is now ahead of origin by 1 commit. Other preexisting dirty/untracked files remain outside the commit and should be left alone unless Q asks.
+
+### Working tree (`git status --short`)
+
+```text
+ M ai-life-skills.html
+ M llm-background.html
+ M module-00b-transformer-deep-dive.html
+ M progress.md
+ M week-04-writing-word-documents.html
+?? CLAUDE.md
+?? docs/superpowers/audit-2026-05-21-deck-review.md
+?? image/
+?? sos-talk-may12.html
+?? ui.txt
+```
+
+### Unstaged diff (`git diff --stat`)
+
+```text
+ ai-life-skills.html                   |   14 +-
+ llm-background.html                   |   20 +-
+ module-00b-transformer-deep-dive.html |  181 ++-
+ progress.md                           | 2201 +++++++++++++++++++++++++++++++++
+ week-04-writing-word-documents.html   |   43 +-
+ 5 files changed, 2418 insertions(+), 41 deletions(-)
+```
+
+### Staged diff (`git diff --cached --stat`)
+
+_none_
+
+### Latest commit (`git show --stat --oneline HEAD`)
+
+```text
+5b4170b Add Week 6 media prompt steering
+ external-links.html                         | 1444 +++++++++++++++++++++++++++
+ week-06-media-generation-presentations.html |   23 +
+ 2 files changed, 1467 insertions(+)
+```
+
+---
+
+## 2026-08-03 12:46:19 EDT — Codex
+
+- **Branch:** `slide-redesign-2026-05`
+- **HEAD:** `79443c6` — Add Week 12 retrieval pitfalls
+- **Upstream:** origin/slide-redesign-2026-05 — ahead 0, behind 0
+
+### Summary
+
+Completed Q-approved Week 6 media-generation concept bridge from the watched 3Blue1Brown/Welch Labs video "But how do AI images and videos actually work?" No commit, push, or deployment performed.
+
+Files intentionally touched this milestone:
+- week-06-media-generation-presentations.html
+  - Added slide 3/14, id="prompt-steering", data-title="Prompt steering": "How a prompt steers an image."
+  - Slide uses an original text/shape pipeline: Prompt -> Text meaning -> Denoise -> Guidance -> Final image.
+  - Cards explain CLIP/shared meaning space, diffusion denoising, and guidance/negative-prompt steering at a conceptual level.
+  - Teacher note explicitly says not to teach DDPM/DDIM math in the 60-minute lab.
+  - Added optional video link on the slide and in the Week 6 extension resources row.
+- external-links.html (still untracked/private local page)
+  - Added searchable video entry: "3Blue1Brown: But how do AI images and videos actually work?" -> https://www.youtube.com/watch?v=iv-5mZ_9CPY with source week-06-media-generation-presentations.html.
+
+Verification:
+- git diff --check -- week-06-media-generation-presentations.html passed.
+- git diff --no-index --check /dev/null external-links.html passed with expected no-index behavior handled.
+- Node static check passed: Week 6 has 14 slides, prompt-steering slide/link text present, external-links JSON parses, 140 total links, no duplicate URLs, new video entry present.
+- Headless Chrome screenshot of Week 6 slide 3/14 rendered cleanly at 1440x900: /tmp/week6-prompt-steering.png.
+- Codex review gate final result: no blockers; content is appropriate for a 3-minute conceptual bridge, HTML risk low, safety/license wording adequate.
+
+Important incident:
+- During inspection, Codex accidentally redirected search output into week-06-media-generation-presentations.html. The file had been clean before that command. It was immediately restored from HEAD, diff confirmed clean, then the real approved edit was applied. Current diff for Week 6 contains only the intended 23-line content addition.
+
+Ethics assessment answered to Q:
+- Current course has a solid ethics/responsible-use baseline, especially week-03-responsible-ai-decisions.html plus recurring privacy/disclosure/source/guardrail coverage in Weeks 0, 1, 4, 6, 10, 12, 13, and 14.
+- Not yet "complete" if ethics is meant to be a named course outcome; recommended future improvement is to make the ethics spine more explicit with a reusable framework and repeated artifacts.
+
+Open caveats:
+- Worktree still contains unrelated preexisting dirty/untracked files; leave them alone unless Q asks.
+- external-links.html remains untracked and private/local unless Q decides to commit/deploy it.
+
+### Working tree (`git status --short`)
+
+```text
+ M ai-life-skills.html
+ M llm-background.html
+ M module-00b-transformer-deep-dive.html
+ M progress.md
+ M week-04-writing-word-documents.html
+ M week-06-media-generation-presentations.html
+?? CLAUDE.md
+?? docs/superpowers/audit-2026-05-21-deck-review.md
+?? external-links.html
+?? image/
+?? sos-talk-may12.html
+?? ui.txt
+```
+
+### Unstaged diff (`git diff --stat`)
+
+```text
+ ai-life-skills.html                         |   14 +-
+ llm-background.html                         |   20 +-
+ module-00b-transformer-deep-dive.html       |  181 ++-
+ progress.md                                 | 2120 +++++++++++++++++++++++++++
+ week-04-writing-word-documents.html         |   43 +-
+ week-06-media-generation-presentations.html |   23 +
+ 6 files changed, 2360 insertions(+), 41 deletions(-)
+```
+
+### Staged diff (`git diff --cached --stat`)
+
+_none_
+
+### Latest commit (`git show --stat --oneline HEAD`)
+
+```text
+79443c6 Add Week 12 retrieval pitfalls
+ week-12-advanced-prompting.html | 38 ++++++++++++++++++++++++++++++++++----
+ 1 file changed, 34 insertions(+), 4 deletions(-)
+```
+
+---
+
+## 2026-08-03 12:27:31 EDT — Codex
+
+- **Branch:** `slide-redesign-2026-05`
+- **HEAD:** `79443c6` — Add Week 12 retrieval pitfalls
+- **Upstream:** origin/slide-redesign-2026-05 — ahead 0, behind 0
+
+### Summary
+
+Completed Week 4 writing-quality integration from Q's local wiki note.
+
+Current HEAD remains 79443c6 on branch slide-redesign-2026-05. No commit, push, or deployment performed.
+
+Files intentionally touched this milestone:
+- week-04-writing-word-documents.html
+  - Added slide 8, data-title "Specificity check": "Revision signal: specificity, evidence, and agency." This frames generic AI-like prose as a revision signal, not detector bypass.
+  - Added the 7th review checklist item: generic/polished-sounding claims must be revised with specific evidence, human agency, or a clearer position.
+  - Updated homework to require one Before / After / Why revision note.
+  - Shifted later timeboxes to 46-52 and 52-57 min.
+- external-links.html (still untracked/private local page)
+  - Added entry: "LearnAI wiki draft: Editing AI-Sounding Writing (pending publish)" with URL https://weihaoqu.github.io/learnAIDoc/wiki/removing-ai-taste-skill-list/ and local source /Users/oreo/Dropbox/learnAIDoc/_wiki/removing-ai-taste-skill-list.md.
+  - Public URL currently returns HTTP 404 as of 2026-08-03, so the entry is intentionally marked pending publish.
+
+Verification:
+- git diff --check -- week-04-writing-word-documents.html external-links.html passed.
+- Static Node check passed: 13 Week 4 slides, Specificity check present, 7 review checkboxes, updated timeboxes present.
+- External links JSON parse passed: 139 total links, target entry present, no duplicate URLs.
+- curl confirmed the intended public wiki URL currently returns 404.
+- Headless Chrome screenshots generated for week-04-writing-word-documents.html#slide-8 and external-links.html; Week 4 screenshot was visually inspected and clean.
+- Codex review gate found no blocker; its medium note about the 404 link was addressed by marking the external link pending publish.
+
+Open caveat:
+- Do not represent the wiki note as a live public student reference until learnAIDoc is published and the URL no longer returns 404.
+- Worktree still contains unrelated preexisting dirty/untracked files; leave them alone unless Q asks.
+
+### Working tree (`git status --short`)
+
+```text
+ M ai-life-skills.html
+ M llm-background.html
+ M module-00b-transformer-deep-dive.html
+ M progress.md
+ M week-04-writing-word-documents.html
+?? CLAUDE.md
+?? docs/superpowers/audit-2026-05-21-deck-review.md
+?? external-links.html
+?? image/
+?? sos-talk-may12.html
+?? ui.txt
+```
+
+### Unstaged diff (`git diff --stat`)
+
+```text
+ ai-life-skills.html                   |   14 +-
+ llm-background.html                   |   20 +-
+ module-00b-transformer-deep-dive.html |  181 ++-
+ progress.md                           | 2045 +++++++++++++++++++++++++++++++++
+ week-04-writing-word-documents.html   |   43 +-
+ 5 files changed, 2262 insertions(+), 41 deletions(-)
+```
+
+### Staged diff (`git diff --cached --stat`)
+
+_none_
+
+### Latest commit (`git show --stat --oneline HEAD`)
+
+```text
+79443c6 Add Week 12 retrieval pitfalls
+ week-12-advanced-prompting.html | 38 ++++++++++++++++++++++++++++++++++----
+ 1 file changed, 34 insertions(+), 4 deletions(-)
+```
+
+---
+
+## 2026-08-02 23:45:26 EDT — Codex
+
+- **Branch:** `slide-redesign-2026-05`
+- **HEAD:** `79443c6` — Add Week 12 retrieval pitfalls
+- **Upstream:** origin/slide-redesign-2026-05 — ahead 0, behind 0
+
+### Summary
+
+Completed Q's personal-use external link index page.
+
+Current HEAD: 79443c6 (slide-redesign-2026-05, origin/slide-redesign-2026-05) Add Week 12 retrieval pitfalls.
+
+New file created:
+- external-links.html
+  - Standalone static page, not wired into public navigation.
+  - Indexes 138 real external resources from tracked root *.html, tracked session-materials/*.html, and tracked links.txt.
+  - Includes search, category filters, counts, source-file pills, and direct Open links.
+  - Counts at checkpoint: 138 total links, 27 videos, 12 repos, 11 links from links.txt.
+  - Four 3Blue1Brown links are normalized/searchable by "3Blue1Brown".
+  - Excludes localhost, data/mailto/tel/javascript links, Google font URLs, SVG namespace URL, placeholder username.github.io, and untracked draft pages.
+  - Includes privacy note: noindex is not access control; keep unlinked or out of public deploys if the personal queue should remain private.
+
+Verification run:
+- Node static data check: no duplicate URLs, no duplicate IDs, expected 3Blue1Brown/Agentic AI course/repo links present, banned placeholder/private-looking URLs absent.
+- git diff --no-index --check /dev/null external-links.html produced no whitespace-error output (exit 1 expected for no-index file difference).
+- Headless Chrome via file://:
+  - Initial render shows 138 / 138 rows.
+  - Search for 3Blue1Brown returns 4 rows.
+  - Video filter returns 27 / 138 rows; all rendered rows are data-kind=video.
+  - Filter aria-pressed state updates correctly.
+  - Open links have specific aria-label values.
+  - 390px mobile viewport has scrollWidth 390 and no overflow offenders.
+  - Screenshots saved under /tmp/external-links-*.png.
+- Codex review gate final result: no material issues; notes only that privacy still depends on not deploying/linking the page publicly.
+
+Worktree status:
+- external-links.html is untracked and not committed.
+- Existing dirty/untracked files predated this task and were left alone: ai-life-skills.html, llm-background.html, module-00b-transformer-deep-dive.html, progress.md, CLAUDE.md, docs/superpowers/audit-2026-05-21-deck-review.md, image/, sos-talk-may12.html, ui.txt.
+- No commit, push, or deployment performed.
+
+Next:
+- Q can open external-links.html directly in a browser.
+- If Q wants this private long-term, keep it uncommitted/local or exclude from public deploys. If Q wants it on the site, decide whether to link it from a private/admin-only area first.
+
+### Working tree (`git status --short`)
+
+```text
+ M ai-life-skills.html
+ M llm-background.html
+ M module-00b-transformer-deep-dive.html
+ M progress.md
+?? CLAUDE.md
+?? docs/superpowers/audit-2026-05-21-deck-review.md
+?? external-links.html
+?? image/
+?? sos-talk-may12.html
+?? ui.txt
+```
+
+### Unstaged diff (`git diff --stat`)
+
+```text
+ ai-life-skills.html                   |   14 +-
+ llm-background.html                   |   20 +-
+ module-00b-transformer-deep-dive.html |  181 ++-
+ progress.md                           | 1962 +++++++++++++++++++++++++++++++++
+ 4 files changed, 2141 insertions(+), 36 deletions(-)
+```
+
+### Staged diff (`git diff --cached --stat`)
+
+_none_
+
+### Latest commit (`git show --stat --oneline HEAD`)
+
+```text
+79443c6 Add Week 12 retrieval pitfalls
+ week-12-advanced-prompting.html | 38 ++++++++++++++++++++++++++++++++++----
+ 1 file changed, 34 insertions(+), 4 deletions(-)
+```
+
+---
+
+## 2026-08-02 22:53:13 EDT — Codex
+
+- **Branch:** `slide-redesign-2026-05`
+- **HEAD:** `79443c6` — Add Week 12 retrieval pitfalls
+- **Upstream:** origin/slide-redesign-2026-05 — ahead 0, behind 0
+
+### Summary
+
+Completed milestone: enhanced Week 2 Module 0B transformer deep-dive deck with the watched 3Blue1Brown facts/MLP video content.
+
+Current HEAD: 79443c6 (slide-redesign-2026-05, origin/slide-redesign-2026-05) Add Week 12 retrieval pitfalls.
+
+Files changed in this milestone:
+- module-00b-transformer-deep-dive.html
+  - Added facts-video layout sizing CSS at lines 89-90.
+  - Added original MLP diagram CSS at lines 108-119 and mobile rules at line 141.
+  - Updated facts video slide at lines 465-482: label now 23 minutes; timestamp checkpoints for fact prompt, MLP block, feature probes, nonlinear gate, write-back, superposition, sparse autoencoders.
+  - Added new #mlp-writeback slide at lines 485-520: original four-step MLP mental model, no source frames copied.
+  - Tightened fact/source exercise language at lines 529 onward to distinguish learned association from verified evidence.
+
+Verification already run:
+- node static check: 26 slides, no duplicate IDs, facts checkpoints present, #mlp-writeback present, softened gate wording present, no extracted-frame/temp-path references.
+- git diff --check -- module-00b-transformer-deep-dive.html passed.
+- Headless Chrome screenshots generated and visually inspected:
+  - /tmp/learnai-facts-video-3.png: facts slide fits above controls; YouTube iframe shows Error 153 under file://, expected for local headless embed, layout still visible.
+  - /tmp/learnai-mlp-writeback-3.png: new MLP slide renders cleanly with no obvious overlap.
+- Codex review gate on revised diff returned: No material issues.
+
+Important current worktree status:
+- Dirty/untracked files remain beyond this milestone and should not be assumed to be from this edit: ai-life-skills.html, llm-background.html, progress.md, CLAUDE.md, docs/superpowers/audit-2026-05-21-deck-review.md, image/, sos-talk-may12.html, ui.txt.
+- Do not push unless Q explicitly approves after local testing.
+
+Next suggested steps:
+- Let Q open module-00b-transformer-deep-dive.html locally and test the slide flow.
+- If Q approves, commit only intended files carefully; do not include unrelated dirty/untracked files without explicit instruction.
+
+### Working tree (`git status --short`)
+
+```text
+ M ai-life-skills.html
+ M llm-background.html
+ M module-00b-transformer-deep-dive.html
+ M progress.md
+?? CLAUDE.md
+?? docs/superpowers/audit-2026-05-21-deck-review.md
+?? image/
+?? sos-talk-may12.html
+?? ui.txt
+```
+
+### Unstaged diff (`git diff --stat`)
+
+```text
+ ai-life-skills.html                   |   14 +-
+ llm-background.html                   |   20 +-
+ module-00b-transformer-deep-dive.html |  181 +++-
+ progress.md                           | 1888 +++++++++++++++++++++++++++++++++
+ 4 files changed, 2067 insertions(+), 36 deletions(-)
+```
+
+### Staged diff (`git diff --cached --stat`)
+
+_none_
+
+### Latest commit (`git show --stat --oneline HEAD`)
+
+```text
+79443c6 Add Week 12 retrieval pitfalls
+ week-12-advanced-prompting.html | 38 ++++++++++++++++++++++++++++++++++----
+ 1 file changed, 34 insertions(+), 4 deletions(-)
+```
+
+---
+
+## 2026-08-02 16:39:08 EDT — Codex
+
+- **Branch:** `slide-redesign-2026-05`
+- **HEAD:** `79443c6` — Add Week 12 retrieval pitfalls
+- **Upstream:** origin/slide-redesign-2026-05 — ahead 0, behind 0
+
+### Summary
+
+## Codex checkpoint - 3Blue1Brown LLM explainer consolidation
+
+- Implemented Q-approved uncommitted content update in `llm-background.html` and `ai-life-skills.html` to use 3Blue1Brown `Large Language Models explained briefly` (`LPZh9BOjkQs`) as the short LLM explainer.
+- `llm-background.html` now frames the page as a guided path from short visual intuition to deeper training/attention/systems/practice, and its first watch cards cover script completion, next-token probability, sampling variation, pretraining/RLHF shaping, and attention/context.
+- `ai-life-skills.html` now uses the same short explainer in the AI hype/critical thinking module and updates the watch cards to script completion, probabilities, and variation.
+- Verification completed before checkpoint: `git diff --check`, Node inline-script/embed assertions, local server browser DOM checks via system Chrome at desktop `1280x900` and mobile `390x844` with zero horizontal overflow, screenshot visual inspection, and final Codex review gate. Review result: no blockers.
+- Local static server on port `8765` was stopped.
+- Push/commit status: changes are NOT committed or pushed. Q has not yet approved commit/push for this specific diff.
+- Off-limits / untouched: consent, assent, IRB, legal/cookie wording and flow. Existing unrelated dirty/untracked files remain unrelated.
+- Open follow-up: `agentic-engineering-quest.html` still says the homework sheet has a "required 3Blue1Brown warm-up" while the homework page currently treats the short video as optional replay/reinforcement. Consider a small wording cleanup if Q approves.
+
+### Working tree (`git status --short`)
+
+```text
+ M ai-life-skills.html
+ M llm-background.html
+ M progress.md
+?? CLAUDE.md
+?? docs/superpowers/audit-2026-05-21-deck-review.md
+?? image/
+?? sos-talk-may12.html
+?? ui.txt
+```
+
+### Unstaged diff (`git diff --stat`)
+
+```text
+ ai-life-skills.html |   14 +-
+ llm-background.html |   20 +-
+ progress.md         | 1833 +++++++++++++++++++++++++++++++++++++++++++++++++++
+ 3 files changed, 1851 insertions(+), 16 deletions(-)
+```
+
+### Staged diff (`git diff --cached --stat`)
+
+_none_
+
+### Latest commit (`git show --stat --oneline HEAD`)
+
+```text
+79443c6 Add Week 12 retrieval pitfalls
+ week-12-advanced-prompting.html | 38 ++++++++++++++++++++++++++++++++++----
+ 1 file changed, 34 insertions(+), 4 deletions(-)
+```
+
+---
+
+## 2026-08-01 23:35:04 EDT — Codex
+
+- **Branch:** `slide-redesign-2026-05`
+- **HEAD:** `79443c6` — Add Week 12 retrieval pitfalls
+- **Upstream:** origin/slide-redesign-2026-05 — ahead 0, behind 0
+
+### Summary
+
+## Codex checkpoint - Week 12 retrieval pitfalls and query expansion
+
+- Pushed approved commit `79443c6` (`Add Week 12 retrieval pitfalls`) to `origin/slide-redesign-2026-05`; local HEAD and origin branch match.
+- Changed only `week-12-advanced-prompting.html`: added conceptual slide `#retrieval-pitfalls`, added conceptual slide `#query-expansion`, and revised two retrieval quick-check cards to cover distractors and query expansion.
+- Content treatment: used Q's pasted DeepLearning.AI/Chroma RAG material as conceptual input only. Kept the page static and student-facing; did not add Chroma setup, UMAP, PDF parsing, embedding dimensions, OpenAI client code, backend/API/package changes, private uploads, or live retrieval features.
+- Verification completed before commit: `git diff --check`, Node inline-script parse, static text/anchor assertions, protected legal/consent diff scan, Playwright desktop/mobile screenshots for the new slides and updated retrieval quiz, and Codex review gate on the final diff. Review result: no blockers.
+- Local static server on port `8765` was stopped; no matching server process remains.
+- Off-limits / untouched: consent, assent, IRB, legal/cookie wording and flow; unrelated existing dirty/untracked files (`progress.md`, `CLAUDE.md`, `docs/superpowers/audit-2026-05-21-deck-review.md`, `image/`, `sos-talk-may12.html`, `ui.txt`) were not included in the pushed commit.
+- Next likely work: Q may review GitHub Pages directly, then decide whether to keep extending Week 12 RAG concepts or place a more advanced RAG lab elsewhere. Continue keeping RAG additions conceptual unless Q explicitly approves external labs/tools.
+
+### Working tree (`git status --short`)
+
+```text
+ M progress.md
+?? CLAUDE.md
+?? docs/superpowers/audit-2026-05-21-deck-review.md
+?? image/
+?? sos-talk-may12.html
+?? ui.txt
+```
+
+### Unstaged diff (`git diff --stat`)
+
+```text
+ progress.md | 1783 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 1783 insertions(+)
+```
+
+### Staged diff (`git diff --cached --stat`)
+
+_none_
+
+### Latest commit (`git show --stat --oneline HEAD`)
+
+```text
+79443c6 Add Week 12 retrieval pitfalls
+ week-12-advanced-prompting.html | 38 ++++++++++++++++++++++++++++++++++----
+ 1 file changed, 34 insertions(+), 4 deletions(-)
+```
+
+---
+
+## 2026-08-01 22:47:18 EDT — Codex
+
+- **Branch:** `slide-redesign-2026-05`
+- **HEAD:** `6565a5f` — Add Week 12 RAG retrieval checks
+- **Upstream:** origin/slide-redesign-2026-05 — ahead 0, behind 0
+
+### Summary
+
+## Codex checkpoint - Week 12 RAG retrieval checks
+
+- Pushed approved commit `6565a5f` (`Add Week 12 RAG retrieval checks`) to `origin/slide-redesign-2026-05`; local HEAD and origin branch match.
+- Changed only `week-12-advanced-prompting.html`: added conceptual RAG loop slide `#rag-retrieval-loop`, retrieval quality quick-check slide `#retrieval-quality-quiz`, compact scoped CSS for those slides, and homework links to both anchors.
+- Content source treatment: used Q's pasted DeepLearning.AI/Chroma RAG concepts as inspiration, but kept wording original and classroom/static. No Chroma setup, PDF parsing, API keys, package installs, backend, private uploads, or live retrieval feature was added.
+- Verification completed: `git diff --check`, inline script parse via Node VM, static text/anchor assertions, ASCII dash scan, protected legal/consent diff scan, and browser screenshots for desktop/mobile Week 12 RAG and retrieval quiz states.
+- Review gate completed on the final diff; corrected one CLI quoting issue and reran successfully. Review result: no blockers.
+- Local static server on port `8765` was stopped after verification.
+- Off-limits / untouched: consent, assent, IRB, legal/cookie wording and flow; unrelated existing dirty/untracked files (`progress.md`, `CLAUDE.md`, `docs/superpowers/audit-2026-05-21-deck-review.md`, `image/`, `sos-talk-may12.html`, `ui.txt`) were not included in the pushed commit.
+- Next likely work: Q may review the GitHub Pages link directly; if continuing course import, consider whether RAG belongs elsewhere (Week 6/11/12), but keep it conceptual unless Q approves adding external labs/resources.
+
+### Working tree (`git status --short`)
+
+```text
+ M progress.md
+?? CLAUDE.md
+?? docs/superpowers/audit-2026-05-21-deck-review.md
+?? image/
+?? sos-talk-may12.html
+?? ui.txt
+```
+
+### Unstaged diff (`git diff --stat`)
+
+```text
+ progress.md | 1732 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 1732 insertions(+)
+```
+
+### Staged diff (`git diff --cached --stat`)
+
+_none_
+
+### Latest commit (`git show --stat --oneline HEAD`)
+
+```text
+6565a5f Add Week 12 RAG retrieval checks
+ week-12-advanced-prompting.html | 72 +++++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 72 insertions(+)
+```
+
+---
+
+## 2026-08-01 22:35:31 EDT — Codex
+
+- **Branch:** `slide-redesign-2026-05`
+- **HEAD:** `327eedc` — Add Week 2 planning quiz
+- **Upstream:** origin/slide-redesign-2026-05 — ahead 0, behind 0
+
+### Summary
+
+2026-08-01 Codex checkpoint - pushed Week 2 planning/multi-agent quiz slide
+
+Current branch/head:
+- Branch: slide-redesign-2026-05
+- HEAD: 327eedc Add Week 2 planning quiz
+- Upstream: origin/slide-redesign-2026-05
+- Push completed successfully: 2078275..327eedc slide-redesign-2026-05 -> slide-redesign-2026-05.
+
+Pushed commit:
+- 327eedc Add Week 2 planning quiz
+
+What changed:
+- week-02-agent-foundations.html only:
+  - Added compact CSS scoped to .planning-quiz-compact so the new quiz fits mobile without changing other quiz slides.
+  - Added #planning-multiagent-quiz after #agent-communication-patterns and before #agentic-quiz.
+  - Added six original reveal-card checks covering planning vs fixed workflows, code as plan with sandbox review, planning beyond tool access, role splitting, communication-pattern inspectability, and the flexibility/control tradeoff.
+  - Added one optional homework anchor link to #planning-multiagent-quiz.
+  - Kept the provided external Module 5 quiz as source guidance only; did not copy its questions, answer choices, distinctive examples, or wording.
+
+Verification before push:
+- git diff --check -- week-02-agent-foundations.html passed.
+- Node VM parsed the file's 1 inline script successfully.
+- Static assertions confirmed #planning-multiagent-quiz, compact class, key safety/originality text, and homework link are present.
+- Checked week-02-agent-foundations.html for actual em/en dash characters; no matches.
+- Checked the focused diff for consent/assent/IRB/legal/cookie terms; no matches.
+- Playwright CLI with installed Chrome captured screenshots:
+  - /tmp/learnai-screenshots/week2-planning-multiagent-quiz-desktop.png
+  - /tmp/learnai-screenshots/week2-planning-multiagent-quiz-mobile.png
+  - /tmp/learnai-screenshots/week2-agentic-quiz-after-module5-mobile.png
+- Visual check: first six-card mobile version was too tall; added scoped compact CSS and shortened visible question titles. Revised desktop and mobile screenshots fit cleanly.
+- Codex review gate on the final focused diff returned: No blockers.
+- No consent/assent/IRB/legal/cookie text or consent-flow behavior touched.
+
+Current local state after push:
+- Local and origin/slide-redesign-2026-05 both point to 327eedc.
+- progress.md remains modified by checkpoints only.
+- Pre-existing unrelated/untracked files remain untouched: CLAUDE.md, docs/superpowers/audit-2026-05-21-deck-review.md, image/, sos-talk-may12.html, ui.txt.
+- Temporary static server on port 8765 was stopped; no python3 -m http.server 8765 process remains.
+
+Next work:
+- Q can check the GitHub Pages link after branch deployment/update finishes.
+- If continuing with external Agentic AI material, continue adapting concepts into original LearnAI checks and school-safe examples rather than copying transcript or quiz text.
+
+### Working tree (`git status --short`)
+
+```text
+ M progress.md
+?? CLAUDE.md
+?? docs/superpowers/audit-2026-05-21-deck-review.md
+?? image/
+?? sos-talk-may12.html
+?? ui.txt
+```
+
+### Unstaged diff (`git diff --stat`)
+
+```text
+ progress.md | 1649 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 1649 insertions(+)
+```
+
+### Staged diff (`git diff --cached --stat`)
+
+_none_
+
+### Latest commit (`git show --stat --oneline HEAD`)
+
+```text
+327eedc Add Week 2 planning quiz
+ week-02-agent-foundations.html | 46 ++++++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 46 insertions(+)
+```
+
+---
+
+## 2026-08-01 18:01:35 EDT — Codex
+
+- **Branch:** `slide-redesign-2026-05`
+- **HEAD:** `2078275` — Add Week 2 multi-agent patterns
+- **Upstream:** origin/slide-redesign-2026-05 — ahead 0, behind 0
+
+### Summary
+
+2026-08-01 Codex checkpoint - pushed Week 2 multi-agent pattern slides
+
+Current branch/head:
+- Branch: slide-redesign-2026-05
+- HEAD: 2078275 Add Week 2 multi-agent patterns
+- Upstream: origin/slide-redesign-2026-05
+- Push completed successfully: 22d89b0..2078275 slide-redesign-2026-05 -> slide-redesign-2026-05.
+
+Pushed commit:
+- 2078275 Add Week 2 multi-agent patterns
+
+What changed:
+- week-02-agent-foundations.html only:
+  - Updated #agentic-patterns teacher note to connect role split to multi-agent work when roles have distinct prompts, tools, and review responsibility.
+  - Added #multi-agent-role-split after #planning-pattern and before #agentic-quiz.
+  - Added #agent-communication-patterns after #multi-agent-role-split and before #agentic-quiz.
+  - Used a fictional class event report/sign-up table example, not the external course's retail, marketing, legal, or real email examples.
+  - Kept the guidance cautious: more agents are not automatically better, one agent is enough when the task is clear, and all-to-all patterns should be avoided for high-stakes work.
+
+Verification before push:
+- git diff --check -- week-02-agent-foundations.html passed.
+- Node VM parsed the file's 1 inline script successfully.
+- Static assertions confirmed the two new slide anchors and key student-safety copy are present.
+- Checked week-02-agent-foundations.html for actual em/en dash characters; no matches.
+- Checked the focused diff for consent/assent/IRB/legal/cookie terms; no matches.
+- Playwright CLI with installed Chrome captured screenshots:
+  - /tmp/learnai-screenshots/week2-multi-agent-role-split-desktop.png
+  - /tmp/learnai-screenshots/week2-multi-agent-role-split-mobile.png
+  - /tmp/learnai-screenshots/week2-agent-communication-patterns-desktop.png
+  - /tmp/learnai-screenshots/week2-agent-communication-patterns-mobile.png
+- Visual check: first mobile version clipped behind fixed controls; slide terminals were tightened and rechecked. Revised desktop and mobile screenshots fit cleanly.
+- Codex review gate on the final focused diff returned: No blockers.
+- No consent/assent/IRB/legal/cookie text or consent-flow behavior touched.
+
+Current local state after push:
+- Local and origin/slide-redesign-2026-05 both point to 2078275.
+- progress.md remains modified by checkpoints only.
+- Pre-existing unrelated/untracked files remain untouched: CLAUDE.md, docs/superpowers/audit-2026-05-21-deck-review.md, image/, sos-talk-may12.html, ui.txt.
+- Temporary static server on port 8765 was stopped; no python3 -m http.server 8765 process remains.
+
+Next work:
+- Q can check the GitHub Pages link after branch deployment/update finishes.
+- If continuing with the external Agentic AI material, the likely next source segment is the final Module 5 wrap-up and/or Week 2/5 placement review, but avoid copying transcript wording and keep examples school-safe.
+
+### Working tree (`git status --short`)
+
+```text
+ M progress.md
+?? CLAUDE.md
+?? docs/superpowers/audit-2026-05-21-deck-review.md
+?? image/
+?? sos-talk-may12.html
+?? ui.txt
+```
+
+### Unstaged diff (`git diff --stat`)
+
+```text
+ progress.md | 1565 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 1565 insertions(+)
+```
+
+### Staged diff (`git diff --cached --stat`)
+
+_none_
+
+### Latest commit (`git show --stat --oneline HEAD`)
+
+```text
+2078275 Add Week 2 multi-agent patterns
+ week-02-agent-foundations.html | 49 +++++++++++++++++++++++++++++++++++++++++-
+ 1 file changed, 48 insertions(+), 1 deletion(-)
+```
+
+---
+
+## 2026-08-01 17:09:51 EDT — Codex
+
+- **Branch:** `slide-redesign-2026-05`
+- **HEAD:** `22d89b0` — Add planning pattern slides
+- **Upstream:** origin/slide-redesign-2026-05 — ahead 0, behind 0
+
+### Summary
+
+2026-08-01 Codex checkpoint - pushed planning and code-as-plan slides
+
+Current branch/head:
+- Branch: slide-redesign-2026-05
+- HEAD: 22d89b0 Add planning pattern slides
+- Upstream: origin/slide-redesign-2026-05
+- Push completed successfully: 67316f3..22d89b0 slide-redesign-2026-05 -> slide-redesign-2026-05.
+
+Pushed commit:
+- 22d89b0 Add planning pattern slides
+
+What changed:
+- week-02-agent-foundations.html:
+  - Added #planning-pattern after #agentic-patterns, using a fictional club records task to explain agent planning with approved tools and a human checkpoint.
+  - Added #inspectable-plans after #tool-request-loop, teaching a readable plan structure: step, tool or source, expected output, and review check.
+- week-05-data-excel-workflows.html:
+  - Added #code-as-plan after #development-process-quiz and before #workflow.
+  - Kept it as an optional/simulated spreadsheet demo for code-as-plan, with synthetic CSV, read-only copy, sandbox/disposable workspace, code review before run, output/error review after run, and no private records.
+- Used the external Agentic AI transcript as topic guidance only; did not copy the retail/sunglasses/email examples or external wording.
+
+Verification before push:
+- git diff --check -- week-02-agent-foundations.html week-05-data-excel-workflows.html passed.
+- Node VM parsed inline scripts for both touched files successfully.
+- Static assertions confirmed #planning-pattern, #inspectable-plans, and #code-as-plan strings are present.
+- Checked both touched files for actual em/en dash characters; no matches.
+- Checked the diff for consent/assent/IRB/legal/cookie terms; no matches.
+- Playwright CLI with installed Chrome captured screenshots:
+  - /tmp/learnai-screenshots/week2-planning-pattern-desktop.png
+  - /tmp/learnai-screenshots/week2-planning-pattern-mobile.png
+  - /tmp/learnai-screenshots/week2-inspectable-plans-desktop.png
+  - /tmp/learnai-screenshots/week2-inspectable-plans-mobile.png
+  - /tmp/learnai-screenshots/week5-code-as-plan-desktop.png
+  - /tmp/learnai-screenshots/week5-code-as-plan-mobile.png
+  - /tmp/learnai-screenshots/week5-code-as-plan-mobile-full.png
+- Visual check: Week 2 planning/inspectable slides fit desktop/mobile; Week 5 code-as-plan mobile initially clipped a safety line, then was tightened and rechecked successfully.
+- Codex review gate on the final diff returned: No blockers.
+- No consent/assent/IRB/legal/cookie text or consent-flow behavior touched.
+
+Current local state after push:
+- progress.md remains modified by checkpoints only.
+- Pre-existing unrelated/untracked files remain untouched: CLAUDE.md, docs/superpowers/audit-2026-05-21-deck-review.md, image/, sos-talk-may12.html, ui.txt.
+- Temporary static server on port 8765 was stopped.
+
+Next work:
+- Q can check the GitHub Pages link after branch deployment/update finishes.
+
+### Working tree (`git status --short`)
+
+```text
+ M progress.md
+?? CLAUDE.md
+?? docs/superpowers/audit-2026-05-21-deck-review.md
+?? image/
+?? sos-talk-may12.html
+?? ui.txt
+```
+
+### Unstaged diff (`git diff --stat`)
+
+```text
+ progress.md | 1478 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 1478 insertions(+)
+```
+
+### Staged diff (`git diff --cached --stat`)
+
+_none_
+
+### Latest commit (`git show --stat --oneline HEAD`)
+
+```text
+22d89b0 Add planning pattern slides
+ week-02-agent-foundations.html    | 50 +++++++++++++++++++++++++++++++++++++++
+ week-05-data-excel-workflows.html | 26 ++++++++++++++++++++
+ 2 files changed, 76 insertions(+)
+```
+
+---
+
+## 2026-08-01 16:33:55 EDT — Codex
+
+- **Branch:** `slide-redesign-2026-05`
+- **HEAD:** `67316f3` — Add Week 5 development process quiz
+- **Upstream:** origin/slide-redesign-2026-05 — ahead 0, behind 0
+
+### Summary
+
+2026-08-01 Codex checkpoint - pushed Week 5 development process quiz
+
+Current branch/head:
+- Branch: slide-redesign-2026-05
+- HEAD: 67316f3 Add Week 5 development process quiz
+- Upstream: origin/slide-redesign-2026-05
+- Push completed successfully: f91c59f..67316f3 slide-redesign-2026-05 -> slide-redesign-2026-05.
+
+Pushed commit:
+- 67316f3 Add Week 5 development process quiz
+
+What changed:
+- week-05-data-excel-workflows.html:
+  - Added #development-process-quiz after #quality-before-cost and before #workflow.
+  - Added 6 original reveal-card formative questions covering quick prototyping, trace analysis, component evals, end-to-end evals, latency targeting, and the build/analyze loop.
+  - Kept the examples in the Week 5 spreadsheet/admin evidence workflow and avoided external quiz wording and non-spreadsheet examples.
+  - Added small mobile-only CSS tightening for this slide so all six closed cards fit above the fixed controls at 390x844.
+
+Verification before push:
+- git diff --check -- week-05-data-excel-workflows.html passed.
+- Node VM parsed the Week 5 inline script successfully.
+- Static assertions confirmed #development-process-quiz and required quiz strings/classes are present.
+- Checked week-05-data-excel-workflows.html for em/en dash characters and consent/assent/IRB/legal/cookie terms; no matches.
+- Playwright CLI with installed Chrome captured screenshots:
+  - /tmp/learnai-screenshots/week5-development-quiz-desktop.png
+  - /tmp/learnai-screenshots/week5-development-quiz-mobile.png
+  - /tmp/learnai-screenshots/week5-development-quiz-mobile-full.png
+- Visual check: desktop layout fits; mobile 390x844 shows all six closed quiz cards above the controls after tightening.
+- Codex review gate on the Week 5 development-quiz diff returned: No blockers found.
+- No consent/assent/IRB/legal/cookie text or consent-flow behavior touched.
+
+Current local state after push:
+- progress.md remains modified by checkpoints only.
+- Pre-existing unrelated/untracked files remain untouched: CLAUDE.md, docs/superpowers/audit-2026-05-21-deck-review.md, image/, sos-talk-may12.html, ui.txt.
+- Temporary static server on port 8765 was stopped.
+
+Next work:
+- Q can check the GitHub Pages link after the branch deployment/update finishes.
+
+### Working tree (`git status --short`)
+
+```text
+ M progress.md
+?? CLAUDE.md
+?? docs/superpowers/audit-2026-05-21-deck-review.md
+?? image/
+?? sos-talk-may12.html
+?? ui.txt
+```
+
+### Unstaged diff (`git diff --stat`)
+
+```text
+ progress.md | 1399 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 1399 insertions(+)
+```
+
+### Staged diff (`git diff --cached --stat`)
+
+_none_
+
+### Latest commit (`git show --stat --oneline HEAD`)
+
+```text
+67316f3 Add Week 5 development process quiz
+ week-05-data-excel-workflows.html | 42 +++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 42 insertions(+)
+```
+
+---
+
+## 2026-08-01 15:53:38 EDT — Codex
+
+- **Branch:** `slide-redesign-2026-05`
+- **HEAD:** `f91c59f` — Add Week 5 component eval guidance
+- **Upstream:** origin/slide-redesign-2026-05 — ahead 0, behind 0
+
+### Summary
+
+2026-08-01 Codex checkpoint - pushed Week 5 component eval guidance
+
+Current branch/head:
+- Branch: slide-redesign-2026-05
+- HEAD: f91c59f Add Week 5 component eval guidance
+- Upstream: origin/slide-redesign-2026-05
+- Push completed successfully: 5af0850..f91c59f slide-redesign-2026-05 -> slide-redesign-2026-05.
+
+Pushed commit:
+- f91c59f Add Week 5 component eval guidance
+
+What changed:
+- week-05-data-excel-workflows.html:
+  - Added #component-evals slide after #trace-analysis and before #eval-shapes.
+  - Added #quality-before-cost slide after the reflection quick check and before the workflow board.
+  - Kept examples within the Week 5 spreadsheet/admin workflow: cleaning, formulas, chart, memo, evidence checks.
+  - Updated packetEval label, placeholder, generated packet text, review standard, and rubric copy to capture repeated error, weak step, and component eval used.
+
+Verification before push:
+- git diff --check -- week-05-data-excel-workflows.html passed.
+- Node VM parsed the Week 5 inline script successfully.
+- Static assertions confirmed #component-evals, #quality-before-cost, and packetEval wording/wiring are present.
+- Playwright CLI with installed Chrome captured screenshots:
+  - /tmp/learnai-screenshots/week5-component-evals-desktop.png
+  - /tmp/learnai-screenshots/week5-component-evals-mobile.png
+  - /tmp/learnai-screenshots/week5-quality-before-cost-mobile.png
+  - /tmp/learnai-screenshots/week5-packet-component-mobile-full.png
+- Visual check: component-evals desktop/mobile fit after copy tightening; quality-before-cost mobile fits; packet full-page screenshot shows updated field/export text with known fixed-control overlay artifact.
+- Codex review gate on the Week 5 component-eval diff returned: No blockers.
+- No consent/assent/IRB/legal/cookie text or consent-flow behavior touched.
+
+Current local state after push:
+- progress.md remains modified by checkpoints only.
+- Pre-existing unrelated/untracked files remain untouched: CLAUDE.md, docs/superpowers/audit-2026-05-21-deck-review.md, image/, sos-talk-may12.html, ui.txt.
+- Temporary static server on port 8765 was stopped.
+
+Next work:
+- Q can check the GitHub Pages link after the deployment/update finishes.
+
+### Working tree (`git status --short`)
+
+```text
+ M progress.md
+?? CLAUDE.md
+?? docs/superpowers/audit-2026-05-21-deck-review.md
+?? image/
+?? sos-talk-may12.html
+?? ui.txt
+```
+
+### Unstaged diff (`git diff --stat`)
+
+```text
+ progress.md | 1320 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 1320 insertions(+)
+```
+
+### Staged diff (`git diff --cached --stat`)
+
+_none_
+
+### Latest commit (`git show --stat --oneline HEAD`)
+
+```text
+f91c59f Add Week 5 component eval guidance
+ week-05-data-excel-workflows.html | 55 ++++++++++++++++++++++++++++++++++-----
+ 1 file changed, 49 insertions(+), 6 deletions(-)
+```
+
+---
+
+## 2026-08-01 15:35:39 EDT — Codex
+
+- **Branch:** `slide-redesign-2026-05`
+- **HEAD:** `5af0850` — Add Week 5 trace analysis guidance
+- **Upstream:** origin/slide-redesign-2026-05 — ahead 0, behind 0
+
+### Summary
+
+2026-08-01 Codex checkpoint - pushed Week 5 trace analysis guidance
+
+Current branch/head:
+- Branch: slide-redesign-2026-05
+- HEAD: 5af0850 Add Week 5 trace analysis guidance
+- Upstream: origin/slide-redesign-2026-05
+- Push completed successfully: 4318726..5af0850 slide-redesign-2026-05 -> slide-redesign-2026-05.
+
+Pushed commit:
+- 5af0850 Add Week 5 trace analysis guidance
+
+What changed:
+- week-05-data-excel-workflows.html:
+  - Added #trace-analysis slide after #error-log and before #eval-shapes.
+  - Kept the example within the Week 5 spreadsheet/admin workflow: prompt -> cleaning plan -> cleaned rows -> formulas -> chart -> memo.
+  - Added the rule that students should blame a step only when a human with the same input could have done better.
+  - Updated packetEval field label, placeholder, generated packet text, and review standard to capture repeated error, weak step, and eval used.
+
+Verification before push:
+- git diff --check -- week-05-data-excel-workflows.html passed.
+- Node VM parsed the Week 5 inline script successfully.
+- Static assertions confirmed #trace-analysis and packetEval wording/wiring are present.
+- Playwright CLI with installed Chrome captured screenshots:
+  - /tmp/learnai-screenshots/week5-trace-analysis-desktop.png
+  - /tmp/learnai-screenshots/week5-trace-analysis-mobile.png
+  - /tmp/learnai-screenshots/week5-packet-trace-mobile-full.png
+- Visual check: trace-analysis desktop and mobile fit; packet full-page screenshot shows updated field/export text, with known fixed-control overlay artifact in full-page mobile capture.
+- Codex review gate on the Week 5 trace-analysis diff returned: No blockers.
+- No consent/assent/IRB/legal/cookie text or consent-flow behavior touched.
+
+Current local state after push:
+- progress.md remains modified by checkpoints only.
+- Pre-existing unrelated/untracked files remain untouched: CLAUDE.md, docs/superpowers/audit-2026-05-21-deck-review.md, image/, sos-talk-may12.html, ui.txt.
+- Temporary static server on port 8765 was stopped.
+
+Next work:
+- Q can check the GitHub Pages link after the deployment/update finishes.
+
+### Working tree (`git status --short`)
+
+```text
+ M progress.md
+?? CLAUDE.md
+?? docs/superpowers/audit-2026-05-21-deck-review.md
+?? image/
+?? sos-talk-may12.html
+?? ui.txt
+```
+
+### Unstaged diff (`git diff --stat`)
+
+```text
+ progress.md | 1242 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 1242 insertions(+)
+```
+
+### Staged diff (`git diff --cached --stat`)
+
+_none_
+
+### Latest commit (`git show --stat --oneline HEAD`)
+
+```text
+5af0850 Add Week 5 trace analysis guidance
+ week-05-data-excel-workflows.html | 33 ++++++++++++++++++++++++++++-----
+ 1 file changed, 28 insertions(+), 5 deletions(-)
+```
+
+---
+
+## 2026-08-01 15:29:06 EDT — Codex
+
+- **Branch:** `slide-redesign-2026-05`
+- **HEAD:** `4318726` — Add Week 5 eval workflow guidance
+- **Upstream:** origin/slide-redesign-2026-05 — ahead 0, behind 0
+
+### Summary
+
+2026-08-01 Codex checkpoint - pushed Week 2 and Week 5 course updates
+
+Current branch/head:
+- Branch: slide-redesign-2026-05
+- HEAD: 4318726 Add Week 5 eval workflow guidance
+- Upstream: origin/slide-redesign-2026-05
+- Push completed successfully: 51a266a..4318726 slide-redesign-2026-05 -> slide-redesign-2026-05.
+
+Pushed commits:
+- 309ad00 Add Week 2 tool-use bridge
+- 4318726 Add Week 5 eval workflow guidance
+
+What is now on origin/slide-redesign-2026-05:
+- index.html and week-02-agent-foundations.html include the approved Week 2 tool-use bridge and external DeepLearning.AI public repo resource.
+- week-05-data-excel-workflows.html includes the approved Week 5 eval workflow guidance: error log slide, compact eval-shapes slide, packetEval field, packet export wiring, and rubric copy.
+
+Verification before push:
+- Push-safety Codex review found no blockers.
+- Previous validation for Week 5: git diff --check, Node inline-script parsing, static content assertions, Chrome/Playwright screenshots, and Codex diff review.
+- Previous validation for Week 2: git diff --check, Node inline-script parsing, and Codex diff review.
+- No consent/assent/IRB/legal/cookie text or consent-flow behavior touched.
+
+Current local state after push:
+- progress.md remains modified by checkpoints only.
+- Pre-existing unrelated/untracked files remain untouched: CLAUDE.md, docs/superpowers/audit-2026-05-21-deck-review.md, image/, sos-talk-may12.html, ui.txt.
+- No local server is running.
+
+Next work:
+- Q can check the GitHub Pages link after the deployment/update finishes.
+
+### Working tree (`git status --short`)
+
+```text
+ M progress.md
+?? CLAUDE.md
+?? docs/superpowers/audit-2026-05-21-deck-review.md
+?? image/
+?? sos-talk-may12.html
+?? ui.txt
+```
+
+### Unstaged diff (`git diff --stat`)
+
+```text
+ progress.md | 1172 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 1172 insertions(+)
+```
+
+### Staged diff (`git diff --cached --stat`)
+
+_none_
+
+### Latest commit (`git show --stat --oneline HEAD`)
+
+```text
+4318726 Add Week 5 eval workflow guidance
+ week-05-data-excel-workflows.html | 63 +++++++++++++++++++++++++++++++++++++--
+ 1 file changed, 60 insertions(+), 3 deletions(-)
+```
+
+---
+
+## 2026-08-01 15:26:37 EDT — Codex
+
+- **Branch:** `slide-redesign-2026-05`
+- **HEAD:** `4318726` — Add Week 5 eval workflow guidance
+- **Upstream:** origin/slide-redesign-2026-05 — ahead 2, behind 0
+
+### Summary
+
+2026-08-01 Codex checkpoint - Week 5 eval workflow guidance committed locally
+
+Current branch/head:
+- Branch: slide-redesign-2026-05
+- HEAD: 4318726 Add Week 5 eval workflow guidance
+- Upstream: origin/slide-redesign-2026-05
+- Local branch is ahead by 2 commits: 309ad00 Add Week 2 tool-use bridge, 4318726 Add Week 5 eval workflow guidance.
+- Neither local commit has been pushed after this checkpoint. Push only after Q explicitly approves.
+
+What was committed in 4318726:
+- week-05-data-excel-workflows.html:
+  - Added #error-log slide after #external-feedback for a small classroom error-log practice.
+  - Added #eval-shapes slide with compact spreadsheet-focused eval choices: expected answer check, same-rule check, evidence-point rubric, and chart-quality rubric.
+  - Added packetEval textarea to the evidence packet form: "Most common error and eval used".
+  - Updated packetFields and generated packet text so packetEval is included.
+  - Updated the homework rubric evidence-packet card to include the repeated-error eval.
+
+Verification before commit:
+- git diff --check -- week-05-data-excel-workflows.html passed.
+- Node VM parsed the Week 5 inline script successfully.
+- Static assertions confirmed #error-log, #eval-shapes, #packetEval, packetFields wiring, generated packet text, and rubric copy are present.
+- Playwright CLI with installed Chrome captured screenshots:
+  - /tmp/learnai-screenshots/week5-error-log-desktop.png
+  - /tmp/learnai-screenshots/week5-eval-shapes-mobile-viewport.png
+  - /tmp/learnai-screenshots/week5-packet-mobile-viewport.png
+  - /tmp/learnai-screenshots/week5-packet-mobile.png
+- Visual check: error-log desktop fits; eval-shapes mobile was shortened until it clears fixed controls; packet mobile renders the new field in the full-page screenshot.
+- Codex review gate on the Week 5 diff returned: No blockers.
+- No consent/assent/IRB/legal/cookie text or consent-flow behavior touched.
+
+Current local state after commit:
+- progress.md remains modified by checkpoints only.
+- Pre-existing unrelated/untracked files remain untouched: CLAUDE.md, docs/superpowers/audit-2026-05-21-deck-review.md, image/, sos-talk-may12.html, ui.txt.
+- Temporary static server on port 8765 was stopped.
+
+Next work:
+- Q should test locally or approve pushing the two local commits.
+- If pushing, use normal git push after Q explicitly confirms.
+
+### Working tree (`git status --short`)
+
+```text
+ M progress.md
+?? CLAUDE.md
+?? docs/superpowers/audit-2026-05-21-deck-review.md
+?? image/
+?? sos-talk-may12.html
+?? ui.txt
+```
+
+### Unstaged diff (`git diff --stat`)
+
+```text
+ progress.md | 1093 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 1093 insertions(+)
+```
+
+### Staged diff (`git diff --cached --stat`)
+
+_none_
+
+### Latest commit (`git show --stat --oneline HEAD`)
+
+```text
+4318726 Add Week 5 eval workflow guidance
+ week-05-data-excel-workflows.html | 63 +++++++++++++++++++++++++++++++++++++--
+ 1 file changed, 60 insertions(+), 3 deletions(-)
+```
+
+---
+
+## 2026-08-01 15:17:30 EDT — Codex
+
+- **Branch:** `slide-redesign-2026-05`
+- **HEAD:** `309ad00` — Add Week 2 tool-use bridge
+- **Upstream:** origin/slide-redesign-2026-05 — ahead 1, behind 0
+
+### Summary
+
+2026-08-01 Codex checkpoint - Week 2 tool-use bridge committed locally
+
+Current branch/head:
+- Branch: slide-redesign-2026-05
+- HEAD: 309ad00 Add Week 2 tool-use bridge
+- Commit is local only; not pushed.
+
+What was committed:
+- index.html:
+  - Added optional DeepLearning.AI public research-agent repo link to Week 2 resources.
+- week-02-agent-foundations.html:
+  - Added tool request loop slide.
+  - Added sandbox email assistant slide using fictional inbox only and safe draft/review tools.
+  - Added original tool-use quiz reveal cards.
+  - Added MCP connector check slide.
+  - Added code-execution safety slide.
+  - Added wrapping/mobile guard for terminal content.
+
+Verification before commit:
+- git diff --check -- week-02-agent-foundations.html index.html passed.
+- Node VM parsed inline scripts in week-02-agent-foundations.html and index.html.
+- Previous Codex review gate on the exact Week 2/index diff found no blockers.
+- No consent/assent/IRB/legal/cookie text or consent-flow behavior touched.
+
+Current local state after commit:
+- progress.md remains modified by checkpoints only.
+- Pre-existing unrelated/untracked files remain untouched: CLAUDE.md, docs/superpowers/audit-2026-05-21-deck-review.md, image/, sos-talk-may12.html, ui.txt.
+
+Next work:
+- Add separate Week 5 evals/practical tips pass: error log slide, four eval shapes slide, and evidence packet field for most common error/eval used.
+- Do not push without Q's explicit approval.
+
+### Working tree (`git status --short`)
+
+```text
+ M progress.md
+?? CLAUDE.md
+?? docs/superpowers/audit-2026-05-21-deck-review.md
+?? image/
+?? sos-talk-may12.html
+?? ui.txt
+```
+
+### Unstaged diff (`git diff --stat`)
+
+```text
+ progress.md | 1020 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 1020 insertions(+)
+```
+
+### Staged diff (`git diff --cached --stat`)
+
+_none_
+
+### Latest commit (`git show --stat --oneline HEAD`)
+
+```text
+309ad00 Add Week 2 tool-use bridge
+ index.html                     |   2 +-
+ week-02-agent-foundations.html | 119 ++++++++++++++++++++++++++++++++++++++++-
+ 2 files changed, 119 insertions(+), 2 deletions(-)
+```
+
+---
+
+## 2026-08-01 15:06:28 EDT — Codex
+
+- **Branch:** `slide-redesign-2026-05`
+- **HEAD:** `51a266a` — Add Week 5 reflection evals
+- **Upstream:** origin/slide-redesign-2026-05 — ahead 0, behind 0
+
+### Summary
+
+2026-08-01 Codex checkpoint - Week 2 tool-use bridge uncommitted
+
+Current branch/head:
+- Branch: slide-redesign-2026-05
+- HEAD: 51a266a Add Week 5 reflection evals
+- Upstream: origin/slide-redesign-2026-05, ahead 0 / behind 0 before this uncommitted pass.
+
+What changed locally in this pass:
+- week-02-agent-foundations.html:
+  - Added scoped quiz-bank CSS for details/summary reveal cards.
+  - Added #tool-request-loop after the agentic pattern warmup: explains tool calls as AI requests, app/runtime execution, tool result return, and human review.
+  - Added #sandbox-email-assistant: fictional inbox only, safe tools search_messages, summarize_thread, draft_reply, suggest_label, create_review_ticket; explicitly blocks send_email, delete_email, access_real_inbox.
+  - Added #tool-use-quiz: four original reveal-card questions on tool use vs fixed calls, sandboxing, MCP, and tool descriptions.
+  - Added #mcp-connector-check near Skill vs MCP: client/server/resource/tool/review mental model, anchored to Anthropic MCP announcement.
+  - Added #code-execution-safety before failure points: warns that arbitrary AI-generated code must not run against real files/accounts and requires sandboxing, approved data, read-only starter files, backup/disposable workspace, and human review.
+  - Added terminal/mobile wrapping guard with overflow-wrap:anywhere, word-break:break-word, and .inner min-width:0 under mobile media.
+- index.html:
+  - Added optional external link to https://github.com/https-deeplearning-ai/agentic-ai-public in the Week 2 resource list.
+
+Source/copyright/legal constraints:
+- Used DeepLearning.AI transcript/screenshots only conceptually.
+- Did not copy screenshots, lab wording, quiz wording/answer choices, setup instructions, package lists, exact tool examples, or diagrams.
+- No consent/assent/IRB/legal/cookie text or consent-flow behavior was touched.
+- Static GitHub Pages model preserved: HTML/CSS/vanilla JS only.
+
+Verification completed:
+- git diff --check -- week-02-agent-foundations.html index.html passed.
+- Node VM parsed inline scripts in week-02-agent-foundations.html and index.html.
+- Static content assertions passed for all new anchors, blocked real-inbox tools, wrapping CSS, and the external repo link.
+- Local static server ran on 127.0.0.1:4173 and was stopped.
+- Playwright MCP opened new Week 2 anchors and took desktop screenshots:
+  - /tmp/learnai-screenshots/learnai-week2-tool-request-loop-desktop.png
+  - /tmp/learnai-screenshots/learnai-week2-mcp-connector-desktop.png
+  - /tmp/learnai-screenshots/learnai-week2-code-execution-safety-desktop.png
+- Headless Chrome generated true 390x844 screenshot files, but the direct CLI path captured a cropped desktop layout rather than a reliable mobile emulation. The concrete clipping risk it exposed was addressed with terminal/mobile wrapping CSS. Do not overclaim full mobile visual validation from that Chrome CLI run.
+- Codex review gate on the exact Week 2/index diff found no blockers.
+
+Current local state:
+- Modified: index.html, progress.md, week-02-agent-foundations.html.
+- Pre-existing unrelated/untracked files remain untouched: CLAUDE.md, docs/superpowers/audit-2026-05-21-deck-review.md, image/, sos-talk-may12.html, ui.txt.
+- Generated screenshots were moved out of the repo to /tmp/learnai-screenshots.
+- No local server should be running on port 4173.
+
+Next recommended step:
+- Ask Q whether to commit and push this second pass. Do not push without explicit approval.
+
+### Working tree (`git status --short`)
+
+```text
+ M index.html
+ M progress.md
+ M week-02-agent-foundations.html
+?? CLAUDE.md
+?? docs/superpowers/audit-2026-05-21-deck-review.md
+?? image/
+?? sos-talk-may12.html
+?? ui.txt
+```
+
+### Unstaged diff (`git diff --stat`)
+
+```text
+ index.html                     |   2 +-
+ progress.md                    | 930 +++++++++++++++++++++++++++++++++++++++++
+ week-02-agent-foundations.html | 119 +++++-
+ 3 files changed, 1049 insertions(+), 2 deletions(-)
+```
+
+### Staged diff (`git diff --cached --stat`)
+
+_none_
+
+### Latest commit (`git show --stat --oneline HEAD`)
+
+```text
+51a266a Add Week 5 reflection evals
+ week-05-data-excel-workflows.html | 96 +++++++++++++++++++++++++++++++++++++--
+ 1 file changed, 91 insertions(+), 5 deletions(-)
+```
+
+---
+
+## 2026-08-01 14:13:47 EDT — Codex
+
+- **Branch:** `slide-redesign-2026-05`
+- **HEAD:** `51a266a` — Add Week 5 reflection evals
+- **Upstream:** origin/slide-redesign-2026-05 — ahead 0, behind 0
+
+### Summary
+
+2026-08-01 Codex checkpoint - Week 5 reflection evals committed and pushed
+
+Current branch/head:
+- Branch: slide-redesign-2026-05
+- HEAD: 51a266a Add Week 5 reflection evals
+- Pushed to origin/slide-redesign-2026-05.
+
+What was committed:
+- week-05-data-excel-workflows.html:
+  - Added reflection eval scorecard slide.
+  - Added external-feedback slide for formula/row/source/privacy/length checks.
+  - Added original 4-question static reflection quick-check quiz.
+  - Added packetReflection textarea and wired it into evidence packet output.
+  - Updated rubric/homework copy to include reflection scorecard.
+  - Fixed mobile scrolling for long active slides.
+
+Verification before commit:
+- git diff --check -- week-05-data-excel-workflows.html passed.
+- Previous Playwright checks covered reflection-evals, external-feedback, packet, and reflection-check-quiz at mobile and desktop viewports.
+- Codex review gate was rerun on the correct LearnAI diff and found no blockers.
+- No consent/assent/IRB/legal/cookie wording or consent-flow behavior was touched.
+
+Current local state after push:
+- progress.md is modified by checkpoints only and should remain protected as handoff state.
+- Pre-existing unrelated/untracked files remain untouched: CLAUDE.md, docs/superpowers/audit-2026-05-21-deck-review.md, image/, sos-talk-may12.html, ui.txt.
+
+Next work Q asked about:
+- Evaluate DeepLearning.AI Module 3 tool-use transcript/screenshots for suitable LearnAI course integration.
+- Recommended next step: propose a small Week 2 tool-use bridge rather than putting Module 3 material into Week 5, because Week 2 already teaches agent loop, tool decision, MCP/plugins, and safe review.
+- Do not copy DeepLearning.AI transcript/quiz/examples verbatim. Use original LearnAI examples and cite/link external resources only where appropriate.
+
+### Working tree (`git status --short`)
+
+```text
+ M progress.md
+?? CLAUDE.md
+?? docs/superpowers/audit-2026-05-21-deck-review.md
+?? image/
+?? sos-talk-may12.html
+?? ui.txt
+```
+
+### Unstaged diff (`git diff --stat`)
+
+```text
+ progress.md | 859 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 859 insertions(+)
+```
+
+### Staged diff (`git diff --cached --stat`)
+
+_none_
+
+### Latest commit (`git show --stat --oneline HEAD`)
+
+```text
+51a266a Add Week 5 reflection evals
+ week-05-data-excel-workflows.html | 96 +++++++++++++++++++++++++++++++++++++--
+ 1 file changed, 91 insertions(+), 5 deletions(-)
+```
+
+---
+
+## 2026-08-01 14:07:57 EDT — Codex
+
+- **Branch:** `slide-redesign-2026-05`
+- **HEAD:** `7906d43` — Add agentic workflow course content
+- **Upstream:** origin/slide-redesign-2026-05 — ahead 0, behind 0
+
+### Summary
+
+2026-08-01 Codex checkpoint - Week 5 reflection evals plus quiz
+
+Current branch/head:
+- Branch: slide-redesign-2026-05
+- HEAD: 7906d43 Add agentic workflow course content
+- No commit or push was made for this pass.
+
+What changed locally:
+- week-05-data-excel-workflows.html:
+  - Added quiz-card CSS for static details/summary reveal cards.
+  - Mobile CSS under @media(max-width:920px) now sets html/body height:auto; min-height:100%; overflow:auto so long mobile slides can scroll to bottom content.
+  - Added #reflection-evals after #reflection-loop: original scorecard slide comparing first chart vs revised chart after critique.
+  - Added #external-feedback after #reflection-evals: original slide about using fresh check results such as row count, formulas, chart labels, source notes, privacy, and length.
+  - Added #reflection-check-quiz after #external-feedback: original 4-question static reveal quiz in spreadsheet/chart context using details cards.
+  - Added packetReflection textarea and wired it into packetFields/updatePacket generated text.
+  - Updated rubric and homework Submit evidence copy to require a reflection scorecard.
+
+Source/copyright/legal constraints:
+- Adapted DeepLearning.AI transcript/quiz screenshots only conceptually.
+- Avoided copied transcript/quiz/lab/code/setup/package text, exact answer choices, exact metrics, distinctive external scenarios, model-name claims, benchmark claims, and external diagrams.
+- No consent/assent/IRB/legal/cookie wording or consent-flow behavior was touched.
+- Static GitHub Pages compatibility preserved: still HTML/CSS/vanilla JS only.
+
+Verification completed:
+- git diff --check -- week-05-data-excel-workflows.html passed after final wording patch.
+- Inline script in week-05-data-excel-workflows.html parsed successfully with Node VM after final wording patch.
+- Local static server ran on 127.0.0.1:4173 and was stopped afterward.
+- Playwright checks:
+  - #reflection-evals and #external-feedback checked at mobile 390x844 and desktop 1440x900: no horizontal overflow, terminal overflow 0, content clears fixed controls.
+  - #packet: packetReflection input updates generated packet text; mobile packet bottom and desktop internal slide scroll clear fixed controls.
+  - #reflection-check-quiz checked at mobile 390x844 and desktop 1440x900: closed state clears controls; all details open state scrolls where needed and bottom card clears fixed controls; no horizontal overflow.
+- Screenshots saved outside repo:
+  - /tmp/learnai-week5-reflection-evals-desktop.png
+  - /tmp/learnai-week5-reflection-evals-mobile.png
+  - /tmp/learnai-week5-external-feedback-desktop.png
+  - /tmp/learnai-week5-external-feedback-mobile.png
+  - /tmp/learnai-week5-reflection-check-quiz-desktop.png
+  - /tmp/learnai-week5-reflection-check-quiz-mobile.png
+- Codex review gate on the final diff found no blockers and specifically noted the quiz wording is generic/spreadsheet-contextualized, packetReflection is wired consistently, and the details cards are appropriate for static hosting.
+
+Current local state:
+- Modified: progress.md, week-05-data-excel-workflows.html.
+- Pre-existing unrelated/untracked files remain untouched: CLAUDE.md, docs/superpowers/audit-2026-05-21-deck-review.md, image/, sos-talk-may12.html, ui.txt.
+- No local server should be running on port 4173.
+
+### Working tree (`git status --short`)
+
+```text
+ M progress.md
+ M week-05-data-excel-workflows.html
+?? CLAUDE.md
+?? docs/superpowers/audit-2026-05-21-deck-review.md
+?? image/
+?? sos-talk-may12.html
+?? ui.txt
+```
+
+### Unstaged diff (`git diff --stat`)
+
+```text
+ progress.md                       | 770 ++++++++++++++++++++++++++++++++++++++
+ week-05-data-excel-workflows.html |  96 ++++-
+ 2 files changed, 861 insertions(+), 5 deletions(-)
+```
+
+### Staged diff (`git diff --cached --stat`)
+
+_none_
+
+### Latest commit (`git show --stat --oneline HEAD`)
+
+```text
+7906d43 Add agentic workflow course content
+ index.html                        |   4 +-
+ week-02-agent-foundations.html    | 136 ++++++++++++++++++++++++++++++++++++++
+ week-05-data-excel-workflows.html |  26 +++++++-
+ 3 files changed, 164 insertions(+), 2 deletions(-)
+```
+
+---
+
+## 2026-08-01 13:54:38 EDT — Codex
+
+- **Branch:** `slide-redesign-2026-05`
+- **HEAD:** `7906d43` — Add agentic workflow course content
+- **Upstream:** origin/slide-redesign-2026-05 — ahead 0, behind 0
+
+### Summary
+
+2026-08-01 Codex checkpoint - Week 5 reflection evals content pass
+
+Current branch/head:
+- Branch: slide-redesign-2026-05
+- HEAD: 7906d43 Add agentic workflow course content
+- Upstream branch tip was already pushed earlier and remains unchanged by this pass.
+- No commit or push was made for this Week 5 evals/external-feedback pass.
+
+What changed locally:
+- week-05-data-excel-workflows.html:
+  - Mobile CSS under @media(max-width:920px) now sets html/body height:auto; min-height:100%; overflow:auto so long mobile slides can scroll to their bottom content.
+  - Added #reflection-evals after #reflection-loop: original slide teaching a 0/1 scorecard for comparing first chart vs revised chart after critique.
+  - Added #external-feedback after #reflection-evals: original slide teaching that reflection improves when critique receives fresh check results, using course-domain checks like row count, formulas, chart labels, source notes, privacy, and length.
+  - Added packetReflection textarea to the evidence-packet builder and included it in packetFields/updatePacket output.
+  - Updated rubric and homework Submit evidence copy to require a reflection scorecard.
+
+Source/copyright/legal constraints:
+- Adapted the DeepLearning.AI transcript only conceptually.
+- Avoided transcript-specific examples, exact metrics, distinctive scenarios, copied quiz/lab/code/setup/package text, model-name claims, benchmark claims, and external diagrams.
+- No consent/assent/IRB/legal/cookie wording or consent-flow behavior was touched.
+- Static GitHub Pages compatibility preserved: still HTML/CSS/vanilla JS only.
+
+Verification completed:
+- git diff --check -- week-05-data-excel-workflows.html passed.
+- Inline script in week-05-data-excel-workflows.html parsed successfully with Node VM.
+- Local static server ran on 127.0.0.1:4173 and was stopped afterward.
+- Playwright mobile 390x844 checks:
+  - #reflection-evals: bodyOverflowX 0, terminalOverflowX 0, content clears controls.
+  - #external-feedback: bodyOverflowX 0, terminalOverflowX 0, content clears controls.
+  - #packet: packetReflection input updates generated packet text; bottom copy button clears fixed controls after scrolling.
+- Playwright desktop 1440x900 checks:
+  - #reflection-evals and #external-feedback: bodyOverflowX 0, terminalOverflowX 0, content clears controls.
+  - #packet: internal slide scroll works; bottom copy button clears controls.
+- Screenshots saved outside repo:
+  - /tmp/learnai-week5-reflection-evals-desktop.png
+  - /tmp/learnai-week5-reflection-evals-mobile.png
+  - /tmp/learnai-week5-external-feedback-desktop.png
+  - /tmp/learnai-week5-external-feedback-mobile.png
+- Codex diff review found no blockers and noted the added content reads generic/conceptual with no obvious copied external material.
+
+Current local state:
+- Modified: progress.md, week-05-data-excel-workflows.html.
+- Pre-existing unrelated/untracked files remain untouched: CLAUDE.md, docs/superpowers/audit-2026-05-21-deck-review.md, image/, sos-talk-may12.html, ui.txt.
+- No local server should be running on port 4173.
+
+### Working tree (`git status --short`)
+
+```text
+ M progress.md
+ M week-05-data-excel-workflows.html
+?? CLAUDE.md
+?? docs/superpowers/audit-2026-05-21-deck-review.md
+?? image/
+?? sos-talk-may12.html
+?? ui.txt
+```
+
+### Unstaged diff (`git diff --stat`)
+
+```text
+ progress.md                       | 681 ++++++++++++++++++++++++++++++++++++++
+ week-05-data-excel-workflows.html |  59 +++-
+ 2 files changed, 735 insertions(+), 5 deletions(-)
+```
+
+### Staged diff (`git diff --cached --stat`)
+
+_none_
+
+### Latest commit (`git show --stat --oneline HEAD`)
+
+```text
+7906d43 Add agentic workflow course content
+ index.html                        |   4 +-
+ week-02-agent-foundations.html    | 136 ++++++++++++++++++++++++++++++++++++++
+ week-05-data-excel-workflows.html |  26 +++++++-
+ 3 files changed, 164 insertions(+), 2 deletions(-)
+```
+
+---
+
+## 2026-08-01 13:33:10 EDT — Codex
+
+- **Branch:** `slide-redesign-2026-05`
+- **HEAD:** `7906d43` — Add agentic workflow course content
+- **Upstream:** origin/slide-redesign-2026-05 — ahead 0, behind 0
+
+### Summary
+
+2026-08-01 Codex checkpoint - committed and pushed agentic/reflection content
+
+Commit/push completed:
+- Created commit 7906d43: Add agentic workflow course content
+- Pushed branch slide-redesign-2026-05 to origin: 6afa05e..7906d43
+- Commit includes only content files: index.html, week-02-agent-foundations.html, week-05-data-excel-workflows.html.
+- progress.md was intentionally not included in the pushed commit because the previous checkpoint described a pre-fix repo-link label. This post-push checkpoint is the current handoff state.
+
+Committed content:
+- index.html: added Week 2 hub/resource links for the Agentic Workflow Activity and the external DeepLearning.AI Agentic AI background link.
+- week-02-agent-foundations.html: added original LearnAI agentic workflow enrichment slides from #workflow through #agentic-quiz, plus homework/resource links.
+- week-02-agent-foundations.html: external repo link is explicitly labeled reference-only: "External repo reference only: DeepLearning.AI agentic-ai-public (license not confirmed)".
+- week-05-data-excel-workflows.html: added original #reflection-loop slide and updated homework evidence to include a revision request.
+
+Verification before commit/push:
+- git diff --cached --check passed.
+- Inline scripts in index.html, week-02-agent-foundations.html, and week-05-data-excel-workflows.html parsed successfully with Node VM.
+- Earlier Playwright checks confirmed Week 5 #reflection-loop at 390x844 and 1440x900 had no horizontal overflow and cleared fixed controls.
+- Codex staged-diff review first flagged the "code example" repo-label wording as a blocker. The label was changed to reference-only with license caveat.
+- Second staged-diff review found no blocking issues.
+
+Preserved constraints:
+- No consent/assent/IRB/legal/cookie text or consent-flow behavior touched.
+- No copied DeepLearning.AI transcript, quiz, lab, setup/code/package list, model-name claim, benchmark number, or distinctive external diagram/example intentionally added.
+- Static GitHub Pages compatibility preserved: HTML/CSS/vanilla JS only, no build system.
+
+Current local state after this checkpoint:
+- progress.md is modified locally due this checkpoint and earlier checkpoint logs.
+- Pre-existing unrelated/untracked files remain untouched: CLAUDE.md, docs/superpowers/audit-2026-05-21-deck-review.md, image/, sos-talk-may12.html, ui.txt.
+
+### Working tree (`git status --short`)
+
+```text
+ M progress.md
+?? CLAUDE.md
+?? docs/superpowers/audit-2026-05-21-deck-review.md
+?? image/
+?? sos-talk-may12.html
+?? ui.txt
+```
+
+### Unstaged diff (`git diff --stat`)
+
+```text
+ progress.md | 609 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 609 insertions(+)
+```
+
+### Staged diff (`git diff --cached --stat`)
+
+_none_
+
+### Latest commit (`git show --stat --oneline HEAD`)
+
+```text
+7906d43 Add agentic workflow course content
+ index.html                        |   4 +-
+ week-02-agent-foundations.html    | 136 ++++++++++++++++++++++++++++++++++++++
+ week-05-data-excel-workflows.html |  26 +++++++-
+ 3 files changed, 164 insertions(+), 2 deletions(-)
+```
+
+---
+
+## 2026-08-01 12:14:31 EDT — Codex
+
+- **Branch:** `slide-redesign-2026-05`
+- **HEAD:** `6afa05e` — Polish LearnAI course hub UI
+- **Upstream:** origin/slide-redesign-2026-05 — ahead 0, behind 0
+
+### Summary
+
+2026-08-01 Codex checkpoint - agentic/reflection content additions
+
+Current branch/head:
+- Branch: slide-redesign-2026-05
+- Last known HEAD before content edits: 6afa05e Polish LearnAI course hub UI
+- No commit or push has been made for this content pass.
+
+What changed:
+- index.html:
+  - Added Week 2 hub shortcut to week-02-agent-foundations.html#workflow at line 465.
+  - Added Week 2 resource link for Agentic Workflow Activity and external background link to DeepLearning.AI Agentic AI at line 702.
+- week-02-agent-foundations.html:
+  - Added mobile compact CSS for agentic enrichment slides at lines 125-128.
+  - Added original LearnAI slides: #workflow line 294, #control-level line 313, #workflow-benefits line 331, #task-fit line 350, #task-fit-sort line 364, #agentic-patterns line 383.
+  - Added original formative quiz warmup #agentic-quiz at line 398.
+  - Added homework/resource links for pattern map, quiz warmup, DeepLearning.AI external background, and the public GitHub code example. GitHub link label is neutral: "External code example: DeepLearning.AI GitHub repo" at line 707.
+- week-05-data-excel-workflows.html:
+  - Added mobile compact CSS for reflection slide at lines 128-130.
+  - Added original #reflection-loop slide at line 368, framed as chart critique -> revision request -> revised output.
+  - Updated homework evidence list to include chart critique and revision request at line 481.
+
+Source/copyright/legal constraints:
+- DeepLearning.AI transcripts were used only as conceptual input; no copied transcript text, copied quiz text, copied diagrams, lab setup/code, package lists, model-name claims, benchmark numbers, or distinctive examples were intentionally added.
+- The DeepLearning.AI GitHub repo was inspected as public but license status was not found/confirmed, so it is used only as an external link. No repo code was copied.
+- No consent/assent/IRB/legal/cookie text or consent flow behavior was touched.
+
+Verification completed:
+- git diff --check passed for index.html, week-02-agent-foundations.html, week-05-data-excel-workflows.html.
+- Inline JS parsed with Node VM for all three touched HTML files: one inline script each parsed successfully.
+- Week 5 #reflection-loop inspected locally with static server at 127.0.0.1:4173 using Playwright at 390x844 and 1440x900. Measurements showed bodyOverflowX 0, terminalOverflowX 0, and content clearing fixed controls.
+- Screenshots saved: /tmp/learnai-week5-reflection-loop-mobile.png and /tmp/learnai-week5-reflection-loop-desktop.png.
+- Codex review gate completed for the diff and found no blocking issues. Minor note: Week 2 diff is larger than the immediate Week 5 request, but it matches earlier Q approvals.
+- Static server on port 4173 was stopped; lsof confirmed no listener.
+
+Current git state notes:
+- Modified: index.html, progress.md, week-02-agent-foundations.html, week-05-data-excel-workflows.html.
+- Pre-existing unrelated/untracked files remain: CLAUDE.md, docs/superpowers/audit-2026-05-21-deck-review.md, image/, sos-talk-may12.html, ui.txt.
+- Treat those unrelated/untracked files as Q/other-agent work unless Q explicitly says otherwise.
+
+Next recommended step:
+- Review the uncommitted content diff locally. If Q approves commit/push for this content pass, stage only index.html, week-02-agent-foundations.html, week-05-data-excel-workflows.html, and progress.md as appropriate, then commit and ask for explicit push approval before git push.
+
+### Working tree (`git status --short`)
+
+```text
+ M index.html
+ M progress.md
+ M week-02-agent-foundations.html
+ M week-05-data-excel-workflows.html
+?? CLAUDE.md
+?? docs/superpowers/audit-2026-05-21-deck-review.md
+?? image/
+?? sos-talk-may12.html
+?? ui.txt
+```
+
+### Unstaged diff (`git diff --stat`)
+
+```text
+ index.html                        |   4 +-
+ progress.md                       | 521 ++++++++++++++++++++++++++++++++++++++
+ week-02-agent-foundations.html    | 136 ++++++++++
+ week-05-data-excel-workflows.html |  26 +-
+ 4 files changed, 685 insertions(+), 2 deletions(-)
+```
+
+### Staged diff (`git diff --cached --stat`)
+
+_none_
+
+### Latest commit (`git show --stat --oneline HEAD`)
+
+```text
+6afa05e Polish LearnAI course hub UI
+ index.html | 179 ++++++++++++++++++++++++++++++++++++++++---------------------
+ 1 file changed, 118 insertions(+), 61 deletions(-)
+```
+
+---
+
+## 2026-08-01 10:53:33 EDT — Codex
+
+- **Branch:** `slide-redesign-2026-05`
+- **HEAD:** `6afa05e` — Polish LearnAI course hub UI
+- **Upstream:** origin/slide-redesign-2026-05 — ahead 0, behind 0
+
+### Summary
+
+Completed the approved pattern-map/quiz pass for the agentic AI content adaptation.
+
+Changed files:
+- index.html:465 keeps the Week 2 hub shortcut to week-02-agent-foundations.html#workflow.
+- index.html:702 keeps Week 2 resources and now labels the DeepLearning.AI link as "External background link: DeepLearning.AI Agentic AI" for stricter neutrality.
+- week-02-agent-foundations.html:294 adds #workflow, original one-shot-to-workflow slide.
+- week-02-agent-foundations.html:313 adds #control-level, original fixed/choice/open control slide.
+- week-02-agent-foundations.html:331 adds #workflow-benefits, original workflow-benefits slide without benchmark numbers.
+- week-02-agent-foundations.html:350 adds #task-fit, original task-fit signals slide.
+- week-02-agent-foundations.html:364 adds #task-fit-sort, original pair activity.
+- week-02-agent-foundations.html:383 adds #agentic-patterns, original pattern-map slide using classroom labels: Review loop, Tool call, Plan first, Role split.
+- week-02-agent-foundations.html:398 adds #agentic-quiz, one original formative quiz warmup using existing .choice behavior.
+- week-02-agent-foundations.html:704-706 adds homework links to #agentic-patterns, #agentic-quiz, and the neutral external background link.
+
+Verification run:
+- git diff --check -- index.html week-02-agent-foundations.html passed.
+- Extracted inline scripts from index.html and week-02-agent-foundations.html; node --check passed on both.
+- rg scan found none of the external quiz/setup/named examples in touched files, including competitor analysis, product launch, EV batteries, smartphone, expense reports, regulatory compliance, code-error loop, Hugging GPT, ChatDev, package/setup strings, etc.
+- Local static server on 127.0.0.1:4173 verified with Playwright and then stopped.
+- Playwright mobile 390x844: #agentic-patterns and #agentic-quiz clear fixed controls, no horizontal overflow; #agentic-quiz correct click marks Review loop as correct and shows feedback; #workflow external label fits at 390px.
+- Playwright desktop 1440x900: #agentic-patterns and #agentic-quiz clear controls, no horizontal overflow.
+- Screenshots saved outside repo: /tmp/learnai-week2-agentic-patterns-mobile.png and /tmp/learnai-week2-agentic-quiz-desktop.png. Earlier screenshots also remain in /tmp.
+- Codex review gate first flagged a clearance gap because it could not see screenshots; focused re-review with source comparison found no blocking issues.
+
+No consent/legal/cookie text changed. No commit or push performed.
+
+Git state after checkpoint will still include pre-existing unrelated dirty/untracked files: CLAUDE.md, docs/superpowers/audit-2026-05-21-deck-review.md, image/, sos-talk-may12.html, ui.txt. progress.md is dirty due checkpointing.
+
+### Working tree (`git status --short`)
+
+```text
+ M index.html
+ M progress.md
+ M week-02-agent-foundations.html
+?? CLAUDE.md
+?? docs/superpowers/audit-2026-05-21-deck-review.md
+?? image/
+?? sos-talk-may12.html
+?? ui.txt
+```
+
+### Unstaged diff (`git diff --stat`)
+
+```text
+ index.html                     |   4 +-
+ progress.md                    | 449 +++++++++++++++++++++++++++++++++++++++++
+ week-02-agent-foundations.html | 135 +++++++++++++
+ 3 files changed, 587 insertions(+), 1 deletion(-)
+```
+
+### Staged diff (`git diff --cached --stat`)
+
+_none_
+
+### Latest commit (`git show --stat --oneline HEAD`)
+
+```text
+6afa05e Polish LearnAI course hub UI
+ index.html | 179 ++++++++++++++++++++++++++++++++++++++++---------------------
+ 1 file changed, 118 insertions(+), 61 deletions(-)
+```
+
+---
+
+## 2026-08-01 10:46:09 EDT — Codex
+
+- **Branch:** `slide-redesign-2026-05`
+- **HEAD:** `6afa05e` — Polish LearnAI course hub UI
+- **Upstream:** origin/slide-redesign-2026-05 — ahead 0, behind 0
+
+### Summary
+
+Implemented approved agentic-workflow transcript adaptations for Week 2 without touching consent/legal content.
+
+Changed files:
+- index.html:465 adds a Week 2 hub shortcut to week-02-agent-foundations.html#workflow.
+- index.html:702 adds Week 2 resources for Agentic Workflow Activity and an explicitly optional external DeepLearning.AI Agentic AI course link.
+- week-02-agent-foundations.html:125-128 adds scoped mobile compact styling for new agentic slides only.
+- week-02-agent-foundations.html:294 adds #workflow, an original one-shot-to-supervised-workflow slide.
+- week-02-agent-foundations.html:313 adds #control-level, an original fixed/choice/open control slide.
+- week-02-agent-foundations.html:331 adds #workflow-benefits, an original workflow-benefits slide without benchmark numbers.
+- week-02-agent-foundations.html:350 adds #task-fit, an original task-fit signals slide.
+- week-02-agent-foundations.html:364 adds #task-fit-sort, an original pair activity.
+- week-02-agent-foundations.html:672-673 adds homework links to #task-fit-sort and optional external DeepLearning.AI course.
+
+Verification run:
+- git diff --check -- index.html week-02-agent-foundations.html passed.
+- Extracted inline scripts from index.html and week-02-agent-foundations.html; node --check passed on both.
+- rg scan found no distinctive transcript examples or benchmark references such as SpaceX, black holes, HumanEval, GPT 3.5/GPT-4, invoice/customer-order/browser-use examples, Hugging GPT, ChatDev, etc. in touched files.
+- Local static server on 127.0.0.1:4173 verified with Playwright; server stopped afterward.
+- Playwright mobile 390x844 and desktop 1440x900 checks for #workflow, #control-level, #workflow-benefits, #task-fit, and #task-fit-sort: correct active slide, no horizontal body overflow, terminal overflow 0, compact content clears fixed controls after scoped CSS patch.
+- Screenshots saved outside repo: /tmp/learnai-week2-agentic-compact-desktop.png and /tmp/learnai-week2-agentic-compact-mobile.png.
+- Codex review gate on final diff reported no blocking issues. It noted Week 2 resources are getting long but still usable.
+
+Git state after checkpoint will still include pre-existing unrelated dirty/untracked files: CLAUDE.md, docs/superpowers/audit-2026-05-21-deck-review.md, image/, sos-talk-may12.html, ui.txt. progress.md is dirty due checkpointing.
+
+Newest Q input received but not yet edited: design-pattern transcript/screenshots covering reflection, tool use, planning, and multi-agent collaboration. Recommendation before edits: do not copy the external course structure, local setup instructions, package list, named research/demo examples, or transcript examples. If Q approves, add one compact original Week 2 bridge slide after #task-fit-sort called something like #agentic-patterns with student-safe labels: review loop, tool call, plan first, role split. Optionally add a homework link. Avoid adding eval details to Week 2 beyond the already-added review/evidence framing; defer eval/error-analysis content to later course weeks.
+
+### Working tree (`git status --short`)
+
+```text
+ M index.html
+ M progress.md
+ M week-02-agent-foundations.html
+?? CLAUDE.md
+?? docs/superpowers/audit-2026-05-21-deck-review.md
+?? image/
+?? sos-talk-may12.html
+?? ui.txt
+```
+
+### Unstaged diff (`git diff --stat`)
+
+```text
+ index.html                     |   4 +-
+ progress.md                    | 379 +++++++++++++++++++++++++++++++++++++++++
+ week-02-agent-foundations.html | 102 +++++++++++
+ 3 files changed, 484 insertions(+), 1 deletion(-)
+```
+
+### Staged diff (`git diff --cached --stat`)
+
+_none_
+
+### Latest commit (`git show --stat --oneline HEAD`)
+
+```text
+6afa05e Polish LearnAI course hub UI
+ index.html | 179 ++++++++++++++++++++++++++++++++++++++++---------------------
+ 1 file changed, 118 insertions(+), 61 deletions(-)
+```
+
+---
+
+## 2026-08-01 10:08:58 EDT — Codex
+
+- **Branch:** `slide-redesign-2026-05`
+- **HEAD:** `6afa05e` — Polish LearnAI course hub UI
+- **Upstream:** origin/slide-redesign-2026-05 — ahead 0, behind 0
+
+### Summary
+
+Implemented Q-approved Week 2 transcript adaptations for the first three DeepLearning.AI Agentic AI chunks, using original LearnAI wording only.
+
+Current uncommitted task changes:
+- index.html: added a Week 2 learning-path link to week-02-agent-foundations.html#workflow and added Week 2 detail resources for Agentic Workflow Activity plus optional DeepLearning.AI Agentic AI external background.
+- week-02-agent-foundations.html: added three original Week 2 enrichment slides:
+  - id="workflow" / data-title="One-shot vs workflow": supervised workflow activity and workflow card template.
+  - id="control-level" / data-title="Control level": control-level activity for fixed path, choice path, and open path.
+  - id="workflow-benefits" / data-title="Why use a workflow": benefits activity focused on revision, safe independent checks, and replaceable workflow parts.
+- week-02-agent-foundations.html: added matching optional homework/resource card links to #workflow, #control-level, and #workflow-benefits, plus optional external DeepLearning.AI background link.
+
+Boundaries preserved:
+- No transcript text, close paraphrases, distinctive examples, benchmark numbers, copied diagrams/notation, or endorsement claims added.
+- No HumanEval/GPT benchmark metrics added.
+- No consent/legal/IRB text or consent flow touched.
+- Static HTML/CSS/vanilla JS architecture preserved.
+- Existing course URLs preserved; new hash routes are additive.
+- No extra hub link was added for the second/third chunks, per Q's density preference.
+
+Verification run:
+- git diff --check -- index.html week-02-agent-foundations.html passed.
+- Extracted inline JS from index.html and week-02-agent-foundations.html to /tmp and node --check passed for both.
+- Verified local target files exist.
+- Started local static server on 127.0.0.1:4173 and checked week-02-agent-foundations.html#workflow-benefits in browser.
+- Desktop browser check: active slide id workflow-benefits, status "Slide 11 of 25: Why use a workflow", no horizontal overflow, homework link exists.
+- Mobile browser check at 390x844: active slide id workflow-benefits, no horizontal overflow, terminal fits within viewport width.
+- Temporary static server was stopped; no process listening on 4173.
+- Bounded Codex review gate found no blocking issues. Residual source-proximity risk judged low from diff, with no transcript-specific text or benchmark/time-sensitive claims apparent.
+
+Open local state:
+- index.html and week-02-agent-foundations.html are uncommitted task changes.
+- progress.md remains locally dirty due to handoff checkpoint entries.
+- Pre-existing untracked files remain untouched: CLAUDE.md, docs/superpowers/audit-2026-05-21-deck-review.md, image/, sos-talk-may12.html, ui.txt.
+
+### Working tree (`git status --short`)
+
+```text
+ M index.html
+ M progress.md
+ M week-02-agent-foundations.html
+?? CLAUDE.md
+?? docs/superpowers/audit-2026-05-21-deck-review.md
+?? image/
+?? sos-talk-may12.html
+?? ui.txt
+```
+
+### Unstaged diff (`git diff --stat`)
+
+```text
+ index.html                     |   4 +-
+ progress.md                    | 302 +++++++++++++++++++++++++++++++++++++++++
+ week-02-agent-foundations.html | 100 ++++++++++++++
+ 3 files changed, 405 insertions(+), 1 deletion(-)
+```
+
+### Staged diff (`git diff --cached --stat`)
+
+_none_
+
+### Latest commit (`git show --stat --oneline HEAD`)
+
+```text
+6afa05e Polish LearnAI course hub UI
+ index.html | 179 ++++++++++++++++++++++++++++++++++++++++---------------------
+ 1 file changed, 118 insertions(+), 61 deletions(-)
+```
+
+---
+
+## 2026-07-31 22:52:19 EDT — Codex
+
+- **Branch:** `slide-redesign-2026-05`
+- **HEAD:** `6afa05e` — Polish LearnAI course hub UI
+- **Upstream:** origin/slide-redesign-2026-05 — ahead 0, behind 0
+
+### Summary
+
+Implemented Q-approved Week 2 agentic workflow enrichment from the DeepLearning.AI transcript discussion, using original LearnAI wording only.
+
+Current uncommitted changes:
+- index.html: added a Week 2 learning-path link to week-02-agent-foundations.html#workflow and added Week 2 detail resources for Agentic Workflow Activity plus optional DeepLearning.AI Agentic AI external background.
+- week-02-agent-foundations.html: added an original enrichment slide id="workflow" titled "One-shot vs workflow" with a supervised workflow activity/template, optional external DeepLearning.AI resource link, and a teacher note warning not to reproduce transcript wording, close paraphrases, or distinctive examples. Added a matching optional homework/resource card.
+
+Boundaries preserved:
+- No transcript text, close paraphrases, or distinctive examples copied into the app.
+- No consent/legal/IRB text or consent flow touched.
+- Static HTML/CSS/vanilla JS architecture preserved.
+- Existing course URLs preserved; new hash route is additive.
+
+Verification run:
+- git diff --check -- index.html week-02-agent-foundations.html passed.
+- Extracted inline JS from index.html and week-02-agent-foundations.html to /tmp and node --check passed for both.
+- Verified local target files exist.
+- Started local static server on 127.0.0.1:4173, checked week-02-agent-foundations.html#workflow on desktop and mobile: active slide id workflow, slide count 23, no horizontal overflow.
+- Checked index.html hub has visible Agentic Workflow Activity link and Week 2 resources include the activity and optional DeepLearning.AI external background.
+- Temporary static server was stopped; no process listening on 4173.
+- Bounded Codex diff review found no blocking issues; only nonblocking note was optional external link appears in multiple discovery locations by design.
+
+Open local state:
+- index.html and week-02-agent-foundations.html are uncommitted task changes.
+- progress.md remains locally dirty due to handoff checkpoints.
+- Pre-existing untracked files remain untouched: CLAUDE.md, docs/superpowers/audit-2026-05-21-deck-review.md, image/, sos-talk-may12.html, ui.txt.
+
+### Working tree (`git status --short`)
+
+```text
+ M index.html
+ M progress.md
+ M week-02-agent-foundations.html
+?? CLAUDE.md
+?? docs/superpowers/audit-2026-05-21-deck-review.md
+?? image/
+?? sos-talk-may12.html
+?? ui.txt
+```
+
+### Unstaged diff (`git diff --stat`)
+
+```text
+ index.html                     |   4 +-
+ progress.md                    | 232 +++++++++++++++++++++++++++++++++++++++++
+ week-02-agent-foundations.html |  35 +++++++
+ 3 files changed, 270 insertions(+), 1 deletion(-)
+```
+
+### Staged diff (`git diff --cached --stat`)
+
+_none_
+
+### Latest commit (`git show --stat --oneline HEAD`)
+
+```text
+6afa05e Polish LearnAI course hub UI
+ index.html | 179 ++++++++++++++++++++++++++++++++++++++++---------------------
+ 1 file changed, 118 insertions(+), 61 deletions(-)
+```
+
+---
+
+## 2026-07-31 16:27:52 EDT — Codex
+
+- **Branch:** `slide-redesign-2026-05`
+- **HEAD:** `6afa05e` — Polish LearnAI course hub UI
+- **Upstream:** origin/slide-redesign-2026-05 — ahead 0, behind 0
+
+### Summary
+
+Committed and pushed Q-approved LearnAI course hub UI polish.
+
+Branch/HEAD:
+- Branch: slide-redesign-2026-05
+- Commit: 6afa05e — Polish LearnAI course hub UI
+- Pushed to origin/slide-redesign-2026-05.
+
+Scope of committed change:
+- Committed only index.html.
+- Preserved static HTML/CSS/vanilla JS architecture and GitHub Pages compatibility.
+- Preserved consent/assent/legal wording and consent flow behavior.
+- Preserved course URLs, nav labels, external links, form hooks, course content, and existing localStorage keys.
+
+What changed:
+- Added tighter semantic UI tokens and background/surface polish for the dark AI-learning identity.
+- Improved hero/orbit containment, typography hierarchy, card surfaces, focus-visible states, hover/active states, mobile stacking, and reduced-motion behavior.
+- Reworked orbit radius calculation to respond to rendered stage size and resize events.
+- Added deterministic detail-card reveal behavior when motion is off.
+- Reduced-motion now disables pseudo-element animations and prevents re-enabling motion when OS prefers reduced motion.
+
+Verification completed before commit/push:
+- git diff --check -- index.html passed.
+- Inline JS was extracted to /tmp/learnai-index-inline.js and node --check passed.
+- Local static server browser checks completed on index desktop/mobile.
+- Checked Week 3 slide page and claude-code-course.html load under the static server.
+- Checked focus visibility for orbit nodes, detail controls, post-test button, motion toggle, and consent modal controls.
+- Checked reduced-motion emulation.
+- Bounded Codex review gate found no blocking issues.
+
+Artifacts:
+- Screenshots saved under .playwright-mcp/: learnai-ui-patch-2026-07-31-index-desktop.png, learnai-ui-patch-2026-07-31-index-mobile.png, learnai-ui-patch-2026-07-31-index-mobile-detail.png.
+- Temporary static server on port 4173 was stopped.
+
+Open local state:
+- progress.md remains locally dirty due to handoff checkpoint entries.
+- Pre-existing untracked files remain untouched: CLAUDE.md, docs/superpowers/audit-2026-05-21-deck-review.md, image/, sos-talk-may12.html, ui.txt.
+
+### Working tree (`git status --short`)
+
+```text
+ M progress.md
+?? CLAUDE.md
+?? docs/superpowers/audit-2026-05-21-deck-review.md
+?? image/
+?? sos-talk-may12.html
+?? ui.txt
+```
+
+### Unstaged diff (`git diff --stat`)
+
+```text
+ progress.md | 155 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 155 insertions(+)
+```
+
+### Staged diff (`git diff --cached --stat`)
+
+_none_
+
+### Latest commit (`git show --stat --oneline HEAD`)
+
+```text
+6afa05e Polish LearnAI course hub UI
+ index.html | 179 ++++++++++++++++++++++++++++++++++++++++---------------------
+ 1 file changed, 118 insertions(+), 61 deletions(-)
+```
+
+---
+
+## 2026-07-31 15:58:22 EDT — Codex
+
+- **Branch:** `slide-redesign-2026-05`
+- **HEAD:** `ee3958a` — Add optional AI course resources
+- **Upstream:** origin/slide-redesign-2026-05 — ahead 0, behind 0
+
+### Summary
+
+Q is restarting the session.
+
+Current branch/HEAD:
+- Branch: slide-redesign-2026-05
+- HEAD: ee3958a — Add optional AI course resources
+- Remote status: ee3958a is pushed to origin/slide-redesign-2026-05.
+
+Completed immediately before restart:
+- Installed Taste Skill / design-taste-frontend for both agents:
+  - Codex: /Users/oreo/.codex/skills/design-taste-frontend/SKILL.md
+  - Claude Code: /Users/oreo/.claude/skills/design-taste-frontend/SKILL.md
+- Committed and pushed Q-approved course resource additions in ee3958a.
+- Validation before commit passed: git diff --check, inline JS parse, concrete local link checks, external URL checks, section counts, and bounded Codex diff review.
+- No consent/assent files were modified. No Playwright/browser automation was used.
+
+Recommended next task after restart:
+- Use Taste Skill in redesign-preserve mode to improve the web app UI.
+- Start with an audit, not edits: brand tokens, information architecture, hero/course hub rhythm, repeated card patterns, typography, spacing, mobile/nav behavior, contrast, and content density.
+- Preserve course URLs, primary nav labels, consent/legal copy, accessibility wins, and existing teaching content unless Q explicitly approves changes.
+
+Open local state:
+- progress.md is locally dirty only because of checkpoint entries written after the pushed commit.
+- Existing untracked workspace files remain untouched: CLAUDE.md, docs/superpowers/audit-2026-05-21-deck-review.md, image/, sos-talk-may12.html, ui.txt.
+
+### Working tree (`git status --short`)
+
+```text
+ M progress.md
+?? CLAUDE.md
+?? docs/superpowers/audit-2026-05-21-deck-review.md
+?? image/
+?? sos-talk-may12.html
+?? ui.txt
+```
+
+### Unstaged diff (`git diff --stat`)
+
+```text
+ progress.md | 82 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 82 insertions(+)
+```
+
+### Staged diff (`git diff --cached --stat`)
+
+_none_
+
+### Latest commit (`git show --stat --oneline HEAD`)
+
+```text
+ee3958a Add optional AI course resources
+ index.html                                  |  12 +-
+ progress.md                                 | 610 ++++++++++++++++++++++++++++
+ teacher-training-ai-fluency.html            |  58 +++
+ week-02-agent-foundations.html              |  17 +
+ week-03-responsible-ai-decisions.html       | 163 +++++++-
+ week-06-media-generation-presentations.html |  26 +-
+ week-08-web-basics-design.html              |   6 +-
+ week-11-knowledge-career-evidence.html      |  29 ++
+ week-13-security-review-lab.html            |   2 +
+ week-14-final-showcase.html                 |   3 +
+ 10 files changed, 915 insertions(+), 11 deletions(-)
+```
+
+---
+
+## 2026-07-31 15:57:15 EDT — Codex
+
+- **Branch:** `slide-redesign-2026-05`
+- **HEAD:** `ee3958a` — Add optional AI course resources
+- **Upstream:** origin/slide-redesign-2026-05 — ahead 0, behind 0
+
+### Summary
+
+Committed and pushed Q-approved course resource additions.
+
+Current branch/HEAD:
+- Branch: slide-redesign-2026-05
+- HEAD: ee3958a — Add optional AI course resources
+- Push status: pushed to origin/slide-redesign-2026-05 (af685ae..ee3958a).
+
+Committed changes:
+- index.html: course hub resources updated for Graphify, find-skills, CyberPPT, OpenDataLoader-PDF, claude-video, grill-with-docs, improve-codebase-architecture, and Impeccable placements.
+- week-02-agent-foundations.html: optional instructor demos for Graphify and find-skills.
+- week-03-responsible-ai-decisions.html: claim-calibration mini-lab and homework revision.
+- week-06-media-generation-presentations.html: optional HTML slide repair, CyberPPT workflow, and /watch/video workflow resources with setup/privacy/license boundaries.
+- week-08-web-basics-design.html: optional Impeccable design critique aid.
+- week-11-knowledge-career-evidence.html: optional video evidence, PDF extraction evidence, grill-with-docs instructor-guided critique, and safety wording for public/class-safe sources.
+- week-13-security-review-lab.html: optional improve-codebase-architecture resource with minimum-sufficient-fix framing.
+- week-14-final-showcase.html: optional final design critique resource.
+- teacher-training-ai-fluency.html: teacher-facing additions for claim calibration, Graphify, find-skills, grill-with-docs, improve-codebase-architecture, HTML Mender, CyberPPT, OpenDataLoader-PDF, claude-video, notebooklm-py, and Impeccable.
+- progress.md: prior checkpoint history through the commit was included.
+
+Verification before commit:
+- git diff --check passed.
+- Inline JS parse passed for changed HTML files.
+- Concrete local href/src checks passed after excluding index.html JS template placeholders.
+- Section counts checked for weekly slides and teacher training.
+- New/external resource URL checks returned HTTP 200.
+- No consent/assent files were modified.
+- Bounded Codex review of the full uncommitted diff returned: No blockers found.
+- No Playwright/browser automation used.
+
+Taste Skill note:
+- design-taste-frontend was read and is available in both Codex and Claude skill folders after restart.
+- Recommended next UI task: use Taste Skill in redesign-preserve mode. Audit brand tokens, IA, hero/course hub rhythm, card repetition, mobile/nav behavior, contrast, and content density before editing. Preserve course URLs, nav labels, consent/legal copy, accessibility wins, and existing teaching content unless Q approves changes.
+
+Open local status:
+- A fresh checkpoint entry was written after the push, so progress.md is dirty again locally by design.
+- Untracked workspace files remain untouched: CLAUDE.md, docs/superpowers/audit-2026-05-21-deck-review.md, image/, sos-talk-may12.html, ui.txt.
+
+### Working tree (`git status --short`)
+
+```text
+?? CLAUDE.md
+?? docs/superpowers/audit-2026-05-21-deck-review.md
+?? image/
+?? sos-talk-may12.html
+?? ui.txt
+```
+
+### Unstaged diff (`git diff --stat`)
+
+_none_
+
+### Staged diff (`git diff --cached --stat`)
+
+_none_
+
+### Latest commit (`git show --stat --oneline HEAD`)
+
+```text
+ee3958a Add optional AI course resources
+ index.html                                  |  12 +-
+ progress.md                                 | 610 ++++++++++++++++++++++++++++
+ teacher-training-ai-fluency.html            |  58 +++
+ week-02-agent-foundations.html              |  17 +
+ week-03-responsible-ai-decisions.html       | 163 +++++++-
+ week-06-media-generation-presentations.html |  26 +-
+ week-08-web-basics-design.html              |   6 +-
+ week-11-knowledge-career-evidence.html      |  29 ++
+ week-13-security-review-lab.html            |   2 +
+ week-14-final-showcase.html                 |   3 +
+ 10 files changed, 915 insertions(+), 11 deletions(-)
+```
+
+---
+
 ## 2026-07-31 15:48:10 EDT — Codex
 
 - **Branch:** `slide-redesign-2026-05`

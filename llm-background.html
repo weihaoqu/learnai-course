@@ -54,20 +54,22 @@ h1{font-size:32px;font-weight:800;margin-bottom:8px;background:linear-gradient(1
 
 <div class="container">
   <h1>How AI Actually Works</h1>
-  <p class="subtitle">Three videos that build your intuition for what happens inside an LLM &mdash; no math required, just watch in order.</p>
+  <p class="subtitle">Start with a short visual model of LLMs, then go deeper into training, attention, systems, and hands-on practice.</p>
 
-  <!-- VIDEO 1: LLM Architectures (D) -->
+  <!-- VIDEO 1: 3Blue1Brown LLM intro -->
   <div class="video-section">
-    <h2><span class="step-badge" style="background:rgba(59,130,246,0.2);color:var(--blue-light)">1</span> The Surprisingly Simple Idea Behind Every LLM</h2>
-    <p class="desc">Start here. Modern LLM chatbots like ChatGPT, Claude, and Gemini generate responses by predicting the next token, one step at a time. This video makes that idea concrete and visual.</p>
+    <h2><span class="step-badge" style="background:rgba(59,130,246,0.2);color:var(--blue-light)">1</span> Large Language Models Explained Briefly</h2>
+    <p class="desc">Start here. This short 3Blue1Brown explainer gives the cleanest first mental model: a chatbot completes a conversation by repeatedly predicting likely next tokens from the current context.</p>
     <div class="video-embed">
-      <iframe src="https://www.youtube.com/embed/SHAI7pG3qI8" title="The Surprisingly Simple Idea Behind Every LLM" frameborder="0" allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture" allowfullscreen></iframe>
+      <iframe src="https://www.youtube.com/embed/LPZh9BOjkQs" title="Large Language Models explained briefly" frameborder="0" allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture" allowfullscreen></iframe>
     </div>
-    <p style="font-size:13px;color:var(--muted)">14:34 &middot; Attention Visualized &middot; 30K+ views</p>
+    <p style="font-size:13px;color:var(--muted)">7:58 &middot; 3Blue1Brown &middot; Short visual foundation</p>
     <div class="watch-for">
-      <div class="watch-card"><div class="ic">&#128172;</div><h4>Autocomplete on steroids</h4><p>LLMs choose the most probable next token &mdash; that's it.</p></div>
-      <div class="watch-card"><div class="ic">&#127919;</div><h4>Probability, not truth</h4><p>Output is shaped by patterns in training data, not direct access to facts.</p></div>
-      <div class="watch-card"><div class="ic">&#128260;</div><h4>One word at a time</h4><p>ChatGPT streams because it literally computes one token per step.</p></div>
+      <div class="watch-card"><div class="ic">&#128172;</div><h4>Script completion</h4><p>A chatbot answer can be framed as completing a dialogue, one token at a time.</p></div>
+      <div class="watch-card"><div class="ic">&#127919;</div><h4>Probability, not certainty</h4><p>The model scores many possible next tokens, then the system chooses from those scores.</p></div>
+      <div class="watch-card"><div class="ic">&#127922;</div><h4>Sampling creates variety</h4><p>Allowing less likely tokens can make answers feel natural, but also less repeatable.</p></div>
+      <div class="watch-card"><div class="ic">&#128295;</div><h4>Training shapes behavior</h4><p>Pretraining learns broad patterns; later feedback helps shape assistant behavior.</p></div>
+      <div class="watch-card"><div class="ic">&#128279;</div><h4>Attention adds context</h4><p>Transformer attention lets token representations adjust using nearby context.</p></div>
     </div>
   </div>
 

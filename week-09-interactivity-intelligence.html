@@ -108,19 +108,61 @@ input:focus,select:focus,textarea:focus{border-color:rgba(34,211,238,.85);box-sh
     <div class="inner">
       <div class="kicker">60-minute build studio</div>
       <h1>Add behavior to your Week 8 app.</h1>
-      <p class="lede">Week 8 produced a one-screen app brief. Week 9 turns that brief into a working interaction: inputs, a button, validation, simple rules, an output card, and test cases.</p>
+      <p class="lede">Week 8 produced a one-screen app brief. Week 9 turns that brief into a working interaction: inputs, a button, validation, simple rules, an output card, test cases, and concrete bug reports.</p>
       <div class="grid three">
         <div class="card cyan"><span class="tag">In class</span><p>Use Study Break Picker as the shared demo, then adapt the pattern to each student's app.</p></div>
         <div class="card green"><span class="tag">Boundary</span><p>Frontend only. No backend, database, login, public posting, API keys, or private student data.</p></div>
-        <div class="card gold"><span class="tag">Artifact</span><p>Week 9 Interactive Feature Brief: feature, rules, validation, output, test cases, and agent prompt.</p></div>
+        <div class="card gold"><span class="tag">Artifact</span><p>Week 9 Interactive Feature Brief: feature, rules, validation, expected/actual test evidence, bug report, and code understanding note.</p></div>
       </div>
       <div class="teacher-note">Pacing: 4 minutes. Say explicitly that edit/build actions are allowed only after human approval and verification. Week 9 is not an API-key lesson.</div>
     </div>
   </section>
 
-  <section class="slide" data-part="Bridge" data-title="Week 8 to Week 9" inert aria-hidden="true">
+  <section class="slide" data-part="Bridge" data-title="Feature and bug loop" inert aria-hidden="true">
     <div class="inner">
       <div class="timebox">4-10 min</div>
+      <h2>The app-building loop: add one feature, test, report what happened.</h2>
+      <p class="lede">Specific prompts make AI output more predictable. Specific bug reports make fixes more likely.</p>
+      <div class="flow">
+        <div class="step"><strong>Choose</strong><p>Pick one or two changes: a field, button, copy action, theme, or output behavior.</p></div>
+        <div class="step"><strong>Specify</strong><p>Name exact labels, behavior, and constraints. Avoid "make it cooler" by itself.</p></div>
+        <div class="step"><strong>Test</strong><p>Run a normal case and an edge case. Record expected and actual behavior.</p></div>
+        <div class="step"><strong>Report</strong><p>Tell the agent what you clicked, what you expected, and what actually happened.</p></div>
+        <div class="step"><strong>Explain</strong><p>Before accepting the fix, explain one generated HTML, CSS, or JavaScript section.</p></div>
+      </div>
+      <div class="grid three">
+        <div class="card green"><h3>Feature prompt</h3><p>Add an "I'm Feeling Lucky" button that fills the app's fields with funny predefined examples. Keep it frontend-only.</p></div>
+        <div class="card gold"><h3>Bug report prompt</h3><p>When I click Generate, I expected an output card, but nothing changes on the page. Please inspect the button click and output rendering before editing.</p></div>
+        <div class="card cyan"><h3>Visual polish prompt</h3><p>Make the app fully responsive and mobile-friendly. Fix alignment and padding, center the score display, and remove the "/100" label. Do not remove existing functionality. Keep it static.</p></div>
+      </div>
+      <div class="card warn" style="margin-top:16px;min-height:0">
+        <h3>Scope reminder</h3>
+        <p>The SEO analyzer is a case-study pattern for testing and follow-up prompts. In this course, students polish static prototypes unless a backend is explicitly approved.</p>
+      </div>
+      <div class="teacher-note">This slide borrows the Andrew Ng app-customization idea: precise feature requests, test the result, and describe observed failure instead of saying "it is broken."</div>
+    </div>
+  </section>
+
+  <section class="slide" data-part="Bridge" data-title="Vibe coding discipline" inert aria-hidden="true">
+    <div class="inner">
+      <div class="timebox">10-14 min</div>
+      <h2>Vibe coding still needs engineering discipline.</h2>
+      <p class="lede">Letting an agent write code can be fast. The student still owns the plan, context, tests, and approval.</p>
+      <div class="grid three">
+        <div class="card cyan"><h3>One task</h3><p>Ask for one small feature or fix. Split complex ideas before handing them to the agent.</p></div>
+        <div class="card green"><h3>Relevant context</h3><p>Include the app goal, current behavior, screenshots for visual bugs, visible error text, and the exact problem you want solved.</p></div>
+        <div class="card gold"><h3>Test checkpoint</h3><p>After each change, run a normal case and an edge case before adding the next feature.</p></div>
+        <div class="card warn"><h3>Stop when broken</h3><p>If a change breaks the app, report what happened and fix that before stacking on more changes.</p></div>
+        <div class="card warn"><h3>Explain before accepting</h3><p>Do not accept code you cannot explain at least partly in your own words.</p></div>
+        <div class="card green"><h3>Agent vs assistant</h3><p>Use a fuller agent pass for structural changes. Use a quick assistant/edit pass for small fixes. Start a new chat when context gets noisy.</p></div>
+      </div>
+      <div class="teacher-note">Inspired by DeepLearning.AI / Replit's Vibe Coding 101. Replit is optional and cloud/account-based; this course remains static-site-first and tool-agnostic.</div>
+    </div>
+  </section>
+
+  <section class="slide" data-part="Bridge" data-title="Week 8 to Week 9" inert aria-hidden="true">
+    <div class="inner">
+      <div class="timebox">14-18 min</div>
       <h2>Your Week 8 brief already contains the Week 9 feature map.</h2>
       <p class="lede">Do not restart the project. Translate the design brief into code responsibilities.</p>
       <div class="flow">
@@ -136,7 +178,7 @@ input:focus,select:focus,textarea:focus{border-color:rgba(34,211,238,.85);box-sh
 
   <section class="slide" id="demo" data-part="Demo" data-title="Study Break Picker" inert aria-hidden="true">
     <div class="inner">
-      <div class="timebox">10-24 min</div>
+      <div class="timebox">18-29 min</div>
       <h2>Demo: Study Break Picker.</h2>
       <p class="lede">A simple app can feel intelligent without a model API. It reads inputs, checks for missing information, applies rules, and renders a useful output.</p>
       <div class="demo-layout">
@@ -158,7 +200,7 @@ input:focus,select:focus,textarea:focus{border-color:rgba(34,211,238,.85);box-sh
 
   <section class="slide" data-part="Concept" data-title="Interaction pipeline" inert aria-hidden="true">
     <div class="inner">
-      <div class="timebox">24-32 min</div>
+      <div class="timebox">29-35 min</div>
       <h2>The interaction pipeline has five parts.</h2>
       <p class="lede">Students do not need to memorize syntax first. They need a mental model they can use when prompting and reviewing an agent.</p>
       <div class="pipeline-buttons" role="group" aria-label="Interaction pipeline parts">
@@ -175,7 +217,7 @@ input:focus,select:focus,textarea:focus{border-color:rgba(34,211,238,.85);box-sh
 
   <section class="slide" data-part="Concept" data-title="Simple intelligence" inert aria-hidden="true">
     <div class="inner">
-      <div class="timebox">32-40 min</div>
+      <div class="timebox">35-40 min</div>
       <h2>Simple intelligence means bounded rules, not hidden magic.</h2>
       <p class="lede">For Week 9, intelligence can be a decision table, scoring rule, category match, template, checklist, or random choice inside safe boundaries.</p>
       <table class="rule-table">
@@ -197,7 +239,7 @@ input:focus,select:focus,textarea:focus{border-color:rgba(34,211,238,.85);box-sh
     <div class="inner">
       <div class="timebox">40-50 min</div>
       <h2>Ask your agent for one adaptive feature.</h2>
-      <p class="lede">Students can use Claude Code or Codex. The important move is to give the agent a small feature contract and then approve or reject its edits after review.</p>
+      <p class="lede">Students can use Claude Code or Codex. The important move is to ask for a small, specific feature and then approve or reject its edits after review.</p>
       <div class="builder-layout">
         <div class="card">
           <div class="form">
@@ -231,6 +273,14 @@ input:focus,select:focus,textarea:focus{border-color:rgba(34,211,238,.85);box-sh
         </div>
         <div class="preview" id="testPreview" tabindex="0"></div>
       </div>
+      <div class="card gold" style="margin-top:16px">
+        <h3>If a test fails, write a concrete bug report</h3>
+        <p>Use this pattern: "When I [action], I expected [result], but [actual behavior]. Please inspect the input, event, validation, state, rule, and output flow before editing." If no bug appears, record one edge case that passed.</p>
+      </div>
+      <div class="card warn" style="margin-top:16px">
+        <h3>Advanced case-study pattern: parks ranker</h3>
+        <p>If a complex app has data, voting, rankings, and persistence, debug one link at a time: verify the provided data count and source, then the vote event, then the ranking update, then persistence. This is optional advanced analysis, not required database work.</p>
+      </div>
       <div class="teacher-note">Require at least one failed or edge case. This teaches students to verify behavior instead of admiring the first working demo.</div>
     </div>
   </section>
@@ -250,6 +300,12 @@ input:focus,select:focus,textarea:focus{border-color:rgba(34,211,238,.85);box-sh
         <label class="checkitem"><input type="checkbox"><span>The feature works with three test cases.</span></label>
         <label class="checkitem"><input type="checkbox"><span>The validation message is helpful and not judgmental.</span></label>
         <label class="checkitem"><input type="checkbox"><span>The output is advice-light: useful, bounded, and easy to reject.</span></label>
+        <label class="checkitem"><input type="checkbox"><span>Any bug report describes expected behavior and actual behavior.</span></label>
+        <label class="checkitem"><input type="checkbox"><span>The student can explain one generated code section in plain language.</span></label>
+      </div>
+      <div class="card gold" style="margin-top:16px;min-height:0">
+        <h3>Ask for an architecture explanation</h3>
+        <p>Prompt the assistant: "Help me understand how this project works." If your project has folders like <code>client</code>, <code>server</code>, or <code>shared</code>, ask what each folder does. Before accepting more changes, explain one key file, framework, or code path in your own words.</p>
       </div>
     </div>
   </section>
@@ -268,6 +324,8 @@ input:focus,select:focus,textarea:focus{border-color:rgba(34,211,238,.85);box-sh
             <label>Rules or template<textarea id="exRules" placeholder="How does the app decide what to show?"></textarea></label>
             <label>Validation<textarea id="exValidation" placeholder="What happens when input is missing or invalid?"></textarea></label>
             <label>Test evidence<textarea id="exTests" placeholder="List three test cases and results."></textarea></label>
+            <label>Bug report or edge-case note<textarea id="exBug" placeholder="If something failed, describe expected vs actual behavior. If nothing failed, describe one edge case that passed."></textarea></label>
+            <label>Code understanding note<textarea id="exUnderstand" placeholder="Name one generated HTML, CSS, or JavaScript section you can explain."></textarea></label>
             <label>Human review note<textarea id="exReview" placeholder="What AI suggestion did you verify, change, or reject?"></textarea></label>
             <button class="btn primary" id="copyExit">Copy feature brief</button>
           </div>
@@ -283,12 +341,14 @@ input:focus,select:focus,textarea:focus{border-color:rgba(34,211,238,.85);box-sh
       <h2>Homework: revise, build, test.</h2>
       <p class="lede">Use your Week 8 App Design Brief plus the Week 9 feature contract. Build one frontend interaction and submit evidence.</p>
       <div class="grid">
-        <div class="card"><h3>Required</h3><p>Submit your Week 9 Interactive Feature Brief, three test cases, and a short note explaining one AI edit you accepted, changed, or rejected.</p></div>
+        <div class="card"><h3>Required</h3><p>Submit your Week 9 Interactive Feature Brief, three test cases, one expected-vs-actual bug/fix note or no-bug edge-case note, and a short explanation of one code section.</p></div>
         <div class="card"><h3>Allowed tools</h3><p>Claude Code or Codex. Same task, different agent track. Use human approval before accepting edits.</p></div>
         <div class="card"><h3>Not allowed yet</h3><p>No API keys in browser code, no backend, no login, no database, no private data, and no public posting requirement.</p></div>
-        <div class="card"><h3>Reference</h3><p>Use MDN for vocabulary and reference around JavaScript events, inputs, and buttons.</p></div>
+        <div class="card"><h3>Reference</h3><p>Use the app-customization lesson for feature prompting if you can access it; it may require a DeepLearning.AI account. MDN is the open vocabulary reference for JavaScript events, inputs, and buttons.</p></div>
       </div>
       <div class="resource-links">
+        <a class="link-btn" href="https://learn.deeplearning.ai/courses/build-with-andrew/lesson/puvdb0/customize-your-app" target="_blank" rel="noopener noreferrer" aria-label="Open DeepLearning.AI Customize your app lesson, may require an account, opens in a new tab">DeepLearning.AI customize app lesson</a>
+        <a class="link-btn" href="https://www.deeplearning.ai/courses/vibe-coding-101-with-replit" target="_blank" rel="noopener noreferrer" aria-label="Open optional DeepLearning.AI Replit vibe coding course, opens in a new tab">Optional Replit vibe coding course</a>
         <a class="link-btn" href="https://developer.mozilla.org/en-US/docs/Learn_web_development/Core/Scripting/Events" target="_blank" rel="noopener noreferrer" aria-label="Open MDN introduction to events, opens in a new tab">MDN events reference</a>
         <a class="link-btn" href="claude-code-course.html">Course web-building resource</a>
       </div>
@@ -510,12 +570,18 @@ ${value('exValidation','[validation behavior]')}
 Test evidence:
 ${value('exTests','[three tests and results]')}
 
+Bug report or edge-case note:
+${value('exBug','[expected vs actual behavior, or one edge case that passed]')}
+
+Code understanding note:
+${value('exUnderstand','[one generated HTML, CSS, or JavaScript section you can explain]')}
+
 Human review note:
 ${value('exReview','[accepted, changed, or rejected AI suggestion]')}`;
   document.getElementById('exitPreview').textContent = text;
   return text;
 }
-['exTitle','exFeature','exInputEvent','exRules','exValidation','exTests','exReview'].forEach(id => document.getElementById(id).addEventListener('input', updateExit));
+['exTitle','exFeature','exInputEvent','exRules','exValidation','exTests','exBug','exUnderstand','exReview'].forEach(id => document.getElementById(id).addEventListener('input', updateExit));
 document.getElementById('copyExit').addEventListener('click', () => copyText(updateExit(), document.getElementById('exitPreview')));
 
 const hashIndex = location.hash ? slides.findIndex(s => `#${s.id}` === location.hash) : -1;

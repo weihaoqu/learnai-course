@@ -121,7 +121,7 @@ input:focus,select:focus,textarea:focus{border-color:rgba(96,165,250,.85);box-sh
 
   <section class="slide" data-part="Map" data-title="Build path" inert aria-hidden="true">
     <div class="inner">
-      <div class="timebox">4-10 min</div>
+      <div class="timebox">4-9 min</div>
       <h2>The Week 10 path has six checkpoints.</h2>
       <p class="lede">Deployment should happen as a checkpoint, not as a rushed final click.</p>
       <div class="flow">
@@ -136,9 +136,38 @@ input:focus,select:focus,textarea:focus{border-color:rgba(96,165,250,.85);box-sh
     </div>
   </section>
 
+  <section class="slide" data-part="Map" data-title="Checkpoint discipline" inert aria-hidden="true">
+    <div class="inner">
+      <div class="timebox">9-14 min</div>
+      <h2>Protect the last working version.</h2>
+      <p class="lede">Fast AI-assisted building works only if students preserve stable states. Do not pile new features onto broken code.</p>
+      <div class="grid three">
+        <div class="card green"><h3>1. Make one change</h3><p>Ask the agent for one small completion or polish task, not a bundle of unrelated features.</p></div>
+        <div class="card blue"><h3>2. Test immediately</h3><p>Run the normal case, edge case, privacy check, and usability check before continuing.</p></div>
+        <div class="card gold"><h3>3. Save a checkpoint</h3><p>When it works, save or commit that state before starting the next change.</p></div>
+        <div class="card warn"><h3>4. Stop if broken</h3><p>If the app fails, debug that failure first. Record expected behavior, actual behavior, and any error text.</p></div>
+        <div class="card warn"><h3>5. Roll back when needed</h3><p>If the fix path gets messy, return to the last working version and try a smaller prompt.</p></div>
+        <div class="card green"><h3>6. Explain the diff</h3><p>Before submitting, explain the change the agent made and why it improved the app.</p></div>
+      </div>
+      <div class="card warn" style="margin-top:16px;min-height:0">
+        <h3>Advanced case: SEO analyzer</h3>
+        <p>A live SEO analyzer that fetches arbitrary websites is a backend or proxy project. For Week 10, transfer the PRD, plan review, test, and checkpoint workflow, not the backend architecture, unless the instructor explicitly approves that scope.</p>
+      </div>
+      <div class="card warn" style="margin-top:16px;min-height:0">
+        <h3>Advanced case: persistent rankings</h3>
+        <p>If a database migration or deployment change breaks the app, roll back to the last working checkpoint and retry with a clearer prompt naming the current data source, target schema, data types, migrations, and verification checks. Persistent storage, Postgres, secrets, scraping, and migrations are outside the required static deployment path and require instructor approval.</p>
+      </div>
+      <div class="card gold" style="margin-top:16px;min-height:0">
+        <h3>Pre-deploy understanding check</h3>
+          <p>Before deploying an advanced full-stack app, ask: what data is stored, where secrets or environment variables live, what framework or database is used, and whether deployment reuses the same database or creates a new one. Required static projects should have no secrets in frontend code and should publish only HTML, CSS, JavaScript, and safe assets.</p>
+      </div>
+      <div class="teacher-note">This adapts the Replit course's checkpoint habit to our static-project workflow. Git commits, file copies, or platform checkpoints are all acceptable if students can identify the stable version.</div>
+    </div>
+  </section>
+
   <section class="slide" id="architecture" data-part="Part 1" data-title="Static architecture" inert aria-hidden="true">
     <div class="inner">
-      <div class="timebox">10-18 min</div>
+      <div class="timebox">14-21 min</div>
       <h2>Static app architecture is small on purpose.</h2>
       <p class="lede">A complete static project can be a single HTML file, or a small folder of public files. Every file that ships can be read by the browser.</p>
       <div class="deploy-map">
@@ -153,7 +182,7 @@ input:focus,select:focus,textarea:focus{border-color:rgba(96,165,250,.85);box-sh
 
   <section class="slide" id="readiness" data-part="Part 2" data-title="Readiness checker" inert aria-hidden="true">
     <div class="inner">
-      <div class="timebox">18-28 min</div>
+      <div class="timebox">21-30 min</div>
       <h2>Check whether the project is ready to deploy.</h2>
       <p class="lede">Click only the statements that are true for the current app. The goal is to find gaps before the app is public.</p>
       <div class="split">
@@ -177,7 +206,7 @@ input:focus,select:focus,textarea:focus{border-color:rgba(96,165,250,.85);box-sh
 
   <section class="slide" id="storage" data-part="Part 3" data-title="Optional browser storage" inert aria-hidden="true">
     <div class="inner">
-      <div class="timebox">28-36 min</div>
+      <div class="timebox">30-37 min</div>
       <h2>Optional: save non-sensitive state in the browser.</h2>
       <p class="lede">Use Web Storage only for harmless prototype state, such as theme choice, fictional examples, or a draft checklist. It is not secure storage.</p>
       <div class="split">
@@ -202,9 +231,9 @@ localStorage.removeItem("learnai-week10-demo");</div>
 
   <section class="slide" id="deploy" data-part="Part 4" data-title="Deployment plan" inert aria-hidden="true">
     <div class="inner">
-      <div class="timebox">36-45 min</div>
+      <div class="timebox">37-45 min</div>
       <h2>Deployment means making public files available at a link.</h2>
-      <p class="lede">For this course, deployment means static hosting. If account setup blocks deployment, students use the fallback path and still learn the checklist.</p>
+      <p class="lede">For this course, deployment means static hosting. It is a snapshot of the current working app; later changes need another publish step. If account setup blocks deployment, students use the fallback path and still learn the checklist.</p>
       <div class="builder-layout">
         <div class="card">
           <div class="form">
@@ -219,6 +248,10 @@ localStorage.removeItem("learnai-week10-demo");</div>
       </div>
       <div class="resource-links">
         <a class="link-btn" href="https://docs.github.com/en/pages/quickstart" target="_blank" rel="noopener noreferrer" aria-label="Open GitHub Pages quickstart, opens in a new tab">GitHub Pages quickstart</a>
+      </div>
+      <div class="card gold" style="margin-top:16px;min-height:0">
+        <h3>Cloud-platform caveat</h3>
+        <p>Tools such as Replit can deploy a full-stack app, but deployment access may depend on the account or paid plan. Our required path remains static hosting or the fallback packet.</p>
       </div>
     </div>
   </section>
@@ -301,7 +334,9 @@ localStorage.removeItem("learnai-week10-demo");</div>
         <a class="link-btn" href="https://developer.mozilla.org/en-US/docs/Web/API/Web_Storage_API" target="_blank" rel="noopener noreferrer" aria-label="Open MDN Web Storage API reference, opens in a new tab">MDN Web Storage API</a>
         <a class="link-btn" href="https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage" target="_blank" rel="noopener noreferrer" aria-label="Open MDN localStorage reference, opens in a new tab">MDN localStorage</a>
         <a class="link-btn" href="https://pair.withgoogle.com/guidebook-v2/" target="_blank" rel="noopener noreferrer" aria-label="Open Google PAIR Guidebook, opens in a new tab">Google PAIR Guidebook</a>
+        <a class="link-btn" href="https://www.deeplearning.ai/courses/vibe-coding-101-with-replit" target="_blank" rel="noopener noreferrer" aria-label="Open optional DeepLearning.AI Replit vibe coding course, opens in a new tab">Optional Replit vibe coding course</a>
       </div>
+      <p class="muted" style="margin-top:14px">Replit is one possible cloud environment for AI-assisted app building; this course remains static-site-first and tool-agnostic.</p>
     </div>
   </section>
 </main>

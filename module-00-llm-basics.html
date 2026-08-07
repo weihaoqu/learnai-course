@@ -37,6 +37,7 @@ li{margin:8px 0}
 .muted{color:var(--faint);font-size:16px}
 .grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px;margin-top:28px}
 .grid.three{grid-template-columns:repeat(3,minmax(0,1fr))}
+.grid.four{grid-template-columns:repeat(4,minmax(0,1fr))}
 .card{background:rgba(16,20,38,.82);border:1px solid var(--line);border-radius:16px;padding:22px}
 .card h3{font-size:22px}
 .tag{display:inline-flex;border:1px solid rgba(255,255,255,.14);border-radius:999px;padding:7px 11px;color:#dbeafe;font-size:13px;font-weight:800;margin-bottom:12px;background:rgba(255,255,255,.04)}
@@ -148,7 +149,7 @@ body.notes-on .teacher-note{display:block}
 .print-only{display:none}
 @media(max-width:760px){
   .slide{justify-content:flex-start;padding:76px 22px 230px}
-  .grid,.grid.three{grid-template-columns:1fr}
+  .grid,.grid.three,.grid.four{grid-template-columns:1fr}
   .context-grid,.think-box,.story-strip,.scenario-demo,.email-lab,.email-columns,.sort-grid{grid-template-columns:1fr}
   .reveal-grid{grid-template-columns:1fr}
   .prob-row{grid-template-columns:88px minmax(0,1fr) 48px;font-size:14px}
@@ -220,6 +221,21 @@ body.notes-on .teacher-note{display:block}
       <p class="muted" style="margin-top:16px">Reflection: which human skill becomes more important when AI can generate drafts, code, images, and analysis?</p>
       <p style="margin-top:12px"><a href="course-case-bank.html#week-1">Open Week 1 case hooks</a></p>
       <div class="teacher-note">Pacing: 5-7 minutes. Keep this as motivation, not a career lecture. Revisit the same cases later in Week 8, Week 11, and Week 14.</div>
+    </div>
+  </section>
+
+  <section class="slide" id="genai-jobs" data-part="Open" data-title="GenAI job map">
+    <div class="inner">
+      <div class="kicker">Vocabulary map</div>
+      <h2>Generative AI can create, read, and chat.</h2>
+      <p class="lede">Generative AI systems can produce text, images, and audio. In this course, we focus on LLMs, which are especially useful for text-heavy work.</p>
+      <div class="grid three">
+        <div class="card"><span class="tag">Writing</span><p>Generate, revise, explain, brainstorm, change tone, or format text.</p></div>
+        <div class="card"><span class="tag">Reading</span><p>Turn a long input into a shorter judgment, summary, label, or checklist.</p></div>
+        <div class="card"><span class="tag">Chatting</span><p>Use back-and-forth context to clarify goals, ask follow-up questions, or run a specialized assistant.</p></div>
+      </div>
+      <div class="formula">writing = create text | reading = long input -> short output | chatting = back-and-forth context</div>
+      <div class="teacher-note">Pacing: 4 minutes. Use this as vocabulary before the email example. Do not turn this into a business-impact lecture; the goal is to classify tasks students will actually try.</div>
     </div>
   </section>
 
@@ -602,6 +618,21 @@ body.notes-on .teacher-note{display:block}
     </div>
   </section>
 
+  <section class="slide" data-part="Hour 1" data-title="Fresh-grad heuristic">
+    <div class="inner">
+      <div class="kicker">Useful heuristic</div>
+      <h2>Ask: could a new graduate do this from the prompt alone?</h2>
+      <p class="lede">This is only a heuristic, not a claim that models think like people. It helps students decide whether the task needs more context, a tool, or human review.</p>
+      <div class="grid three">
+        <div class="card"><h3>Likely promptable</h3><p>Proofread a paragraph, summarize a pasted article, translate a short note, or classify a message when the rule is clear.</p></div>
+        <div class="card"><h3>Needs context</h3><p>Write about a specific company, policy, current event, project file, or local deadline only after the relevant source is provided.</p></div>
+        <div class="card"><h3>Needs stronger checks</h3><p>Structured prediction, legal or health claims, private data, biased output, and external actions need tools, evidence, or human approval.</p></div>
+      </div>
+      <div class="formula">promptable task -> draft | missing context -> provide source | external impact -> review</div>
+      <div class="teacher-note">Use this to prevent two extremes: blind trust and blanket dismissal. The heuristic is useful because it asks what information the task actually requires.</div>
+    </div>
+  </section>
+
   <section class="slide quiz" data-part="Hour 1" data-title="Quiz">
     <div class="inner">
       <div class="kicker">Quick check</div>
@@ -820,6 +851,22 @@ body.notes-on .teacher-note{display:block}
         <div class="sort-card"><b>Agent</b><p>Loops through draft, check, revise, and asks before sending.</p></div>
       </div>
       <p class="muted">Deliverable: one real app you use, labeled with which parts are model, interface, tools, and human approval.</p>
+    </div>
+  </section>
+
+  <section class="slide" id="chatbot-spectrum" data-part="Hour 3" data-title="Chatbot automation spectrum">
+    <div class="inner">
+      <div class="kicker">Chatbot design choices</div>
+      <h2>Customer-facing bots should move through review levels.</h2>
+      <p class="lede">The more a bot can affect people or outside systems, the more review it needs before the action happens.</p>
+      <div class="grid four">
+        <div class="card"><h3>Human only</h3><p>A staff member writes every reply. Slow, but judgment stays fully human.</p></div>
+        <div class="card"><h3>Bot drafts</h3><p>The bot suggests a reply; a human approves or edits before sending.</p></div>
+        <div class="card"><h3>Bot triages</h3><p>The bot labels easy tickets, routes refund requests, or escalates uncertain cases.</p></div>
+        <div class="card"><h3>Bot acts</h3><p>The system resets a password, sends a message, or changes an account only inside strict rules.</p></div>
+      </div>
+      <div class="formula">safe rollout: internal test -> human-in-the-loop -> limited direct action</div>
+      <div class="teacher-note">Tie this to agent guardrails. A chatbot that only drafts text is different from a chatbot that can change an account or contact a customer.</div>
     </div>
   </section>
 

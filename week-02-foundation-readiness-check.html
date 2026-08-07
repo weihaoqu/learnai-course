@@ -112,6 +112,8 @@ select:focus,input:focus,textarea:focus{border-color:rgba(94,230,168,.75);box-sh
   <div class="topbar-inner">
     <div class="brand">Weeks 1-2 Foundation Readiness Challenge</div>
     <nav class="nav" aria-label="Challenge sections">
+      <a href="#genai">GenAI</a>
+      <a href="#apps">Apps</a>
       <a href="#llm">LLM</a>
       <a href="#trace">Trace</a>
       <a href="#tools">Tools</a>
@@ -128,21 +130,143 @@ select:focus,input:focus,textarea:focus{border-color:rgba(94,230,168,.75);box-sh
     <h1>Check that you can use agents with evidence.</h1>
     <p class="lede">This is a readiness reflection with auto-check practice. It is not a trick exam. Use it to confirm that you understand LLM limits, agent loops, tool decisions, extensions, and safe setup before applied agent work begins.</p>
     <div class="meta">
-      <div class="meta-card"><strong>30-35 min</strong><span>Expected time</span></div>
-      <div class="meta-card"><strong>34 auto-check pts</strong><span>Plus instructor review</span></div>
+      <div class="meta-card"><strong>35-45 min</strong><span>Expected time</span></div>
+      <div class="meta-card"><strong>54 auto-check pts</strong><span>Plus instructor review</span></div>
       <div class="meta-card"><strong>1 setup proof</strong><span>Personal artifact</span></div>
       <div class="meta-card"><strong>Readiness signal</strong><span>Before Week 3</span></div>
     </div>
     <div class="callout">
-      <p><strong style="color:#fff">Completion rule:</strong> answer the auto-check sections, complete the review checklist, and submit the setup proof text. If the auto-check score is below 28/34, revisit Week 1 LLM foundations and Week 2 agent foundations before starting Week 3.</p>
+      <p><strong style="color:#fff">Completion rule:</strong> answer the auto-check sections, complete the review checklist, and submit the setup proof text. If the auto-check score is below 44/54, revisit Week 1 LLM foundations and Week 2 agent foundations before starting Week 3.</p>
     </div>
     <p class="print-note">Printed copy: students should circle selected answers and write setup proof responses by hand or attach a separate page.</p>
+  </section>
+
+  <section class="section" id="genai" data-section="GenAI foundations check">
+    <div class="section-head">
+      <div>
+        <div class="kicker">Challenge 1</div>
+        <h2>GenAI foundations check</h2>
+        <p>Use original scenarios to check the core Week 1 vocabulary before agent work begins.</p>
+      </div>
+      <div class="points">10 pts</div>
+    </div>
+    <div class="question" data-question data-points="2">
+      <p class="prompt">A friend says, "The chatbot learned from the internet, so its answer must be more trustworthy than a web page." What is the best response?</p>
+      <div class="choices">
+        <button class="choice" data-correct="false">Agree, because training data makes every answer authoritative.</button>
+        <button class="choice" data-correct="true">Push back: a generated answer can still be wrong, so important claims need trusted sources.</button>
+        <button class="choice" data-correct="false">Use the chatbot only if it gives a long explanation.</button>
+        <button class="choice" data-correct="false">Avoid all websites and only ask chatbots.</button>
+      </div>
+      <div class="feedback">LLMs can produce useful answers, but fluency is not authority. Important claims still need evidence.</div>
+    </div>
+    <div class="question" data-question data-points="2">
+      <p class="prompt">Why do instructors describe AI as a general-purpose technology?</p>
+      <div class="choices">
+        <button class="choice" data-correct="true">It can support many different kinds of work, not just one narrow task.</button>
+        <button class="choice" data-correct="false">It only works when everyone uses the same website.</button>
+        <button class="choice" data-correct="false">It is general because it never needs context.</button>
+        <button class="choice" data-correct="false">It is mainly a faster search box.</button>
+      </div>
+      <div class="feedback">General-purpose technologies matter because they can be applied across many tasks and workflows.</div>
+    </div>
+    <div class="question" data-question data-points="2">
+      <p class="prompt">A school wants incoming support emails automatically sorted into billing, tech help, and advising queues. Which design best matches that goal?</p>
+      <div class="choices">
+        <button class="choice" data-correct="false">Have staff copy and paste every email into a public chat website.</button>
+        <button class="choice" data-correct="true">Build or use software that integrates with the email system and routes messages automatically.</button>
+        <button class="choice" data-correct="false">Ask the LLM to write a policy about email without touching the workflow.</button>
+        <button class="choice" data-correct="false">Print the emails and sort them by hand after asking for a summary.</button>
+      </div>
+      <div class="feedback">Automation usually means an LLM is embedded in a software workflow with the right system access and review rules.</div>
+    </div>
+    <div class="question" data-question data-points="2">
+      <p class="prompt">Which description best matches generative AI?</p>
+      <div class="choices">
+        <button class="choice" data-correct="false">A spreadsheet formula that only sorts rows.</button>
+        <button class="choice" data-correct="false">A database that only stores documents.</button>
+        <button class="choice" data-correct="true">An AI system that can create new content such as text, images, audio, or code.</button>
+        <button class="choice" data-correct="false">A browser bookmark for opening a search engine.</button>
+      </div>
+      <div class="feedback">Generative AI is named for generating new content, including text and media.</div>
+    </div>
+    <div class="question" data-question data-points="2">
+      <p class="prompt">A chatbot answer appears on screen one piece at a time. What is the best simplified explanation?</p>
+      <div class="choices">
+        <button class="choice" data-correct="false">It picks words in random order and rearranges them later.</button>
+        <button class="choice" data-correct="false">It always searches the live web before each sentence.</button>
+        <button class="choice" data-correct="true">It uses the current context and learned patterns to predict likely next tokens repeatedly.</button>
+        <button class="choice" data-correct="false">It asks a human writing partner to complete the response.</button>
+      </div>
+      <div class="feedback">The core mental model is repeated next-token prediction from context and learned patterns.</div>
+    </div>
+  </section>
+
+  <section class="section" id="apps" data-section="GenAI applications check">
+    <div class="section-head">
+      <div>
+        <div class="kicker">Challenge 2</div>
+        <h2>GenAI applications check</h2>
+        <p>Check whether students can choose good prompts, realistic LLM tasks, and verification moves.</p>
+      </div>
+      <div class="points">10 pts</div>
+    </div>
+    <div class="question" data-question data-points="2">
+      <p class="prompt">A club asks AI, "Write copy for our new granola bar." Which revision gives the model the best chance to help?</p>
+      <div class="choices">
+        <button class="choice" data-correct="false">Make the same request but add "please be amazing."</button>
+        <button class="choice" data-correct="false">Ask for a longer answer without explaining where it will be used.</button>
+        <button class="choice" data-correct="true">Explain the audience, unique product details, intended channel, tone, and approximate length.</button>
+        <button class="choice" data-correct="false">Remove all product details so the AI can be more creative.</button>
+      </div>
+      <div class="feedback">Useful writing prompts include context, purpose, audience, tone, constraints, and output size.</div>
+    </div>
+    <div class="question" data-question data-points="2">
+      <p class="prompt">Which set of tasks is realistic for an LLM assistant in this course?</p>
+      <div class="choices">
+        <button class="choice" data-correct="true">Proofread a paragraph, summarize a pasted article, and translate a short note.</button>
+        <button class="choice" data-correct="false">Earn a degree, replace a teacher, and certify its own facts.</button>
+        <button class="choice" data-correct="false">Read private files it was never given and know every current event automatically.</button>
+        <button class="choice" data-correct="false">Guarantee legal, medical, and financial decisions without outside review.</button>
+      </div>
+      <div class="feedback">LLMs are useful for many language tasks, but they do not become credentialed humans or automatic authorities.</div>
+    </div>
+    <div class="question" data-question data-points="2">
+      <p class="prompt">You want grammar and style feedback on an essay draft. What is the best prompting workflow?</p>
+      <div class="choices">
+        <button class="choice" data-correct="false">Spend all your time trying to write the perfect first prompt before seeing any output.</button>
+        <button class="choice" data-correct="true">Start with a reasonable prompt, inspect the response, then refine the prompt based on what missed the mark.</button>
+        <button class="choice" data-correct="false">Use the shortest possible prompt and accept the first answer.</button>
+        <button class="choice" data-correct="false">Ask for hidden reasoning instead of giving task details.</button>
+      </div>
+      <div class="feedback">Prompting is iterative: try, inspect, clarify, and try again.</div>
+    </div>
+    <div class="question" data-question data-points="2">
+      <p class="prompt">A student asks a plain chatbot to summarize this morning's top campus news, but gives no links or articles. What is the main problem?</p>
+      <div class="choices">
+        <button class="choice" data-correct="false">The request has exactly ten items, so it is automatically structured-data work.</button>
+        <button class="choice" data-correct="false">The output is too short to be useful.</button>
+        <button class="choice" data-correct="true">The chatbot may not have live current information unless sources or a search tool are provided.</button>
+        <button class="choice" data-correct="false">Summaries are impossible for LLMs.</button>
+      </div>
+      <div class="feedback">Current facts require current sources or tools; model memory may stop at a training cutoff.</div>
+    </div>
+    <div class="question" data-question data-points="2">
+      <p class="prompt">An assistant gives you a polished quote attributed to a famous inventor for a presentation. What should you do before using it?</p>
+      <div class="choices">
+        <button class="choice" data-correct="false">Use it because polished wording means it is authentic.</button>
+        <button class="choice" data-correct="false">Ask the same chatbot whether it is sure and treat that as proof.</button>
+        <button class="choice" data-correct="true">Check reliable outside sources to confirm the quote and attribution.</button>
+        <button class="choice" data-correct="false">Reject every quote from AI, even if a reliable source confirms it.</button>
+      </div>
+      <div class="feedback">Quotations are easy to hallucinate. Verify the source before publishing or presenting.</div>
+    </div>
   </section>
 
   <section class="section" id="llm" data-section="LLM scenario checks">
     <div class="section-head">
       <div>
-        <div class="kicker">Challenge 1</div>
+        <div class="kicker">Challenge 3</div>
         <h2>LLM foundations under pressure</h2>
         <p>Choose the answer that best matches the Week 1 mental model.</p>
       </div>
@@ -193,7 +317,7 @@ select:focus,input:focus,textarea:focus{border-color:rgba(94,230,168,.75);box-sh
   <section class="section" id="trace" data-section="Agent transcript labeling">
     <div class="section-head">
       <div>
-        <div class="kicker">Challenge 2</div>
+        <div class="kicker">Challenge 4</div>
         <h2>Label the agent loop</h2>
         <p>Map each transcript line to the five-block model from Week 2.</p>
       </div>
@@ -270,7 +394,7 @@ select:focus,input:focus,textarea:focus{border-color:rgba(94,230,168,.75);box-sh
   <section class="section" id="tools" data-section="Tool decision gauntlet">
     <div class="section-head">
       <div>
-        <div class="kicker">Challenge 3</div>
+        <div class="kicker">Challenge 5</div>
         <h2>Choose the next safe move</h2>
         <p>Agents are useful because they can act. That also means the next action matters.</p>
       </div>
@@ -321,7 +445,7 @@ select:focus,input:focus,textarea:focus{border-color:rgba(94,230,168,.75);box-sh
   <section class="section" id="extensions" data-section="Extension selector">
     <div class="section-head">
       <div>
-        <div class="kicker">Challenge 4</div>
+        <div class="kicker">Challenge 6</div>
         <h2>Better prompt, skill, MCP, or plugin?</h2>
         <p>Read the scenario and choose the main mechanism. Each question includes enough context; this is not a vocabulary trap.</p>
       </div>
@@ -372,7 +496,7 @@ select:focus,input:focus,textarea:focus{border-color:rgba(94,230,168,.75);box-sh
   <section class="section" id="review" data-section="Review challenge">
     <div class="section-head">
       <div>
-        <div class="kicker">Challenge 5</div>
+        <div class="kicker">Challenge 7</div>
         <h2>Find the risks before accepting work</h2>
         <p>Select the review issues you would raise. This section is a practice checklist, not an auto-graded truth test.</p>
       </div>
@@ -405,7 +529,7 @@ I did not run tests, but the changes look correct.</div>
   <section class="section" id="setup" data-section="Setup proof builder">
     <div class="section-head">
       <div>
-        <div class="kicker">Challenge 6</div>
+        <div class="kicker">Challenge 8</div>
         <h2>Build your setup proof</h2>
         <p>Run the first safe prompt in Claude Code or Codex, then generate the text you will submit. Attach a screenshot separately in the course system.</p>
       </div>
@@ -450,7 +574,7 @@ I did not run tests, but the changes look correct.</div>
   <div class="score-inner">
     <div>
       <div class="bar" aria-hidden="true"><div class="fill" id="scoreFill"></div></div>
-      <div class="score-text" id="scoreText">Practice score: 0 / 34 auto-check points. Review challenge and setup proof are checked by the instructor.</div>
+      <div class="score-text" id="scoreText">Practice score: 0 / 54 auto-check points. Review challenge and setup proof are checked by the instructor.</div>
     </div>
     <button class="btn" id="resetBtn">Reset answers</button>
   </div>
@@ -480,7 +604,7 @@ function calculateScore() {
   });
   const percent = autoTotal ? Math.round((score / autoTotal) * 100) : 0;
   scoreFill.style.width = `${percent}%`;
-  const signal = score >= 28 ? 'Ready signal' : score >= 22 ? 'Review recommended' : 'Remediation recommended';
+  const signal = score >= 44 ? 'Ready signal' : score >= 35 ? 'Review recommended' : 'Remediation recommended';
   scoreText.textContent = `Practice score: ${score} / ${autoTotal} auto-check points. ${signal}. Review challenge and setup proof are checked by the instructor.`;
   updateTicket();
 }
