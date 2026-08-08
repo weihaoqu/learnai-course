@@ -73,6 +73,13 @@ li{margin:8px 0}
 body.notes-on .teacher-note{display:block}
 .source-note{margin-top:14px;color:#cbd5e1;font-size:14px;line-height:1.45}
 .source-note a{color:#c4b5fd;font-weight:800}
+#anti-sycophancy .compare-grid{margin-top:14px}
+#progressive-writing .writing-flow{grid-template-columns:repeat(5,minmax(0,1fr))}
+#progressive-writing .writing-targets{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px}
+#progressive-writing .writing-targets span{border:1px solid rgba(255,255,255,.14);background:rgba(255,255,255,.055);border-radius:999px;padding:8px 11px;color:#e5e7eb;font-size:14px;font-weight:800}
+#rubric-critique .critique-prompt{margin-top:18px}
+#multimodal-setup .media-targets,#image-input-check .media-targets,#image-generation-plan .media-targets,#media-agent-evals .media-targets,#media-eval-funnel .media-targets,#media-agent-loop .media-targets,#data-analysis-check .media-targets{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px}
+#multimodal-setup .media-targets span,#image-input-check .media-targets span,#image-generation-plan .media-targets span,#media-agent-evals .media-targets span,#media-eval-funnel .media-targets span,#media-agent-loop .media-targets span,#data-analysis-check .media-targets span{border:1px solid rgba(255,255,255,.14);background:rgba(255,255,255,.055);border-radius:999px;padding:8px 11px;color:#e5e7eb;font-size:14px;font-weight:800}
 .contract{display:grid;grid-template-columns:300px minmax(0,1fr);gap:18px;margin-top:24px}
 .contract-fields{display:grid;gap:10px}
 .field-btn{border:1px solid rgba(255,255,255,.14);background:rgba(255,255,255,.055);color:#eaf2ff;border-radius:14px;padding:14px;text-align:left;cursor:pointer;font-weight:800}
@@ -124,11 +131,101 @@ body.notes-on .teacher-note{display:block}
   .reveal-card summary::after{display:block;font-size:9px;margin-left:0;margin-top:4px;letter-spacing:.05em}
   .reveal-card p{font-size:13px;line-height:1.28;margin-top:8px}
   .power-compact h2,.mode-compare-compact h2{font-size:30px}
+  .thought-partner-compact h2{font-size:28px;line-height:1.08}
   .power-compact .lede,.mode-compare-compact .lede{font-size:18px;line-height:1.3}
-  .power-compact .card,.mode-compare-compact .card{padding:14px}
-  .power-compact li,.mode-compare-compact li{font-size:15px;line-height:1.3;margin:5px 0}
-  .power-compact .formula,.mode-compare-compact .formula{font-size:14px;line-height:1.35;padding:12px;margin-top:14px;border-radius:12px}
-  .power-compact .source-note,.mode-compare-compact .source-note{font-size:12px;line-height:1.35}
+  .thought-partner-compact .lede{font-size:16px;line-height:1.25}
+  .power-compact .card,.mode-compare-compact .card,.thought-partner-compact .card{padding:14px}
+  .thought-partner-compact{align-items:flex-start}
+  .thought-partner-compact .inner{width:min(334px,100%);max-width:334px;margin-left:0}
+  .thought-partner-compact .grid.four{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin-top:14px}
+  .thought-partner-compact .card{padding:10px 11px;border-radius:12px}
+  .thought-partner-compact .card h3{font-size:16px;line-height:1.12;margin-bottom:6px}
+  .thought-partner-compact .card p{font-size:12px;line-height:1.25}
+  .thought-partner-compact h2,.thought-partner-compact p,.thought-partner-compact .source-note{overflow-wrap:anywhere}
+  .power-compact li,.mode-compare-compact li,.thought-partner-compact li{font-size:15px;line-height:1.3;margin:5px 0}
+  .power-compact .formula,.mode-compare-compact .formula,.thought-partner-compact .formula{font-size:14px;line-height:1.35;padding:12px;margin-top:14px;border-radius:12px}
+  .power-compact .source-note,.mode-compare-compact .source-note,.thought-partner-compact .source-note{font-size:12px;line-height:1.35}
+  .thought-partner-compact .formula{font-size:12px;padding:10px;margin-top:10px}
+  .thought-partner-compact .source-note,.thought-partner-compact .teacher-note{display:none}
+  #reasoning-workflow{align-items:flex-start}
+  #reasoning-workflow .inner{width:min(334px,100%);max-width:334px;margin-left:0}
+  #reasoning-workflow h2{font-size:27px;line-height:1.08}
+  #reasoning-workflow .lede{font-size:16px;line-height:1.25}
+  #reasoning-workflow .grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin-top:14px}
+  #reasoning-workflow .card{padding:10px 11px;border-radius:12px}
+  #reasoning-workflow .card h3{font-size:16px;line-height:1.12;margin-bottom:6px}
+  #reasoning-workflow .card p{font-size:12px;line-height:1.25}
+  #reasoning-workflow .formula{font-size:12px;line-height:1.35;padding:10px;margin-top:10px;border-radius:12px}
+  #reasoning-workflow .source-note,#reasoning-workflow .teacher-note{display:none}
+  #anti-sycophancy{align-items:flex-start}
+  #anti-sycophancy .inner{width:min(334px,100%);max-width:334px;margin-left:0}
+  #anti-sycophancy h2{font-size:26px;line-height:1.06;margin-bottom:12px}
+  #anti-sycophancy .lede{font-size:15px;line-height:1.22}
+  #anti-sycophancy .grid{gap:7px;margin-top:12px}
+  #anti-sycophancy .grid.three{grid-template-columns:repeat(3,minmax(0,1fr))}
+  #anti-sycophancy .grid.two{grid-template-columns:repeat(2,minmax(0,1fr))}
+  #anti-sycophancy .card{padding:8px 9px;border-radius:11px}
+  #anti-sycophancy .card h3{font-size:12px;line-height:1.12;margin-bottom:5px}
+  #anti-sycophancy .card p{font-size:11px;line-height:1.22}
+  #anti-sycophancy .formula{font-size:11px;line-height:1.3;padding:9px;margin-top:8px;border-radius:11px}
+  #anti-sycophancy .source-note,#anti-sycophancy .teacher-note{display:none}
+  #progressive-writing{align-items:flex-start}
+  #progressive-writing .inner{width:min(334px,100%);max-width:334px;margin-left:0}
+  #progressive-writing h2{font-size:26px;line-height:1.06;margin-bottom:12px}
+  #progressive-writing .lede{font-size:15px;line-height:1.22}
+  #progressive-writing .writing-flow{grid-template-columns:repeat(3,minmax(0,1fr));gap:7px;margin-top:12px}
+  #progressive-writing .card{padding:8px 9px;border-radius:11px}
+  #progressive-writing .card h3{font-size:12px;line-height:1.12;margin-bottom:5px}
+  #progressive-writing .card p{font-size:11px;line-height:1.22}
+  #progressive-writing .writing-targets{gap:6px;margin-top:10px}
+  #progressive-writing .writing-targets span{font-size:11px;line-height:1.1;padding:5px 7px}
+  #progressive-writing .formula{font-size:11px;line-height:1.3;padding:9px;margin-top:8px;border-radius:11px}
+  #progressive-writing .source-note,#progressive-writing .teacher-note{display:none}
+  #rubric-critique{align-items:flex-start}
+  #rubric-critique .inner{width:min(334px,100%);max-width:334px;margin-left:0}
+  #rubric-critique h2{font-size:26px;line-height:1.06;margin-bottom:12px}
+  #rubric-critique .lede{font-size:15px;line-height:1.22}
+  #rubric-critique .grid.four{grid-template-columns:repeat(2,minmax(0,1fr));gap:7px;margin-top:12px}
+  #rubric-critique .card{padding:8px 9px;border-radius:11px}
+  #rubric-critique .card h3{font-size:13px;line-height:1.12;margin-bottom:5px}
+  #rubric-critique .card p{font-size:11px;line-height:1.22}
+  #rubric-critique .critique-prompt{font-size:11px;line-height:1.32;padding:9px;margin-top:9px;border-radius:11px}
+  #rubric-critique .formula{font-size:11px;line-height:1.3;padding:9px;margin-top:8px;border-radius:11px}
+  #rubric-critique .source-note,#rubric-critique .teacher-note{display:none}
+  #multimodal-setup{align-items:flex-start}
+  #multimodal-setup .inner{width:min(334px,100%);max-width:334px;margin-left:0}
+  #multimodal-setup h2{font-size:26px;line-height:1.06;margin-bottom:12px}
+  #multimodal-setup .lede{font-size:15px;line-height:1.22}
+  #multimodal-setup .grid.four{grid-template-columns:repeat(2,minmax(0,1fr));gap:7px;margin-top:12px}
+  #multimodal-setup .card{padding:8px 9px;border-radius:11px}
+  #multimodal-setup .card h3{font-size:13px;line-height:1.12;margin-bottom:5px}
+  #multimodal-setup .card p{font-size:11px;line-height:1.22}
+  #multimodal-setup .media-targets{gap:6px;margin-top:10px}
+  #multimodal-setup .media-targets span{font-size:11px;line-height:1.1;padding:5px 7px}
+  #multimodal-setup .formula{font-size:11px;line-height:1.3;padding:9px;margin-top:8px;border-radius:11px}
+  #multimodal-setup .source-note,#multimodal-setup .teacher-note{display:none}
+  #image-input-check,#image-generation-plan,#media-agent-evals,#media-eval-funnel,#media-agent-loop,#data-analysis-check{align-items:flex-start}
+  #image-input-check .inner,#image-generation-plan .inner,#media-agent-evals .inner,#media-eval-funnel .inner,#media-agent-loop .inner,#data-analysis-check .inner{width:min(334px,100%);max-width:334px;margin-left:0}
+  #image-input-check h2,#image-generation-plan h2,#media-agent-evals h2,#media-eval-funnel h2,#media-agent-loop h2,#data-analysis-check h2{font-size:25px;line-height:1.06;margin-bottom:12px}
+  #image-input-check .lede,#image-generation-plan .lede,#media-agent-evals .lede,#media-eval-funnel .lede,#media-agent-loop .lede,#data-analysis-check .lede{font-size:14px;line-height:1.22}
+  #image-input-check .grid.four,#image-generation-plan .grid.four,#media-agent-evals .grid.four,#media-eval-funnel .grid.four,#media-agent-loop .grid.four,#data-analysis-check .grid.four{grid-template-columns:repeat(2,minmax(0,1fr));gap:7px;margin-top:12px}
+  #image-input-check .card,#image-generation-plan .card,#media-agent-evals .card,#media-eval-funnel .card,#media-agent-loop .card,#data-analysis-check .card{padding:8px 9px;border-radius:11px}
+  #image-input-check .card h3,#image-generation-plan .card h3,#media-agent-evals .card h3,#media-eval-funnel .card h3,#media-agent-loop .card h3,#data-analysis-check .card h3{font-size:12px;line-height:1.12;margin-bottom:5px}
+  #image-input-check .card p,#image-generation-plan .card p,#media-agent-evals .card p,#media-eval-funnel .card p,#media-agent-loop .card p,#data-analysis-check .card p{font-size:10.5px;line-height:1.2}
+  #image-input-check .media-targets,#image-generation-plan .media-targets,#media-agent-evals .media-targets,#media-eval-funnel .media-targets,#media-agent-loop .media-targets,#data-analysis-check .media-targets{gap:6px;margin-top:10px}
+  #image-input-check .media-targets span,#image-generation-plan .media-targets span,#media-agent-evals .media-targets span,#media-eval-funnel .media-targets span,#media-agent-loop .media-targets span,#data-analysis-check .media-targets span{font-size:10.5px;line-height:1.1;padding:5px 7px}
+  #image-input-check .formula,#image-generation-plan .formula,#media-agent-evals .formula,#media-eval-funnel .formula,#media-agent-loop .formula,#data-analysis-check .formula{font-size:10.5px;line-height:1.3;padding:9px;margin-top:8px;border-radius:11px}
+  #image-input-check .source-note,#image-input-check .teacher-note,#image-generation-plan .source-note,#image-generation-plan .teacher-note,#media-agent-evals .source-note,#media-agent-evals .teacher-note,#media-eval-funnel .source-note,#media-eval-funnel .teacher-note,#media-agent-loop .source-note,#media-agent-loop .teacher-note,#data-analysis-check .source-note,#data-analysis-check .teacher-note{display:none}
+  .module1-practice-compact h2{font-size:27px;line-height:1.08}
+  .module1-practice-compact{align-items:flex-start}
+  .module1-practice-compact .inner{width:min(334px,100%);max-width:334px;margin-left:0}
+  .module1-practice-compact .lede{font-size:16px;line-height:1.28}
+  .module1-practice-compact .grid{gap:8px;margin-top:14px}
+  .module1-practice-compact .card{padding:12px 13px;border-radius:12px}
+  .module1-practice-compact h2,.module1-practice-compact p,.module1-practice-compact summary,.module1-practice-compact .source-note{overflow-wrap:anywhere}
+  .module1-practice-compact .reveal-card summary{font-size:15px;line-height:1.12}
+  .module1-practice-compact .reveal-card p{font-size:13px;line-height:1.28;margin-top:8px}
+  .module1-practice-compact .source-note{font-size:12px;line-height:1.3}
 }
 @media(max-width:600px){
   #beyond-prompting-check{align-items:flex-start}
@@ -197,6 +294,40 @@ body.notes-on .teacher-note{display:block}
       <div class="formula">context + neutral question + rubric + critique loop -> stronger output</div>
       <p class="source-note">Source concept: instructor-provided transcript on AI power-user prompting. Product and version-specific details softened for classroom use.</p>
       <div class="teacher-note">Emphasize that better prompting reduces some bad output, but does not remove the need to verify important facts, sources, and decisions.</div>
+    </div>
+  </section>
+
+  <section class="slide challenge thought-partner-compact" id="thought-partner-loop" data-part="Part 1" data-title="Thought partner">
+    <div class="inner">
+      <div class="kicker">Design thinking loop</div>
+      <h2>Use AI as a thought partner first.</h2>
+      <p class="lede">Do not ask for one answer too early. Generate options, critique tradeoffs, then choose what fits the app.</p>
+      <div class="grid four">
+        <div class="card"><h3>1. Context</h3><p>Share the PRD, user, current screen, constraints, and static-app boundary.</p></div>
+        <div class="card"><h3>2. Options</h3><p>Ask for 3-5 possible features, layouts, names, or workflows.</p></div>
+        <div class="card"><h3>3. Feedback</h3><p>Say what you like, dislike, forgot, or need to protect.</p></div>
+        <div class="card"><h3>4. Verify</h3><p>Check against user need, rubric, build time, safety, privacy, and course stack.</p></div>
+      </div>
+      <div class="formula">context -> options -> critique -> new options -> choose -> verify</div>
+      <p class="source-note">Source concept: instructor-provided transcript on AI as a thought partner. Rewritten for web-app design decisions.</p>
+      <div class="teacher-note">Prompting caveat: constraints make answers more relevant, but can narrow too early. Have students ask broadly first, then critique and narrow.</div>
+    </div>
+  </section>
+
+  <section class="slide challenge thought-partner-compact context-memory-compact" id="context-memory" data-part="Part 1" data-title="Context memory">
+    <div class="inner">
+      <div class="kicker">Context hygiene</div>
+      <h2>Context is the AI's working memory.</h2>
+      <p class="lede">A thought partner needs the right facts. Too little context makes answers generic; old unrelated context can pull answers off track.</p>
+      <div class="grid four">
+        <div class="card"><h3>Advisor facts</h3><p>Give the user, goal, PRD, current screen, constraints, examples, and safety boundary.</p></div>
+        <div class="card"><h3>Feedback counts</h3><p>Your likes, dislikes, forgotten details, and corrections become useful context for the next round.</p></div>
+        <div class="card"><h3>Fresh start</h3><p>Start a new chat when the topic changes or the old conversation becomes distracting.</p></div>
+        <div class="card"><h3>Privacy line</h3><p>Use fictional, generic, or class-approved files. Keep private and high-risk data out.</p></div>
+      </div>
+      <div class="formula">relevant context -> custom advice; noisy context -> weaker answers</div>
+      <p class="source-note">Source concept: instructor-provided transcript on AI context management. Rewritten for student web-app planning.</p>
+      <div class="teacher-note">Avoid exact context-window claims in student materials. The durable lesson is context selection: provide what a trusted advisor would need, and reset when the task changes.</div>
     </div>
   </section>
 
@@ -450,16 +581,243 @@ body.notes-on .teacher-note{display:block}
     </div>
   </section>
 
-  <section class="slide" data-part="Part 3" data-title="Structured reasoning">
+  <section class="slide" id="reasoning-workflow" data-part="Part 3" data-title="Structured reasoning">
     <div class="inner">
       <div class="kicker">Reasoning safely</div>
-      <h2>Ask for visible structure, not hidden thoughts.</h2>
-      <p class="lede">For hard tasks, ask the AI to show assumptions, steps, checks, or a plan. Do not treat hidden chain-of-thought as something students need to extract.</p>
-      <div class="grid">
-        <div class="card"><h3>Better</h3><p>List assumptions, propose a plan, show key checks, then give the answer.</p></div>
-        <div class="card"><h3>Riskier</h3><p>Demand private hidden reasoning and assume that a long explanation means the answer is correct.</p></div>
+      <h2>Use reasoning for hard tradeoffs.</h2>
+      <p class="lede">For complex choices, give the project context and ask for assumptions, criteria, tool needs, tradeoffs, and checks before the recommendation.</p>
+      <div class="grid four">
+        <div class="card"><h3>Set context</h3><p>Include PRD, constraints, files, sources, user, and risks.</p></div>
+        <div class="card"><h3>Give it time</h3><p>Ask for careful review or use a source-rich workflow for genuinely complex tasks.</p></div>
+        <div class="card"><h3>Let tools help</h3><p>Use web search, approved files, or calculator checks when needed.</p></div>
+        <div class="card"><h3>Verify</h3><p>Inspect assumptions, sources, edge cases, and human-control boundary.</p></div>
       </div>
-      <div class="formula">visible steps + checks + sources when needed</div>
+      <div class="formula">context + criteria + tool/source checks + verification -> better decisions</div>
+      <p class="source-note">Source concept: instructor-provided transcript on reasoning with AI. Rewritten for student web-app planning.</p>
+      <div class="teacher-note">Do not claim that longer reasoning proves correctness. Avoid unstable benchmark timelines, product names, or saying step-by-step prompting is obsolete. Ask for visible assumptions and checks, not private hidden thoughts.</div>
+    </div>
+  </section>
+
+  <section class="slide challenge" id="anti-sycophancy" data-part="Part 3" data-title="Anti-sycophancy">
+    <div class="inner">
+      <div class="kicker">Reasoning honestly</div>
+      <h2>Ask for truth, not agreement.</h2>
+      <p class="lede">AI chatbots can over-agree with your framing. When you need critique, ask so the model cannot tell which answer you want.</p>
+      <div class="grid three">
+        <div class="card"><h3>Neutral frame</h3><p>Do not hint that one answer is correct or preferred.</p></div>
+        <div class="card"><h3>Rubric</h3><p>Judge options against criteria, not vibes.</p></div>
+        <div class="card"><h3>Counterevidence</h3><p>Ask what risks or facts would weaken the recommendation.</p></div>
+      </div>
+      <div class="grid two compare-grid">
+        <div class="card danger"><h3>Leading</h3><p>My app idea is great, right?</p></div>
+        <div class="card green"><h3>Neutral</h3><p>Evaluate this app idea using user need, feasibility, risks, and next test. Give reasons for and against.</p></div>
+      </div>
+      <div class="formula">neutral question + factual context + rubric + counterevidence -> more useful feedback</div>
+      <p class="source-note">Source concept: instructor-provided transcript on sycophancy. Rewritten for student web-app planning.</p>
+      <div class="teacher-note">Do not make students adversarial for every prompt. Use this when they need critique, comparison, decisions, or risk review. Avoid repeating exact unsupported study numbers unless verified from the original source.</div>
+    </div>
+  </section>
+
+  <section class="slide challenge" id="progressive-writing" data-part="Part 3" data-title="Writing workflow">
+    <div class="inner">
+      <div class="kicker">Writing with AI</div>
+      <h2>Shape writing before drafting.</h2>
+      <p class="lede">If you ask for finished prose too early, the result can sound generic. Use AI to plan, critique, and revise the structure before drafting.</p>
+      <div class="grid writing-flow">
+        <div class="card"><h3>Outline</h3><p>Ask for 2-3 possible structures.</p></div>
+        <div class="card"><h3>Critique</h3><p>Say what fits and what misses.</p></div>
+        <div class="card"><h3>Bullets</h3><p>Add evidence, examples, and claims.</p></div>
+        <div class="card"><h3>Draft</h3><p>Turn approved bullets into prose.</p></div>
+        <div class="card"><h3>Edit</h3><p>Verify facts and make the voice yours.</p></div>
+      </div>
+      <div class="writing-targets" aria-label="Writing targets">
+        <span>Homepage copy</span>
+        <span>README</span>
+        <span>Demo script</span>
+        <span>Reflection</span>
+      </div>
+      <div class="formula">outline -> critique -> bullets -> critique -> draft -> human edit</div>
+      <p class="source-note">Source concept: instructor-provided transcript on writing with AI. Rewritten for student web-app copy and demo writing.</p>
+      <div class="teacher-note">Do not police harmless style markers like punctuation. Focus on substance: specific claims, evidence, voice, and whether the writing matches the student's actual project. Avoid exact statistics or trend claims unless independently sourced.</div>
+    </div>
+  </section>
+
+  <section class="slide challenge" id="rubric-critique" data-part="Part 3" data-title="Rubric critique">
+    <div class="inner">
+      <div class="kicker">AI critique</div>
+      <h2>Make critique more grounded.</h2>
+      <p class="lede">AI feedback gets better when you give it a standard to judge against. Use small-piece editing for wording and rubric-first critique for whole drafts.</p>
+      <div class="grid four">
+        <div class="card"><h3>Small piece</h3><p>Revise one sentence, card, paragraph, or README section at a time.</p></div>
+        <div class="card"><h3>Rubric first</h3><p>Define criteria before asking for a score.</p></div>
+        <div class="card"><h3>Notes first</h3><p>Require evidence notes per category before totals.</p></div>
+        <div class="card"><h3>Fix gaps</h3><p>Ask for revisions tied to the weakest criteria.</p></div>
+      </div>
+      <div class="terminal critique-prompt">Critique my homepage copy using this rubric: user need, clarity, evidence, accuracy and safety limits, and next action. Give one note per category, then suggestions. Do not rewrite until I choose a direction.</div>
+      <div class="formula">rubric + evidence notes + score after notes -> focused revision</div>
+      <p class="source-note">Adapted from instructor-provided transcript on AI critique. Rewritten for student web-app writing and final-demo review.</p>
+      <div class="teacher-note">Keep cross-model review optional for advanced students only. Do not claim a second model guarantees objectivity. The durable lesson is rubric-first critique and human judgment.</div>
+    </div>
+  </section>
+
+  <section class="slide optional" id="multimodal-setup" data-part="Part 3" data-title="Multimodal setup">
+    <div class="inner">
+      <div class="kicker">Multimodal prompting</div>
+      <h2>Use media when text is not enough.</h2>
+      <p class="lede">Images, audio, video, and files can be part of the workflow. Start with text to plan, then generate or inspect media only when it adds value.</p>
+      <div class="grid four">
+        <div class="card"><h3>Show context</h3><p>Share screenshots, sketches, images, audio, or files when they matter.</p></div>
+        <div class="card"><h3>Plan in text</h3><p>Define goal, style, audience, constraints, and checks first.</p></div>
+        <div class="card"><h3>Slow iteration</h3><p>Media outputs take longer and are harder to revise than text.</p></div>
+        <div class="card"><h3>Responsible use</h3><p>Get consent for recognizable people, voices, or faces, avoid impersonation, label submitted AI media, and verify claims.</p></div>
+      </div>
+      <div class="media-targets" aria-label="Multimodal web app uses">
+        <span>Screenshot critique</span>
+        <span>Hero image prompt</span>
+        <span>Alt text</span>
+        <span>Demo video script</span>
+      </div>
+      <div class="formula">media context + text plan + consent/safety check + human review -> more useful multimodal work</div>
+      <p class="source-note">Adapted from instructor-provided transcript on multimodal AI. Rewritten for student web-app planning and media safety.</p>
+      <div class="teacher-note">Do not require students to generate voices, videos, or images. Keep media tools optional and school-safe. Avoid product names, exact pricing/performance claims, and personal anecdotes unless separately sourced and approved.</div>
+    </div>
+  </section>
+
+  <section class="slide optional" id="image-input-check" data-part="Part 3" data-title="Image input">
+    <div class="inner">
+      <div class="kicker">Image input</div>
+      <h2>Images are context, not proof.</h2>
+      <p class="lede">A screenshot, sketch, receipt, handwritten note, or whiteboard photo can explain what words cannot. Tell AI what to inspect, then verify details that matter.</p>
+      <div class="grid four">
+        <div class="card"><h3>Show the view</h3><p>Crop or zoom so the important part is readable.</p></div>
+        <div class="card"><h3>State the task</h3><p>Ask for a transcription, summary, critique, comparison, or checklist.</p></div>
+        <div class="card"><h3>Expect misses</h3><p>Small labels, similar objects, handwriting, and math can be misread.</p></div>
+        <div class="card"><h3>Verify facts</h3><p>Check totals, names, dates, labels, and safety-sensitive claims yourself.</p></div>
+      </div>
+      <div class="media-targets" aria-label="Image input uses">
+        <span>Screenshot bug</span>
+        <span>Whiteboard recap</span>
+        <span>Receipt check</span>
+        <span>Handwriting draft</span>
+      </div>
+      <div class="formula">image + task + detail check + verification -> useful visual context</div>
+      <p class="source-note">Adapted from instructor-provided transcript on image input. Rewritten for student web-app planning and media safety.</p>
+      <div class="teacher-note">Use school-safe images only. Do not ask students to upload private or classmate images, or to use AI for medical, legal, identity, or safety-critical judgments. Get permission before using images with recognizable people.</div>
+    </div>
+  </section>
+
+  <section class="slide optional" id="image-generation-plan" data-part="Part 3" data-title="Image generation">
+    <div class="inner">
+      <div class="kicker">Image generation</div>
+      <h2>Write image prompts like design briefs.</h2>
+      <p class="lede">For generated images, vague prompts waste iterations. Plan the visual job in words before spending time on the image.</p>
+      <div class="grid four">
+        <div class="card"><h3>Subject + action</h3><p>Name the main object or person and what it is doing.</p></div>
+        <div class="card"><h3>Scene</h3><p>Describe setting, focal point, composition, and aspect ratio.</p></div>
+        <div class="card"><h3>Style</h3><p>Give mood, visual style, colors, audience, and what to avoid.</p></div>
+        <div class="card"><h3>Review</h3><p>Inspect text, details, consistency, permission, and page fit.</p></div>
+      </div>
+      <div class="media-targets" aria-label="Image generation web app uses">
+        <span>Hero asset</span>
+        <span>App icon</span>
+        <span>Poster draft</span>
+        <span>Alt text</span>
+      </div>
+      <div class="formula">subject + setting + style + constraints + review -> better image prompt</div>
+      <p class="source-note">Adapted from instructor-provided transcript on image generation. Rewritten for student web-app assets and responsible media use.</p>
+      <div class="teacher-note">Do not require live image generation. Avoid product names, exact timing/pricing claims, and personal anecdotes unless separately sourced. Discuss copyright, permission, labeling, and disclosure before students submit generated media.</div>
+    </div>
+  </section>
+
+  <section class="slide optional" id="media-agent-evals" data-part="Part 3" data-title="Media agent evals">
+    <div class="inner">
+      <div class="kicker">Media agents</div>
+      <h2>Media agents need quality gates.</h2>
+      <p class="lede">A media agent does more than generate one image. It plans from a brief, creates options, checks them against criteria, and iterates before a human uses the asset.</p>
+      <div class="grid four">
+        <div class="card"><h3>Brief</h3><p>Define goal, audience, style guide, references, constraints, and what not to create.</p></div>
+        <div class="card"><h3>Options</h3><p>Make a few candidates instead of trusting one output.</p></div>
+        <div class="card"><h3>Evaluate</h3><p>Check prompt match, consistency, text accuracy, accessibility, permission, and page fit.</p></div>
+        <div class="card"><h3>Iterate safely</h3><p>Revise from feedback, keep versions, and require human approval before publishing.</p></div>
+      </div>
+      <div class="media-targets" aria-label="Media agent examples">
+        <span>Brand asset</span>
+        <span>UI mockup</span>
+        <span>Product demo</span>
+        <span>Storyboard</span>
+      </div>
+      <div class="formula">brief + references + options + rubric + human approval -> usable media asset</div>
+      <p class="source-note">Adapted from instructor-provided transcript on AI agents for image and video generation. Rewritten for classroom-safe web-app media review.</p>
+      <div class="teacher-note">Keep this conceptual. Do not require students to use video generation, code APIs, paid tools, or real brand/customer data. Avoid vendor names, model names, and unstable capability claims unless separately sourced. Evals reduce risk but do not prove an image or video is correct, safe, or publishable.</div>
+    </div>
+  </section>
+
+  <section class="slide optional" id="media-eval-funnel" data-part="Part 3" data-title="Media eval funnel">
+    <div class="inner">
+      <div class="kicker">Media evaluation</div>
+      <h2>Use a review funnel for generated media.</h2>
+      <p class="lede">Creative outputs do not have one right answer. Use fast checks first, deeper rubric checks next, and human review before anything important is published.</p>
+      <div class="grid four">
+        <div class="card"><h3>Fast filter</h3><p>Check whether the output roughly matches the prompt and required elements.</p></div>
+        <div class="card"><h3>Judge criteria</h3><p>Score alignment, visual quality, coherence, accessibility, and page fit.</p></div>
+        <div class="card"><h3>Rubric questions</h3><p>Break the prompt into yes/no checks: object, action, text, style, and constraints.</p></div>
+        <div class="card"><h3>Human sign-off</h3><p>Use people for subjective, cultural, safety, brand, and publish decisions.</p></div>
+      </div>
+      <div class="media-targets" aria-label="Generated media evaluation checks">
+        <span>Prompt match</span>
+        <span>Text accuracy</span>
+        <span>Brand fit</span>
+        <span>Human review</span>
+      </div>
+      <div class="formula">fast check -> rubric/judge -> revision -> human sign-off</div>
+      <p class="source-note">Adapted from instructor-provided transcript on generated-media evaluation. Rewritten for classroom-safe media review.</p>
+      <div class="teacher-note">Keep vendor names, model names, and metric names as teacher enrichment only. Do not imply automated scores prove an asset is correct, safe, or publishable. Use mock assets; avoid real brands, people, and customer media unless permission is explicit.</div>
+    </div>
+  </section>
+
+  <section class="slide optional" id="media-agent-loop" data-part="Part 3" data-title="Media agent loop">
+    <div class="inner">
+      <div class="kicker">Media agent workflow</div>
+      <h2>A media agent is a controlled loop.</h2>
+      <p class="lede">The useful pattern is not a specific tool. It is giving an agent clear instructions, limited tools, a quality bar, a retry limit, and a log humans can inspect.</p>
+      <div class="grid four">
+        <div class="card"><h3>Instructions</h3><p>Define the goal, audience, allowed inputs, quality threshold, and stop rules.</p></div>
+        <div class="card"><h3>Tools</h3><p>Let the agent analyze references, draft concepts, generate assets, evaluate, and save versions.</p></div>
+        <div class="card"><h3>Retry loop</h3><p>If a check fails, revise once or twice, then stop and ask a human.</p></div>
+        <div class="card"><h3>Evidence log</h3><p>Record prompts, files, scores, feedback, and final approval.</p></div>
+      </div>
+      <div class="media-targets" aria-label="Media agent workflow examples">
+        <span>Brand mockup</span>
+        <span>Scene plan</span>
+        <span>Infographic</span>
+        <span>Demo asset</span>
+      </div>
+      <div class="formula">instructions + tools + quality bar + retry limit + log + approval -> safer media agent</div>
+      <p class="source-note">Adapted from instructor-provided transcript on image, video, and media agents. Rewritten as a classroom-safe agent workflow.</p>
+      <div class="teacher-note">Keep ADK, Gemini CLI, Nano Banana, Veo, and API details as teacher enrichment only. Do not ask students to run paid or cloud media agents, or use real brands, people, voices, customer files, or live blog URLs unless permission is explicit. Video agents are an advanced extension, not required.</div>
+    </div>
+  </section>
+
+  <section class="slide optional" id="data-analysis-check" data-part="Part 3" data-title="Data analysis">
+    <div class="inner">
+      <div class="kicker">Data analysis</div>
+      <h2>Let AI calculate, then audit the numbers.</h2>
+      <p class="lede">AI can help analyze tables and make charts. Useful analysis starts with safe data, a clear question, and a human check of the math.</p>
+      <div class="grid four">
+        <div class="card"><h3>Safe table</h3><p>Use synthetic, class-approved, or anonymized data only.</p></div>
+        <div class="card"><h3>Clear question</h3><p>Ask for a trend, comparison, outlier, chart, or summary.</p></div>
+        <div class="card"><h3>Visible method</h3><p>Ask what it calculated, filtered, and charted.</p></div>
+        <div class="card"><h3>Audit</h3><p>Check row counts, totals, axes, units, labels, and conclusions.</p></div>
+      </div>
+      <div class="media-targets" aria-label="Classroom-safe data examples">
+        <span>Mock sales table</span>
+        <span>Class survey</span>
+        <span>App usage log</span>
+        <span>Practice times</span>
+      </div>
+      <div class="formula">safe data + clear question + visible method + audit -> trustworthy insight</div>
+      <p class="source-note">Adapted from instructor-provided transcript on AI data analysis. Rewritten for classroom-safe spreadsheet and chart review.</p>
+      <div class="teacher-note">Use synthetic datasets for demos. Do not require students to upload real personal health, business, customer, student, family, financial, or account data. Not all AI tools can run code; if code execution is unavailable, ask for spreadsheet formulas or analysis steps. Treat charts as drafts until checked.</div>
     </div>
   </section>
 
@@ -494,6 +852,34 @@ body.notes-on .teacher-note{display:block}
       <div class="formula">Compare: evidence used + uncertainty + what to verify before citing</div>
       <p class="source-note">Source concept: instructor-provided transcript on web search, deep research, and comparison labs. Rewritten for a static classroom workflow.</p>
       <div class="teacher-note">If students do not have a tool with deep research, treat the third mode as source-rich prompting with instructor-approved pages. The learning goal is source selection, not a specific vendor feature.</div>
+    </div>
+  </section>
+
+  <section class="slide quiz module1-practice-compact" id="module1-research-check" data-part="Part 4" data-title="AI information quiz">
+    <div class="inner">
+      <div class="kicker">Practice check</div>
+      <h2>Power-user research quiz.</h2>
+      <p class="lede">Use this after the lab to check the workflow. Answer first, then open each card.</p>
+      <div class="grid">
+        <details class="card reveal-card">
+          <summary>1. Comparing cars with specs, quotes, and insurance plans?</summary>
+          <p>Upload the relevant documents and ask for a careful comparison of tradeoffs, assumptions, and evidence to inspect.</p>
+        </details>
+        <details class="card reveal-card">
+          <summary>2. Collaborating on a writing task?</summary>
+          <p>Start with an outline, iterate on the outline, expand to bullet points, critique again, then draft the final piece.</p>
+        </details>
+        <details class="card reveal-card">
+          <summary>3. Web search or deep research?</summary>
+          <p>Use web search for a simpler current question. Use deep or source-rich research for broader questions that need synthesis across many sources.</p>
+        </details>
+        <details class="card reveal-card">
+          <summary>4. How does deep research often start?</summary>
+          <p>The tool often creates a research plan and begins gathering relevant sources, but interfaces vary. Review the plan and the sources.</p>
+        </details>
+      </div>
+      <p class="source-note">Source concept: instructor-provided Module 1 quiz. Rewritten as a practice check.</p>
+      <div class="teacher-note">Keep this as a formative check. The point is to reinforce careful setup, source inspection, and choosing the right research mode.</div>
     </div>
   </section>
 

@@ -91,6 +91,22 @@ input:focus,select:focus,textarea:focus{border-color:rgba(34,211,238,.85);box-sh
   h2{font-size:30px}
   .lede{font-size:18px}
   .grid,.grid.three,.flow,.demo-layout,.builder-layout,.test-layout,.exit-layout{grid-template-columns:1fr}
+  #feature-map{justify-items:start}
+  #feature-map .inner{width:min(334px,100%);max-width:334px;margin:auto 0}
+  #feature-map .timebox{display:none}
+  #feature-map h2{font-size:26px}
+  #feature-map .lede{font-size:16px;line-height:1.35}
+  #feature-map .flow{grid-template-columns:repeat(2,minmax(0,1fr));gap:7px;margin:10px 0}
+  #feature-map .step{padding:9px;min-height:0}
+  #feature-map .step:last-child{grid-column:1/-1}
+  #feature-map .step strong{font-size:14px;margin-bottom:3px}
+  #feature-map .step p{font-size:12px;line-height:1.25}
+  #feature-map .card{padding:10px}
+  #feature-map .card h3{font-size:15px;margin-bottom:4px}
+  #feature-map .card p{font-size:12px;line-height:1.28}
+  #feature-map .card.green{margin-top:8px!important}
+  #feature-map p,#feature-map h2,#feature-map .source-note{overflow-wrap:anywhere}
+  #feature-map .source-note{display:none}
   .controls{position:sticky}
 }
 @media (prefers-reduced-motion:reduce){
@@ -164,10 +180,10 @@ input:focus,select:focus,textarea:focus{border-color:rgba(34,211,238,.85);box-sh
     </div>
   </section>
 
-  <section class="slide" data-part="Bridge" data-title="Week 8 to Week 9" inert aria-hidden="true">
+  <section class="slide" id="feature-map" data-part="Bridge" data-title="Week 8 to Week 9" inert aria-hidden="true">
     <div class="inner">
       <div class="timebox">14-18 min</div>
-      <h2>Your Week 8 brief already contains the Week 9 feature map.</h2>
+      <h2>Turn your brief into a feature map.</h2>
       <p class="lede">Do not restart the project. Translate the design brief into code responsibilities.</p>
       <div class="flow">
         <div class="step"><strong>User</strong><p>Who uses the app?</p></div>
@@ -177,6 +193,11 @@ input:focus,select:focus,textarea:focus{border-color:rgba(34,211,238,.85);box-sh
         <div class="step"><strong>Output</strong><p>What result can the user judge?</p></div>
       </div>
       <div class="card warn"><h3>Privacy guard</h3><p>Use fictional, low-risk, or generic inputs. Do not ask students to enter health details, family information, exact locations, grades, finances, account credentials, or private schedules.</p></div>
+      <div class="card green" style="margin-top:16px">
+        <h3>Thought partner first</h3>
+        <p>Before coding, ask for 5 small improvements. Score value, effort, risk, and static-app fit. Do not code yet.</p>
+      </div>
+      <p class="source-note">Source concept: instructor-provided transcript on AI as a thought partner. Rewritten as a static web-app feature-planning prompt.</p>
     </div>
   </section>
 

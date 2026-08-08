@@ -7,6 +7,1733 @@ entries; nobody edits prior entries. Managed by
 
 <!-- newest entry below -->
 
+## 2026-08-08 12:56:10 EDT — Codex
+
+- **Branch:** `slide-redesign-2026-05`
+- **HEAD:** `ae2a48c` — Integrate AI prompting and research course updates
+- **Upstream:** origin/slide-redesign-2026-05 — ahead 1, behind 0
+
+### Summary
+
+Completed Q-approved Week 13 optional context-aware review enrichment.
+
+Files changed in this milestone:
+- week-13-security-review-lab.html: revised existing #ai-review-context instead of adding another slide.
+
+#ai-review-context revisions:
+- Lede now emphasizes relevant context: AI needs relevant context including project goal, scope, known risks, and evidence.
+- Give requirements card now says to include only the files or screenshots that matter.
+- Formula/codebox changed from "context + diff + tests -> better review" to "relevant context + diff + tests -> better review".
+- Teacher note now includes optional instructor enrichment: diff-only review can miss requirement and pattern violations; full-context dumping can add noise, so selective context usually beats more context.
+
+Content choices:
+- Kept the source transcript as optional Week 13 enrichment, not a new full slide or advanced lab.
+- Intentionally excluded student-facing precision/recall/F1 numbers, synthetic PR evaluation machinery, embeddings, AST chunking, vector databases, token-cost details, and model-comparison claims.
+- Preserved the durable concept for students: relevant context beats more context when asking AI to review final static apps.
+
+Validation run:
+- git diff --check -- week-13-security-review-lab.html passed.
+- Duplicate ID check passed: 60 ids, no duplicates.
+- Anchor order passed: action-risk < local-agent-permissions < agent-eval-path < code-review-goals < ai-review-context < four-risks < agent-review.
+- Inline script parse passed: 1 script, new Function parse ok.
+- Chrome headless screenshots generated and visually inspected:
+  - /tmp/week13-ai-review-context-relevant-mobile.png at 390x844: revised slide body, cards, and formula fit above controls without overlap.
+  - /tmp/week13-ai-review-context-relevant-desktop.png at 1440x900: revised slide body, source note, teacher note, and controls fit without overlap.
+- Final focused Codex review gate reported no blockers. It suggested a non-blocking wording option for the lede, but the current wording was left unchanged because it is accurate and already visually validated.
+
+Current status:
+- Branch slide-redesign-2026-05 remains ahead of origin by 1 commit from ae2a48c.
+- No commit or push performed for this milestone.
+- Dirty tracked files still include progress.md plus week-09, week-11, week-12, week-13, and week-14 from the broader session.
+- Existing untracked files remain untouched: CLAUDE.md, docs/superpowers/audit-2026-05-21-deck-review.md, image/, sos-talk-may12.html, ui.txt.
+
+### Working tree (`git status --short`)
+
+```text
+ M progress.md
+ M week-09-interactivity-intelligence.html
+ M week-11-knowledge-career-evidence.html
+ M week-12-advanced-prompting.html
+ M week-13-security-review-lab.html
+ M week-14-final-showcase.html
+?? CLAUDE.md
+?? docs/superpowers/audit-2026-05-21-deck-review.md
+?? image/
+?? sos-talk-may12.html
+?? ui.txt
+```
+
+### Unstaged diff (`git diff --stat`)
+
+```text
+ progress.md                             | 1633 +++++++++++++++++++++++++++++++
+ week-09-interactivity-intelligence.html |   25 +-
+ week-11-knowledge-career-evidence.html  |   54 +
+ week-12-advanced-prompting.html         |  408 +++++++-
+ week-13-security-review-lab.html        |   91 +-
+ week-14-final-showcase.html             |   21 +-
+ 6 files changed, 2212 insertions(+), 20 deletions(-)
+```
+
+### Staged diff (`git diff --cached --stat`)
+
+_none_
+
+### Latest commit (`git show --stat --oneline HEAD`)
+
+```text
+ae2a48c Integrate AI prompting and research course updates
+ docs/ai-agent-book-web-app-integration.md | 326 ++++++++++
+ external-links.html                       |  79 +++
+ module-00-llm-basics.html                 |   3 +
+ progress.md                               | 960 ++++++++++++++++++++++++++++++
+ week-02-agent-foundations.html            |  21 +
+ week-03-responsible-ai-decisions.html     |  93 ++-
+ week-08-web-basics-design.html            |   8 +-
+ week-09-interactivity-intelligence.html   |  11 +-
+ week-10-complete-static-deployment.html   |  47 +-
+ week-11-knowledge-career-evidence.html    |  90 ++-
+ week-12-advanced-prompting.html           | 173 +++++-
+ week-13-security-review-lab.html          |  50 +-
+ week-14-final-showcase.html               |  87 ++-
+ 13 files changed, 1886 insertions(+), 62 deletions(-)
+```
+
+---
+
+## 2026-08-08 12:48:13 EDT — Codex
+
+- **Branch:** `slide-redesign-2026-05`
+- **HEAD:** `ae2a48c` — Integrate AI prompting and research course updates
+- **Upstream:** origin/slide-redesign-2026-05 — ahead 1, behind 0
+
+### Summary
+
+Completed Q-approved Week 13 AI-code-review context slide integration.
+
+Files changed in this milestone:
+- week-13-security-review-lab.html: added #ai-review-context immediately after #code-review-goals and before #four-risks.
+- week-13-security-review-lab.html: extended the compact mobile selector group used by the adjacent four-card review slides to include #ai-review-context.
+
+#ai-review-context content:
+- Title: "Give AI review better context."
+- Lede: AI can inspect code, but it needs the project goal, scope, known risks, and evidence; better context makes review easier for a human to judge.
+- Cards: Separate reviewer, Review before sharing, Give requirements, Save reusable rules.
+- Formula/codebox: "context + diff + tests -> better review".
+- Source note: adapted from instructor-provided transcript on AI code review practices, rewritten for student static-app review.
+- Teacher note keeps Jira/Linear, PR metrics, payment/idempotency examples, cross-repository conflicts, organization standards, memory layers, and production AI-review systems as enrichment only.
+
+Content choices:
+- Placed in Week 13 because it supports the final-app review workflow before the risk taxonomy and Week 14 showcase.
+- Kept it to one optional compact slide instead of adding a professional AI-code-review module.
+- Intentionally compressed professional topics into student static-app actions: use an independent review pass, review before sharing, provide requirements/context, and turn repeated issues into checklist items.
+- Shortened the copy from the initially approved draft after mobile screenshot showed the formula overlapped the controls. The shortened text keeps the approved concepts but fits the deck.
+
+Validation run:
+- git diff --check -- week-13-security-review-lab.html passed.
+- Duplicate ID check passed: 60 ids, no duplicates.
+- Anchor order passed: action-risk < local-agent-permissions < agent-eval-path < code-review-goals < ai-review-context < four-risks < agent-review.
+- Inline script parse passed: 1 script, new Function parse ok.
+- Chrome headless screenshots generated and visually inspected:
+  - Initial /tmp/week13-ai-review-context-mobile.png at 390x844 showed formula overlap with controls.
+  - Final /tmp/week13-ai-review-context-mobile-2.png at 390x844: slide body, cards, and formula fit above controls without overlap.
+  - Final /tmp/week13-ai-review-context-desktop-2.png at 1440x900: slide body, source note, teacher note, and controls fit without overlap.
+- Final focused Codex review gate reported no blockers. It noted the hidden-slide `inert aria-hidden="true"` pattern is acceptable assuming the deck toggles active slides, which this deck already does via its existing go() function.
+
+Current status:
+- Branch slide-redesign-2026-05 remains ahead of origin by 1 commit from ae2a48c.
+- No commit or push performed for this milestone.
+- Dirty tracked files still include progress.md plus week-09, week-11, week-12, week-13, and week-14 from the broader session.
+- Existing untracked files remain untouched: CLAUDE.md, docs/superpowers/audit-2026-05-21-deck-review.md, image/, sos-talk-may12.html, ui.txt.
+
+### Working tree (`git status --short`)
+
+```text
+ M progress.md
+ M week-09-interactivity-intelligence.html
+ M week-11-knowledge-career-evidence.html
+ M week-12-advanced-prompting.html
+ M week-13-security-review-lab.html
+ M week-14-final-showcase.html
+?? CLAUDE.md
+?? docs/superpowers/audit-2026-05-21-deck-review.md
+?? image/
+?? sos-talk-may12.html
+?? ui.txt
+```
+
+### Unstaged diff (`git diff --stat`)
+
+```text
+ progress.md                             | 1534 +++++++++++++++++++++++++++++++
+ week-09-interactivity-intelligence.html |   25 +-
+ week-11-knowledge-career-evidence.html  |   54 ++
+ week-12-advanced-prompting.html         |  408 +++++++-
+ week-13-security-review-lab.html        |   91 +-
+ week-14-final-showcase.html             |   21 +-
+ 6 files changed, 2113 insertions(+), 20 deletions(-)
+```
+
+### Staged diff (`git diff --cached --stat`)
+
+_none_
+
+### Latest commit (`git show --stat --oneline HEAD`)
+
+```text
+ae2a48c Integrate AI prompting and research course updates
+ docs/ai-agent-book-web-app-integration.md | 326 ++++++++++
+ external-links.html                       |  79 +++
+ module-00-llm-basics.html                 |   3 +
+ progress.md                               | 960 ++++++++++++++++++++++++++++++
+ week-02-agent-foundations.html            |  21 +
+ week-03-responsible-ai-decisions.html     |  93 ++-
+ week-08-web-basics-design.html            |   8 +-
+ week-09-interactivity-intelligence.html   |  11 +-
+ week-10-complete-static-deployment.html   |  47 +-
+ week-11-knowledge-career-evidence.html    |  90 ++-
+ week-12-advanced-prompting.html           | 173 +++++-
+ week-13-security-review-lab.html          |  50 +-
+ week-14-final-showcase.html               |  87 ++-
+ 13 files changed, 1886 insertions(+), 62 deletions(-)
+```
+
+---
+
+## 2026-08-08 12:29:55 EDT — Codex
+
+- **Branch:** `slide-redesign-2026-05`
+- **HEAD:** `ae2a48c` — Integrate AI prompting and research course updates
+- **Upstream:** origin/slide-redesign-2026-05 — ahead 1, behind 0
+
+### Summary
+
+Completed Q-approved Week 13 code-review slide integration.
+
+Files changed in this milestone:
+- week-13-security-review-lab.html: added #code-review-goals immediately after #agent-eval-path and before #four-risks.
+- week-13-security-review-lab.html: extended the compact mobile selectors used for the adjacent four-card review slides to include #code-review-goals, then added #code-review-goals-specific top alignment so the mobile controls do not cover the formula.
+
+#code-review-goals content:
+- Title: "Code review means reducing risk before sharing."
+- Lede: before presenting a final app, review whether it is correct, understandable, teachable, and safe enough to show; AI can help find issues, but humans still decide what matters.
+- Cards: Correctness, Maintainability, Shared knowledge, Risk reduction.
+- Formula/codebox: "diff + tests + evidence + human judgment -> safer final app".
+- Source note: adapted from instructor-provided transcript on code review, rewritten for student static-app review.
+- Teacher note keeps professional PR metrics, Jira/Linear workflow, AI-review vendors, exact line-count/time claims, database migrations/backfills, and automated code-review internals as enrichment only.
+
+Content choices:
+- Placed in Week 13, not Week 14, because it supports the final-app security/review evidence workflow before the showcase.
+- Kept it to one slide to avoid overloading Week 13, which already covers path review, action-risk tiers, four inspectable risks, static scans, agent review prompts, adversarial tests, triage, and the review packet.
+- Intentionally did not import professional PR workflow details, review-speed claims, database migration/backfill examples, AI review vendor internals, or CI/release process details into student-facing content.
+
+Validation run:
+- git diff --check -- week-13-security-review-lab.html passed.
+- Duplicate ID check passed: 59 ids, no duplicates.
+- Anchor order passed: action-risk < local-agent-permissions < agent-eval-path < code-review-goals < four-risks < agent-review.
+- Inline script parse passed: 1 script, new Function parse ok.
+- Chrome headless screenshots generated and visually inspected:
+  - /tmp/week13-code-review-goals-mobile-2.png at 390x844: slide body, cards, and formula fit above controls without overlap.
+  - /tmp/week13-code-review-goals-desktop-2.png at 1440x900: slide body, source note, teacher note, and controls fit without overlap.
+- Initial mobile screenshot before the top-alignment fix showed controls covering bottom content; fixed before final review.
+- Final focused Codex review gate reported no blockers. Earlier cumulative diff review flagged that #local-agent-permissions and #agent-eval-path were also present in the unstaged diff, but those were separately Q-approved earlier milestones; focused review of #code-review-goals found no blockers.
+
+Current status:
+- Branch slide-redesign-2026-05 remains ahead of origin by 1 commit from ae2a48c.
+- No commit or push performed for this milestone.
+- Dirty tracked files still include progress.md plus week-09, week-11, week-12, week-13, and week-14 from the broader session.
+- Existing untracked files remain untouched: CLAUDE.md, docs/superpowers/audit-2026-05-21-deck-review.md, image/, sos-talk-may12.html, ui.txt.
+
+### Working tree (`git status --short`)
+
+```text
+ M progress.md
+ M week-09-interactivity-intelligence.html
+ M week-11-knowledge-career-evidence.html
+ M week-12-advanced-prompting.html
+ M week-13-security-review-lab.html
+ M week-14-final-showcase.html
+?? CLAUDE.md
+?? docs/superpowers/audit-2026-05-21-deck-review.md
+?? image/
+?? sos-talk-may12.html
+?? ui.txt
+```
+
+### Unstaged diff (`git diff --stat`)
+
+```text
+ progress.md                             | 1436 +++++++++++++++++++++++++++++++
+ week-09-interactivity-intelligence.html |   25 +-
+ week-11-knowledge-career-evidence.html  |   54 ++
+ week-12-advanced-prompting.html         |  408 ++++++++-
+ week-13-security-review-lab.html        |   74 +-
+ week-14-final-showcase.html             |   21 +-
+ 6 files changed, 1998 insertions(+), 20 deletions(-)
+```
+
+### Staged diff (`git diff --cached --stat`)
+
+_none_
+
+### Latest commit (`git show --stat --oneline HEAD`)
+
+```text
+ae2a48c Integrate AI prompting and research course updates
+ docs/ai-agent-book-web-app-integration.md | 326 ++++++++++
+ external-links.html                       |  79 +++
+ module-00-llm-basics.html                 |   3 +
+ progress.md                               | 960 ++++++++++++++++++++++++++++++
+ week-02-agent-foundations.html            |  21 +
+ week-03-responsible-ai-decisions.html     |  93 ++-
+ week-08-web-basics-design.html            |   8 +-
+ week-09-interactivity-intelligence.html   |  11 +-
+ week-10-complete-static-deployment.html   |  47 +-
+ week-11-knowledge-career-evidence.html    |  90 ++-
+ week-12-advanced-prompting.html           | 173 +++++-
+ week-13-security-review-lab.html          |  50 +-
+ week-14-final-showcase.html               |  87 ++-
+ 13 files changed, 1886 insertions(+), 62 deletions(-)
+```
+
+---
+
+## 2026-08-08 11:59:54 EDT — Codex
+
+- **Branch:** `slide-redesign-2026-05`
+- **HEAD:** `ae2a48c` — Integrate AI prompting and research course updates
+- **Upstream:** origin/slide-redesign-2026-05 — ahead 1, behind 0
+
+### Summary
+
+Completed Q-approved Week 13 agent-evaluation path review slide integration.
+
+Files changed in this milestone:
+- week-13-security-review-lab.html: added #agent-eval-path immediately after #local-agent-permissions and before #four-risks.
+- week-13-security-review-lab.html: extended compact mobile selectors previously scoped to #local-agent-permissions so #agent-eval-path uses the same compact 2x2 card layout and hides source/teacher notes on mobile.
+
+#agent-eval-path content:
+- Title: "Review the path, not only the answer."
+- Lede: an agent can have a polished final answer while choosing the wrong tool, using weak context, repeating steps, or taking unsafe actions; students should check the trace before trusting the result.
+- Cards: User goal, Tool choice, Context use, Path quality.
+- Formula/codebox: "goal -> tool/context -> action -> output -> human review".
+- Source note: adapted from instructor-provided transcript on evaluating AI agents, rewritten for static-app review evidence.
+- Teacher note keeps observability platforms, trace instrumentation, databases, production monitoring, and LLM-as-judge tooling as enrichment only; explains that for students a trace can be a visible chat log, copied prompt, tool list, screenshot, diff, or review packet; says not to connect real accounts, databases, private logs, or production telemetry.
+
+Content choices:
+- Intentionally did not add student-facing Arize/vendor names, observability platforms, code instrumentation, production monitoring, database-agent examples, benchmark names, trace tooling, eval runners, prompt playgrounds, or LLM-as-judge implementation details.
+- Placed in Week 13, not Week 12, because it supports final-app security/review evidence rather than media prompting.
+- Kept it to one slide because Week 13 already has review path, action-risk tiers, local-agent permissions, four risks, and agent review prompt.
+
+Validation run:
+- git diff --check -- week-13-security-review-lab.html passed.
+- Duplicate ID check passed: 58 ids, no duplicates.
+- Anchor order passed: action-risk < local-agent-permissions < agent-eval-path < four-risks < agent-review.
+- Inline script parse passed: 1 script, node --check ok.
+- Chrome headless screenshots generated and visually inspected:
+  - /tmp/week13-agent-eval-path-mobile.png at 390x844: slide body fits without overlap.
+  - /tmp/week13-agent-eval-path-desktop.png at 1440x900: slide body, source note, and teacher note fit without overlap.
+- Mobile topbar title remains truncated from the long deck title; this is pre-existing and out of scope.
+- Final Codex review gate reported no blockers.
+
+Current status:
+- Branch slide-redesign-2026-05 remains ahead of origin by 1 commit from ae2a48c.
+- No commit or push performed for this milestone.
+- Dirty tracked files still include progress.md plus week-09, week-11, week-12, week-13, and week-14 from the broader session.
+- Existing untracked files remain untouched: CLAUDE.md, docs/superpowers/audit-2026-05-21-deck-review.md, image/, sos-talk-may12.html, ui.txt.
+
+### Working tree (`git status --short`)
+
+```text
+ M progress.md
+ M week-09-interactivity-intelligence.html
+ M week-11-knowledge-career-evidence.html
+ M week-12-advanced-prompting.html
+ M week-13-security-review-lab.html
+ M week-14-final-showcase.html
+?? CLAUDE.md
+?? docs/superpowers/audit-2026-05-21-deck-review.md
+?? image/
+?? sos-talk-may12.html
+?? ui.txt
+```
+
+### Unstaged diff (`git diff --stat`)
+
+```text
+ progress.md                             | 1338 +++++++++++++++++++++++++++++++
+ week-09-interactivity-intelligence.html |   25 +-
+ week-11-knowledge-career-evidence.html  |   54 ++
+ week-12-advanced-prompting.html         |  408 +++++++++-
+ week-13-security-review-lab.html        |   55 +-
+ week-14-final-showcase.html             |   21 +-
+ 6 files changed, 1881 insertions(+), 20 deletions(-)
+```
+
+### Staged diff (`git diff --cached --stat`)
+
+_none_
+
+### Latest commit (`git show --stat --oneline HEAD`)
+
+```text
+ae2a48c Integrate AI prompting and research course updates
+ docs/ai-agent-book-web-app-integration.md | 326 ++++++++++
+ external-links.html                       |  79 +++
+ module-00-llm-basics.html                 |   3 +
+ progress.md                               | 960 ++++++++++++++++++++++++++++++
+ week-02-agent-foundations.html            |  21 +
+ week-03-responsible-ai-decisions.html     |  93 ++-
+ week-08-web-basics-design.html            |   8 +-
+ week-09-interactivity-intelligence.html   |  11 +-
+ week-10-complete-static-deployment.html   |  47 +-
+ week-11-knowledge-career-evidence.html    |  90 ++-
+ week-12-advanced-prompting.html           | 173 +++++-
+ week-13-security-review-lab.html          |  50 +-
+ week-14-final-showcase.html               |  87 ++-
+ 13 files changed, 1886 insertions(+), 62 deletions(-)
+```
+
+---
+
+## 2026-08-08 09:26:37 EDT — Codex
+
+- **Branch:** `slide-redesign-2026-05`
+- **HEAD:** `ae2a48c` — Integrate AI prompting and research course updates
+- **Upstream:** origin/slide-redesign-2026-05 — ahead 1, behind 0
+
+### Summary
+
+Completed Q-approved media-agent controlled-loop slide integration into Week 12.
+
+Files changed in this milestone:
+- week-12-advanced-prompting.html: added #media-agent-loop immediately after #media-eval-funnel and before #data-analysis-check.
+- week-12-advanced-prompting.html: extended shared .media-targets styling and compact mobile selectors to include #media-agent-loop.
+
+#media-agent-loop content:
+- Title: "A media agent is a controlled loop."
+- Frames the durable agent pattern as clear instructions, limited tools, a quality bar, a retry limit, and an inspectable log.
+- Cards: Instructions, Tools, Retry loop, Evidence log.
+- Chips: Brand mockup, Scene plan, Infographic, Demo asset.
+- Formula: "instructions + tools + quality bar + retry limit + log + approval -> safer media agent".
+- Source note: adapted from instructor-provided transcript on image, video, and media agents, rewritten as a classroom-safe agent workflow.
+- Teacher note keeps ADK, Gemini CLI, Nano Banana, Veo, and API details as enrichment only; says not to ask students to run paid/cloud media agents or use real brands, people, voices, customer files, or live blog URLs unless permission is explicit; marks video agents as advanced/not required.
+
+Content choices:
+- Intentionally did not add student-facing vendor names, SDK/API commands, model versions, exact score thresholds, video pipeline implementation, async runner details, ffmpeg steps, or cloud authentication instructions.
+- Kept the slide distinct from #media-agent-evals and #media-eval-funnel by focusing on the system/control-loop architecture: instructions + tools + retries + logs + approval.
+
+Validation run:
+- git diff --check -- week-12-advanced-prompting.html passed.
+- Duplicate ID check passed: 49 ids, no duplicates.
+- Anchor order passed: image-generation-plan < media-agent-evals < media-eval-funnel < media-agent-loop < data-analysis-check < trust.
+- Inline script parse passed: 1 script, node --check ok.
+- Chrome headless screenshots generated and visually inspected:
+  - /tmp/week12-media-agent-loop-mobile.png at 390x844: no overlap; title, lede, cards, chips, and formula fit.
+  - /tmp/week12-media-agent-loop-desktop.png at 1440x900: no overlap; content fits; formula wraps inside the formula box and remains readable.
+- Final Codex review gate reported no blockers. Non-blocking suggestion: keep ASCII arrows unless the deck already uses visual arrow glyphs.
+
+Current status:
+- Branch slide-redesign-2026-05 remains ahead of origin by 1 commit from ae2a48c.
+- No commit or push performed for this milestone.
+- Dirty tracked files still include progress.md plus week-09, week-11, week-12, week-13, and week-14 from the broader session.
+- Existing untracked files remain untouched: CLAUDE.md, docs/superpowers/audit-2026-05-21-deck-review.md, image/, sos-talk-may12.html, ui.txt.
+
+### Working tree (`git status --short`)
+
+```text
+ M progress.md
+ M week-09-interactivity-intelligence.html
+ M week-11-knowledge-career-evidence.html
+ M week-12-advanced-prompting.html
+ M week-13-security-review-lab.html
+ M week-14-final-showcase.html
+?? CLAUDE.md
+?? docs/superpowers/audit-2026-05-21-deck-review.md
+?? image/
+?? sos-talk-may12.html
+?? ui.txt
+```
+
+### Unstaged diff (`git diff --stat`)
+
+```text
+ progress.md                             | 1241 +++++++++++++++++++++++++++++++
+ week-09-interactivity-intelligence.html |   25 +-
+ week-11-knowledge-career-evidence.html  |   54 ++
+ week-12-advanced-prompting.html         |  408 +++++++++-
+ week-13-security-review-lab.html        |   38 +-
+ week-14-final-showcase.html             |   21 +-
+ 6 files changed, 1767 insertions(+), 20 deletions(-)
+```
+
+### Staged diff (`git diff --cached --stat`)
+
+_none_
+
+### Latest commit (`git show --stat --oneline HEAD`)
+
+```text
+ae2a48c Integrate AI prompting and research course updates
+ docs/ai-agent-book-web-app-integration.md | 326 ++++++++++
+ external-links.html                       |  79 +++
+ module-00-llm-basics.html                 |   3 +
+ progress.md                               | 960 ++++++++++++++++++++++++++++++
+ week-02-agent-foundations.html            |  21 +
+ week-03-responsible-ai-decisions.html     |  93 ++-
+ week-08-web-basics-design.html            |   8 +-
+ week-09-interactivity-intelligence.html   |  11 +-
+ week-10-complete-static-deployment.html   |  47 +-
+ week-11-knowledge-career-evidence.html    |  90 ++-
+ week-12-advanced-prompting.html           | 173 +++++-
+ week-13-security-review-lab.html          |  50 +-
+ week-14-final-showcase.html               |  87 ++-
+ 13 files changed, 1886 insertions(+), 62 deletions(-)
+```
+
+---
+
+## 2026-08-08 08:46:08 EDT — Codex
+
+- **Branch:** `slide-redesign-2026-05`
+- **HEAD:** `ae2a48c` — Integrate AI prompting and research course updates
+- **Upstream:** origin/slide-redesign-2026-05 — ahead 1, behind 0
+
+### Summary
+
+Completed Q-approved generated-media evaluation funnel slide integration into Week 12.
+
+Files changed in this milestone:
+- week-12-advanced-prompting.html: added #media-eval-funnel immediately after #media-agent-evals and before #data-analysis-check.
+- week-12-advanced-prompting.html: extended shared .media-targets styling and compact mobile selectors to include #media-eval-funnel.
+
+#media-eval-funnel content:
+- Title: "Use a review funnel for generated media."
+- Frames creative media as having no single right answer, so students should use fast checks, rubric/judge checks, revision, and human review before important publication.
+- Cards: Fast filter, Judge criteria, Rubric questions, Human sign-off.
+- Chips: Prompt match, Text accuracy, Brand fit, Human review.
+- Formula: "fast check -> rubric/judge -> revision -> human sign-off".
+- Source note: adapted from instructor-provided generated-media evaluation transcript and rewritten for classroom-safe media review.
+- Teacher note keeps vendor/model/metric names as enrichment only, warns that automated scores do not prove correctness/safety/publishability, and says to use mock assets unless permission is explicit.
+
+Content choices:
+- Intentionally did not add student-facing SigLIP, Gemini, Gecko, Nano Banana, API mechanics, architecture details, or lab implementation details.
+- Kept this as a practical review funnel because it complements the existing media-agent quality-gates slide without overloading the student deck.
+
+Validation run:
+- git diff --check -- week-12-advanced-prompting.html passed.
+- Duplicate ID check passed: 48 ids, no duplicates.
+- Anchor order passed: image-generation-plan < media-agent-evals < media-eval-funnel < data-analysis-check < trust.
+- Inline script parse passed: 1 script, node --check ok.
+- Chrome headless screenshots generated and visually inspected:
+  - /tmp/week12-media-eval-funnel-mobile.png at 390x844: no overlap; title, lede, cards, chips, and formula fit.
+  - /tmp/week12-media-eval-funnel-desktop.png at 1440x900: no overlap; source note visible and layout fits.
+- Final Codex review gate reported no blockers. Non-blocking suggestion was that "Text accuracy" could later broaden to "Text/readability" if the course emphasizes embedded text readability.
+
+Current status:
+- Branch slide-redesign-2026-05 remains ahead of origin by 1 commit from ae2a48c.
+- No commit or push performed for this milestone.
+- Dirty tracked files still include progress.md plus week-09, week-11, week-12, week-13, and week-14 from the broader session.
+- Existing untracked files remain untouched: CLAUDE.md, docs/superpowers/audit-2026-05-21-deck-review.md, image/, sos-talk-may12.html, ui.txt.
+
+### Working tree (`git status --short`)
+
+```text
+ M progress.md
+ M week-09-interactivity-intelligence.html
+ M week-11-knowledge-career-evidence.html
+ M week-12-advanced-prompting.html
+ M week-13-security-review-lab.html
+ M week-14-final-showcase.html
+?? CLAUDE.md
+?? docs/superpowers/audit-2026-05-21-deck-review.md
+?? image/
+?? sos-talk-may12.html
+?? ui.txt
+```
+
+### Unstaged diff (`git diff --stat`)
+
+```text
+ progress.md                             | 1144 +++++++++++++++++++++++++++++++
+ week-09-interactivity-intelligence.html |   25 +-
+ week-11-knowledge-career-evidence.html  |   54 ++
+ week-12-advanced-prompting.html         |  385 ++++++++++-
+ week-13-security-review-lab.html        |   38 +-
+ week-14-final-showcase.html             |   21 +-
+ 6 files changed, 1647 insertions(+), 20 deletions(-)
+```
+
+### Staged diff (`git diff --cached --stat`)
+
+_none_
+
+### Latest commit (`git show --stat --oneline HEAD`)
+
+```text
+ae2a48c Integrate AI prompting and research course updates
+ docs/ai-agent-book-web-app-integration.md | 326 ++++++++++
+ external-links.html                       |  79 +++
+ module-00-llm-basics.html                 |   3 +
+ progress.md                               | 960 ++++++++++++++++++++++++++++++
+ week-02-agent-foundations.html            |  21 +
+ week-03-responsible-ai-decisions.html     |  93 ++-
+ week-08-web-basics-design.html            |   8 +-
+ week-09-interactivity-intelligence.html   |  11 +-
+ week-10-complete-static-deployment.html   |  47 +-
+ week-11-knowledge-career-evidence.html    |  90 ++-
+ week-12-advanced-prompting.html           | 173 +++++-
+ week-13-security-review-lab.html          |  50 +-
+ week-14-final-showcase.html               |  87 ++-
+ 13 files changed, 1886 insertions(+), 62 deletions(-)
+```
+
+---
+
+## 2026-08-08 08:14:59 EDT — Codex
+
+- **Branch:** `slide-redesign-2026-05`
+- **HEAD:** `ae2a48c` — Integrate AI prompting and research course updates
+- **Upstream:** origin/slide-redesign-2026-05 — ahead 1, behind 0
+
+### Summary
+
+Completed Q-approved media-agent/evaluation slide integration into Week 12.
+
+Files changed in this milestone:
+- week-12-advanced-prompting.html: extended shared .media-targets chip styling to cover #media-agent-evals.
+- week-12-advanced-prompting.html: extended compact mobile CSS to cover #media-agent-evals.
+- week-12-advanced-prompting.html: updated #image-generation-plan card from "Subject" to "Subject + action" with text "Name the main object or person and what it is doing."
+- week-12-advanced-prompting.html: added #media-agent-evals immediately after #image-generation-plan and before #data-analysis-check. Title: "Media agents need quality gates."
+
+#media-agent-evals content:
+- Frames a media agent as planning from a brief, creating options, evaluating against criteria, iterating, and requiring human approval before use.
+- Cards: Brief, Options, Evaluate, Iterate safely.
+- Chips: Brand asset, UI mockup, Product demo, Storyboard.
+- Formula: "brief + references + options + rubric + human approval -> usable media asset".
+- Source note: adapted from instructor-provided transcript on AI agents for image and video generation, rewritten for classroom-safe web-app media review.
+- Teacher note keeps the slide conceptual; does not require video generation, code APIs, paid tools, or real brand/customer data; avoids vendor/model names and unstable claims; says evals reduce risk but do not prove correctness/safety/publishability.
+
+Content choices:
+- Intentionally excluded student-facing SigLIP, Gemini/Veo/Nano Banana, autoregressive/diffusion/hybrid, latent diffusion, first/last-frame controls, SDK/API code, and exact product capabilities.
+- Kept the focus on quality gates and human approval because it fits the existing rubric critique, image generation, and trust-boundary sequence.
+
+Validation run:
+- git diff --check -- week-12-advanced-prompting.html passed.
+- Duplicate ID check passed: 47 ids, no duplicates.
+- Anchor order passed: image-generation-plan < media-agent-evals < data-analysis-check < trust.
+- Inline script parse passed: 1 script, parse ok.
+- Chrome headless mobile screenshot generated and visually inspected:
+  - /tmp/week12-media-agent-evals-mobile.png: title, lede, four cards, chips, and formula visible above controls.
+- Final Codex review gate reported no blockers. Existing mobile header status clipping is pre-existing and out of scope; new slide body fits.
+
+Current status:
+- Branch slide-redesign-2026-05 remains ahead of origin by 1 commit from ae2a48c.
+- No commit or push performed for this milestone.
+- Dirty tracked files include progress.md plus week-09, week-11, week-12, week-13, and week-14. Week-12 includes this media-agent milestone plus prior approved milestones.
+- Existing untracked files remain untouched: CLAUDE.md, docs/superpowers/audit-2026-05-21-deck-review.md, image/, sos-talk-may12.html, ui.txt.
+
+### Working tree (`git status --short`)
+
+```text
+ M progress.md
+ M week-09-interactivity-intelligence.html
+ M week-11-knowledge-career-evidence.html
+ M week-12-advanced-prompting.html
+ M week-13-security-review-lab.html
+ M week-14-final-showcase.html
+?? CLAUDE.md
+?? docs/superpowers/audit-2026-05-21-deck-review.md
+?? image/
+?? sos-talk-may12.html
+?? ui.txt
+```
+
+### Unstaged diff (`git diff --stat`)
+
+```text
+ progress.md                             | 1047 +++++++++++++++++++++++++++++++
+ week-09-interactivity-intelligence.html |   25 +-
+ week-11-knowledge-career-evidence.html  |   54 ++
+ week-12-advanced-prompting.html         |  362 ++++++++++-
+ week-13-security-review-lab.html        |   38 +-
+ week-14-final-showcase.html             |   21 +-
+ 6 files changed, 1527 insertions(+), 20 deletions(-)
+```
+
+### Staged diff (`git diff --cached --stat`)
+
+_none_
+
+### Latest commit (`git show --stat --oneline HEAD`)
+
+```text
+ae2a48c Integrate AI prompting and research course updates
+ docs/ai-agent-book-web-app-integration.md | 326 ++++++++++
+ external-links.html                       |  79 +++
+ module-00-llm-basics.html                 |   3 +
+ progress.md                               | 960 ++++++++++++++++++++++++++++++
+ week-02-agent-foundations.html            |  21 +
+ week-03-responsible-ai-decisions.html     |  93 ++-
+ week-08-web-basics-design.html            |   8 +-
+ week-09-interactivity-intelligence.html   |  11 +-
+ week-10-complete-static-deployment.html   |  47 +-
+ week-11-knowledge-career-evidence.html    |  90 ++-
+ week-12-advanced-prompting.html           | 173 +++++-
+ week-13-security-review-lab.html          |  50 +-
+ week-14-final-showcase.html               |  87 ++-
+ 13 files changed, 1886 insertions(+), 62 deletions(-)
+```
+
+---
+
+## 2026-08-07 22:44:46 EDT — Codex
+
+- **Branch:** `slide-redesign-2026-05`
+- **HEAD:** `ae2a48c` — Integrate AI prompting and research course updates
+- **Upstream:** origin/slide-redesign-2026-05 — ahead 1, behind 0
+
+### Summary
+
+Completed Q-approved data-analysis slide integration into Week 12 and assessed the provided Module 3 quiz.
+
+Files changed in this milestone:
+- week-12-advanced-prompting.html: extended shared .media-targets chip styling to cover #data-analysis-check.
+- week-12-advanced-prompting.html: extended compact mobile CSS to cover #data-analysis-check.
+- week-12-advanced-prompting.html: added #data-analysis-check immediately after #image-generation-plan and before #trust. Title: "Let AI calculate, then audit the numbers."
+- #data-analysis-check content covers safe classroom/anonymized data, clear analysis questions, visible method, output auditing, classroom-safe example chips, source note, and teacher note.
+
+Content choices:
+- Rewrote the instructor-provided data analysis transcript into one classroom-safe slide.
+- Avoided using real personal health, company sales, customer, student, family, financial, or account data as student tasks.
+- Avoided overclaiming that all AI tools can run code; teacher note says to ask for spreadsheet formulas or analysis steps if code execution is unavailable.
+- Kept charts/analysis framed as drafts until checked.
+
+Validation run:
+- git diff --check -- week-12-advanced-prompting.html passed.
+- Duplicate ID check passed: 46 ids, no duplicates.
+- Anchor order passed: image-generation-plan < data-analysis-check < trust.
+- Inline script parse passed: 1 script, parse ok.
+- Chrome headless mobile screenshot generated and visually inspected:
+  - /tmp/week12-data-analysis-check-mobile.png: title, lede, four cards, chips, and formula visible above controls.
+- Final Codex review gate reported no blockers. Existing mobile header clipping is pre-existing and out of scope; new slide body fits.
+
+Quiz assessment:
+- Overall Module 3 quiz is useful, but not as-is for our class unless revised.
+- Strong/useful questions: Q2, Q3, Q6, Q7, Q9, Q10.
+- Q1 needs revision because our deck intentionally teaches the stable idea that text is cheaper/faster and media is slower/more expensive, not exact speech/image/video ordering.
+- Q4 and Q5 should be dropped or marked enrichment unless diffusion/text-vs-image generation mechanics are taught.
+- Q8 should be rewritten for privacy: use safe, synthetic, class-approved, or anonymized tables, and avoid normalizing uploads of real health/customer/sales data.
+- Suggested answer key if using after revision: Q1 Text -> Speech -> Image -> Video only if exact ordering is taught; Q2 third; Q3 fourth; Q4 third if taught; Q5 second if taught; Q6 third; Q7 third; Q8 third after privacy rewrite; Q9 fourth; Q10 fourth.
+
+Current status:
+- Branch slide-redesign-2026-05 remains ahead of origin by 1 commit from ae2a48c.
+- No commit or push performed for this milestone.
+- Dirty tracked files include progress.md plus week-09, week-11, week-12, week-13, and week-14. Week-12 includes this data-analysis milestone plus prior approved milestones.
+- Existing untracked files remain untouched: CLAUDE.md, docs/superpowers/audit-2026-05-21-deck-review.md, image/, sos-talk-may12.html, ui.txt.
+
+### Working tree (`git status --short`)
+
+```text
+ M progress.md
+ M week-09-interactivity-intelligence.html
+ M week-11-knowledge-career-evidence.html
+ M week-12-advanced-prompting.html
+ M week-13-security-review-lab.html
+ M week-14-final-showcase.html
+?? CLAUDE.md
+?? docs/superpowers/audit-2026-05-21-deck-review.md
+?? image/
+?? sos-talk-may12.html
+?? ui.txt
+```
+
+### Unstaged diff (`git diff --stat`)
+
+```text
+ progress.md                             | 948 ++++++++++++++++++++++++++++++++
+ week-09-interactivity-intelligence.html |  25 +-
+ week-11-knowledge-career-evidence.html  |  54 ++
+ week-12-advanced-prompting.html         | 339 +++++++++++-
+ week-13-security-review-lab.html        |  38 +-
+ week-14-final-showcase.html             |  21 +-
+ 6 files changed, 1405 insertions(+), 20 deletions(-)
+```
+
+### Staged diff (`git diff --cached --stat`)
+
+_none_
+
+### Latest commit (`git show --stat --oneline HEAD`)
+
+```text
+ae2a48c Integrate AI prompting and research course updates
+ docs/ai-agent-book-web-app-integration.md | 326 ++++++++++
+ external-links.html                       |  79 +++
+ module-00-llm-basics.html                 |   3 +
+ progress.md                               | 960 ++++++++++++++++++++++++++++++
+ week-02-agent-foundations.html            |  21 +
+ week-03-responsible-ai-decisions.html     |  93 ++-
+ week-08-web-basics-design.html            |   8 +-
+ week-09-interactivity-intelligence.html   |  11 +-
+ week-10-complete-static-deployment.html   |  47 +-
+ week-11-knowledge-career-evidence.html    |  90 ++-
+ week-12-advanced-prompting.html           | 173 +++++-
+ week-13-security-review-lab.html          |  50 +-
+ week-14-final-showcase.html               |  87 ++-
+ 13 files changed, 1886 insertions(+), 62 deletions(-)
+```
+
+---
+
+## 2026-08-07 22:36:46 EDT — Codex
+
+- **Branch:** `slide-redesign-2026-05`
+- **HEAD:** `ae2a48c` — Integrate AI prompting and research course updates
+- **Upstream:** origin/slide-redesign-2026-05 — ahead 1, behind 0
+
+### Summary
+
+Completed Q-approved image-specific multimodal slide integration into Week 12.
+
+Files changed in this milestone:
+- week-12-advanced-prompting.html: extended shared .media-targets styling at lines 81-82 to cover #image-input-check and #image-generation-plan.
+- week-12-advanced-prompting.html: added compact mobile CSS at lines 207-218 for the two new optional image slides.
+- week-12-advanced-prompting.html: added #image-input-check immediately after #multimodal-setup and before #trust. Title: "Images are context, not proof." Content covers image input as context, clear task instructions, coarse/fine-detail limitations, verification, safe image use, source note, and teacher safety note.
+- week-12-advanced-prompting.html: added #image-generation-plan immediately after #image-input-check. Title: "Write image prompts like design briefs." Content covers subject, scene, style, review checks, generated media caveats, copyright/permission/disclosure, source note, and teacher note.
+
+Content choices:
+- Kept the transcript material rewritten and source-noted rather than copied verbatim.
+- Excluded product names, personal anecdotes, exact timing/pricing claims, model comparisons, and the game/website section from Week 12.
+- Did not add game/website material here because Week 9 already teaches app building through goal/input/output; a later Week 9 reinforcement could be added if Q wants.
+- Temporarily explored a mobile header status tweak after screenshots exposed clipping, but reverted it as pre-existing and out of scope. New slide bodies fit cleanly.
+
+Validation run:
+- git diff --check -- week-12-advanced-prompting.html passed.
+- Duplicate ID check passed: 45 ids, no duplicates.
+- Anchor order passed: multimodal-setup < image-input-check < image-generation-plan < trust.
+- Inline script parse passed: 1 script, parse ok.
+- Chrome headless mobile screenshots generated and inspected:
+  - /tmp/week12-image-input-check-mobile-approved.png: title, lede, four cards, chips, formula visible above controls.
+  - /tmp/week12-image-generation-plan-mobile-approved.png: title, lede, four cards, chips, formula visible above controls.
+- Final Codex review gate reported no blockers for youth safety, pedagogy, overclaiming, copyright/source note handling, or validation story.
+
+Current status:
+- Branch slide-redesign-2026-05 remains ahead of origin by 1 commit from ae2a48c.
+- No commit or push performed for this milestone.
+- Dirty tracked files include progress.md plus week-09, week-11, week-12, week-13, and week-14. Week-12 includes this image-slide milestone plus prior approved milestones.
+- Existing untracked files remain untouched: CLAUDE.md, docs/superpowers/audit-2026-05-21-deck-review.md, image/, sos-talk-may12.html, ui.txt.
+
+### Working tree (`git status --short`)
+
+```text
+ M progress.md
+ M week-09-interactivity-intelligence.html
+ M week-11-knowledge-career-evidence.html
+ M week-12-advanced-prompting.html
+ M week-13-security-review-lab.html
+ M week-14-final-showcase.html
+?? CLAUDE.md
+?? docs/superpowers/audit-2026-05-21-deck-review.md
+?? image/
+?? sos-talk-may12.html
+?? ui.txt
+```
+
+### Unstaged diff (`git diff --stat`)
+
+```text
+ progress.md                             | 856 ++++++++++++++++++++++++++++++++
+ week-09-interactivity-intelligence.html |  25 +-
+ week-11-knowledge-career-evidence.html  |  54 ++
+ week-12-advanced-prompting.html         | 316 +++++++++++-
+ week-13-security-review-lab.html        |  38 +-
+ week-14-final-showcase.html             |  21 +-
+ 6 files changed, 1290 insertions(+), 20 deletions(-)
+```
+
+### Staged diff (`git diff --cached --stat`)
+
+_none_
+
+### Latest commit (`git show --stat --oneline HEAD`)
+
+```text
+ae2a48c Integrate AI prompting and research course updates
+ docs/ai-agent-book-web-app-integration.md | 326 ++++++++++
+ external-links.html                       |  79 +++
+ module-00-llm-basics.html                 |   3 +
+ progress.md                               | 960 ++++++++++++++++++++++++++++++
+ week-02-agent-foundations.html            |  21 +
+ week-03-responsible-ai-decisions.html     |  93 ++-
+ week-08-web-basics-design.html            |   8 +-
+ week-09-interactivity-intelligence.html   |  11 +-
+ week-10-complete-static-deployment.html   |  47 +-
+ week-11-knowledge-career-evidence.html    |  90 ++-
+ week-12-advanced-prompting.html           | 173 +++++-
+ week-13-security-review-lab.html          |  50 +-
+ week-14-final-showcase.html               |  87 ++-
+ 13 files changed, 1886 insertions(+), 62 deletions(-)
+```
+
+---
+
+## 2026-08-07 22:07:08 EDT — Codex
+
+- **Branch:** `slide-redesign-2026-05`
+- **HEAD:** `ae2a48c` — Integrate AI prompting and research course updates
+- **Upstream:** origin/slide-redesign-2026-05 — ahead 1, behind 0
+
+### Summary
+
+Completed Q-approved multimodal AI integration into Week 12.
+
+Files changed in this milestone:
+- week-12-advanced-prompting.html: added #multimodal-setup immediately after #rubric-critique and before #trust. The optional slide is titled "Use media when text is not enough" and frames multimodal prompting as a vendor-neutral extension of existing prompt planning.
+- week-12-advanced-prompting.html: added four workflow cards: Show context, Plan in text, Slow iteration, Responsible use.
+- week-12-advanced-prompting.html: added use-case tags for Screenshot critique, Hero image prompt, Alt text, and Demo video script.
+- week-12-advanced-prompting.html: added formula "media context + text plan + consent/safety check + human review -> more useful multimodal work".
+- week-12-advanced-prompting.html: added source note adapted from the instructor-provided multimodal AI transcript, plus teacher note keeping image/audio/video generation optional and school-safe.
+- week-12-advanced-prompting.html: added compact mobile CSS for #multimodal-setup.
+
+Content choices:
+- Did not include product names, personal cake/voice anecdotes, exact provider/model claims, exact pricing/performance rankings, or claims that beneficial uses vastly outnumber harmful ones.
+- Reworded the lede to avoid tool-dependent "files as outputs" language: "Images, audio, video, and files can be part of the workflow."
+- Strengthened the consent rule to "recognizable people, voices, or faces" for youth-safety clarity.
+
+Validation run:
+- git diff --check -- week-12-advanced-prompting.html passed.
+- Duplicate ID check passed: 43 ids, no duplicates.
+- Anchor order check passed: rubric-critique < multimodal-setup < trust.
+- Inline script parse passed with Node new Function(...).
+- Chrome headless mobile screenshot at 390x844 captured and visually inspected:
+  - /tmp/week12-multimodal-setup-mobile-final2.png: title, lede, four cards, use-case tags, and formula visible above controls.
+- Blocker-only Codex review gate completed successfully and reported no blockers before final consent wording tweak; the final tweak was from the review's non-blocking suggestion and targeted validation was rerun successfully.
+
+Current status:
+- Branch slide-redesign-2026-05 remains ahead of origin by 1 commit from ae2a48c.
+- No commit or push performed for this milestone.
+- Dirty tracked files include progress.md plus week-09, week-11, week-12, week-13, and week-14. Week-12 is updated in this milestone; Week-13 and other files include prior approved milestones.
+- Existing untracked files remain untouched: CLAUDE.md, docs/superpowers/audit-2026-05-21-deck-review.md, image/, sos-talk-may12.html, ui.txt.
+
+### Working tree (`git status --short`)
+
+```text
+ M progress.md
+ M week-09-interactivity-intelligence.html
+ M week-11-knowledge-career-evidence.html
+ M week-12-advanced-prompting.html
+ M week-13-security-review-lab.html
+ M week-14-final-showcase.html
+?? CLAUDE.md
+?? docs/superpowers/audit-2026-05-21-deck-review.md
+?? image/
+?? sos-talk-may12.html
+?? ui.txt
+```
+
+### Unstaged diff (`git diff --stat`)
+
+```text
+ progress.md                             | 764 ++++++++++++++++++++++++++++++++
+ week-09-interactivity-intelligence.html |  25 +-
+ week-11-knowledge-career-evidence.html  |  54 +++
+ week-12-advanced-prompting.html         | 258 ++++++++++-
+ week-13-security-review-lab.html        |  38 +-
+ week-14-final-showcase.html             |  21 +-
+ 6 files changed, 1140 insertions(+), 20 deletions(-)
+```
+
+### Staged diff (`git diff --cached --stat`)
+
+_none_
+
+### Latest commit (`git show --stat --oneline HEAD`)
+
+```text
+ae2a48c Integrate AI prompting and research course updates
+ docs/ai-agent-book-web-app-integration.md | 326 ++++++++++
+ external-links.html                       |  79 +++
+ module-00-llm-basics.html                 |   3 +
+ progress.md                               | 960 ++++++++++++++++++++++++++++++
+ week-02-agent-foundations.html            |  21 +
+ week-03-responsible-ai-decisions.html     |  93 ++-
+ week-08-web-basics-design.html            |   8 +-
+ week-09-interactivity-intelligence.html   |  11 +-
+ week-10-complete-static-deployment.html   |  47 +-
+ week-11-knowledge-career-evidence.html    |  90 ++-
+ week-12-advanced-prompting.html           | 173 +++++-
+ week-13-security-review-lab.html          |  50 +-
+ week-14-final-showcase.html               |  87 ++-
+ 13 files changed, 1886 insertions(+), 62 deletions(-)
+```
+
+---
+
+## 2026-08-07 21:21:03 EDT — Codex
+
+- **Branch:** `slide-redesign-2026-05`
+- **HEAD:** `ae2a48c` — Integrate AI prompting and research course updates
+- **Upstream:** origin/slide-redesign-2026-05 — ahead 1, behind 0
+
+### Summary
+
+Completed Q-approved AI-critique integration into Week 12.
+
+Files changed in this milestone:
+- week-12-advanced-prompting.html: added #rubric-critique immediately after #progressive-writing and before #trust. The slide is titled "Make critique more grounded" and teaches small-piece editing plus rubric-first critique for whole drafts.
+- week-12-advanced-prompting.html: added four workflow cards: Small piece, Rubric first, Notes first, Fix gaps.
+- week-12-advanced-prompting.html: added a web-app homepage-copy critique prompt using rubric categories: user need, clarity, evidence, accuracy and safety limits, and next action. The prompt asks for one note per category and suggestions, with no rewrite until the student chooses a direction.
+- week-12-advanced-prompting.html: added formula "rubric + evidence notes + score after notes -> focused revision".
+- week-12-advanced-prompting.html: added source note adapted from the instructor-provided AI critique transcript, plus teacher note keeping cross-model review optional and warning not to claim a second model guarantees objectivity.
+- week-12-advanced-prompting.html: added compact mobile CSS for #rubric-critique.
+
+Content choices:
+- Did not include model names, fast-changing model comparison claims, exact performance claims, or "jagged intelligence" terminology in the student-facing slide.
+- Applied reviewer wording suggestion by changing "accuracy/safety boundary" to "accuracy and safety limits" for student clarity.
+- Kept "score after notes" formula because it matches the approved rubric-first critique lesson.
+
+Validation run:
+- git diff --check -- week-12-advanced-prompting.html passed.
+- Duplicate ID check passed: 42 ids, no duplicates.
+- Anchor order check passed: progressive-writing < rubric-critique < trust.
+- Inline script parse passed with Node new Function(...).
+- Chrome headless mobile screenshot at 390x844 captured and visually inspected:
+  - /tmp/week12-rubric-critique-mobile-final.png: title, lede, four cards, prompt block, and formula visible above controls.
+- Blocker-only Codex review gate completed successfully and reported no blockers.
+
+Current status:
+- Branch slide-redesign-2026-05 remains ahead of origin by 1 commit from ae2a48c.
+- No commit or push performed for this milestone.
+- Dirty tracked files include progress.md plus week-09, week-11, week-12, week-13, and week-14. Week-12 is updated in this milestone; Week-13 and other files include prior approved milestones.
+- Existing untracked files remain untouched: CLAUDE.md, docs/superpowers/audit-2026-05-21-deck-review.md, image/, sos-talk-may12.html, ui.txt.
+
+### Working tree (`git status --short`)
+
+```text
+ M progress.md
+ M week-09-interactivity-intelligence.html
+ M week-11-knowledge-career-evidence.html
+ M week-12-advanced-prompting.html
+ M week-13-security-review-lab.html
+ M week-14-final-showcase.html
+?? CLAUDE.md
+?? docs/superpowers/audit-2026-05-21-deck-review.md
+?? image/
+?? sos-talk-may12.html
+?? ui.txt
+```
+
+### Unstaged diff (`git diff --stat`)
+
+```text
+ progress.md                             | 672 ++++++++++++++++++++++++++++++++
+ week-09-interactivity-intelligence.html |  25 +-
+ week-11-knowledge-career-evidence.html  |  54 +++
+ week-12-advanced-prompting.html         | 221 ++++++++++-
+ week-13-security-review-lab.html        |  38 +-
+ week-14-final-showcase.html             |  21 +-
+ 6 files changed, 1011 insertions(+), 20 deletions(-)
+```
+
+### Staged diff (`git diff --cached --stat`)
+
+_none_
+
+### Latest commit (`git show --stat --oneline HEAD`)
+
+```text
+ae2a48c Integrate AI prompting and research course updates
+ docs/ai-agent-book-web-app-integration.md | 326 ++++++++++
+ external-links.html                       |  79 +++
+ module-00-llm-basics.html                 |   3 +
+ progress.md                               | 960 ++++++++++++++++++++++++++++++
+ week-02-agent-foundations.html            |  21 +
+ week-03-responsible-ai-decisions.html     |  93 ++-
+ week-08-web-basics-design.html            |   8 +-
+ week-09-interactivity-intelligence.html   |  11 +-
+ week-10-complete-static-deployment.html   |  47 +-
+ week-11-knowledge-career-evidence.html    |  90 ++-
+ week-12-advanced-prompting.html           | 173 +++++-
+ week-13-security-review-lab.html          |  50 +-
+ week-14-final-showcase.html               |  87 ++-
+ 13 files changed, 1886 insertions(+), 62 deletions(-)
+```
+
+---
+
+## 2026-08-07 20:36:32 EDT — Codex
+
+- **Branch:** `slide-redesign-2026-05`
+- **HEAD:** `ae2a48c` — Integrate AI prompting and research course updates
+- **Upstream:** origin/slide-redesign-2026-05 — ahead 1, behind 0
+
+### Summary
+
+Completed Q-approved writing-with-AI integration into Week 12.
+
+Files changed in this milestone:
+- week-12-advanced-prompting.html: added #progressive-writing immediately after #anti-sycophancy and before #trust. The slide is titled "Shape writing before drafting" and teaches progressive outlining for AI-assisted writing.
+- week-12-advanced-prompting.html: added five workflow cards: Outline, Critique, Bullets, Draft, Edit. Added use-case tags for Homepage copy, README, Demo script, and Reflection.
+- week-12-advanced-prompting.html: added formula "outline -> critique -> bullets -> critique -> draft -> human edit".
+- week-12-advanced-prompting.html: added source note citing the instructor-provided writing-with-AI transcript as rewritten for student web-app copy and demo writing, plus teacher note focusing on substance, evidence, voice, and student project fit rather than punctuation/style policing.
+- week-12-advanced-prompting.html: added desktop and compact mobile CSS for #progressive-writing.
+
+Content choices:
+- Avoided the transcript's exact statistics and trend claims (OpenAI 24%, 40% work slop, em dash trend, word-frequency claims) because those were not independently verified in this milestone.
+- Kept the student-facing lesson on the durable workflow: shape the structure before asking for finished prose.
+
+Validation run:
+- git diff --check -- week-12-advanced-prompting.html passed.
+- Duplicate ID check passed: 41 ids, no duplicates.
+- Anchor order check passed: anti-sycophancy < progressive-writing < trust.
+- Inline script parse passed with Node new Function(...).
+- Chrome headless mobile screenshot at 390x844 captured and visually inspected:
+  - /tmp/week12-progressive-writing-mobile.png: title, lede, five workflow cards, use-case tags, and formula visible above controls.
+- Blocker-only Codex review gate completed successfully and reported no blockers.
+
+Current status:
+- Branch slide-redesign-2026-05 remains ahead of origin by 1 commit from ae2a48c.
+- No commit or push performed for this milestone.
+- Dirty tracked files include progress.md plus week-09, week-11, week-12, week-13, and week-14. Week-12 is updated in this milestone; Week-13 and other files include prior approved milestones.
+- Existing untracked files remain untouched: CLAUDE.md, docs/superpowers/audit-2026-05-21-deck-review.md, image/, sos-talk-may12.html, ui.txt.
+
+### Working tree (`git status --short`)
+
+```text
+ M progress.md
+ M week-09-interactivity-intelligence.html
+ M week-11-knowledge-career-evidence.html
+ M week-12-advanced-prompting.html
+ M week-13-security-review-lab.html
+ M week-14-final-showcase.html
+?? CLAUDE.md
+?? docs/superpowers/audit-2026-05-21-deck-review.md
+?? image/
+?? sos-talk-may12.html
+?? ui.txt
+```
+
+### Unstaged diff (`git diff --stat`)
+
+```text
+ progress.md                             | 582 ++++++++++++++++++++++++++++++++
+ week-09-interactivity-intelligence.html |  25 +-
+ week-11-knowledge-career-evidence.html  |  54 +++
+ week-12-advanced-prompting.html         | 191 ++++++++++-
+ week-13-security-review-lab.html        |  38 ++-
+ week-14-final-showcase.html             |  21 +-
+ 6 files changed, 891 insertions(+), 20 deletions(-)
+```
+
+### Staged diff (`git diff --cached --stat`)
+
+_none_
+
+### Latest commit (`git show --stat --oneline HEAD`)
+
+```text
+ae2a48c Integrate AI prompting and research course updates
+ docs/ai-agent-book-web-app-integration.md | 326 ++++++++++
+ external-links.html                       |  79 +++
+ module-00-llm-basics.html                 |   3 +
+ progress.md                               | 960 ++++++++++++++++++++++++++++++
+ week-02-agent-foundations.html            |  21 +
+ week-03-responsible-ai-decisions.html     |  93 ++-
+ week-08-web-basics-design.html            |   8 +-
+ week-09-interactivity-intelligence.html   |  11 +-
+ week-10-complete-static-deployment.html   |  47 +-
+ week-11-knowledge-career-evidence.html    |  90 ++-
+ week-12-advanced-prompting.html           | 173 +++++-
+ week-13-security-review-lab.html          |  50 +-
+ week-14-final-showcase.html               |  87 ++-
+ 13 files changed, 1886 insertions(+), 62 deletions(-)
+```
+
+---
+
+## 2026-08-07 20:23:18 EDT — Codex
+
+- **Branch:** `slide-redesign-2026-05`
+- **HEAD:** `ae2a48c` — Integrate AI prompting and research course updates
+- **Upstream:** origin/slide-redesign-2026-05 — ahead 1, behind 0
+
+### Summary
+
+Completed Q-approved sycophancy integration into Week 12.
+
+Files changed in this milestone:
+- week-12-advanced-prompting.html: added #anti-sycophancy immediately after #reasoning-workflow and before #trust. The slide is titled "Ask for truth, not agreement" and teaches a neutral-framing workflow for avoiding sycophancy: neutral frame, rubric, and counterevidence.
+- week-12-advanced-prompting.html: added a student web-app example comparing the leading prompt "My app idea is great, right?" with a neutral critique prompt using user need, feasibility, risks, and next test.
+- week-12-advanced-prompting.html: added source note citing the instructor-provided sycophancy transcript as rewritten for student web-app planning, plus teacher note warning not to make every prompt adversarial and not to repeat exact unsupported study numbers unless verified.
+- week-12-advanced-prompting.html: added compact mobile CSS for #anti-sycophancy and moved comparison spacing into CSS.
+
+Content choices:
+- Avoided the transcript's specific Washington Post / "10x" claim because it was not separately verified in this milestone.
+- Reworded the lede to "AI chatbots can over-agree with your framing" to avoid anthropomorphic overclaiming.
+
+Validation run:
+- git diff --check -- week-12-advanced-prompting.html passed.
+- Duplicate ID check passed: 40 ids, no duplicates.
+- Anchor order check passed: reasoning-workflow < anti-sycophancy < trust.
+- Inline script parse passed with Node new Function(...).
+- Chrome headless mobile screenshot at 390x844 captured and visually inspected:
+  - /tmp/week12-anti-sycophancy-mobile-final.png: title, lede, cards, examples, and formula visible above controls.
+- Blocker-only Codex review gate completed successfully and reported no blockers. Non-blocking title-softening suggestion was noted but not applied because Q approved the stronger title and it was not a blocker.
+
+Current status:
+- Branch slide-redesign-2026-05 remains ahead of origin by 1 commit from ae2a48c.
+- No commit or push performed for this milestone.
+- Dirty tracked files include progress.md plus week-09, week-11, week-12, week-13, and week-14. Week-12 is updated in this milestone; Week-13 and other files include prior approved milestones.
+- Existing untracked files remain untouched: CLAUDE.md, docs/superpowers/audit-2026-05-21-deck-review.md, image/, sos-talk-may12.html, ui.txt.
+
+### Working tree (`git status --short`)
+
+```text
+ M progress.md
+ M week-09-interactivity-intelligence.html
+ M week-11-knowledge-career-evidence.html
+ M week-12-advanced-prompting.html
+ M week-13-security-review-lab.html
+ M week-14-final-showcase.html
+?? CLAUDE.md
+?? docs/superpowers/audit-2026-05-21-deck-review.md
+?? image/
+?? sos-talk-may12.html
+?? ui.txt
+```
+
+### Unstaged diff (`git diff --stat`)
+
+```text
+ progress.md                             | 493 ++++++++++++++++++++++++++++++++
+ week-09-interactivity-intelligence.html |  25 +-
+ week-11-knowledge-career-evidence.html  |  54 ++++
+ week-12-advanced-prompting.html         | 152 +++++++++-
+ week-13-security-review-lab.html        |  38 ++-
+ week-14-final-showcase.html             |  21 +-
+ 6 files changed, 763 insertions(+), 20 deletions(-)
+```
+
+### Staged diff (`git diff --cached --stat`)
+
+_none_
+
+### Latest commit (`git show --stat --oneline HEAD`)
+
+```text
+ae2a48c Integrate AI prompting and research course updates
+ docs/ai-agent-book-web-app-integration.md | 326 ++++++++++
+ external-links.html                       |  79 +++
+ module-00-llm-basics.html                 |   3 +
+ progress.md                               | 960 ++++++++++++++++++++++++++++++
+ week-02-agent-foundations.html            |  21 +
+ week-03-responsible-ai-decisions.html     |  93 ++-
+ week-08-web-basics-design.html            |   8 +-
+ week-09-interactivity-intelligence.html   |  11 +-
+ week-10-complete-static-deployment.html   |  47 +-
+ week-11-knowledge-career-evidence.html    |  90 ++-
+ week-12-advanced-prompting.html           | 173 +++++-
+ week-13-security-review-lab.html          |  50 +-
+ week-14-final-showcase.html               |  87 ++-
+ 13 files changed, 1886 insertions(+), 62 deletions(-)
+```
+
+---
+
+## 2026-08-07 19:23:40 EDT — Codex
+
+- **Branch:** `slide-redesign-2026-05`
+- **HEAD:** `ae2a48c` — Integrate AI prompting and research course updates
+- **Upstream:** origin/slide-redesign-2026-05 — ahead 1, behind 0
+
+### Summary
+
+Completed Q-approved reasoning-with-AI integration into Week 12.
+
+Files changed in this milestone:
+- week-12-advanced-prompting.html: revised the existing Structured reasoning slide into #reasoning-workflow after #repair and before #trust. The slide is now titled "Use reasoning for hard tradeoffs" and teaches a durable workflow: set context, give it time, let tools help, and verify. It includes the formula "context + criteria + tool/source checks + verification -> better decisions." Added source note citing the instructor-provided reasoning-with-AI transcript as rewritten for student web-app planning. Added teacher note warning that longer reasoning is not proof of correctness, avoiding unstable benchmark/model claims, and asking for visible assumptions/checks rather than hidden thoughts.
+- week-14-final-showcase.html: optional reasoning reflection bullet was tested but removed because the mobile slide became crowded. Final Week 14 content remains at the previously clean reflection set.
+
+Content choices:
+- Did not include METR benchmark details, exact year/timeline claims, product-specific thinking-mode names, "latest/best model" claims, "step-by-step is obsolete," or "ultra think" in student-facing content.
+- Reworded the "Give it time" card to avoid mode-specific language: "Ask for careful review or use a source-rich workflow for genuinely complex tasks."
+
+Validation run:
+- git diff --check -- week-12-advanced-prompting.html week-14-final-showcase.html passed.
+- Duplicate ID check passed for Week 12 and Week 14.
+- Anchor order check passed: Week 12 repair < reasoning-workflow < trust; Week 14 workflow-value < responsible-ai-check < career-reflection.
+- Inline scripts parsed successfully with Node new Function(...).
+- Chrome headless screenshots at 390x844 captured and visually inspected:
+  - /tmp/week12-reasoning-workflow-mobile-final2.png: title, four cards, and formula visible above controls with no clipping.
+  - /tmp/week14-workflow-value-reasoning-final.png: clean after optional reasoning bullet removal.
+- Blocker-only Codex review gate completed successfully and reported no blocker-level concerns.
+
+Current status:
+- Branch slide-redesign-2026-05 remains ahead of origin by 1 commit from ae2a48c.
+- No commit or push performed for this milestone.
+- Dirty tracked files include progress.md plus week-09, week-11, week-12, week-13, and week-14. Week-12 is updated in this milestone; Week-13 is from the prior local-agent permissions milestone; other files include previously approved Module 1/thought-partner/context edits.
+- Existing untracked files remain untouched: CLAUDE.md, docs/superpowers/audit-2026-05-21-deck-review.md, image/, sos-talk-may12.html, ui.txt.
+
+### Working tree (`git status --short`)
+
+```text
+ M progress.md
+ M week-09-interactivity-intelligence.html
+ M week-11-knowledge-career-evidence.html
+ M week-12-advanced-prompting.html
+ M week-13-security-review-lab.html
+ M week-14-final-showcase.html
+?? CLAUDE.md
+?? docs/superpowers/audit-2026-05-21-deck-review.md
+?? image/
+?? sos-talk-may12.html
+?? ui.txt
+```
+
+### Unstaged diff (`git diff --stat`)
+
+```text
+ progress.md                             | 405 ++++++++++++++++++++++++++++++++
+ week-09-interactivity-intelligence.html |  25 +-
+ week-11-knowledge-career-evidence.html  |  54 +++++
+ week-12-advanced-prompting.html         | 119 +++++++++-
+ week-13-security-review-lab.html        |  38 ++-
+ week-14-final-showcase.html             |  21 +-
+ 6 files changed, 642 insertions(+), 20 deletions(-)
+```
+
+### Staged diff (`git diff --cached --stat`)
+
+_none_
+
+### Latest commit (`git show --stat --oneline HEAD`)
+
+```text
+ae2a48c Integrate AI prompting and research course updates
+ docs/ai-agent-book-web-app-integration.md | 326 ++++++++++
+ external-links.html                       |  79 +++
+ module-00-llm-basics.html                 |   3 +
+ progress.md                               | 960 ++++++++++++++++++++++++++++++
+ week-02-agent-foundations.html            |  21 +
+ week-03-responsible-ai-decisions.html     |  93 ++-
+ week-08-web-basics-design.html            |   8 +-
+ week-09-interactivity-intelligence.html   |  11 +-
+ week-10-complete-static-deployment.html   |  47 +-
+ week-11-knowledge-career-evidence.html    |  90 ++-
+ week-12-advanced-prompting.html           | 173 +++++-
+ week-13-security-review-lab.html          |  50 +-
+ week-14-final-showcase.html               |  87 ++-
+ 13 files changed, 1886 insertions(+), 62 deletions(-)
+```
+
+---
+
+## 2026-08-07 19:11:02 EDT — Codex
+
+- **Branch:** `slide-redesign-2026-05`
+- **HEAD:** `ae2a48c` — Integrate AI prompting and research course updates
+- **Upstream:** origin/slide-redesign-2026-05 — ahead 1, behind 0
+
+### Summary
+
+Completed Q-approved AI desktop/local-agent permissions integration into Week 13.
+
+Files changed in this milestone:
+- week-13-security-review-lab.html: added #local-agent-permissions immediately after #action-risk and before #four-risks. The slide teaches a permission workflow for desktop/local AI agents: narrow the folder/scope, start read-only, review the plan/file list/permission request, and approve only bounded actions. It warns that delete, overwrite, push, deploy, install, connect, or send actions require human review.
+- week-13-security-review-lab.html: updated the generated agent-review prompt rules to add: "Use only the files or areas I named. Ask before inspecting or changing anything outside scope." Existing rules against secrets, push/deploy/install/delete/backend/API/networked features remain.
+
+Content choices:
+- Kept the transcript content generic as desktop/local AI agents rather than naming product-specific examples.
+- Included source note: instructor-provided transcript on AI desktop apps and agentic file context, rewritten for local static-app safety.
+- Included teacher note: use as a safety mental model or instructor demo only; do not ask students to install desktop agents, connect accounts, or run real file automations.
+
+Validation run:
+- git diff --check -- week-13-security-review-lab.html passed.
+- Duplicate ID check passed for Week 13.
+- Anchor order check passed: action-risk < local-agent-permissions < four-risks < agent-review.
+- Scope rule string found in generated prompt template.
+- Inline script parsed successfully with Node new Function(...).
+- Chrome headless screenshot at 390x844 was captured and visually inspected:
+  - /tmp/week13-local-agent-permissions-mobile.png: new slide visible above controls with no content clipping.
+- Blocker-only Codex review gate completed successfully and reported no serious blockers. Non-blocking note: source/teacher notes are hidden on mobile for layout, but source note remains visible on desktop.
+
+Current status:
+- Branch slide-redesign-2026-05 remains ahead of origin by 1 commit from ae2a48c.
+- No commit or push performed for this milestone.
+- Dirty tracked files include progress.md plus week-09, week-11, week-12, week-13, and week-14. Week-13 is new for this milestone; other files include previously approved Module 1/thought-partner/context edits.
+- Existing untracked files remain untouched: CLAUDE.md, docs/superpowers/audit-2026-05-21-deck-review.md, image/, sos-talk-may12.html, ui.txt.
+
+### Working tree (`git status --short`)
+
+```text
+ M progress.md
+ M week-09-interactivity-intelligence.html
+ M week-11-knowledge-career-evidence.html
+ M week-12-advanced-prompting.html
+ M week-13-security-review-lab.html
+ M week-14-final-showcase.html
+?? CLAUDE.md
+?? docs/superpowers/audit-2026-05-21-deck-review.md
+?? image/
+?? sos-talk-may12.html
+?? ui.txt
+```
+
+### Unstaged diff (`git diff --stat`)
+
+```text
+ progress.md                             | 316 ++++++++++++++++++++++++++++++++
+ week-09-interactivity-intelligence.html |  25 ++-
+ week-11-knowledge-career-evidence.html  |  54 ++++++
+ week-12-advanced-prompting.html         |  91 ++++++++-
+ week-13-security-review-lab.html        |  38 +++-
+ week-14-final-showcase.html             |  21 ++-
+ 6 files changed, 532 insertions(+), 13 deletions(-)
+```
+
+### Staged diff (`git diff --cached --stat`)
+
+_none_
+
+### Latest commit (`git show --stat --oneline HEAD`)
+
+```text
+ae2a48c Integrate AI prompting and research course updates
+ docs/ai-agent-book-web-app-integration.md | 326 ++++++++++
+ external-links.html                       |  79 +++
+ module-00-llm-basics.html                 |   3 +
+ progress.md                               | 960 ++++++++++++++++++++++++++++++
+ week-02-agent-foundations.html            |  21 +
+ week-03-responsible-ai-decisions.html     |  93 ++-
+ week-08-web-basics-design.html            |   8 +-
+ week-09-interactivity-intelligence.html   |  11 +-
+ week-10-complete-static-deployment.html   |  47 +-
+ week-11-knowledge-career-evidence.html    |  90 ++-
+ week-12-advanced-prompting.html           | 173 +++++-
+ week-13-security-review-lab.html          |  50 +-
+ week-14-final-showcase.html               |  87 ++-
+ 13 files changed, 1886 insertions(+), 62 deletions(-)
+```
+
+---
+
+## 2026-08-07 18:07:51 EDT — Codex
+
+- **Branch:** `slide-redesign-2026-05`
+- **HEAD:** `ae2a48c` — Integrate AI prompting and research course updates
+- **Upstream:** origin/slide-redesign-2026-05 — ahead 1, behind 0
+
+### Summary
+
+Completed Q-approved context-management addition to the AI-as-thought-partner material.
+
+Files changed in this milestone:
+- week-12-advanced-prompting.html: added #context-memory immediately after #thought-partner-loop and before #jobs. The slide teaches context hygiene for using AI as a thought partner: give advisor facts, treat feedback as context, start a fresh chat when old context is distracting, and keep private/high-risk data out. It intentionally avoids unstable exact model context-window claims and includes a source note citing the instructor-provided context-management transcript as rewritten for student web-app planning.
+- week-14-final-showcase.html: changed the final reflection heading from "Three reflection questions" to "Reflection questions" and added: "What context did you give AI, and what did you deliberately leave out?"
+
+Validation run:
+- git diff --check -- week-12-advanced-prompting.html week-14-final-showcase.html passed.
+- Duplicate ID check passed for Week 12 and Week 14.
+- Anchor order check passed: Week 12 power-user-prompting < thought-partner-loop < context-memory < jobs < module1-research-check; Week 14 workflow-value < responsible-ai-check < career-reflection.
+- Chrome headless screenshots at 390x844 were captured and visually inspected:
+  - /tmp/week12-context-memory-mobile.png: cards and formula visible above fixed controls; no right-edge clipping.
+  - /tmp/week14-workflow-value-context-mobile.png: added context question still fits; reflection cards and sentence frame visible; no right-edge clipping or overlap.
+- Blocker-only Codex review gate completed successfully and reported no blockers.
+
+Current status:
+- Branch slide-redesign-2026-05 remains ahead of origin by 1 commit from ae2a48c.
+- No commit or push performed for this milestone.
+- Dirty tracked files include progress.md plus week-09, week-11, week-12, and week-14. Week-09/week-14 include prior thought-partner edits; Week-11 and part of Week-12 include pre-existing approved Module 1 quiz adaptation changes.
+- Existing untracked files remain untouched: CLAUDE.md, docs/superpowers/audit-2026-05-21-deck-review.md, image/, sos-talk-may12.html, ui.txt.
+
+### Working tree (`git status --short`)
+
+```text
+ M progress.md
+ M week-09-interactivity-intelligence.html
+ M week-11-knowledge-career-evidence.html
+ M week-12-advanced-prompting.html
+ M week-14-final-showcase.html
+?? CLAUDE.md
+?? docs/superpowers/audit-2026-05-21-deck-review.md
+?? image/
+?? sos-talk-may12.html
+?? ui.txt
+```
+
+### Unstaged diff (`git diff --stat`)
+
+```text
+ progress.md                             | 235 ++++++++++++++++++++++++++++++++
+ week-09-interactivity-intelligence.html |  25 +++-
+ week-11-knowledge-career-evidence.html  |  54 ++++++++
+ week-12-advanced-prompting.html         |  91 ++++++++++++-
+ week-14-final-showcase.html             |  21 ++-
+ 5 files changed, 418 insertions(+), 8 deletions(-)
+```
+
+### Staged diff (`git diff --cached --stat`)
+
+_none_
+
+### Latest commit (`git show --stat --oneline HEAD`)
+
+```text
+ae2a48c Integrate AI prompting and research course updates
+ docs/ai-agent-book-web-app-integration.md | 326 ++++++++++
+ external-links.html                       |  79 +++
+ module-00-llm-basics.html                 |   3 +
+ progress.md                               | 960 ++++++++++++++++++++++++++++++
+ week-02-agent-foundations.html            |  21 +
+ week-03-responsible-ai-decisions.html     |  93 ++-
+ week-08-web-basics-design.html            |   8 +-
+ week-09-interactivity-intelligence.html   |  11 +-
+ week-10-complete-static-deployment.html   |  47 +-
+ week-11-knowledge-career-evidence.html    |  90 ++-
+ week-12-advanced-prompting.html           | 173 +++++-
+ week-13-security-review-lab.html          |  50 +-
+ week-14-final-showcase.html               |  87 ++-
+ 13 files changed, 1886 insertions(+), 62 deletions(-)
+```
+
+---
+
+## 2026-08-07 17:22:28 EDT — Codex
+
+- **Branch:** `slide-redesign-2026-05`
+- **HEAD:** `ae2a48c` — Integrate AI prompting and research course updates
+- **Upstream:** origin/slide-redesign-2026-05 — ahead 1, behind 0
+
+### Summary
+
+Completed Q-approved AI-as-thought-partner integration across the static course slide decks.
+
+Files changed in this milestone:
+- week-09-interactivity-intelligence.html: added id #feature-map to the Week 8 to Week 9 bridge slide, renamed the slide to "Turn your brief into a feature map," added a "Thought partner first" planning card before coding, and added a desktop source note citing the instructor-provided thought-partner transcript concept. Added scoped mobile CSS so the slide uses a compact two-column feature map, hides the timebox/source note on mobile, and fits above controls.
+- week-12-advanced-prompting.html: added #thought-partner-loop after #power-user-prompting and before #jobs. The slide teaches context -> options -> feedback/critique -> verify as the app-design loop, includes a source note, and includes a teacher caveat that constraints can narrow too early. Added mobile-only compact card layout for the slide.
+- week-14-final-showcase.html: added a final reflection bullet asking what AI suggestion the student rejected, changed, or combined and why. Shortened the sentence-frame scaffold and added scoped mobile CSS so #workflow-value fits on 390px-wide mobile screenshots.
+
+Validation run:
+- git diff --check -- week-09-interactivity-intelligence.html week-12-advanced-prompting.html week-14-final-showcase.html passed.
+- Duplicate id check passed for all three files.
+- Anchor order check passed: Week 9 feature-map < demo < agent-lab; Week 12 power-user-prompting < thought-partner-loop < jobs < module1-research-check; Week 14 workflow-value < responsible-ai-check < career-reflection.
+- Chrome headless screenshots at 390x844 were captured and visually inspected:
+  - /tmp/week9-feature-map-mobile-final3.png: thought partner card visible above controls, no right-edge clipping.
+  - /tmp/week12-thought-partner-mobile-final3.png: four cards and formula visible above fixed controls, no clipping.
+  - /tmp/week14-workflow-value-mobile-final3.png: reflection cards and sentence frame visible in viewport, no right-edge clipping.
+- Blocker-only Codex review gate completed successfully and reported no blockers.
+
+Current status:
+- Branch slide-redesign-2026-05 remains ahead of origin by 1 commit from ae2a48c.
+- No commit or push performed for this milestone.
+- Dirty tracked files include progress.md plus week-09, week-11, week-12, and week-14. Week-11 and part of week-12 were pre-existing approved Module 1 quiz adaptation changes from the previous checkpoint.
+- Existing untracked files remain untouched: CLAUDE.md, docs/superpowers/audit-2026-05-21-deck-review.md, image/, sos-talk-may12.html, ui.txt.
+
+### Working tree (`git status --short`)
+
+```text
+ M progress.md
+ M week-09-interactivity-intelligence.html
+ M week-11-knowledge-career-evidence.html
+ M week-12-advanced-prompting.html
+ M week-14-final-showcase.html
+?? CLAUDE.md
+?? docs/superpowers/audit-2026-05-21-deck-review.md
+?? image/
+?? sos-talk-may12.html
+?? ui.txt
+```
+
+### Unstaged diff (`git diff --stat`)
+
+```text
+ progress.md                             | 152 ++++++++++++++++++++++++++++++++
+ week-09-interactivity-intelligence.html |  25 +++++-
+ week-11-knowledge-career-evidence.html  |  54 ++++++++++++
+ week-12-advanced-prompting.html         |  74 +++++++++++++++-
+ week-14-final-showcase.html             |  18 +++-
+ 5 files changed, 316 insertions(+), 7 deletions(-)
+```
+
+### Staged diff (`git diff --cached --stat`)
+
+_none_
+
+### Latest commit (`git show --stat --oneline HEAD`)
+
+```text
+ae2a48c Integrate AI prompting and research course updates
+ docs/ai-agent-book-web-app-integration.md | 326 ++++++++++
+ external-links.html                       |  79 +++
+ module-00-llm-basics.html                 |   3 +
+ progress.md                               | 960 ++++++++++++++++++++++++++++++
+ week-02-agent-foundations.html            |  21 +
+ week-03-responsible-ai-decisions.html     |  93 ++-
+ week-08-web-basics-design.html            |   8 +-
+ week-09-interactivity-intelligence.html   |  11 +-
+ week-10-complete-static-deployment.html   |  47 +-
+ week-11-knowledge-career-evidence.html    |  90 ++-
+ week-12-advanced-prompting.html           | 173 +++++-
+ week-13-security-review-lab.html          |  50 +-
+ week-14-final-showcase.html               |  87 ++-
+ 13 files changed, 1886 insertions(+), 62 deletions(-)
+```
+
+---
+
+## 2026-08-07 15:00:04 EDT — Codex
+
+- **Branch:** `slide-redesign-2026-05`
+- **HEAD:** `ae2a48c` — Integrate AI prompting and research course updates
+- **Upstream:** origin/slide-redesign-2026-05 — ahead 1, behind 0
+
+### Summary
+
+Completed Q-approved Module 1 quiz adaptation as lightweight practice checks.
+
+Files changed in this milestone:
+- week-11-knowledge-career-evidence.html: added #module1-source-check after #source-mode-choice and before #lateral-reading. It adapts the quiz concepts on pretrained knowledge, web search, knowledge cutoff, search triggering, source quality, and health-source reliability into six reveal-card practice questions.
+- week-12-advanced-prompting.html: added #module1-research-check after #research-mode-lab and before #query-expansion. It adapts quiz concepts on document context, writing workflow, web search vs deep/source-rich research, and deep-research planning into four reveal-card practice questions.
+
+Pedagogical choices:
+- Kept the activity formative/diagnostic, not a scored pass/fail quiz.
+- Softened tool-specific claims: search behavior is scoped to search-enabled tools, and deep research is described as often/usually starting with a plan because interfaces vary.
+- Added source notes to both new slides naming the instructor-provided Module 1 quiz and saying the content was rewritten as practice checks.
+
+Validation run:
+- git diff --check -- week-11-knowledge-career-evidence.html week-12-advanced-prompting.html passed.
+- Duplicate id checks passed for both files.
+- Structure checks passed: Week 11 source-mode-choice < module1-source-check < lateral-reading; Week 12 research-mode-lab < module1-research-check < query-expansion.
+- Chrome headless screenshots were captured for desktop/mobile. Initial mobile clipping was fixed with shorter copy and scoped mobile alignment/width rules. Final mobile screenshots inspected and usable:
+  - /tmp/week11-module1-source-check-mobile-final.png
+  - /tmp/week12-module1-research-check-mobile-final.png
+- Blocker-only Codex review of the diff returned no blockers.
+
+Current status:
+- Branch slide-redesign-2026-05 remains ahead of origin by 1 commit from ae2a48c.
+- Uncommitted tracked changes now include progress.md plus the two updated week files from this milestone.
+- No commit or push performed for this milestone.
+- Q has provided new transcript content on AI as a thought partner, context management, desktop/agentic file context, and reasoning. This has not been edited into the web app yet. Recommended next step is to propose a small integration before editing: likely Week 12 for brainstorming/feedback loops and reasoning, and Week 13 for desktop-app file permissions/action safety.
+
+### Working tree (`git status --short`)
+
+```text
+ M progress.md
+ M week-11-knowledge-career-evidence.html
+ M week-12-advanced-prompting.html
+?? CLAUDE.md
+?? docs/superpowers/audit-2026-05-21-deck-review.md
+?? image/
+?? sos-talk-may12.html
+?? ui.txt
+```
+
+### Unstaged diff (`git diff --stat`)
+
+```text
+ progress.md                            | 70 ++++++++++++++++++++++++++++++++++
+ week-11-knowledge-career-evidence.html | 54 ++++++++++++++++++++++++++
+ week-12-advanced-prompting.html        | 38 ++++++++++++++++++
+ 3 files changed, 162 insertions(+)
+```
+
+### Staged diff (`git diff --cached --stat`)
+
+_none_
+
+### Latest commit (`git show --stat --oneline HEAD`)
+
+```text
+ae2a48c Integrate AI prompting and research course updates
+ docs/ai-agent-book-web-app-integration.md | 326 ++++++++++
+ external-links.html                       |  79 +++
+ module-00-llm-basics.html                 |   3 +
+ progress.md                               | 960 ++++++++++++++++++++++++++++++
+ week-02-agent-foundations.html            |  21 +
+ week-03-responsible-ai-decisions.html     |  93 ++-
+ week-08-web-basics-design.html            |   8 +-
+ week-09-interactivity-intelligence.html   |  11 +-
+ week-10-complete-static-deployment.html   |  47 +-
+ week-11-knowledge-career-evidence.html    |  90 ++-
+ week-12-advanced-prompting.html           | 173 +++++-
+ week-13-security-review-lab.html          |  50 +-
+ week-14-final-showcase.html               |  87 ++-
+ 13 files changed, 1886 insertions(+), 62 deletions(-)
+```
+
+---
+
+## 2026-08-07 14:29:13 EDT — Codex
+
+- **Branch:** `slide-redesign-2026-05`
+- **HEAD:** `ae2a48c` — Integrate AI prompting and research course updates
+- **Upstream:** origin/slide-redesign-2026-05 — ahead 1, behind 0
+
+### Summary
+
+Committed the accumulated approved LearnAI course-content updates.
+
+Commit created:
+- ae2a48c — Integrate AI prompting and research course updates
+
+Commit contents:
+- docs/ai-agent-book-web-app-integration.md added with the requested AI Agent book integration notes.
+- external-links.html updated for the new/used course resources.
+- module-00-llm-basics.html and weeks 02, 03, 08, 09, 10, 11, 12, 13, and 14 updated with the approved generative-AI course integrations, quiz-derived checks, responsible-AI notes, deployment-understanding checks, source/search verification cautions, and the latest power-user prompting / source-mode additions.
+- progress.md checkpoint history included through the pre-commit checkpoint.
+
+Pre-commit verification:
+- git diff --cached --check passed.
+- Blocker-only Codex staged-diff review returned no blockers.
+- Earlier milestone validations remain recorded in progress.md: duplicate slide IDs/order checks, external-links parse, and desktop/mobile Playwright checks for newly added slides.
+
+Current status after commit:
+- Branch slide-redesign-2026-05 is ahead of origin/slide-redesign-2026-05 by 1 commit.
+- No push performed; Q must explicitly approve push after local testing.
+- Post-commit checkpoint command modified progress.md again, as expected for handoff hygiene.
+- Remaining untracked files intentionally excluded from the commit: CLAUDE.md, docs/superpowers/audit-2026-05-21-deck-review.md, image/, sos-talk-may12.html, ui.txt.
+
+### Working tree (`git status --short`)
+
+```text
+?? CLAUDE.md
+?? docs/superpowers/audit-2026-05-21-deck-review.md
+?? image/
+?? sos-talk-may12.html
+?? ui.txt
+```
+
+### Unstaged diff (`git diff --stat`)
+
+_none_
+
+### Staged diff (`git diff --cached --stat`)
+
+_none_
+
+### Latest commit (`git show --stat --oneline HEAD`)
+
+```text
+ae2a48c Integrate AI prompting and research course updates
+ docs/ai-agent-book-web-app-integration.md | 326 ++++++++++
+ external-links.html                       |  79 +++
+ module-00-llm-basics.html                 |   3 +
+ progress.md                               | 960 ++++++++++++++++++++++++++++++
+ week-02-agent-foundations.html            |  21 +
+ week-03-responsible-ai-decisions.html     |  93 ++-
+ week-08-web-basics-design.html            |   8 +-
+ week-09-interactivity-intelligence.html   |  11 +-
+ week-10-complete-static-deployment.html   |  47 +-
+ week-11-knowledge-career-evidence.html    |  90 ++-
+ week-12-advanced-prompting.html           | 173 +++++-
+ week-13-security-review-lab.html          |  50 +-
+ week-14-final-showcase.html               |  87 ++-
+ 13 files changed, 1886 insertions(+), 62 deletions(-)
+```
+
+---
+
 ## 2026-08-07 09:19:56 EDT — Codex
 
 - **Branch:** `slide-redesign-2026-05`

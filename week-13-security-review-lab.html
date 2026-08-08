@@ -129,6 +129,19 @@ input:focus,select:focus,textarea:focus{border-color:rgba(251,146,60,.85);box-sh
   #search-verification .codebox{display:none}
   #search-verification .source-note{font-size:12px;line-height:1.3;margin-top:8px}
   #search-verification .teacher-note{display:none}
+  #local-agent-permissions,#agent-eval-path,#code-review-goals,#ai-review-context{justify-items:start;padding-top:12px;padding-bottom:12px}
+  #local-agent-permissions .inner,#agent-eval-path .inner,#code-review-goals .inner,#ai-review-context .inner{width:min(334px,100%);max-width:334px;margin:auto 0}
+  #local-agent-permissions .timebox,#agent-eval-path .timebox,#code-review-goals .timebox,#ai-review-context .timebox{display:none}
+  #local-agent-permissions h2,#agent-eval-path h2,#code-review-goals h2,#ai-review-context h2{font-size:25px;margin-bottom:8px}
+  #local-agent-permissions .lede,#agent-eval-path .lede,#code-review-goals .lede,#ai-review-context .lede{font-size:15px;line-height:1.28;margin-bottom:10px}
+  #local-agent-permissions .grid.four,#agent-eval-path .grid.four,#code-review-goals .grid.four,#ai-review-context .grid.four{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin-top:10px}
+  #local-agent-permissions .card,#agent-eval-path .card,#code-review-goals .card,#ai-review-context .card{padding:10px;border-radius:10px}
+  #local-agent-permissions .card h3,#agent-eval-path .card h3,#code-review-goals .card h3,#ai-review-context .card h3{font-size:15px;margin-bottom:5px}
+  #local-agent-permissions .card p,#agent-eval-path .card p,#code-review-goals .card p,#ai-review-context .card p{font-size:12px;line-height:1.25}
+  #agent-eval-path .codebox,#code-review-goals .codebox,#ai-review-context .codebox{font-size:11px;line-height:1.35;padding:10px;margin-top:10px}
+  #local-agent-permissions .source-note,#local-agent-permissions .teacher-note,#agent-eval-path .source-note,#agent-eval-path .teacher-note,#code-review-goals .source-note,#code-review-goals .teacher-note,#ai-review-context .source-note,#ai-review-context .teacher-note{display:none}
+  #code-review-goals,#ai-review-context{align-items:start}
+  #code-review-goals .inner,#ai-review-context .inner{margin:0}
 }
 @media (prefers-reduced-motion:reduce){
   *,*::before,*::after{transition:none!important;animation:none!important;scroll-behavior:auto!important}
@@ -237,6 +250,73 @@ input:focus,select:focus,textarea:focus{border-color:rgba(251,146,60,.85);box-sh
         <a class="link-btn" href="https://weihaoqu.github.io/learnAIDoc/wiki/openworker-local-first-desktop-agents/" target="_blank" rel="noopener noreferrer">Optional OpenWorker action-risk case</a>
       </div>
       <div class="teacher-note">Use OpenWorker as a product-design and safety case only. Do not ask students to install it, connect accounts, or run desktop automations.</div>
+    </div>
+  </section>
+
+  <section class="slide" id="local-agent-permissions" data-part="Part 1" data-title="Local agent permissions" inert aria-hidden="true">
+    <div class="inner">
+      <div class="timebox">Permission workflow</div>
+      <h2>Local agents need a permission workflow.</h2>
+      <p class="lede">A desktop or local AI agent can gather context from files and sometimes write, move, or delete them. Use a narrow scope before letting it act.</p>
+      <div class="grid four">
+        <div class="card green"><h3>1. Narrow scope</h3><p>Open only the project folder or files needed for the task.</p></div>
+        <div class="card blue"><h3>2. Read first</h3><p>Ask it to inspect, summarize, and propose a plan before edits.</p></div>
+        <div class="card gold"><h3>3. Review ask</h3><p>Check the plan, file list, and permission request before approval.</p></div>
+        <div class="card warn"><h3>4. Bound actions</h3><p>Delete, overwrite, push, deploy, install, connect, or send requires human review.</p></div>
+      </div>
+      <p class="source-note">Source concept: instructor-provided transcript on AI desktop apps and agentic file context. Rewritten for local static-app safety.</p>
+      <div class="teacher-note">Use this as a safety mental model or instructor demo only. Do not ask students to install desktop agents, connect accounts, or run real file automations.</div>
+    </div>
+  </section>
+
+  <section class="slide" id="agent-eval-path" data-part="Part 1" data-title="Agent path review" inert aria-hidden="true">
+    <div class="inner">
+      <div class="timebox">Trace review</div>
+      <h2>Review the path, not only the answer.</h2>
+      <p class="lede">An agent can produce a nice final response while choosing the wrong tool, using weak context, repeating steps, or taking an unsafe action. Check the trace before trusting the result.</p>
+      <div class="grid four">
+        <div class="card green"><h3>User goal</h3><p>Did the agent understand the task, constraints, and allowed scope?</p></div>
+        <div class="card blue"><h3>Tool choice</h3><p>Did it choose the right tool or file area for the job?</p></div>
+        <div class="card gold"><h3>Context use</h3><p>Did it use the provided files, sources, dates, and preferences accurately?</p></div>
+        <div class="card warn"><h3>Path quality</h3><p>Did it avoid loops, unnecessary actions, unsafe changes, and unsupported claims?</p></div>
+      </div>
+      <div class="codebox">goal -> tool/context -> action -> output -> human review</div>
+      <p class="source-note">Adapted from instructor-provided transcript on evaluating AI agents. Rewritten for static-app review evidence.</p>
+      <div class="teacher-note">Keep observability platforms, trace instrumentation, databases, production monitoring, and LLM-as-judge tooling as enrichment only. For students, a trace can be a visible chat log, copied prompt, tool list, screenshot, diff, or review packet. Do not ask students to connect real accounts, databases, private logs, or production telemetry.</div>
+    </div>
+  </section>
+
+  <section class="slide" id="code-review-goals" data-part="Part 1" data-title="Code review" inert aria-hidden="true">
+    <div class="inner">
+      <div class="timebox">Code review</div>
+      <h2>Code review means reducing risk before sharing.</h2>
+      <p class="lede">Before presenting a final app, review whether it is correct, understandable, teachable, and safe enough to show. AI can help find issues, but humans still decide what matters.</p>
+      <div class="grid four">
+        <div class="card green"><h3>Correctness</h3><p>Does the change do what it claims, including empty input and edge cases?</p></div>
+        <div class="card blue"><h3>Maintainability</h3><p>Can someone understand and safely change this later?</p></div>
+        <div class="card gold"><h3>Shared knowledge</h3><p>Does the review explain the pattern, not just point out mistakes?</p></div>
+        <div class="card warn"><h3>Risk reduction</h3><p>Could the change leak data, trust unsafe input, break links, or give an agent too much power?</p></div>
+      </div>
+      <div class="codebox">diff + tests + evidence + human judgment -> safer final app</div>
+      <p class="source-note">Adapted from instructor-provided transcript on code review. Rewritten for student static-app review.</p>
+      <div class="teacher-note">Keep professional PR metrics, Jira/Linear workflow, AI-review vendors, exact line-count/time claims, database migrations/backfills, and automated code-review internals as enrichment only. For this class, review means inspecting changed static files, rendered output, test evidence, and the Week 13 packet before presentation.</div>
+    </div>
+  </section>
+
+  <section class="slide" id="ai-review-context" data-part="Part 1" data-title="AI review context" inert aria-hidden="true">
+    <div class="inner">
+      <div class="timebox">Optional AI review pattern</div>
+      <h2>Give AI review better context.</h2>
+      <p class="lede">AI can inspect code, but it needs relevant context: the project goal, scope, known risks, and evidence. Better context makes review easier for a human to judge.</p>
+      <div class="grid four">
+        <div class="card green"><h3>Separate reviewer</h3><p>Ask for an independent review pass before final presentation.</p></div>
+        <div class="card blue"><h3>Review before sharing</h3><p>Run review locally before classmates or the instructor review it.</p></div>
+        <div class="card gold"><h3>Give requirements</h3><p>Include the app goal, inputs, outputs, edge cases, and only the files or screenshots that matter.</p></div>
+        <div class="card warn"><h3>Save reusable rules</h3><p>If an issue repeats, add it to the future review checklist.</p></div>
+      </div>
+      <div class="codebox">relevant context + diff + tests -> better review</div>
+      <p class="source-note">Adapted from instructor-provided transcript on AI code review practices. Rewritten for student static-app review.</p>
+      <div class="teacher-note">Keep Jira/Linear, PR metrics, payment and idempotency examples, cross-repository conflicts, organization standards, memory layers, and production AI-review systems as enrichment only. For students, requirements can be the project brief, rubric, checklist, screenshots, and Week 13 packet. Instructor enrichment: diff-only review can miss requirement and pattern violations; full-context dumping can add noise, so selective context usually beats more context.</div>
     </div>
   </section>
 
@@ -614,11 +694,12 @@ Evidence to use:
 ${value('arEvidence','[tests, screenshots, diffs, logs, source docs, rendered page]')}
 
 Rules:
-1. Do not ask me to paste secrets, .env files, tokens, private student data, hidden answer keys, or private repo content.
-2. Do not push, deploy, install packages, delete files, add a backend, add an API key, or make networked AI features.
-3. First produce a review checklist and suspected issues.
-4. For each issue, give risk, evidence, suggested fix, test, and whether I should ask the instructor.
-5. If you propose edits, show the plan and wait for human approval.`;
+1. Use only the files or areas I named. Ask before inspecting or changing anything outside scope.
+2. Do not ask me to paste secrets, .env files, tokens, private student data, hidden answer keys, or private repo content.
+3. Do not push, deploy, install packages, delete files, add a backend, add an API key, or make networked AI features.
+4. First produce a review checklist and suspected issues.
+5. For each issue, give risk, evidence, suggested fix, test, and whether I should ask the instructor.
+6. If you propose edits, show the plan and wait for human approval.`;
   document.getElementById('agentPromptPreview').textContent = text;
   return text;
 }

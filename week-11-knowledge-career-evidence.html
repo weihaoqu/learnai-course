@@ -98,6 +98,12 @@ input:focus,select:focus,textarea:focus{border-color:rgba(96,165,250,.85);box-sh
 .link-btn:hover,.link-btn:focus{outline:2px solid rgba(96,165,250,.55);background:rgba(96,165,250,.10);text-decoration:none}
 .source-note{margin-top:14px;color:#c6cfdf;font-size:14px;line-height:1.45}
 .source-note a{color:#e0f2fe;font-weight:900}
+.formula{font-family:var(--mono);font-size:18px;line-height:1.45;background:#050914;border:1px solid rgba(96,165,250,.28);border-radius:12px;padding:12px 14px;margin-top:16px;color:#bfdbfe;overflow-wrap:anywhere}
+.reveal-card summary{cursor:pointer;color:#fff;font-size:17px;font-weight:900;line-height:1.25;list-style:none}
+.reveal-card summary::-webkit-details-marker{display:none}
+.reveal-card summary::after{content:"Show answer";display:inline-flex;margin-left:8px;color:#bbf7d0;font-size:11px;text-transform:uppercase;letter-spacing:.08em}
+.reveal-card[open] summary::after{content:"Hide answer"}
+.reveal-card p{font-size:15px;line-height:1.45;margin-top:9px;color:#dbeafe}
 .controls{position:fixed;left:0;right:0;bottom:0;min-height:78px;display:flex;gap:10px;align-items:center;justify-content:center;flex-wrap:wrap;padding:12px 18px;background:rgba(8,11,24,.93);border-top:1px solid var(--line);z-index:20}
 .jump{display:flex;gap:7px;flex-wrap:wrap;justify-content:center}
 .jump button{width:34px;height:34px;border-radius:9px;border:1px solid var(--line);background:rgba(255,255,255,.05);color:var(--muted);font-weight:900}
@@ -121,6 +127,7 @@ input:focus,select:focus,textarea:focus{border-color:rgba(96,165,250,.85);box-sh
   .card,.step,.source-step,.label-card,.checkitem,.output,.preview{max-width:100%;min-width:0}
   .resource-links{min-width:0}
   .link-btn{max-width:100%;white-space:normal;text-align:center}
+  .formula{font-size:14px;line-height:1.35;padding:10px 11px}
   .row{grid-template-columns:1fr}
   .controls{position:relative;left:auto;right:auto;bottom:auto}
   #source-mode-choice{padding-top:12px;padding-bottom:12px}
@@ -132,6 +139,31 @@ input:focus,select:focus,textarea:focus{border-color:rgba(96,165,250,.85);box-sh
   #source-mode-choice li{font-size:14px;line-height:1.3;margin:4px 0}
   #source-mode-choice .source-note{font-size:12px;line-height:1.3;margin-top:8px}
   #source-mode-choice .teacher-note{display:none}
+  #module1-source-check{padding-top:12px;padding-bottom:12px}
+  #module1-source-check{justify-items:start}
+  #module1-source-check .inner{width:min(334px,100%);max-width:334px;margin:auto 0}
+  #module1-source-check .timebox{margin-bottom:8px}
+  #module1-source-check h2{font-size:25px;margin-bottom:8px}
+  #module1-source-check .lede{font-size:15px;line-height:1.32;margin-bottom:10px}
+  #module1-source-check .grid{gap:8px;margin-top:10px}
+  #module1-source-check .card{padding:10px 11px}
+  #module1-source-check .reveal-card summary{font-size:14px;line-height:1.16}
+  #module1-source-check .reveal-card summary::after{display:block;margin-left:0;margin-top:4px;font-size:9px;letter-spacing:.05em}
+  #module1-source-check .reveal-card p{font-size:12px;line-height:1.28;margin-top:6px}
+  #module1-source-check .source-note{font-size:11px;line-height:1.28;margin-top:8px}
+  #module1-source-check .teacher-note{display:none}
+  #medical-ai-evidence{padding-top:12px;padding-bottom:12px;justify-items:start}
+  #medical-ai-evidence .inner{width:min(334px,100%);max-width:334px;margin:auto 0}
+  #medical-ai-evidence .timebox{margin-bottom:8px}
+  #medical-ai-evidence h2{font-size:24px;margin-bottom:8px;max-width:100%}
+  #medical-ai-evidence .lede{font-size:15px;line-height:1.32;margin-bottom:10px}
+  #medical-ai-evidence .grid{gap:8px;margin-top:10px}
+  #medical-ai-evidence .card{padding:10px 11px}
+  #medical-ai-evidence .card h3{font-size:15px;margin-bottom:5px}
+  #medical-ai-evidence .card p{font-size:12.5px;line-height:1.32}
+  #medical-ai-evidence .formula{font-size:11px;line-height:1.3;padding:9px;margin-top:8px}
+  #medical-ai-evidence .source-note{font-size:11px;line-height:1.25;margin-top:8px}
+  #medical-ai-evidence .teacher-note{font-size:11px;line-height:1.25;margin-top:8px;padding:9px 10px}
 }
 @media (prefers-reduced-motion:reduce){
   *,*::before,*::after{transition:none!important;animation:none!important;scroll-behavior:auto!important}
@@ -220,6 +252,42 @@ input:focus,select:focus,textarea:focus{border-color:rgba(96,165,250,.85);box-sh
       </div>
       <p class="source-note">Source concept: instructor-provided transcript on AI search and research modes. Rewritten for classroom use.</p>
       <div class="teacher-note">Keep this vendor-neutral. If a tool does not have web search or deep research, students can still compare ordinary search results and source-rich prompting.</div>
+    </div>
+  </section>
+
+  <section class="slide" id="module1-source-check" data-part="Part 1" data-title="Information skills check" inert aria-hidden="true">
+    <div class="inner">
+      <div class="timebox">Practice check</div>
+      <h2>Choose the right source mode.</h2>
+      <p class="lede">Answer each question before opening the card. This is diagnostic practice, not a high-stakes quiz.</p>
+      <div class="grid three">
+        <details class="card reveal-card">
+          <summary>1. What is pretrained knowledge?</summary>
+          <p>Patterns the model learned from large amounts of existing training data. It is not live browsing and not facts entered manually in this chat.</p>
+        </details>
+        <details class="card reveal-card">
+          <summary>2. When is web search useful?</summary>
+          <p>Use it for current, local, niche, or fast-changing information, such as recent releases, dates, prices, ratings, or open hours.</p>
+        </details>
+        <details class="card reveal-card">
+          <summary>3. What is a knowledge cutoff?</summary>
+          <p>The point after which the model no longer received new information during training. Later events need sources or search.</p>
+        </details>
+        <details class="card reveal-card">
+          <summary>4. How can search start?</summary>
+          <p>In search-enabled tools, the model may search automatically when useful, or the user can explicitly request search.</p>
+        </details>
+        <details class="card reveal-card">
+          <summary>5. What sources fit health questions?</summary>
+          <p>Prefer official health organizations, peer-reviewed studies, and expert medical sources. Do not lean on anecdotes or sales pages.</p>
+        </details>
+        <details class="card reveal-card">
+          <summary>6. Why inspect source quality?</summary>
+          <p>There is far more informal text online than rigorously verified text. Open the original page and check date, author, purpose, and support.</p>
+        </details>
+      </div>
+      <p class="source-note">Source concept: instructor-provided Module 1 quiz. Rewritten as a practice check.</p>
+      <div class="teacher-note">Use this immediately after the source-mode slide. Students can answer verbally, then open cards to compare their reasoning.</div>
     </div>
   </section>
 
@@ -363,6 +431,35 @@ input:focus,select:focus,textarea:focus{border-color:rgba(96,165,250,.85);box-sh
       </div>
       <p class="source-note">Source concepts: DeepLearning.AI, <a href="https://www.deeplearning.ai/courses/generative-ai-for-everyone/" target="_blank" rel="noopener noreferrer">Generative AI for Everyone</a>; O*NET Online; Brynjolfsson, Mitchell, and Rock, <a href="https://www.aeaweb.org/articles?id=10.1257/pandp.20181019" target="_blank" rel="noopener noreferrer">What Can Machines Learn?</a>; and Eloundou et al., <a href="https://arxiv.org/abs/2303.10130" target="_blank" rel="noopener noreferrer">GPTs are GPTs</a>. Rewritten for classroom use.</p>
       <div class="teacher-note">Macro studies and job-anxiety examples can start the conversation, but do not turn exposure estimates into predictions about a student's future. Use "task exposure" or "workload exposure," not "job replacement." One automatable task is not the whole role.</div>
+    </div>
+  </section>
+
+  <section class="slide optional" id="medical-ai-evidence" data-part="Part 4" data-title="Medical AI case" inert aria-hidden="true">
+    <div class="inner">
+      <div class="timebox">Optional case - 3 minutes</div>
+      <h2>Medical AI is evidence work, not magic diagnosis.</h2>
+      <p class="lede">Medical-imaging models can help with narrow image tasks, but useful claims depend on labels, test data, class balance, and human oversight.</p>
+      <div class="grid four">
+        <div class="card blue">
+          <h3>Image task</h3>
+          <p>Skin photos, retina images, chest x-rays, or tissue slides can become classification or segmentation tasks.</p>
+        </div>
+        <div class="card">
+          <h3>Ground truth</h3>
+          <p>Labels may come from clinicians, expert agreement, follow-up evidence, or lab results. Labels can still be uncertain.</p>
+        </div>
+        <div class="card gold">
+          <h3>Data balance</h3>
+          <p>Rare conditions may have fewer examples. Accuracy alone can hide missed positives or false alarms.</p>
+        </div>
+        <div class="card green">
+          <h3>Test set</h3>
+          <p>Evaluate on new data, report limits, and keep medical decisions under qualified human responsibility.</p>
+        </div>
+      </div>
+      <div class="formula">images + labels + test set + limits -> evidence, not diagnosis</div>
+      <p class="source-note">Source concept: instructor-provided transcript on medical imaging AI. Rewritten as an optional evidence-literacy case.</p>
+      <div class="teacher-note">Optional enrichment only. Do not ask students to upload or analyze real medical images or personal health data. Avoid unsourced claims that AI is "as good as doctors"; frame studies as task-specific evaluations with ground-truth and dataset limits.</div>
     </div>
   </section>
 
