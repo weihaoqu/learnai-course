@@ -7,6 +7,74 @@ entries; nobody edits prior entries. Managed by
 
 <!-- newest entry below -->
 
+## 2026-08-08 13:21:46 EDT — Codex
+
+- **Branch:** `slide-redesign-2026-05`
+- **HEAD:** `dc6fbae` — Expand optional AI literacy modules
+- **Upstream:** origin/slide-redesign-2026-05 — ahead 2, behind 0
+
+### Summary
+
+Committed Q-approved optional AI literacy course enrichments.
+
+Commit created:
+- dc6fbae — Expand optional AI literacy modules
+
+Included in the commit:
+- week-09-interactivity-intelligence.html: approved interactivity/intelligence updates from the broader session.
+- week-11-knowledge-career-evidence.html: added Q-approved optional medical-AI evidence-literacy case after the task-bundle slide; framed medical imaging as labels/test-set/limits work, not diagnosis; added local .formula styling and compact mobile rules.
+- week-12-advanced-prompting.html: approved thought-partner, context, desktop-agent, reasoning, sycophancy, writing/critique, multimodal, image, media-eval, media-agent, and data-analysis optional content from the broader session.
+- week-13-security-review-lab.html: approved optional AI code review, context-aware review, and agent-evaluation enrichments.
+- week-14-final-showcase.html and progress.md: approved broader session updates.
+
+Validation before commit:
+- git diff --check passed for staged tracked files.
+- Duplicate ID checks passed for changed decks.
+- Inline script parse checks passed for changed decks.
+- Week 11 anchor order passed: task-bundle < medical-ai-evidence < career-map.
+- Week 13 anchor order passed earlier in session.
+- Chrome headless screenshots for the new Week 11 #medical-ai-evidence slide were generated and inspected at mobile 390x844 and desktop 1440x900; mobile clipping was fixed with slide-specific CSS before commit.
+- Precommit Codex review of original staged batch had no blockers.
+- Focused Codex review of the added Week 11 medical-AI slide had no blockers.
+
+Current status after this checkpoint:
+- Do not push unless Q explicitly approves.
+- progress.md is expected to be dirty because this checkpoint was written after the commit.
+- Existing untracked files remain untouched: CLAUDE.md, docs/superpowers/audit-2026-05-21-deck-review.md, image/, sos-talk-may12.html, ui.txt.
+
+### Working tree (`git status --short`)
+
+```text
+?? CLAUDE.md
+?? docs/superpowers/audit-2026-05-21-deck-review.md
+?? image/
+?? sos-talk-may12.html
+?? ui.txt
+```
+
+### Unstaged diff (`git diff --stat`)
+
+_none_
+
+### Staged diff (`git diff --cached --stat`)
+
+_none_
+
+### Latest commit (`git show --stat --oneline HEAD`)
+
+```text
+dc6fbae Expand optional AI literacy modules
+ progress.md                             | 1727 +++++++++++++++++++++++++++++++
+ week-09-interactivity-intelligence.html |   25 +-
+ week-11-knowledge-career-evidence.html  |   97 ++
+ week-12-advanced-prompting.html         |  408 +++++++-
+ week-13-security-review-lab.html        |   91 +-
+ week-14-final-showcase.html             |   21 +-
+ 6 files changed, 2349 insertions(+), 20 deletions(-)
+```
+
+---
+
 ## 2026-08-08 12:56:10 EDT — Codex
 
 - **Branch:** `slide-redesign-2026-05`
