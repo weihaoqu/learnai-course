@@ -111,8 +111,8 @@ input:focus,select:focus,textarea:focus{border-color:rgba(96,165,250,.85);box-sh
 .notes{display:none;position:fixed;right:18px;bottom:92px;width:min(440px,calc(100vw - 36px));max-height:55vh;overflow:auto;background:#080f1d;border:1px solid var(--line2);border-radius:10px;padding:16px;z-index:30;box-shadow:var(--shadow)}
 .notes.show{display:block}
 @media (max-width:980px){
-  html,body{max-width:100vw;overflow:auto;overflow-x:hidden}
-  .deck{min-height:100%;width:100%;max-width:100vw}
+  html,body{height:auto;min-height:100%;max-width:100vw;overflow:auto;overflow-x:hidden}
+  .deck{height:auto;min-height:100vh;width:100%;max-width:100vw}
   .topbar{height:auto;min-height:58px;align-items:flex-start;flex-wrap:wrap;padding:10px 14px;max-width:100vw;overflow:hidden}
   .brand{width:100%;min-width:0;white-space:normal;overflow-wrap:anywhere}
   .status{margin-left:0}
@@ -122,7 +122,8 @@ input:focus,select:focus,textarea:focus{border-color:rgba(96,165,250,.85);box-sh
   h1{font-size:38px}
   h2{font-size:30px}
   .lede{font-size:18px}
-  h1,h2,h3,p,li,.card,.link-btn,.source-note{overflow-wrap:anywhere}
+  h1,h2,h3,p,li,.card,.link-btn,.source-note{overflow-wrap:break-word}
+  .formula{overflow-wrap:anywhere}
   .grid,.grid.three,.grid.four,.flow,.split,.builder-layout,.exit-layout,.source-steps,.label-grid{width:100%;min-width:0;grid-template-columns:1fr}
   .card,.step,.source-step,.label-card,.checkitem,.output,.preview{max-width:100%;min-width:0}
   .resource-links{min-width:0}
@@ -393,6 +394,29 @@ input:focus,select:focus,textarea:focus{border-color:rgba(96,165,250,.85);box-sh
         <a class="link-btn" href="https://claudemarketplaces.com/skills/bradautomates/claude-video/watch" target="_blank" rel="noopener noreferrer">Optional marketplace summary</a>
       </div>
       <div class="teacher-note">Use this to contrast title-only guessing with timestamped evidence. Keep it optional because video downloading, transcription, and frame extraction can fail or violate platform rules if used carelessly.</div>
+    </div>
+  </section>
+
+  <section class="slide source" id="cs336-data-quality" data-part="Part 3" data-title="Data quality bridge" inert aria-hidden="true">
+    <div class="inner">
+      <div class="timebox">Optional bridge - 3 minutes</div>
+      <h2>Data quality is evidence quality.</h2>
+      <p class="lede">CS336 Assignment 4 can illustrate an advanced data-quality theme. For LearnAI, the student translation is narrower: before a project claim is credible, the source material needs origin, filtering, duplicate checks, and limits.</p>
+      <div class="source-steps">
+        <div class="source-step"><span>1</span><h3>Origin</h3><p>Where did the source, dataset, screenshot, or example come from?</p></div>
+        <div class="source-step"><span>2</span><h3>Filter</h3><p>What did you include, exclude, summarize, or clean before using it?</p></div>
+        <div class="source-step"><span>3</span><h3>Dedupe</h3><p>Are repeated examples, copied claims, or obvious errors inflating the evidence?</p></div>
+        <div class="source-step"><span>4</span><h3>Limits</h3><p>What can the evidence support, and what would be overstating it?</p></div>
+      </div>
+      <div class="grid">
+        <div class="card green"><h3>Student translation</h3><p>Use this for project claims, research logs, screenshots, small class-safe datasets, and portfolio evidence.</p></div>
+        <div class="card warn"><h3>Boundary</h3><p>Do not download CS336 datasets, Common Crawl, private records, paywalled PDFs, or sensitive documents for this activity.</p></div>
+      </div>
+      <div class="resource-links">
+        <a class="link-btn" href="https://github.com/stanford-cs336/assignment4-data" target="_blank" rel="noopener noreferrer">Instructor background: CS336 Assignment 4 data</a>
+      </div>
+      <p class="source-note">Source pattern: CS336 Assignment 4 is used here only as an instructor background pointer for data-quality work. LearnAI adapts only the evidence-literacy habit.</p>
+      <div class="teacher-note">This is the highest-value CS336 adaptation after Week 3. Keep it about source quality and limits, not large-scale web data processing.</div>
     </div>
   </section>
 

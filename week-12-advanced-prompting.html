@@ -106,14 +106,24 @@ body.notes-on .teacher-note{display:block}
 .jump{display:flex;gap:8px;flex-wrap:wrap;justify-content:center}
 .jump .btn{font-size:13px;color:var(--muted)}
 .jump .btn.active{color:#120b1f;background:var(--violet)}
+.scope-bridge-compact h2{font-size:clamp(34px,4.1vw,54px)}
+.scope-bridge-compact .lede{font-size:clamp(20px,1.8vw,28px);line-height:1.35;max-width:920px}
+.scope-bridge-compact .grid{gap:12px;margin-top:22px}
+.scope-bridge-compact .card{padding:18px;min-height:0}
+.scope-bridge-compact .card p{font-size:clamp(16px,1.35vw,20px)}
+.scope-bridge-compact .formula{font-size:clamp(18px,1.6vw,24px);padding:18px;margin-top:18px}
+.scope-bridge-compact .source-note{margin-top:10px;font-size:13px}
 @media(max-width:860px){
   .slide{justify-content:flex-start;padding:76px 22px 230px}
+  .inner,.card,.formula{min-width:0;max-width:100%}
+  h1,h2,h3,p,li,.lede,.source-note{overflow-wrap:break-word}
+  .formula{overflow-wrap:anywhere}
   .grid,.grid.three,.grid.four,.contract,.repair-grid{grid-template-columns:1fr}
   .hud{height:auto;min-height:58px;align-items:flex-start;flex-wrap:wrap;padding:9px 12px}
   .brand{width:100%}
   .status{font-size:12px}
-  .controls{display:grid;grid-template-columns:1fr auto;align-items:center;min-height:0}
-  .jump{grid-column:1/-1;order:0}
+  .controls{display:grid;grid-template-columns:1fr auto;align-items:center;min-height:0;overflow-x:hidden}
+  .jump{grid-column:1/-1;order:0;min-width:0;width:100%;max-width:100%;overflow-x:auto}
   .controls>div:last-child{display:flex;gap:8px;justify-content:flex-end}
   .btn{padding:8px 10px}
   .rag-loop-compact h2{font-size:30px}
@@ -364,6 +374,23 @@ body.notes-on .teacher-note{display:block}
       <div class="formula">prompt first -> add sources when needed -> fine-tune only with enough examples -> pretraining is out of scope</div>
       <p class="source-note">Source concept: DeepLearning.AI, <a href="https://www.deeplearning.ai/courses/generative-ai-for-everyone/" target="_blank" rel="noopener noreferrer">Generative AI for Everyone</a>. Referenced for conceptual decision literacy, not implementation training.</p>
       <div class="teacher-note">Keep this conceptual. Do not introduce fine-tuning jobs, training data pipelines, model pricing, or API setup in the required student path.</div>
+    </div>
+  </section>
+
+  <section class="slide optional rag-loop-compact scope-bridge-compact" id="cs336-scope-bridge" data-part="Part 1" data-title="Advanced scope bridge">
+    <div class="inner">
+      <div class="kicker">Advanced instructor bridge</div>
+      <h2>Escalation means more engineering, not just a better prompt.</h2>
+      <p class="lede">CS336 shows what sits beyond prompting: data pipelines, model training, evaluation, scaling, and alignment. LearnAI stays with the safest useful layer for students: source-bound prompts, tests, and human review.</p>
+      <div class="grid four">
+        <div class="card"><span class="tag">Prompt</span><p>Add context, examples, criteria, and output shape.</p></div>
+        <div class="card rag-card"><span class="tag">Sources</span><p>Use approved passages when facts depend on a document, class rule, or current source.</p></div>
+        <div class="card"><span class="tag">Tests</span><p>Check claims, edge cases, screenshots, and outputs before trusting the result.</p></div>
+        <div class="card warn"><span class="tag">Advanced</span><p>Training, scaling, data pipelines, and alignment are instructor background, not required student work.</p></div>
+      </div>
+      <div class="formula">prompt -> sources -> tests -> human review | training out of scope</div>
+      <p class="source-note">Instructor background: <a href="https://cs336.stanford.edu/" target="_blank" rel="noopener noreferrer">Stanford CS336 course map</a>. Referenced to clarify scope boundaries, not to assign model-training work.</p>
+      <div class="teacher-note">Use this to prevent overreach. If a project needs custom training, live retrieval infrastructure, private data ingestion, or paid APIs, it is outside the required static course path.</div>
     </div>
   </section>
 

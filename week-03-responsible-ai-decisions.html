@@ -130,18 +130,22 @@ body.notes-on .teacher-note{display:block}
 .cell.head{background:rgba(244,185,66,.14);color:#fff;font-weight:900}
 .cell p{font-size:16px}
 @media(max-width:920px){
-  html,body{overflow:auto}
-  .deck{height:auto;min-height:100vh}
+  html,body{height:auto;min-height:100%;max-width:100vw;overflow-x:hidden;overflow-y:auto}
+  .deck{width:100%;height:auto;min-height:100vh;overflow-x:hidden}
   .slide{position:relative;display:none;min-height:100vh;justify-content:flex-start;padding:78px 22px 220px;overflow:visible}
   .slide.active{display:flex}
+  .inner,.card,.readout,.scenario-card,.ticket,.formula{min-width:0;max-width:100%}
+  h1,h2,h3,p,li,.lede,.source-note{overflow-wrap:break-word}
+  .formula{overflow-wrap:anywhere}
+  .link-btn{max-width:100%;white-space:normal;line-height:1.25}
   .grid,.grid.three,.grid.four,.traffic,.decision-frame,.scenario-layout,.choice-row,.meter-box,.builder,.calibration-layout,.calibration-options{grid-template-columns:1fr}
   .table{grid-template-columns:1fr}
   .cell,.cell:nth-child(3n){border-right:none}
   .hud{height:auto;min-height:58px;align-items:flex-start;flex-wrap:wrap;padding:9px 12px}
   .brand{width:100%}
   .status{font-size:12px}
-  .controls{display:grid;grid-template-columns:1fr auto;align-items:center;min-height:0}
-  .jump{grid-column:1/-1;order:0}
+  .controls{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center;min-height:0;overflow-x:hidden}
+  .jump{grid-column:1/-1;order:0;min-width:0;width:100%;max-width:100%}
   .controls>div:last-child{display:flex;gap:8px;justify-content:flex-end}
   .btn{padding:8px 10px}
 }
@@ -184,7 +188,7 @@ body.notes-on .teacher-note{display:block}
           <ul>
             <li>NIST AI RMF for risk framing.</li>
             <li>U.S. Copyright Office AI reports for copyright literacy.</li>
-            <li>Cornell and Vanderbilt for academic-integrity examples.</li>
+            <li>Cornell and Vanderbilt for academic-integrity examples; CS336 as a course-specific agent-use policy example.</li>
             <li>Stanford AI literacy for connecting tools, rhetoric, and ethics.</li>
           </ul>
         </div>
@@ -595,17 +599,22 @@ body.notes-on .teacher-note{display:block}
     </div>
   </section>
 
-  <section class="slide source" data-part="Part 3" data-title="Disclosure">
+  <section class="slide source" id="academic-integrity" data-part="Part 3" data-title="Disclosure">
     <div class="inner">
       <div class="kicker">Academic integrity</div>
       <h2>Disclose assistance. Do not outsource authorship.</h2>
-      <p class="lede">Cornell and Vanderbilt give useful teaching examples, but your instructor's assignment policy controls. If the policy is unclear, ask before using AI.</p>
-      <div class="grid">
-        <div class="card check"><h3>Usually defensible</h3><p>Brainstorming, outlining, grammar checks, critique, debugging help, or source leads when allowed, checked, and disclosed as required.</p></div>
-        <div class="card warn"><h3>Usually not defensible</h3><p>Submitting AI-written work as your own, using hidden AI help when prohibited, inventing sources, or using someone else's data/content without permission.</p></div>
+      <p class="lede">Cornell and Vanderbilt give useful teaching examples, but your instructor's assignment policy controls. A CS336 course policy artifact illustrates a useful contrast: configure the agent as a teaching assistant, not a solution generator.</p>
+      <div class="grid four">
+        <div class="card check"><h3>Allowed help</h3><p>Brainstorming, concept explanation, critique, debugging questions, source leads, and test ideas when allowed, checked, and disclosed.</p></div>
+        <div class="card warn"><h3>Blocked help</h3><p>Hidden authorship, direct solutions, completed TODOs, invented citations, or using someone else's data/content without permission.</p></div>
+        <div class="card"><h3>Evidence checks</h3><p>Open the original source, inspect code or output, run tests when available, and label what remains uncertain.</p></div>
+        <div class="card"><h3>Escalation</h3><p>If policy, privacy, source rights, or authorship is unclear, stop and ask the instructor or source owner before continuing.</p></div>
       </div>
       <a class="link-btn" href="https://teaching.cornell.edu/generative-artificial-intelligence/ai-academic-integrity" target="_blank" rel="noopener noreferrer">Cornell guidance</a>
       <a class="link-btn" href="https://www.vanderbilt.edu/generative-ai/academic-integrity/" target="_blank" rel="noopener noreferrer">Vanderbilt guidance</a>
+      <a class="link-btn" href="https://github.com/stanford-cs336/assignment1-basics/blob/a158843b20107949f1a8d7df1b05cd33b9166712/CLAUDE.md" target="_blank" rel="noopener noreferrer">Stanford CS336 course agent guidelines</a>
+      <p class="source-note">Instructor case: CS336's no-code, no-bash boundary is stricter than this build course. Borrow the structure: allowed help, blocked help, evidence checks, and escalation.</p>
+      <div class="teacher-note">Do not present CS336 as a universal ethics standard. It is a course-specific academic-integrity artifact that shows how an instructor can engineer assistant behavior around learning goals.</div>
     </div>
   </section>
 

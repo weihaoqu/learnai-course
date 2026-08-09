@@ -124,17 +124,19 @@ body.notes-on .teacher-note{display:block}
 .setup-form input:focus,.setup-form textarea:focus,.setup-form select:focus{border-color:rgba(56,213,255,.75);box-shadow:0 0 0 3px rgba(56,213,255,.16)}
 .ticket{border:1px solid rgba(246,184,75,.32);background:rgba(246,184,75,.09);border-radius:16px;padding:18px;white-space:pre-wrap;color:#fff7e6;font-family:var(--mono);font-size:15px;line-height:1.5;min-height:430px;user-select:text}
 @media(max-width:920px){
-  html,body{overflow:auto}
-  .deck{height:auto;min-height:100vh}
+  html,body{height:auto;min-height:100%;max-width:100vw;overflow-x:hidden;overflow-y:auto}
+  .deck{width:100%;height:auto;min-height:100vh;overflow-x:hidden}
   .slide{position:relative;display:none;min-height:100vh;justify-content:flex-start;padding:78px 22px 220px;overflow:visible}
   .slide.active{display:flex}
-  .inner{min-width:0}
+  .inner,.card,.readout,.scenario-card,.ticket{min-width:0;max-width:100%}
+  h1,h2,h3,p,li,.lede,.source-note{overflow-wrap:break-word}
+  .link-btn{max-width:100%;white-space:normal;line-height:1.25}
   .grid,.grid.three,.grid.four,.loop-stage,.loop-map,.component-board,.choice-grid,.trace,.observability-grid,.setup-grid{grid-template-columns:1fr}
   .hud{height:auto;min-height:58px;align-items:flex-start;flex-wrap:wrap;padding:9px 12px}
   .brand{width:100%}
   .status{font-size:12px}
-  .controls{display:grid;grid-template-columns:1fr auto;align-items:center;min-height:0}
-  .jump{grid-column:1/-1;order:0}
+  .controls{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center;min-height:0;overflow-x:hidden}
+  .jump{grid-column:1/-1;order:0;min-width:0;width:100%;max-width:100%}
   .controls>div:last-child{display:flex;gap:8px;justify-content:flex-end}
   .btn{padding:8px 10px}
 }
@@ -663,10 +665,10 @@ Class rule: draft first, approve before action.</div>
     <div class="inner">
       <div class="kicker">Instructor demo</div>
       <h2>Agent observability: seeing the loop without guessing.</h2>
-      <p class="lede"><code>claude-tap</code> can act as a local proxy and trace viewer for AI coding agents. We use the idea as a sanitized instructor demo: what did the agent send, what tools were available, which tool was called, and where should a human review?</p>
+      <p class="lede"><code>claude-tap</code> and <code>ccglass</code> are instructor demo sources for discussing agent activity and trace review. We use the idea with sanitized examples: what did the agent send, what tools were available, which tool was called, and where should a human review?</p>
       <div class="observability-grid">
         <div class="card">
-          <h3>What a trace can reveal</h3>
+          <h3>What trace review can discuss</h3>
           <div class="trace-tags">
             <span class="trace-tag">system prompt</span>
             <span class="trace-tag">messages</span>
@@ -680,27 +682,29 @@ Class rule: draft first, approve before action.</div>
         </div>
         <div class="card warn">
           <h3>Safety boundary</h3>
-          <p>Do not require students to install or run a local proxy. Traces must be pre-reviewed and sanitized before class. They must not contain live repo secrets, credentials, private prompts, student data, personal files, or unredacted tool output.</p>
+          <p>Do not require students to install or run a local proxy. Traces must be pre-reviewed and sanitized before class. They must not contain live repo secrets, credentials, private prompts, student data, personal files, request headers, local paths, or unredacted tool output.</p>
         </div>
       </div>
       <div class="formula">observability = evidence for the agent loop</div>
       <a class="link-btn" href="https://github.com/liaohch3/claude-tap" target="_blank" rel="noopener noreferrer">Open claude-tap</a>
-      <div class="teacher-note">Pacing: 5 minutes. Show a pre-recorded/synthetic trace only. Ask students to label prompt layers, context, tool schema, tool call, result, and human review point.</div>
+      <a class="link-btn" href="https://github.com/jianshuo/ccglass" target="_blank" rel="noopener noreferrer">Open ccglass</a>
+      <div class="teacher-note">Pacing: 5 minutes. Show a pre-recorded/synthetic trace only. Do not route real course accounts, student files, or private projects through proxy demos. Ask students to label prompt layers, context, tool schema, tool call, result, and human review point.</div>
     </div>
   </section>
 
-  <section class="slide source" id="project-memory" data-part="Part 2" data-title="Project memory">
+  <section class="slide source" id="project-memory" data-part="Part 2" data-title="Structured context">
     <div class="inner">
       <div class="kicker">Optional instructor demo</div>
-      <h2>Project memory can be structured instead of re-read.</h2>
-      <p class="lede">Agents often search and re-read the same folder every session. A knowledge-graph demo shows another context pattern: extract files, concepts, and relationships once, then query the project map.</p>
+      <h2>Reusable context can be structured instead of re-read.</h2>
+      <p class="lede">Agents often search and re-read the same files every session. Instructor demos can show two context patterns: convert a reference document into a skill, or extract files, concepts, and relationships into a project map.</p>
       <div class="grid three">
-        <div class="card"><h3>What to notice</h3><p>Ask what the graph says directly from files, what it infers, and what still needs human verification.</p></div>
-        <div class="card"><h3>Why it belongs here</h3><p>This is context and memory, not magic intelligence. Better context can reduce repeated search, but it does not remove review.</p></div>
-        <div class="card warn"><h3>Class boundary</h3><p>Use a small public or synthetic folder only. Do not graph student files, private documents, credentials, or sensitive media.</p></div>
+        <div class="card"><h3>Reference skill</h3><p><code>book-to-skill</code> can demonstrate converting authorized reference material into reusable skill-style context so an agent can work from selected notes instead of rereading a whole source.</p></div>
+        <div class="card"><h3>Project map</h3><p>Graph demos extract files, concepts, and relationships once, then let the agent query the map instead of repeatedly searching the same folder.</p></div>
+        <div class="card warn"><h3>Class boundary</h3><p>Use public, openly licensed, course-authored, or synthetic materials only. Do not process student files, private documents, copyrighted books without explicit rights, credentials, or sensitive media.</p></div>
       </div>
+      <a class="link-btn" href="https://github.com/virgiliojr94/book-to-skill" target="_blank" rel="noopener noreferrer">Optional demo source: book-to-skill</a>
       <a class="link-btn" href="https://github.com/Graphify-Labs/graphify" target="_blank" rel="noopener noreferrer">Optional demo source: Graphify</a>
-      <div class="teacher-note">Pacing: 4 minutes if used. Contrast a raw file search with a graph query, then ask where the human should still inspect source evidence.</div>
+      <div class="teacher-note">Pacing: 4 minutes if used. Contrast a raw PDF or folder search with a structured skill or graph query, then ask where the human should still inspect source evidence. Do not redistribute generated skills derived from copyrighted works unless the license permits it.</div>
     </div>
   </section>
 
@@ -984,6 +988,8 @@ real inboxes, secrets, destructive file commands, private records</div>
           <p>Optional Claude Code beginner path: use Zero to Claude Code if terminal, Git, or local project setup still feels unfamiliar. Submit only a reflection: model step, tool/action, review check, and stop point.</p>
           <p><a href="https://zero2claude.dev/" target="_blank" rel="noopener noreferrer">Open Zero to Claude Code</a></p>
           <p><a href="https://github.com/liaohch3/claude-tap" target="_blank" rel="noopener noreferrer">Instructor demo source only: claude-tap</a> <span class="muted">No student install required.</span></p>
+          <p><a href="https://github.com/jianshuo/ccglass" target="_blank" rel="noopener noreferrer">Instructor demo source only: ccglass</a> <span class="muted">Sanitized traces only; no student install required.</span></p>
+          <p><a href="https://github.com/virgiliojr94/book-to-skill" target="_blank" rel="noopener noreferrer">Instructor demo source only: book-to-skill</a> <span class="muted">Use public-domain, openly licensed, course-authored, or explicitly authorized materials only.</span></p>
           <p><a href="https://github.com/Graphify-Labs/graphify" target="_blank" rel="noopener noreferrer">Instructor demo source only: Graphify</a> <span class="muted">Use public or synthetic folders only.</span></p>
           <p><a href="https://www.skills.sh/vercel-labs/skills/find-skills" target="_blank" rel="noopener noreferrer">Instructor demo source only: find-skills</a> <span class="muted">Use to show skill discovery, not required installation.</span></p>
         </div>
