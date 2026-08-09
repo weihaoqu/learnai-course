@@ -106,12 +106,13 @@ input:focus,select:focus,textarea:focus{border-color:rgba(251,146,60,.85);box-sh
 .notes{display:none;position:fixed;right:18px;bottom:92px;width:min(440px,calc(100vw - 36px));max-height:55vh;overflow:auto;background:#080d17;border:1px solid var(--line2);border-radius:10px;padding:16px;z-index:30;box-shadow:var(--shadow)}
 .notes.show{display:block}
 @media (max-width:980px){
-  html,body{overflow:auto}
+  html{overflow:auto;scroll-padding-top:var(--topbar-offset,136px)}
+  body{overflow:auto}
   .deck{min-height:100%}
   .topbar{height:auto;min-height:58px;align-items:flex-start;flex-wrap:wrap;padding:10px 14px}
   .brand{width:100%;white-space:normal}
   .status{margin-left:0}
-  .slide{position:relative;inset:auto;min-height:calc(100vh - 136px);display:none;padding:22px 16px;margin-top:58px}
+  .slide{position:relative;inset:auto;min-height:calc(100vh - 136px);display:none;padding:22px 16px;margin-top:58px;scroll-margin-top:var(--topbar-offset,136px)}
   .slide.active{display:grid}
   h1{font-size:38px}
   h2{font-size:30px}
@@ -129,19 +130,28 @@ input:focus,select:focus,textarea:focus{border-color:rgba(251,146,60,.85);box-sh
   #search-verification .codebox{display:none}
   #search-verification .source-note{font-size:12px;line-height:1.3;margin-top:8px}
   #search-verification .teacher-note{display:none}
-  #local-agent-permissions,#agent-eval-path,#code-review-goals,#ai-review-context{justify-items:start;padding-top:12px;padding-bottom:12px}
-  #local-agent-permissions .inner,#agent-eval-path .inner,#code-review-goals .inner,#ai-review-context .inner{width:min(334px,100%);max-width:334px;margin:auto 0}
-  #local-agent-permissions .timebox,#agent-eval-path .timebox,#code-review-goals .timebox,#ai-review-context .timebox{display:none}
-  #local-agent-permissions h2,#agent-eval-path h2,#code-review-goals h2,#ai-review-context h2{font-size:25px;margin-bottom:8px}
-  #local-agent-permissions .lede,#agent-eval-path .lede,#code-review-goals .lede,#ai-review-context .lede{font-size:15px;line-height:1.28;margin-bottom:10px}
-  #local-agent-permissions .grid.four,#agent-eval-path .grid.four,#code-review-goals .grid.four,#ai-review-context .grid.four{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin-top:10px}
-  #local-agent-permissions .card,#agent-eval-path .card,#code-review-goals .card,#ai-review-context .card{padding:10px;border-radius:10px}
-  #local-agent-permissions .card h3,#agent-eval-path .card h3,#code-review-goals .card h3,#ai-review-context .card h3{font-size:15px;margin-bottom:5px}
-  #local-agent-permissions .card p,#agent-eval-path .card p,#code-review-goals .card p,#ai-review-context .card p{font-size:12px;line-height:1.25}
-  #agent-eval-path .codebox,#code-review-goals .codebox,#ai-review-context .codebox{font-size:11px;line-height:1.35;padding:10px;margin-top:10px}
-  #local-agent-permissions .source-note,#local-agent-permissions .teacher-note,#agent-eval-path .source-note,#agent-eval-path .teacher-note,#code-review-goals .source-note,#code-review-goals .teacher-note,#ai-review-context .source-note,#ai-review-context .teacher-note{display:none}
-  #code-review-goals,#ai-review-context{align-items:start}
-  #code-review-goals .inner,#ai-review-context .inner{margin:0}
+  #local-agent-permissions,#agent-eval-path,#loop-or-graph,#code-review-goals,#ai-review-context,#session-handoff{justify-items:start;padding-top:12px;padding-bottom:12px}
+  #local-agent-permissions .inner,#agent-eval-path .inner,#loop-or-graph .inner,#code-review-goals .inner,#ai-review-context .inner,#session-handoff .inner{width:min(288px,calc(100vw - 32px));max-width:288px;margin:auto 0}
+  #local-agent-permissions .timebox,#agent-eval-path .timebox,#loop-or-graph .timebox,#code-review-goals .timebox,#ai-review-context .timebox,#session-handoff .timebox{display:none}
+  #local-agent-permissions h2,#agent-eval-path h2,#loop-or-graph h2,#code-review-goals h2,#ai-review-context h2,#session-handoff h2{font-size:25px;margin-bottom:8px}
+  #local-agent-permissions .lede,#agent-eval-path .lede,#loop-or-graph .lede,#code-review-goals .lede,#ai-review-context .lede,#session-handoff .lede{font-size:15px;line-height:1.28;margin-bottom:10px}
+  #local-agent-permissions .grid.four,#agent-eval-path .grid.four,#loop-or-graph .grid.four,#code-review-goals .grid.four,#ai-review-context .grid.four,#session-handoff .grid.four{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin-top:10px}
+  #local-agent-permissions .card,#agent-eval-path .card,#loop-or-graph .card,#code-review-goals .card,#ai-review-context .card,#session-handoff .card{padding:10px;border-radius:10px}
+  #local-agent-permissions .card h3,#agent-eval-path .card h3,#loop-or-graph .card h3,#code-review-goals .card h3,#ai-review-context .card h3,#session-handoff .card h3{font-size:15px;margin-bottom:5px}
+  #local-agent-permissions .card p,#agent-eval-path .card p,#loop-or-graph .card p,#code-review-goals .card p,#ai-review-context .card p,#session-handoff .card p{font-size:12px;line-height:1.25}
+  #agent-eval-path .codebox,#loop-or-graph .codebox,#code-review-goals .codebox,#ai-review-context .codebox,#session-handoff .codebox{font-size:11px;line-height:1.35;padding:10px;margin-top:10px}
+  #local-agent-permissions .source-note,#local-agent-permissions .teacher-note,#agent-eval-path .source-note,#agent-eval-path .teacher-note,#loop-or-graph .source-note,#loop-or-graph .teacher-note,#code-review-goals .source-note,#code-review-goals .teacher-note,#ai-review-context .source-note,#ai-review-context .teacher-note,#session-handoff .source-note,#session-handoff .teacher-note{display:none}
+  #loop-or-graph,#code-review-goals,#ai-review-context,#session-handoff{align-items:start}
+  #loop-or-graph .inner,#code-review-goals .inner,#ai-review-context .inner,#session-handoff .inner{margin:0}
+  #session-handoff h2{font-size:24px;line-height:1.08}
+}
+@media (max-width:360px){
+  #local-agent-permissions .inner,#agent-eval-path .inner,#loop-or-graph .inner,#code-review-goals .inner,#ai-review-context .inner,#session-handoff .inner{width:min(288px,calc(100vw - 32px));max-width:288px}
+  #local-agent-permissions .grid.four,#agent-eval-path .grid.four,#loop-or-graph .grid.four,#code-review-goals .grid.four,#ai-review-context .grid.four,#session-handoff .grid.four{gap:6px}
+  #local-agent-permissions .card,#agent-eval-path .card,#loop-or-graph .card,#code-review-goals .card,#ai-review-context .card,#session-handoff .card{padding:8px}
+  #local-agent-permissions .card h3,#agent-eval-path .card h3,#loop-or-graph .card h3,#code-review-goals .card h3,#ai-review-context .card h3,#session-handoff .card h3{font-size:14px;line-height:1.1}
+  #local-agent-permissions .card p,#agent-eval-path .card p,#loop-or-graph .card p,#code-review-goals .card p,#ai-review-context .card p,#session-handoff .card p{font-size:11px;line-height:1.18}
+  #agent-eval-path .codebox,#loop-or-graph .codebox,#code-review-goals .codebox,#ai-review-context .codebox,#session-handoff .codebox{font-size:10.5px;line-height:1.28}
 }
 @media (prefers-reduced-motion:reduce){
   *,*::before,*::after{transition:none!important;animation:none!important;scroll-behavior:auto!important}
@@ -286,6 +296,23 @@ input:focus,select:focus,textarea:focus{border-color:rgba(251,146,60,.85);box-sh
     </div>
   </section>
 
+  <section class="slide optional" id="loop-or-graph" data-part="Part 1" data-title="Loop or graph" inert aria-hidden="true">
+    <div class="inner">
+      <div class="timebox">Optional workflow shape</div>
+      <h2>Loop or workflow graph?</h2>
+      <p class="lede">A loop improves one thing step by step. A workflow graph splits independent jobs, then merges and checks them. More agents do not make the answer safer by default.</p>
+      <div class="grid four">
+        <div class="card green"><h3>Loop</h3><p>Use when the next step needs the last result: draft, check, revise, check again.</p></div>
+        <div class="card blue"><h3>Workflow graph</h3><p>Use when jobs can run side-by-side, like reviewing three files before one merge.</p></div>
+        <div class="card gold"><h3>Unneeded arrow</h3><p>An arrow that does not pass useful information. Remove it and run both jobs at once.</p></div>
+        <div class="card warn"><h3>Verify merge</h3><p>Use tests, sources, diffs, screenshots, and human review before trusting the combined answer.</p></div>
+      </div>
+      <div class="codebox">independent jobs + clear outputs + independent check + human gate -> graph workflow worth considering</div>
+      <p class="source-note">Teacher enrichment source: <a href="https://addyosmani.com/blog/loop-engineering/" target="_blank" rel="noopener noreferrer">Addy Osmani, "Loop Engineering"</a>. The workflow-graph rule is a LearnAI classroom heuristic.</p>
+      <div class="teacher-note">Optional enrichment. Use "graph engineering" as teacher vocabulary, but teach students the simpler rule: split only when jobs are genuinely independent and outputs have clear shapes. Graph-engineering wording was inspired by a public X discussion; do not treat a social post as required reading or stable authority. Graphs add cost and complexity; they do not create truth without tests, source links, dates, screenshots, diffs, or human approval gates.</div>
+    </div>
+  </section>
+
   <section class="slide" id="code-review-goals" data-part="Part 1" data-title="Code review" inert aria-hidden="true">
     <div class="inner">
       <div class="timebox">Code review</div>
@@ -317,6 +344,23 @@ input:focus,select:focus,textarea:focus{border-color:rgba(251,146,60,.85);box-sh
       <div class="codebox">relevant context + diff + tests -> better review</div>
       <p class="source-note">Adapted from instructor-provided transcript on AI code review practices. Rewritten for student static-app review.</p>
       <div class="teacher-note">Keep Jira/Linear, PR metrics, payment and idempotency examples, cross-repository conflicts, organization standards, memory layers, and production AI-review systems as enrichment only. For students, requirements can be the project brief, rubric, checklist, screenshots, and Week 13 packet. Instructor enrichment: diff-only review can miss requirement and pattern violations; full-context dumping can add noise, so selective context usually beats more context.</div>
+    </div>
+  </section>
+
+  <section class="slide optional" id="session-handoff" data-part="Part 1" data-title="Session handoff" inert aria-hidden="true">
+    <div class="inner">
+      <div class="timebox">Optional workflow hygiene</div>
+      <h2>End long AI sessions with a handoff.</h2>
+      <p class="lede">A new chat may not know the full working situation. A short handoff note preserves task state without carrying private data into the next session.</p>
+      <div class="grid four">
+        <div class="card green"><h3>Goal</h3><p>What are we trying to finish, and what counts as done?</p></div>
+        <div class="card blue"><h3>Done</h3><p>What changed, what passed, and where is the evidence?</p></div>
+        <div class="card gold"><h3>Stuck / next</h3><p>What is blocked, risky, or planned for the next session?</p></div>
+        <div class="card warn"><h3>Warnings</h3><p>What files, secrets, data, or bad paths should not be touched?</p></div>
+      </div>
+      <div class="codebox">goal + done + blocker + next + warnings -> cleaner restart</div>
+      <p class="source-note">Source concept: instructor-provided screenshot on Codex handoff habits. Rewritten as classroom-safe workflow hygiene.</p>
+      <div class="teacher-note">Use this as optional agent hygiene, not a required file-management rule. Students can create HANDOFF.md or a class-safe note. Do not include passwords, tokens, private records, account details, or sensitive file paths. Correct typo from the screenshot if it appears: use HANDOFF.md, not HANDOFF.dm.</div>
     </div>
   </section>
 
@@ -609,6 +653,12 @@ function go(index){
   notesText.textContent = note ? note.textContent : 'No special note for this slide.';
   const id = slides[current].id;
   if (id) history.replaceState(null, '', `#${id}`);
+  if (window.matchMedia('(max-width: 980px)').matches) {
+    const topbar = document.querySelector('.topbar');
+    const topbarHeight = topbar ? Math.ceil(topbar.getBoundingClientRect().height) : 0;
+    document.documentElement.style.setProperty('--topbar-offset', `${topbarHeight + 12}px`);
+    requestAnimationFrame(() => slides[current].scrollIntoView({block: 'start', inline: 'nearest', behavior: 'auto'}));
+  }
 }
 
 document.getElementById('prevBtn').addEventListener('click', () => go(current - 1));

@@ -100,6 +100,13 @@ body.notes-on .teacher-note{display:block}
 .quiz-bank summary::after{content:"Show answer";display:inline-flex;margin-left:10px;color:var(--cyan);font-size:12px;text-transform:uppercase;letter-spacing:.08em}
 .quiz-bank details[open] summary::after{content:"Hide answer"}
 .quiz-bank p{font-size:17px;margin-top:12px}
+#homework{justify-content:flex-start}
+#homework .grid{gap:14px;margin-top:20px}
+#homework .card{padding:18px;min-height:0}
+#homework .card h3{font-size:20px}
+#homework .card p{font-size:17px;line-height:1.35;margin-top:8px}
+#homework .muted{font-size:13px}
+#homework a{overflow-wrap:anywhere}
 .planning-quiz-compact .grid{gap:12px}
 .planning-quiz-compact .card{padding:15px 18px;min-height:0}
 .planning-quiz-compact .quiz-bank summary{font-size:17px}
@@ -138,6 +145,10 @@ body.notes-on .teacher-note{display:block}
   .agentic-compact .lede{font-size:19px;line-height:1.35}
   .agentic-compact .terminal{font-size:13px;line-height:1.38;padding:14px;margin-top:14px;border-radius:14px}
   .agentic-compact .link-btn{font-size:14px;line-height:1.25;padding:10px 12px;margin-top:14px}
+  #homework h2{font-size:34px}
+  #homework .card{padding:18px 20px}
+  #homework .card p{font-size:16px;line-height:1.36}
+  #homework .muted{display:block;font-size:13px;margin-top:2px}
   .planning-quiz-compact h2{font-size:29px}
   .planning-quiz-compact .lede{font-size:18px;line-height:1.28}
   .planning-quiz-compact .grid{gap:8px;margin-top:14px}
@@ -970,6 +981,8 @@ real inboxes, secrets, destructive file commands, private records</div>
           <h3>Optional background</h3>
           <p>Watch the skills vs MCP video and write one example where you would use a skill and one where you would use MCP. Optional advanced note: explain what a sanitized agent trace can show.</p>
           <p><a href="https://www.youtube.com/watch?v=6wdvSH61xGw" target="_blank" rel="noopener noreferrer">Open optional video</a></p>
+          <p>Optional Claude Code beginner path: use Zero to Claude Code if terminal, Git, or local project setup still feels unfamiliar. Submit only a reflection: model step, tool/action, review check, and stop point.</p>
+          <p><a href="https://zero2claude.dev/" target="_blank" rel="noopener noreferrer">Open Zero to Claude Code</a></p>
           <p><a href="https://github.com/liaohch3/claude-tap" target="_blank" rel="noopener noreferrer">Instructor demo source only: claude-tap</a> <span class="muted">No student install required.</span></p>
           <p><a href="https://github.com/Graphify-Labs/graphify" target="_blank" rel="noopener noreferrer">Instructor demo source only: Graphify</a> <span class="muted">Use public or synthetic folders only.</span></p>
           <p><a href="https://www.skills.sh/vercel-labs/skills/find-skills" target="_blank" rel="noopener noreferrer">Instructor demo source only: find-skills</a> <span class="muted">Use to show skill discovery, not required installation.</span></p>
