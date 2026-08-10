@@ -120,6 +120,9 @@ input:focus,select:focus,textarea:focus{border-color:rgba(251,146,60,.85);box-sh
   .grid,.grid.three,.grid.four,.flow,.split,.builder-layout,.exit-layout,.map-grid,.risk-grid,.triage{grid-template-columns:1fr}
   .row{grid-template-columns:1fr}
   .controls{position:sticky}
+  .controls{max-width:100%;overflow-x:hidden}
+  .jump{min-width:0;max-width:100%}
+  .slide,.inner{max-width:100%;overflow-wrap:anywhere}
   #search-verification{padding-top:12px;padding-bottom:12px}
   #search-verification .timebox{margin-bottom:8px}
   #search-verification h2{font-size:26px;margin-bottom:8px}
@@ -308,7 +311,7 @@ input:focus,select:focus,textarea:focus{border-color:rgba(251,146,60,.85);box-sh
         <div class="card warn"><h3>Verify merge</h3><p>Use tests, sources, diffs, screenshots, and human review before trusting the combined answer.</p></div>
       </div>
       <div class="codebox">independent jobs + clear outputs + independent check + human gate -> graph workflow worth considering</div>
-      <p class="source-note">Teacher enrichment source: <a href="https://addyosmani.com/blog/loop-engineering/" target="_blank" rel="noopener noreferrer">Addy Osmani, "Loop Engineering"</a>. The workflow-graph rule is a LearnAI classroom heuristic.</p>
+      <p class="source-note">Teacher enrichment sources: <a href="https://addyosmani.com/blog/loop-engineering/" target="_blank" rel="noopener noreferrer">Addy Osmani, "Loop Engineering"</a>; <a href="https://www.youtube.com/watch?v=JWhICz1QR8M" target="_blank" rel="noopener noreferrer">Greg Isenberg, "Why Graph Engineering will 10x your Claude/Codex"</a>. Treat "10x" as promotional framing, not a measured claim. The workflow-graph rule is a LearnAI classroom heuristic.</p>
       <div class="teacher-note">Optional enrichment. Use "graph engineering" as teacher vocabulary, but teach students the simpler rule: split only when jobs are genuinely independent and outputs have clear shapes. Graph-engineering wording was inspired by a public X discussion; do not treat a social post as required reading or stable authority. Graphs add cost and complexity; they do not create truth without tests, source links, dates, screenshots, diffs, or human approval gates.</div>
     </div>
   </section>
@@ -582,7 +585,7 @@ Is it plain text, a link, HTML, saved state, or a claim?</div>
     </div>
   </section>
 
-  <section class="slide" id="homework" data-part="Homework" data-title="Homework" inert aria-hidden="true">
+  <section class="slide" id="homework" data-part="Homework" data-title="Homework" data-teacher-note="Instructor context only - Cybersecurity Skills mapping repo: https://github.com/mukul975/Anthropic-Cybersecurity-Skills. Do not ask students to install or run it; do not test accounts, services, classmates' projects, public targets, credentials, or private data without explicit instructor authorization. Use only as a conceptual framework-mapping example for local toy-app review." inert aria-hidden="true">
     <div class="inner">
       <div class="kicker">After class</div>
       <h2>Homework: finish the review before Week 14.</h2>
@@ -591,20 +594,21 @@ Is it plain text, a link, HTML, saved state, or a claim?</div>
         <div class="card"><h3>Required</h3><p>Submit the Week 13 Security Review Packet with asset map, checklist, two tests, one fix ticket, no-secrets statement, and one presentation limitation.</p></div>
         <div class="card"><h3>Required tests</h3><p>Run at least two safe adversarial tests and record expected vs observed behavior.</p></div>
         <div class="card warn"><h3>If a secret is found</h3><p>Stop sharing, remove it, revoke or rotate if real, document the fix, and ask instructor before redeploying.</p></div>
-        <div class="card"><h3>Optional reading</h3><p>The links below are optional references. OWASP LLM Top 10 and GitHub Push Protection are the most student-friendly; Ponytail and OpenWorker are short course cases; Harness Engineering, OWASP Agentic Security, and MITRE ATLAS are advanced references.</p></div>
+        <div class="card"><h3>Optional reading</h3><p>The links below are optional references. OWASP LLM Top 10 and GitHub Push Protection are the most student-friendly; Ponytail, OpenWorker, and the graph-engineering explainer are optional workflow references. CS329A is listed in the course hub as advanced instructor context.</p></div>
       </div>
       <div class="resource-links">
         <a class="link-btn" href="https://genai.owasp.org/llm-top-10/" target="_blank" rel="noopener noreferrer">Optional OWASP LLM Top 10</a>
         <a class="link-btn" href="https://docs.github.com/en/code-security/concepts/secret-security/push-protection" target="_blank" rel="noopener noreferrer">Optional GitHub Push Protection</a>
         <a class="link-btn" href="https://weihaoqu.github.io/learnAIDoc/wiki/ponytail-anti-overengineering-skill/" target="_blank" rel="noopener noreferrer">Optional minimum sufficient fix</a>
         <a class="link-btn" href="https://weihaoqu.github.io/learnAIDoc/wiki/openworker-local-first-desktop-agents/" target="_blank" rel="noopener noreferrer">Optional action-risk case</a>
+        <a class="link-btn" href="https://www.youtube.com/watch?v=JWhICz1QR8M" target="_blank" rel="noopener noreferrer">Optional graph-engineering explainer</a>
         <a class="link-btn" href="https://www.skills.sh/mattpocock/skills/improve-codebase-architecture" target="_blank" rel="noopener noreferrer">Optional architecture review skill</a>
         <a class="link-btn" href="https://walkinglabs.github.io/learn-harness-engineering/en/" target="_blank" rel="noopener noreferrer">Optional Harness Engineering</a>
         <a class="link-btn" href="https://genai.owasp.org/resource/owasp-top-10-for-agentic-applications-for-2026/" target="_blank" rel="noopener noreferrer">Optional Agentic Security Reference</a>
         <a class="link-btn" href="https://atlas.mitre.org/" target="_blank" rel="noopener noreferrer">Optional MITRE ATLAS</a>
         <a class="link-btn" href="index.html">Back to Course Hub</a>
       </div>
-      <p class="muted" style="margin-top:14px">Architecture-review skills and Harness Engineering are instructor enrichment. A harness means rules, scoped state, observable traces, verification checks, and human approval gates around the agent. Students should still prefer the smallest fix that addresses the documented risk.</p>
+      <p class="muted" style="margin-top:14px">Architecture-review skills, CS329A, and Harness Engineering are instructor enrichment. Use selected CS329A excerpts for verification, evaluation, planning, and tool-feedback framing; do not assign the full graduate playlist as homework. Students should still prefer the smallest fix or smallest split-up workflow that addresses the documented risk.</p>
     </div>
   </section>
 </main>
@@ -650,8 +654,8 @@ function go(index){
   Array.from(jump.children).forEach((btn, i) => btn.setAttribute('aria-current', i === current ? 'true' : 'false'));
   statusEl.textContent = `Slide ${current + 1} of ${slides.length}`;
   bar.style.width = `${((current + 1) / slides.length) * 100}%`;
-  const note = slides[current].querySelector('.teacher-note');
-  notesText.textContent = note ? note.textContent : 'No special note for this slide.';
+  const note = slides[current].dataset.teacherNote || (slides[current].querySelector('.teacher-note')?.textContent);
+  notesText.textContent = note || 'No special note for this slide.';
   const id = slides[current].id;
   if (id) history.replaceState(null, '', `#${id}`);
   if (window.matchMedia('(max-width: 980px)').matches) {
