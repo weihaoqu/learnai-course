@@ -302,17 +302,17 @@ input:focus,select:focus,textarea:focus{border-color:rgba(251,146,60,.85);box-sh
   <section class="slide optional" id="loop-or-graph" data-part="Part 1" data-title="Loop or graph" inert aria-hidden="true">
     <div class="inner">
       <div class="timebox">Optional workflow shape</div>
-      <h2>Loop or workflow graph?</h2>
-      <p class="lede">A loop improves one thing step by step. A workflow graph splits independent jobs, then merges and checks them. More agents do not make the answer safer by default.</p>
+      <h2>Harness, loop, or graph?</h2>
+      <p class="lede">Harness is the environment. Loop is feedback. Graph is flow. More agents do not make the answer safer by default.</p>
       <div class="grid four">
-        <div class="card green"><h3>Loop</h3><p>Use when the next step needs the last result: draft, check, revise, check again.</p></div>
-        <div class="card blue"><h3>Workflow graph</h3><p>Use when jobs can run side-by-side, like reviewing three files before one merge.</p></div>
-        <div class="card gold"><h3>Unneeded arrow</h3><p>An arrow that does not pass useful information. Remove it and run both jobs at once.</p></div>
-        <div class="card warn"><h3>Verify merge</h3><p>Use tests, sources, diffs, screenshots, and human review before trusting the combined answer.</p></div>
+        <div class="card blue"><h3>Harness</h3><p>Use when the agent needs safer tools, files, state, permissions, checkpoints, or traces.</p></div>
+        <div class="card green"><h3>Loop</h3><p>Use when one result should improve through evidence checks and bounded retry.</p></div>
+        <div class="card gold"><h3>Graph</h3><p>Use when branches, parallel jobs, approvals, joins, or exits must be explicit.</p></div>
+        <div class="card warn"><h3>Verify</h3><p>Use tests, sources, diffs, screenshots, and human review before trusting any output.</p></div>
       </div>
-      <div class="codebox">independent jobs + clear outputs + independent check + human gate -> graph workflow worth considering</div>
-      <p class="source-note">Teacher enrichment sources: <a href="https://addyosmani.com/blog/loop-engineering/" target="_blank" rel="noopener noreferrer">Addy Osmani, "Loop Engineering"</a>; <a href="https://www.youtube.com/watch?v=JWhICz1QR8M" target="_blank" rel="noopener noreferrer">Greg Isenberg, "Why Graph Engineering will 10x your Claude/Codex"</a>. Treat "10x" as promotional framing, not a measured claim. The workflow-graph rule is a LearnAI classroom heuristic.</p>
-      <div class="teacher-note">Optional enrichment. Use "graph engineering" as teacher vocabulary, but teach students the simpler rule: split only when jobs are genuinely independent and outputs have clear shapes. Graph-engineering wording was inspired by a public X discussion; do not treat a social post as required reading or stable authority. Graphs add cost and complexity; they do not create truth without tests, source links, dates, screenshots, diffs, or human approval gates.</div>
+      <div class="codebox">environment -> harness | feedback -> loop | flow -> graph</div>
+      <p class="source-note">Teacher enrichment sources: <a href="https://addyosmani.com/blog/loop-engineering/" target="_blank" rel="noopener noreferrer">Addy Osmani, "Loop Engineering"</a>; <a href="https://www.youtube.com/watch?v=JWhICz1QR8M" target="_blank" rel="noopener noreferrer">Greg Isenberg, "Why Graph Engineering will 10x your Claude/Codex"</a>; <a href="https://x.com/0xwhrrari/article/2082096897964306572" target="_blank" rel="noopener noreferrer">rari, "LOOP vs GRAPH vs HARNESS ENGINEERING"</a>. Treat "10x" as promotional framing, not a measured claim. The harness/loop/graph rule is a LearnAI classroom heuristic.</p>
+      <div class="teacher-note">Optional enrichment. Use the X Article as instructor-only context because it is login-gated and may not be stable. Teach the simpler diagnosis: missing state, tools, permissions, or observability is usually a harness problem; an unreliable first attempt needs an evidence loop; hidden branching, parallel work, or approvals may need a graph. Graphs add cost and complexity; they do not create truth without tests, source links, dates, screenshots, diffs, or human approval gates.</div>
     </div>
   </section>
 
