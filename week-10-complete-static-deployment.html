@@ -46,8 +46,10 @@ p{line-height:1.65}
 .timebox{display:inline-flex;border:1px solid rgba(251,191,36,.4);background:rgba(251,191,36,.08);color:#fde68a;border-radius:999px;padding:5px 12px;font-size:13px;font-weight:900;margin-bottom:14px}
 .teacher-note{margin-top:18px;border-left:4px solid var(--gold);background:rgba(251,191,36,.08);padding:12px 14px;color:#fff2c4;border-radius:8px;font-size:14px}
 .flow{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:10px;margin:24px 0}
+.flow.build-plan-flow{grid-template-columns:repeat(5,minmax(0,1fr))}
 .step{border:1px solid var(--line);border-radius:12px;padding:15px;background:rgba(255,255,255,.04);min-height:116px}
 .step strong{display:block;color:#bfdbfe;margin-bottom:8px}
+.step code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;color:#e0f2fe;overflow-wrap:anywhere}
 .split,.builder-layout,.smoke-layout,.exit-layout{display:grid;grid-template-columns:420px minmax(0,1fr);gap:18px;margin-top:20px}
 .form{display:grid;gap:11px}
 label{display:grid;gap:6px;color:#dbeafe;font-size:13px;font-weight:900;text-transform:uppercase;letter-spacing:.08em}
@@ -96,7 +98,7 @@ input:focus,select:focus,textarea:focus{border-color:rgba(96,165,250,.85);box-sh
   h1{font-size:38px}
   h2{font-size:30px}
   .lede{font-size:18px}
-  .grid,.grid.three,.flow,.split,.builder-layout,.smoke-layout,.exit-layout,.deploy-map{grid-template-columns:1fr}
+  .grid,.grid.three,.flow,.flow.build-plan-flow,.split,.builder-layout,.smoke-layout,.exit-layout,.deploy-map{grid-template-columns:1fr}
   .controls{position:relative;left:auto;right:auto;bottom:auto}
 }
 @media (prefers-reduced-motion:reduce){
@@ -143,9 +145,38 @@ input:focus,select:focus,textarea:focus{border-color:rgba(96,165,250,.85);box-sh
     </div>
   </section>
 
+  <section class="slide" id="reviewable-build-plan" data-part="Map" data-title="Reviewable build plan" inert aria-hidden="true">
+    <div class="inner">
+      <div class="timebox">9-29 min</div>
+      <h2>Turn the app idea into a Reviewable Build Plan.</h2>
+      <p class="lede">Use the Week 8/9 app to make decisions before new edits. The output is a plan that can be checked, not a pile of generated code.</p>
+      <div class="flow build-plan-flow">
+        <div class="step"><strong><code>/grill-me</code></strong><p>Decide: answer one question at a time until the user, purpose, boundary, and success criteria are clear.</p></div>
+        <div class="step"><strong><code>/to-spec</code></strong><p>Specify: turn the decisions into a small behavior spec that a reviewer can understand.</p></div>
+        <div class="step"><strong><code>/to-tickets</code></strong><p>Slice: break the spec into 3-5 small tickets with blocker notes.</p></div>
+        <div class="step"><strong><code>/implement</code></strong><p>Build with instructor: advanced-only today, not an independent student task.</p></div>
+        <div class="step"><strong><code>/code-review</code></strong><p>Review with instructor: advanced-only today, used to inspect a controlled change.</p></div>
+      </div>
+      <div class="grid three">
+        <div class="card green"><h3>Student task</h3><p>Use the first three steps to create a Reviewable Build Plan for your own Week 8/9 app.</p></div>
+        <div class="card gold"><h3>Instructor-guided</h3><p><code>/implement</code> and <code>/code-review</code> may be demonstrated on a tiny static example. They are not required for independent student work today.</p></div>
+        <div class="card warn"><h3>Safety boundary</h3><p>Do not create GitHub issues, commits, pushes, deployments, or remote writes during this exercise.</p></div>
+      </div>
+      <div class="formula">/grill-me -> /to-spec -> /to-tickets -> /implement -> /code-review</div>
+      <div class="resource-links">
+        <a class="link-btn" href="https://weihaoqu.github.io/learnAIDoc/wiki/grill-me-ai-development-flow-slides/" target="_blank" rel="noopener noreferrer">Reviewable Build Plan slide gallery</a>
+        <a class="link-btn" href="https://weihaoqu.github.io/learnAIDoc/assets/decks/grill-me-ai-workflow/grill-me-ai-workflow.pdf" target="_blank" rel="noopener noreferrer">Instructor PDF</a>
+        <a class="link-btn" href="https://www.aihero.dev/skills-grill-me" target="_blank" rel="noopener noreferrer">AIHero /grill-me</a>
+        <a class="link-btn" href="https://www.aihero.dev/grill-with-docs" target="_blank" rel="noopener noreferrer">Instructor context: /grill-with-docs</a>
+      </div>
+      <p class="source-note">Classroom reference: selected slides 1, 4, 5, 6, 7, 9, and 15 from the Reviewable Build Plan deck. Use them as instructor framing; students do not need the full deck.</p>
+      <div class="teacher-note">Keep this as a planning lab. Stop after the Reviewable Build Plan unless you choose a controlled tiny demo for the last two commands. Optional bridge slides replace time from later sections; they do not add time to the 60-minute class.</div>
+    </div>
+  </section>
+
   <section class="slide" data-part="Map" data-title="Checkpoint discipline" inert aria-hidden="true">
     <div class="inner">
-      <div class="timebox">9-14 min</div>
+      <div class="timebox">29-34 min</div>
       <h2>Protect the last working version.</h2>
       <p class="lede">Fast AI-assisted building works only if students preserve stable states. Do not pile new features onto broken code.</p>
       <div class="grid three">
@@ -194,7 +225,7 @@ input:focus,select:focus,textarea:focus{border-color:rgba(96,165,250,.85);box-sh
 
   <section class="slide" id="genai-lifecycle" data-part="Map" data-title="GenAI lifecycle" inert aria-hidden="true">
     <div class="inner">
-      <div class="timebox">14-18 min</div>
+      <div class="timebox">34-37 min</div>
       <h2>Generative AI apps improve through evidence loops.</h2>
       <p class="lede">A fast prototype is useful because it gives you something to test. It is not proof that the system is ready for real users.</p>
       <div class="flow">
@@ -217,7 +248,7 @@ input:focus,select:focus,textarea:focus{border-color:rgba(96,165,250,.85);box-sh
 
   <section class="slide" id="architecture" data-part="Part 1" data-title="Static architecture" inert aria-hidden="true">
     <div class="inner">
-      <div class="timebox">18-24 min</div>
+      <div class="timebox">37-42 min</div>
       <h2>Static app architecture is small on purpose.</h2>
       <p class="lede">A complete static project can be a single HTML file, or a small folder of public files. Every file that ships can be read by the browser.</p>
       <div class="deploy-map">
@@ -232,7 +263,7 @@ input:focus,select:focus,textarea:focus{border-color:rgba(96,165,250,.85);box-sh
 
   <section class="slide" id="readiness" data-part="Part 2" data-title="Readiness checker" inert aria-hidden="true">
     <div class="inner">
-      <div class="timebox">24-32 min</div>
+      <div class="timebox">42-48 min</div>
       <h2>Check whether the project is ready to deploy.</h2>
       <p class="lede">Click only the statements that are true for the current app. The goal is to find gaps before the app is public.</p>
       <div class="split">
@@ -256,7 +287,7 @@ input:focus,select:focus,textarea:focus{border-color:rgba(96,165,250,.85);box-sh
 
   <section class="slide" id="storage" data-part="Part 3" data-title="Optional browser storage" inert aria-hidden="true">
     <div class="inner">
-      <div class="timebox">32-38 min</div>
+      <div class="timebox">Optional bridge - 3 min</div>
       <h2>Optional: save non-sensitive state in the browser.</h2>
       <p class="lede">Use Web Storage only for harmless prototype state, such as theme choice, fictional examples, or a draft checklist. It is not secure storage.</p>
       <div class="split">
@@ -281,7 +312,7 @@ localStorage.removeItem("learnai-week10-demo");</div>
 
   <section class="slide" id="deploy" data-part="Part 4" data-title="Deployment plan" inert aria-hidden="true">
     <div class="inner">
-      <div class="timebox">38-46 min</div>
+      <div class="timebox">48-53 min</div>
       <h2>Deployment means making public files available at a link.</h2>
       <p class="lede">For this course, deployment means static hosting. It is a snapshot of the current working app; later changes need another publish step. If account setup blocks deployment, students use the fallback path and still learn the checklist.</p>
       <div class="builder-layout">
@@ -308,7 +339,7 @@ localStorage.removeItem("learnai-week10-demo");</div>
 
   <section class="slide" id="smoke" data-part="Part 5" data-title="Smoke test" inert aria-hidden="true">
     <div class="inner">
-      <div class="timebox">46-53 min</div>
+      <div class="timebox">53-57 min</div>
       <h2>Run the smoke test twice: before and after deployment.</h2>
       <p class="lede">A deployed app is not finished until the public link works and the boundary still holds.</p>
       <div class="smoke-layout">
@@ -329,7 +360,7 @@ localStorage.removeItem("learnai-week10-demo");</div>
 
   <section class="slide" id="agent-prompt" data-part="Part 6" data-title="Agent prompt" inert aria-hidden="true">
     <div class="inner">
-      <div class="timebox">53-57 min</div>
+      <div class="timebox">57-60 min</div>
       <h2>Ask the agent for a complete-project polish pass.</h2>
       <p class="lede">The prompt should ask for completion and deployment readiness, not new features.</p>
       <div class="builder-layout">
