@@ -74,6 +74,8 @@ input:focus,select:focus,textarea:focus{border-color:rgba(96,165,250,.85);box-sh
 .deploy-card strong{display:block;color:#bfdbfe;margin-bottom:6px}
 .storage-demo{display:grid;gap:10px}
 .codebox{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:13px;border:1px solid var(--line);background:#050914;border-radius:12px;padding:14px;white-space:pre-wrap;color:#c4ddff}
+.prompt-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin-top:18px}
+.prompt-grid .card{min-height:0}
 .artifact{background:linear-gradient(135deg,rgba(96,165,250,.12),rgba(52,211,153,.10));border:1px solid rgba(96,165,250,.25)}
 .resource-links{display:flex;flex-wrap:wrap;gap:10px;margin-top:18px}
 .link-btn{display:inline-flex;align-items:center;justify-content:center;border:1px solid var(--line2);border-radius:10px;padding:10px 13px;color:#e0f2fe;text-decoration:none;font-weight:900;background:rgba(255,255,255,.06)}
@@ -98,7 +100,7 @@ input:focus,select:focus,textarea:focus{border-color:rgba(96,165,250,.85);box-sh
   h1{font-size:38px}
   h2{font-size:30px}
   .lede{font-size:18px}
-  .grid,.grid.three,.flow,.flow.build-plan-flow,.split,.builder-layout,.smoke-layout,.exit-layout,.deploy-map{grid-template-columns:1fr}
+  .grid,.grid.three,.flow,.flow.build-plan-flow,.split,.builder-layout,.smoke-layout,.exit-layout,.deploy-map,.prompt-grid{grid-template-columns:1fr}
   .controls{position:relative;left:auto;right:auto;bottom:auto}
 }
 @media (prefers-reduced-motion:reduce){
@@ -171,6 +173,56 @@ input:focus,select:focus,textarea:focus{border-color:rgba(96,165,250,.85);box-sh
       </div>
       <p class="source-note">Classroom reference: selected slides 1, 4, 5, 6, 7, 9, and 15 from the Reviewable Build Plan deck. Use them as instructor framing; students do not need the full deck.</p>
       <div class="teacher-note">Keep this as a planning lab. Stop after the Reviewable Build Plan unless you choose a controlled tiny demo for the last two commands. Optional bridge slides replace time from later sections; they do not add time to the 60-minute class.</div>
+    </div>
+  </section>
+
+  <section class="slide" id="planning-prompt-templates" data-part="Map" data-title="Planning prompts" inert aria-hidden="true">
+    <div class="inner">
+      <div class="timebox">Within 9-29 min</div>
+      <h2>Use these prompts if the skills are not installed.</h2>
+      <p class="lede">The slash commands are the preferred workflow. These classroom fallbacks keep the same thinking path in plain chat.</p>
+      <div class="prompt-grid">
+        <div class="card blue">
+          <h3><code>/grill-me</code> fallback</h3>
+          <div class="codebox">Act like /grill-me for my static app idea.
+Ask one question at a time, then wait for my answer.
+Stop only when I have enough decisions to write a spec:
+user, purpose, core behavior, boundaries or non-goals, success checks, and first build slice.
+Do not edit files, write files, create issues, commit, push, deploy, publish, or use remote services.</div>
+        </div>
+        <div class="card green">
+          <h3><code>/to-spec</code> fallback</h3>
+          <div class="codebox">Turn my resolved app decisions into a lightweight spec.
+Include: user, goal, core behavior, inputs, outputs or states, boundaries, non-goals, and success checks.
+Keep it short enough for a classmate to review.
+Do not edit files, write files, create issues, commit, push, deploy, publish, or use remote services.</div>
+        </div>
+        <div class="card gold">
+          <h3><code>/to-tickets</code> fallback</h3>
+          <div class="codebox">Turn this lightweight spec into 3-5 small tickets.
+For each ticket, include: title, blocked by, what it delivers, and acceptance checks.
+Keep the tickets local as text only.
+Do not edit files, write files, create GitHub issues, commit, push, deploy, publish, or use remote services.</div>
+        </div>
+      </div>
+      <div class="teacher-note">Students can paste one template into plain chat. Use the minimum template needed; the goal is clearer decisions, not longer prompts.</div>
+    </div>
+  </section>
+
+  <section class="slide" id="bad-prompt-rescue" data-part="Map" data-title="Bad prompt rescue" inert aria-hidden="true">
+    <div class="inner">
+      <div class="timebox">Optional challenge</div>
+      <h2>Rescue a vague app prompt before building.</h2>
+      <p class="lede">Bad prompts usually hide missing decisions. Convert the vague request into a Reviewable Build Plan before asking for code.</p>
+      <div class="grid three">
+        <div class="card warn"><h3>Starting prompt</h3><p><code>Make my study app better and add AI so it is impressive.</code></p></div>
+        <div class="card blue"><h3>Grill it</h3><p>Ask one question at a time until the user, purpose, boundary, success checks, and first build slice are clear.</p></div>
+        <div class="card green"><h3>Specify it</h3><p>Rewrite the idea as one small behavior with inputs, outputs, states, and non-goals.</p></div>
+        <div class="card gold"><h3>Slice it</h3><p>Create 3-5 local text tickets with blocker notes and acceptance checks.</p></div>
+        <div class="card warn"><h3>Stop there</h3><p>No implementation, issue publishing, commits, pushes, deployments, or remote writes for this challenge.</p></div>
+        <div class="card green"><h3>Output</h3><p>A Reviewable Build Plan that a partner can critique before any code changes.</p></div>
+      </div>
+      <div class="teacher-note">Use this when students finish early or bring vague app prompts. Strong answers should remove hype and name the smallest useful behavior.</div>
     </div>
   </section>
 
