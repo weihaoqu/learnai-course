@@ -433,11 +433,16 @@ localStorage.removeItem("learnai-week10-demo");</div>
     <div class="inner">
       <div class="timebox">Final artifact</div>
       <h2>Week 10 Complete Project Packet</h2>
-      <p class="lede">Submit evidence that the app is complete enough to share as a static prototype.</p>
+      <p class="lede">Submit the Reviewable Build Plan artifacts in order, then add the static link or fallback, smoke-test evidence, privacy/safety note, and human-review evidence.</p>
       <div class="exit-layout">
         <div class="card">
           <div class="form">
             <label>App title<input id="exTitle" placeholder="App title"></label>
+            <label>/grill-me summary<textarea id="exGrill" placeholder="Resolved user, purpose, boundary, success checks."></textarea></label>
+            <label>Lightweight spec<textarea id="exSpec" placeholder="Core behavior, inputs, outputs or states, boundaries, non-goals."></textarea></label>
+            <label>3-5 tickets<textarea id="exTickets" placeholder="Title, blocked by, what it delivers, acceptance checks."></textarea></label>
+            <label>First Vertical Slice candidate<textarea id="exSlice" placeholder="A candidate first end-to-end behavior to build or inspect. Do not add unrelated features just to satisfy this field."></textarea></label>
+            <label>Review question<textarea id="exQuestion" placeholder="One question a reviewer should answer before more edits."></textarea></label>
             <label>Public link or fallback path<input id="exLink" placeholder="URL or local file path"></label>
             <label>What is complete<textarea id="exComplete" placeholder="Architecture, interaction, states, reset/export, optional storage"></textarea></label>
             <label>Deployment evidence<textarea id="exDeploy" placeholder="Pre-deploy check and post-deploy smoke test"></textarea></label>
@@ -459,7 +464,7 @@ localStorage.removeItem("learnai-week10-demo");</div>
       <h2>Homework: deploy or complete the fallback packet.</h2>
       <p class="lede">Students should leave Week 10 with a shareable static prototype or a concrete deployment-ready local artifact.</p>
       <div class="grid">
-        <div class="card"><h3>Required</h3><p>Submit the Week 10 Complete Project Packet, a link or local file path, smoke-test results, and one human-review note.</p></div>
+        <div class="card"><h3>Required</h3><p>Submit the five Reviewable Build Plan artifacts in order, a public link or local fallback path, smoke-test results, privacy/safety note, and one human-review note.</p></div>
         <div class="card"><h3>Deployment path</h3><p>Use GitHub Pages or another static hosting path if account setup is ready.</p></div>
         <div class="card"><h3>Fallback path</h3><p>If deployment is blocked, submit the local HTML file and the completed deployment checklist.</p></div>
         <div class="card warn"><h3>Do not deploy</h3><p>Anything with real names, emails, grades, health details, identity information, credentials, private prompts, or secret keys.</p></div>
@@ -684,7 +689,28 @@ function updatePacket(){
   const text = `Week 10 Complete Project Packet
 
 App title: ${value('exTitle','[app title]')}
-Public link or fallback path: ${value('exLink','[URL or local file path]')}
+
+Reviewable Build Plan artifacts, in order
+
+/grill-me summary:
+${value('exGrill','[resolved user, purpose, boundary, success checks]')}
+
+Lightweight spec:
+${value('exSpec','[core behavior, inputs, outputs or states, boundaries, non-goals]')}
+
+3-5 tickets:
+${value('exTickets','[title, blocked by, what it delivers, acceptance checks]')}
+
+First Vertical Slice candidate:
+${value('exSlice','[candidate first end-to-end behavior to build or inspect; do not add unrelated features just to satisfy this field]')}
+
+Review question:
+${value('exQuestion','[one question a reviewer should answer before more edits]')}
+
+Static project evidence
+
+Public link or fallback path:
+${value('exLink','[URL or local file path]')}
 
 What is complete:
 ${value('exComplete','[architecture, interaction, states, reset/export, optional storage]')}
@@ -706,7 +732,7 @@ ${value('exNext','[one improvement for Week 14 final project]')}`;
   document.getElementById('packetPreview').textContent = text;
   return text;
 }
-['exTitle','exLink','exComplete','exDeploy','exPrivacy','exUnderstand','exReview','exNext'].forEach(id => document.getElementById(id).addEventListener('input', updatePacket));
+['exTitle','exGrill','exSpec','exTickets','exSlice','exQuestion','exLink','exComplete','exDeploy','exPrivacy','exUnderstand','exReview','exNext'].forEach(id => document.getElementById(id).addEventListener('input', updatePacket));
 document.getElementById('copyPacket').addEventListener('click', () => copyText(updatePacket(), document.getElementById('packetPreview')));
 
 const hashIndex = location.hash ? slides.findIndex(s => `#${s.id}` === location.hash) : -1;
