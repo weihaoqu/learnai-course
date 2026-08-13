@@ -201,7 +201,7 @@ input:focus,select:focus,textarea:focus{border-color:rgba(251,191,36,.85);box-sh
       <div class="flow">
         <div class="step"><strong>Problem</strong><p>Target user and need.</p></div>
         <div class="step"><strong>Demo</strong><p>Final app link or fallback.</p></div>
-        <div class="step"><strong>Design</strong><p>One Week 8-10 decision.</p></div>
+        <div class="step"><strong>Design</strong><p>One Reviewable Build Plan decision that shaped the final app.</p></div>
         <div class="step"><strong>Evidence</strong><p>One Week 11 source trail.</p></div>
         <div class="step"><strong>Safety</strong><p>One Week 13 limitation.</p></div>
         <div class="step"><strong>Next</strong><p>One realistic improvement.</p></div>
@@ -409,6 +409,7 @@ input:focus,select:focus,textarea:focus{border-color:rgba(251,191,36,.85);box-sh
             <label>One-sentence app purpose<textarea id="pkPurpose" placeholder="This app helps [user] do [task] by [interaction]."></textarea></label>
             <label>Demo script<textarea id="pkDemo" placeholder="Problem, demo, design decision, evidence, safety note, next step."></textarea></label>
             <label>Week 10 evidence<textarea id="pkW10" placeholder="Project packet, smoke test, deployment/fallback evidence, human review note."></textarea></label>
+            <label>Reviewable Build Plan reflection<textarea id="pkPlanDecision" placeholder="One decision from my Reviewable Build Plan that shaped the final app was..."></textarea></label>
             <label>Week 11 evidence<textarea id="pkW11" placeholder="Verified claim, source trail, career evidence."></textarea></label>
             <label>Week 13 evidence<textarea id="pkW13" placeholder="Security review packet, no-secrets statement, adversarial tests, limitation."></textarea></label>
             <label>AI-use disclosure<textarea id="pkDisclosure" placeholder="What AI did, what you changed/rejected, how you checked it, human responsibility."></textarea></label>
@@ -684,6 +685,9 @@ ${value('pkDemo','[problem, demo, design decision, evidence, safety note, next s
 Week 10 evidence:
 ${value('pkW10','[project packet, smoke test, deployment/fallback evidence, human review note]')}
 
+Reviewable Build Plan reflection:
+${value('pkPlanDecision','One decision from my Reviewable Build Plan that shaped the final app was...')}
+
 Week 11 evidence:
 ${value('pkW11','[verified claim, source trail, career evidence]')}
 
@@ -698,7 +702,7 @@ ${value('pkNext','[one limitation and one realistic next improvement]')}`;
   document.getElementById('packetPreview').textContent = text;
   return text;
 }
-['pkLink','pkPurpose','pkDemo','pkW10','pkW11','pkW13','pkDisclosure','pkNext'].forEach(id => document.getElementById(id).addEventListener('input', updatePacket));
+['pkLink','pkPurpose','pkDemo','pkW10','pkPlanDecision','pkW11','pkW13','pkDisclosure','pkNext'].forEach(id => document.getElementById(id).addEventListener('input', updatePacket));
 document.getElementById('copyPacket').addEventListener('click', () => copyText(updatePacket(), document.getElementById('packetPreview')));
 
 const hashIndex = location.hash ? slides.findIndex(s => `#${s.id}` === location.hash) : -1;
