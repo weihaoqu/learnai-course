@@ -107,6 +107,13 @@ body.notes-on .teacher-note{display:block}
 .review-readout{border:1px solid rgba(255,255,255,.15);background:rgba(255,255,255,.055);border-radius:18px;padding:20px}
 .review-meter{height:16px;border:1px solid rgba(255,255,255,.14);border-radius:999px;overflow:hidden;background:rgba(255,255,255,.07);margin:16px 0}
 .review-fill{height:100%;width:0;background:linear-gradient(90deg,var(--blue),var(--cyan),var(--green));transition:width .2s ease}
+#academic-extension .kicker{margin-bottom:12px}
+#academic-extension h2{font-size:clamp(32px,4vw,50px);margin-bottom:14px}
+#academic-extension .lede{font-size:clamp(19px,1.75vw,25px)}
+#academic-extension .grid{gap:14px;margin-top:18px}
+#academic-extension .card{min-height:0;padding:18px}
+#academic-extension .card p{font-size:clamp(16px,1.25vw,19px)}
+#academic-extension .terminal{font-size:clamp(14px,1.05vw,16px);line-height:1.45;margin-top:16px;padding:14px}
 @media(max-width:920px){
   html,body{overflow:auto}
   .deck{height:auto;min-height:100vh}
@@ -315,11 +322,11 @@ body.notes-on .teacher-note{display:block}
           </ul>
         </div>
         <div class="card">
-          <h3>Repair by adding</h3>
+          <h3>Repair from verified material</h3>
           <ul>
-            <li>Names, dates, examples, numbers, or observations.</li>
-            <li>A clear person, group, or source doing the action.</li>
-            <li>A real position the writer can defend.</li>
+            <li>Use names, dates, examples, numbers, theories, citations, or observations only when they already appear in your allowed source set.</li>
+            <li>Make the writer or verified source responsible for each claim.</li>
+            <li>If evidence is missing, flag the gap. Do not invent a detail to make the paragraph sound stronger.</li>
           </ul>
         </div>
         <div class="card">
@@ -329,6 +336,21 @@ body.notes-on .teacher-note{display:block}
         </div>
       </div>
       <div class="teacher-note">Instructor source: /Users/oreo/Dropbox/learnAIDoc/_wiki/removing-ai-taste-skill-list.md. Use the decision guide as a preparation note; avoid presenting detector bypass as the goal.</div>
+    </div>
+  </section>
+
+  <section class="slide note" id="academic-extension" data-part="Part 2" data-title="Academic revision extension">
+    <div class="inner">
+      <div class="kicker">Optional English academic-writing extension</div>
+      <h2>Improve the writing without changing the evidence.</h2>
+      <p class="lede">Use the optional English academic revision skill to revise academic prose for clarity, precision, disciplinary tone, and flow. This is an evidence-preserving revision activity, not a detector-evasion exercise.</p>
+      <div class="grid three">
+        <div class="card"><h3>Lock the source set</h3><p>Start with your own paragraph or an instructor-provided synthetic example plus the verified sources you are allowed to use.</p></div>
+        <div class="card"><h3>Review the revision</h3><p>Compare original and revised text. Record one accepted change, one rejected change, and one check that claim strength stayed the same.</p></div>
+        <div class="card"><h3>Keep the evidence</h3><p>Save the original, prompt, revision, decision notes, and disclosure in the existing Reviewable Revision Packet.</p></div>
+      </div>
+      <div class="terminal">Use the English academic revision skill. Treat my paragraph and verified sources as a closed evidence set. Preserve citations, technical terms, uncertainty, causal language, and claim strength. Do not add facts, examples, theories, data, or citations. Flag evidence gaps separately. Revise only for clarity, precision, disciplinary tone, and flow. Explain each change.</div>
+      <div class="teacher-note">Optional 5-minute instructor demonstration using synthetic or authorized text. Preview the installed English academic revision skill before class. Its detector-related score is not evidence of authorship and must not be used for grading, misconduct claims, or score optimization. Use only the evidence-preserving revision instructions above, and skip this extension if it would displace the required revision packet.</div>
     </div>
   </section>
 
