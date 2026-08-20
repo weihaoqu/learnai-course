@@ -129,6 +129,34 @@ body.notes-on .teacher-note{display:block}
 .cell:nth-child(3n){border-right:none}
 .cell.head{background:rgba(244,185,66,.14);color:#fff;font-weight:900}
 .cell p{font-size:16px}
+#research-paper-case .inner{width:min(1240px,100%)}
+#research-paper-case .kicker{margin-bottom:10px}
+#research-paper-case h2{font-size:clamp(30px,3.8vw,48px);margin-bottom:12px}
+#research-paper-case .case-summary{font-size:clamp(16px,1.35vw,19px);line-height:1.35;max-width:none}
+#research-paper-case .case-grid{display:grid;grid-template-columns:1.05fr 1.05fr .9fr;gap:12px;margin-top:14px}
+#research-paper-case .card{min-height:0;padding:16px}
+#research-paper-case .card h3{font-size:19px;margin-bottom:8px}
+#research-paper-case .card ul,#research-paper-case .card ol{margin:8px 0;padding-left:1.2em}
+#research-paper-case .card li{font-size:15px;line-height:1.35;margin:4px 0}
+#research-paper-case .formula{font-size:15px;line-height:1.35;margin-top:14px;padding:14px}
+#policy-challenge .inner{width:min(1240px,100%)}
+#policy-challenge .kicker{margin-bottom:9px}
+#policy-challenge h2{font-size:clamp(30px,3.6vw,46px);margin-bottom:10px}
+#policy-challenge .policy-intro{display:grid;grid-template-columns:auto minmax(0,1fr);align-items:center;gap:14px}
+#policy-challenge .policy-quote{border:1px solid rgba(244,185,66,.45);background:rgba(244,185,66,.1);border-radius:12px;padding:10px 14px;color:#fff;font-size:18px;font-weight:900}
+#policy-challenge .policy-intro .lede{font-size:18px;line-height:1.35;max-width:none}
+#policy-challenge .policy-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-top:12px}
+#policy-challenge .card{min-height:0;padding:14px}
+#policy-challenge .card h3{font-size:18px;margin-bottom:6px}
+#policy-challenge .card p{font-size:14px;line-height:1.35}
+#policy-challenge .policy-task{border:1px solid var(--line);background:rgba(255,255,255,.045);border-radius:14px;padding:12px 14px;margin-top:12px}
+#policy-challenge .policy-task h3{font-size:18px;margin-bottom:4px}
+#policy-challenge .policy-task>p{font-size:14px;line-height:1.3}
+#policy-challenge .policy-components{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-top:8px}
+#policy-challenge .policy-component{border-left:3px solid var(--amber);padding-left:10px;color:var(--muted);font-size:13px;line-height:1.3}
+#policy-challenge .policy-component strong{display:block;color:#fff;margin-bottom:2px}
+#policy-challenge .formula{font-size:14px;line-height:1.3;margin-top:12px;padding:12px}
+#policy-challenge .source-note{font-size:12px;line-height:1.35;margin-top:8px}
 @media(max-width:920px){
   html,body{height:auto;min-height:100%;max-width:100vw;overflow-x:hidden;overflow-y:auto}
   .deck{width:100%;height:auto;min-height:100vh;overflow-x:hidden}
@@ -138,7 +166,7 @@ body.notes-on .teacher-note{display:block}
   h1,h2,h3,p,li,.lede,.source-note{overflow-wrap:break-word}
   .formula{overflow-wrap:anywhere}
   .link-btn{max-width:100%;white-space:normal;line-height:1.25}
-  .grid,.grid.three,.grid.four,.traffic,.decision-frame,.scenario-layout,.choice-row,.meter-box,.builder,.calibration-layout,.calibration-options{grid-template-columns:1fr}
+  .grid,.grid.three,.grid.four,.traffic,.decision-frame,.scenario-layout,.choice-row,.meter-box,.builder,.calibration-layout,.calibration-options,#research-paper-case .case-grid,#policy-challenge .policy-intro,#policy-challenge .policy-grid,#policy-challenge .policy-components{grid-template-columns:1fr}
   .table{grid-template-columns:1fr}
   .cell,.cell:nth-child(3n){border-right:none}
   .hud{height:auto;min-height:58px;align-items:flex-start;flex-wrap:wrap;padding:9px 12px}
@@ -615,6 +643,83 @@ body.notes-on .teacher-note{display:block}
       <a class="link-btn" href="https://github.com/stanford-cs336/assignment1-basics/blob/a158843b20107949f1a8d7df1b05cd33b9166712/CLAUDE.md" target="_blank" rel="noopener noreferrer">Stanford CS336 course agent guidelines</a>
       <p class="source-note">Instructor case: CS336's no-code, no-bash boundary is stricter than this build course. Borrow the structure: allowed help, blocked help, evidence checks, and escalation.</p>
       <div class="teacher-note">Do not present CS336 as a universal ethics standard. It is a course-specific academic-integrity artifact that shows how an instructor can engineer assistant behavior around learning goals.</div>
+    </div>
+  </section>
+
+  <section class="slide lab" id="research-paper-case" data-part="Part 3" data-title="Research paper capstone">
+    <div class="inner">
+      <div class="kicker">Optional capstone · 8 minutes</div>
+      <h2>What can we verify—and what remains uncertain?</h2>
+      <p class="lede case-summary">A student uploads notes and a draft to an AI writing tool, asks it to rewrite a short research paper, and submits the polished result without disclosure. The paper contains two fabricated citations and one unsupported claim. The professor suspects AI use, but the university has no clear policy and the tool may have retained the notes.</p>
+      <div class="case-grid">
+        <div class="card check">
+          <h3>Verify</h3>
+          <ul>
+            <li>Whether the citations exist and support the paper.</li>
+            <li>Whether the claim has evidence.</li>
+            <li>What the assignment or syllabus communicated about AI and disclosure.</li>
+            <li>What drafts, notes, or process evidence the student can explain.</li>
+            <li>What the tool's actual retention and data-use settings say.</li>
+          </ul>
+        </div>
+        <div class="card warn">
+          <h3>Do not assume</h3>
+          <ul>
+            <li>Polished writing proves AI authorship.</li>
+            <li>An AI-detector score proves misconduct.</li>
+            <li>Nondisclosure automatically violates a rule that was never communicated.</li>
+            <li>The tool retained or trained on the notes without checking its settings and terms.</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>Discuss</h3>
+          <ol>
+            <li>What can the professor address without proving AI authorship?</li>
+            <li>What responsibility belongs to the student, professor, university, and tool provider?</li>
+            <li>What would a fair investigation, response, and appeal process look like?</li>
+            <li>What policy or workflow should change before the next assignment?</li>
+          </ol>
+        </div>
+      </div>
+      <div class="formula">fair response = verifiable evidence + student explanation + communicated rules + proportional consequences + policy repair</div>
+      <div class="teacher-note">Pacing: 8 minutes. Use this capstone instead of two or three quick scenario-bank cases. Give students 1 minute to separate verified facts from assumptions, 4 minutes for small-group discussion, and 3 minutes for debrief. The class is told that the student used AI, but the professor does not know that merely from polished prose; keep those perspectives separate. Do not use writing style or detector scores as proof. Check assignment-level expectations as well as university policy, let the student explain the research and revision process, provide a meaningful appeal path, and keep consequences proportional to verified conduct rather than suspected tool use. Treat data retention as a possible risk until the tool's actual settings and terms are checked. Debrief using the existing map: authorship/disclosure, evidence/truth, privacy/data, fairness/access, and safety/accountability.</div>
+    </div>
+  </section>
+
+  <section class="slide note" id="policy-challenge" data-part="Part 3" data-title="Policy challenge">
+    <div class="inner">
+      <div class="kicker">Optional policy challenge · 6 minutes</div>
+      <h2>What ethical problems does a ban solve or create?</h2>
+      <div class="policy-intro">
+        <div class="policy-quote">“We will ban AI use and use AI detectors.”</div>
+        <p class="lede">Evaluate this response without assuming that every AI restriction is unethical.</p>
+      </div>
+      <div class="policy-grid">
+        <div class="card check">
+          <h3>Sourced</h3>
+          <p>The reviews repeatedly surface principles such as transparency, fairness, safety, accountability, privacy, and learner agency, while warning about implementation gaps.</p>
+        </div>
+        <div class="card">
+          <h3>Inferred</h3>
+          <p>A blanket ban may push AI use out of view, reshape classroom trust, and shift uncertainty or error costs onto students. These are applications of the ethical lenses—not outcomes established by the four reviews.</p>
+        </div>
+        <div class="card warn">
+          <h3>Needs evidence</h3>
+          <p>Detector reliability and disparate impacts; whether bans cause concealment, fear, or mistrust; and whether restricted students experience worse educational or employment outcomes.</p>
+        </div>
+      </div>
+      <div class="policy-task">
+        <h3>Discussion challenge</h3>
+        <p>Your group owns one policy component. Write one rule and one justification:</p>
+        <div class="policy-components">
+          <div class="policy-component"><strong>1. Use boundary</strong>When is AI allowed, required, restricted, or prohibited—and which learning objective justifies that boundary?</div>
+          <div class="policy-component"><strong>2. Evidence and due process</strong>What can support a violation, and how can the student explain or appeal?</div>
+          <div class="policy-component"><strong>3. Safeguards</strong>What access, privacy, and disclosure protections are required?</div>
+        </div>
+      </div>
+      <div class="formula">strong policy = learning objective + use boundary + equitable access + disclosure + evidence standard + appeal</div>
+      <p class="source-note">Framework sources: <a href="https://www.nature.com/articles/s42256-019-0088-2" target="_blank" rel="noopener noreferrer">Jobin, Ienca, and Vayena (2019)</a>; <a href="https://www.sciencedirect.com/science/article/pii/S2666389923002416" target="_blank" rel="noopener noreferrer">Corrêa et al. (2023)</a>; <a href="https://onlinelibrary.wiley.com/doi/10.1111/basr.12336" target="_blank" rel="noopener noreferrer">Giarmoleo et al. (2024)</a>; <a href="https://link.springer.com/article/10.1007/s43681-025-00955-7" target="_blank" rel="noopener noreferrer">Groen, Sharon, and Becker (2026)</a>.</p>
+      <div class="teacher-note">Pacing: 6 minutes. Use this as a follow-up to the research-paper capstone or as an alternative discussion—not in addition to the full required path. This is a compressed policy challenge, not a full policy-writing exercise. Give students 1 minute to identify what the proposed ban might solve and create, assign each group one policy component for 3 minutes, and use 2 minutes for groups to share one rule and its justification. Require students to label claims as sourced, inferred, or needing evidence. A strong class synthesis should acknowledge that task-specific limits can protect a learning objective and that permissive policies can also be inequitable when access, training, devices, or accommodations differ. The four reviews provide ethical frameworks; they do not establish detector accuracy, disparate impact, classroom mistrust, concealment, or comparative student outcomes. Do not present those empirical claims as sourced without additional evidence. Ask who controls the evidence, who bears the cost of error, and what explanation and appeal process students receive.</div>
     </div>
   </section>
 
