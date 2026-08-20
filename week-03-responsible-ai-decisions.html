@@ -157,6 +157,55 @@ body.notes-on .teacher-note{display:block}
 #policy-challenge .policy-component strong{display:block;color:#fff;margin-bottom:2px}
 #policy-challenge .formula{font-size:14px;line-height:1.3;margin-top:12px;padding:12px}
 #policy-challenge .source-note{font-size:12px;line-height:1.35;margin-top:8px}
+#policy-design .inner{width:min(1240px,100%)}
+#policy-design .kicker{margin-bottom:7px}
+#policy-design h2{font-size:clamp(30px,3.5vw,44px);margin-bottom:7px}
+#policy-design .policy-bridge{display:grid;grid-template-columns:minmax(250px,.8fr) minmax(0,1.5fr);gap:10px;align-items:stretch}
+#policy-design .weak-rule{display:flex;align-items:center;border:1px solid rgba(255,102,120,.42);border-left:5px solid var(--red);background:rgba(255,102,120,.08);border-radius:12px;padding:10px 13px;color:#fff;font-size:17px;font-weight:900}
+#policy-design .bridge-task{border:1px solid var(--line);background:rgba(255,255,255,.045);border-radius:12px;padding:10px 13px;color:var(--muted);font-size:14px;line-height:1.35}
+#policy-design .bridge-task strong{color:var(--amber)}
+#policy-design .audit-label{margin-top:7px;color:#dbeafe;font-size:11px;font-weight:900}
+#policy-design .audit-strip{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:7px;margin:5px 0 0;padding:0;list-style:none}
+#policy-design .audit-chip{border:1px solid rgba(90,167,255,.32);background:rgba(90,167,255,.08);border-radius:999px;padding:6px 8px;text-align:center;color:#dbeafe;font-size:11px;font-weight:900;margin:0}
+#policy-design .expand-label{margin-top:9px;color:#fff;font-size:13px;font-weight:900}
+#policy-design .expand-label span{color:var(--muted);font-weight:700}
+#policy-design .policy-design-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;margin-top:7px}
+#policy-design .policy-rule{border:1px solid var(--line);border-top:3px solid var(--green);background:rgba(255,255,255,.045);border-radius:11px;padding:8px 10px;min-height:64px}
+#policy-design .policy-rule:nth-child(2),#policy-design .policy-rule:nth-child(5){border-top-color:var(--amber)}
+#policy-design .policy-rule:nth-child(3),#policy-design .policy-rule:nth-child(6){border-top-color:var(--red)}
+#policy-design .policy-rule:nth-child(4),#policy-design .policy-rule:nth-child(7){border-top-color:var(--blue)}
+#policy-design .policy-rule strong{display:block;color:#fff;font-size:14px;margin-bottom:3px}
+#policy-design .policy-rule p{font-size:12px;line-height:1.25}
+#policy-design .design-flow{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:7px;margin-top:8px}
+#policy-design .flow-step{display:grid;grid-template-columns:auto minmax(0,1fr);align-items:center;gap:7px;border:1px solid var(--line);background:rgba(6,8,13,.72);border-radius:11px;padding:7px 8px}
+#policy-design .flow-time{display:grid;place-items:center;min-width:38px;height:30px;border-radius:999px;background:var(--amber);color:#16120a;font-family:var(--mono);font-size:11px;font-weight:900}
+#policy-design .flow-step strong{display:block;color:#fff;font-size:12px;margin-bottom:1px}
+#policy-design .flow-step p{font-size:10px;line-height:1.2}
+#policy-design .policy-test{border:1px solid rgba(244,185,66,.42);background:rgba(244,185,66,.09);border-radius:12px;padding:8px 11px;margin-top:8px}
+#policy-design .policy-test strong{color:var(--amber);font-family:var(--mono);font-size:11px;text-transform:uppercase;letter-spacing:.06em}
+#policy-design .policy-test p{font-size:12px;line-height:1.3;margin-top:2px}
+#policy-design .source-note{font-size:11px;line-height:1.25;margin-top:6px}
+#fairness-case .inner{width:min(1240px,100%)}
+#fairness-case .kicker{margin-bottom:9px}
+#fairness-case h2{font-size:clamp(30px,3.5vw,45px);margin-bottom:9px}
+#fairness-case .case-strip{border:1px solid rgba(244,185,66,.42);border-left:5px solid var(--amber);background:rgba(244,185,66,.08);border-radius:13px;padding:11px 14px;font-size:15px;line-height:1.35;color:#eef2f7}
+#fairness-case .vote-row{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:9px;margin-top:11px}
+#fairness-case .vote-choice{border:1px solid var(--line);background:rgba(6,8,13,.72);border-radius:999px;padding:8px 10px;text-align:center;color:#fff;font-size:13px;font-weight:900}
+#fairness-case .fairness-lenses{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:11px;margin-top:11px}
+#fairness-case .lens-card{border:1px solid var(--line);border-top:3px solid var(--mint);background:rgba(255,255,255,.045);border-radius:13px;padding:12px 13px}
+#fairness-case .lens-card:nth-child(2){border-top-color:var(--amber)}
+#fairness-case .lens-card:nth-child(3){border-top-color:var(--coral)}
+#fairness-case .lens-card strong{display:block;color:#fff;font-size:15px;margin-bottom:4px}
+#fairness-case .lens-card p{font-size:13px;line-height:1.3}
+#fairness-case .variant-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:11px;margin-top:11px}
+#fairness-case .variant{border:1px solid rgba(99,169,255,.34);background:rgba(99,169,255,.08);border-radius:12px;padding:9px 12px;font-size:13px;line-height:1.3;color:var(--muted)}
+#fairness-case .variant strong{color:#fff}
+#fairness-case .q7-bottom{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center;gap:12px;margin-top:11px}
+#fairness-case .exit-ticket{border:1px solid rgba(66,211,146,.38);background:rgba(66,211,146,.08);border-radius:13px;padding:10px 13px}
+#fairness-case .exit-ticket strong{color:var(--mint);font-family:var(--mono);font-size:12px;text-transform:uppercase;letter-spacing:.06em}
+#fairness-case .exit-ticket p{font-size:13px;line-height:1.3;margin-top:3px}
+#fairness-case .homework-link{align-self:stretch;display:flex;align-items:center;text-align:center}
+#fairness-case .source-note{font-size:12px;line-height:1.3;margin-top:8px}
 @media(max-width:920px){
   html,body{height:auto;min-height:100%;max-width:100vw;overflow-x:hidden;overflow-y:auto}
   .deck{width:100%;height:auto;min-height:100vh;overflow-x:hidden}
@@ -166,7 +215,7 @@ body.notes-on .teacher-note{display:block}
   h1,h2,h3,p,li,.lede,.source-note{overflow-wrap:break-word}
   .formula{overflow-wrap:anywhere}
   .link-btn{max-width:100%;white-space:normal;line-height:1.25}
-  .grid,.grid.three,.grid.four,.traffic,.decision-frame,.scenario-layout,.choice-row,.meter-box,.builder,.calibration-layout,.calibration-options,#research-paper-case .case-grid,#policy-challenge .policy-intro,#policy-challenge .policy-grid,#policy-challenge .policy-components{grid-template-columns:1fr}
+  .grid,.grid.three,.grid.four,.traffic,.decision-frame,.scenario-layout,.choice-row,.meter-box,.builder,.calibration-layout,.calibration-options,#research-paper-case .case-grid,#policy-challenge .policy-intro,#policy-challenge .policy-grid,#policy-challenge .policy-components,#policy-design .policy-bridge,#policy-design .audit-strip,#policy-design .policy-design-grid,#policy-design .design-flow,#fairness-case .vote-row,#fairness-case .fairness-lenses,#fairness-case .variant-grid,#fairness-case .q7-bottom{grid-template-columns:1fr}
   .table{grid-template-columns:1fr}
   .cell,.cell:nth-child(3n){border-right:none}
   .hud{height:auto;min-height:58px;align-items:flex-start;flex-wrap:wrap;padding:9px 12px}
@@ -176,6 +225,10 @@ body.notes-on .teacher-note{display:block}
   .jump{grid-column:1/-1;order:0;min-width:0;width:100%;max-width:100%}
   .controls>div:last-child{display:flex;gap:8px;justify-content:flex-end}
   .btn{padding:8px 10px}
+}
+@media(min-width:480px) and (max-width:920px){
+  #policy-design .audit-strip,#policy-design .policy-design-grid,#policy-design .design-flow{grid-template-columns:repeat(2,minmax(0,1fr))}
+  #policy-design .audit-chip:last-child,#policy-design .policy-rule:last-child,#policy-design .flow-step:last-child{grid-column:1/-1}
 }
 @media(max-width:600px){
   .jump{justify-content:flex-start;flex-wrap:nowrap;overflow-x:auto;padding-bottom:2px}
@@ -720,6 +773,125 @@ body.notes-on .teacher-note{display:block}
       <div class="formula">strong policy = learning objective + use boundary + equitable access + disclosure + evidence standard + appeal</div>
       <p class="source-note">Framework sources: <a href="https://www.nature.com/articles/s42256-019-0088-2" target="_blank" rel="noopener noreferrer">Jobin, Ienca, and Vayena (2019)</a>; <a href="https://www.sciencedirect.com/science/article/pii/S2666389923002416" target="_blank" rel="noopener noreferrer">Corrêa et al. (2023)</a>; <a href="https://onlinelibrary.wiley.com/doi/10.1111/basr.12336" target="_blank" rel="noopener noreferrer">Giarmoleo et al. (2024)</a>; <a href="https://link.springer.com/article/10.1007/s43681-025-00955-7" target="_blank" rel="noopener noreferrer">Groen, Sharon, and Becker (2026)</a>.</p>
       <div class="teacher-note">Pacing: 6 minutes. Use this as a follow-up to the research-paper capstone or as an alternative discussion—not in addition to the full required path. This is a compressed policy challenge, not a full policy-writing exercise. Give students 1 minute to identify what the proposed ban might solve and create, assign each group one policy component for 3 minutes, and use 2 minutes for groups to share one rule and its justification. Require students to label claims as sourced, inferred, or needing evidence. A strong class synthesis should acknowledge that task-specific limits can protect a learning objective and that permissive policies can also be inequitable when access, training, devices, or accommodations differ. The four reviews provide ethical frameworks; they do not establish detector accuracy, disparate impact, classroom mistrust, concealment, or comparative student outcomes. Do not present those empirical claims as sourced without additional evidence. Ask who controls the evidence, who bears the cost of error, and what explanation and appeal process students receive.</div>
+    </div>
+  </section>
+
+  <section class="slide lab" id="policy-design" data-part="Part 3" data-title="Design a policy">
+    <div class="inner">
+      <div class="kicker">Optional policy workshop · Question 6 · 12 minutes</div>
+      <h2>From principle to policy</h2>
+      <div class="policy-bridge">
+        <div class="weak-rule">Weak rule: “Students may use AI responsibly.”</div>
+        <div class="bridge-task"><strong>Diagnose and rewrite:</strong> Why is “responsibly” ethically weak? Name three missing duties. Rewrite the sentence so students and instructors could apply it consistently.</div>
+      </div>
+      <div class="audit-label">First-pass partner audit: does the one-sentence rule define these five student duties?</div>
+      <ul class="audit-strip" aria-label="First-pass partner audit checks">
+        <li class="audit-chip">Permitted use</li>
+        <li class="audit-chip">Disclosure</li>
+        <li class="audit-chip">Prohibited use</li>
+        <li class="audit-chip">Verification</li>
+        <li class="audit-chip">Privacy</li>
+      </ul>
+      <div class="expand-label">Second pass: expand the sentence into a complete university policy. <span>Add two institution-level duties: the silent-instructions default and fair assessment of learning.</span></div>
+      <div class="policy-design-grid">
+        <div class="policy-rule">
+          <strong>1. Permitted use</strong>
+          <p>What may students do for study and submitted work?</p>
+        </div>
+        <div class="policy-rule">
+          <strong>2. Silent-instructions default</strong>
+          <p>What applies when an assignment says nothing?</p>
+        </div>
+        <div class="policy-rule">
+          <strong>3. Disclosure</strong>
+          <p>What tool, purpose, and affected work must be reported?</p>
+        </div>
+        <div class="policy-rule">
+          <strong>4. Prohibited use</strong>
+          <p>What remains forbidden in exams, assignments, and authorship?</p>
+        </div>
+        <div class="policy-rule">
+          <strong>5. Verification</strong>
+          <p>What claims, citations, or outputs must students check?</p>
+        </div>
+        <div class="policy-rule">
+          <strong>6. Privacy</strong>
+          <p>Which tools and materials may be used or uploaded?</p>
+        </div>
+        <div class="policy-rule">
+          <strong>7. Assess learning</strong>
+          <p>How will instructors verify understanding fairly and directly?</p>
+        </div>
+      </div>
+      <div class="design-flow">
+        <div class="flow-step">
+          <span class="flow-time">1 min</span>
+          <div><strong>Diagnose</strong><p>Name 3 gaps.</p></div>
+        </div>
+        <div class="flow-step">
+          <span class="flow-time">2 min</span>
+          <div><strong>Rewrite</strong><p>Make one rule.</p></div>
+        </div>
+        <div class="flow-step">
+          <span class="flow-time">2 min</span>
+          <div><strong>Audit</strong><p>First-pass 5 duties.</p></div>
+        </div>
+        <div class="flow-step">
+          <span class="flow-time">5 min</span>
+          <div><strong>Expand</strong><p>Add 2; draft policy.</p></div>
+        </div>
+        <div class="flow-step">
+          <span class="flow-time">2 min</span>
+          <div><strong>Share</strong><p>Defend one clause.</p></div>
+        </div>
+      </div>
+      <div class="policy-test">
+        <strong>Final test</strong>
+        <p>Could a student predict what to do, and could instructors apply the rule consistently? What learning goal does it protect, and what tradeoff does it make?</p>
+      </div>
+      <p class="source-note">Jobin et al. and Corrêa et al. document high-level convergence alongside differences in interpretation and implementation; this activity applies that distinction, while its university-policy clauses remain design choices.</p>
+      <div class="teacher-note">Pacing: 12 minutes. This folds the former Question 8 prompt into Question 6 as one integrated workshop after the Question 5 policy challenge, or as a standalone alternative—not as another required activity added to the full path. Do not show the model before students write. Give students 1 minute to identify at least three obligations hidden by “responsibly,” 2 minutes to rewrite the sentence, 2 minutes to audit a partner's rule using five separate checks—permitted use, disclosure, prohibited use, verification, and privacy—5 minutes to expand the strongest sentence into one compact policy covering all seven requirements, and 2 minutes to share one strong clause and its tradeoff. Treat the initial rewrite as formative or completion-based; evaluate the complete policy for clarity and reasoning rather than agreement with a preferred position. The model below is a policy-design application informed by the four ethics reviews; it is not a policy empirically validated by those reviews. Model for debrief: “Students may use AI to explain concepts, generate practice questions, brainstorm, plan their study, and prepare for exams, but the instructions for each graded assignment determine whether AI may contribute to submitted work. If the instructions are silent, students may use AI for private study but may not use it to generate or revise material they submit. When AI-assisted submission is permitted, students must attach a disclosure naming the tool, explaining how it was used, and identifying the affected sections where practical. Students may not use AI in assessments whose instructions prohibit it, submit AI-generated work as their own, fabricate or leave unverified information, or conceal AI use that must be disclosed. Students may upload their own work only when permitted and only to university-approved tools; assignment prompts, instructor materials, peer work, unpublished research, personal data, and confidential information may not be uploaded without explicit authorization. Instructors must announce AI rules in advance and assess learning through proportionate process evidence and direct demonstrations such as in-class, oral, or offline tasks, with appropriate accommodations. An AI-detector score alone is not sufficient evidence of misconduct.” Before using this model institutionally, replace “university-approved tools” with the institution's actual published list or link. Process-evidence requirements must be announced in advance, remain proportionate to the learning objective, include appropriate accommodations, and never require students to surrender private accounts or devices.</div>
+    </div>
+  </section>
+
+  <section class="slide scenario" id="fairness-case" data-part="Part 3" data-title="Fairness test">
+    <div class="inner">
+      <div class="kicker">Optional fairness discussion · Question 7 · 10 minutes</div>
+      <h2>Is equal permission enough to make AI-assisted grading fair?</h2>
+      <div class="case-strip">One student discloses: “I used ChatGPT to brainstorm, outline, and rewrite my draft.” The essay is much stronger than their usual work. Another student writes alone and earns a lower grade.</div>
+      <div class="vote-row" aria-label="Initial positions">
+        <div class="vote-choice">Fair</div>
+        <div class="vote-choice">Mostly fair</div>
+        <div class="vote-choice">Mostly unfair</div>
+        <div class="vote-choice">Unfair</div>
+      </div>
+      <div class="fairness-lenses">
+        <div class="lens-card">
+          <strong>1. Equal rules</strong>
+          <p>Was the permission announced, and did the student follow the same rule and disclose the assistance?</p>
+        </div>
+        <div class="lens-card">
+          <strong>2. Equitable capability</strong>
+          <p>Did students have meaningful access, training, privacy protection, accommodations, and a genuine choice?</p>
+        </div>
+        <div class="lens-card">
+          <strong>3. Assessment validity</strong>
+          <p>What is the grade supposed to measure—and did AI rewriting replace part of that target skill?</p>
+        </div>
+      </div>
+      <div class="variant-grid">
+        <div class="variant"><strong>Change A:</strong> Everyone received the same approved AI tool and baseline training. Does your judgment change?</div>
+        <div class="variant"><strong>Change B:</strong> Independent drafting was an explicit learning objective. Does your judgment change?</div>
+      </div>
+      <div class="q7-bottom">
+        <div class="exit-ticket">
+          <strong>Exit ticket</strong>
+          <p>State your judgment, one condition that could change it, and what the grade should represent.</p>
+        </div>
+        <a class="link-btn homework-link" href="session-materials/week-03-responsible-ai-policy-memo.html" target="_blank" rel="noopener noreferrer">Open written homework ↗</a>
+      </div>
+      <p class="source-note">Apply the ethical lenses from the four reviews; no paper determines a single correct answer to this classroom case.</p>
+      <div class="teacher-note">Pacing: 10 minutes. Use this as a standalone fairness discussion or after Question 6 when you want an extended policy-design sequence; do not silently add Questions 5, 6, and 7 to the full required path. Give students 1 minute to choose a position and write one reason, 3 minutes in pairs to construct the strongest argument for both sides, 2 minutes to apply the equal-rules, equitable-capability, and assessment-validity tests, 2 minutes to reconsider after Changes A and B, and 2 minutes for the exit ticket. Grade the quality of reasoning, not the chosen position. Equal permission supports procedural fairness but does not by itself establish equitable opportunity. If rewriting was explicitly permitted, do not punish the disclosing student after the fact; a mismatch between permitted assistance and the learning objective is primarily a policy and assessment-design problem. Treat this analysis as an application of the assigned ethical frameworks, not an empirical outcome established by the four reviews.</div>
     </div>
   </section>
 

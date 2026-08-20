@@ -7,6 +7,1438 @@ entries; nobody edits prior entries. Managed by
 
 <!-- newest entry below -->
 
+## 2026-08-20 17:45:05 EDT — Codex
+
+- **Branch:** `main`
+- **HEAD:** `c291459` — Add ethics discussion activities to Week 3
+- **Upstream:** origin/main — ahead 0, behind 0
+
+### Summary
+
+## Correction to the 2026-08-20 17:44:18 checkpoint
+- The homework files `session-materials/week-03-responsible-ai-policy-memo.html` and `.pdf` were created in an earlier uncommitted session. This Question 8→6 integration did not modify them; they remain untracked in the shared working tree.
+- HEAD `c291459` contains earlier Week 3 ethics discussion work but predates the uncommitted Question 6 slide. Relative to HEAD, the working-tree deck contains Question 6 from the prior session, Question 7 from the following session, and this session's additional revision that folds the former Question 8 prompt into Question 6. All of those post-HEAD deck additions remain uncommitted and unpushed.
+- The large `progress.md` diff is expected: it is the accumulated append-only checkpoint history since HEAD, not 1,300 lines added by this single checkpoint.
+- Chrome successfully wrote each inspected screenshot. Because headless Chrome did not self-exit afterward, a bounded wrapper terminated it after the image existed; status 142 records that cleanup signal, not a page-render failure.
+
+## Verification and next
+- The revised Question 6 slide passed static checks, classroom and responsive visual inspection, and final bounded Codex publication review (`PASS`). The deck remains 26 slides with unique IDs and valid inline JavaScript.
+- Q may inspect slide 21 (`#policy-design`) and decide whether to commit the accumulated ethics materials. Do not push without Q's explicit approval in the active session.
+- No local development server is running. No open blocker.
+
+## Protect / off limits
+- Preserve unrelated untracked files: `CLAUDE.md`, `CONTEXT.md`, `docs/agents/`, `docs/superpowers/audit-2026-05-21-deck-review.md`, `image/`, `sos-talk-may12.html`, and `ui.txt`.
+- Do not modify consent/assent text without Q's explicit approval.
+
+### Working tree (`git status --short`)
+
+```text
+ M progress.md
+ M week-03-responsible-ai-decisions.html
+?? CLAUDE.md
+?? CONTEXT.md
+?? docs/agents/
+?? docs/superpowers/audit-2026-05-21-deck-review.md
+?? image/
+?? session-materials/week-03-responsible-ai-policy-memo.html
+?? session-materials/week-03-responsible-ai-policy-memo.pdf
+?? sos-talk-may12.html
+?? ui.txt
+```
+
+### Unstaged diff (`git diff --stat`)
+
+```text
+ progress.md                           | 1371 +++++++++++++++++++++++++++++++++
+ week-03-responsible-ai-decisions.html |  174 ++++-
+ 2 files changed, 1544 insertions(+), 1 deletion(-)
+```
+
+### Staged diff (`git diff --cached --stat`)
+
+_none_
+
+### Latest commit (`git show --stat --oneline HEAD`)
+
+```text
+c291459 Add ethics discussion activities to Week 3
+ week-03-responsible-ai-decisions.html | 107 +++++++++++++++++++++++++++++++++-
+ 1 file changed, 106 insertions(+), 1 deletion(-)
+```
+
+---
+
+## 2026-08-20 17:44:18 EDT — Codex
+
+- **Branch:** `main`
+- **HEAD:** `c291459` — Add ethics discussion activities to Week 3
+- **Upstream:** origin/main — ahead 0, behind 0
+
+### Summary
+
+## What changed
+- Revised `week-03-responsible-ai-decisions.html` so the former Question 8 prompt is now the opening scaffold inside Question 6, under the student-facing title “From principle to policy.” The 12-minute sequence moves from diagnosing “Students may use AI responsibly,” to rewriting and a five-duty partner audit, then adds two institution-level duties and expands the work into a seven-part university policy.
+- Preserved Question 7 as the subsequent fairness challenge and did not change the separate written homework artifacts. Improved the Question 6 checklist semantics to `ul`/`li` and added a two-column tablet layout to reduce vertical density.
+- The `enhance-slides` guidance influenced the revision by keeping the existing self-contained HTML architecture, using a focused static scaffold rather than unnecessary interactivity, and verifying the existing responsive deck rather than creating a replacement file.
+
+## Verification
+- `git diff --check` passed for the deck; the inline JavaScript parsed; slide count remains 26; duplicate-ID check returned none; the Question 6 scaffold includes all intended duties.
+- Visually inspected Question 6 at 1366×768 and 1440×900, plus responsive renders at 600×900 and 390×844. The classroom layouts fit without clipping; the tablet layout stacks into a scrollable two-column activity. Headless Chrome was bounded after each screenshot and returned 142 only after writing the render.
+- Final bounded Codex publication review initially requested clearer five-vs-seven framing and checklist semantics. Those changes were implemented; revision verdict: `PASS`, with no material unresolved findings.
+
+## Current state / next
+- Current committed baseline remains HEAD `c291459` on `main` and matches `origin/main`. The cumulative Question 6/7 deck work, homework HTML/PDF, and checkpoints remain uncommitted and unpushed.
+- Next: Q may inspect slide 21 (`#policy-design`) and decide whether to commit the cumulative ethics materials. Do not push without Q's explicit approval in the active session.
+- No local development server is running. No open blocker.
+
+## Protect / off limits
+- Preserve unrelated untracked files: `CLAUDE.md`, `CONTEXT.md`, `docs/agents/`, `docs/superpowers/audit-2026-05-21-deck-review.md`, `image/`, `sos-talk-may12.html`, and `ui.txt`.
+- Do not modify consent/assent text without Q's explicit approval.
+
+### Working tree (`git status --short`)
+
+```text
+ M progress.md
+ M week-03-responsible-ai-decisions.html
+?? CLAUDE.md
+?? CONTEXT.md
+?? docs/agents/
+?? docs/superpowers/audit-2026-05-21-deck-review.md
+?? image/
+?? session-materials/week-03-responsible-ai-policy-memo.html
+?? session-materials/week-03-responsible-ai-policy-memo.pdf
+?? sos-talk-may12.html
+?? ui.txt
+```
+
+### Unstaged diff (`git diff --stat`)
+
+```text
+ progress.md                           | 1306 +++++++++++++++++++++++++++++++++
+ week-03-responsible-ai-decisions.html |  174 ++++-
+ 2 files changed, 1479 insertions(+), 1 deletion(-)
+```
+
+### Staged diff (`git diff --cached --stat`)
+
+_none_
+
+### Latest commit (`git show --stat --oneline HEAD`)
+
+```text
+c291459 Add ethics discussion activities to Week 3
+ week-03-responsible-ai-decisions.html | 107 +++++++++++++++++++++++++++++++++-
+ 1 file changed, 106 insertions(+), 1 deletion(-)
+```
+
+---
+
+## 2026-08-20 12:05:28 EDT — Codex
+
+- **Branch:** `main`
+- **HEAD:** `c291459` — Add ethics discussion activities to Week 3
+- **Upstream:** origin/main — ahead 0, behind 0
+
+### Summary
+
+## What changed
+- Preserved the optional Question 6 slide added in the previous session but still uncommitted relative to HEAD `c291459`, and extended `week-03-responsible-ai-decisions.html` with the newly approved optional Question 7 fairness discussion immediately after it. The 10-minute Question 7 sequence uses an initial vote, two-sided steelmanning, equal-rules/equitable-capability/assessment-validity lenses, two changed-fact tests, an exit ticket, and a visible homework link.
+- Created `session-materials/week-03-responsible-ai-policy-memo.html` and matching `.pdf` as new, currently untracked files. The 800–1,000-word assignment integrates the research-paper case, ban/detector challenge, operational policy, and Question 7 fairness test; it includes targeted readings from Jobin, Corrêa, Giarmoleo, and Groen, an access-safe reading matrix, explicit AI boundaries, a reasoning-based rubric, and an absence/accommodation baseline route.
+- Kept Question 8 out of the deck pending any separate approval. The reviewed response calibrates Jobin's five recurring principles against Corrêa's broader 17-principle coding and rewrites “Students may use AI responsibly” into an operational rule.
+
+## Verification
+- Verified during this session—deck: `git diff --check`, inline JavaScript `node --check`, 26-slide count, and duplicate-ID check passed. Q7 visually fits at 1366×768 and 1440×900, and all 26 slide-navigation buttons remain visible.
+- Verified during this session—homework PDF: four Letter pages, tagged, unencrypted, text-searchable/extractable, visually inspected page by page, and contains four clickable publisher links.
+- Final publication review of the Question 7 deck change and homework artifact initially requested three homework clarifications; those were implemented. The artifact revision-review verdict was `PASS`, with no unresolved material findings. The separate Question 8 answer review also passed.
+
+## Current state / next
+- The committed baseline remains HEAD `c291459` on `main`, which predates Question 6. The working tree therefore contains Question 6 from the previous session plus Question 7 from this session as uncommitted deck additions; the two new homework artifacts are untracked. None of this session's additions has been committed or pushed.
+- Next: Q may inspect the new slide and homework, then decide whether to commit. Do not push without Q's explicit approval in the active session.
+- No local development server is running. No open blocker.
+
+## Protect / off limits
+- Preserve the existing uncommitted `progress.md` history and unrelated untracked files: `CLAUDE.md`, `CONTEXT.md`, `docs/agents/`, `docs/superpowers/audit-2026-05-21-deck-review.md`, `image/`, `sos-talk-may12.html`, and `ui.txt`.
+- Do not modify consent/assent text without Q's explicit approval.
+
+### Working tree (`git status --short`)
+
+```text
+ M progress.md
+ M week-03-responsible-ai-decisions.html
+?? CLAUDE.md
+?? CONTEXT.md
+?? docs/agents/
+?? docs/superpowers/audit-2026-05-21-deck-review.md
+?? image/
+?? session-materials/week-03-responsible-ai-policy-memo.html
+?? session-materials/week-03-responsible-ai-policy-memo.pdf
+?? sos-talk-may12.html
+?? ui.txt
+```
+
+### Tracked unstaged diff (`git diff --stat`; untracked homework and unrelated files are not included)
+
+```text
+ progress.md                           | 1241 +++++++++++++++++++++++++++++++++
+ week-03-responsible-ai-decisions.html |  137 +++-
+ 2 files changed, 1377 insertions(+), 1 deletion(-)
+```
+
+### Staged diff (`git diff --cached --stat`)
+
+_none_
+
+### Latest commit (`git show --stat --oneline HEAD`)
+
+```text
+c291459 Add ethics discussion activities to Week 3
+ week-03-responsible-ai-decisions.html | 107 +++++++++++++++++++++++++++++++++-
+ 1 file changed, 106 insertions(+), 1 deletion(-)
+```
+
+---
+
+## 2026-08-19 22:45:11 EDT — Codex
+
+- **Branch:** `main`
+- **HEAD:** `c291459` — Add ethics discussion activities to Week 3
+- **Upstream:** origin/main — ahead 0, behind 0
+
+### Summary
+
+## What changed
+- Added the approved optional Question 6 policy-design slide to `week-03-responsible-ai-decisions.html`, immediately after Question 5 and before the disclosure builder.
+- The student-facing slide requires six concrete policy elements, uses a 3–2–2 minute draft/audit/share flow, and includes a specificity-and-tradeoff test. The reviewed model policy remains in teacher notes for debrief rather than appearing before students write.
+- Claim calibration is explicit: the activity applies the four ethics reviews, while operational policy clauses are identified as design choices rather than empirically validated outcomes.
+
+## Verification
+- Passed `git diff --check`, inline JavaScript `node --check`, 25-slide count, unique `policy-design` ID, and duplicate-ID check.
+- Visual inspection at 1366×768 and 1440×900 found no clipping or overlap; all 25 navigation controls remained visible.
+- Final bounded Codex publication review: `PASS`.
+
+## Current state / next
+- Pre-commit snapshot at HEAD `c291459` on `main`. The Question 6 change in `week-03-responsible-ai-decisions.html` is uncommitted and unpushed.
+- Next: Q may inspect the new slide and decide whether to commit. Do not push without Q's explicit approval in the active session.
+- No local development server is running. No open blocker.
+
+## Protect / off limits
+- Preserve the existing uncommitted `progress.md` history and unrelated untracked files: `CLAUDE.md`, `CONTEXT.md`, `docs/agents/`, `docs/superpowers/audit-2026-05-21-deck-review.md`, `image/`, `sos-talk-may12.html`, and `ui.txt`.
+- Do not modify consent/assent text without Q's explicit approval.
+
+### Working tree (`git status --short`)
+
+```text
+ M progress.md
+ M week-03-responsible-ai-decisions.html
+?? CLAUDE.md
+?? CONTEXT.md
+?? docs/agents/
+?? docs/superpowers/audit-2026-05-21-deck-review.md
+?? image/
+?? sos-talk-may12.html
+?? ui.txt
+```
+
+### Unstaged diff (`git diff --stat`)
+
+```text
+ progress.md                           | 1178 +++++++++++++++++++++++++++++++++
+ week-03-responsible-ai-decisions.html |   75 ++-
+ 2 files changed, 1252 insertions(+), 1 deletion(-)
+```
+
+### Staged diff (`git diff --cached --stat`)
+
+_none_
+
+### Latest commit (`git show --stat --oneline HEAD`)
+
+```text
+c291459 Add ethics discussion activities to Week 3
+ week-03-responsible-ai-decisions.html | 107 +++++++++++++++++++++++++++++++++-
+ 1 file changed, 106 insertions(+), 1 deletion(-)
+```
+
+---
+
+## 2026-08-19 22:30:51 EDT — Codex
+
+- **Branch:** `main`
+- **HEAD:** `c291459` — Add ethics discussion activities to Week 3
+- **Upstream:** origin/main — ahead 0, behind 0
+
+### Summary
+
+## What changed
+- Committed the approved Week 3 Ethics Week additions in `week-03-responsible-ai-decisions.html`: the optional research-paper ethics capstone and the optional policy challenge about blanket AI bans and detector use.
+- The exact staged diff passed the mandatory Codex commit/push review with verdict `PASS` and no material findings.
+- Commit `c291459` (`Add ethics discussion activities to Week 3`) was pushed to `origin/main`. Local HEAD and remote `refs/heads/main` both resolve to `c29145970465f7f783e3843ce22825da90d22cf5`.
+
+## Current state / next
+- The approved Week 3 work is committed and pushed. No further action is required unless Q requests another change.
+- No local development server is running.
+- No open questions or blockers.
+
+## Protect / off limits
+- Preserve the existing uncommitted `progress.md` history and unrelated untracked files: `CLAUDE.md`, `CONTEXT.md`, `docs/agents/`, `docs/superpowers/audit-2026-05-21-deck-review.md`, `image/`, `sos-talk-may12.html`, and `ui.txt`.
+- Do not modify consent/assent text without Q's explicit approval.
+
+### Working tree (`git status --short`)
+
+```text
+ M progress.md
+?? CLAUDE.md
+?? CONTEXT.md
+?? docs/agents/
+?? docs/superpowers/audit-2026-05-21-deck-review.md
+?? image/
+?? sos-talk-may12.html
+?? ui.txt
+```
+
+### Unstaged diff (`git diff --stat`)
+
+```text
+ progress.md | 1122 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 1122 insertions(+)
+```
+
+### Staged diff (`git diff --cached --stat`)
+
+_none_
+
+### Latest commit (`git show --stat --oneline HEAD`)
+
+```text
+c291459 Add ethics discussion activities to Week 3
+ week-03-responsible-ai-decisions.html | 107 +++++++++++++++++++++++++++++++++-
+ 1 file changed, 106 insertions(+), 1 deletion(-)
+```
+
+---
+
+## 2026-08-19 22:18:23 EDT — Codex
+
+- **Branch:** `main`
+- **HEAD:** `6868ccc` — Add academic revision extension to Week 4
+- **Upstream:** origin/main — ahead 0, behind 0
+
+### Summary
+
+## What changed
+- Updated `week-03-responsible-ai-decisions.html` with two approved optional Ethics Week activities: the research-paper ethics capstone and the follow-up policy challenge, “What ethical problems does a ban solve or create?”
+- The policy challenge uses the four named review papers as ethical frameworks and explicitly separates `Sourced`, `Inferred`, and `Needs evidence` claims. It includes one-component-per-group discussion instructions, a policy-design formula, four visible publisher links, and a six-minute teacher note emphasizing balanced restrictions, evidence standards, due process, access, privacy, disclosure, and appeal.
+- Verification passed: `git diff --check`; inline JavaScript `node --check`; 24 slides; no duplicate IDs; all four expected publisher URLs present exactly once; visual inspection at 1366×768 and 1440×900 found no clipping or overlap. Final bounded Codex publication review: PASS, no material findings.
+
+## Current state / next
+- This is a pre-commit snapshot at HEAD `6868ccc` on `main`. The Week 3 deck changes are uncommitted and unpushed.
+- Next: Q can inspect the two optional slides, then decide whether to commit. Do not push without Q's explicit approval in the active session.
+- No local development server is running.
+- No open blocker.
+
+## Protect / off limits
+- Preserve unrelated existing changes and untracked files: prior `progress.md` entries, `CLAUDE.md`, `CONTEXT.md`, `docs/agents/`, `docs/superpowers/audit-2026-05-21-deck-review.md`, `image/`, `sos-talk-may12.html`, and `ui.txt`.
+- Do not modify consent/assent text without Q's explicit approval.
+
+### Working tree (`git status --short`)
+
+```text
+ M progress.md
+ M week-03-responsible-ai-decisions.html
+?? CLAUDE.md
+?? CONTEXT.md
+?? docs/agents/
+?? docs/superpowers/audit-2026-05-21-deck-review.md
+?? image/
+?? sos-talk-may12.html
+?? ui.txt
+```
+
+### Unstaged diff (`git diff --stat`)
+
+```text
+ progress.md                           | 1063 +++++++++++++++++++++++++++++++++
+ week-03-responsible-ai-decisions.html |  107 +++-
+ 2 files changed, 1169 insertions(+), 1 deletion(-)
+```
+
+### Staged diff (`git diff --cached --stat`)
+
+_none_
+
+### Latest commit (`git show --stat --oneline HEAD`)
+
+```text
+6868ccc Add academic revision extension to Week 4
+ week-04-writing-word-documents.html | 30 ++++++++++++++++++++++++++----
+ 1 file changed, 26 insertions(+), 4 deletions(-)
+```
+
+---
+
+## 2026-08-19 21:48:35 EDT — Codex
+
+- **Branch:** `main`
+- **HEAD:** `6868ccc` — Add academic revision extension to Week 4
+- **Upstream:** origin/main — ahead 0, behind 0
+
+### Summary
+
+## What changed
+- Added an optional 8-minute research-paper ethics capstone to `week-03-responsible-ai-decisions.html`, immediately after Academic Integrity and before the Disclosure Builder.
+- The slide separates verifiable evidence from assumptions, asks students to allocate responsibility and design a fair response, and requires communicated rules, student explanation, proportional consequences, appeal, and policy repair.
+- Added only slide-scoped responsive CSS needed for the three-column capstone layout.
+
+## Verification
+- `git diff --check` passed.
+- Inline JavaScript syntax passed; the deck has 23 slides, one `research-paper-case` ID, and no duplicate IDs.
+- Headless Chrome renders were visually inspected at 1366x768 and 1440x900; all capstone content fits above the navigation controls.
+- The final publication-facing diff passed bounded independent Codex review.
+
+## Current status / next
+- This is a pre-commit snapshot at HEAD `6868ccc`; `week-03-responsible-ai-decisions.html` is modified but uncommitted and unpushed.
+- Next: Q can inspect the Ethics Week capstone and decide whether to commit. Never push without Q's explicit approval in the active session.
+- No local development server is running.
+
+## Off-limits / unrelated work
+- Preserve unrelated local and untracked files, including the pre-existing `progress.md` history, `CLAUDE.md`, `CONTEXT.md`, `docs/agents/`, `docs/superpowers/audit-2026-05-21-deck-review.md`, `image/`, `sos-talk-may12.html`, and `ui.txt`.
+
+## Open questions / blockers
+- None.
+
+### Working tree (`git status --short`)
+
+```text
+ M progress.md
+ M week-03-responsible-ai-decisions.html
+?? CLAUDE.md
+?? CONTEXT.md
+?? docs/agents/
+?? docs/superpowers/audit-2026-05-21-deck-review.md
+?? image/
+?? sos-talk-may12.html
+?? ui.txt
+```
+
+### Unstaged diff (`git diff --stat`)
+
+```text
+ progress.md                           | 997 ++++++++++++++++++++++++++++++++++
+ week-03-responsible-ai-decisions.html |  52 +-
+ 2 files changed, 1048 insertions(+), 1 deletion(-)
+```
+
+### Staged diff (`git diff --cached --stat`)
+
+_none_
+
+### Latest commit (`git show --stat --oneline HEAD`)
+
+```text
+6868ccc Add academic revision extension to Week 4
+ week-04-writing-word-documents.html | 30 ++++++++++++++++++++++++++----
+ 1 file changed, 26 insertions(+), 4 deletions(-)
+```
+
+---
+
+## 2026-08-13 22:31:06 EDT — Codex
+
+- **Branch:** `main`
+- **HEAD:** `6868ccc` — Add academic revision extension to Week 4
+- **Upstream:** origin/main — ahead 0, behind 0
+
+### Summary
+
+## What was completed
+- Added the optional, evidence-preserving English academic revision extension to `week-04-writing-word-documents.html`.
+- Committed and pushed `6868ccc` (`Add academic revision extension to Week 4`) to `main`.
+- GitHub Pages deployment run `31760378818` succeeded, and the live Week 4 page was verified at https://weihaoqu.github.io/learnai-course/week-04-writing-word-documents.html#academic-extension.
+
+## Current status / next
+- `main` and `origin/main` are aligned at `6868ccc`; the course change is committed, pushed, and deployed.
+- The external `humanize-academic-writing` repository URL and skill slug are absent from the deployed deck. The lesson retains evidence-preservation and detector-score safeguards.
+- No further work is required unless Q requests it.
+- No local development server is running.
+- This checkpoint captures the current uncommitted `progress.md` handoff state; do not commit or push it without Q's explicit approval.
+
+## Off-limits / unrelated work
+- Preserve unrelated local and untracked files: the pre-existing `progress.md` history, `CLAUDE.md`, `CONTEXT.md`, `docs/agents/`, `docs/superpowers/audit-2026-05-21-deck-review.md`, `image/`, `sos-talk-may12.html`, and `ui.txt`.
+
+## Open questions / blockers
+- None.
+
+### Working tree (`git status --short`)
+
+```text
+ M progress.md
+?? CLAUDE.md
+?? CONTEXT.md
+?? docs/agents/
+?? docs/superpowers/audit-2026-05-21-deck-review.md
+?? image/
+?? sos-talk-may12.html
+?? ui.txt
+```
+
+### Unstaged diff (`git diff --stat`)
+
+```text
+ progress.md | 937 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 937 insertions(+)
+```
+
+### Staged diff (`git diff --cached --stat`)
+
+_none_
+
+### Latest commit (`git show --stat --oneline HEAD`)
+
+```text
+6868ccc Add academic revision extension to Week 4
+ week-04-writing-word-documents.html | 30 ++++++++++++++++++++++++++----
+ 1 file changed, 26 insertions(+), 4 deletions(-)
+```
+
+---
+
+## 2026-08-13 21:23:05 EDT — Codex
+
+- **Branch:** `main`
+- **HEAD:** `6868ccc` — Add academic revision extension to Week 4
+- **Upstream:** origin/main — ahead 0, behind 0
+
+### Summary
+
+## What changed
+- Committed and pushed the approved Week 4 English academic revision extension in `week-04-writing-word-documents.html`.
+- The exercise is optional and evidence-preserving. It protects the allowed source set, citations, technical terms, uncertainty, causal language, and claim strength; it prohibits invented support and detector-score misuse.
+- The external `humanize-academic-writing` repository URL and skill slug are absent from the deployed deck.
+
+## Commit / push / deployment
+- Commit: `6868ccc` — `Add academic revision extension to Week 4`.
+- `main` and `origin/main` are aligned at `6868ccc`; Q explicitly approved this push.
+- GitHub Pages workflow run `31760378818` completed successfully.
+- Live page: https://weihaoqu.github.io/learnai-course/week-04-writing-word-documents.html#academic-extension
+
+## Verification
+- The exact staged diff passed bounded independent Codex review.
+- Headless Chrome renders were inspected at 1440x900 and 1366x768.
+- The live page returned HTTP 200, contained `academic-extension` exactly once, contained the approved heading exactly once, and contained no external skill repository URL.
+
+## Current status / next
+- Course change is committed, pushed, and deployed. No further work is required unless Q requests it.
+- No local development server is running.
+- This `progress.md` checkpoint itself remains an uncommitted local handoff update and was not included in the pushed course commit.
+
+## Off-limits / unrelated work
+- Preserve unrelated local changes and untracked files: the pre-existing `progress.md` history, `CLAUDE.md`, `CONTEXT.md`, `docs/agents/`, `docs/superpowers/audit-2026-05-21-deck-review.md`, `image/`, `sos-talk-may12.html`, and `ui.txt`.
+
+## Open questions / blockers
+- None.
+
+### Working tree (`git status --short`)
+
+```text
+ M progress.md
+?? CLAUDE.md
+?? CONTEXT.md
+?? docs/agents/
+?? docs/superpowers/audit-2026-05-21-deck-review.md
+?? image/
+?? sos-talk-may12.html
+?? ui.txt
+```
+
+### Unstaged diff (`git diff --stat`)
+
+```text
+ progress.md | 868 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 868 insertions(+)
+```
+
+### Staged diff (`git diff --cached --stat`)
+
+_none_
+
+### Latest commit (`git show --stat --oneline HEAD`)
+
+```text
+6868ccc Add academic revision extension to Week 4
+ week-04-writing-word-documents.html | 30 ++++++++++++++++++++++++++----
+ 1 file changed, 26 insertions(+), 4 deletions(-)
+```
+
+---
+
+## 2026-08-13 21:21:29 EDT — Codex
+
+- **Branch:** `main`
+- **HEAD:** `6868ccc` — Add academic revision extension to Week 4
+- **Upstream:** origin/main — ahead 1, behind 0
+
+### Summary
+
+## What changed
+- Committed the approved Week 4 English academic revision extension in `week-04-writing-word-documents.html`.
+- The revision workflow is evidence-preserving: it locks the allowed source set, preserves citations/technical terms/uncertainty/causal language/claim strength, and prohibits invented support.
+- Detector-related scoring is explicitly excluded from authorship judgments, grading, misconduct claims, and score optimization. The external repository URL and public skill name are absent from the deployed deck.
+
+## Verification
+- Commit `6868ccc` contains only `week-04-writing-word-documents.html` (26 insertions, 4 deletions).
+- `git diff --cached --check` passed before commit.
+- Headless Chrome renders were inspected at 1440x900 and 1366x768.
+- The exact staged diff passed bounded independent Codex review after the public URL was removed.
+
+## Current status / next
+- `main` is one commit ahead of `origin/main` at `6868ccc`.
+- Q explicitly approved pushing this commit in the current session; push and verify remote/deployment next.
+- No local development server is running.
+
+## Off-limits / unrelated work
+- Do not include or alter unrelated local changes and untracked files: the pre-existing `progress.md` history, `CLAUDE.md`, `CONTEXT.md`, `docs/agents/`, `docs/superpowers/audit-2026-05-21-deck-review.md`, `image/`, `sos-talk-may12.html`, or `ui.txt`.
+
+## Open questions / blockers
+- None.
+
+### Working tree (`git status --short`)
+
+```text
+ M progress.md
+?? CLAUDE.md
+?? CONTEXT.md
+?? docs/agents/
+?? docs/superpowers/audit-2026-05-21-deck-review.md
+?? image/
+?? sos-talk-may12.html
+?? ui.txt
+```
+
+### Unstaged diff (`git diff --stat`)
+
+```text
+ progress.md | 804 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 804 insertions(+)
+```
+
+### Staged diff (`git diff --cached --stat`)
+
+_none_
+
+### Latest commit (`git show --stat --oneline HEAD`)
+
+```text
+6868ccc Add academic revision extension to Week 4
+ week-04-writing-word-documents.html | 30 ++++++++++++++++++++++++++----
+ 1 file changed, 26 insertions(+), 4 deletions(-)
+```
+
+---
+
+## 2026-08-13 20:58:16 EDT — Codex
+
+- **Branch:** `main`
+- **HEAD:** `a6d7e5d` — Connect final showcase to Reviewable Build Plan
+- **Upstream:** origin/main — ahead 0, behind 0
+
+### Summary
+
+## What changed
+- Updated `week-04-writing-word-documents.html` with an optional English academic revision extension inside Week 4.
+- Tightened the existing specificity card so names, dates, examples, numbers, theories, citations, and observations must come from the allowed source set; missing evidence must be flagged rather than invented.
+- Added an evidence-preserving academic revision prompt that protects citations, technical terms, uncertainty, causal language, and claim strength. The external skill repository is instructor-only in speaker notes, with explicit prohibitions on using detector scores for authorship, grading, misconduct claims, or score optimization.
+- Added compact slide-specific CSS so the new slide fits at common presentation sizes.
+
+## Verification
+- `git diff --check` passed.
+- Headless Chrome renders were visually inspected at 1440x900 and 1366x768; the slide fits above the fixed controls.
+- Slide count is 14, `academic-extension` appears once, and the corrected final diff passed bounded independent Codex review.
+
+## Current status / next
+- This is a pre-commit snapshot at HEAD `a6d7e5d`; the Week 4 change is uncommitted and unpushed.
+- Next: Q can inspect/test the Week 4 deck, then decide whether to commit. Never push without Q's explicit approval.
+- No development server is running.
+
+## Off-limits / unrelated work
+- Preserve unrelated pre-existing changes and untracked files, including `CLAUDE.md`, `CONTEXT.md`, `docs/agents/`, `docs/superpowers/audit-2026-05-21-deck-review.md`, `image/`, `sos-talk-may12.html`, and `ui.txt`.
+
+## Open questions / blockers
+- None.
+
+### Working tree (`git status --short`)
+
+```text
+ M progress.md
+ M week-04-writing-word-documents.html
+?? CLAUDE.md
+?? CONTEXT.md
+?? docs/agents/
+?? docs/superpowers/audit-2026-05-21-deck-review.md
+?? image/
+?? sos-talk-may12.html
+?? ui.txt
+```
+
+### Unstaged diff (`git diff --stat`)
+
+```text
+ progress.md                         | 738 ++++++++++++++++++++++++++++++++++++
+ week-04-writing-word-documents.html |  30 +-
+ 2 files changed, 764 insertions(+), 4 deletions(-)
+```
+
+### Staged diff (`git diff --cached --stat`)
+
+_none_
+
+### Latest commit (`git show --stat --oneline HEAD`)
+
+```text
+a6d7e5d Connect final showcase to Reviewable Build Plan
+ week-14-final-showcase.html | 8 ++++++--
+ 1 file changed, 6 insertions(+), 2 deletions(-)
+```
+
+---
+
+## 2026-08-13 15:35:25 EDT — Codex
+
+- **Branch:** `main`
+- **HEAD:** `a6d7e5d` — Connect final showcase to Reviewable Build Plan
+- **Upstream:** origin/main — ahead 0, behind 0
+
+### Summary
+
+Q requested a checkpoint immediately after resuming.
+
+Current status:
+- Branch: main.
+- HEAD: a6d7e5d — Connect final showcase to Reviewable Build Plan.
+- origin/main matches local main (ahead 0, behind 0).
+- Live web app: https://weihaoqu.github.io/learnai-course/
+- Resume verification completed: the latest handoff entry and Git state matched exactly.
+- No course content or source files were edited in this resumed session.
+- No commit, push, deployment, or local dev server was started.
+
+Next step:
+- Continue the page-by-page student-flow audit of the live web course, focusing first on course-hub navigation, 14-week pacing, and Week 8 -> Week 10 -> Week 14 continuity.
+- A planned visual browser pass is paused because the gstack browse helper needs its one-time setup/build (~10 seconds). Ask Q for permission before running that setup, or use another available browser path.
+
+Protect existing local state:
+- progress.md is modified by handoff checkpoints.
+- CLAUDE.md, CONTEXT.md, and docs/agents/ are existing untracked setup/domain files.
+- Leave unrelated untracked files untouched: docs/superpowers/audit-2026-05-21-deck-review.md, image/, sos-talk-may12.html, and ui.txt.
+
+### Working tree (`git status --short`)
+
+```text
+ M progress.md
+?? CLAUDE.md
+?? CONTEXT.md
+?? docs/agents/
+?? docs/superpowers/audit-2026-05-21-deck-review.md
+?? image/
+?? sos-talk-may12.html
+?? ui.txt
+```
+
+### Unstaged diff (`git diff --stat`)
+
+```text
+ progress.md | 676 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 676 insertions(+)
+```
+
+### Staged diff (`git diff --cached --stat`)
+
+_none_
+
+### Latest commit (`git show --stat --oneline HEAD`)
+
+```text
+a6d7e5d Connect final showcase to Reviewable Build Plan
+ week-14-final-showcase.html | 8 ++++++--
+ 1 file changed, 6 insertions(+), 2 deletions(-)
+```
+
+---
+
+## 2026-08-13 10:26:13 EDT — Codex
+
+- **Branch:** `main`
+- **HEAD:** `a6d7e5d` — Connect final showcase to Reviewable Build Plan
+- **Upstream:** origin/main — ahead 0, behind 0
+
+### Summary
+
+Q is pausing and wants to resume later to continue working on the web course.
+
+Current branch/head:
+- Branch: main
+- HEAD: a6d7e5d — Connect final showcase to Reviewable Build Plan
+- origin/main: a6d7e5d, local main is in sync with remote.
+- GitHub Pages deployment succeeded: https://github.com/weihaoqu/learnai-course/actions/runs/31707699109
+- Live site: https://weihaoqu.github.io/learnai-course/
+
+Completed this session:
+- Finished the Matt Pocock main-flow course update: /grill-me -> /to-spec -> /to-tickets -> /implement -> /code-review -> commit -> push -> deploy -> issue close.
+- Pushed 8 commits to origin/main, ending at a6d7e5d.
+- Verified live GitHub Pages content:
+  - Course hub: https://weihaoqu.github.io/learnai-course/
+  - Week 8: https://weihaoqu.github.io/learnai-course/week-08-web-basics-design.html
+  - Week 10: https://weihaoqu.github.io/learnai-course/week-10-complete-static-deployment.html
+  - Week 14: https://weihaoqu.github.io/learnai-course/week-14-final-showcase.html
+- Closed GitHub Issues #1-#7 after deployed-link comments.
+
+Important course changes now live:
+- Week 8 introduces /grill-me as an app-brief requirements interview and adds a lightweight forward link to Week 10 Reviewable Build Plan evidence.
+- Week 10 teaches the Reviewable Build Plan mini-lab, fallback prompts for /grill-me, /to-spec, /to-tickets, Bad Prompt Rescue, packet fields, and a five-part planning rubric.
+- Course hub Week 10 resources link the public grill-me workflow slide gallery, PDF, PPTX, AIHero /grill-me, AIHero skills map, and instructor-guided /grill-with-docs.
+- Week 14 final packet asks: "One decision from my Reviewable Build Plan that shaped the final app was..."
+
+Validation already run:
+- GitHub Pages Action run 31707699109 completed successfully.
+- Live content checks verified Week 8, Week 10, Week 14, and course hub updates.
+- Before push: diff checks, inline JS parse checks, duplicate-id scans, semantic checks, issue-level two-axis reviews, bounded Codex reviews, and branch-level review all passed.
+- Browser screenshot verification was not completed because local Playwright browser binary is missing.
+
+Current dirty/untracked state:
+- progress.md is modified by checkpoints.
+- CLAUDE.md, CONTEXT.md, docs/agents/ are untracked setup/domain files from prior approved setup.
+- Existing unrelated untracked files remain untouched: docs/superpowers/audit-2026-05-21-deck-review.md, image/, sos-talk-may12.html, ui.txt.
+
+Todo list for next session:
+1. Start with `scripts/agent-handoff.sh resume`, then read `CLAUDE.md` and the newest `progress.md` entry.
+2. Walk through the live web course as a student from the course hub, especially Weeks 8-14.
+3. Check the 14-week organization and landing page/course hub navigation for clarity and pacing.
+4. Review Week 8 -> Week 10 -> Week 14 continuity: app brief decisions, Reviewable Build Plan, final reflection.
+5. Inspect Week 10 visually in browser if Playwright or manual browser is available; check slide flow, spacing, buttons, packet copy behavior, and timeboxes.
+6. Decide whether to commit the checkpoint/setup files (`progress.md`, `CLAUDE.md`, `CONTEXT.md`, `docs/agents/`) or leave them local. Do not commit unrelated untracked files unless Q explicitly asks.
+7. If Q wants a deeper web-course pass, create a structured audit checklist by week: learning goal, activity, artifact, homework, safety/ethics, and dependency on previous weeks.
+8. Potential next content audit areas: Week 1, 3, 10, 11, 12 enhancements already discussed; AI ethics survey-paper integration; CS-215 framing; landing-page polish; optional tools/resources overload.
+
+When Q returns, help go through the web course page-by-page and keep a concrete punch list rather than making broad edits immediately.
+
+### Working tree (`git status --short`)
+
+```text
+ M progress.md
+?? CLAUDE.md
+?? CONTEXT.md
+?? docs/agents/
+?? docs/superpowers/audit-2026-05-21-deck-review.md
+?? image/
+?? sos-talk-may12.html
+?? ui.txt
+```
+
+### Unstaged diff (`git diff --stat`)
+
+```text
+ progress.md | 586 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 586 insertions(+)
+```
+
+### Staged diff (`git diff --cached --stat`)
+
+_none_
+
+### Latest commit (`git show --stat --oneline HEAD`)
+
+```text
+a6d7e5d Connect final showcase to Reviewable Build Plan
+ week-14-final-showcase.html | 8 ++++++--
+ 1 file changed, 6 insertions(+), 2 deletions(-)
+```
+
+---
+
+## 2026-08-12 23:50:41 EDT — Codex
+
+- **Branch:** `main`
+- **HEAD:** `a6d7e5d` — Connect final showcase to Reviewable Build Plan
+- **Upstream:** origin/main — ahead 8, behind 0
+
+### Summary
+
+Completed the Matt Pocock main-flow ticket sequence locally.
+
+Current branch/head:
+- Branch: main
+- HEAD: a6d7e5d — Connect final showcase to Reviewable Build Plan
+- Upstream: origin/main, ahead by 8 commits. No push performed.
+
+Implemented local commits:
+- f649e94 Add grill-me workflow to Week 8
+- 819759e Add Week 10 reviewable build plan lab (#1)
+- e526ab7 Add Week 10 planning prompt fallbacks (#2)
+- ff00c82 Add Reviewable Build Plan to Week 10 packet (#3)
+- b0fd001 Add Week 10 Reviewable Build Plan rubric (#4)
+- 45eec49 Connect Week 8 brief to Reviewable Build Plan (#5)
+- e741ba9 Add Week 10 skill flow resources (#7)
+- a6d7e5d Connect final showcase to Reviewable Build Plan (#6)
+
+What changed:
+- week-08-web-basics-design.html: added /grill-me requirements interview, mini-grill protocol, and a small forward link from Week 8 app-brief decisions to the Week 10 Reviewable Build Plan without teaching the full five-command flow in Week 8.
+- week-10-complete-static-deployment.html: added Reviewable Build Plan mini-lab, fallback student prompts for /grill-me, /to-spec, /to-tickets, Bad Prompt Rescue challenge, packet fields for /grill-me summary/spec/tickets/First Vertical Slice/review question, and a five-part planning rubric.
+- index.html: Week 10 resources now link public slide gallery, PDF, PPTX, AIHero /grill-me, AIHero skills map, and instructor-guided /grill-with-docs.
+- week-14-final-showcase.html: final packet now captures the exact sentence "One decision from my Reviewable Build Plan that shaped the final app was..." between Week 10 evidence and Week 11/Week 13 evidence.
+
+Validation/review:
+- Per-issue mechanical checks passed for relevant files: git diff --check, inline script parse with node --check, duplicate-id scans, semantic/order checks.
+- New Issue #7 external links returned HTTP 200.
+- Two-axis /code-review ran for Issues #1-#7 and reported no remaining findings after fixes.
+- Bounded Codex final reviews ran for issue-level edits and branch-level summary; no blockers.
+- Aggregate validation passed across index.html, week-08-web-basics-design.html, week-10-complete-static-deployment.html, week-14-final-showcase.html.
+- Browser screenshot verification was not completed because Playwright browser binary is missing locally.
+
+Issue tracker:
+- GitHub Issues #1-#7 each have a comment with local commit and validation summary.
+- Issues remain open because commits are local/unpushed. Consider closing after Q reviews/pushes/deploys.
+
+Dirty/untracked state:
+- progress.md modified by this checkpoint.
+- CLAUDE.md, CONTEXT.md, docs/agents/ remain untracked setup/domain files from prior approved setup.
+- Existing unrelated untracked files remain untouched: docs/superpowers/audit-2026-05-21-deck-review.md, image/, sos-talk-may12.html, ui.txt.
+
+Next suggested steps:
+- Q should review/test locally.
+- If approved, ask explicitly before git push.
+- After push/deploy, optionally close Issues #1-#7 or add final deployed-link comments.
+
+### Working tree (`git status --short`)
+
+```text
+ M progress.md
+?? CLAUDE.md
+?? CONTEXT.md
+?? docs/agents/
+?? docs/superpowers/audit-2026-05-21-deck-review.md
+?? image/
+?? sos-talk-may12.html
+?? ui.txt
+```
+
+### Unstaged diff (`git diff --stat`)
+
+```text
+ progress.md | 499 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 499 insertions(+)
+```
+
+### Staged diff (`git diff --cached --stat`)
+
+_none_
+
+### Latest commit (`git show --stat --oneline HEAD`)
+
+```text
+a6d7e5d Connect final showcase to Reviewable Build Plan
+ week-14-final-showcase.html | 8 ++++++--
+ 1 file changed, 6 insertions(+), 2 deletions(-)
+```
+
+---
+
+## 2026-08-12 23:04:45 EDT — Codex
+
+- **Branch:** `main`
+- **HEAD:** `e526ab7` — Add Week 10 planning prompt fallbacks
+- **Upstream:** origin/main — ahead 3, behind 0
+
+### Summary
+
+Implemented Issue #2 from the Matt Pocock main flow.
+
+Current branch/head:
+- Branch: main
+- HEAD: e526ab7 — Add Week 10 planning prompt fallbacks
+- Upstream: origin/main, ahead by 3 commits. No push performed.
+
+What changed:
+- Implemented GitHub Issue #2 only.
+- week-10-complete-static-deployment.html now has `planning-prompt-templates` slide immediately after `reviewable-build-plan`.
+- Added fallback classroom prompts for `/grill-me`, `/to-spec`, and `/to-tickets` when Matt Pocock skills are not installed.
+- Each fallback prompt is independently pasteable and explicitly prohibits file edits/writes, issue creation, commits, pushes, deployments, publishing, and remote services.
+- Added optional `bad-prompt-rescue` slide with a vague prompt: "Make my study app better and add AI so it is impressive." Challenge asks students to grill, specify, and slice into a Reviewable Build Plan without implementation or remote writes.
+- Added `.prompt-grid` CSS helper with mobile stacking.
+
+Validation/review:
+- git diff --check -- week-10-complete-static-deployment.html passed.
+- Extracted inline script parsed with node --check.
+- Duplicate id check passed: 57 ids, no duplicates.
+- Order check passed: reviewable-build-plan < planning-prompt-templates < bad-prompt-rescue < Checkpoint discipline.
+- Safety scan/manual inspection confirmed remote-write terms appear as prohibitions in the new prompts/challenge, plus existing deployment content elsewhere.
+- Two-axis /code-review: standards no findings; spec no findings.
+- Final bounded Codex review found no blockers.
+- Attempted browser screenshot verification: local require('playwright') failed because Playwright is not installed locally; `npx playwright` exists but browser binary is missing and asks for `npx playwright install`. Did not install browsers as a side effect.
+
+Issue tracker:
+- Commented on Issue #2 with local commit e526ab7 and validation summary.
+- Issues #1 and #2 remain open unless Q asks to close them after review/push/deploy.
+
+Dirty/untracked state:
+- progress.md modified by checkpoints.
+- CLAUDE.md, CONTEXT.md, docs/agents/ remain untracked setup/domain files from prior approved setup.
+- Existing unrelated untracked files remain untouched: docs/superpowers/audit-2026-05-21-deck-review.md, image/, sos-talk-may12.html, ui.txt.
+
+Next suggested steps:
+- Main flow after /implement and /code-review for Issue #2 is done. Next frontier issues that can start: #3 Fold Reviewable Build Plan into Week 10 Complete Project Packet, #4 Week 10 planning rubric, #5 Week 8 forward link, #7 course-hub resources. #6 is blocked by #3.
+- Do not push without Q's explicit approval.
+
+### Working tree (`git status --short`)
+
+```text
+ M progress.md
+?? CLAUDE.md
+?? CONTEXT.md
+?? docs/agents/
+?? docs/superpowers/audit-2026-05-21-deck-review.md
+?? image/
+?? sos-talk-may12.html
+?? ui.txt
+```
+
+### Unstaged diff (`git diff --stat`)
+
+```text
+ progress.md | 419 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 419 insertions(+)
+```
+
+### Staged diff (`git diff --cached --stat`)
+
+_none_
+
+### Latest commit (`git show --stat --oneline HEAD`)
+
+```text
+e526ab7 Add Week 10 planning prompt fallbacks
+ week-10-complete-static-deployment.html | 54 ++++++++++++++++++++++++++++++++-
+ 1 file changed, 53 insertions(+), 1 deletion(-)
+```
+
+---
+
+## 2026-08-12 21:55:31 EDT — Codex
+
+- **Branch:** `main`
+- **HEAD:** `819759e` — Add Week 10 reviewable build plan lab
+- **Upstream:** origin/main — ahead 2, behind 0
+
+### Summary
+
+Implemented Issue #1 from the Matt Pocock main flow.
+
+Current branch/head:
+- Branch: main
+- HEAD: 819759e — Add Week 10 reviewable build plan lab
+- Upstream: origin/main, ahead by 2 commits. No push performed.
+
+What changed:
+- Published GitHub issues #1-#7 for the approved Reviewable Build Plan ticket breakdown. Bodies were corrected after an initial shell quoting issue and verified. No labels were applied because ready-for-agent does not exist in the repo.
+- Implemented GitHub Issue #1 only.
+- week-10-complete-static-deployment.html now has a new `reviewable-build-plan` slide after the Week 10 Build path slide and before Checkpoint discipline.
+- The slide teaches `/grill-me -> /to-spec -> /to-tickets -> /implement -> /code-review` with learner labels, frames the first three as student planning, marks `/implement` and `/code-review` as instructor-guided/advanced-only, links selected public resources, and states no GitHub issues/commits/pushes/deployments/remote writes during the student exercise.
+- Adjacent Week 10 timeboxes were shifted to avoid overlap after adding the 20-minute lab. Teacher note clarifies optional bridge slides replace later time rather than extending the 60-minute class.
+
+Validation/review:
+- git diff --check -- week-10-complete-static-deployment.html passed.
+- Extracted inline script parsed with node --check.
+- Duplicate id check passed: 55 ids, no duplicates.
+- Order check passed: Build path < reviewable-build-plan < Checkpoint discipline.
+- New external links returned HTTP 200.
+- Two-axis /code-review: standards comments addressed (`.build-plan-flow`, optional bridge wording); spec review found no findings.
+- Final bounded Codex review found no blockers; noted only non-blocking pacing compression risk, already documented in teacher note.
+
+Issue tracker:
+- Commented on Issue #1 with local commit 819759e and validation summary.
+- Issue #1 remains open unless Q asks to close it after review/push/deploy.
+
+Dirty/untracked state:
+- progress.md modified by checkpoints.
+- CLAUDE.md, CONTEXT.md, docs/agents/ remain untracked setup/domain files from prior approved setup.
+- Existing unrelated untracked files remain untouched: docs/superpowers/audit-2026-05-21-deck-review.md, image/, sos-talk-may12.html, ui.txt.
+
+Next suggested steps:
+- Continue main flow by running /code-review on committed Issue #1 if Q wants another review layer, or move to next frontier issue (#2, #3, #4, #5, #7 all blocked by #1 conceptually but can now start locally).
+- Do not push without Q's explicit approval.
+
+### Working tree (`git status --short`)
+
+```text
+ M progress.md
+?? CLAUDE.md
+?? CONTEXT.md
+?? docs/agents/
+?? docs/superpowers/audit-2026-05-21-deck-review.md
+?? image/
+?? sos-talk-may12.html
+?? ui.txt
+```
+
+### Unstaged diff (`git diff --stat`)
+
+```text
+ progress.md | 341 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 341 insertions(+)
+```
+
+### Staged diff (`git diff --cached --stat`)
+
+_none_
+
+### Latest commit (`git show --stat --oneline HEAD`)
+
+```text
+819759e Add Week 10 reviewable build plan lab
+ week-10-complete-static-deployment.html | 49 +++++++++++++++++++++++++++------
+ 1 file changed, 40 insertions(+), 9 deletions(-)
+```
+
+---
+
+## 2026-08-11 15:19:21 EDT — Codex
+
+- **Branch:** `main`
+- **HEAD:** `f649e94` — Add grill-me workflow to Week 8
+- **Upstream:** origin/main — ahead 1, behind 0
+
+### Summary
+
+Completed setup-matt-pocock-skills and started the main-flow discovery.
+
+Already committed before this checkpoint:
+- f649e94 — Add grill-me workflow to Week 8
+- Branch main is ahead of origin/main by 1 commit; no push has been performed.
+
+Setup completed:
+- Edited untracked CLAUDE.md with a new ## Agent skills block.
+- Created docs/agents/issue-tracker.md from the GitHub setup template.
+- Created docs/agents/triage-labels.md from the default triage labels template.
+- Created docs/agents/domain.md from the single-context domain docs template.
+- Defaults used per Q approval: GitHub Issues, default triage labels, single-context domain docs, edit CLAUDE.md because it exists.
+
+Validation/review:
+- docs/agents/issue-tracker.md matches /Users/oreo/.codex/skills/setup-matt-pocock-skills/issue-tracker-github.md.
+- docs/agents/triage-labels.md matches /Users/oreo/.codex/skills/setup-matt-pocock-skills/triage-labels.md.
+- docs/agents/domain.md matches /Users/oreo/.codex/skills/setup-matt-pocock-skills/domain.md.
+- CLAUDE.md has exactly one ## Agent skills block.
+- No trailing whitespace found in CLAUDE.md or docs/agents/*.md.
+- Required final Codex review found no setup blockers.
+
+Operational caveat:
+- Read-only GitHub label check showed only wontfix currently exists among default labels. needs-triage, needs-info, ready-for-agent, and ready-for-human are documented but not yet created on GitHub. Do not create remote labels without Q approval.
+
+Main flow status:
+- Read /Users/oreo/.codex/skills/grill-with-docs/SKILL.md; it delegates to /grilling and /domain-modeling.
+- Read /Users/oreo/.codex/skills/grilling/SKILL.md and /Users/oreo/.codex/skills/domain-modeling/SKILL.md.
+- Read-only discovery: repo is a static 14-week CS-215 course hub; index.html references Week 8/10/11/12/14 flow; no open GitHub issues found.
+- Next step is to ask Q the first /grilling frontier about main-flow scope, target artifact, course placement, remote-write boundary, and glossary terms.
+
+Dirty/untracked state after this checkpoint:
+- progress.md modified by checkpoints.
+- CLAUDE.md remains untracked but now has setup edits.
+- docs/agents/ is new and untracked.
+- Existing unrelated untracked files remain untouched: docs/superpowers/audit-2026-05-21-deck-review.md, image/, sos-talk-may12.html, ui.txt.
+
+### Working tree (`git status --short`)
+
+```text
+ M progress.md
+?? CLAUDE.md
+?? docs/agents/
+?? docs/superpowers/audit-2026-05-21-deck-review.md
+?? image/
+?? sos-talk-may12.html
+?? ui.txt
+```
+
+### Unstaged diff (`git diff --stat`)
+
+```text
+ progress.md | 263 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 263 insertions(+)
+```
+
+### Staged diff (`git diff --cached --stat`)
+
+_none_
+
+### Latest commit (`git show --stat --oneline HEAD`)
+
+```text
+f649e94 Add grill-me workflow to Week 8
+ index.html                     |  2 +-
+ week-08-web-basics-design.html | 49 +++++++++++++++++++++++++++++++-----------
+ 2 files changed, 38 insertions(+), 13 deletions(-)
+```
+
+---
+
+## 2026-08-11 13:13:46 EDT — Codex
+
+- **Branch:** `main`
+- **HEAD:** `f649e94` — Add grill-me workflow to Week 8
+- **Upstream:** origin/main — ahead 1, behind 0
+
+### Summary
+
+Committed the approved Week 8 /grill-me course update locally.
+
+Commit:
+- f649e94 — Add grill-me workflow to Week 8
+
+What changed in the commit:
+- index.html: Week 8 resource list now links official AIHero /grill-me, AIHero skills map, instructor-guided /grill-with-docs, and local LearnAI notes.
+- week-08-web-basics-design.html: requirements-interview slide now teaches a 6-minute /grill-me requirements interview before first build prompt, with active-decision and privacy cautions.
+- week-08-web-basics-design.html: added mini-grill-protocol slide with a four-step classroom protocol and reusable prompt.
+- week-08-web-basics-design.html: added terminal styling and mobile overflow/wrapping guards for dense prompt text.
+
+Validation before commit:
+- git diff --check -- index.html week-08-web-basics-design.html passed.
+- Inline script parse passed for index.html and week-08-web-basics-design.html.
+- Week 8 duplicate id check passed with 56 ids.
+- Anchor order passed: requirements-interview < mini-grill-protocol < seo-prd-case < contract < ticket.
+- Codex staged-diff review found no HTML blockers; AIHero links and attribution were verified before commit.
+
+Current status:
+- Branch main is ahead of origin/main by 1 commit.
+- No push has been performed after this commit.
+- progress.md remains dirty due checkpoints.
+- Existing untracked files remain untouched: CLAUDE.md, docs/superpowers/audit-2026-05-21-deck-review.md, image/, sos-talk-may12.html, ui.txt.
+
+Next:
+- Run setup-matt-pocock-skills discovery and present the repo setup draft before writing docs/config.
+
+### Working tree (`git status --short`)
+
+```text
+ M progress.md
+?? CLAUDE.md
+?? docs/superpowers/audit-2026-05-21-deck-review.md
+?? image/
+?? sos-talk-may12.html
+?? ui.txt
+```
+
+### Unstaged diff (`git diff --stat`)
+
+```text
+ progress.md | 195 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 195 insertions(+)
+```
+
+### Staged diff (`git diff --cached --stat`)
+
+_none_
+
+### Latest commit (`git show --stat --oneline HEAD`)
+
+```text
+f649e94 Add grill-me workflow to Week 8
+ index.html                     |  2 +-
+ week-08-web-basics-design.html | 49 +++++++++++++++++++++++++++++++-----------
+ 2 files changed, 38 insertions(+), 13 deletions(-)
+```
+
+---
+
+## 2026-08-11 12:14:39 EDT — Codex
+
+- **Branch:** `main`
+- **HEAD:** `ea4748e` — Reframe landing page for CS-215
+- **Upstream:** origin/main — ahead 0, behind 0
+
+### Summary
+
+Installed the full editable Matt Pocock / AIHero skills set for both Codex and Claude Code; did not run repo setup.
+
+Actions completed:
+- Verified setup-matt-pocock-skills, grill-me, grill-with-docs already existed before install.
+- Verified to-spec, to-tickets, implement, code-review, ask-matt were missing before install.
+- Listed upstream package with `npx -y skills@latest add mattpocock/skills --list --full-depth`; CLI found 35 skills.
+- Installed full set with `npx -y skills@latest add mattpocock/skills -g --agent codex claude-code --skill '*' -y --copy --full-depth`.
+- Installer copied into ~/.agents/skills and ~/.claude/skills and reported Installed 35 skills.
+- Because Q's default Codex target is ~/.codex/skills, mirrored exactly those 35 Matt Pocock skill dirs from ~/.agents/skills into ~/.codex/skills using `ditto` per skill directory.
+
+Verification:
+- /Users/oreo/.codex/skills has all 35 Matt Pocock skills.
+- /Users/oreo/.claude/skills has all 35 Matt Pocock skills.
+- Spot-checked SKILL.md content for setup-matt-pocock-skills, grill-me, grill-with-docs, to-spec, to-tickets, implement, code-review, and ask-matt in both destinations.
+- Final Codex review reported no material reason not to report installed; caveats: skills run with full agent permissions, installer's Codex canonical path was ~/.agents/skills, ~/.codex copy was manually mirrored, and project setup was not run.
+
+Not done:
+- Did not run /setup-matt-pocock-skills in this repo because it can write repo-level docs/config and current course edits are still uncommitted.
+- No commit/push performed.
+
+Current repo state remains the existing dirty state from course work plus checkpoints:
+- Modified: index.html, week-08-web-basics-design.html, progress.md.
+- Existing untracked files remain untouched: CLAUDE.md, docs/superpowers/audit-2026-05-21-deck-review.md, image/, sos-talk-may12.html, ui.txt.
+
+### Working tree (`git status --short`)
+
+```text
+ M index.html
+ M progress.md
+ M week-08-web-basics-design.html
+?? CLAUDE.md
+?? docs/superpowers/audit-2026-05-21-deck-review.md
+?? image/
+?? sos-talk-may12.html
+?? ui.txt
+```
+
+### Unstaged diff (`git diff --stat`)
+
+```text
+ index.html                     |   2 +-
+ progress.md                    | 127 +++++++++++++++++++++++++++++++++++++++++
+ week-08-web-basics-design.html |  49 ++++++++++++----
+ 3 files changed, 165 insertions(+), 13 deletions(-)
+```
+
+### Staged diff (`git diff --cached --stat`)
+
+_none_
+
+### Latest commit (`git show --stat --oneline HEAD`)
+
+```text
+ea4748e Reframe landing page for CS-215
+ index.html | 127 ++++++-------------------------------------------------------
+ 1 file changed, 12 insertions(+), 115 deletions(-)
+```
+
+---
+
+## 2026-08-11 11:14:10 EDT — Codex
+
+- **Branch:** `main`
+- **HEAD:** `ea4748e` — Reframe landing page for CS-215
+- **Upstream:** origin/main — ahead 0, behind 0
+
+### Summary
+
+Completed Q-approved /grill-me course-content edits, not committed or pushed.
+
+Changed files:
+- week-08-web-basics-design.html: enhanced #requirements-interview to explicitly teach Matt Pocock / AIHero /grill-me as a short requirements interview before the first build prompt; added active-decision caveat, privacy/sensitive-data warning, official AIHero links, and source note.
+- week-08-web-basics-design.html: added #mini-grill-protocol slide after #requirements-interview and before #seo-prd-case; includes 4-step mini-grill protocol, classroom prompt block, and /grill-with-docs as instructor-guided/stateful sibling.
+- week-08-web-basics-design.html: added .terminal styling and mobile overflow/wrapping guard for dense slides.
+- week-08-web-basics-design.html: updated homework links to official AIHero /grill-me and AIHero skills map.
+- index.html: updated Week 8 resource detail links to include AIHero /grill-me, AIHero skills map, instructor-guided /grill-with-docs, and local LearnAI notes.
+
+Validation:
+- git diff --check -- week-08-web-basics-design.html index.html passed.
+- Inline script parse passed for week-08-web-basics-design.html and index.html.
+- Duplicate id check passed for Week 8: 56 ids, no duplicates.
+- Anchor order passed: requirements-interview < mini-grill-protocol < seo-prd-case < contract < ticket.
+- Chrome desktop screenshot for #mini-grill-protocol inspected after .terminal styling: readable, no overlap.
+- Chrome DevTools mobile emulation at 390x844 for #mini-grill-protocol and #requirements-interview: no horizontal overflow; document and body scroll widths equal 390.
+- Mobile screenshots inspected: text wraps horizontally; vertical scroll is expected for dense slide content.
+- Final Codex diff review found no blockers.
+
+Current status:
+- Branch main remains aligned with origin/main at ea4748e; no commit/push for this task yet.
+- Modified tracked files: index.html, week-08-web-basics-design.html, progress.md.
+- Existing untracked files remain untouched: CLAUDE.md, docs/superpowers/audit-2026-05-21-deck-review.md, image/, sos-talk-may12.html, ui.txt.
+
+### Working tree (`git status --short`)
+
+```text
+ M index.html
+ M progress.md
+ M week-08-web-basics-design.html
+?? CLAUDE.md
+?? docs/superpowers/audit-2026-05-21-deck-review.md
+?? image/
+?? sos-talk-may12.html
+?? ui.txt
+```
+
+### Unstaged diff (`git diff --stat`)
+
+```text
+ index.html                     |  2 +-
+ progress.md                    | 59 ++++++++++++++++++++++++++++++++++++++++++
+ week-08-web-basics-design.html | 49 ++++++++++++++++++++++++++---------
+ 3 files changed, 97 insertions(+), 13 deletions(-)
+```
+
+### Staged diff (`git diff --cached --stat`)
+
+_none_
+
+### Latest commit (`git show --stat --oneline HEAD`)
+
+```text
+ea4748e Reframe landing page for CS-215
+ index.html | 127 ++++++-------------------------------------------------------
+ 1 file changed, 12 insertions(+), 115 deletions(-)
+```
+
+---
+
+## 2026-08-11 10:44:36 EDT — Codex
+
+- **Branch:** `main`
+- **HEAD:** `ea4748e` — Reframe landing page for CS-215
+- **Upstream:** origin/main — ahead 0, behind 0
+
+### Summary
+
+Committed and pushed the approved landing-page cleanup.
+
+Commit pushed:
+- ea4748e — Reframe landing page for CS-215
+
+What changed:
+- index.html: removed the stale landing-page YouTube intro video, "How This Study Works", "Prepare Before the Session", old research assessment links, old session-slides block, and final post-test CTA.
+- index.html: added a compact "Monmouth CS-215: AI Literacy" overview section with course identity, 14-week path, weekly studio rhythm, student outcome, and a jump link to #course-path.
+- index.html: added id="course-path" to the 14-week learning path.
+- IRB consent modal and consent gate were intentionally left untouched.
+
+Validation:
+- git diff --check -- index.html passed before commit.
+- Removed-heading/iframe grep checks passed before commit.
+- Inline script parse passed before commit.
+- Final Codex diff review gate found no blockers.
+- git push origin main succeeded.
+
+Current notes:
+- After this checkpoint, progress.md is expected to be dirty and unpushed.
+- Existing untracked files remain untouched: CLAUDE.md, docs/superpowers/audit-2026-05-21-deck-review.md, image/, sos-talk-may12.html, ui.txt.
+- If Q wants the first-time visitor research consent overlay removed or changed, treat that as a separate IRB-sensitive task requiring explicit approval.
+
+### Working tree (`git status --short`)
+
+```text
+?? CLAUDE.md
+?? docs/superpowers/audit-2026-05-21-deck-review.md
+?? image/
+?? sos-talk-may12.html
+?? ui.txt
+```
+
+### Unstaged diff (`git diff --stat`)
+
+_none_
+
+### Staged diff (`git diff --cached --stat`)
+
+_none_
+
+### Latest commit (`git show --stat --oneline HEAD`)
+
+```text
+ea4748e Reframe landing page for CS-215
+ index.html | 127 ++++++-------------------------------------------------------
+ 1 file changed, 12 insertions(+), 115 deletions(-)
+```
+
+---
+
 ## 2026-08-08 13:21:46 EDT — Codex
 
 - **Branch:** `slide-redesign-2026-05`

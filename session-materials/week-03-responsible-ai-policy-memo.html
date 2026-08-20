@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Week 3 Homework — Responsible AI Policy Memo</title>
+<style>
+@page{size:Letter;margin:.55in}
+*,*::before,*::after{box-sizing:border-box}
+:root{
+  --ink:#141720;--muted:#5c6472;--line:#d7dce5;--soft:#f5f7fa;--blue:#2563eb;--navy:#173b73;
+  --mint:#047857;--amber:#a15c00;--coral:#b42335;--font:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+}
+body{margin:0;background:#edf1f6;color:var(--ink);font-family:var(--font);font-size:14px;line-height:1.5}
+.page{max-width:900px;margin:24px auto;background:#fff;padding:40px 48px;border-radius:14px;box-shadow:0 14px 34px rgba(15,23,42,.08)}
+h1{font-size:30px;line-height:1.12;margin:0 0 7px;color:#0f172a}
+h2{font-size:20px;line-height:1.25;margin:28px 0 10px;padding-top:5px;border-top:2px solid var(--line);color:var(--navy)}
+h3{font-size:15px;line-height:1.3;margin:0 0 5px;color:#111827}
+p{margin:0 0 9px}
+ul,ol{margin:7px 0 10px;padding-left:1.3rem}
+li{margin:4px 0}
+a{color:var(--blue);font-weight:700;overflow-wrap:anywhere}
+table{width:100%;border-collapse:collapse;margin:10px 0 16px}
+th,td{border:1px solid var(--line);padding:8px 9px;vertical-align:top;text-align:left}
+th{background:#eef3f9;color:#172033}
+.subtitle{color:var(--muted);font-size:16px;margin-bottom:17px}
+.meta{display:grid;grid-template-columns:1.2fr .8fr .8fr;gap:13px;margin:17px 0 22px}
+.blank{border-bottom:1px solid #7d8795;min-height:27px;padding:4px 0;color:var(--muted)}
+.callout{border:1px solid #bfd4f6;background:#eff6ff;border-radius:11px;padding:13px 15px;margin:14px 0}
+.callout.warn{border-color:#f2d18c;background:#fff8e8}
+.callout.mint{border-color:#a7dbc5;background:#ecfdf5}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:11px;margin:11px 0}
+.card{border:1px solid var(--line);border-radius:10px;padding:13px;background:var(--soft);break-inside:avoid}
+.card p:last-child{margin-bottom:0}
+.tag{display:inline-block;border-radius:999px;padding:2px 7px;margin-bottom:6px;background:#e0eaff;color:#1d4ed8;font-size:10px;font-weight:900;text-transform:uppercase;letter-spacing:.06em}
+.tag.open{background:#dff7ea;color:var(--mint)}
+.tag.access{background:#fff0d4;color:var(--amber)}
+.small{font-size:12px;color:var(--muted)}
+.prompt{border-left:4px solid var(--blue);padding:10px 13px;margin:11px 0;background:#f8fafc;break-inside:avoid}
+.prompt h3{color:var(--navy)}
+.word{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;color:var(--blue);font-size:11px;font-weight:900}
+.answer{border:1px solid var(--line);border-radius:8px;min-height:58px;margin:8px 0 13px;background:#fff}
+.answer.sm{min-height:40px}
+.answer.lg{min-height:94px}
+.policy-case{border:1px solid #f0c9cf;border-left:5px solid var(--coral);background:#fff5f6;border-radius:10px;padding:12px 14px;margin:11px 0}
+.split{display:grid;grid-template-columns:1fr 1fr;gap:11px;margin:11px 0}
+.allowed,.prohibited{border:1px solid var(--line);border-radius:10px;padding:12px 14px;break-inside:avoid}
+.allowed{background:#effcf6;border-color:#b9e7d1}
+.prohibited{background:#fff5f6;border-color:#f0c9cf}
+.allowed h3{color:var(--mint)}
+.prohibited h3{color:var(--coral)}
+.check{display:flex;gap:8px;align-items:flex-start;margin:7px 0}
+.box{width:15px;height:15px;border:1.5px solid #64748b;border-radius:2px;flex:0 0 auto;margin-top:2px}
+.rubric td:first-child{width:72%}
+.points{white-space:nowrap;text-align:center;font-weight:800}
+.reading-matrix{font-size:11px;table-layout:fixed}
+.reading-matrix th:first-child,.reading-matrix td:first-child{width:14%;font-weight:800}
+.reading-matrix td{height:64px}
+.footer{margin-top:28px;color:var(--muted);font-size:11px;text-align:center}
+.no-break{break-inside:avoid}
+@media(max-width:720px){
+  .page{margin:0;padding:28px 20px;border-radius:0;box-shadow:none}
+  .meta,.grid,.split{grid-template-columns:1fr}
+  table{display:block;overflow-x:auto}
+}
+@media print{
+  body{background:#fff;font-size:11.5px}
+  .page{margin:0;max-width:none;padding:0;border-radius:0;box-shadow:none}
+  h1{font-size:25px}
+  h2{font-size:17px;margin-top:21px}
+  h3{font-size:13px}
+  a{color:#000;text-decoration:none}
+  .card,.callout,.prompt,.policy-case,.allowed,.prohibited,.no-break{break-inside:avoid}
+  h2,h3{break-after:avoid}
+  .reading-matrix{font-size:9.5px}
+  .reading-matrix td{height:55px}
+}
+</style>
+</head>
+<body>
+<main class="page">
+  <h1>Responsible AI Policy Memo</h1>
+  <p class="subtitle">Week 3 written homework: principles, implementation, fairness, privacy, and assessment.</p>
+
+  <div class="meta">
+    <div><strong>Name</strong><div class="blank"></div></div>
+    <div><strong>Date</strong><div class="blank"></div></div>
+    <div><strong>Due</strong><div class="blank"></div></div>
+  </div>
+
+  <div class="callout warn">
+    <strong>Your goal is not to discover the instructor's preferred opinion.</strong> Your goal is to make a defensible ethical judgment: distinguish facts from assumptions, apply the readings accurately, represent a serious counterargument, and explain what evidence or condition could change your view.
+  </div>
+
+  <h2>Deliverable</h2>
+  <div class="grid">
+    <div class="card">
+      <span class="tag">Format</span>
+      <h3>One integrated policy memo</h3>
+      <p><strong>Length:</strong> 800–1,000 words, excluding the AI-use disclosure and references.</p>
+      <p><strong>Structure:</strong> Use headings A–D from this sheet. Submit as a PDF or in the format your instructor specifies.</p>
+    </div>
+    <div class="card">
+      <span class="tag">Evidence</span>
+      <h3>Use at least two assigned reviews</h3>
+      <p>Use brief parenthetical references. Example: <strong>(Jobin et al., 2019)</strong>.</p>
+      <p>No outside sources are required. Do not invent page numbers, quotations, findings, or citations.</p>
+    </div>
+  </div>
+
+  <h2>Assigned Reading Path</h2>
+  <p>Read the abstract and targeted section listed for each review. Then choose at least one paper for a deeper reading. Do not purchase an article: use the accessible route below, your university library, or an instructor-provided excerpt.</p>
+
+  <div class="grid">
+    <div class="card">
+      <span class="tag access">Abstract required</span>
+      <h3>Jobin, Ienca, and Vayena (2019)</h3>
+      <p><em>The global landscape of AI ethics guidelines</em></p>
+      <p><a href="https://www.nature.com/articles/s42256-019-0088-2">Publisher page</a></p>
+      <p class="small"><strong>Read:</strong> abstract; full results/discussion only if library access is available. Focus on recurring principles and divergence in interpretation or implementation.</p>
+    </div>
+    <div class="card">
+      <span class="tag open">Open access</span>
+      <h3>Corrêa et al. (2023)</h3>
+      <p><em>Worldwide AI ethics: A review of 200 guidelines and recommendations for AI governance</em></p>
+      <p><a href="https://www.sciencedirect.com/science/article/pii/S2666389923002416">Publisher page</a></p>
+      <p class="small"><strong>Read:</strong> abstract, discussion of earlier guideline reviews, and closing limitations/conclusions. Focus on the broader principle map and the distance between principles and governance mechanisms.</p>
+    </div>
+    <div class="card">
+      <span class="tag access">Check access</span>
+      <h3>Giarmoleo et al. (2024)</h3>
+      <p><em>What ethics can say on artificial intelligence: Insights from a systematic literature review</em></p>
+      <p><a href="https://onlinelibrary.wiley.com/doi/10.1111/basr.12336">Publisher page</a></p>
+      <p class="small"><strong>Read:</strong> abstract and Section 4, “Discussion on the findings and conclusions.” Focus on ethical concerns, proposed responses, and act- versus agent-centered approaches.</p>
+    </div>
+    <div class="card">
+      <span class="tag open">Open access</span>
+      <h3>Groen, Sharon, and Becker (2026)</h3>
+      <p><em>An overview of AI ethics: moral concerns through the lens of principles, lived realities and power structures</em></p>
+      <p><a href="https://link.springer.com/article/10.1007/s43681-025-00955-7">Publisher page</a></p>
+      <p class="small"><strong>Read:</strong> abstract, Table 1, and Section 6 conclusion. Focus on what each lens reveals and overlooks.</p>
+    </div>
+  </div>
+
+  <div class="callout">
+    <strong>Access rule:</strong> Your grade must not depend on purchasing a paper. If full text is unavailable through the links or library, tell the instructor and use the assigned abstract or excerpt. The instructor should confirm access before requiring any full article.
+  </div>
+
+  <h2>Reading Matrix</h2>
+  <p class="small">Use short phrases. The last column matters: a review can provide a framework without proving every prediction or outcome discussed in class.</p>
+  <table class="reading-matrix">
+    <tr>
+      <th>Reading</th>
+      <th>Main question</th>
+      <th>One framework or finding</th>
+      <th>One limitation</th>
+      <th>One claim it does not establish</th>
+    </tr>
+    <tr><td>Jobin et al.</td><td></td><td></td><td></td><td></td></tr>
+    <tr><td>Corrêa et al.</td><td></td><td></td><td></td><td></td></tr>
+    <tr><td>Giarmoleo et al.</td><td></td><td></td><td></td><td></td></tr>
+    <tr><td>Groen et al.</td><td></td><td></td><td></td><td></td></tr>
+  </table>
+
+  <h2>In-Class Baseline: Question 7</h2>
+  <div class="policy-case">
+    A student follows the course policy and discloses: “I used ChatGPT to brainstorm, outline, and rewrite my draft.” The final essay is much better than the student's usual writing. Another student writes alone and earns a lower grade. Is this fair?
+  </div>
+  <p>Complete the class exit ticket without AI and retain it as your baseline. If you are absent or need an accommodation, complete the same prompt independently before using AI, or use an instructor-approved equivalent.</p>
+  <p><strong>State your judgment, one condition that could change it, and what the grade should represent.</strong></p>
+  <div class="answer lg"></div>
+
+  <h2>Memo Prompt</h2>
+
+  <div class="prompt">
+    <h3>A. Diagnose the research-paper case <span class="word">~150 words</span></h3>
+    <p>Separate verified case facts, reading-supported claims, assumptions, and inferences. Explain how transparency, fairness, privacy, accountability, and safety appear in the case. Verified case facts are only facts stated in the assigned scenario; reading-supported claims are grounded in assigned readings; label your own reasonable extensions as inferences.</p>
+  </div>
+
+  <div class="prompt">
+    <h3>B. Challenge the ban-and-detector response <span class="word">~200 words</span></h3>
+    <p>Give the strongest ethical defense of a university ban and the strongest criticism of it. Apply at least two assigned reviews. Do not claim that these reviews establish detector accuracy, disparate impacts, classroom mistrust, concealment, or employment outcomes unless you have separately approved evidence.</p>
+  </div>
+
+  <div class="prompt">
+    <h3>C. Write an operational policy <span class="word">~150–200 words</span></h3>
+    <p>Write one policy paragraph that specifies permitted AI use, required disclosure, prohibited use, privacy and upload limits, how instructors verify learning, and the default when assignment instructions are silent. Avoid phrases such as “use AI responsibly” unless you define the required behavior.</p>
+  </div>
+
+  <div class="prompt">
+    <h3>D. Test your policy against Question 7 <span class="word">~250–300 words</span></h3>
+    <p>Explain why allowing AI can be fair and why it may still be unfair. Address equal rules, equitable access or capability, and assessment validity. State what the grade should measure, reach a final judgment, and identify one condition that would change your conclusion. If rewriting was explicitly permitted, explain where responsibility for any mismatch belongs.</p>
+  </div>
+
+  <h2>AI Use for This Homework</h2>
+  <p>The purpose of this assignment is to assess your ethical reasoning. The course therefore permits AI support for learning and feedback while reserving your claims, selected argument structure, submitted prose, and judgment for you.</p>
+  <div class="split">
+    <div class="allowed">
+      <h3>Allowed with disclosure</h3>
+      <ul>
+        <li>Clarify a concept from an assigned reading.</li>
+        <li>Brainstorm alternative arguments or counterarguments.</li>
+        <li>Compare possible ways to organize claims you already developed; select and substantially revise the outline yourself.</li>
+        <li>Ask for feedback that identifies a problem, asks a question, or suggests a revision strategy.</li>
+      </ul>
+    </div>
+    <div class="prohibited">
+      <h3>Not allowed</h3>
+      <ul>
+        <li>Generate or rewrite sentences or paragraphs for submission.</li>
+        <li>Replace your analysis, judgment, or reading of the sources.</li>
+        <li>Invent, repair, or confirm a citation without checking the source.</li>
+        <li>Upload peer work, private course materials, personal data, or confidential information.</li>
+      </ul>
+    </div>
+  </div>
+  <div class="callout mint">
+    <strong>Privacy and evidence:</strong> Use only tools permitted by your instructor or university. You will not be required to surrender a private account, device, or full chat history. Your instructor may ask you to explain your reasoning or compare the memo with your in-class baseline.
+  </div>
+
+  <h2>AI-Use Disclosure <span class="word">not included in word count</span></h2>
+  <p>Write approximately 50 words naming the tool, the purposes for which you used it, and the stages it affected. If you used no AI, write: “I did not use AI for this assignment.”</p>
+  <div class="answer lg"></div>
+
+  <h2>Grading Rubric</h2>
+  <table class="rubric">
+    <tr><th>Criterion</th><th>Points</th></tr>
+    <tr><td><strong>Ethical reasoning and use of lenses:</strong> distinguishes facts, assumptions, principles, lived effects, and institutional responsibility.</td><td class="points">25</td></tr>
+    <tr><td><strong>Evidence and claim calibration:</strong> uses assigned readings accurately, cites at least two, and does not present inferences as findings.</td><td class="points">20</td></tr>
+    <tr><td><strong>Counterarguments:</strong> represents both sides fairly before reaching a judgment.</td><td class="points">20</td></tr>
+    <tr><td><strong>Policy quality:</strong> provides specific, internally consistent, and usable rules rather than slogans.</td><td class="points">20</td></tr>
+    <tr><td><strong>Judgment and reflection:</strong> explains what the grade should represent and identifies a condition that could change the conclusion.</td><td class="points">10</td></tr>
+    <tr><td><strong>AI-use disclosure:</strong> complete and consistent with the submitted work.</td><td class="points">5</td></tr>
+    <tr><th>Total</th><th class="points">100</th></tr>
+  </table>
+  <p class="small"><strong>Important:</strong> You are not graded on choosing “fair” or “unfair.” You are graded on the quality, honesty, and consistency of your reasoning.</p>
+
+  <h2>Submission Checklist</h2>
+  <div class="check"><span class="box"></span><span>My memo is 800–1,000 words and uses headings A–D.</span></div>
+  <div class="check"><span class="box"></span><span>I completed the reading matrix and used at least two assigned reviews.</span></div>
+  <div class="check"><span class="box"></span><span>I distinguished sourced claims, verified case facts, and my own inferences.</span></div>
+  <div class="check"><span class="box"></span><span>I presented a serious counterargument before stating my conclusion.</span></div>
+  <div class="check"><span class="box"></span><span>My policy gives operational rules, including a silent-instructions default.</span></div>
+  <div class="check"><span class="box"></span><span>I included an accurate AI-use disclosure or stated that I used no AI.</span></div>
+  <div class="check"><span class="box"></span><span>I verified every citation and did not upload protected or private material.</span></div>
+
+  <p class="footer">AI Engineering Academy · Week 3: AI Ethics and Responsible Use</p>
+</main>
+</body>
+</html>
