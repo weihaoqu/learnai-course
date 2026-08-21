@@ -91,6 +91,10 @@ input:focus,select:focus,textarea:focus{border-color:rgba(34,211,238,.85);box-sh
   h2{font-size:30px}
   .lede{font-size:18px}
   .grid,.grid.three,.flow,.demo-layout,.builder-layout,.test-layout,.exit-layout{grid-template-columns:1fr}
+  #tests{justify-items:start}
+  #tests .inner{width:min(334px,100%);max-width:334px;margin:auto 0}
+  #tests .inner,#tests .card,#tests .form,#tests .test-row{min-width:0}
+  #tests .test-row{grid-template-columns:1fr}
   #feature-map{justify-items:start}
   #feature-map .inner{width:min(334px,100%);max-width:334px;margin:auto 0}
   #feature-map .timebox{display:none}
@@ -282,11 +286,11 @@ input:focus,select:focus,textarea:focus{border-color:rgba(34,211,238,.85);box-sh
     </div>
   </section>
 
-  <section class="slide" id="tests" data-part="Lab" data-title="Test cases" inert aria-hidden="true">
+  <section class="slide" id="tests" data-part="Lab" data-title="Evidence-first debugging" inert aria-hidden="true">
     <div class="inner">
       <div class="timebox">50-56 min</div>
-      <h2>Write tests before you trust the feature.</h2>
-      <p class="lede">A feature is not finished when the agent says it is finished. It is finished when the student can run examples and explain the result.</p>
+      <h2>Define tests, then debug with evidence.</h2>
+      <p class="lede">A feature is not finished when the agent says it is finished. Write observable expectations, reproduce failures, and change one thing at a time before accepting a fix.</p>
       <div class="test-layout">
         <div class="card">
           <div class="form">
@@ -298,16 +302,18 @@ input:focus,select:focus,textarea:focus{border-color:rgba(34,211,238,.85);box-sh
         </div>
         <div class="preview" id="testPreview" tabindex="0"></div>
       </div>
-      <div class="card gold" style="margin-top:16px">
-        <h3>If a test fails, write a concrete bug report</h3>
-        <p>Use this pattern: "When I [action], I expected [result], but [actual behavior]. Please inspect the input, event, validation, state, rule, and output flow before editing." If no bug appears, record one edge case that passed.</p>
+      <div class="grid" style="margin-top:16px">
+        <div class="card gold">
+          <h3>Evidence-first fix</h3>
+          <p><strong>Expected behavior → reproduce → minimize → change one variable → rerun → record.</strong> Before a fix, an observable failing example is useful test-first practice; it is not a requirement to adopt a formal testing framework.</p>
+        </div>
+        <div class="card warn">
+          <h3>Safe bug report</h3>
+          <p>“When I [action], I expected [result], but [actual behavior]. Inspect the input, event, validation, state, rule, and output flow before editing.” Redact credentials, private logs, names, account details, and personal data before sharing.</p>
+        </div>
       </div>
-      <div class="card warn" style="margin-top:16px">
-        <h3>Advanced case-study pattern: parks ranker</h3>
-        <p>If a complex app has data, voting, rankings, and persistence, debug one link at a time: verify the provided data count and source, then the vote event, then the ranking update, then persistence. This is optional advanced analysis, not required database work.</p>
-      </div>
-      <p class="source-note">Source concept: DeepLearning.AI / Replit national-parks voting app lesson, referenced as an optional debugging pattern rather than a required database project.</p>
-      <div class="teacher-note">Require at least one failed or edge case. This teaches students to verify behavior instead of admiring the first working demo.</div>
+      <p class="source-note">Source concepts: AIHero / Matt Pocock, <a href="https://www.aihero.dev/skills-diagnosing-bugs" target="_blank" rel="noopener noreferrer">/diagnosing-bugs</a> and <a href="https://www.aihero.dev/skills-tdd" target="_blank" rel="noopener noreferrer">/tdd</a>. LearnAI adapts them into a beginner-safe browser testing loop.</p>
+      <div class="teacher-note">Keep the existing 50-56 minute slot. Require one failed test or a passed edge case plus an expected-versus-actual note. Test-first-lite is one useful move inside debugging, not a rule that every student fix needs formal TDD.</div>
     </div>
   </section>
 

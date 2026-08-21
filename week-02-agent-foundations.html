@@ -123,6 +123,15 @@ body.notes-on .teacher-note{display:block}
 .setup-form textarea{min-height:78px;resize:vertical}
 .setup-form input:focus,.setup-form textarea:focus,.setup-form select:focus{border-color:rgba(56,213,255,.75);box-shadow:0 0 0 3px rgba(56,213,255,.16)}
 .ticket{border:1px solid rgba(246,184,75,.32);background:rgba(246,184,75,.09);border-radius:16px;padding:18px;white-space:pre-wrap;color:#fff7e6;font-family:var(--mono);font-size:15px;line-height:1.5;min-height:430px;user-select:text}
+#conversation-repair h2{font-size:44px}
+#conversation-repair .lede{font-size:19px;line-height:1.4;margin-bottom:16px}
+#conversation-repair .grid{gap:12px;margin-top:16px}
+#conversation-repair .card{padding:14px}
+#conversation-repair .card h3{font-size:18px}
+#conversation-repair .card p{font-size:15px;line-height:1.4}
+#conversation-repair .terminal{font-size:14px;line-height:1.4;padding:14px;margin-top:14px}
+#conversation-repair .formula{font-size:18px;line-height:1.35;padding:15px;margin-top:14px}
+#conversation-repair .source-note{font-size:12px;line-height:1.35;margin-top:8px}
 @media(max-width:920px){
   html,body{height:auto;min-height:100%;max-width:100vw;overflow-x:hidden;overflow-y:auto}
   .deck{width:100%;height:auto;min-height:100vh;overflow-x:hidden}
@@ -133,7 +142,7 @@ body.notes-on .teacher-note{display:block}
   .link-btn{max-width:100%;white-space:normal;line-height:1.25}
   .grid,.grid.three,.grid.four,.loop-stage,.loop-map,.component-board,.choice-grid,.trace,.observability-grid,.setup-grid{grid-template-columns:1fr}
   .hud{height:auto;min-height:58px;align-items:flex-start;flex-wrap:wrap;padding:9px 12px}
-  .brand{width:100%}
+  .brand{width:100%;white-space:normal;overflow-wrap:anywhere}
   .status{font-size:12px}
   .controls{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center;min-height:0;overflow-x:hidden}
   .jump{grid-column:1/-1;order:0;min-width:0;width:100%;max-width:100%}
@@ -143,9 +152,15 @@ body.notes-on .teacher-note{display:block}
 @media(max-width:600px){
   .jump{justify-content:flex-start;flex-wrap:nowrap;overflow-x:auto;padding-bottom:2px}
   .jump .btn{min-width:34px}
+  #conversation-repair{align-items:flex-start}
+  #conversation-repair .inner{width:min(334px,100%);max-width:334px;margin-left:0}
   .agentic-compact h2{font-size:30px;line-height:1.08;margin-bottom:12px}
   .agentic-compact .lede{font-size:19px;line-height:1.35}
   .agentic-compact .terminal{font-size:13px;line-height:1.38;padding:14px;margin-top:14px;border-radius:14px}
+  #conversation-repair .grid{gap:10px;margin-top:12px}
+  #conversation-repair .card{padding:12px 13px}
+  #conversation-repair .formula{font-size:13px;line-height:1.35;padding:11px;margin-top:10px}
+  #conversation-repair .source-note{font-size:11px}
   .agentic-compact .link-btn{font-size:14px;line-height:1.25;padding:10px 12px;margin-top:14px}
   #homework h2{font-size:34px}
   #homework .card{padding:18px 20px}
@@ -254,9 +269,27 @@ body.notes-on .teacher-note{display:block}
     </div>
   </section>
 
+  <section class="slide lab agentic-compact" id="conversation-repair" data-part="Part 1" data-title="Repair the explanation" inert aria-hidden="true">
+    <div class="inner">
+      <div class="timebox">12-15 min · 3-minute repair</div>
+      <div class="kicker">When an answer does not click</div>
+      <h2>Repair the explanation before changing the task.</h2>
+      <p class="lede">A confusing answer may be missing a premise, using unfamiliar language, or jumping past an example. Ask the model to repair that gap instead of pretending you understand.</p>
+      <div class="grid three">
+        <div class="card"><h3>1. Re-pitch</h3><p>Explain the same idea in plain language without adding new claims.</p></div>
+        <div class="card"><h3>2. Name the gap</h3><p>State the one premise or connection the earlier explanation assumed.</p></div>
+        <div class="card"><h3>3. Ground it</h3><p>Give one concrete example, then ask the student to restate the idea.</p></div>
+      </div>
+      <div class="terminal">Re-explain your last answer in plain language. Name the one missing premise that would help a beginner follow it, then give one concrete example. Do not add facts that were not in the original explanation. End by asking me to restate the idea in my own words.</div>
+      <div class="formula">clearer wording helps understanding; sources and tests establish whether a claim is trustworthy</div>
+      <p class="source-note">Optional source example: AIHero / Matt Pocock, <a href="https://www.aihero.dev/skills-wait-what" target="_blank" rel="noopener noreferrer">/wait-what</a>. LearnAI adapts the idea into a vendor-neutral learning repair.</p>
+      <div class="teacher-note">Use three minutes from the detailed 11-step-loop discussion that follows; discuss the loop's key transitions rather than every low-level detail. Do not present a rephrased answer as verified merely because it is easier to understand.</div>
+    </div>
+  </section>
+
   <section class="slide" id="loop" data-part="Part 2" data-title="11-step loop">
     <div class="inner">
-      <div class="timebox">15-28 min</div>
+      <div class="timebox">15-25 min</div>
       <h2>The CCUnpacked loop gives us the detailed view.</h2>
       <p class="lede">Click a step. Notice how the workflow keeps moving between language, context, tool decisions, and human-visible output.</p>
       <div class="loop-stage">
@@ -279,7 +312,7 @@ body.notes-on .teacher-note{display:block}
           <div class="terminal" id="stageExample">Q: Explain what files are in this project. Do not edit anything yet.</div>
         </div>
       </div>
-      <div class="teacher-note">Pacing: 13 minutes. Do not over-explain implementation details. Keep asking: what could go wrong at this step?</div>
+      <div class="teacher-note">Pacing: 10 minutes after the conversation-repair activity. Emphasize the transitions among context, tool decisions, visible results, and human review rather than explaining every implementation detail. Keep asking: what could go wrong at this step?</div>
     </div>
   </section>
 

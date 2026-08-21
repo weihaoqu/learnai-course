@@ -69,6 +69,22 @@ body.notes-on .teacher-note{display:block}
 .source-note{margin-top:14px;color:#c8dede;font-size:14px;line-height:1.45}
 .source-note a{color:#dffff9;font-weight:900}
 .terminal{font-family:var(--mono);border:1px solid rgba(45,212,191,.28);background:#061015;border-radius:16px;padding:16px 18px;color:#dcfce7;font-size:16px;line-height:1.5;margin-top:18px;white-space:pre-wrap}
+.answer-route-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin-top:18px}
+.answer-route{border:1px solid rgba(255,255,255,.15);background:rgba(255,255,255,.05);border-radius:14px;padding:14px;min-height:94px}
+.answer-route strong{display:block;color:#dffff9;font-size:16px;margin-bottom:6px}
+.answer-route p{font-size:14px;line-height:1.4;color:#c4d9db}
+.questionnaire-lab-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-top:14px}
+.questionnaire-task{border:1px solid rgba(45,212,191,.3);background:rgba(45,212,191,.07);border-radius:14px;padding:14px;min-height:102px}
+.questionnaire-task strong{display:block;color:#ccfbf1;font-size:16px;margin-bottom:6px}
+.questionnaire-task p{font-size:14px;line-height:1.42;color:#d2e7e7}
+.questionnaire-bottom{display:grid;grid-template-columns:1.15fr .85fr;gap:12px;margin-top:14px}
+.questionnaire-bottom .terminal{font-size:13px;line-height:1.4;margin-top:0;padding:13px 15px}
+.questionnaire-safety{border:1px solid rgba(251,113,133,.38);background:rgba(251,113,133,.08);border-radius:14px;padding:13px 15px;color:#ffe4e6;font-size:13px;line-height:1.45}
+#questionnaire-routing h2{font-size:44px;margin-bottom:10px}
+#questionnaire-routing .lede{font-size:22px;line-height:1.4}
+#questionnaire-routing .resource-links{margin-top:10px}
+#questionnaire-routing .link-btn{margin-top:0;padding:10px 13px}
+#questionnaire-routing .source-note{margin-top:8px}
 .boundary-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin-top:24px}
 .boundary{border:1px solid rgba(255,255,255,.14);background:rgba(255,255,255,.055);color:var(--text);border-radius:14px;padding:16px;text-align:left;cursor:pointer;min-height:116px}
 .boundary:hover,.boundary:focus-visible{outline:2px solid rgba(45,212,191,.55)}
@@ -124,6 +140,15 @@ body.notes-on .teacher-note{display:block}
 .exit-form{display:grid;gap:10px}
 .exit-form textarea{min-height:80px;resize:vertical}
 .ticket{border:1px solid rgba(245,158,11,.32);background:rgba(245,158,11,.09);border-radius:16px;padding:18px;white-space:pre-wrap;color:#fff7ed;font-family:var(--mono);font-size:15px;line-height:1.5;min-height:410px;user-select:text}
+#prototype-probe h2{font-size:40px}
+#prototype-probe .lede{font-size:18px;line-height:1.38;margin-bottom:14px}
+#prototype-probe .grid{gap:12px;margin-top:14px}
+#prototype-probe .card{padding:14px}
+#prototype-probe .card h3{font-size:18px}
+#prototype-probe .card p{font-size:15px;line-height:1.4}
+#prototype-probe .terminal{font-size:13px;line-height:1.35;padding:13px 15px;margin-top:14px}
+#prototype-probe .probe-flow{font-family:var(--mono);border:1px solid rgba(45,212,191,.28);background:rgba(6,16,21,.9);border-radius:13px;padding:11px 13px;color:#dffdf4;font-size:14px;line-height:1.35;margin-top:10px;text-align:center}
+#prototype-probe .source-note{font-size:12px;line-height:1.35;margin-top:8px}
 @media(max-width:920px){
   html,body{overflow:auto}
   .deck{height:auto;min-height:100vh}
@@ -134,11 +159,11 @@ body.notes-on .teacher-note{display:block}
   h3{font-size:24px}
   p,li{font-size:18px}
   .lede{font-size:22px}
-  .grid,.grid.three,.grid.four,.boundary-grid,.idea-board,.anatomy,.contract-layout,.quiz-bank,.critique-grid,.exit-layout{grid-template-columns:1fr}
+  .grid,.grid.three,.grid.four,.boundary-grid,.idea-board,.anatomy,.contract-layout,.quiz-bank,.critique-grid,.exit-layout,.answer-route-grid,.questionnaire-lab-grid,.questionnaire-bottom{grid-template-columns:1fr}
   .idea-row{grid-template-columns:1fr}
   .mock-app{min-height:380px}
   .hud{height:auto;min-height:58px;align-items:flex-start;flex-wrap:wrap;padding:9px 12px}
-  .brand{width:100%}
+  .brand{width:100%;white-space:normal;overflow-wrap:anywhere}
   .status{font-size:12px}
   .controls{display:grid;grid-template-columns:1fr auto;align-items:center;min-height:0}
   .jump{grid-column:1/-1;order:0}
@@ -149,12 +174,18 @@ body.notes-on .teacher-note{display:block}
   html,body{max-width:100%;overflow-x:hidden}
   .slide{width:100%;max-width:100vw;overflow-x:hidden}
   .inner{width:100%;max-width:calc(100vw - 44px)}
+  #prototype-probe{align-items:flex-start}
+  #prototype-probe .inner{width:min(334px,100%);max-width:334px;margin-left:0}
   h1,h2,h3,p,li,.lede,.source-note,.teacher-note,.terminal{overflow-wrap:anywhere}
   h1{font-size:38px}
   h2{font-size:32px}
   h3{font-size:22px}
   p,li{font-size:16px}
   .lede{font-size:20px}
+  #prototype-probe h2{font-size:30px}
+  #prototype-probe .lede{font-size:18px}
+  #prototype-probe .grid{gap:10px;margin-top:12px}
+  #prototype-probe .probe-flow{font-size:12px;padding:10px;overflow-wrap:anywhere}
   .jump{justify-content:flex-start;flex-wrap:nowrap;overflow-x:auto;padding-bottom:2px}
   .jump .btn{min-width:34px}
 }
@@ -302,7 +333,56 @@ body.notes-on .teacher-note{display:block}
       </div>
       <div class="terminal">Grill my one-screen app idea. Ask one question at a time. For each question, give your recommended answer. Stop when you can restate the user, problem, interaction, constraints, success test, and one risk.</div>
       <p class="source-note">Advanced sibling: <a href="https://www.aihero.dev/grill-with-docs" target="_blank" rel="noopener noreferrer">/grill-with-docs</a> can read a repo and capture resolved terms or decisions in docs. Treat it as instructor-guided because it is stateful and may write files.</p>
-      <div class="teacher-note">If a question cannot be answered by conversation, stop the grill and build a disposable sketch or example. The technique supports prototyping; it does not replace prototyping, testing, or human design judgment.</div>
+      <div class="teacher-note">If a question cannot be answered by conversation, ask where the answer lives. Use a questionnaire when one other person knows, instructor-guided document grilling when the answer is in project materials, and a disposable prototype when nobody knows yet.</div>
+    </div>
+  </section>
+
+  <section class="slide note" id="questionnaire-routing" data-part="Part 1" data-title="Who has the answer?" inert aria-hidden="true">
+    <div class="inner">
+      <div class="timebox">Optional within the design block · 5-7 minutes</div>
+      <h2>Who has the answer?</h2>
+      <p class="lede">Route the unknown instead of asking AI to invent it. Scenario: your campus-planner idea depends on one instructor's late-work rule.</p>
+      <div class="answer-route-grid" aria-label="Choose a discovery route based on where the answer lives">
+        <div class="answer-route"><strong>Your own head</strong><p>Use <code>/grill-me</code> to sharpen decisions you can make.</p></div>
+        <div class="answer-route"><strong>Project materials</strong><p>Use instructor-guided <code>/grill-with-docs</code> to inspect the codebase or documents.</p></div>
+        <div class="answer-route"><strong>One other person</strong><p>Use <code>/to-questionnaire</code> to ask the person who owns the missing knowledge.</p></div>
+        <div class="answer-route"><strong>Nobody knows yet</strong><p>Build a disposable prototype that gives people something concrete to evaluate.</p></div>
+      </div>
+      <div class="questionnaire-lab-grid" aria-label="Questionnaire drafting activity">
+        <div class="questionnaire-task"><strong>1 min · Define the send</strong><p>Name one fictional or classroom-safe recipient and list the exact facts or decisions you need back.</p></div>
+        <div class="questionnaire-task"><strong>3 min · Draft</strong><p>Optional command example: use <code>/to-questionnaire</code>, or ask in plain chat. Include purpose, short context, priority-ordered groups, answer stubs, and permission to say “I don't know.”</p></div>
+        <div class="questionnaire-task"><strong>1-3 min · Partner audit</strong><p>Trace every need to one single-idea question. End with a catch-all. No branching and no multi-recipient questionnaire.</p></div>
+      </div>
+      <div class="questionnaire-bottom">
+        <div class="terminal">No skill installed? Ask in plain chat: Create a short discovery questionnaire for [one recipient] so I can decide [what you need back]. Add purpose and context, ask the most important single-idea questions first, include answer stubs and “I don't know,” then finish with a catch-all.</div>
+        <div class="questionnaire-safety"><strong>Review before delivery:</strong> the skill writes a local Markdown file; it sends nothing. Do not include grades, peer work, private notes, sensitive details, or guesses presented as facts. You choose whether and how to share it.</div>
+      </div>
+      <div class="resource-links">
+        <a class="link-btn" href="https://www.aihero.dev/skills-to-questionnaire" target="_blank" rel="noopener noreferrer">AIHero /to-questionnaire guide</a>
+      </div>
+      <p class="source-note">Source concept: AIHero / Matt Pocock, paraphrased for a classroom-safe requirements exercise. Grade the routing decision and questionnaire quality, not slash-command use.</p>
+      <div class="teacher-note">Replace 5-7 minutes of the optional mini-grill or case-study discussion; do not extend the 60-minute class. One recipient per pair is enough. The recipient is fictional or classroom-safe, and students do not send the document during the activity.</div>
+    </div>
+  </section>
+
+  <section class="slide note" id="prototype-probe" data-part="Part 1" data-title="Design probe" inert aria-hidden="true">
+    <div class="inner">
+      <div class="timebox">Optional within the design block · 5 minutes</div>
+      <h2>Prototype only what conversation cannot settle.</h2>
+      <p class="lede">A design probe is the smallest disposable screen or interaction that helps people react to one unresolved question. It creates something to learn from—not proof that the final app works.</p>
+      <div class="grid three">
+        <div class="card"><h3>Question</h3><p>Name one uncertainty: Which layout is clearer? What should happen after the click? Which label is easier to understand?</p></div>
+        <div class="card"><h3>Probe</h3><p>Build or compare the smallest single-file mockup that makes the difference visible. Leave unrelated features out.</p></div>
+        <div class="card"><h3>Learning record</h3><p>Write the assumption, what someone actually observed, and what still remains unresolved.</p></div>
+      </div>
+      <div class="terminal">Create a disposable single-file HTML design probe for this question: [one unresolved UI or interaction question]. Show two materially different options. Use fictional data, no backend, no API keys, and no private information. Do not polish unrelated features. End with the assumptions each option tests.</div>
+      <div class="probe-flow">one uncertain question -&gt; smallest useful probe -&gt; observe -&gt; record learning -&gt; discard, label, or redesign</div>
+      <div class="grid">
+        <div class="card green"><h3>Keep the learning</h3><p>Record the decision and why. A screenshot, note, or comparison can explain what the probe taught you.</p></div>
+        <div class="card warn"><h3>Do not overclaim</h3><p>A probe is not usability research, production evidence, security validation, or permission to expand beyond the static-app boundary.</p></div>
+      </div>
+      <p class="source-note">Source concept: AIHero / Matt Pocock, <a href="https://www.aihero.dev/skills-prototype" target="_blank" rel="noopener noreferrer">/prototype</a>. LearnAI narrows it to classroom-safe single-file design probes.</p>
+      <div class="teacher-note">Use this instead of the optional SEO case or replace five minutes of the mini-grill; do not extend the 60-minute class. Students may sketch two paper states if tool setup would consume the activity.</div>
     </div>
   </section>
 

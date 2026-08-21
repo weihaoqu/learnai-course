@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LearnAI Workflow Skill Map</title>
+<style>
+@page{
+  size:Letter;
+  margin:.52in .55in .58in;
+  @bottom-center{content:"LearnAI Workflow Skill Map  |  " counter(page) " of " counter(pages);font:9px Inter,Arial,sans-serif;color:#64748b}
+}
+*,*::before,*::after{box-sizing:border-box}
+:root{
+  --ink:#111827;--muted:#586174;--line:#d7deea;--soft:#f5f7fb;--navy:#172554;--blue:#2563eb;
+  --cyan:#087f8c;--green:#08734f;--amber:#9a5b00;--red:#a61b35;--violet:#6d28d9;
+  --font:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+}
+html{scroll-behavior:smooth}
+body{margin:0;background:#e9eef6;color:var(--ink);font-family:var(--font);font-size:14px;line-height:1.48}
+.page{max-width:960px;margin:26px auto;background:#fff;padding:42px 48px;border-radius:16px;box-shadow:0 16px 38px rgba(15,23,42,.1)}
+h1{margin:0;color:#0f172a;font-size:34px;line-height:1.08;letter-spacing:-.025em}
+h2{margin:30px 0 11px;padding-top:8px;border-top:2px solid var(--line);color:var(--navy);font-size:21px;line-height:1.2}
+h3{margin:0 0 5px;color:#18223a;font-size:15px;line-height:1.25}
+p{margin:0 0 9px}
+a{color:var(--blue);font-weight:700;overflow-wrap:anywhere}
+ul{margin:7px 0 8px;padding-left:1.25rem}
+li{margin:4px 0}
+.eyebrow{color:var(--violet);font-size:11px;font-weight:900;letter-spacing:.14em;text-transform:uppercase;margin-bottom:7px}
+.subtitle{color:var(--muted);font-size:17px;max-width:760px;margin:9px 0 18px}
+.meta{display:flex;gap:8px;flex-wrap:wrap;margin:15px 0 22px}
+.pill{display:inline-flex;align-items:center;border:1px solid #cbd5e1;border-radius:999px;padding:4px 9px;background:#f8fafc;color:#334155;font-size:10px;font-weight:900;letter-spacing:.04em;text-transform:uppercase}
+.pill.core{background:#e8fbf3;border-color:#a9dfca;color:var(--green)}
+.pill.optional{background:#f2edff;border-color:#d9c9ff;color:var(--violet)}
+.pill.instructor{background:#fff6df;border-color:#efd39a;color:var(--amber)}
+.pill.out{background:#fff0f3;border-color:#efc0ca;color:var(--red)}
+.callout{border:1px solid #bcd0f4;border-left:5px solid var(--blue);background:#eff6ff;border-radius:11px;padding:13px 15px;margin:14px 0;break-inside:avoid}
+.callout.warn{border-color:#efd39a;border-left-color:var(--amber);background:#fff8e8}
+.callout.safe{border-color:#abdcca;border-left-color:var(--green);background:#edfcf5}
+.route{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:11px;margin:14px 0}
+.route-card{border:1px solid var(--line);border-radius:11px;padding:14px;background:var(--soft);break-inside:avoid}
+.route-card strong{display:block;color:var(--navy);font-size:14px;margin-bottom:5px}
+.route-card p{color:#3f4a5d;font-size:12.5px;margin:0}
+.route-card .stop{display:block;margin-top:8px;color:var(--red);font-size:10.5px;font-weight:800;text-transform:uppercase;letter-spacing:.035em}
+.flow{display:flex;align-items:center;justify-content:center;gap:7px;flex-wrap:wrap;margin:17px 0;padding:14px;border:1px solid #c9d6ec;background:#f4f8ff;border-radius:12px}
+.flow span{border:1px solid #b9c9e5;border-radius:8px;background:#fff;padding:7px 9px;color:#1e3a8a;font-size:11px;font-weight:900;text-transform:uppercase;letter-spacing:.03em}
+.flow b{color:#64748b}
+.decision-table{width:100%;border-collapse:collapse;margin:11px 0 17px;font-size:12px}
+.decision-table th,.decision-table td{border:1px solid var(--line);padding:8px 9px;text-align:left;vertical-align:top}
+.decision-table th{background:#edf2f9;color:#172033;font-size:11px;text-transform:uppercase;letter-spacing:.04em}
+.decision-table td:first-child{font-weight:800;width:23%}
+.risk-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:11px;margin:13px 0}
+.risk{border:1px solid var(--line);border-radius:10px;padding:12px;background:#fafbfc;break-inside:avoid}
+.risk.low{border-top:4px solid var(--green)}
+.risk.medium{border-top:4px solid var(--amber)}
+.risk.high{border-top:4px solid var(--red)}
+.risk strong{display:block;margin-bottom:5px}
+.risk p{font-size:12px;color:#465166;margin:0}
+.appendix-intro{display:grid;grid-template-columns:1.2fr .8fr;gap:12px;margin:13px 0 16px}
+.legend{border:1px solid var(--line);border-radius:10px;padding:12px;background:#f8fafc}
+.skill-table{width:100%;border-collapse:collapse;table-layout:fixed;margin-top:10px;font-size:9.6px}
+.table-scroll{width:100%;max-width:100%;overflow-x:auto}
+.skill-table th,.skill-table td{border:1px solid var(--line);padding:6px 7px;text-align:left;vertical-align:top;overflow-wrap:anywhere}
+.skill-table th{background:#eaf0f8;color:#172033;font-size:9px;text-transform:uppercase;letter-spacing:.035em}
+.skill-table th:nth-child(1){width:5%}
+.skill-table th:nth-child(2){width:23%}
+.skill-table th:nth-child(3){width:19%}
+.skill-table th:nth-child(4){width:31%}
+.skill-table th:nth-child(5){width:22%}
+.skill-table tr{break-inside:avoid}
+.skill-table a{font-size:9.7px}
+.skill-table .pill{font-size:7.5px;padding:2px 5px;white-space:nowrap}
+.small{font-size:11px;color:var(--muted)}
+.footer-note{margin-top:22px;padding-top:12px;border-top:1px solid var(--line);color:var(--muted);font-size:10px}
+.print-break{break-before:page}
+@media screen and (max-width:760px){
+  html,body{width:100vw;max-width:100vw;overflow-x:hidden}
+  .page{width:372px;max-width:100vw;min-width:0;margin:0 auto;padding:28px 19px;border-radius:0;box-shadow:none;overflow-x:hidden}
+  .page>*{width:334px;max-width:calc(100vw - 38px);min-width:0}
+  .route,.risk-grid,.appendix-intro{grid-template-columns:1fr}
+  h1,h2,h3,p,.subtitle,.callout,.route-card{overflow-wrap:anywhere}
+  .route-card,.risk,.legend{min-width:0;max-width:100%}
+  .table-scroll{width:100%;max-width:100%;overflow-x:auto;contain:inline-size}
+  .skill-table,.skill-table tbody,.skill-table tr,.skill-table td{display:block;width:100%;min-width:0}
+  .skill-table{table-layout:auto;font-size:11px}
+  .skill-table thead{display:none}
+  .skill-table tr{margin:0 0 12px;border:1px solid var(--line);border-radius:10px;overflow:hidden;background:#fff}
+  .skill-table td{border:0;border-bottom:1px solid var(--line);padding:7px 9px}
+  .skill-table td:last-child{border-bottom:0}
+  .skill-table td::before{display:block;margin-bottom:2px;color:#64748b;font-size:8px;font-weight:900;letter-spacing:.05em;text-transform:uppercase}
+  .skill-table td:nth-child(1)::before{content:"Item"}
+  .skill-table td:nth-child(2)::before{content:"Skill"}
+  .skill-table td:nth-child(3)::before{content:"Course treatment"}
+  .skill-table td:nth-child(4)::before{content:"Why or placement"}
+  .skill-table td:nth-child(5)::before{content:"State or risk"}
+}
+@media print{
+  body{background:#fff;font-size:10.8px}
+  .page{margin:0;max-width:none;padding:0;border-radius:0;box-shadow:none}
+  h1{font-size:28px}
+  h2{font-size:17px;margin-top:22px}
+  h3{font-size:12.5px}
+  a{color:#163d8c;text-decoration:none}
+  .route{gap:8px}
+  .route-card{padding:10px}
+  .route-card p{font-size:10.2px}
+  .flow{padding:10px;margin:11px 0}
+  .decision-table{font-size:9.4px}
+  .decision-table th,.decision-table td{padding:5px 6px}
+  .risk{padding:9px}
+  .risk p{font-size:9.5px}
+  .callout,.route-card,.risk,.legend{break-inside:avoid}
+  .table-scroll{overflow:visible}
+  h2,h3{break-after:avoid}
+}
+</style>
+</head>
+<body>
+<main class="page">
+  <div class="eyebrow">LearnAI course reference</div>
+  <h1>AI Workflow Skill Map</h1>
+  <p class="subtitle">Choose a practice by the problem you have—not by a slash-command menu. Commands are optional examples; judgment, evidence, privacy, and human approval are the learning objectives.</p>
+  <div class="meta">
+    <span class="pill">Student reference</span>
+    <span class="pill">Vendor-neutral first</span>
+    <span class="pill">Static-project boundary</span>
+    <span class="pill">Updated August 20, 2026</span>
+  </div>
+
+  <div class="callout warn">
+    <strong>Start with the lowest-power move that can answer the question.</strong> A conversation may be enough. Use a file-writing, publishing, committing, account-connected, or secret-handling workflow only when the task actually requires it and the instructor has approved the boundary.
+  </div>
+
+  <h2>1. Route by situation</h2>
+  <div class="route">
+    <div class="route-card">
+      <strong>Clarify</strong>
+      <p>Ask for plain language, the missing premise, and one concrete example. Restate the idea yourself.</p>
+      <span class="stop">Stop: clarity is not verification</span>
+    </div>
+    <div class="route-card">
+      <strong>Decide</strong>
+      <p>Surface assumptions, alternatives, criteria, and tradeoffs. Humans retain decisions and approval.</p>
+      <span class="stop">Stop: do not let AI invent the owner's answer</span>
+    </div>
+    <div class="route-card">
+      <strong>Investigate</strong>
+      <p>Find where the answer lives: source material, another person, or a small design probe.</p>
+      <span class="stop">Stop: label unknowns and weak evidence</span>
+    </div>
+    <div class="route-card">
+      <strong>Build</strong>
+      <p>Write a small behavior specification, slice vertically, and build the smallest reviewable path.</p>
+      <span class="stop">Stop: unclear behavior returns to decide</span>
+    </div>
+    <div class="route-card">
+      <strong>Verify</strong>
+      <p>Define expected behavior, reproduce failures, test observable outcomes, review changes, and triage findings.</p>
+      <span class="stop">Stop: redact sensitive evidence</span>
+    </div>
+    <div class="route-card">
+      <strong>Transfer</strong>
+      <p>Create a handoff only when work must move to another person, harness, directory, repository, or side task.</p>
+      <span class="stop">Stop: do not copy secrets or private data</span>
+    </div>
+  </div>
+
+  <div class="flow" aria-label="Student workflow">
+    <span>Clarify</span><b>&rarr;</b><span>Locate answer</span><b>&rarr;</b><span>Define</span><b>&rarr;</b><span>Build small</span><b>&rarr;</b><span>Verify</span><b>&rarr;</b><span>Approve or revise</span>
+  </div>
+
+  <h2>2. Where does the missing answer live?</h2>
+  <table class="decision-table">
+    <thead><tr><th>The answer is in...</th><th>Use this practice</th><th>Student artifact</th><th>Do not...</th></tr></thead>
+    <tbody>
+      <tr><td>Your own judgment</td><td>Requirements interview or structured self-questioning</td><td>Decision, criteria, and one rejected alternative</td><td>Agree automatically with the model's recommendation</td></tr>
+      <tr><td>Course or project material</td><td>Source-bound reading and document critique</td><td>Quoted location, careful inference, and open question</td><td>Treat a summary as stronger than the original source</td></tr>
+      <tr><td>One other person's knowledge</td><td>Single-recipient discovery questionnaire</td><td>Purpose, context, priority questions, and answer stubs</td><td>Ask AI to guess policy, preference, or private facts</td></tr>
+      <tr><td>Nobody's knowledge yet</td><td>Disposable design probe</td><td>Assumption, observation, and unresolved question</td><td>Present a mockup as production or research evidence</td></tr>
+      <tr><td>Observable system behavior</td><td>Reproduction, test case, and controlled debugging</td><td>Expected versus actual result and verification record</td><td>Change several variables or expose private logs</td></tr>
+    </tbody>
+  </table>
+
+  <h2>3. Match authority to risk</h2>
+  <div class="risk-grid">
+    <div class="risk low"><strong>Read, explain, or draft locally</strong><p>Usually low-risk with allowed material. Still verify factual claims and disclose submitted assistance.</p></div>
+    <div class="risk medium"><strong>Write or change project files</strong><p>Review the exact target, preserve unrelated work, inspect the diff, and test before acceptance.</p></div>
+    <div class="risk high"><strong>Publish, commit, connect, or handle secrets</strong><p>Requires explicit scope and approval. Use instructor guidance; never place credentials or private data in prompts.</p></div>
+  </div>
+
+  <div class="callout safe">
+    <strong>No skill installed?</strong> Describe the practice in ordinary language. Example: “Ask me one question at a time until the user, boundary, success test, and main risk are clear. Recommend an answer, but wait for my decision.” Grading should measure the quality of the reasoning and artifact, not whether a command ran.
+  </div>
+
+  <section class="print-break" id="appendix">
+    <div class="eyebrow">Appendix</div>
+    <h1 style="font-size:27px">AIHero 25-Skill Course Audit</h1>
+    <div class="appendix-intro">
+      <p>This appendix records how the August 20, 2026 AIHero collection maps to LearnAI. It is an adaptation review, not an endorsement or independent validation. Skill behavior may change; open the current source page before installing or relying on a command.</p>
+      <div class="legend">
+        <span class="pill core">Core practice</span>
+        <span class="pill optional">Optional</span>
+        <span class="pill instructor">Instructor</span>
+        <span class="pill out">Not for course</span>
+      </div>
+    </div>
+
+    <div class="table-scroll" role="region" aria-label="Scrollable AIHero skill audit table" tabindex="0">
+    <table class="skill-table">
+      <thead>
+        <tr><th>#</th><th>AIHero skill</th><th>LearnAI treatment</th><th>Why or placement</th><th>State / risk note</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>1</td><td><a href="https://www.aihero.dev/skills-setup-matt-pocock-skills">/setup-matt-pocock-skills</a></td><td><span class="pill instructor">Instructor</span></td><td>Repository setup is unnecessary for required student work.</td><td>Writes agent documentation and tracker configuration.</td></tr>
+        <tr><td>2</td><td><a href="https://www.aihero.dev/skills-ask-matt">/ask-matt</a></td><td><span class="pill out">Reference only</span></td><td>Use the vendor-neutral situation map instead of teaching a vendor router.</td><td>May route using incomplete or stale skill summaries.</td></tr>
+        <tr><td>3</td><td><a href="https://www.aihero.dev/skills-grill-with-docs">/grill-with-docs</a></td><td><span class="pill instructor">Instructor</span></td><td>Advanced Week 8/10 document-grounded planning.</td><td>May write CONTEXT and architecture-decision files.</td></tr>
+        <tr><td>4</td><td><a href="https://www.aihero.dev/skills-to-spec">/to-spec</a></td><td><span class="pill core">Core practice</span></td><td>Week 10: turn settled decisions into a small behavior specification.</td><td>The original workflow may publish an issue; LearnAI uses a local text artifact.</td></tr>
+        <tr><td>5</td><td><a href="https://www.aihero.dev/skills-to-tickets">/to-tickets</a></td><td><span class="pill core">Core practice</span></td><td>Week 10: create small vertical slices with blocker notes.</td><td>The original workflow publishes tracker tickets; LearnAI uses local planning.</td></tr>
+        <tr><td>6</td><td><a href="https://www.aihero.dev/skills-implement">/implement</a></td><td><span class="pill instructor">Instructor demo</span></td><td>Show only on a tiny controlled example.</td><td>Can edit, test, review, and commit on the current branch.</td></tr>
+        <tr><td>7</td><td><a href="https://www.aihero.dev/skills-code-review">/code-review</a></td><td><span class="pill core">Core concept</span></td><td>Weeks 10/13: separate “built correctly?” from “built the right thing?”</td><td>Command expects a fixed diff and specification; may use subagents.</td></tr>
+        <tr><td>8</td><td><a href="https://www.aihero.dev/skills-wayfinder">/wayfinder</a></td><td><span class="pill out">Not for course</span></td><td>Too much multi-session issue-map overhead for a beginner static project.</td><td>Creates and maintains tracker artifacts that can become stale.</td></tr>
+        <tr><td>9</td><td><a href="https://www.aihero.dev/skills-prototype">/prototype</a></td><td><span class="pill core">Core practice</span></td><td>Week 8: a disposable design probe for one unresolved question.</td><td>Original flow may create a branch; LearnAI uses paper or single-file probes.</td></tr>
+        <tr><td>10</td><td><a href="https://www.aihero.dev/skills-research">/research</a></td><td><span class="pill core">Existing practice</span></td><td>Week 11 already requires primary sources, lateral reading, and claim-level support.</td><td>Original skill writes a research artifact and may use costly background agents.</td></tr>
+        <tr><td>11</td><td><a href="https://www.aihero.dev/skills-improve-codebase-architecture">/improve-codebase-architecture</a></td><td><span class="pill instructor">Instructor</span></td><td>Advanced architecture enrichment only.</td><td>Creates a report and may trigger stateful design discussions.</td></tr>
+        <tr><td>12</td><td><a href="https://www.aihero.dev/skills-diagnosing-bugs">/diagnosing-bugs</a></td><td><span class="pill core">Core practice</span></td><td>Week 9: reproduce, minimize, change one variable, and verify.</td><td>Logs or diagnostic artifacts can expose credentials or private data.</td></tr>
+        <tr><td>13</td><td><a href="https://www.aihero.dev/skills-resolving-merge-conflicts">/resolving-merge-conflicts</a></td><td><span class="pill optional">Safety concept</span></td><td>Teach what a conflict is and when to stop and ask for help.</td><td>The command resolves and commits; beginners should not automate this.</td></tr>
+        <tr><td>14</td><td><a href="https://www.aihero.dev/skills-triage">/triage</a></td><td><span class="pill core">Existing practice</span></td><td>Week 13 already classifies findings before fixing or documenting them.</td><td>Original workflow may label, comment, or write tracker artifacts.</td></tr>
+        <tr><td>15</td><td><a href="https://www.aihero.dev/skills-wizard">/wizard</a></td><td><span class="pill out">Not for course</span></td><td>Outside the static, no-secrets course boundary.</td><td>Generates shell guidance for dashboards, environment variables, and secrets.</td></tr>
+        <tr><td>16</td><td><a href="https://www.aihero.dev/skills-grill-me">/grill-me</a></td><td><span class="pill core">Existing practice</span></td><td>Weeks 8/10: stress-test requirements while humans retain decisions.</td><td>Chat-only, but a model can still over-recommend or over-agree.</td></tr>
+        <tr><td>17</td><td><a href="https://www.aihero.dev/skills-handoff">/handoff</a></td><td><span class="pill core">Existing practice</span></td><td>Week 10: portable brief only when work must travel.</td><td>Writes a temporary file; temporary storage is not durable.</td></tr>
+        <tr><td>18</td><td><a href="https://www.aihero.dev/skills-to-questionnaire">/to-questionnaire</a></td><td><span class="pill core">Existing practice</span></td><td>Week 8: one recipient who holds missing knowledge.</td><td>Writes local Markdown but does not send it; review before sharing.</td></tr>
+        <tr><td>19</td><td><a href="https://www.aihero.dev/skills-teach">/teach</a></td><td><span class="pill optional">Optional</span></td><td>Week 11 self-study experiment, not a substitute for course teaching.</td><td>Creates a multi-file teaching workspace; generated content and quizzes need review.</td></tr>
+        <tr><td>20</td><td><a href="https://www.aihero.dev/skills-wait-what">/wait-what</a></td><td><span class="pill core">Core practice</span></td><td>Week 2: repair an explanation with plain language, a premise, and an example.</td><td>Chat-only; clearer output is not necessarily more accurate.</td></tr>
+        <tr><td>21</td><td><a href="https://www.aihero.dev/skills-writing-for-agents">/writing-for-agents</a></td><td><span class="pill optional">Optional</span></td><td>Week 12: concise, staged, completion-aware meta-instructions.</td><td>Instructions do not guarantee compliance; verify actions and outputs.</td></tr>
+        <tr><td>22</td><td><a href="https://www.aihero.dev/skills-codebase-design">/codebase-design</a></td><td><span class="pill instructor">Instructor</span></td><td>Specialized software-design vocabulary beyond the beginner objective.</td><td>A reference without a driver can trigger unintended exploration.</td></tr>
+        <tr><td>23</td><td><a href="https://www.aihero.dev/skills-domain-modeling">/domain-modeling</a></td><td><span class="pill optional">Optional</span></td><td>Capstone glossary exercise when terms are genuinely ambiguous.</td><td>Writes CONTEXT and may offer architecture-decision records.</td></tr>
+        <tr><td>24</td><td><a href="https://www.aihero.dev/skills-grilling">/grilling</a></td><td><span class="pill out">No separate lesson</span></td><td>The interview mechanism is already adapted through requirements activities.</td><td>Model-invoked reference may use subagents for factual questions.</td></tr>
+        <tr><td>25</td><td><a href="https://www.aihero.dev/skills-tdd">/tdd</a></td><td><span class="pill core">Core practice lite</span></td><td>Week 9: define one observable failing case before a fix when useful.</td><td>The full engineering method needs agreed test boundaries and stronger code knowledge.</td></tr>
+      </tbody>
+    </table>
+    </div>
+
+    <div class="callout warn">
+      <strong>Installation is not a course requirement.</strong> Before installing any third-party skill, inspect its current source, requested permissions, file-writing behavior, external connections, update mechanism, and license. A useful description does not prove that every model or environment will follow it reliably.
+    </div>
+
+    <p class="footer-note">Primary collection reviewed: <a href="https://www.aihero.dev/skills">AIHero Skills</a>, 25 linked pages as presented on August 20, 2026. This LearnAI map paraphrases workflow ideas for a beginner educational setting and adds local privacy, evidence, assessment, static-project, and human-approval boundaries.</p>
+  </section>
+</main>
+</body>
+</html>

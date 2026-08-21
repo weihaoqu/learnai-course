@@ -78,6 +78,15 @@ body.notes-on .teacher-note{display:block}
 #progressive-writing .writing-targets{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px}
 #progressive-writing .writing-targets span{border:1px solid rgba(255,255,255,.14);background:rgba(255,255,255,.055);border-radius:999px;padding:8px 11px;color:#e5e7eb;font-size:14px;font-weight:800}
 #rubric-critique .critique-prompt{margin-top:18px}
+#agent-facing-instructions h2{font-size:44px}
+#agent-facing-instructions .lede{font-size:20px;line-height:1.38;margin-bottom:16px}
+#agent-facing-instructions .grid{gap:12px;margin-top:16px}
+#agent-facing-instructions .card{padding:15px}
+#agent-facing-instructions .card h3{font-size:18px}
+#agent-facing-instructions .card p{font-size:15px;line-height:1.4}
+#agent-facing-instructions .terminal{font-size:14px;line-height:1.4;padding:14px;margin-top:14px}
+#agent-facing-instructions .formula{font-size:18px;line-height:1.35;padding:15px;margin-top:14px}
+#agent-facing-instructions .source-note{font-size:12px;line-height:1.35;margin-top:8px}
 #multimodal-setup .media-targets,#image-input-check .media-targets,#image-generation-plan .media-targets,#media-agent-evals .media-targets,#media-eval-funnel .media-targets,#media-agent-loop .media-targets,#data-analysis-check .media-targets{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px}
 #multimodal-setup .media-targets span,#image-input-check .media-targets span,#image-generation-plan .media-targets span,#media-agent-evals .media-targets span,#media-eval-funnel .media-targets span,#media-agent-loop .media-targets span,#data-analysis-check .media-targets span{border:1px solid rgba(255,255,255,.14);background:rgba(255,255,255,.055);border-radius:999px;padding:8px 11px;color:#e5e7eb;font-size:14px;font-weight:800}
 .contract{display:grid;grid-template-columns:300px minmax(0,1fr);gap:18px;margin-top:24px}
@@ -120,7 +129,7 @@ body.notes-on .teacher-note{display:block}
   .formula{overflow-wrap:anywhere}
   .grid,.grid.three,.grid.four,.contract,.repair-grid{grid-template-columns:1fr}
   .hud{height:auto;min-height:58px;align-items:flex-start;flex-wrap:wrap;padding:9px 12px}
-  .brand{width:100%}
+  .brand{width:100%;white-space:normal;overflow-wrap:anywhere}
   .status{font-size:12px}
   .controls{display:grid;grid-template-columns:1fr auto;align-items:center;min-height:0;overflow-x:hidden}
   .jump{grid-column:1/-1;order:0;min-width:0;width:100%;max-width:100%;overflow-x:auto}
@@ -202,6 +211,17 @@ body.notes-on .teacher-note{display:block}
   #rubric-critique .critique-prompt{font-size:11px;line-height:1.32;padding:9px;margin-top:9px;border-radius:11px}
   #rubric-critique .formula{font-size:11px;line-height:1.3;padding:9px;margin-top:8px;border-radius:11px}
   #rubric-critique .source-note,#rubric-critique .teacher-note{display:none}
+  #agent-facing-instructions{align-items:flex-start}
+  #agent-facing-instructions .inner{width:min(334px,100%);max-width:334px;margin-left:0}
+  #agent-facing-instructions h2{font-size:26px;line-height:1.06;margin-bottom:12px}
+  #agent-facing-instructions .lede{font-size:15px;line-height:1.22}
+  #agent-facing-instructions .grid.four{grid-template-columns:repeat(2,minmax(0,1fr));gap:7px;margin-top:12px}
+  #agent-facing-instructions .card{padding:8px 9px;border-radius:11px}
+  #agent-facing-instructions .card h3{font-size:13px;line-height:1.12;margin-bottom:5px}
+  #agent-facing-instructions .card p{font-size:11px;line-height:1.22}
+  #agent-facing-instructions .terminal{font-size:11px;line-height:1.32;padding:9px;margin-top:9px;border-radius:11px}
+  #agent-facing-instructions .formula{font-size:11px;line-height:1.3;padding:9px;margin-top:8px;border-radius:11px}
+  #agent-facing-instructions .source-note,#agent-facing-instructions .teacher-note{display:none}
   #multimodal-setup{align-items:flex-start}
   #multimodal-setup .inner{width:min(334px,100%);max-width:334px;margin-left:0}
   #multimodal-setup h2{font-size:26px;line-height:1.06;margin-bottom:12px}
@@ -684,6 +704,24 @@ body.notes-on .teacher-note{display:block}
       <div class="formula">rubric + evidence notes + score after notes -> focused revision</div>
       <p class="source-note">Adapted from instructor-provided transcript on AI critique. Rewritten for student web-app writing and final-demo review.</p>
       <div class="teacher-note">Keep cross-model review optional for advanced students only. Do not claim a second model guarantees objectivity. The durable lesson is rubric-first critique and human judgment.</div>
+    </div>
+  </section>
+
+  <section class="slide optional" id="agent-facing-instructions" data-part="Part 3" data-title="Instructions for agents" inert aria-hidden="true">
+    <div class="inner">
+      <div class="kicker">Optional meta-instruction design</div>
+      <h2>Write instructions that earn their place.</h2>
+      <p class="lede">Human-facing guidance teaches and persuades. Agent-facing guidance should reduce ambiguity at the moment of action: what matters now, where details live, what must not happen, and how completion will be checked.</p>
+      <div class="grid four">
+        <div class="card"><h3>Keep load-bearing rules</h3><p>Retain instructions that change a decision, permission, output, or verification step.</p></div>
+        <div class="card"><h3>Delete no-ops</h3><p>Remove generic, duplicated, or contradictory wording that would not change behavior.</p></div>
+        <div class="card"><h3>Point to details</h3><p>Put specialized examples or long references in separate material and link them when needed.</p></div>
+        <div class="card"><h3>Define done</h3><p>Name the observable artifact, check, evidence, stop condition, and approval boundary.</p></div>
+      </div>
+      <div class="terminal">Audit these instructions for an AI agent. Separate essential context, permissions, prohibitions, references, and completion criteria. Flag duplicate, vague, conflicting, or no-op rules. Propose a shorter version, but do not remove safety boundaries or act on the task.</div>
+      <div class="formula">relevant context + scoped authority + pointers + completion evidence + human review</div>
+      <p class="source-note">Source concept: AIHero / Matt Pocock, <a href="https://www.aihero.dev/skills-writing-for-agents" target="_blank" rel="noopener noreferrer">/writing-for-agents</a>. LearnAI presents the principle as optional, vendor-neutral instruction design.</p>
+      <div class="teacher-note">Use this instead of the optional rubric-critique activity when the class goal is agent or harness literacy; do not teach both in the 60-minute path. Well-written instructions do not guarantee compliance. Keep permissions narrow, inspect actions and outputs, and verify completion independently.</div>
     </div>
   </section>
 

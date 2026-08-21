@@ -76,6 +76,17 @@ input:focus,select:focus,textarea:focus{border-color:rgba(96,165,250,.85);box-sh
 .codebox{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:13px;border:1px solid var(--line);background:#050914;border-radius:12px;padding:14px;white-space:pre-wrap;color:#c4ddff}
 .prompt-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin-top:18px}
 .prompt-grid .card{min-height:0}
+.handoff-choice-grid{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:10px;margin-top:16px}
+.handoff-choice{border:1px solid var(--line);border-radius:12px;padding:12px;background:rgba(255,255,255,.04);min-height:98px}
+.handoff-choice strong{display:block;color:#bfdbfe;margin-bottom:6px}
+.handoff-choice p{font-size:13px;line-height:1.45;color:#d8e4f7}
+.handoff-lab-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin-top:14px}
+.handoff-task{border:1px solid rgba(52,211,153,.28);border-radius:12px;padding:12px;background:rgba(52,211,153,.06);min-height:104px}
+.handoff-task strong{display:block;color:#bbf7d0;margin-bottom:6px}
+.handoff-task p{font-size:13px;line-height:1.45}
+.handoff-safety{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,1fr);gap:10px;margin-top:14px}
+.handoff-safety .codebox{font-size:12px;line-height:1.45;padding:12px}
+.handoff-warning{border:1px solid rgba(248,113,113,.4);background:rgba(248,113,113,.08);border-radius:12px;padding:12px;color:#fee2e2;font-size:13px;line-height:1.5}
 .artifact{background:linear-gradient(135deg,rgba(96,165,250,.12),rgba(52,211,153,.10));border:1px solid rgba(96,165,250,.25)}
 .resource-links{display:flex;flex-wrap:wrap;gap:10px;margin-top:18px}
 .link-btn{display:inline-flex;align-items:center;justify-content:center;border:1px solid var(--line2);border-radius:10px;padding:10px 13px;color:#e0f2fe;text-decoration:none;font-weight:900;background:rgba(255,255,255,.06)}
@@ -100,7 +111,7 @@ input:focus,select:focus,textarea:focus{border-color:rgba(96,165,250,.85);box-sh
   h1{font-size:38px}
   h2{font-size:30px}
   .lede{font-size:18px}
-  .grid,.grid.three,.flow,.flow.build-plan-flow,.split,.builder-layout,.smoke-layout,.exit-layout,.deploy-map,.prompt-grid{grid-template-columns:1fr}
+  .grid,.grid.three,.flow,.flow.build-plan-flow,.split,.builder-layout,.smoke-layout,.exit-layout,.deploy-map,.prompt-grid,.handoff-choice-grid,.handoff-lab-grid,.handoff-safety{grid-template-columns:1fr}
   .controls{position:relative;left:auto;right:auto;bottom:auto}
 }
 @media (prefers-reduced-motion:reduce){
@@ -206,6 +217,38 @@ Do not edit files, write files, create GitHub issues, commit, push, deploy, publ
         </div>
       </div>
       <div class="teacher-note">Students can paste one template into plain chat. Use the minimum template needed; the goal is clearer decisions, not longer prompts.</div>
+    </div>
+  </section>
+
+  <section class="slide" id="handoff-lab" data-part="Map" data-title="Context handoff lab" inert aria-hidden="true">
+    <div class="inner">
+      <div class="timebox">Optional within 9-29 min · 8-10 minutes</div>
+      <h2>Move the work—not the burden of reconstructing it.</h2>
+      <p class="lede"><code>/handoff</code> creates a portable brief when work must travel. It is not the default way to end every session.</p>
+      <div class="handoff-choice-grid" aria-label="Choose the right context action">
+        <div class="handoff-choice"><strong>Continue</strong><p>Same live session and task; useful context still fits.</p></div>
+        <div class="handoff-choice"><strong>Compact</strong><p>Same harness and project; preserve intent in a smaller context.</p></div>
+        <div class="handoff-choice"><strong>Clear / reset</strong><p>Prior context is disposable; start without carrying it forward.</p></div>
+        <div class="handoff-choice"><strong>Handoff</strong><p>Move work to another harness, repo, directory, person, or side task.</p></div>
+        <div class="handoff-choice"><strong>Checkpoint</strong><p>Keep durable, repo-local state for a future project session.</p></div>
+      </div>
+      <div class="handoff-lab-grid" aria-label="Handoff relay activity">
+        <div class="handoff-task"><strong>1 min · Classify</strong><p>Choose an action for each instructor scenario. Explain why <em>handoff</em> fits only the travel cases.</p></div>
+        <div class="handoff-task"><strong>2 min · Create</strong><p>Run <code>/handoff</code> for your Week 8/9 app. Name the next harness, folder, partner, or side task.</p></div>
+        <div class="handoff-task"><strong>2 min · Audit</strong><p>Check goal, current state, next action, fact-vs-assumption labels, referenced paths, suggested skills, and privacy.</p></div>
+        <div class="handoff-task"><strong>3-5 min · Relay</strong><p>Your partner's fresh chat reads only the file, then gives the first two actions and one question. Revise one unclear line.</p></div>
+      </div>
+      <div class="handoff-safety">
+        <div class="codebox">No skill installed? Ask in plain chat:
+Create a portable handoff for [destination and purpose]. Include the goal, verified current state, unresolved decisions, next actions, and links or paths to durable artifacts. Separate facts from assumptions. Do not include secrets or private data.</div>
+        <div class="handoff-warning"><strong>Before transfer:</strong> inspect the file yourself. Temporary files can disappear, redaction is not guaranteed, and an unverified “done” claim can become the next agent's false premise. Give the next agent the file path; do not paste its contents into a shell command.</div>
+      </div>
+      <div class="resource-links">
+        <a class="link-btn" href="https://www.aihero.dev/skills-handoff" target="_blank" rel="noopener noreferrer">AIHero /handoff guide</a>
+        <a class="link-btn" href="https://github.com/mattpocock/skills/tree/main/skills/productivity/handoff" target="_blank" rel="noopener noreferrer">Skill source</a>
+      </div>
+      <p class="source-note">Source concept: AIHero / Matt Pocock, paraphrased for LearnAI. Command availability varies by agent environment; the decision rule matters more than the slash command.</p>
+      <div class="teacher-note">Replace the optional vague-prompt rescue—or 8-10 minutes of the existing 9-29 minute planning block—with this lab. Pair students and have destinations ready before starting the timer; one handoff per pair is enough. Suggested scenarios: stay in the live thread = continue; same harness but oversized context = compact; disposable context = clear; Claude-to-Codex or partner transfer = handoff; durable future-session record = checkpoint. If setup blocks the relay, demonstrate it rather than extending the class.</div>
     </div>
   </section>
 

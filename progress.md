@@ -7,6 +7,462 @@ entries; nobody edits prior entries. Managed by
 
 <!-- newest entry below -->
 
+## 2026-08-20 22:10:18 EDT — Codex
+
+- **Branch:** `main`
+- **HEAD:** `847912d` — Add responsible AI policy workshop and homework
+- **Upstream:** origin/main — ahead 0, behind 0
+
+### Summary
+
+## AIHero workflow integration completed (uncommitted)
+
+### Accomplished
+- Added a plain-language conversation-repair activity to Week 2, with `/wait-what` presented only as an optional command example and with verification kept separate from clarity.
+- Added an optional disposable design-probe activity to Week 8, and repaired the earlier questionnaire-routing slide so it is hidden correctly and treats `/to-questionnaire` as optional.
+- Reworked Week 9's testing slide into an evidence-first debugging workflow with privacy/redaction guidance and optional test-first-lite framing.
+- Added a concise agent-facing-instructions activity to Week 12, emphasizing load-bearing rules, pointers, completion criteria, scoped permissions, and human verification.
+- Created `session-materials/ai-workflow-skill-map.html`, a vendor-neutral route-by-situation guide with an audited appendix covering all 25 AIHero skill pages.
+- Generated `session-materials/ai-workflow-skill-map.pdf` as a four-page printable companion and linked both resources from `index.html`.
+- Preserved the previously approved, uncommitted Week 8 questionnaire and Week 10 handoff work.
+
+### Verification
+- `git diff --check` passes.
+- JavaScript syntax checks pass for `index.html` and Weeks 2, 8, 9, 10, and 12.
+- Changed lesson pages have exactly one active slide and no duplicate IDs; the map has no duplicate IDs.
+- Local HTTP checks returned 200 for all changed pages and both map formats; browser runtime checks found no JavaScript errors.
+- Desktop and mobile renders were visually inspected for all four changed lesson pages and the map.
+- The PDF was visually inspected on all four pages; all 25 audited skills appear in extracted PDF text and the appendix has no clipping or broken rows.
+- Publication review initially requested two Week 8 accessibility/wording corrections; both were applied and the focused re-review passed.
+
+### Current state / next step
+- HEAD remains `847912d` on `main`, matching `origin/main`.
+- No commit or push was made. No local dev server is running.
+- Q should inspect the course locally. Ask for Q's explicit approval before any commit, and ask again before any push.
+- Preserve unrelated untracked files: `CLAUDE.md`, `CONTEXT.md`, `docs/agents/`, `docs/superpowers/audit-2026-05-21-deck-review.md`, `image/`, `sos-talk-may12.html`, and `ui.txt`.
+
+### Working tree (`git status --short`)
+
+```text
+ M index.html
+ M progress.md
+ M week-02-agent-foundations.html
+ M week-08-web-basics-design.html
+ M week-09-interactivity-intelligence.html
+ M week-10-complete-static-deployment.html
+ M week-12-advanced-prompting.html
+?? CLAUDE.md
+?? CONTEXT.md
+?? docs/agents/
+?? docs/superpowers/audit-2026-05-21-deck-review.md
+?? image/
+?? session-materials/ai-workflow-skill-map.html
+?? session-materials/ai-workflow-skill-map.pdf
+?? sos-talk-may12.html
+?? ui.txt
+```
+
+### Unstaged diff (`git diff --stat`)
+
+```text
+ index.html                              |  14 +-
+ progress.md                             | 371 ++++++++++++++++++++++++++++++++
+ week-02-agent-foundations.html          |  39 +++-
+ week-08-web-basics-design.html          |  86 +++++++-
+ week-09-interactivity-intelligence.html |  30 +--
+ week-10-complete-static-deployment.html |  45 +++-
+ week-12-advanced-prompting.html         |  40 +++-
+ 7 files changed, 600 insertions(+), 25 deletions(-)
+```
+
+### Staged diff (`git diff --cached --stat`)
+
+_none_
+
+### Latest commit (`git show --stat --oneline HEAD`)
+
+```text
+847912d Add responsible AI policy workshop and homework
+ progress.md                                        | 1432 ++++++++++++++++++++
+ .../week-03-responsible-ai-policy-memo.html        |  250 ++++
+ .../week-03-responsible-ai-policy-memo.pdf         |  Bin 0 -> 389968 bytes
+ week-03-responsible-ai-decisions.html              |  174 ++-
+ 4 files changed, 1855 insertions(+), 1 deletion(-)
+```
+
+---
+
+## 2026-08-20 21:33:13 EDT — Codex
+
+- **Branch:** `main`
+- **HEAD:** `847912d` — Add responsible AI policy workshop and homework
+- **Upstream:** origin/main — ahead 0, behind 0
+
+### Summary
+
+## Correction to the 21:32 AIHero audit checkpoint
+
+- The working-tree diff/stat block in any checkpoint is a snapshot captured while that entry is being written; `progress.md` grows again when the entry is appended, so its own line count will immediately differ. Use a fresh `git status --short --branch` and `git diff --stat` on resume.
+- In this session, Codex opened all 25 linked AIHero skill pages from the skills hub and inspected their purposes, triggers, artifacts/state behavior, limitations, and course fit. The browser evidence remains in this conversation; no durable audit report has been created yet.
+- The independent curriculum review output was observed in this session and temporarily written to `/tmp/learnai-aihero-audit-review.md`; `/tmp` is not durable. Its substantive corrections are recorded in the preceding checkpoint.
+- Await Q's approval before changing course files. It is safe to draft and review a concrete implementation plan first; edits begin only after Q approves the proposed scope.
+
+### Working tree (`git status --short`)
+
+```text
+ M index.html
+ M progress.md
+ M week-08-web-basics-design.html
+ M week-10-complete-static-deployment.html
+?? CLAUDE.md
+?? CONTEXT.md
+?? docs/agents/
+?? docs/superpowers/audit-2026-05-21-deck-review.md
+?? image/
+?? sos-talk-may12.html
+?? ui.txt
+```
+
+### Unstaged diff (`git diff --stat`)
+
+```text
+ index.html                              |   4 +-
+ progress.md                             | 313 ++++++++++++++++++++++++++++++++
+ week-08-web-basics-design.html          |  48 ++++-
+ week-10-complete-static-deployment.html |  45 ++++-
+ 4 files changed, 405 insertions(+), 5 deletions(-)
+```
+
+### Staged diff (`git diff --cached --stat`)
+
+_none_
+
+### Latest commit (`git show --stat --oneline HEAD`)
+
+```text
+847912d Add responsible AI policy workshop and homework
+ progress.md                                        | 1432 ++++++++++++++++++++
+ .../week-03-responsible-ai-policy-memo.html        |  250 ++++
+ .../week-03-responsible-ai-policy-memo.pdf         |  Bin 0 -> 389968 bytes
+ week-03-responsible-ai-decisions.html              |  174 ++-
+ 4 files changed, 1855 insertions(+), 1 deletion(-)
+```
+
+---
+
+## 2026-08-20 21:32:30 EDT — Codex
+
+- **Branch:** `main`
+- **HEAD:** `847912d` — Add responsible AI policy workshop and homework
+- **Upstream:** origin/main — ahead 0, behind 0
+
+### Summary
+
+## AIHero 25-skill curriculum audit completed (analysis only)
+
+- Inspected every subpage under https://www.aihero.dev/skills (25/25) and mapped each skill to the current LearnAI sequence. No course files were edited for this audit.
+- Recommended teaching vendor-neutral workflow habits instead of requiring the entire skill collection. Proposed targeted additions: Week 2 conversation repair (`/wait-what` concept); Week 8 question-driven disposable design probes (`/prototype` concept); Week 9 evidence-first debugging plus optional test-first-lite (`/diagnosing-bugs` + `/tdd` concepts); Week 12 optional agent-facing instruction design (`/writing-for-agents` concept).
+- Existing coverage should be retained/strengthened rather than duplicated: `/grill-me`, `/to-questionnaire`, `/to-spec`, `/to-tickets`, `/handoff`, source verification, triage, and the two-axis code-review concept. AIHero commands should remain optional examples, not learning objectives.
+- Independent bounded Codex review returned REVISE with light corrections now incorporated: call prototypes design probes/learning artifacts rather than evidence; make test-first-lite optional within debugging; warn that agent-facing instructions do not guarantee control; retain a lightweight manual merge-conflict safety concept; keep any 25-skill table as an appendix behind a vendor-neutral workflow map.
+
+### Next
+
+Await Q's approval before editing. If approved, first produce/review a concrete edit plan, then make four surgical deck additions and a concise vendor-neutral AI Workflow Skill Map. Because it is reader-facing, create HTML plus PDF; list all 25 AIHero items only in the appendix/reference table.
+
+### Current git and safety state
+
+- HEAD: `847912d` on `main`; `origin/main` matches.
+- Existing approved but uncommitted work from earlier turns remains in `index.html`, `progress.md`, `week-08-web-basics-design.html`, and `week-10-complete-static-deployment.html`. Preserve it.
+- Treat untracked `CLAUDE.md`, `CONTEXT.md`, `docs/agents/`, `docs/superpowers/audit-2026-05-21-deck-review.md`, `image/`, `sos-talk-may12.html`, and `ui.txt` as unrelated/off-limits unless Q explicitly expands scope.
+- No dev server is running. Nothing from this audit is committed or pushed. Never push without Q's fresh explicit approval after local testing.
+- Open decision: approve the proposed integration scope, reduce it, or request the audit table only with no course edits.
+
+### Working tree (`git status --short`)
+
+```text
+ M index.html
+ M progress.md
+ M week-08-web-basics-design.html
+ M week-10-complete-static-deployment.html
+?? CLAUDE.md
+?? CONTEXT.md
+?? docs/agents/
+?? docs/superpowers/audit-2026-05-21-deck-review.md
+?? image/
+?? sos-talk-may12.html
+?? ui.txt
+```
+
+### Unstaged diff (`git diff --stat`)
+
+```text
+ index.html                              |   4 +-
+ progress.md                             | 243 ++++++++++++++++++++++++++++++++
+ week-08-web-basics-design.html          |  48 ++++++-
+ week-10-complete-static-deployment.html |  45 +++++-
+ 4 files changed, 335 insertions(+), 5 deletions(-)
+```
+
+### Staged diff (`git diff --cached --stat`)
+
+_none_
+
+### Latest commit (`git show --stat --oneline HEAD`)
+
+```text
+847912d Add responsible AI policy workshop and homework
+ progress.md                                        | 1432 ++++++++++++++++++++
+ .../week-03-responsible-ai-policy-memo.html        |  250 ++++
+ .../week-03-responsible-ai-policy-memo.pdf         |  Bin 0 -> 389968 bytes
+ week-03-responsible-ai-decisions.html              |  174 ++-
+ 4 files changed, 1855 insertions(+), 1 deletion(-)
+```
+
+---
+
+## 2026-08-20 21:23:09 EDT — Codex
+
+- **Branch:** `main`
+- **HEAD:** `847912d` — Add responsible AI policy workshop and homework
+- **Upstream:** origin/main — ahead 0, behind 0
+
+### Summary
+
+Correction and consolidated current-state checkpoint; this entry supersedes the 2026-08-20 21:22:30 EDT entry where wording differs.
+
+- Week 8 milestone: added the optional 5–7 minute “Who has the answer?” activity at `week-08-web-basics-design.html#questionnaire-routing`, plus the `/to-questionnaire` Week 8 resource in `index.html`. It teaches four-way uncertainty routing, a one-recipient paired questionnaire exercise, plain-chat fallback, local-file/no-send behavior, and privacy/safety boundaries. Verification and bounded publication review: PASS.
+- Earlier Week 10 milestone remains uncommitted: added the optional 8–10 minute context-portability lab at `week-10-complete-static-deployment.html#handoff-lab`, plus the `/handoff` Week 10 resource in `index.html`. Verification and bounded publication review: PASS.
+
+Working tree is dirty on `main`; HEAD remains `847912d` (`Add responsible AI policy workshop and homework`) and matches `origin/main`. Intended uncommitted course files are exactly `index.html`, `week-08-web-basics-design.html`, and `week-10-complete-static-deployment.html`; `progress.md` contains append-only checkpoints. No local server is running. Nothing from the Week 8 or Week 10 milestones has been committed or pushed, and there is no push authorization for this turn.
+
+Next: Q should inspect both new slides locally. If Q approves a commit, stage only `index.html`, `week-08-web-basics-design.html`, `week-10-complete-static-deployment.html`, and `progress.md`. Request fresh explicit approval before any push.
+
+Off limits: do not modify consent/assent text. Preserve unrelated untracked/user files (`CLAUDE.md`, `CONTEXT.md`, `docs/agents/`, `docs/superpowers/audit-2026-05-21-deck-review.md`, `image/`, `sos-talk-may12.html`, `ui.txt`) and all older `progress.md` entries. No known blocker.
+
+### Working tree (`git status --short`)
+
+```text
+ M index.html
+ M progress.md
+ M week-08-web-basics-design.html
+ M week-10-complete-static-deployment.html
+?? CLAUDE.md
+?? CONTEXT.md
+?? docs/agents/
+?? docs/superpowers/audit-2026-05-21-deck-review.md
+?? image/
+?? sos-talk-may12.html
+?? ui.txt
+```
+
+### Unstaged diff (`git diff --stat`)
+
+```text
+ index.html                              |   4 +-
+ progress.md                             | 181 ++++++++++++++++++++++++++++++++
+ week-08-web-basics-design.html          |  48 ++++++++-
+ week-10-complete-static-deployment.html |  45 +++++++-
+ 4 files changed, 273 insertions(+), 5 deletions(-)
+```
+
+### Staged diff (`git diff --cached --stat`)
+
+_none_
+
+### Latest commit (`git show --stat --oneline HEAD`)
+
+```text
+847912d Add responsible AI policy workshop and homework
+ progress.md                                        | 1432 ++++++++++++++++++++
+ .../week-03-responsible-ai-policy-memo.html        |  250 ++++
+ .../week-03-responsible-ai-policy-memo.pdf         |  Bin 0 -> 389968 bytes
+ week-03-responsible-ai-decisions.html              |  174 ++-
+ 4 files changed, 1855 insertions(+), 1 deletion(-)
+```
+
+---
+
+## 2026-08-20 21:22:30 EDT — Codex
+
+- **Branch:** `main`
+- **HEAD:** `847912d` — Add responsible AI policy workshop and homework
+- **Upstream:** origin/main — ahead 0, behind 0
+
+### Summary
+
+- Added an optional 5–7 minute Week 8 “Who has the answer?” activity at `week-08-web-basics-design.html#questionnaire-routing`, immediately after the mini-grill protocol. It routes unknowns among `/grill-me`, instructor-guided `/grill-with-docs`, `/to-questionnaire`, and disposable prototyping; then has pairs define one classroom-safe recipient, draft a discovery questionnaire, and audit it.
+- Added a skill-free plain-chat fallback, explicit local-file/no-send and privacy boundaries, one-recipient/no-branching constraints, source attribution, and replace-not-add pacing. Updated the mini-grill teacher note to route unresolved questions rather than always prototype.
+- Added `Optional: /to-questionnaire stakeholder discovery` to the Week 8 resources in `index.html`.
+- Verification completed: `git diff --check`; inline scripts parse; IDs are unique; the Week 8 deck now has 14 slides; required route/fallback/boundary/link text is present; desktop 1366x768 and mobile 600x900 renders were inspected. Final bounded Codex publication review: PASS with no revision required.
+
+Current state: pre-commit snapshot on `main` at HEAD `847912d` (`Add responsible AI policy workshop and homework`). Intended uncommitted course edits now include `week-08-web-basics-design.html`, `week-10-complete-static-deployment.html`, and the Week 8/10 resource additions in `index.html`; `progress.md` contains append-only checkpoints. No local server was started. None of these changes has been committed or pushed, and there is no push authorization for this turn.
+
+Next: Q should inspect the Week 8 questionnaire slide and the previously completed Week 10 handoff slide locally. If approved, commit only the three intended HTML files plus append-only `progress.md`; request fresh explicit approval before any push.
+
+Off limits: do not modify consent/assent text. Preserve unrelated untracked/user files (`CLAUDE.md`, `CONTEXT.md`, `docs/agents/`, `docs/superpowers/audit-2026-05-21-deck-review.md`, `image/`, `sos-talk-may12.html`, `ui.txt`) and all older `progress.md` entries. No known blocker.
+
+### Working tree (`git status --short`)
+
+```text
+ M index.html
+ M progress.md
+ M week-08-web-basics-design.html
+ M week-10-complete-static-deployment.html
+?? CLAUDE.md
+?? CONTEXT.md
+?? docs/agents/
+?? docs/superpowers/audit-2026-05-21-deck-review.md
+?? image/
+?? sos-talk-may12.html
+?? ui.txt
+```
+
+### Unstaged diff (`git diff --stat`)
+
+```text
+ index.html                              |   4 +-
+ progress.md                             | 119 ++++++++++++++++++++++++++++++++
+ week-08-web-basics-design.html          |  48 ++++++++++++-
+ week-10-complete-static-deployment.html |  45 +++++++++++-
+ 4 files changed, 211 insertions(+), 5 deletions(-)
+```
+
+### Staged diff (`git diff --cached --stat`)
+
+_none_
+
+### Latest commit (`git show --stat --oneline HEAD`)
+
+```text
+847912d Add responsible AI policy workshop and homework
+ progress.md                                        | 1432 ++++++++++++++++++++
+ .../week-03-responsible-ai-policy-memo.html        |  250 ++++
+ .../week-03-responsible-ai-policy-memo.pdf         |  Bin 0 -> 389968 bytes
+ week-03-responsible-ai-decisions.html              |  174 ++-
+ 4 files changed, 1855 insertions(+), 1 deletion(-)
+```
+
+---
+
+## 2026-08-20 20:07:09 EDT — Codex
+
+- **Branch:** `main`
+- **HEAD:** `847912d` — Add responsible AI policy workshop and homework
+- **Upstream:** origin/main — ahead 0, behind 0
+
+### Summary
+
+- Added an optional 8–10 minute Week 10 context-portability lab at `week-10-complete-static-deployment.html#handoff-lab`. It distinguishes continue, compact, clear/reset, handoff, and durable checkpoint; includes a timed paired relay, a skill-free prompt fallback, privacy/safety checks, and source links. The lab explicitly replaces time inside the existing 9–29 minute optional planning block.
+- Added `Optional: /handoff context portability` to the Week 10 resources in `index.html`.
+- Verification completed: `git diff --check`; both inline scripts parse; HTML IDs are unique; the 18-slide deck contains the new hash target and links; desktop 1440x900 and 1366x768 plus mobile 600x900 screenshots were inspected. Final bounded Codex publication review: PASS after tightening the 8–10 minute relay and changing “Official skill source” to “Skill source.”
+
+Current state: pre-commit snapshot on `main` at HEAD `847912d` (`Add responsible AI policy workshop and homework`). Intended uncommitted edits are `index.html` and `week-10-complete-static-deployment.html`; `progress.md` was already modified by the prior checkpoint and receives this new append-only entry. No local server was started. Nothing from this change has been committed or pushed, and there is no push authorization for this turn.
+
+Next: Q should inspect the Week 10 lab locally. If Q approves the implementation, commit only the two intended HTML files plus the append-only `progress.md` checkpoint; request fresh explicit approval before any push.
+
+Off limits: do not modify consent/assent text. Preserve unrelated untracked/user files (`CLAUDE.md`, `CONTEXT.md`, `docs/agents/`, `docs/superpowers/audit-2026-05-21-deck-review.md`, `image/`, `sos-talk-may12.html`, `ui.txt`) and all older `progress.md` entries. No known blocker.
+
+### Working tree (`git status --short`)
+
+```text
+ M index.html
+ M progress.md
+ M week-10-complete-static-deployment.html
+?? CLAUDE.md
+?? CONTEXT.md
+?? docs/agents/
+?? docs/superpowers/audit-2026-05-21-deck-review.md
+?? image/
+?? sos-talk-may12.html
+?? ui.txt
+```
+
+### Unstaged diff (`git diff --stat`)
+
+```text
+ index.html                              |  2 +-
+ progress.md                             | 60 +++++++++++++++++++++++++++++++++
+ week-10-complete-static-deployment.html | 45 ++++++++++++++++++++++++-
+ 3 files changed, 105 insertions(+), 2 deletions(-)
+```
+
+### Staged diff (`git diff --cached --stat`)
+
+_none_
+
+### Latest commit (`git show --stat --oneline HEAD`)
+
+```text
+847912d Add responsible AI policy workshop and homework
+ progress.md                                        | 1432 ++++++++++++++++++++
+ .../week-03-responsible-ai-policy-memo.html        |  250 ++++
+ .../week-03-responsible-ai-policy-memo.pdf         |  Bin 0 -> 389968 bytes
+ week-03-responsible-ai-decisions.html              |  174 ++-
+ 4 files changed, 1855 insertions(+), 1 deletion(-)
+```
+
+---
+
+## 2026-08-20 19:30:03 EDT — Codex
+
+- **Branch:** `main`
+- **HEAD:** `847912d` — Add responsible AI policy workshop and homework
+- **Upstream:** origin/main — ahead 0, behind 0
+
+### Summary
+
+## What changed
+- Committed the completed Week 3 responsible-AI ethics milestone as `847912d` (`Add responsible AI policy workshop and homework`). The commit includes the revised 26-slide deck, the written policy-memo HTML/PDF, and the canonical handoff history.
+- The deck folds the former Question 8 prompt into Question 6 as the 12-minute “From principle to policy” scaffold and preserves Question 7 as the subsequent fairness discussion. The homework remains an 800–1,000-word memo using the four assigned ethics reviews.
+- The exact staged learner-facing payload passed bounded Codex review after confirming the canonical `progress.md` scope, the relative homework link, and the independent/equivalent Question 7 route.
+
+## Verification / push status
+- Commit: `847912d`; branch: `main`; remote: `origin/main`.
+- Fetched before pushing and confirmed no remote divergence. Push succeeded: `c291459..847912d main -> main`; local `main` and `origin/main` now match.
+- Deck checks passed: `git diff --check`, valid inline JavaScript, 26 slides, unique IDs, and visual inspection at classroom and responsive sizes. The four-page homework PDF was previously inspected and is text-searchable with working publisher links.
+- No local development server is running. Deployment/GitHub Pages status was not separately checked because Q requested commit and push only.
+
+## Current state / next
+- The requested course-material changes are committed and pushed. This post-push checkpoint itself is the only new tracked modification and is intentionally not part of `847912d`.
+- No open blocker. A future session may verify the public GitHub Pages URL if Q requests deployment verification.
+
+## Protect / off limits
+- Preserve unrelated untracked files: `CLAUDE.md`, `CONTEXT.md`, `docs/agents/`, `docs/superpowers/audit-2026-05-21-deck-review.md`, `image/`, `sos-talk-may12.html`, and `ui.txt`.
+- Do not modify consent/assent text without Q's explicit approval.
+
+### Working tree (`git status --short`)
+
+```text
+?? CLAUDE.md
+?? CONTEXT.md
+?? docs/agents/
+?? docs/superpowers/audit-2026-05-21-deck-review.md
+?? image/
+?? sos-talk-may12.html
+?? ui.txt
+```
+
+### Unstaged diff (`git diff --stat`)
+
+_none_
+
+### Staged diff (`git diff --cached --stat`)
+
+_none_
+
+### Latest commit (`git show --stat --oneline HEAD`)
+
+```text
+847912d Add responsible AI policy workshop and homework
+ progress.md                                        | 1432 ++++++++++++++++++++
+ .../week-03-responsible-ai-policy-memo.html        |  250 ++++
+ .../week-03-responsible-ai-policy-memo.pdf         |  Bin 0 -> 389968 bytes
+ week-03-responsible-ai-decisions.html              |  174 ++-
+ 4 files changed, 1855 insertions(+), 1 deletion(-)
+```
+
+---
+
 ## 2026-08-20 17:45:05 EDT — Codex
 
 - **Branch:** `main`
