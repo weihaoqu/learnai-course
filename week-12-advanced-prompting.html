@@ -397,6 +397,23 @@ body.notes-on .teacher-note{display:block}
     </div>
   </section>
 
+  <section class="slide optional" id="mini-eval" data-part="Part 1" data-title="Mini-eval">
+    <div class="inner">
+      <div class="kicker">Optional practice</div>
+      <h2>Score the task before changing the prompt.</h2>
+      <p class="lede">A polished example can hide a weak system. Define success, test representative cases, and compare evidence before deciding that a prompt or model improved.</p>
+      <div class="grid four">
+        <div class="card"><span class="tag">1. Target</span><h3>Name success</h3><p>Choose one task and one observable criterion connected to the user need.</p></div>
+        <div class="card"><span class="tag">2. Cases</span><h3>Build a small set</h3><p>Use five synthetic or class-approved cases: three typical examples and two edge cases.</p></div>
+        <div class="card"><span class="tag">3. Checks</span><h3>Use two lenses</h3><p>Add one deterministic check for a fixed requirement and one human rubric for quality, evidence, or safety.</p></div>
+        <div class="card"><span class="tag">4. Compare</span><h3>Record the result</h3><p>Run the old and revised prompt on the same cases. Note gains, regressions, and remaining uncertainty.</p></div>
+      </div>
+      <div class="formula">task + criterion + five approved cases + fixed check + human rubric -> reviewable comparison</div>
+      <p class="source-note">Source concepts: <a href="https://developers.openai.com/api/docs/guides/evals" target="_blank" rel="noopener noreferrer">OpenAI, Working with evals</a>; <a href="https://platform.claude.com/docs/en/test-and-evaluate/develop-tests" target="_blank" rel="noopener noreferrer">Anthropic, Define success criteria and build evaluations</a>. Adapted into a small classroom exercise.</p>
+      <div class="teacher-note">Keep this optional and lightweight so it does not duplicate Week 9 testing. Use fictional, synthetic, public, openly licensed, or instructor-approved material only. Do not collect private student interactions, treat user feedback as ground truth, or use an LLM judge as the sole test of factuality, fairness, or safety.</div>
+    </div>
+  </section>
+
   <section class="slide optional rag-loop-compact scope-bridge-compact" id="cs336-scope-bridge" data-part="Part 1" data-title="Advanced scope bridge">
     <div class="inner">
       <div class="kicker">Advanced instructor bridge</div>
@@ -1018,6 +1035,7 @@ body.notes-on .teacher-note{display:block}
         <li>The strategy: zero-shot, few-shot, structured plan, critique loop, source-bound, or build prompt.</li>
         <li>The context and output format you supplied.</li>
         <li>One failure mode and one verification step.</li>
+        <li><strong>Optional mini-eval:</strong> one success criterion, five synthetic or approved cases, and one before-and-after result.</li>
       </ul>
       <p class="muted">This card becomes a tool for the final web app project and presentation.</p>
     </div>

@@ -434,33 +434,37 @@ Did the workflow fix evidence gaps, not just wording?</div>
   <section class="slide lab agentic-compact" id="task-fit" data-part="Part 2" data-title="Task fit">
     <div class="inner">
       <div class="kicker">Task fit</div>
-      <h2>Which agent tasks are easier?</h2>
-      <p class="lede">Before building a workflow, judge the task. Clear steps, text inputs, limited tools, and reviewable outputs usually make the work easier to control.</p>
-      <div class="terminal">Task-fit signals
+      <h2>Pick the simplest suitable owner.</h2>
+      <p class="lede">Match the task to a rule, an LLM, an agent, or a person. Consider uncertainty, steps, evidence, and the cost of error.</p>
+      <div class="terminal">Four-way task-fit check
 
-More controlled | clear steps, known text source, limited tools, visible evidence
-Middle ground | AI chooses among approved steps; human checks plan and evidence
-Harder to trust | open path, unknown sources, rich media, or real-world records</div>
-      <div class="teacher-note">Keep this grounded in school-safe examples. The main skill is task decomposition: break work into smaller steps and decide which building block can handle each step.</div>
+Rule | fixed and testable | require a form field
+LLM | language task | summarize approved notes
+Agent | tool-backed steps | compare approved sources
+Human | high-stakes decision | final grade
+
+Heuristic: use the least complex option that meets the goal.</div>
+      <div class="teacher-note">Treat deterministic-first as a heuristic, not a law. A hybrid can be appropriate: code checks fixed rules, an LLM helps with language, and a person retains consequential judgment. Keep every example school-safe and reviewable.</div>
     </div>
   </section>
 
   <section class="slide lab agentic-compact" id="task-fit-sort" data-part="Part 2" data-title="Task-fit sort">
     <div class="inner">
       <div class="kicker">Pair activity</div>
-      <h2>Task-fit sort</h2>
-      <p class="lede">Rank these from easier to harder, then mark the checkpoint that would make each safe enough for class use.</p>
-      <div class="terminal">Easier -> harder
+      <h2>Rule, LLM, agent, or human?</h2>
+      <p class="lede">Assign each task to its simplest suitable owner. Then name the evidence and checkpoint that would make the result reviewable.</p>
+      <div class="terminal">Sort each task
 
-[ ] Club signup form - clear fields
-[ ] Class-notes response - known source
-[ ] Open web question - unknown sources
+[ ] Reject a blank required form field
+[ ] Summarize instructor-provided class notes
+[ ] Compare two approved sources and draft an evidence table
+[ ] Decide a final grade or academic-misconduct finding
 
-For each step ask:
-Who handles it: LLM, tool, or human?
-What evidence proves it worked?
-Where should review happen?</div>
-      <div class="teacher-note">Prompt students to add one more school-safe task from their own workflow, then explain why it belongs at that control level.</div>
+For each task ask:
+Why is this owner a good fit?
+What evidence would show it worked?
+What must remain under human review?</div>
+      <div class="teacher-note">Expected first-pass sort: rule, LLM assistance, agent workflow, human judgment. Accept a different answer when students justify a safer or simpler design. Ask pairs to add one school-safe task of their own.</div>
     </div>
   </section>
 

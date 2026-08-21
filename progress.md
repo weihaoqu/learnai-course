@@ -7,6 +7,415 @@ entries; nobody edits prior entries. Managed by
 
 <!-- newest entry below -->
 
+## 2026-08-21 10:34:59 EDT — Codex
+
+- **Branch:** `main`
+- **HEAD:** `07f4753` — Integrate AI workflow skills across course
+- **Upstream:** origin/main — ahead 0, behind 0
+
+### Summary
+
+Checkpoint correction: the browser verification screenshot week12-mini-eval-mobile.png was a disposable artifact created by this session. It has been moved out of the repository to /tmp/week12-mini-eval-mobile.png and is no longer present in the working tree. Course-content status, verification results, and the no-commit/no-push state from the preceding checkpoint are unchanged.
+
+### Working tree (`git status --short`)
+
+```text
+ M progress.md
+ M week-02-agent-foundations.html
+ M week-12-advanced-prompting.html
+?? CLAUDE.md
+?? CONTEXT.md
+?? docs/agents/
+?? docs/superpowers/audit-2026-05-21-deck-review.md
+?? image/
+?? sos-talk-may12.html
+?? ui.txt
+```
+
+### Unstaged diff (`git diff --stat`)
+
+```text
+ progress.md                     | 353 ++++++++++++++++++++++++++++++++++++++++
+ week-02-agent-foundations.html  |  46 +++---
+ week-12-advanced-prompting.html |  18 ++
+ 3 files changed, 396 insertions(+), 21 deletions(-)
+```
+
+### Staged diff (`git diff --cached --stat`)
+
+_none_
+
+### Latest commit (`git show --stat --oneline HEAD`)
+
+```text
+07f4753 Integrate AI workflow skills across course
+ index.html                                   |  14 +-
+ progress.md                                  | 456 +++++++++++++++++++++++++++
+ session-materials/ai-workflow-skill-map.html | 251 +++++++++++++++
+ session-materials/ai-workflow-skill-map.pdf  | Bin 0 -> 47755 bytes
+ week-02-agent-foundations.html               |  39 ++-
+ week-08-web-basics-design.html               |  86 ++++-
+ week-09-interactivity-intelligence.html      |  30 +-
+ week-10-complete-static-deployment.html      |  45 ++-
+ week-12-advanced-prompting.html              |  40 ++-
+ 9 files changed, 936 insertions(+), 25 deletions(-)
+```
+
+---
+
+## 2026-08-21 10:34:44 EDT — Codex
+
+- **Branch:** `main`
+- **HEAD:** `07f4753` — Integrate AI workflow skills across course
+- **Upstream:** origin/main — ahead 0, behind 0
+
+### Summary
+
+Implemented Q-approved AIHero roadmap adaptations without copying the roadmap as a unit. In week-02-agent-foundations.html, revised #task-fit and #task-fit-sort into an explicit four-way decision among deterministic rules, LLM assistance, agent workflows, and human judgment, with deterministic-first framed as a heuristic and high-stakes decisions retained by people. In week-12-advanced-prompting.html, added optional #mini-eval after the improvement ladder and an explicitly optional artifact bullet: one success criterion, five synthetic/approved cases, a fixed check, a human rubric, and before/after evidence; teacher notes prohibit private interaction collection, user-feedback-as-ground-truth framing, and sole reliance on LLM judges. Confirmed Q's requested “What is an LLM?” content already remains required and visible through module-00-llm-basics.html and module-00b-transformer-deep-dive.html, with multiple links from index.html; no duplicate or weaker AIHero basics were added. Verification: git diff --check passed; section open/close counts match; no duplicate IDs; browser checks at 390x844 and 1440x900 confirmed slide fit/scroll behavior, active hashes, four mini-eval cards, source links, optional artifact text, and course-hub LLM links; no page console errors on edited pages. A temporary WEBrick server was stopped. The only observed 404 was the pre-existing /favicon.ico request on index.html. Final bounded Codex diff review passed. No commit or push performed. Existing unrelated untracked files and prior progress.md entries remain untouched. Next step: Q can inspect locally, then explicitly approve any commit; pushing still requires separate explicit approval.
+
+### Working tree (`git status --short`)
+
+```text
+ M progress.md
+ M week-02-agent-foundations.html
+ M week-12-advanced-prompting.html
+?? CLAUDE.md
+?? CONTEXT.md
+?? docs/agents/
+?? docs/superpowers/audit-2026-05-21-deck-review.md
+?? image/
+?? sos-talk-may12.html
+?? ui.txt
+?? week12-mini-eval-mobile.png
+```
+
+### Unstaged diff (`git diff --stat`)
+
+```text
+ progress.md                     | 296 ++++++++++++++++++++++++++++++++++++++++
+ week-02-agent-foundations.html  |  46 ++++---
+ week-12-advanced-prompting.html |  18 +++
+ 3 files changed, 339 insertions(+), 21 deletions(-)
+```
+
+### Staged diff (`git diff --cached --stat`)
+
+_none_
+
+### Latest commit (`git show --stat --oneline HEAD`)
+
+```text
+07f4753 Integrate AI workflow skills across course
+ index.html                                   |  14 +-
+ progress.md                                  | 456 +++++++++++++++++++++++++++
+ session-materials/ai-workflow-skill-map.html | 251 +++++++++++++++
+ session-materials/ai-workflow-skill-map.pdf  | Bin 0 -> 47755 bytes
+ week-02-agent-foundations.html               |  39 ++-
+ week-08-web-basics-design.html               |  86 ++++-
+ week-09-interactivity-intelligence.html      |  30 +-
+ week-10-complete-static-deployment.html      |  45 ++-
+ week-12-advanced-prompting.html              |  40 ++-
+ 9 files changed, 936 insertions(+), 25 deletions(-)
+```
+
+---
+
+## 2026-08-21 10:23:27 EDT — Codex
+
+- **Branch:** `main`
+- **HEAD:** `07f4753` — Integrate AI workflow skills across course
+- **Upstream:** origin/main — ahead 0, behind 0
+
+### Summary
+
+Checkpoint clarification: scripts/agent-handoff.sh captures the working-tree status and diff immediately before it writes the new entry to progress.md. Therefore, an entry's embedded status/diff can omit that entry's own progress.md modification or show an insertion count that is lower than the post-write diff. This explains the apparent mismatch flagged during review in the 2026-08-20 22:15:35 EDT and 2026-08-21 10:22:44 EDT snapshots; prior entries were not edited. Current task status remains unchanged: the AIHero AI Engineer Roadmap audit is complete and independently reviewed, no course files were edited, and Q's approval is required before the proposed Week 2 and optional Week 12 changes.
+
+### Working tree (`git status --short`)
+
+```text
+ M progress.md
+?? CLAUDE.md
+?? CONTEXT.md
+?? docs/agents/
+?? docs/superpowers/audit-2026-05-21-deck-review.md
+?? image/
+?? sos-talk-may12.html
+?? ui.txt
+```
+
+### Unstaged diff (`git diff --stat`)
+
+```text
+ progress.md | 244 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 244 insertions(+)
+```
+
+### Staged diff (`git diff --cached --stat`)
+
+_none_
+
+### Latest commit (`git show --stat --oneline HEAD`)
+
+```text
+07f4753 Integrate AI workflow skills across course
+ index.html                                   |  14 +-
+ progress.md                                  | 456 +++++++++++++++++++++++++++
+ session-materials/ai-workflow-skill-map.html | 251 +++++++++++++++
+ session-materials/ai-workflow-skill-map.pdf  | Bin 0 -> 47755 bytes
+ week-02-agent-foundations.html               |  39 ++-
+ week-08-web-basics-design.html               |  86 ++++-
+ week-09-interactivity-intelligence.html      |  30 +-
+ week-10-complete-static-deployment.html      |  45 ++-
+ week-12-advanced-prompting.html              |  40 ++-
+ 9 files changed, 936 insertions(+), 25 deletions(-)
+```
+
+---
+
+## 2026-08-21 10:22:44 EDT — Codex
+
+- **Branch:** `main`
+- **HEAD:** `07f4753` — Integrate AI workflow skills across course
+- **Upstream:** origin/main — ahead 0, behind 0
+
+### Summary
+
+Completed a read-only audit of the full AIHero AI Engineer Roadmap snapshot at https://www.aihero.dev/ai-engineer-roadmap: overview plus all seven lessons, including both embedded video caption tracks. Compared content with LearnAI coverage in module-00-llm-basics.html, module-00b-transformer-deep-dive.html, week-02-agent-foundations.html (task fit/control), week-09-interactivity-intelligence.html (evidence-first tests), week-12-advanced-prompting.html (improvement ladder/model choice/RAG/reasoning/rubrics), week-13-security-review-lab.html (agent-path review), and week-14-final-showcase.html (human judgment). Primary-source checks used current OpenAI reasoning/eval/model-selection docs and Anthropic agent/eval guidance. Independent Codex review passed after calibration changes. Recommendation: do not import the roadmap as required course content; if Q approves, make two targeted adaptations only: (1) refine Week 2 task-fit into deterministic rule vs LLM assistance vs agent workflow vs human judgment; (2) add one optional Week 12 mini-eval activity plus one artifact bullet, using synthetic/approved examples and privacy/consent limits. Do not add the AIHero role table, LLM-basics page, full technique directory, suicide-risk example, raw chain-of-thought prompts, fixed provider/model claims, or user-data flywheel framing. No course files were edited, no server is running, and nothing was committed or pushed. Preserve unrelated untracked files and the existing progress.md history. Next step: wait for Q's explicit approval before editing the two course files.
+
+### Working tree (`git status --short`)
+
+```text
+ M progress.md
+?? CLAUDE.md
+?? CONTEXT.md
+?? docs/agents/
+?? docs/superpowers/audit-2026-05-21-deck-review.md
+?? image/
+?? sos-talk-may12.html
+?? ui.txt
+```
+
+### Unstaged diff (`git diff --stat`)
+
+```text
+ progress.md | 192 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 192 insertions(+)
+```
+
+### Staged diff (`git diff --cached --stat`)
+
+_none_
+
+### Latest commit (`git show --stat --oneline HEAD`)
+
+```text
+07f4753 Integrate AI workflow skills across course
+ index.html                                   |  14 +-
+ progress.md                                  | 456 +++++++++++++++++++++++++++
+ session-materials/ai-workflow-skill-map.html | 251 +++++++++++++++
+ session-materials/ai-workflow-skill-map.pdf  | Bin 0 -> 47755 bytes
+ week-02-agent-foundations.html               |  39 ++-
+ week-08-web-basics-design.html               |  86 ++++-
+ week-09-interactivity-intelligence.html      |  30 +-
+ week-10-complete-static-deployment.html      |  45 ++-
+ week-12-advanced-prompting.html              |  40 ++-
+ 9 files changed, 936 insertions(+), 25 deletions(-)
+```
+
+---
+
+## 2026-08-20 22:36:27 EDT — Codex
+
+- **Branch:** `main`
+- **HEAD:** `07f4753` — Integrate AI workflow skills across course
+- **Upstream:** origin/main — ahead 0, behind 0
+
+### Summary
+
+## Correction: browser-tool side effect removed
+
+- During the AIHero LLM Fundamentals audit, the browsing tool temporarily added `.gstack/` to the project `.gitignore`.
+- That line was not authorized course work and was removed with a targeted patch; `.gitignore` now has no diff.
+- `git diff --check` passes. No course content files were edited for the audit.
+- The audit recommendation in the immediately preceding checkpoint remains current: add only a small optional Week 2 context-triage activity plus message/tool wording refinements if Q approves.
+- `progress.md` remains intentionally modified by the required checkpoints. Preserve all unrelated untracked files.
+
+### Working tree (`git status --short`)
+
+```text
+ M progress.md
+?? CLAUDE.md
+?? CONTEXT.md
+?? docs/agents/
+?? docs/superpowers/audit-2026-05-21-deck-review.md
+?? image/
+?? sos-talk-may12.html
+?? ui.txt
+```
+
+### Unstaged diff (`git diff --stat`)
+
+```text
+ progress.md | 134 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 134 insertions(+)
+```
+
+### Staged diff (`git diff --cached --stat`)
+
+_none_
+
+### Latest commit (`git show --stat --oneline HEAD`)
+
+```text
+07f4753 Integrate AI workflow skills across course
+ index.html                                   |  14 +-
+ progress.md                                  | 456 +++++++++++++++++++++++++++
+ session-materials/ai-workflow-skill-map.html | 251 +++++++++++++++
+ session-materials/ai-workflow-skill-map.pdf  | Bin 0 -> 47755 bytes
+ week-02-agent-foundations.html               |  39 ++-
+ week-08-web-basics-design.html               |  86 ++++-
+ week-09-interactivity-intelligence.html      |  30 +-
+ week-10-complete-static-deployment.html      |  45 ++-
+ week-12-advanced-prompting.html              |  40 ++-
+ 9 files changed, 936 insertions(+), 25 deletions(-)
+```
+
+---
+
+## 2026-08-20 22:35:51 EDT — Codex
+
+- **Branch:** `main`
+- **HEAD:** `07f4753` — Integrate AI workflow skills across course
+- **Upstream:** origin/main — ahead 0, behind 0
+
+### Summary
+
+## AIHero LLM Fundamentals audit completed (analysis only)
+
+### Reviewed
+- Reviewed all five AIHero LLM Fundamentals lesson pages and their available English caption tracks: messages/system prompts/reasoning, tokens, context windows, tools, and agents vs workflows.
+- Observed caption durations total about 20:36 (237.3s, 355.8s, 186.9s, 243.6s, 212.3s).
+- Compared the material with `week-02-agent-foundations.html`, `module-00b-transformer-deep-dive.html`, and `week-12-advanced-prompting.html`.
+- Cross-checked important caveats with current OpenAI reasoning documentation, current Anthropic tool documentation, Anthropic's agent/workflow framing, and the TACL Lost in the Middle paper.
+
+### Recommendation
+- Do not import or require the full five-lesson series; most token, tool, and agent/workflow content is already covered.
+- Best gap: one original optional five-minute Week 2 context-triage activity using KEEP / SUMMARIZE / DROP / VERIFY.
+- Also refine existing Week 2 message-role/visibility wording and minimally tighten the tool-request loop with name + purpose + inputs and success/error results.
+- Treat AIHero as optional source material. Avoid provider-specific or unstable claims: current-model prices, universal reasoning visibility, universal thread-reset advice, claims that smarter models have smaller windows, and fixed tool-count thresholds.
+- No changes are recommended to the core token material in Module 0B or Week 12.
+- Independent report review initially requested stronger evidence anchors and provider calibration; the revised recommendation passed re-review.
+
+### Current state / next step
+- No course files were edited for this audit. The research browser is stopped.
+- HEAD remains pushed at `07f4753` on `main`; the earlier required post-push checkpoint already left `progress.md` intentionally modified.
+- If Q approves implementation, explain the exact Week 2/index edits, review the edit plan, and wait for explicit approval before modifying course files.
+- Preserve unrelated untracked files: `CLAUDE.md`, `CONTEXT.md`, `docs/agents/`, `docs/superpowers/audit-2026-05-21-deck-review.md`, `image/`, `sos-talk-may12.html`, and `ui.txt`.
+
+### Working tree (`git status --short`)
+
+```text
+ M .gitignore
+ M progress.md
+?? CLAUDE.md
+?? CONTEXT.md
+?? docs/agents/
+?? docs/superpowers/audit-2026-05-21-deck-review.md
+?? image/
+?? sos-talk-may12.html
+?? ui.txt
+```
+
+### Unstaged diff (`git diff --stat`)
+
+```text
+ .gitignore  |  1 +
+ progress.md | 60 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ 2 files changed, 61 insertions(+)
+```
+
+### Staged diff (`git diff --cached --stat`)
+
+_none_
+
+### Latest commit (`git show --stat --oneline HEAD`)
+
+```text
+07f4753 Integrate AI workflow skills across course
+ index.html                                   |  14 +-
+ progress.md                                  | 456 +++++++++++++++++++++++++++
+ session-materials/ai-workflow-skill-map.html | 251 +++++++++++++++
+ session-materials/ai-workflow-skill-map.pdf  | Bin 0 -> 47755 bytes
+ week-02-agent-foundations.html               |  39 ++-
+ week-08-web-basics-design.html               |  86 ++++-
+ week-09-interactivity-intelligence.html      |  30 +-
+ week-10-complete-static-deployment.html      |  45 ++-
+ week-12-advanced-prompting.html              |  40 ++-
+ 9 files changed, 936 insertions(+), 25 deletions(-)
+```
+
+---
+
+## 2026-08-20 22:15:35 EDT — Codex
+
+- **Branch:** `main`
+- **HEAD:** `07f4753` — Integrate AI workflow skills across course
+- **Upstream:** origin/main — ahead 0, behind 0
+
+### Summary
+
+## AIHero workflow integration committed and pushed
+
+### Completed
+- Committed the approved AIHero workflow integration as `07f4753` (`Integrate AI workflow skills across course`).
+- Pushed `main` to `origin/main` successfully.
+- Verified local `HEAD` and `origin/main` both resolve to `07f4753df93db1ccc43806483c3745f28145c65e`.
+- The commit contains the approved Week 2, 8, 9, 10, and 12 lesson changes; the course-index links; and the new HTML/PDF 25-skill workflow map.
+- Pre-commit staged-diff review passed with no blocking issues.
+
+### Current state
+- The committed course work is fully pushed; no local dev server is running.
+- This required post-commit checkpoint modifies `progress.md` after the commit and is therefore intentionally uncommitted.
+- Preserve unrelated untracked files: `CLAUDE.md`, `CONTEXT.md`, `docs/agents/`, `docs/superpowers/audit-2026-05-21-deck-review.md`, `image/`, `sos-talk-may12.html`, and `ui.txt`.
+
+### Working tree (`git status --short`)
+
+```text
+?? CLAUDE.md
+?? CONTEXT.md
+?? docs/agents/
+?? docs/superpowers/audit-2026-05-21-deck-review.md
+?? image/
+?? sos-talk-may12.html
+?? ui.txt
+```
+
+### Unstaged diff (`git diff --stat`)
+
+_none_
+
+### Staged diff (`git diff --cached --stat`)
+
+_none_
+
+### Latest commit (`git show --stat --oneline HEAD`)
+
+```text
+07f4753 Integrate AI workflow skills across course
+ index.html                                   |  14 +-
+ progress.md                                  | 456 +++++++++++++++++++++++++++
+ session-materials/ai-workflow-skill-map.html | 251 +++++++++++++++
+ session-materials/ai-workflow-skill-map.pdf  | Bin 0 -> 47755 bytes
+ week-02-agent-foundations.html               |  39 ++-
+ week-08-web-basics-design.html               |  86 ++++-
+ week-09-interactivity-intelligence.html      |  30 +-
+ week-10-complete-static-deployment.html      |  45 ++-
+ week-12-advanced-prompting.html              |  40 ++-
+ 9 files changed, 936 insertions(+), 25 deletions(-)
+```
+
+---
+
 ## 2026-08-20 22:10:18 EDT — Codex
 
 - **Branch:** `main`
