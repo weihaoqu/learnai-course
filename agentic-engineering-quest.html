@@ -489,14 +489,19 @@ a{color:var(--accent-light)}
   </div>
 
   <div class="section">
-    <h2>CLAUDE.md: The Briefing Document</h2>
-    <p>A <code>CLAUDE.md</code> file is like giving a new employee an orientation packet. It tells the agent:</p>
+    <h2>CLAUDE.md / AGENTS.md: Briefing Documents</h2>
+    <p>Agent tools use different project-instruction filenames: Claude Code reads <code>CLAUDE.md</code>, while Codex reads <code>AGENTS.md</code>. Keep the file your tool uses short and focused on stable guidance:</p>
     <ul>
       <li>What this project is about</li>
-      <li>What tools and commands to use</li>
-      <li>What rules to follow</li>
-      <li>What style to write in</li>
+      <li>Which tools and common commands are approved</li>
+      <li>Which enduring constraints and safety rules apply</li>
+      <li>Where specialized guidance lives</li>
     </ul>
+
+    <div class="callout callout-tip">
+      <span class="callout-icon">&#128204;</span>
+      <div><strong>Keep temporary state elsewhere:</strong> Put the current task, progress, and unresolved questions in a plan or checkpoint so standing instructions do not go stale.</div>
+    </div>
 
     <div class="terminal">
       <div class="terminal-bar"><div class="t-dot r"></div><div class="t-dot y"></div><div class="t-dot g"></div></div>
@@ -508,10 +513,9 @@ a{color:var(--accent-light)}
         <div class="t-line"><span class="t-out">- Always cite sources in MLA format</span></div>
         <div class="t-line"><span class="t-out">- Ask before changing my bibliography</span></div>
         <div class="t-line"></div>
-        <div class="t-line"><span class="t-hl">## My Files</span></div>
-        <div class="t-line"><span class="t-out">- essay/ contains my paper draft</span></div>
-        <div class="t-line"><span class="t-out">- notes/ contains my research notes</span></div>
-        <div class="t-line"><span class="t-out">- sources/ contains articles I've found</span></div>
+        <div class="t-line"><span class="t-hl">## Where Details Live</span></div>
+        <div class="t-line"><span class="t-out">- Research workflow: docs/RESEARCH.md</span></div>
+        <div class="t-line"><span class="t-out">- Keep current progress in the plan or checkpoint</span></div>
       </div>
     </div>
   </div>
@@ -542,7 +546,7 @@ a{color:var(--accent-light)}
     <div class="quiz">
       <h3>You want an agent to help with your biology project. Which context would help it most?</h3>
       <button class="quiz-opt" onclick="qCheck(this,false,'q3fb','Too vague! The agent does not know what subject, what format, or what you have already done.')">Just say "help me with my project"</button>
-      <button class="quiz-opt" onclick="qCheck(this,true,'q3fb','This gives the agent structure (what files exist), rules (citation format), and a clear goal. It can now work precisely instead of guessing.')">Create a CLAUDE.md that lists your research question, file structure, citation format, and what you have done so far</button>
+      <button class="quiz-opt" onclick="qCheck(this,true,'q3fb','This gives the agent stable project guidance without turning temporary progress into permanent instructions. The current task can stay in a plan or checkpoint.')">Create a short project-instruction file with the project purpose, citation rules, approved commands, and a pointer to specialized guidance</button>
       <button class="quiz-opt" onclick="qCheck(this,false,'q3fb','Pasting 100 pages overwhelms the context window. The agent needs organized, relevant context — not a data dump.')">Paste your entire 100-page textbook into the chat</button>
       <div class="quiz-fb" id="q3fb" role="status" aria-live="polite"></div>
     </div>

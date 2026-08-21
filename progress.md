@@ -7,6 +7,198 @@ entries; nobody edits prior entries. Managed by
 
 <!-- newest entry below -->
 
+## 2026-08-21 11:42:29 EDT — Codex
+
+- **Branch:** `main`
+- **HEAD:** `14b17d5` — Integrate selected AI engineering lessons
+- **Upstream:** origin/main — ahead 1, behind 0
+
+### Summary
+
+Clarification to the 2026-08-21 11:41:55 EDT checkpoint: its Working tree and Unstaged diff sections are the handoff script's pre-write snapshot, so they do not include that checkpoint entry's own additional progress.md lines. The statement about the final bounded Codex diff review refers specifically to the three-file course diff in agentic-engineering-quest.html, claude-code-course.html, and session-materials/session-slides.html; that course diff review passed before the checkpoint was written. The checkpoint text itself was reviewed afterward, which prompted this clarification. No course content, commit, push, or server status changed.
+
+### Working tree (`git status --short`)
+
+```text
+ M agentic-engineering-quest.html
+ M claude-code-course.html
+ M progress.md
+ M session-materials/session-slides.html
+?? CLAUDE.md
+?? CONTEXT.md
+?? docs/agents/
+?? docs/superpowers/audit-2026-05-21-deck-review.md
+?? image/
+?? sos-talk-may12.html
+?? ui.txt
+```
+
+### Unstaged diff (`git diff --stat`)
+
+```text
+ agentic-engineering-quest.html        |  24 +++---
+ claude-code-course.html               |  16 ++--
+ progress.md                           | 140 ++++++++++++++++++++++++++++++++++
+ session-materials/session-slides.html |   1 +
+ 4 files changed, 165 insertions(+), 16 deletions(-)
+```
+
+### Staged diff (`git diff --cached --stat`)
+
+_none_
+
+### Latest commit (`git show --stat --oneline HEAD`)
+
+```text
+14b17d5 Integrate selected AI engineering lessons
+ progress.md                     | 409 ++++++++++++++++++++++++++++++++++++++++
+ week-02-agent-foundations.html  |  46 ++---
+ week-12-advanced-prompting.html |  18 ++
+ 3 files changed, 452 insertions(+), 21 deletions(-)
+```
+
+---
+
+## 2026-08-21 11:41:55 EDT — Codex
+
+- **Branch:** `main`
+- **HEAD:** `14b17d5` — Integrate selected AI engineering lessons
+- **Upstream:** origin/main — ahead 1, behind 0
+
+### Summary
+
+Implemented Q-approved selective adaptations from AIHero's AGENTS.md and planning articles without adding a new slide. In claude-code-course.html, corrected the claim that more context is always smarter, revised the example toward standing rules and progressive disclosure, and added a standing-versus-temporary callout. In agentic-engineering-quest.html, distinguished CLAUDE.md from AGENTS.md, reframed persistent instructions around stable guidance, moved live progress/open questions to plans or checkpoints, updated the example, and revised the quiz answer. In session-materials/session-slides.html, added one sentence keeping current goals, progress, and unresolved questions out of standing project instructions. Week 10 was intentionally unchanged because it already teaches plan, small change, immediate testing, checkpoint/commit, rollback, and diff explanation. Verification: git diff --check passed; div open/close counts match in all three pages; existing Chrome rendered the Claude course at 1440x900, agent quest at 390x844, and workshop slide at 1440x900 with required text visible, no JavaScript errors or horizontal overflow, and the workshop slide fitting the viewport. The only network issue was the known pre-existing /favicon.ico 404, explicitly isolated. Temporary test files and test-results were removed and the WEBrick server was stopped. Final bounded Codex diff review passed. No commit or push performed. Branch main remains ahead of origin/main by one earlier commit, 14b17d5. Preserve unrelated untracked files. Next: Q can inspect the uncommitted three-file change, then explicitly approve commit; push still requires separate approval.
+
+### Working tree (`git status --short`)
+
+```text
+ M agentic-engineering-quest.html
+ M claude-code-course.html
+ M progress.md
+ M session-materials/session-slides.html
+?? CLAUDE.md
+?? CONTEXT.md
+?? docs/agents/
+?? docs/superpowers/audit-2026-05-21-deck-review.md
+?? image/
+?? sos-talk-may12.html
+?? ui.txt
+```
+
+### Unstaged diff (`git diff --stat`)
+
+```text
+ agentic-engineering-quest.html        | 24 ++++++----
+ claude-code-course.html               | 16 ++++---
+ progress.md                           | 88 +++++++++++++++++++++++++++++++++++
+ session-materials/session-slides.html |  1 +
+ 4 files changed, 113 insertions(+), 16 deletions(-)
+```
+
+### Staged diff (`git diff --cached --stat`)
+
+_none_
+
+### Latest commit (`git show --stat --oneline HEAD`)
+
+```text
+14b17d5 Integrate selected AI engineering lessons
+ progress.md                     | 409 ++++++++++++++++++++++++++++++++++++++++
+ week-02-agent-foundations.html  |  46 ++---
+ week-12-advanced-prompting.html |  18 ++
+ 3 files changed, 452 insertions(+), 21 deletions(-)
+```
+
+---
+
+## 2026-08-21 10:52:11 EDT — Codex
+
+- **Branch:** `main`
+- **HEAD:** `14b17d5` — Integrate selected AI engineering lessons
+- **Upstream:** origin/main — ahead 1, behind 0
+
+### Summary
+
+Clarification to the 2026-08-21 10:51:26 EDT checkpoint: the handoff script's Working tree and Unstaged diff sections are a pre-write snapshot, so they do not include the progress.md modification created by that checkpoint itself. Immediately after the checkpoint, progress.md is modified only by appended handoff entries; the course changes remain committed in 14b17d5. Verified with git show that 14b17d5 includes progress.md (409 insertions), week-02-agent-foundations.html, and week-12-advanced-prompting.html. The pre-commit bounded Codex review did return a pass. Branch main remains ahead of origin/main by one commit; nothing has been pushed and no dev server is running. Preserve the unrelated untracked files. Next: obtain Q's explicit approval before any push.
+
+### Working tree (`git status --short`)
+
+```text
+ M progress.md
+?? CLAUDE.md
+?? CONTEXT.md
+?? docs/agents/
+?? docs/superpowers/audit-2026-05-21-deck-review.md
+?? image/
+?? sos-talk-may12.html
+?? ui.txt
+```
+
+### Unstaged diff (`git diff --stat`)
+
+```text
+ progress.md | 42 ++++++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 42 insertions(+)
+```
+
+### Staged diff (`git diff --cached --stat`)
+
+_none_
+
+### Latest commit (`git show --stat --oneline HEAD`)
+
+```text
+14b17d5 Integrate selected AI engineering lessons
+ progress.md                     | 409 ++++++++++++++++++++++++++++++++++++++++
+ week-02-agent-foundations.html  |  46 ++---
+ week-12-advanced-prompting.html |  18 ++
+ 3 files changed, 452 insertions(+), 21 deletions(-)
+```
+
+---
+
+## 2026-08-21 10:51:26 EDT — Codex
+
+- **Branch:** `main`
+- **HEAD:** `14b17d5` — Integrate selected AI engineering lessons
+- **Upstream:** origin/main — ahead 1, behind 0
+
+### Summary
+
+Committed the approved AIHero roadmap adaptations as 14b17d5 (Integrate selected AI engineering lessons). Week 2 now includes the rule/LLM/agent/human task-fit lesson and pair sort in week-02-agent-foundations.html around lines 434-467. Week 12 now includes an optional mini-eval in week-12-advanced-prompting.html around lines 400-413 plus the optional artifact item around line 1038. Verified that the required What is an LLM? instruction already exists in module-00-llm-basics.html and module-00b-transformer-deep-dive.html, so no duplicate lesson was added. Evaluated AIHero's The AI Engineer Mindset: its useful demo-vs-evidence, measurable-success, edge-case, and regression ideas are already represented in the Week 12 mini-eval; no additional edit was warranted. The source page's sample metrics should remain examples, and classroom interaction data requires consent/authority, minimization, security, retention limits, and bias caveats; feedback is not ground truth. Verification completed before commit: HTML structure/IDs, desktop and mobile rendering, navigation, links, artifact text, git diff check, and bounded Codex review all passed; only a pre-existing favicon 404 was observed. Branch main is ahead of origin/main by one commit. No push performed; Q must approve push separately. No dev server is running. Preserve all unrelated untracked files, including CLAUDE.md, CONTEXT.md, docs/agents/, docs/superpowers/audit-2026-05-21-deck-review.md, image/, sos-talk-may12.html, and ui.txt. Next: if Q wants deployment, first obtain explicit push approval; otherwise continue auditing AIHero roadmap pages as requested.
+
+### Working tree (`git status --short`)
+
+```text
+?? CLAUDE.md
+?? CONTEXT.md
+?? docs/agents/
+?? docs/superpowers/audit-2026-05-21-deck-review.md
+?? image/
+?? sos-talk-may12.html
+?? ui.txt
+```
+
+### Unstaged diff (`git diff --stat`)
+
+_none_
+
+### Staged diff (`git diff --cached --stat`)
+
+_none_
+
+### Latest commit (`git show --stat --oneline HEAD`)
+
+```text
+14b17d5 Integrate selected AI engineering lessons
+ progress.md                     | 409 ++++++++++++++++++++++++++++++++++++++++
+ week-02-agent-foundations.html  |  46 ++---
+ week-12-advanced-prompting.html |  18 ++
+ 3 files changed, 452 insertions(+), 21 deletions(-)
+```
+
+---
+
 ## 2026-08-21 10:34:59 EDT — Codex
 
 - **Branch:** `main`

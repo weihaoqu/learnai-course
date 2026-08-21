@@ -1342,7 +1342,7 @@ body { font-family: var(--font); background: var(--bg); color: var(--text); line
   <div class="module-header">
     <span class="module-badge">Level Up</span>
     <h1>Giving Claude Better Context</h1>
-    <p class="subtitle">The more context Claude has, the smarter its decisions. CLAUDE.md is the key.</p>
+    <p class="subtitle">Relevant, current context helps Claude make better decisions. Extra or stale instructions can hurt.</p>
   </div>
 
   <div class="section">
@@ -1367,15 +1367,19 @@ body { font-family: var(--font); background: var(--bg); color: var(--text); line
         <div class="terminal-line">- Start dev server: <span class="cmd">npm run dev</span></div>
         <div class="terminal-line">- Build: <span class="cmd">npm run build</span></div>
         <div class="terminal-line">&nbsp;</div>
-        <div class="terminal-line"><span class="highlight">## Style Guide</span></div>
+        <div class="terminal-line"><span class="highlight">## Standing Rules</span></div>
         <div class="terminal-line">- Use TypeScript for all new files</div>
-        <div class="terminal-line">- Components go in src/components/</div>
         <div class="terminal-line">- Always write tests for new features</div>
         <div class="terminal-line">&nbsp;</div>
-        <div class="terminal-line"><span class="highlight">## Important Files</span></div>
-        <div class="terminal-line">- src/App.tsx - Main application entry</div>
-        <div class="terminal-line">- src/api/client.ts - API configuration</div>
+        <div class="terminal-line"><span class="highlight">## Where Details Live</span></div>
+        <div class="terminal-line">- Architecture: docs/architecture.md</div>
+        <div class="terminal-line">- Keep the current task in its plan or checkpoint</div>
       </div>
+    </div>
+
+    <div class="callout callout-tip">
+      <span class="callout-icon">&#128204;</span>
+      <div><strong>Standing versus temporary:</strong> Keep stable commands and enduring constraints here. Put the current goal, progress, and unresolved questions in the task prompt, plan, or checkpoint.</div>
     </div>
   </div>
 
